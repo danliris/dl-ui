@@ -49,6 +49,7 @@ export class List {
         { field: "Composition", title: "Komposisi", sortable: false, width: '20%'},
         { field: "FabricRemark", title: "Konstruksi" , sortable: false, width: '10%'},
         { field: "Quantity", title: "Qty", sortable: false, width: '5%' },
+        { field: "Price", title: "Harga", sortable: false, width: '5%' },
         { field: "Uom.Unit", title: "Satuan", sortable: false, width: '5%' },
         { field: "CustomsNo", title: "Asal BC Masuk", sortable: false, width: '5%' },
         { field: "CustomsType", title: "Tipe Beacukai", sortable: false, width: '5%' },
