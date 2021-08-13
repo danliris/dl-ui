@@ -91,7 +91,14 @@ export class DataForm {
 	}
 
 	selectedMemorialChanged(newValue) {
+		this.data.TotalAmount=0;
 		if (newValue) {
+			if(newValue.Items){
+				for(var item of newValue.Items){
+					this.data.TotalAmount+=item.Amount;
+				}
+			}
+			
 			this.data.MemorialDate = newValue.Date;
 			this.data.MemorialId = newValue.Id;
 			this.data.MemorialNo = newValue.MemorialNo;
