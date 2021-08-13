@@ -19,6 +19,9 @@
 						<p if.bind="error.ItemsCount" class="help-block text-center">
 							${error.ItemsCount}
 						</p>
+						<p if.bind="error.Amount" class="help-block text-center">
+							${error.Amount}
+						</p>
 					</div>
 
 					<au-collection items.bind="data.Items" errors.bind="error.Items"

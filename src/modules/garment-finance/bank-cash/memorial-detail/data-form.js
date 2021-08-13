@@ -91,11 +91,12 @@ export class DataForm {
 	}
 
 	selectedMemorialChanged(newValue) {
+		console.log(newValue)
 		this.data.TotalAmount=0;
 		if (newValue) {
 			if(newValue.Items){
 				for(var item of newValue.Items){
-					this.data.TotalAmount+=item.Amount;
+					this.data.TotalAmount+=item.Credit;
 				}
 			}
 			
