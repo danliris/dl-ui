@@ -51,6 +51,7 @@
                     <td rowspan=2>Saldo Awal</td>
                     <td rowspan=2>Pembelian</td>
                     <td rowspan=2>Pembayaran</td>
+                    <td rowspan=2>Pelunasan</td>
                     <td rowspan=2>Saldo Akhir</td>
                     <td colspan=4>Dalam Rupiah</td>
 
@@ -70,6 +71,7 @@
                     <td class="text-right">${report.StartBalance | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Purchase | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Payment | numberFormat: '0,000.00'}</td>
+                    <td class="text-right">${report.PaidAmount | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.FinalBalance | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.StartBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Purchase * report.CurrencyRate | numberFormat: '0,000.00'}</td>
