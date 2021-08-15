@@ -112,7 +112,13 @@ export class Item {
 					totalAmount = dataInvoice.totalAmount;
 				}
 				this.data.Amount = totalAmount;
+				this.service.getAmount(this.data.InvoiceId)
+				.then(result => {
+					this.data.Amount -= result ;
+				});
 			});
+
+			
 		}
 	}
 

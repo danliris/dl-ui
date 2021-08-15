@@ -47,7 +47,10 @@ export class OtherItem {
 	}
 
 	coaView = (coa) => {
-		return coa.Code;
+		if (coa.Id == 0) {
+			return "-";
+		}
+		return coa.Code + " - " + coa.Name;
 	}
 
 	get coaLoader() {
