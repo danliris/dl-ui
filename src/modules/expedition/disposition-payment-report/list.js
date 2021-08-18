@@ -199,21 +199,14 @@ export class List {
                     arg.startDate = new Date(arg.endDate);
                     arg.startDate.setMonth(arg.startDate.getMonth() - 1);
                 }
-
+    
                 if (!arg.endDate) {
                     arg.endDate = new Date(arg.startDate);
                     arg.endDate.setMonth(arg.endDate.getMonth() + 1);
                 }
-
-                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
-                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
-            } else {
-                arg.startDate = new Date();
-                arg.startDate.setMonth(arg.startDate.getMonth() - 1);
-                arg.endDate = new Date();
-
-                arg.startDate = moment(arg.startDate).format("MM/DD/YYYY");
-                arg.endDate = moment(arg.endDate).format("MM/DD/YYYY");
+    
+                arg.startDate = moment(arg.startDate).format();
+                arg.endDate = moment(arg.endDate).format();
             }
             console.log(arg)
 

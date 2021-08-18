@@ -41,7 +41,7 @@ export class DataForm {
                 { header: "Jumlah" },
                 { header: "Satuan" },
                 { header: "Harga Satuan SPB" },
-                { header: "Harga Satuan Koreksi" },
+                { header: "Harga Baru" },
                 { header: "Nilai Koreksi" },
                 { header: "Harga Total" }
             ],

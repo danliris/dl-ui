@@ -26,6 +26,9 @@ export class Service extends RestService {
         if (info.unit && info.unit !== "") {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
+        }else
+        {
+            query = `${query}&unit=0`;
         }
         if (info.ro && info.ro !== "") {
             if (query === '') query = `ro=${info.ro}`;
@@ -54,6 +57,9 @@ export class Service extends RestService {
         if (info.unit && info.unit !== "") {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
+        }else
+        {
+            query = `${query}&unit=0`;
         }
         if (info.ro && info.ro !== "") {
             if (query === '') query = `ro=${info.ro}`;
