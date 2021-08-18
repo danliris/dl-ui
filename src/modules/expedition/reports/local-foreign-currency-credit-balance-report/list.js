@@ -40,14 +40,6 @@ export class List {
       align: "right",
     },
     {
-      field: "PaidAmount",
-      title: "Pelunasan",
-      formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
-      },
-      align: "right",
-    },
-    {
       field: "FinalBalance",
       title: "Saldo Akhir",
       formatter: function (value, data, index) {
@@ -74,11 +66,15 @@ export class List {
     pagination: false,
   };
 
+
+
   constructor(service) {
     this.service = service;
     this.info = {};
     this.error = {};
     this.data = [];
+
+    this.contextTable = ["Detail"];
 
     this.itemMonths = [
       { text: "January", value: 1 },
@@ -108,6 +104,28 @@ export class List {
   divisionView = (division) => {
     return division.Name;
   };
+
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+
+    if (this.info.supplier && this.info.supplier.name)
+      arg.supplierName = this.info.supplier.name;
+
+    if (this.info.division && this.info.division.Id)
+      arg.divisionId = this.info.division.Id;
+
+    if (this.info.month && this.info.month.value)
+      arg.month = this.info.month.value;
+
+    if (this.info.year) arg.year = this.info.year;
+
+    switch (arg.name) {
+      case "Detail":
+        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        break;
+    }
+  }
 
   loader = (info) => {
     let order = {};
