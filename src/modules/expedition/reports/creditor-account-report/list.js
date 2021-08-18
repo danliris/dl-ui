@@ -62,6 +62,7 @@ export class List {
   async search() {
     this.payment = 0;
     this.purchase = 0;
+    this.bankExpenditure = 0;
 
     if (this.info.supplier && this.info.supplier.name)
       this.info.name = this.info.supplier.name;
@@ -122,6 +123,11 @@ export class List {
                 : 0,
               Payment: item.Mutation
                 ? numeral(item.Mutation < 0 ? item.Mutation : 0).format(
+                  "0,000.00"
+                )
+                : 0,
+              BankExpenditureAmount: item.BankExpenditureAmount
+                ? numeral(item.BankExpenditureAmount < 0 ? item.BankExpenditureAmount : 0).format(
                   "0,000.00"
                 )
                 : 0,

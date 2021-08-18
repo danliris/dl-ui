@@ -40,6 +40,14 @@ export class List {
       align: "right",
     },
     {
+      field: "PaidAmount",
+      title: "Pelunasan",
+      formatter: function (value, data, index) {
+        return value ? numeral(value).format("0,000.00") : "0";
+      },
+      align: "right",
+    },
+    {
       field: "FinalBalance",
       title: "Saldo Akhir",
       formatter: function (value, data, index) {
@@ -71,6 +79,8 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
+    
+    this.contextTable = ["Detail"];
 
     this.itemMonths = [
       { text: "January", value: 1 },
@@ -126,33 +136,33 @@ export class List {
 
     return this.flag
       ? this.service.search(arg).then((result) => {
-          // let before = {};
+        // let before = {};
 
-          // if (result.data.length != 0) {
-          //     for (let i in result.data) {
-          //         if (result.data[i].Currency != before.Currency) {
-          //             before = result.data[i];
-          //             before._Currency_rowspan = 1;
-          //         } else {
-          //             before._Currency_rowspan++;
+        // if (result.data.length != 0) {
+        //     for (let i in result.data) {
+        //         if (result.data[i].Currency != before.Currency) {
+        //             before = result.data[i];
+        //             before._Currency_rowspan = 1;
+        //         } else {
+        //             before._Currency_rowspan++;
 
-          //             result.data[i].Currency = undefined;
-          //         }
-          //         result.data[i].Products = result.data[i].Products || "";
-          //     }
-          // }
-          // setTimeout(() => {
-          //     $('#credit-balance-table td').each(function () {
-          //         if ($(this).html() === '-')
-          //             $(this).hide();
-          //     })
-          // }, 10);
+        //             result.data[i].Currency = undefined;
+        //         }
+        //         result.data[i].Products = result.data[i].Products || "";
+        //     }
+        // }
+        // setTimeout(() => {
+        //     $('#credit-balance-table td').each(function () {
+        //         if ($(this).html() === '-')
+        //             $(this).hide();
+        //     })
+        // }, 10);
 
-          return {
-            total: result.info.Count,
-            data: result.data,
-          };
-        })
+        return {
+          total: result.info.Count,
+          data: result.data,
+        };
+      })
       : { total: 0, data: [] };
   };
 
@@ -209,6 +219,28 @@ export class List {
     this.service.getPdf(params);
 
     // this.getExcelData();
+  }
+
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+
+    if (this.info.supplier && this.info.supplier.name)
+      arg.supplierName = this.info.supplier.name;
+
+    if (this.info.division && this.info.division.Id)
+      arg.divisionId = this.info.division.Id;
+
+    if (this.info.month && this.info.month.value)
+      arg.month = this.info.month.value;
+
+    if (this.info.year) arg.year = this.info.year;
+
+    switch (arg.name) {
+      case "Detail":
+        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        break;
+    }
   }
 
   reset() {
