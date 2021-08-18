@@ -238,7 +238,7 @@ export class List {
 
     switch (arg.name) {
       case "Detail":
-        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        window.open(`${window.location.origin}/#/expedition/reports/local-credit-balance/detail/${data.SupplierId}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
         break;
     }
   }
