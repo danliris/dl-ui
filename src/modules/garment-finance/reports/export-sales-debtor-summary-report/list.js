@@ -3,6 +3,7 @@ import moment from "moment";
 import numeral from "numeral";
 import XLSX from "xlsx";
 import { Service } from "./service";
+const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 
 @inject(Service)
 export class List {
@@ -18,6 +19,10 @@ export class List {
           return numeral(value).format("0,000.00");
         }
       }
+       
+         ],
+    [
+     
     ]
   ];
 
@@ -77,6 +82,7 @@ export class List {
 
   loader = (info) => {
 
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
 
     let params = {
       
@@ -105,11 +111,12 @@ export class List {
   }
 
   excel() {
-   
+    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+
     let params = {
       month: this.info.month.value,
       year: this.info.year,
-       type: ""   
+       type: "end"   
     };
 
     this.service.getXls(params);
