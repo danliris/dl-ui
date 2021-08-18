@@ -126,11 +126,6 @@ export class List {
                   "0,000.00"
                 )
                 : 0,
-              BankExpenditureAmount: item.BankExpenditureAmount
-                ? numeral(item.BankExpenditureAmount < 0 ? item.BankExpenditureAmount : 0).format(
-                  "0,000.00"
-                )
-                : 0,
               FinalBalance: numeral(this.purchase + this.payment).format(
                 "0,000.00"
               ),
