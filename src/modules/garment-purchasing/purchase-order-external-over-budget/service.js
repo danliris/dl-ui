@@ -26,4 +26,20 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/approve`;
         return super.post(endpoint, data);
     }
+
+    unpost(id) {
+      var endpoint = `${serviceUri}/unpost/${id}`;
+      return super.put(endpoint);
+  }
+}
+
+export class ServiceFinance extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "finance");
+  }
+
+  getVbWithPO(id){
+    var endpoint = `vb-request-documents/purchasing/${id}`;
+    return super.get(endpoint);
+  }
 }

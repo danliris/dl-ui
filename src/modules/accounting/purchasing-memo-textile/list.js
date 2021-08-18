@@ -21,16 +21,16 @@ export class List {
             return ""
         }
     },
-    { field: 'MemoNo', title: 'No Memo' },
+    { field: 'MemoDetailDocumentNo', title: 'No Memo' },
     {
-        field: 'MemoDate',
+        field: 'MemoDetailDate',
         title: 'Tanggal',
         formatter: function (value, data, index) {
             return moment(value).format('DD MMM YYYY');
         },
     },
-    { field: 'AccountingBook.Type', title: 'Jenis Buku' },
-    { field: 'Currency.Code', title: 'Mata Uang' },
+    { field: 'AccountingBookType', title: 'Jenis Buku' },
+    { field: 'CurrencyCode', title: 'Mata Uang' },
     {
         field: 'TotalAmount',
         title: 'Nominal',
@@ -113,21 +113,10 @@ export class List {
 
             let dataParams = [];
             for (let i = 0; i < this.dataToBePosted.length; i++) {
-                let obj = {}
-                obj.DocumentNo = "";
-                obj.Description = "Auto Journal Memo Pembelian Job Garment";
-                obj.Date = this.dataToBePosted[i].MemoDate;
-                obj.ReferenceNo = this.dataToBePosted[i].MemoNo;
-                obj.IsReverser = false;
-                obj.IsReversed = false;
-                obj.Status = "DRAFT";
-                obj.Id = this.dataToBePosted[i].Id;
-                obj.Items = this.generateItems(this.dataToBePosted[i].MemoGarmentPurchasingDetails);
-
-                dataParams.push(obj);
+                dataParams.push(this.dataToBePosted[i].Id);
             }
 
-            this.service.posting(dataParams)
+            this.service.posting({ Ids: dataParams })
                 .then(result => {
                     alert("Data berhasil diposting");
 

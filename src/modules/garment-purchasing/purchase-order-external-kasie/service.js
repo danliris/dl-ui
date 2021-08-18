@@ -159,3 +159,14 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 }
+
+export class ServiceFinance extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "finance");
+  }
+
+  getVbWithPO(id){
+    var endpoint = `vb-request-documents/purchasing/${id}`;
+    return super.get(endpoint);
+  }
+}
