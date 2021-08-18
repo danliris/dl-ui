@@ -25,6 +25,11 @@ class Service extends RestService {
 		return super.get(endpoint);
 	}
 
+	getAmount(invoiceId) {
+		let endpoint = `${serviceUri}/get-amount/${invoiceId}`;
+		return super.get(endpoint);
+	}
+
 	getPdfById(id) {
 		let endpoint = `${serviceUri}/${id}`;
 		return super.getPdf(endpoint);

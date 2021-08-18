@@ -13,45 +13,16 @@ export class List {
        { field: "buyerCode", title: "Kode", rowspan: 2 },
       
       { field: "buyerName", title: "Nama Buyer", rowspan: 2 },
-      {
-        field: "beginingBalance", title: "Saldo Awal", rowspan: 2, align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
-      },
-      {
-        field: "sales", title: "Penjualan", rowspan: 2, align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
-      },
-      {
-        field: "receipt", title: "Penerimaan", rowspan: 2, align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
-      },
+      
       {
         field: "endBalance", title: "Saldo Akhir", rowspan: 2, align: "right", formatter: function (value, data, index) {
           return numeral(value).format("0,000.00");
         }
-      },
-       
-      { title: "Umur Piutang", colspan: 3 }
-    ],
-    [
-      {
-        field: "lessThan", title: "< 30 hari", align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
-      },
-      {
-        field: "between", title: "31 -60 hari", align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
-      },
-      {
-        field: "moreThan", title: "> 60 hari", align: "right", formatter: function (value, data, index) {
-          return numeral(value).format("0,000.00");
-        }
       }
+       
+         ],
+    [
+     
     ]
   ];
 
@@ -145,7 +116,7 @@ export class List {
     let params = {
       month: this.info.month.value,
       year: this.info.year,
-       type: ""   
+       type: "end"   
     };
 
     this.service.getXls(params);
