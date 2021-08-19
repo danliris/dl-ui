@@ -83,6 +83,7 @@ export class List {
         rowspan: 2,
         sortable: true,
       },
+      { field: "Remark", title: "Keterangan", rowspan: 2, sortable: true },
       { field: "SendToVerificationBy", title: "Admin", rowspan: 2, sortable: true },
       { title: "Verifikasi", colspan: 2 },
       {

@@ -100,7 +100,7 @@ export class List {
 
     this.info.month = { text: "January", value: 1 };
     this.info.year = this.currentYear;
-    this.type = "";
+    this.type = "IDR";
 
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());
@@ -108,16 +108,14 @@ export class List {
   }
 
   
-
   loader = (info) => {
 
-    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
-
+   
     let params = {
-      
+    
       month: this.info.month.value,
       year: this.info.year,
-      type: "" 
+      type: "IDR"   
     };
 
 
@@ -140,12 +138,12 @@ export class List {
   }
 
   excel() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
-
+   
     let params = {
+     
       month: this.info.month.value,
       year: this.info.year,
-       type: ""   
+      type: "IDR"
     };
 
     this.service.getXls(params);
@@ -154,7 +152,7 @@ export class List {
 
   reset() {
     this.flag = false;
-   
+    this.info.supplier = undefined;
     this.data = [];
     this.tableList.refresh();
     this.info.year = moment().format("YYYY");

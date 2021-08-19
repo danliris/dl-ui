@@ -7,41 +7,51 @@ const SupplierLoader = require("../../../../loader/supplier-loader");
 const DivisionLoader = require("../../../../loader/division-loader");
 
 @inject(Service)
-export class List {
+export class Detail {
   itemYears = [];
   supplierQuery = { Import: false };
   columns = [
+    {
+      field: "Date",
+      title: "Tanggal",
+      formatter: function (value, data, index) {
+        return value ? numeral(value).format("0,000.00") : "0";
+      },
+      align: "right",
+    },
+    { field: "ExternalPurchaseOrderNo", title: "No PO" },
+    { field: "UnitReceiptNoteNo", title: "Nomor Bon Penerimaan" },
     { field: "SupplierName", title: "Supplier" },
-    { field: "DivisionName", title: "Divisi" },
-    { field: "Currency", title: "Mata Uang" },
+    { field: "IncomeTaxNo", title: "No Faktur Pajak" },
+    { field: "UnitPaymentOrderNo", title: "No SPB/NI" },
     // { field: 'Products', title: 'Nama Barang' },
     {
-      field: "StartBalance",
-      title: "Saldo Awal",
+      field: "DPPAmount",
+      title: "DPP",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "0";
       },
       align: "right",
     },
     {
-      field: "Purchase",
-      title: "Pembelian",
+      field: "VATAmount",
+      title: "PPN",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "0";
       },
       align: "right",
     },
     {
-      field: "Payment",
-      title: "Pembayaran",
+      field: "IncomeTaxAmount",
+      title: "PPh",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "0";
       },
       align: "right",
     },
     {
-      field: "FinalBalance",
-      title: "Saldo Akhir",
+      field: "Total",
+      title: "Total",
       formatter: function (value, data, index) {
         return value ? numeral(value).format("0,000.00") : "0";
       },
@@ -122,7 +132,7 @@ export class List {
 
     switch (arg.name) {
       case "Detail":
-        window.open(`${window.location.origin}/#/expedition/reports/local-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
         break;
     }
   }

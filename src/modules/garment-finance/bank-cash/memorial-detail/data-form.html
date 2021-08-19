@@ -19,6 +19,9 @@
 						<p if.bind="error.ItemsCount" class="help-block text-center">
 							${error.ItemsCount}
 						</p>
+						<p if.bind="error.Amount" class="help-block text-center">
+							${error.Amount}
+						</p>
 					</div>
 
 					<au-collection items.bind="data.Items" errors.bind="error.Items"
@@ -39,7 +42,8 @@
 						columns.bind="otherItemsColumns" read-only.bind="readOnly"
 						add.bind="addOtherItems" remove.bind="removeOtherItems"
 						title="Detail Lain Lain" options.bind="Options"
-						item-template="modules/garment-finance/bank-cash/memorial-detail/template/other-item">
+						item-template="modules/garment-finance/bank-cash/memorial-detail/template/other-item"
+						footer-template="modules/garment-finance/bank-cash/memorial-detail/template/other-footer">
 					</au-collection>
 
 				</div>
