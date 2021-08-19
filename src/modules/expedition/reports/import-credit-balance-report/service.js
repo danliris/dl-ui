@@ -13,6 +13,11 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  searchDetail(info) {
+    let endpoint = `${serviceUri}/detail`;
+    return super.list(endpoint, info);
+  }
+
   getXls(info) {
     var query = "";
     if (info.supplierName !== null && info.divisionId !== null) {

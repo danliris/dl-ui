@@ -40,14 +40,6 @@ export class List {
       align: "right",
     },
     {
-      field: "PaidAmount",
-      title: "Pelunasan",
-      formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
-      },
-      align: "right",
-    },
-    {
       field: "FinalBalance",
       title: "Saldo Akhir",
       formatter: function (value, data, index) {
@@ -238,7 +230,7 @@ export class List {
 
     switch (arg.name) {
       case "Detail":
-        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierName}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        window.open(`${window.location.origin}/#/expedition/reports/local-credit-balance/detail/${data.SupplierCode}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
         break;
     }
   }

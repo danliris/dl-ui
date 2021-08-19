@@ -12,6 +12,11 @@ export class Service extends RestService {
     let endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
   }
+  
+  searchDetail(info) {
+    let endpoint = `${serviceUri}/detail`;
+    return super.list(endpoint, info);
+  }
 
   getXls(info) {
     var query = "";

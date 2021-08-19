@@ -37,6 +37,19 @@ export class Item {
 			header: context.context.options.header,
 			item: this.data,
 		};
+		var header=context.context.options.header;
+		if(!this.data.Id){
+			this.selectedNoAcc={
+				Id:header.BankCashReceiptType.COAId,
+				Code:header.BankCashReceiptType.COACode,
+				Name:header.BankCashReceiptType.COAName,
+			};
+			this.data.AccNumber=this.selectedNoAcc;
+		}
+		else{
+			this.selectedNoAcc = this.data.AccNumber || null;
+		}
+		
 		if (this.itemOptions.header.Currency) {
 			this.Currency = {
 				Id: this.itemOptions.header.Currency.Id,
@@ -46,16 +59,11 @@ export class Item {
 
 		}
 
-		this.selectedNoAcc = this.data.AccNumber || null;
+		
 		this.selectedSubAcc = this.data.AccSub || null;
-		this.selectedAccUnit = this.data.AccUnit || null;
-		this.selectedAccBiaya = this.data.AccAmount || null;
+		// this.selectedAccUnit = this.data.AccUnit || null;
+		// this.selectedAccBiaya = this.data.AccAmount || null;
 		this.amount = this.data.Amount || null;
-
-		this.isShowing = false;
-		if (this.error && this.error.Details && this.error.Details.length > 0) {
-			this.isShowing = true;
-		}
 
 		if (this.Currency) {
 			var code = this.Currency.Code;

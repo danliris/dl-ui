@@ -1,7 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = "credit-balance/reports";
+const serviceUri = "credit-balance/reports/detail";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -10,11 +10,6 @@ export class Service extends RestService {
 
   search(info) {
     let endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  searchDetail(info) {
-    let endpoint = `${serviceUri}/detail`;
     return super.list(endpoint, info);
   }
 
