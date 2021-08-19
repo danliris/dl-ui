@@ -119,28 +119,26 @@ export class Detail {
 
   updateMeasurements() {
     let measurementCartons = [];
-    let measurementCartons2 = [];
     for (const item of this.context.context.options.header.items) {
       for (const detail of (item.details || [])) {
-        measurementCartons = [...item.details];
-        let measurement = measurementCartons.filter((value, index, self) => self.findIndex(f => value.index == f.index) === index).find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
-        if (measurement) {
-          measurementCartons2.push({
+        let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2 && m.index == detail.index);
+        if (!measurement) {
+          measurementCartons.push({
             carton1: detail.carton1,
             carton2: detail.carton2,
             length: detail.length,
             width: detail.width,
             height: detail.height,
             cartonsQuantity: detail.cartonQuantity,
-            index: detail.index
+            index: detail.index,
           });
         }
       }
     }
 
     let measurements = [];
-    for (const measurementCarton of measurementCartons2.filter((value, index, self) => self.findIndex(f => value.index == f.index && value.carton1 == f.carton1 && value.carton2 == f.carton2) === index)) {
-      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
+    for (const measurementCarton of measurementCartons) {
+      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height && m.index == measurementCarton.index);
       if (measurement) {
         measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
       } else {
@@ -152,7 +150,7 @@ export class Detail {
     this.context.context.options.header.measurements.splice(0);
 
     for (const mt of measurements) {
-      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
+      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height && m.index == mt.index);
       if (measurement) {
         measurement.cartonsQuantity = mt.cartonsQuantity;
         this.context.context.options.header.measurements.push(measurement);
@@ -162,6 +160,7 @@ export class Detail {
     }
 
     this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
+
   }
 
   sumSubTotal(opt) {

@@ -4,6 +4,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Dialog } from '../../../../au-components/dialog/dialog';
 const KwitansiLoader = require('../../../../loader/garment-finance-bank-cash-receipt-loader');
 import moment from 'moment';
+import { ItemTemplate } from '../../../../samples/autocomplete/item-template';
 
 @inject(Router, Service, Dialog)
 export class DataForm {
@@ -111,9 +112,19 @@ export class DataForm {
 	}
 
 	selectedKwitansiChanged(newValue, oldValue) {
-		this.data.BankCashReceiptNo = newValue.ReceiptNo;
-		this.data.BankCashReceiptId = newValue.Id;
-		this.data.BankCashReceiptDate = newValue.ReceiptDate;
+		this.data.TotalAmount=0;
+		if(newValue){
+			if(newValue.Items){
+				for(var item of newValue.Items){
+					this.data.TotalAmount+=item.Amount;
+				}
+			}
+			this.data.BankCashReceiptNo = newValue.ReceiptNo;
+			this.data.BankCashReceiptId = newValue.Id;
+			this.data.BankCashReceiptDate = newValue.ReceiptDate;
+		}
+		
+		
 	}
 
 
