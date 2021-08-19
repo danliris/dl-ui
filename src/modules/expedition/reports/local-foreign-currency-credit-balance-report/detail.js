@@ -15,7 +15,7 @@ export class Detail {
       field: "Date",
       title: "Tanggal",
       formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
+        return moment(value).format('DD MMM YYYY');
       },
       align: "right",
     },
@@ -76,7 +76,33 @@ export class Detail {
     pagination: false,
   };
 
+  activate(params) {
+    console.log(params);
+    // this.orderNo = params.orderNo ? decodeURIComponent(params.orderNo) : 0;
 
+    this.info = {
+      isImport: false,
+      month: params.month,
+      year: params.year,
+      supplierCode: params.supplierCode,
+      isForeignCurrency: true,
+      divisionId: params.divisionId
+    };
+
+    // this.loader = await this.service.searchDetail(this.info);
+    // this.data = this.result.data;
+    // this.histories = this.result.histories;
+
+    // let total = 0;
+
+    // for (let datum of this.data) {
+
+    //     total += Number(datum.quantity);
+    //     datum.quantity = numeral(datum.quantity).format('0,000.00');
+    // }
+
+    // this.total = total.toFixed(2);
+  }
 
   constructor(service) {
     this.service = service;
@@ -161,36 +187,34 @@ export class Detail {
 
     if (this.info.year) arg.year = this.info.year;
 
-    return this.flag
-      ? this.service.search(arg).then((result) => {
-        // let before = {};
+    return this.service.searchDetail(this.info).then((result) => {
+      // let before = {};
 
-        // if (result.data.length != 0) {
-        //     for (let i in result.data) {
-        //         if (result.data[i].Currency != before.Currency) {
-        //             before = result.data[i];
-        //             before._Currency_rowspan = 1;
-        //         } else {
-        //             before._Currency_rowspan++;
+      // if (result.data.length != 0) {
+      //     for (let i in result.data) {
+      //         if (result.data[i].Currency != before.Currency) {
+      //             before = result.data[i];
+      //             before._Currency_rowspan = 1;
+      //         } else {
+      //             before._Currency_rowspan++;
 
-        //             result.data[i].Currency = undefined;
-        //         }
-        //         result.data[i].Products = result.data[i].Products || "";
-        //     }
-        // }
-        // setTimeout(() => {
-        //     $('#credit-balance-table td').each(function () {
-        //         if ($(this).html() === '-')
-        //             $(this).hide();
-        //     })
-        // }, 10);
+      //             result.data[i].Currency = undefined;
+      //         }
+      //         result.data[i].Products = result.data[i].Products || "";
+      //     }
+      // }
+      // setTimeout(() => {
+      //     $('#credit-balance-table td').each(function () {
+      //         if ($(this).html() === '-')
+      //             $(this).hide();
+      //     })
+      // }, 10);
 
-        return {
-          total: result.info.Count,
-          data: result.data,
-        };
-      })
-      : { total: 0, data: [] };
+      return {
+        total: result.info.Count,
+        data: result.data,
+      };
+    });
   };
 
   search() {

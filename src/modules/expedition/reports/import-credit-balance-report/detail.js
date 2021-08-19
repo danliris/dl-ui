@@ -81,7 +81,7 @@ export class Detail {
         // this.orderNo = params.orderNo ? decodeURIComponent(params.orderNo) : 0;
 
         this.info = {
-            isImport: false,
+            isImport: true,
             month: params.month,
             year: params.year,
             supplierCode: params.supplierCode,
