@@ -21,6 +21,11 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getRealizationByReferenceNo(referenceNo) {
+        let endpoint = `vb-realization-documents/by-reference-no/${referenceNo}`;
+        return super.get(endpoint);
+    }
+
     getPdfById(id) {
         let endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
