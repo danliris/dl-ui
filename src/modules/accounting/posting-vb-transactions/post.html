@@ -8,6 +8,7 @@
                      loader.one-time="referenceNoLoader"
                      text="value"
                      read-only.bind="readOnly"
+                     query.bind="vbFilter"
                      options.bind="controlOptions">
     </au-autocomplete>
     <au-autocomplete placeholder="pilih nomor referensi"
@@ -15,6 +16,7 @@
                      value.bind="referenceType"
                      loader.one-time="referenceTypeLoader"
                      text="value"
+                     query.bind="vbFilter"
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
     </au-autocomplete>

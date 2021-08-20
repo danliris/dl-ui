@@ -34,6 +34,22 @@ export class Service extends RestService {
     return super.getXls(endpoint);
   }
 
+  getXlsDetail(info) {
+    var query = "";
+    if (info.supplierCode !== null && info.divisionId !== null) {
+      query = `?supplierCode=${info.supplierCode}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierCode !== null && info.divisionId === null) {
+      query = `?supplierCode=${info.supplierCode}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierCode === null && info.divisionId !== null) {
+      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else {
+      query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    }
+
+    let endpoint = `${serviceUri}/detail/xls${query}&isForeignCurrency=${true}`;
+    return super.getXls(endpoint);
+  }
+
   getPdf(info) {
     var query = "";
     if (info.supplierName !== null && info.divisionId !== null) {

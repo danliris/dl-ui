@@ -256,7 +256,17 @@ export class List {
 
   viewDetail(data) {
     window.open(`${window.location.origin}/#/expedition/reports/import-credit-balance/detail/${data.SupplierCode}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+  }
 
+  downloadExcelDetail(data) {
+    let params = {
+      supplierCode: data.SupplierCode,
+      divisionId: data.DivisionId,
+      month: this.info.month.value,
+      year: this.info.year
+    }
+
+    this.service.getXlsDetail(params);
   }
 
   reset() {

@@ -74,7 +74,7 @@ export class List {
     this.error = {};
     this.data = [];
 
-    this.contextTable = ["Detail"];
+    this.contextTable = ["Detail", "Excel"];
 
     this.itemMonths = [
       { text: "January", value: 1 },
@@ -106,24 +106,28 @@ export class List {
   };
 
   contextCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
+    var evenDetail = event.detail;
+    var data = evenDetail.data;
 
-    if (this.info.supplier && this.info.supplier.name)
-      arg.supplierName = this.info.supplier.name;
+    let arg = {};
 
-    if (this.info.division && this.info.division.Id)
-      arg.divisionId = this.info.division.Id;
+    if (data.SupplierCode)
+      arg.supplierCode = data.SupplierCode;
+
+    if (data.DivisionId)
+      arg.divisionId = data.DivisionId;
 
     if (this.info.month && this.info.month.value)
       arg.month = this.info.month.value;
 
     if (this.info.year) arg.year = this.info.year;
 
-    switch (arg.name) {
+    switch (evenDetail.name) {
       case "Detail":
         window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierCode}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
         break;
+      case "Excel":
+        this.service.getXlsDetail(arg);
     }
   }
 
