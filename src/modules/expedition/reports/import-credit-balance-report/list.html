@@ -95,8 +95,18 @@
                     <td class="text-right">${report.Purchase * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Payment * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.FinalBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
-                    <td><button click.delegate="viewDetail(report)"
-                                class='btn btn-primary'><i class="fa fa-pencil"></i></button></td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button click.delegate="viewDetail(report)"
+                                        class='btn btn-primary'><i class="fa fa-eye"></i></button>
+                            </div>
+                            <div class="col-sm">
+                                <button click.delegate="downloadExcelDetail(report)"
+                                        class='btn btn-success'><i class="fa fa-download"></i></button>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
