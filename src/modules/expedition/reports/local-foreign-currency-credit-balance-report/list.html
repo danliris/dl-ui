@@ -59,10 +59,12 @@
               options.bind="tableOptions">
       <div slot="toolbar"
            class="btn-group">
-        <button class="btn btn-primary"
-                click.delegate="excel()">Excel</button>
-        <button class="btn btn-primary"
-                click.delegate="pdf()">PDF</button>
+           <button class="btn btn-primary"
+           click.delegate="excel()">Excel</button>
+   <button class="btn btn-primary"
+           click.delegate="downloadExcelDetail()">Excel Rincian</button>
+   <button class="btn btn-primary"
+           click.delegate="pdf()">PDF</button>
       </div>
     </au-table>
   </div>

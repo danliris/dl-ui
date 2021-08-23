@@ -259,9 +259,19 @@ export class List {
   }
 
   downloadExcelDetail(data) {
+
+    let supplierCode = "";
+    let divisionId = 0;
+
+    if (this.info.supplier)
+      supplierCode = this.info.supplier.code;
+
+    if (this.info.division)
+      divisionId = this.info.division.Id;
+
     let params = {
-      supplierCode: data.SupplierCode,
-      divisionId: data.DivisionId,
+      supplierCode: supplierCode,
+      divisionId: divisionId,
       month: this.info.month.value,
       year: this.info.year
     }
