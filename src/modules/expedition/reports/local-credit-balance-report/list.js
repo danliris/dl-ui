@@ -239,6 +239,27 @@ export class List {
     }
   }
 
+  downloadExcelDetail(data) {
+
+    let supplierCode = "";
+    let divisionId = 0;
+
+    if (this.info.supplier)
+      supplierCode = this.info.supplier.code;
+
+    if (this.info.division)
+      divisionId = this.info.division.Id;
+
+    let params = {
+      supplierCode: supplierCode,
+      divisionId: divisionId,
+      month: this.info.month.value,
+      year: this.info.year
+    }
+
+    this.service.getXlsDetail(params);
+  }
+
   reset() {
     this.flag = false;
     this.info.supplier = null;
