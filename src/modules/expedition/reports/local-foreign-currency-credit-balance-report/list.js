@@ -66,11 +66,15 @@ export class List {
     pagination: false,
   };
 
+
+
   constructor(service) {
     this.service = service;
     this.info = {};
     this.error = {};
     this.data = [];
+
+    this.contextTable = ["Detail", "Excel"];
 
     this.itemMonths = [
       { text: "January", value: 1 },
@@ -101,6 +105,52 @@ export class List {
     return division.Name;
   };
 
+  contextCallback(event) {
+    var evenDetail = event.detail;
+    var data = evenDetail.data;
+
+    let arg = {};
+
+    if (data.SupplierCode)
+      arg.supplierCode = data.SupplierCode;
+
+    if (data.DivisionId)
+      arg.divisionId = data.DivisionId;
+
+    if (this.info.month && this.info.month.value)
+      arg.month = this.info.month.value;
+
+    if (this.info.year) arg.year = this.info.year;
+
+    switch (evenDetail.name) {
+      case "Detail":
+        window.open(`${window.location.origin}/#/expedition/reports/local-foreign-currency-credit-balance/detail/${data.SupplierCode}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        break;
+      case "Excel":
+        this.service.getXlsDetail(arg);
+    }
+  }
+
+  downloadExcelDetail(data) {
+
+    let supplierCode = "";
+    let divisionId = 0;
+
+    if (this.info.supplier)
+      supplierCode = this.info.supplier.code;
+
+    if (this.info.division)
+      divisionId = this.info.division.Id;
+    let params = {
+      supplierCode: supplierCode,
+      divisionId: divisionId,
+      month: this.info.month.value,
+      year: this.info.year
+    }
+
+    this.service.getXlsDetail(params);
+  }
+
   loader = (info) => {
     let order = {};
     if (info.sort) order[info.sort] = info.order;
@@ -127,33 +177,33 @@ export class List {
 
     return this.flag
       ? this.service.search(arg).then((result) => {
-          // let before = {};
+        // let before = {};
 
-          // if (result.data.length != 0) {
-          //     for (let i in result.data) {
-          //         if (result.data[i].Currency != before.Currency) {
-          //             before = result.data[i];
-          //             before._Currency_rowspan = 1;
-          //         } else {
-          //             before._Currency_rowspan++;
+        // if (result.data.length != 0) {
+        //     for (let i in result.data) {
+        //         if (result.data[i].Currency != before.Currency) {
+        //             before = result.data[i];
+        //             before._Currency_rowspan = 1;
+        //         } else {
+        //             before._Currency_rowspan++;
 
-          //             result.data[i].Currency = undefined;
-          //         }
-          //         result.data[i].Products = result.data[i].Products || "";
-          //     }
-          // }
-          // setTimeout(() => {
-          //     $('#credit-balance-table td').each(function () {
-          //         if ($(this).html() === '-')
-          //             $(this).hide();
-          //     })
-          // }, 10);
+        //             result.data[i].Currency = undefined;
+        //         }
+        //         result.data[i].Products = result.data[i].Products || "";
+        //     }
+        // }
+        // setTimeout(() => {
+        //     $('#credit-balance-table td').each(function () {
+        //         if ($(this).html() === '-')
+        //             $(this).hide();
+        //     })
+        // }, 10);
 
-          return {
-            total: result.info.Count,
-            data: result.data,
-          };
-        })
+        return {
+          total: result.info.Count,
+          data: result.data,
+        };
+      })
       : { total: 0, data: [] };
   };
 

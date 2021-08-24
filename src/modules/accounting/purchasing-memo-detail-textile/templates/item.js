@@ -14,6 +14,9 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    console.log(this.data, "item");
+
+    this.itemOptions = { detailReadOnly: true }
 
     // this.selectedIncomeTax = this.data.IncomeTax || null;
     this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
@@ -26,6 +29,15 @@ export class Item {
       this.selectedIncomeTax.name = this.data.IncomeTax.Name;
       this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
       this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
+    }
+
+    if (this.data.Disposition)
+      this.disposition = this.data.Disposition
+
+    this.dispositionLoaderQuery = {
+      currencyCode: this.data.currency ? this.data.currency.Code : "",
+      divisionId: this.data.division ? this.data.division.Id : 0,
+      supplierIsImport: this.data.supplierIsImport
     }
 
     this.calculateTotalAmount();
@@ -42,8 +54,8 @@ export class Item {
   }
 
   dispositionTextView = (disposition) => {
-    console.log(disposition)
-    return disposition.Disposition.DocumentNo;
+
+    return disposition.DocumentNo ? disposition.DocumentNo : disposition.Disposition.DocumentNo;
 
   }
 
@@ -76,14 +88,16 @@ export class Item {
       this.data.Disposition = newValue.Disposition;
       let dispoLoader = await this.purchasingService.getUnitPaymentOrder(this.data.Disposition.Id)
         .then((result) => {
-          console.log(result);
           return result;
         });
 
       if (dispoLoader)
         this.data.Disposition.Details = this.data.Disposition.Details.map((detail) => {
           detail.UnitPaymentOrder = dispoLoader.UnitPaymentOrder;
+          detail.Remark = dispoLoader.Remark;
           detail.UnitReceiptNotes = dispoLoader.UnitReceiptNotes;
+          detail.PurchaseAmount = dispoLoader.PurchaseAmount;
+          detail.PurchaseAmountCurrency = dispoLoader.PurchaseAmountCurrency;
           return detail;
         })
     } else {

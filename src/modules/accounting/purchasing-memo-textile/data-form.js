@@ -39,6 +39,9 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
         this.hasPosting = this.context.hasPosting;
+
+        if (this.data.MemoDetail)
+            this.memoDetail = this.data.MemoDetail;
     }
 
     columns = [
@@ -47,6 +50,18 @@ export class DataForm {
         { header: "Debit", value: "Debit" },
         { header: "Kredit", value: "Credit" }
     ]
+
+    @bindable memoDetail;
+    memoDetailChanged(newVal, oldVal) {
+        if (newVal) {
+            this.data.MemoDetail = newVal;
+            if (newVal.Items && newVal.Items.length > 0) {
+                this.data.Items = newVal.Items;
+            }
+        } else {
+            this.data.MemoDetail = null;
+        }
+    }
 
     get addItems() {
         return (event) => {

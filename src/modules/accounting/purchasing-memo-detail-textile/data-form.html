@@ -33,15 +33,15 @@
                      options.bind="controlOptions">
     </au-autocomplete>
 
-    <au-numeric value.bind="data.Currency.Rate"
+    <!-- <au-numeric value.bind="data.Currency.Rate"
                 if.bind="data.Currency"
                 label="Rate"
                 read-only.bind="true"
                 options.bind="controlOptions">
-    </au-numeric>
+    </au-numeric> -->
 
     <au-checkbox label="Import"
-                 value.bind="data.SupplierIsImport"
+                 value.bind="supplierIsImport"
                  read-only.bind="readOnly"
                  options.bind="controlOptions">
     </au-checkbox>
@@ -65,6 +65,8 @@
                    remove.bind="onremove"
                    read-only.bind="readOnly"
                    options.bind="itemOptions"
+                   show.bind="division && currency"
+                   view-model.ref="ItemCollection"
                    item-template="modules/accounting/purchasing-memo-detail-textile/templates/item">
     </au-collection>
 

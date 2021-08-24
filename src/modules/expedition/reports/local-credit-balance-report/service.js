@@ -13,6 +13,11 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  searchDetail(info) {
+    let endpoint = `${serviceUri}/detail`;
+    return super.list(endpoint, info);
+  }
+
   getXls(info) {
     var query = "";
     if (info.supplierName !== null && info.divisionId !== null) {
@@ -26,6 +31,22 @@ export class Service extends RestService {
     }
 
     let endpoint = `${serviceUri}/downloads/xls${query}`;
+    return super.getXls(endpoint);
+  }
+
+  getXlsDetail(info) {
+    var query = "";
+    if (info.supplierCode !== null && info.divisionId !== null) {
+      query = `?supplierCode=${info.supplierCode}&divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierCode !== null && info.divisionId === null) {
+      query = `?supplierCode=${info.supplierCode}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else if (info.supplierCode === null && info.divisionId !== null) {
+      query = `?divisionId=${info.divisionId}&month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    } else {
+      query = `?month=${info.month}&year=${info.year}&isImport=${info.isImport}`;
+    }
+
+    let endpoint = `${serviceUri}/detail/xls${query}`;
     return super.getXls(endpoint);
   }
 

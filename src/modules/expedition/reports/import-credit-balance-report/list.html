@@ -3,46 +3,66 @@
     <h1 class="page-header">Saldo Hutang Import</h1>
 
     <form class="form-horizontal">
-        <au-autocomplete value.bind="info.supplier" error.bind="error.supplier" label="Supplier"
-            loader.bind="supplierLoader" text.bind="supplierView" query.bind="supplierQuery"
-            placeholder="Cari supplier" read-only.bind="readOnly" options.bind="controlOptions">
+        <au-autocomplete value.bind="info.supplier"
+                         error.bind="error.supplier"
+                         label="Supplier"
+                         loader.bind="supplierLoader"
+                         text.bind="supplierView"
+                         query.bind="supplierQuery"
+                         placeholder="Cari supplier"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
         </au-autocomplete>
-    <au-autocomplete
-      value.bind="info.division"
-      error.bind="error.division"
-      label="Divisi"
-      loader.bind="divisionLoader"
-      text.bind="divisionView"
-      placeholder="Cari divisi"
-      read-only.bind="readOnly"
-      options.bind="controlOptions"
-    >
-    </au-autocomplete>
-        <au-dropdown value.bind="info.month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths"
-            key="value" text="text">
+        <au-autocomplete value.bind="info.division"
+                         error.bind="error.division"
+                         label="Divisi"
+                         loader.bind="divisionLoader"
+                         text.bind="divisionView"
+                         placeholder="Cari divisi"
+                         read-only.bind="readOnly"
+                         options.bind="controlOptions">
+        </au-autocomplete>
+        <au-dropdown value.bind="info.month"
+                     label="Bulan"
+                     options.bind="controlOptions"
+                     items.bind="itemMonths"
+                     key="value"
+                     text="text">
         </au-dropdown>
-        <au-dropdown value.bind="info.year" label="Tahun" options.bind="controlOptions" items.bind="itemYears"
-            key="value" text="text">
+        <au-dropdown value.bind="info.year"
+                     label="Tahun"
+                     options.bind="controlOptions"
+                     items.bind="itemYears"
+                     key="value"
+                     text="text">
         </au-dropdown>
 
         <div class="form-group">
-            <label for="contact" class="col-sm-5 control-label"></label>
+            <label for="contact"
+                   class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <button click.delegate="search()"
+                        class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()"
+                        class='btn btn-success'>Reset</button>
             </div>
         </div>
         <div class="btn-group pull-left">
             <a click.delegate="excel()"
                class='btn btn-primary'>Excel</a>
+            <a click.delegate="downloadExcelDetail()"
+               class='btn btn-primary'>Excel Rincian</a>
             <a click.delegate="pdf()"
                class='btn btn-primary'>PDF</a>
         </div>
     </form>
     <br>
     </br>
-    <div class="table-responsive" if.bind="data && data.length > 0">
-        <table class="table table-bordered table-hover" border="1" id="myTable">
+    <div class="table-responsive"
+         if.bind="data && data.length > 0">
+        <table class="table table-bordered table-hover"
+               border="1"
+               id="myTable">
             <thead align="center">
                 <tr>
                     <td rowspan=2>Supplier</td>
@@ -51,9 +71,10 @@
                     <td rowspan=2>Saldo Awal</td>
                     <td rowspan=2>Pembelian</td>
                     <td rowspan=2>Pembayaran</td>
+                    <td rowspan=2>Pelunasan</td>
                     <td rowspan=2>Saldo Akhir</td>
                     <td colspan=4>Dalam Rupiah</td>
-
+                    <td rowspan=2></td>
                 </tr>
                 <tr>
                     <td>Saldo Awal</td>
@@ -70,16 +91,31 @@
                     <td class="text-right">${report.StartBalance | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Purchase | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Payment | numberFormat: '0,000.00'}</td>
+                    <td class="text-right">${report.PaidAmount | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.FinalBalance | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.StartBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Purchase * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.Payment * report.CurrencyRate | numberFormat: '0,000.00'}</td>
                     <td class="text-right">${report.FinalBalance * report.CurrencyRate | numberFormat: '0,000.00'}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button click.delegate="viewDetail(report)"
+                                        class='btn btn-primary'><i class="fa fa-eye"></i></button>
+                            </div>
+                            <!-- <div class="col-sm">
+                                <button click.delegate="downloadExcelDetail(report)"
+                                        class='btn btn-success'><i class="fa fa-download"></i></button>
+                            </div> -->
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="alert alert-info text-center" role="alert" if.bind="data && data.length === 0">
+    <div class="alert alert-info text-center"
+         role="alert"
+         if.bind="data && data.length === 0">
         Tidak ada data.
     </div>
     <!-- <div id="credit-balance-table">

@@ -1,5 +1,5 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
-var DispositionLoader = require('../../../../loader/memo-unit-payment-order-loader');
+var UnitPaymentOrderLoader = require('../../../../loader/memo-unit-payment-order-loader');
 
 // @inject(BindingSignaler)
 export class Item {
@@ -12,36 +12,51 @@ export class Item {
     this.error = context.error;
     this.options = context.context.options;
     this.readOnly = context.options.readOnly;
+    this.detailReadOnly = this.options.detailReadOnly;
 
-    // this.selectedIncomeTax = this.data.IncomeTax || null;
-    this.selectedIncomeTaxBy = this.data.IncomeTaxBy || "";
-    this.selectedAmount = this.data.Amount || 0;
-    this.selectedPPh = this.data.IsGetPPh;
-    this.selectedVat = this.data.IsGetPPn;
-
-    if (this.data.IncomeTax) {
-      this.selectedIncomeTax = this.data.IncomeTax;
-      this.selectedIncomeTax.name = this.data.IncomeTax.Name;
-      this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
-      this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
+    if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
+      this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
+    }
+    console.log(this.data, "detail")
+    this.upoLoaderQuery = {
+      currencyCode: this.data.currency ? this.data.currency.Code : "",
+      divisionId: this.data.division ? this.data.division.Id : 0,
+      supplierIsImport: this.data.supplierIsImport
     }
 
-    this.calculateTotalAmount();
+    if (this.data.UnitPaymentOrder)
+      this.unitPaymentOrder = Object.assign({}, this.data.UnitPaymentOrder);
+
   }
 
   detailColumns = [
     "No. Kas Bon", "Supplier", "Keterangan", "No. SPB", "No. BTU", "Valas", "Jumlah Beli (Rp)", "Valas", "Jumlah Bayar (Rp)"
   ];
 
-  IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
-
-  get dispositionLoader() {
-    return DispositionLoader;
+  get unitPaymentOrderLoader() {
+    return UnitPaymentOrderLoader;
   }
 
-  incomeTaxView = (incomeTax) => {
+  @bindable unitPaymentOrder;
+  unitPaymentOrderChanged(newVal, oldVal) {
+    if (newVal) {
+      this.data.Expenditure = Object.assign({}, newVal.Expenditure);
+      this.data.Supplier = Object.assign({}, newVal.Supplier);
+      this.data.PurchaseAmount = newVal.PurchaseAmount;
+      this.data.PurchaseAmountCurrency = newVal.PurchaseAmountCurrency;
+      this.data.UnitReceiptNotes = newVal.UnitReceiptNotes;
+      this.data.UnitPaymentOrder = Object.assign({}, newVal.UnitPaymentOrder)
+      this.data.Remark = newVal.Remark;
+      // this.data = Object.assign({}, newVal);
+      if (this.data.UnitReceiptNotes && this.data.UnitReceiptNotes.length > 0) {
+        this.data.UnitReceiptNoteNo = this.data.UnitReceiptNotes.map((urn) => urn.UnitReceiptNoteNo).join('\n')
+      }
+    }
+  }
 
-    return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
+  unitPaymentOrderView = (unitPaymentOrder) => {
+
+    return unitPaymentOrder && unitPaymentOrder.UnitPaymentOrderNo ? `${unitPaymentOrder.UnitPaymentOrderNo}` : `${unitPaymentOrder.UnitPaymentOrder ? unitPaymentOrder.UnitPaymentOrder.UnitPaymentOrderNo : ''}`;
 
   }
 
