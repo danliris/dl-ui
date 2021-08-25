@@ -56,7 +56,6 @@ export async function configure(aurelia) {
             const garmentShipping = "https://garment-etl-service-dev.azurewebsites.net/api/";
 
 
-
             config.registerEndpoint('auth', auth);
             config.registerEndpoint('core', core);
             config.registerEndpoint('production', production, defaultConfig);
