@@ -3,7 +3,7 @@ import { Service } from './service';
 import moment from 'moment';
 const IncomeTaxLoader = require('../../../loader/vat-loader');
 const AccountBankLoader = require('../../../loader/account-banks-loader');
-const DivisionLoader = require('../../../loader/division-loader');
+const DivisionLoader = require('../../../loader/division-group-loader');
 
 @inject(Service)
 export class DataForm {

@@ -47,6 +47,7 @@ export class List {
         { field: "ComodityName", title: "Komoditi", sortable: false, width: '10%' },
         { field: "Quantity", title: "Quantity", sortable: false, width: '5%' },
         { field: "UomUnit", title: "Satuan", sortable: false, width: '3%'},
+        { field: "Price", title: "Harga", sortable: false, width: '3%'},
 
     ];
 

@@ -26,6 +26,19 @@ module.exports = [
     }
   },
   {
+    route: '/accounting/post-vb-transaction',
+    name: 'journal-transaction-vb',
+    moduleId: './modules/accounting/posting-vb-transactions/index',
+    nav: true,
+    title: 'Pengisian Debit Jurnal VB',
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-clone'
+    }
+  },
+  {
     route: '/accounting/reports/journal-transaction-report',
     name: 'journal-transaction-report',
     moduleId: './modules/accounting/reports/journal-transaction-report/index',

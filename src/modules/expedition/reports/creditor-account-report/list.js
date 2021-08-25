@@ -62,6 +62,7 @@ export class List {
   async search() {
     this.payment = 0;
     this.purchase = 0;
+    this.bankExpenditure = 0;
 
     if (this.info.supplier && this.info.supplier.name)
       this.info.name = this.info.supplier.name;
