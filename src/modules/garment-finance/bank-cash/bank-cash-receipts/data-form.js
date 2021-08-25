@@ -3,6 +3,9 @@ import { CoreService, Service } from './service';
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Dialog } from '../../../../au-components/dialog/dialog';
 import moment from 'moment';
+var BankCashReceiptTypeLoader = require('../../../../loader/bank-cash-receipt-type-loader');
+var ExportBuyerLoader= require('../../../../loader/garment-buyers-loader');
+var LocalBuyerLoader= require('../../../../loader/garment-leftover-warehouse-buyer-loader');
 
 @inject(Router, Service, CoreService, Dialog)
 export class DataForm {
@@ -10,8 +13,9 @@ export class DataForm {
 	@bindable readOnly;
 	@bindable data = {};
 	@bindable error = {};
-	@bindable numberingCode;
+	@bindable selectedType;
 	@bindable receiptDate;
+	@bindable selectedBuyer;
 
 	formOptions = {
 		cancelText: "Kembali",
@@ -30,21 +34,24 @@ export class DataForm {
 	itemsColumns = [
 		{ header: "No Acc" },
 		{ header: "Sub Acc" },
-		{ header: "Acc Unit" },
-		{ header: "Acc Biaya" },
 		{ header: "Amount" },
 		{ header: "Jumlah" },
-		{ header: "C2A" },
-		{ header: "C2B" },
-		{ header: "C2C" },
-		{ header: "C1A" },
-		{ header: "C1B" },
 		{ header: "No Nota" },
 		{ header: "Ket" },
 		{ header: "" },
 	]
 
+	get typeLoader() {
+		return BankCashReceiptTypeLoader;
+	}
 
+	get exportBuyerLoader() {
+		return ExportBuyerLoader;
+	}
+
+	get localBuyerLoader() {
+		return LocalBuyerLoader;
+	}
 
 	constructor(router, service, coreService, dialog) {
 		this.router = router;
@@ -74,6 +81,8 @@ export class DataForm {
 			//this.currencies = this.data.Currency || null;
 			this.numberingCode = this.data.NumberingCode || null;
 			this.receiptDate = this.data.ReceiptDate || null;
+			this.selectedBuyer=this.data.Buyer || null;
+			this.selectedType=this.data.BankCashReceiptType;
 		}
 	}
 
@@ -81,10 +90,15 @@ export class DataForm {
 		return bank.AccountNumber + " - " + bank.AccountName;
 	}
 
+	buyerView = (buyer) => {
+		return buyer.Code + " - " + buyer.Name;
+	}
+
 	@bindable bankAccount;
 	bankAccountChanged(newValue, oldValue) {
 		if (newValue && this.data.ReceiptDate) {
 			this.data.Bank = newValue;
+			this.data.NumberingCode = newValue.BankCode + "M";
 			let args = {
 				size: 10,
 				filter: JSON.stringify({ "Code": newValue.AccountCOA }),
@@ -108,7 +122,7 @@ export class DataForm {
 			}
 			let args2 = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month })
+				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month-1 })
 			}
 
 			this.coreService.getIBCurrencies(args2).then(result => {
@@ -220,9 +234,9 @@ export class DataForm {
 		return this.data.Currency ? this.data.Currency.Rate || this.data.Currency.rate : 0;
 	}
 
-	numberingCodeChanged(newValue, oldValue) {
-		this.data.NumberingCode = newValue;
-	}
+	// numberingCodeChanged(newValue, oldValue) {
+	// 	this.data.NumberingCode = newValue;
+	// }
 
 	receiptDateChanged(newValue, oldValue) {
 		if (newValue != this.data.ReceiptDate) {
@@ -235,7 +249,23 @@ export class DataForm {
 		}
 	}
 
+	selectedTypeChanged(newValue){
+		if(!this.data.Id){
+			this.data.BankCashReceiptType=null;
+			this.data.Buyer=null;
+			if(this.data.Items){
+				this.data.Items.splice(0);
+			}
+		}
+		
+		if(newValue!=this.data.BankCashReceiptType){
+			this.data.BankCashReceiptType=newValue;
+		}
+	}
 
-
-
+	selectedBuyerChanged(newValue){
+		if(newValue){
+			this.data.Buyer=newValue;
+		}
+	}
 }
