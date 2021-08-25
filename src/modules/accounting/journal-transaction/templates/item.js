@@ -20,6 +20,6 @@ export class Item {
     }
 
     coaTextView = ((coa) => {
-        return coa.Name ? coa.Code + " - " + coa.Name : "";
+        return coa.Name ? coa.Code + " - " + coa.Name : coa.Code;
     })
 }
