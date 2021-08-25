@@ -92,7 +92,8 @@
 				<div class="tbl">
 					<au-collection items.bind="data.items" errors.bind="error.Items"
 						columns.bind="itemsColumns" read-only.bind="readOnly"
-						add.bind="addItems" remove.bind="removeItems" options.bind="Options"
+						responsive.bind="true" add.bind="addItems" remove.bind="removeItems"
+						options.bind="Options"
 						item-template="modules/garment-production/packing-list-items-enhanced/template/detail-ro">
 					</au-collection>
 				</div>

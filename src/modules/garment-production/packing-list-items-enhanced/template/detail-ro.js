@@ -127,15 +127,16 @@ export class Item {
 				if (x.sizes != null) {
 					x.sizes.forEach(s => {
 						if (s.size != null) {
-							let index = this.allSizes.findIndex(x => x.Size != s.size.size);
+							let index = this.allSizes.findIndex(x => x.size.Size == s.size.size);
 							if (index == -1) {
-								this.allSizes.push({ size: { Id: s.size.id, Size: s.size.size }, quantity: s.quantity });
+								this.allSizes.push({ id: s.id, size: { Id: s.size.id, Size: s.size.size }, quantity: s.quantity });
 							}
 						}
 					})
 
 				}
-			})
+			});
+			console.log("allSizes", this.allSizes);
 			if (this.allSizes.length > 0) {
 				this.onUpdateTable();
 			}
@@ -255,7 +256,7 @@ export class Item {
 			}
 			let allSizes = this.allSizes.slice();
 			allSizes = allSizes.map(x => {
-				return Object.create(x);
+				return Object.assign({}, x);
 			});
 
 			this.data.details.push({
@@ -472,7 +473,9 @@ export class Item {
 			for (let sizes of this.allSizes) {
 				if (sizes.size != null) {
 					tempDetailColumns.push({ header: sizes.size.Size, value: undefined });
-					newSizes.push(sizes);
+					if (sizes.id == null) {
+						newSizes.push(sizes);
+					}
 				} else {
 					isEmptySize = true;
 				}
