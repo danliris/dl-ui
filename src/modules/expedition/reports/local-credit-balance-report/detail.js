@@ -19,36 +19,37 @@ export class Detail {
             },
             align: "right",
         },
-        { field: "ExternalPurchaseOrderNo", title: "No PO" },
+        // { field: "ExternalPurchaseOrderNo", title: "No PO" },
         { field: "UnitReceiptNoteNo", title: "Nomor Bon Penerimaan" },
         { field: "SupplierName", title: "Supplier" },
         { field: "IncomeTaxNo", title: "No Faktur Pajak" },
+        { field: "InvoiceNo", title: "No Invoice" },
         { field: "UnitPaymentOrderNo", title: "No SPB/NI" },
         // { field: 'Products', title: 'Nama Barang' },
-        {
-            field: "DPPAmount",
-            title: "DPP",
-            formatter: function (value, data, index) {
-                return value ? numeral(value).format("0,000.00") : "0";
-            },
-            align: "right",
-        },
-        {
-            field: "VATAmount",
-            title: "PPN",
-            formatter: function (value, data, index) {
-                return value ? numeral(value).format("0,000.00") : "0";
-            },
-            align: "right",
-        },
-        {
-            field: "IncomeTaxAmount",
-            title: "PPh",
-            formatter: function (value, data, index) {
-                return value ? numeral(value).format("0,000.00") : "0";
-            },
-            align: "right",
-        },
+        // {
+        //     field: "DPPAmount",
+        //     title: "DPP",
+        //     formatter: function (value, data, index) {
+        //         return value ? numeral(value).format("0,000.00") : "0";
+        //     },
+        //     align: "right",
+        // },
+        // {
+        //     field: "VATAmount",
+        //     title: "PPN",
+        //     formatter: function (value, data, index) {
+        //         return value ? numeral(value).format("0,000.00") : "0";
+        //     },
+        //     align: "right",
+        // },
+        // {
+        //     field: "IncomeTaxAmount",
+        //     title: "PPh",
+        //     formatter: function (value, data, index) {
+        //         return value ? numeral(value).format("0,000.00") : "0";
+        //     },
+        //     align: "right",
+        // },
         {
             field: "Total",
             title: "Total",
