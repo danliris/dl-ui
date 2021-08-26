@@ -1,8 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, ServiceFinance } from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceFinance)
 export class View {
     hasCancel = true;
     hasEdit = false;
@@ -11,9 +11,10 @@ export class View {
     hasUnpost = false;
     hasClosePo = false;
 
-    constructor(router, service) {
+    constructor(router, service, serviceFinance) {
         this.router = router;
         this.service = service;
+        this.serviceFinance = serviceFinance;
     }
     async activate(params) {
         var isVoid = false;
@@ -21,6 +22,7 @@ export class View {
         var id = params.id;
         this.poExId = id;
         this.data = await this.service.getById(id);
+        this.isVBWithPO = await this.serviceFinance.getVbWithPO(id);
         var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
         this.kurs=kurs[0];
 
@@ -49,7 +51,7 @@ export class View {
             this.selectedIncomeTax=this.data.IncomeTax;
         }
 
-        if (!this.data.IsPosted) {
+        if (!this.data.IsPosted && !this.data.IsApproved) {
             this.hasDelete = true;
             this.hasEdit = true;
         }
@@ -60,7 +62,7 @@ export class View {
         if (this.data.IsPosted==true && this.data.IsClosed==false && canClose && this.data.IsCanceled==false){
             this.hasClosePo=true;
         }
-        if (this.data.IsCanceled || this.data.IsClosed) {
+        if (this.data.IsCanceled || this.data.IsClosed || this.data.IsUnpost || this.isVBWithPO || this.data.IsApproved) {
             this.hasUnpost = false;
             this.hasCancelPo = false;
         }
