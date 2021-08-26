@@ -487,11 +487,11 @@ export class Item {
 			newDetailColumns.splice(4, 0, ...tempDetailColumns);
 			this.detailsColumns = newDetailColumns;
 			for (let details of this.data.details) {
-				let filteredSizes = {};
+				let filteredSizes = [];
 
 				if (details.sizes.length == 0 && this.removedSizes == null) {
 					newSizes.forEach(x => {
-						filteredSizes = { Id: x.size.Id, size: x.size.Size };
+						filteredSizes.push(x.size);
 					})
 					console.log("zero sizes");
 				}
@@ -501,7 +501,7 @@ export class Item {
 						newSizes.forEach(x => {
 							let tempSize = sizes.size.id || sizes.size.Id;
 							if (x.size.Id != tempSize) {
-								filteredSizes = { Id: x.size.Id, size: x.size.Size };
+								filteredSizes.push(x.size);
 							}
 						});
 						console.log("looping existing sizes");
@@ -510,10 +510,17 @@ export class Item {
 				}
 				console.log(filteredSizes);
 
-				if (Object.keys(filteredSizes).length != 0) {
+				if (filteredSizes.length != 0) {
 					let idx = this.data.details.indexOf(details);
-					this.data.details[idx].sizes.push({ size: filteredSizes });
-					console.log("push into sizes");
+					filteredSizes.forEach(f => {
+						let index = this.data.details[idx].sizes.findIndex(x => x.size.Size == f.Size);
+						if (index == -1) {
+							this.data.details[idx].sizes.push({ size: f });
+							console.log("push into sizes");
+
+						}
+					})
+
 				}
 				if (this.removedSizes != null) {
 					let idx = this.data.details.indexOf(details);
