@@ -7,10 +7,21 @@
 
       <ai-dialog-body>
         <au-input-form>
-          <au-textbox value.bind="data.Description"
-                      error.bind="error.Description"
+          <au-textbox value.bind="vbRealization.VBRequestDocumentNo"
                       read-only.bind="true"
-                      label="Deskripsi"
+                      label="No. VB"
+                      options.bind="controlOptions">
+          </au-textbox>
+
+          <au-textbox value.bind="vbRealization.DocumentNo"
+                      read-only.bind="true"
+                      label="No. VB"
+                      options.bind="controlOptions">
+          </au-textbox>
+
+          <au-textbox value.bind="data.Description"
+                      read-only.bind="true"
+                      label="No. VB"
                       options.bind="controlOptions">
           </au-textbox>
 

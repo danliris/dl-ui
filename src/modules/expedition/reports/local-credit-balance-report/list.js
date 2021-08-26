@@ -40,14 +40,6 @@ export class List {
       align: "right",
     },
     {
-      field: "PaidAmount",
-      title: "Pelunasan",
-      formatter: function (value, data, index) {
-        return value ? numeral(value).format("0,000.00") : "0";
-      },
-      align: "right",
-    },
-    {
       field: "FinalBalance",
       title: "Saldo Akhir",
       formatter: function (value, data, index) {
@@ -79,8 +71,8 @@ export class List {
     this.info = {};
     this.error = {};
     this.data = [];
-    
-    this.contextTable = ["Detail"];
+
+    this.contextTable = ["Detail", "Excel"];
 
     this.itemMonths = [
       { text: "January", value: 1 },
@@ -222,25 +214,50 @@ export class List {
   }
 
   contextCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
+    var evenDetail = event.detail;
+    var data = evenDetail.data;
 
-    if (this.info.supplier && this.info.supplier.name)
-      arg.supplierName = this.info.supplier.name;
+    let arg = {};
 
-    if (this.info.division && this.info.division.Id)
-      arg.divisionId = this.info.division.Id;
+    if (data.SupplierCode)
+      arg.supplierCode = data.SupplierCode;
+
+    if (data.DivisionId)
+      arg.divisionId = data.DivisionId;
 
     if (this.info.month && this.info.month.value)
       arg.month = this.info.month.value;
 
     if (this.info.year) arg.year = this.info.year;
 
-    switch (arg.name) {
+    switch (evenDetail.name) {
       case "Detail":
-        window.open(`${window.location.origin}/#/expedition/reports/local-credit-balance/detail/${data.SupplierId}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
+        window.open(`${window.location.origin}/#/expedition/reports/local-credit-balance/detail/${data.SupplierCode}/${data.DivisionId}/${this.info.month.value}/${this.info.year}`);
         break;
+      case "Excel":
+        this.service.getXlsDetail(arg);
     }
+  }
+
+  downloadExcelDetail(data) {
+
+    let supplierCode = "";
+    let divisionId = 0;
+
+    if (this.info.supplier)
+      supplierCode = this.info.supplier.code;
+
+    if (this.info.division)
+      divisionId = this.info.division.Id;
+
+    let params = {
+      supplierCode: supplierCode,
+      divisionId: divisionId,
+      month: this.info.month.value,
+      year: this.info.year
+    }
+
+    this.service.getXlsDetail(params);
   }
 
   reset() {
