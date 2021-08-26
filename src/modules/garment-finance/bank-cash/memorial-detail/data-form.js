@@ -91,7 +91,6 @@ export class DataForm {
 	}
 
 	selectedMemorialChanged(newValue) {
-		console.log(newValue)
 		this.data.TotalAmount=0;
 		if (newValue) {
 			if(newValue.Items){
