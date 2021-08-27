@@ -158,7 +158,7 @@ export class DataForm {
                 this.data.Amount=this.data.DPP + this.data.VatValue;
             }
             else{
-                this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.IncomeTaxValue;
+                this.data.Amount=this.data.DPP+ this.data.VatValue - this.data.IncomeTaxValue;
             }
         }
         this.data.Items.splice(0);
@@ -213,7 +213,7 @@ export class DataForm {
                             this.data.Amount+=detail.PaidPrice+ppn;
                         }
                         else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
+                            this.data.Amount+=detail.PaidPrice+ppn-pph;
                     }
                 }
             }
@@ -248,7 +248,7 @@ export class DataForm {
                                 this.data.Amount+=detail.PaidPrice+ppn;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn-pph;
                         }
                     }
                 }
@@ -304,7 +304,7 @@ export class DataForm {
                                 this.data.Amount+=detail.PaidPrice+ppn;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn-pph;
                         }
                     }
                 }
@@ -342,7 +342,7 @@ export class DataForm {
                                 this.data.Amount+=detail.PaidPrice+ppn;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn-pph;
                         }
                     }
                 }
@@ -378,7 +378,7 @@ export class DataForm {
                                 this.data.Amount+=detail.PaidPrice+ppn;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn-pph;
                         }
                     }
                 }
