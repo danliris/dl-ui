@@ -832,4 +832,17 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "bank-cash-receipt-type",
+    name: "bank-cash-receipt-type",
+    moduleId: "./modules/master/bank-cash-receipt-type/index",
+    nav: true,
+    title: "Jenis Penerimaan Kas Bank",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { "*": 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];

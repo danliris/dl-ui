@@ -6,7 +6,7 @@ import moment from "moment";
 @inject(Router, Service)
 export class List {
   context = ['Run ETL'];
-
+  tableDataList = [];
   columns = [
     { field: "dataArea", title: "Data Area" },
     { field: "updatedAt", title: "Updated At", formatter: function (value, data, index) {
@@ -46,6 +46,7 @@ export class List {
         resultPromise = result.data;
       }
       return Promise.all(resultPromise).then((newResult) => {
+        this.tableDataList = newResult;
         return {
           total: result.info.total,
           data: newResult,
@@ -71,14 +72,16 @@ export class List {
   contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
-    if (data.status === false) {
-      switch (arg.name) {
-        case "Run ETL":
-            return this.runETL(data);
-            break;
+    if (this.tableDataList.length > 0) {
+      if (data.status === false && !this.tableDataList[0].status) {
+        switch (arg.name) {
+          case "Run ETL":
+              return this.runETL(data);
+              break;
+        }
+      } else {
+        alert('ETL telah sukses!')
       }
-    } else {
-      alert('ETL telah sukses!')
     }
   }
 

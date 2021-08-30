@@ -193,16 +193,34 @@ export class Post {
     }
   }
 
+  vbFilter = { isVB: true }
+
   @bindable referenceNo;
   @bindable referenceType;
   async search() {
     var referenceNo = this.referenceNo ? this.referenceNo.value : "";
     var referenceType = this.referenceType ? this.referenceType.value : "";
     console.log(referenceType);
-    var result = await this.service.getUnpostedTransactions(this.selectedMonth.MonthNumber, this.selectedYear, referenceNo, referenceType);
+    var result = await this.service.getUnpostedTransactions(this.selectedMonth.MonthNumber, this.selectedYear, referenceNo, referenceType)
+      .then((response) => {
+        let documents = response.data;
+
+        documents = documents.map((document) => {
+          return this.service.getRealizationByReferenceNo(document.ReferenceNo)
+            .then((vbResponse) => {
+              console.log(vbResponse);
+              if (vbResponse)
+                document.RealizationNo = vbResponse.DocumentNo;
+              return document;
+            })
+        })
+
+        return Promise.all(documents)
+          .then((promiseResponse) => promiseResponse)
+      })
 
     this.data.transactions = [];
-    for (var datum of result.data) {
+    for (var datum of result) {
       let rowspanNumber = datum.Items.length;
       datum.dateView = moment(datum.Date).format("DD-MMM-YYYY");
       for (let i = 0; i < datum.Items.length; i++) {
