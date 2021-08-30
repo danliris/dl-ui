@@ -28,7 +28,8 @@ export class Index {
           nav: false,
           title: 'Edit: Bon Keluar Gudang Greige - Weaving'
         },
-        { route: 'excel', moduleId: './excel', name: 'excel', nav: false, title: 'CSV : Download Pencatatan Keluar CSV Gudang Greige - Weaving' }
+        { route: 'excel', moduleId: './excel', name: 'excel', nav: false, title: 'CSV : Download Pencatatan Keluar CSV Gudang Greige - Weaving' },
+        { route: 'upload', moduleId: './upload', name: 'upload', nav: false, title: 'CSV : Unggah CSV Pencatatan Keluar Gudang Greige - Weaving'}
       ]);
   
       this.router = router;

@@ -4,82 +4,78 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class Create {
+export class Upload {
     @bindable error = {};
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        //this.data = {};
         this.data = { items: [] };
         console.log(this.data);
     }
 
+    destinationAreas = ["PACKING", "FINISHING", "PRINTING", "LAIN-LAIN","KOTOR","INSPECTING WEAVING"];
+
     activate(params) {
+
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    cancelCallback(event) {
-      this.list();
+    cancelCallback(event){
+        this.list();
     }
-
 
     saveCallback(event) {
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
-        var source = this.data.from;
+        var destination = this.data.from;
         var date = this.data.date;
-        // this.data.date = new Date().toLocaleDateString('en-US', {
-        //     month: '2-digit',day: '2-digit',year: 'numeric'});
+        this.data.date = new Date().toLocaleDateString('en-US', {
+            month: '2-digit',day: '2-digit',year: 'numeric'});
         var fileList = fileInput.files;
         if (fileList[0] == undefined) {
-            e.file = "File Path harus dipilih";
+            e.file = "File Csv harus ditambahkan";
             this.error = e;
-        } else {
+        }else {
             formData.append("fileUpload", fileList[0]);
             formData.append("date", date);
-            formData.append("source", source);
+            formData.append("destination", destination);
 
- 
-            var endpoint = 'Inventory-weaving/upload';
+            var endpoint = 'output-inventory-weaving/upload-output';
             var request = {
                 method: 'POST',
-                headers: {
-                },
+                headers: {},
                 body: formData
             };
 
             this.service.endpoint.client.fetch(endpoint, request)
                 .then(response => {
                     if (response.status == 200) {
-                        var getRequest =this.service.endpoint.client.fetch(endpoint, request);
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
-                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
+                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat file 'Error Log' untuk melihat detail error.");
                         this.list();
                     }
-                    else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: nota,benang,type,lusi,pakan,lebar,jlusi,jpakan,alusi,apakan,sp,grade,jenis,piece,meter,barcode,tgl");
+                    else if (response.status == 400) {
+                        alert ("Urutan format kolom Csv tidak sesuai. \nFormat Kolom: konstruksi,benang,anyaman,lusi,pakan,lebar,jl,jp,al,ap,grade,piece,qty,qtypiece,barcode,productionorderdate.");
                     }
                     else if (response.status == 201) {
                         console.log(response);
-                        alert("Data Berhasil Diupload");
+                        alert("Data Berhasil diupload");
                         this.list();
                     }
-                    else if (response.status == 500)
-                    {
-                        //var message = response.message;
-                        alert("Nota Sudah Pernah di Input atau Ada Kesalahan Penyimpanan");
+                    else if (response.status == 500){
+                        alert("Terdapat data yang belum ada di penyimpanan. Cek Barcode dan/atau Construction. \natau ada kesalahan penyimpanan.");
                     }
 
                     console.log(response);
-                
+
                 })
         }
     }
-
 }
