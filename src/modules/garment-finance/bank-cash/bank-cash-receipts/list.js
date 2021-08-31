@@ -16,7 +16,7 @@ export class List {
 				return moment.utc(value).local().format('DD MMM YYYY');
 			},
 		},
-		{ field: "IncomeType", title: "Jenis Pemasukan" },
+		{ field: "BankCashReceiptTypeName", title: "Jenis Pemasukan" },
 		{ field: "Bank.BankName", title: "Bank" },
 	];
 
@@ -42,7 +42,7 @@ export class List {
 		if (info.sort)
 			order[info.sort] = info.order;
 		else
-			order["ReceiptDate"] = "desc";
+			order["CreatedUtc"] = "desc";
 
 		let arg = {
 			page: parseInt(info.offset / info.limit, 10) + 1,
@@ -52,6 +52,9 @@ export class List {
 		};
 		return this.service.search(arg)
 			.then(result => {
+				for(var a of result.data){
+					a.BankCashReceiptTypeName=a.BankCashReceiptType.Name || "";
+				}
 				return {
 					total: result.info.total,
 					data: result.data
