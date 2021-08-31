@@ -5,7 +5,6 @@ import { Router } from "aurelia-router";
 import { activationStrategy } from "aurelia-router";
 import { Dialog } from "../../../components/dialog/dialog";
 import { FormDialog } from "./dialog/form-dialog";
-import { promise } from '../../../../node_modules/protractor/built/index';
 
 var ReferenceNoLoader = require('../../../loader/journal-transaction-reference-no-loader');
 var ReferenceTypeLoader = require('../../../loader/journal-transaction-reference-type-loader');
