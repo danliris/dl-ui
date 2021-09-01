@@ -1,15 +1,14 @@
 import { inject } from "aurelia-framework";
 import moment from "moment";
 import numeral from "numeral";
-import XLSX from "xlsx";
 import { Service } from "./service";
-const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 
+const BuyerLoader = require('../../../../loader/garment-buyers-loader');
 @inject(Service)
 export class List {
   columns = [
     [
-      {field: "index", title: "No", rowspan: 2 },
+      {field: "Index", title: "No", rowspan: 2 },
        { field: "TruckingDate", title: "Tanggal", rowspan: 2 },
       
       { field: "InvoiceNo", title: "No. Invoice", rowspan: 2 },
@@ -19,6 +18,7 @@ export class List {
           return numeral(value).format("0,000.00");
         }
       }
+       
          ],
     [
      
@@ -70,8 +70,7 @@ export class List {
 
     this.info.month = { text: "January", value: 1 };
     this.info.year = this.currentYear;
-    this.buyer = "";
-
+    this.buyer= "";
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());
     }
@@ -81,24 +80,29 @@ export class List {
 
   loader = (info) => {
 
-    
 
     let params = {
       
       month: this.info.month.value,
       year: this.info.year,
-      buyer: "" 
+      buyer: this.buyer.Code
     };
 
 
     return this.flag
       ? this.service.search(params).then((result) => {
-
-          console.log(result.data.Result);
+        for (var _data of result.data) {
+          _data.TruckingDate = _data.TruckingDate ? moment.utc(_data.TruckingDate).local().format('DD MMM YYYY') : "";
+          if (_data.Index === 0)
+          {
+            _data.Index = "";
+          }
+        }
         return {
-          total: result.data.Result.length,
-          data: result.data.Result
+          total: result.data.length,
+          data: result.data
         };
+        
       })
       : { total: 0, data: [] };
   };
@@ -110,12 +114,10 @@ export class List {
   }
 
   excel() {
-    let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
-
     let params = {
       month: this.info.month.value,
       year: this.info.year,
-       type: "end"   
+      buyer: this.buyer.Code  
     };
 
     this.service.getXls(params);
@@ -129,5 +131,12 @@ export class List {
     this.tableList.refresh();
     this.info.year = moment().format("YYYY");
     this.info.month = { text: "January", value: 1 };
+    
   }
+  get buyerLoader() {
+    return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+    return `${buyer.Code} - ${buyer.Name}`;
+}
 }

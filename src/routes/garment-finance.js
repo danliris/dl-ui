@@ -448,7 +448,7 @@ module.exports = [
   },
   {
     route: "garment-finance/reports/export-sales-outstanding-report",
-    name: "export-sales-outstanding-report",
+    name: "export-sales-outstanding",
     moduleId: "./modules/garment-finance/reports/export-sales-outstanding-report/index",
     nav: true,
     title: "Laporan Outstanding Penjualan Export ",
