@@ -61,4 +61,7 @@ export class List {
   getExcel() {
     this.router.navigateToRoute('excel');
   }
+  upload() {
+    this.router.navigateToRoute('upload');
+  }
 }
