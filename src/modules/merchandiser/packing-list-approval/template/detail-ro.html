@@ -89,7 +89,7 @@
         </td>
         <td class="bg-primary">
             <au-numeric
-                value.bind="amount"
+                value.bind="data.amount"
                 read-only.bind="true"
                 format="0.00">
             </au-numeric>
@@ -105,7 +105,7 @@
             <button class="btn btn-info pull-right" if.bind= "data.details" click.delegate="toggle()">i</button>
         </td>
     </tr>
-    <tr show.bind="isShowing" style="background-color:#C2B5B2;">
+    <tr  style="background-color:#C2B5B2;">
         <td colspan="2">
             <au-textbox
                 label = "Artikel"
@@ -150,7 +150,7 @@
                 columns.bind="detailsColumns"
                 read-only="true" 
                 options.bind="itemOptions"
-                item-template="modules/garment-production/packing-list-items/template/detail-carton">
+                item-template="modules/merchandiser/packing-list-approval/template/detail-carton">
             </au-collection>
         </td>
         <td colspan="2" style='border:none;'>
@@ -177,21 +177,21 @@
         <td colspan="3">
             <au-numeric
                 label = "Total GW"
-                value.one-way="subGrossWeight"
+                value.bind="data.subGrossWeight"
                 read-only="true">
             </au-numeric>
         </td>
         <td colspan="3">
             <au-numeric
                 label = "Total NW"
-                value.one-way="subNetWeight"
+                value.bind="data.subNetWeight"
                 read-only="true">
             </au-numeric>
         </td>
         <td colspan="3">
           <au-numeric
               label = "Total NNW"
-              value.one-way="subNetNetWeight"
+              value.bind="data.subNetNetWeight"
               read-only="true">
           </au-numeric>
       </td>
