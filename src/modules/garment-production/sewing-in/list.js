@@ -64,7 +64,7 @@ export class List {
         .then(result => {
             this.totalQuantity=result.info.totalQty;
             var data = {};
-            console.log(result.data);
+            //console.log(result.data);
             data.total = result.info.total;
             data.data = result.data;
             //Enhance Jason Aug 2021
@@ -72,14 +72,14 @@ export class List {
                 {
                    var arrProductCode = s.Products.split(",");
                    var arrUniqueProductCode = arrProductCode.filter((value, index, array) => array.indexOf(value) === index);
-                   console.log(arrUniqueProductCode);
+                   //console.log(arrUniqueProductCode);
                    var strProductCode = "<ul>";
                    for(var item of arrUniqueProductCode)
                    {
                     strProductCode += "<li>" + item + "</li>";
                    }
                    strProductCode += "</ul>";
-                   console.log(strProductCode);
+                   //console.log(strProductCode);
                    s.Products = strProductCode;
             //     s.UnitCode=s.Unit.Code;
             //     s.UnitFromCode=s.UnitFrom.Code;
