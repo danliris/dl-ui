@@ -37,7 +37,7 @@ export class List {
       { title: "Umur Piutang", colspan: 5 }
     ],
     [{
-      field: "normal", title: "Normal", align: "right", formatter: function (value, data, index) {
+      field: "normal", title: "Lancar", align: "right", formatter: function (value, data, index) {
         return numeral(value).format("0,000.00");
       }
     },
