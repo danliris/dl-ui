@@ -136,7 +136,6 @@ export class Item {
 
 				}
 			});
-			console.log("allSizes", this.allSizes);
 			if (this.allSizes.length > 0) {
 				this.onUpdateTable();
 			}
@@ -261,6 +260,11 @@ export class Item {
 
 			this.data.details.push({
 				carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
+				style: lastDetail ? lastDetail.style : "",
+				colour: lastDetail ? lastDetail.colour : "",
+				length: lastDetail ? lastDetail.length : 0,
+				width: lastDetail ? lastDetail.width : 0,
+				height: lastDetail ? lastDetail.height : 0,
 				index: lastIndex ? lastIndex : 1,
 				sizes: allSizes.map(x => {
 					x.quantity = 0;
@@ -410,7 +414,6 @@ export class Item {
 		return (event) => {
 			if (this.allSizes.length < 20) {
 				this.allSizes.push({ size: null, quantity: 0 });
-				console.log(this.data.details);
 			}
 
 		};
@@ -480,11 +483,10 @@ export class Item {
 					isEmptySize = true;
 				}
 			}
-			console.log("newSizes", newSizes);
 			if (isEmptySize) {
 				alert("Masih ada size yang kosong!");
 			}
-			newDetailColumns.splice(4, 0, ...tempDetailColumns);
+			newDetailColumns.splice(5, 0, ...tempDetailColumns);
 			this.detailsColumns = newDetailColumns;
 			for (let details of this.data.details) {
 				let filteredSizes = [];
@@ -493,7 +495,6 @@ export class Item {
 					newSizes.forEach(x => {
 						filteredSizes.push(x.size);
 					})
-					console.log("zero sizes");
 				}
 				// filteredSizes untuk sizes yang ada di newSizes dan belum ada di details untuk ditambahkan
 				if (this.removedSizes == null) {
@@ -504,11 +505,9 @@ export class Item {
 								filteredSizes.push(x.size);
 							}
 						});
-						console.log("looping existing sizes");
 					}
 
 				}
-				console.log(filteredSizes);
 
 				if (filteredSizes.length != 0) {
 					let idx = this.data.details.indexOf(details);
@@ -516,7 +515,6 @@ export class Item {
 						let index = this.data.details[idx].sizes.findIndex(x => x.size.Size == f.Size);
 						if (index == -1) {
 							this.data.details[idx].sizes.push({ size: f });
-							console.log("push into sizes");
 
 						}
 					})
@@ -534,10 +532,8 @@ export class Item {
 						}
 					});
 					this.data.details[idx].sizes.splice(indexSize, 1);
-					console.log("removed sizes");
 				}
 			}
-			console.log(this.data.details);
 			this.removedSizes = null;
 
 		} else {

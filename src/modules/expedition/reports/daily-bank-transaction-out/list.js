@@ -36,8 +36,9 @@ export class List {
 
     async search() {
         let filter = {}
+        console.log(this.info);
         if (this.info.code)
-            filter.referenceNo = this.info.code.Code;
+            filter.referenceNo = this.info.code.ReferenceNo;
         if (this.info.bank) {
             filter.accountBankId = this.info.bank.Id;
             filter.accountBankName = this.info.bank.toString();
@@ -106,7 +107,7 @@ export class List {
     excel() {
         let filter = {}
         if (this.info.code)
-            filter.referenceNo = this.info.code.Code;
+            filter.referenceNo = this.info.code.ReferenceNo;
         if (this.info.bank) {
             filter.accountBankId = this.info.bank.Id;
             filter.accountBankName = this.info.bank.toString();

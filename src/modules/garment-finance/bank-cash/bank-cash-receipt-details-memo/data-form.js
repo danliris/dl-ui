@@ -21,6 +21,9 @@ export class DataForm {
 		editText: "Ubah",
 	}
 
+	filter = {
+		IsUsed: false
+	}
 
 	itemsColumns = [
 		{ header: "No Invoice" },
@@ -75,7 +78,8 @@ export class DataForm {
 				ReceiptDate: this.data.BankCashReceiptDate,
 				Amount: this.data.Amount,
 			};
-		} else {
+		}
+		if (this.context.isCreate) {
 			let args = {
 				size: 10,
 				filter: JSON.stringify({ "Code": "1103.00.5.00" }),
@@ -87,6 +91,7 @@ export class DataForm {
 			}
 
 		}
+
 
 	}
 

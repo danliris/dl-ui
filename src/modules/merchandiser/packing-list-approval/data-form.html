@@ -168,10 +168,10 @@
                         show.bind="!isEdit"
                         items.bind="data.items" 
                         errors.bind="error.Items" 
-                        columns.bind="viewItemsColumns"
+                        columns.bind="itemsColumns"
                         read-only.bind="readOnly" 
                         options.bind="Options"
-                        item-template="modules/garment-production/packing-list-items/template/detail-ro">
+                        item-template="modules/merchandiser/packing-list-approval/template/detail-ro">
                     </au-collection>
                 </div>
                 
@@ -211,7 +211,7 @@
                 <div class="col-sm-3">
                     <numeric
                         label="TOTAL CARTONS"
-                        value.bind="totalCartons"
+                        value.bind="data.totalCartons"
                         error.bind="error.totalCartons"
                         read-only="true" 
                         options.bind="controlOptions">
@@ -255,7 +255,7 @@
                     columns.bind="measureColumns"
                     read-only="true" 
                     options.bind="Options"
-                    item-template="modules/garment-production/packing-list-items/template/detail-measurement">
+                    item-template="modules/merchandiser/packing-list-approval/template/detail-measurement">
                 </au-collection>
             </div>
             

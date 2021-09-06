@@ -59,63 +59,40 @@ export class Detail {
 
     this.carton1 = this.data.carton1;
     this.carton2 = this.data.carton2;
+
+    this.data.totalQuantity = this.data.cartonQuantity * this.data.quantityPCS;
+    this.cmb=(this.data.length * this.data.width * this.data.height * this.data.cartonQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) || "0";
   }
 
 
-  get addSizes() {
-    return (event) => {
-      this.data.sizes.push({});
-    };
-  }
+  // get totalQuantity() {
+  //   if (this.data.cartonQuantity && this.data.quantityPCS) {
+  //     this.data.totalQuantity = this.data.cartonQuantity * this.data.quantityPCS;
+  //     return this.data.totalQuantity;
+  //   }
+  //   else
+  //     return 0;
+  // }
 
-  get removeSizes() {
-    return (event) => {
-      this.error = null;
-    };
-  }
+  // get totalQtySize() {
+  //   var qtytot = 0;
+  //   if (this.data.sizes) {
+  //     for (var size of this.data.sizes) {
+  //       if (size.quantity) {
+  //         qtytot += size.quantity;
+  //       }
+  //     }
+  //   }
+  //   return qtytot;
+  // }
 
-  get totalQuantity() {
-    if (this.data.cartonQuantity && this.data.quantityPCS) {
-      this.data.totalQuantity = this.data.cartonQuantity * this.data.quantityPCS;
-      return this.data.totalQuantity;
-    }
-    else
-      return 0;
-  }
+  // get cmb() {
+  //   if (this.data.length && this.data.width && this.data.height && this.data.cartonQuantity)
+  //     return (this.data.length * this.data.width * this.data.height * this.data.cartonQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+  //   else
+  //     return "0";
+  // }
 
-  get totalQtySize() {
-    var qtytot = 0;
-    if (this.data.sizes) {
-      for (var size of this.data.sizes) {
-        if (size.quantity) {
-          qtytot += size.quantity;
-        }
-      }
-    }
-    return qtytot;
-  }
-
-  get cmb() {
-    if (this.data.length && this.data.width && this.data.height && this.data.cartonQuantity)
-      return (this.data.length * this.data.width * this.data.height * this.data.cartonQuantity / 1000000).toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-    else
-      return "0";
-  }
-
-  lengthChanged(newValue) {
-    this.data.length = newValue;
-    this.updateMeasurements();
-  }
-
-  widthChanged(newValue) {
-    this.data.width = newValue;
-    this.updateMeasurements();
-  }
-
-  heightChanged(newValue) {
-    this.data.height = newValue;
-    this.updateMeasurements();
-  }
 
   updateMeasurements() {
     let measurementCartons = [];
@@ -265,25 +242,6 @@ export class Detail {
     // }
   }
 
-  carton1Changed(newValue) {
-    this.data.carton1 = newValue;
-    this.updateCartonQuantity();
-    this.updateTotalSummary();
-  }
-
-  updateCartonQuantity() {
-    this.data.cartonQuantity = 0;
-    if (this.data.carton1 && this.data.carton2) {
-      this.data.cartonQuantity = this.data.carton2 - this.data.carton1 + 1;
-    }
-    this.updateMeasurements();
-  }
-
-  carton2Changed(newValue) {
-    this.data.carton2 = newValue;
-    this.updateCartonQuantity();
-    this.updateTotalSummary();
-  }
 
   updateTotalSummary() {
     this.context.context.options.header.grossWeight = 0;
