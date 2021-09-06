@@ -146,9 +146,9 @@ export class DataForm {
 
         this.data.items = this.Items;
         if (this.isEdit) {
-            var ROs=this.data.items.map(item => item.roNo)
-                .filter((value, index, self) => self.indexOf(value) === index);
-            console.log(ROs);
+            // var ROs=this.data.items.map(item => item.roNo)
+            //     .filter((value, index, self) => self.indexOf(value) === index);
+            // console.log(ROs);
             let itemPromises = this.data.items.map((item) => {
                 return this.salesService.getCostCalculationByRO(item.roNo)
                     .then((ccg) => {
@@ -321,7 +321,6 @@ export class DataForm {
                     // }
                 }
                 no++;
-
             }
         }
         for (var u of units) {
