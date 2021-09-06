@@ -26,7 +26,9 @@
       <au-textbox show.bind="error.WarehousesProductionOrder" read-only.bind="true"
         value.bind="error.WarehousesProductionOrder" style="color: red;"></au-textbox>
       <br>
-     
+     <br>
+      <button show.bind="data.id" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+      <br>
       <br>
     <au-collection 
         class="adjTable" 

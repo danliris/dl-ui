@@ -58,6 +58,21 @@ module.exports = [
     },
 
     {
+        route: 'inventory/inventory-weaving-adj-documents',
+        name: 'inventory/inventory-weaving-adj-documents',
+        moduleId: 'modules/inventory/inventory-weaving-adj-document/index',
+        nav: true,
+        title: 'Adjustment Masuk/Keluar Gudang Weaving',
+        auth: true,
+        settings: {
+            group: "Inventory",
+            subGroup: "Gudang Weaving",
+            permission: { C9: 1, W1: 1, W2: 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
         route: 'inventory/receipt-note-greige-out',
         name: 'inventory/receipt-note-greige-out',
         moduleId: 'modules/inventory/reports/receipt-note-greige-out/index',
