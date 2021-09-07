@@ -94,6 +94,24 @@
       >
       </au-textbox>
     </td>
+    <td>
+      <au-textbox
+        value.bind="data.Barcode"
+        read-only.bind="true"
+        error.bind="error.Barcode"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.ProductionOrderDate"
+        read-only.bind="true"
+        error.bind="error.ProductionOrderDate"
+        options.bind="controlOptions"
+      >
+      </au-textbox>
+    </td>
   
    
     <!--<td>

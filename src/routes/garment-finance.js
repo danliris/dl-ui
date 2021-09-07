@@ -325,11 +325,11 @@ module.exports = [
     }
   },
   {
-    route: "garment-finance/bank-cash/bank-cash-receipt-details",
+    route: "garment-finance/bank-cash/bank-cash-receipt-details-memo",
     name: "bank-cash-receipt-details",
-    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
+    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details-memo/index",
     nav: true,
-    title: "Rincian Penerimaan Kas Bank",
+    title: "Memo Rincian Penerimaan Kas Bank",
     auth: true,
     settings: {
       group: "g-finance",
@@ -391,21 +391,6 @@ module.exports = [
     }
   },
   {
-    route: "garment-finance/bank-cash/bank-cash-receipt-details",
-    name: "bank-cash-receipt-details",
-    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
-    nav: true,
-    title: "Rincian Penerimaan Kas Bank",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      subGroup: "kas bank",
-      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
-      iconClass: "fa fa-dashboard",
-    }
-  },
-
-  {
     route: "garment-finance/memorials",
     name: "memorials",
     moduleId: "./modules/garment-finance/bank-cash/memorial/index",
@@ -456,6 +441,19 @@ module.exports = [
     settings: {
       group: "g-finance",
       subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/reports/export-sales-outstanding-report",
+    name: "export-sales-outstanding",
+    moduleId: "./modules/garment-finance/reports/export-sales-outstanding-report/index",
+    nav: true,
+    title: "Laporan Outstanding Penjualan Export ",
+    auth: true,
+    settings: {
+      group: "g-finance",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
