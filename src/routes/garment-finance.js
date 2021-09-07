@@ -432,6 +432,20 @@ module.exports = [
     }
   },
   {
+    route: "garment-finance/memorial-detail-local",
+    name: "memorial-details-local",
+    moduleId: "./modules/garment-finance/bank-cash/memorial-detail-local/index",
+    nav: true,
+    title: "Rincian Memorial - Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
     route: "garment-finance/reports/export-sales-outstanding-report",
     name: "export-sales-outstanding",
     moduleId: "./modules/garment-finance/reports/export-sales-outstanding-report/index",
@@ -443,5 +457,5 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-    }
+  },
 ]
