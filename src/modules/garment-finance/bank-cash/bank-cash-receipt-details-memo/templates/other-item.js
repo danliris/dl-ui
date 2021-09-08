@@ -6,6 +6,12 @@ import moment from 'moment';
 export class Item {
 	@bindable selectedAccount;
 
+	typeAmountSelection = [
+		{ id: 1, label: "Kredit", value: "KREDIT" },
+		{ id: 2, label: "Debit", value: "DEBIT" },
+	];
+
+
 	constructor(service, coreService, packingInventoryService) {
 		this.service = service;
 		this.coreService = coreService;
@@ -78,11 +84,9 @@ export class Item {
 
 			let dataCurrencies = await this.coreService.getCurrencies(args);
 
-			console.log("dataCurrencies", dataCurrencies);
 			var check = moment(this.header.BankCashReceiptDate, 'YYYY/MM/DD');
 
 			var month = check.format('M');
-			console.log(month);
 
 			let args2 = {
 				size: 10,
@@ -162,5 +166,15 @@ export class Item {
 		}
 		return 0;
 	}
+
+	selectedTypeAmountChanged(e) {
+		let type = (e.detail) ? e.detail : "";
+
+		if (type) {
+			this.data.TypeAmount = type;
+			this.options.TypeAmount = this.data.TypeAmount;
+		}
+	}
+
 
 }

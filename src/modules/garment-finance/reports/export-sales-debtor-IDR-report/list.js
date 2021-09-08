@@ -34,21 +34,30 @@ export class List {
         }
       },
        
-      { title: "Umur Piutang", colspan: 3 }
+      { title: "Umur Piutang", colspan: 5 }
     ],
-    [
+    [{
+      field: "normal", title: "Lancar", align: "right", formatter: function (value, data, index) {
+        return numeral(value).format("0,000.00");
+      }
+    },
       {
-        field: "lessThan", title: "< 30 hari", align: "right", formatter: function (value, data, index) {
+        field: "oneThirty", title: "1-30 hari", align: "right", formatter: function (value, data, index) {
           return numeral(value).format("0,000.00");
         }
       },
       {
-        field: "between", title: "31 -60 hari", align: "right", formatter: function (value, data, index) {
+        field: "thirtySixty", title: "31 -60 hari", align: "right", formatter: function (value, data, index) {
           return numeral(value).format("0,000.00");
         }
       },
       {
-        field: "moreThan", title: "> 60 hari", align: "right", formatter: function (value, data, index) {
+        field: "sixtyNinety", title: "61-90 hari", align: "right", formatter: function (value, data, index) {
+          return numeral(value).format("0,000.00");
+        }
+      },
+      {
+        field: "moreThanNinety", title: "> 90 hari", align: "right", formatter: function (value, data, index) {
           return numeral(value).format("0,000.00");
         }
       }

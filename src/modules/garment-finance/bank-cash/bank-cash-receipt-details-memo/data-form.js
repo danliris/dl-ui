@@ -21,6 +21,9 @@ export class DataForm {
 		editText: "Ubah",
 	}
 
+	filter = {
+		IsUsed: false
+	}
 
 	itemsColumns = [
 		{ header: "No Invoice" },
@@ -35,11 +38,12 @@ export class DataForm {
 
 	othersColumns = [
 		{ header: "No Account" },
-		{ header: "Nama Account" },
+		{ header: "Keterangan" },
 		{ header: "Kurs" },
 		{ header: "Rate" },
 		{ header: "Jumlah" },
 		{ header: "Total IDR" },
+		{ header: "Tipe Biaya" },
 		{ header: "" },
 	]
 
@@ -53,7 +57,7 @@ export class DataForm {
 		this.dialog = dialog;
 	}
 
-	bind(context) {
+	async bind(context) {
 		this.context = context;
 		this.data = this.context.data;
 		this.error = this.context.error;
@@ -72,8 +76,23 @@ export class DataForm {
 				Id: this.data.BankCashReceiptId,
 				ReceiptNo: this.data.BankCashReceiptNo,
 				ReceiptDate: this.data.BankCashReceiptDate,
+				Amount: this.data.Amount,
 			};
 		}
+		if (this.context.isCreate) {
+			let args = {
+				size: 10,
+				filter: JSON.stringify({ "Code": "1103.00.5.00" }),
+			}
+			let dataCoa = await this.service.getChartOfAccounts(args);
+			if (dataCoa.data.length > 0) {
+				this.data.InvoiceCoa = dataCoa.data[0];
+				this.data.DebitCoa = dataCoa.data[0];
+			}
+
+		}
+
+
 	}
 
 	get addItems() {
@@ -112,19 +131,20 @@ export class DataForm {
 	}
 
 	selectedKwitansiChanged(newValue, oldValue) {
-		this.data.TotalAmount=0;
-		if(newValue){
-			if(newValue.Items){
-				for(var item of newValue.Items){
-					this.data.TotalAmount+=item.Amount;
+		this.data.TotalAmount = 0;
+		if (newValue) {
+			if (newValue.Items) {
+				for (var item of newValue.Items) {
+					this.data.TotalAmount += item.Amount;
 				}
 			}
 			this.data.BankCashReceiptNo = newValue.ReceiptNo;
 			this.data.BankCashReceiptId = newValue.Id;
 			this.data.BankCashReceiptDate = newValue.ReceiptDate;
+			this.data.Amount = newValue.Amount;
 		}
-		
-		
+
+
 	}
 
 
