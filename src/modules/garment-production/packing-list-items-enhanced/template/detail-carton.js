@@ -296,4 +296,9 @@ export class Detail {
 		console.log(newValue);
 		console.log("quantities", this.quantities);
 	}
+
+	get quantityPCS() {
+		this.data.quantityPCS = this.data.sizes.reduce((acc, cur) => acc += cur.quantity, 0);
+		return this.data.quantityPCS;
+	}
 }
