@@ -29,7 +29,7 @@
 			</au-numeric>
 		</td>
 		<td class="bg-primary">
-			<radiobutton checked.bind="data.TypeAmount" error.bind="error.TypeAmount"
+			<radiobutton value.bind="data.TypeAmount" error.bind="error.TypeAmount"
 				selections.bind="typeAmountSelection" read-only.bind="readOnly"
 				change.delegate="selectedTypeAmountChanged($event)" options.bind="controlOptions">
 			</radiobutton>
