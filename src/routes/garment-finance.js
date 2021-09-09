@@ -445,5 +445,18 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
+  },
+  {
+    route: "garment-finance/report/bank-cash-receipt-monthly-recap",
+    name: "bank-cash-receipt-monthly-recap",
+    moduleId: "./modules/garment-finance/bank-cash/report/bank-cash-receipt-monthly-recap/index",
+    nav: true,
+    title: "Rekap Memo per Bulan",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
   }
 ]
