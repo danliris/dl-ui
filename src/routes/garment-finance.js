@@ -409,7 +409,7 @@ module.exports = [
     name: "memorial-details",
     moduleId: "./modules/garment-finance/bank-cash/memorial-detail/index",
     nav: true,
-    title: "Rincian Memorial",
+    title: "Rincian Memorial - Export",
     auth: true,
     settings: {
       group: "g-finance",
