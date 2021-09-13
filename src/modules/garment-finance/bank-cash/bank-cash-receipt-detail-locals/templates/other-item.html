@@ -25,14 +25,16 @@
 			</au-numeric>
 		</td>
 		<td>
-			<radiobutton checked.bind="data.TypeAmount" error.bind="error.TypeAmount"
+			<radiobutton value.bind="data.TypeAmount" error.bind="error.TypeAmount"
 				selections.bind="typeAmountSelection" read-only.bind="readOnly"
 				change.delegate="selectedTypeAmountChanged($event)" options.bind="controlOptions">
 			</radiobutton>
 		</td>
+		<td if.bind="readOnly"></td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
 		</td>
+		<td if.bind="!readOnly"></td>
 
 	</tr>
 </template>
