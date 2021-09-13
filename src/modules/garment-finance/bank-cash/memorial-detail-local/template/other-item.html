@@ -30,6 +30,7 @@
 				change.delegate="selectedTypeAmountChanged($event)" options.bind="controlOptions">
 			</radiobutton>
 		</td>
+		<td if.bind="readOnly"></td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
 		</td>
