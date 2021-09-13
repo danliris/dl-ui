@@ -80,8 +80,10 @@ export class DataForm {
 		}
 
 		if (this.data) {
-			let items = await this.service.getMemorialById(this.data.MemorialId);
-			this.selectedMemorial = items;
+			if (this.data.MemorialId) {
+				let items = await this.service.getMemorialById(this.data.MemorialId);
+				this.selectedMemorial = items;
+			}
 		}
 
 		let args = {
@@ -101,9 +103,12 @@ export class DataForm {
 			if (newValue.Items) {
 				this.data.TotalAmount = newValue.Items.reduce((acc, cur) => acc += cur.Credit, 0);
 				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1103.00.0.00");
-				this.credit = amount.Credit;
-				this.amountIDR = this.credit * newValue.GarmentCurrency.Rate;
-				this.data.Amount = this.amountIDR;
+				if (amount) {
+					this.credit = amount.Credit;
+					this.amountIDR = this.credit * newValue.GarmentCurrency.Rate;
+					this.data.Amount = this.amountIDR;
+
+				}
 			}
 
 			this.data.MemorialDate = newValue.Date;
