@@ -1,27 +1,21 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
-let DOSalesLoader = require("../../../../loader/do-stock-dyeingprinting-loader");
 
 export class ProductionOrderItem {
   @bindable product;
 
-  // isAval = false;
-  // remarks = [];
   packingItems = [];
   packUnit = ["ROLL", "PIECE", "POTONGAN"];
   remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.context);
-    this.data.productPackingCodeList = this.getProductPackingCodeList(this.data.productPackingCode);
+    console.log('fad',this.data);
+    
     this.error = context.error;
-    this.isShowing = false;
     //this.items = this.context.context.items;
     // console.log(this.error);
     this.options = context.options;
-    this.contextOptions = context.context.options;
-    this.isEdit = this.contextOptions.isEdit;
-    this.destinationArea = this.contextOptions.destinationArea;
+    
     this.isTransit = this.destinationArea == "TRANSIT";
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
@@ -45,10 +39,6 @@ export class ProductionOrderItem {
     if (this.data.quantity) {
       this.qty = this.data.quantity;
     }
-
-    this.barcodeColumns = [
-      "Kode Packing"
-    ];
   }
 
   controlOptions = {
@@ -56,10 +46,6 @@ export class ProductionOrderItem {
       length: 12
     }
   };
-
-  get doSalesLoader() {
-    return DOSalesLoader;
-  }
 
   doSalesQuery = { DOSalesCategory: "DYEINGPRINTING" };
 
@@ -100,29 +86,4 @@ export class ProductionOrderItem {
     if (!this.isShowing) this.isShowing = true;
     else this.isShowing = !this.isShowing;
   }
-
-  getProductPackingCodeList(productPackingCode) {
-    if(productPackingCode !== null && productPackingCode !== ""){
-      return productPackingCode.split(',').map(d => {
-        return {
-          packingCode: d
-        }
-      });
-    }
-    return [];
-  }
-  // copycallback(item){
-  //   console.log(item);
-  //   var itemIndex = this.items.indexOf(item);
-  //   // console.log(item);
-  //   var objCopy = Object.assign({}, item);
-  //   delete objCopy.id;
-  //   delete objCopy.Id;
-  //   this.context.context.items.splice(itemIndex + 1, 0, objCopy);
-
-  //   if(this.errors && this.errors.length > 0) {
-  //     var error = Object.assign({}, this.errors[itemIndex]);
-  //     this.errors.splice(itemIndex + 1, 0, error);
-  //   }
-  // }
 }
