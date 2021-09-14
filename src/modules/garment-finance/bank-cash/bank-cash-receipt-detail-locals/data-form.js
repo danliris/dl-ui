@@ -23,7 +23,7 @@ export class DataForm {
 
 	filter = {
 		IsUsed: false,
-		IncomeType: "PENJUALAN LOKAL"
+		BankCashReceiptTypeName: "PENJUALAN LOKAL"
 	}
 
 	itemsColumns = [
