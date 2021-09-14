@@ -329,7 +329,7 @@ module.exports = [
     name: "bank-cash-receipt-details",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details-memo/index",
     nav: true,
-    title: "Memo Rincian Penerimaan Kas Bank - Export",
+    title: "Rincian Penerimaan Kas Bank - Export",
     auth: true,
     settings: {
       group: "g-finance",
