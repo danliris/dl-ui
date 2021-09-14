@@ -40,18 +40,28 @@ export class Item {
 		var header = context.context.options.header;
 		this.isIdxZero = true;
 		if (!this.data.Id) {
-			this.selectedNoAcc = {
-				Id: header.BankCashReceiptType.COAId,
-				Code: header.BankCashReceiptType.COACode,
-				Name: header.BankCashReceiptType.COAName,
-			};
-			this.data.AccNumber = this.selectedNoAcc;
 
-			let idx = header.Items.findIndex(x => x.AccNumber == this.data.AccNumber);
-			if (idx != 0) {
-				this.data.AccNumber = null;
-				this.selectedNoAcc = null;
-				this.isIdxZero = false;
+			if (this.data.AccNumber == null) {
+				this.selectedNoAcc = {
+					Id: header.BankCashReceiptType.COAId,
+					Code: header.BankCashReceiptType.COACode,
+					Name: header.BankCashReceiptType.COAName,
+				};
+
+				this.data.AccNumber = this.selectedNoAcc;
+
+				let idx = header.Items.findIndex(x => x.AccNumber == this.selectedNoAcc);
+				if (idx != 0) {
+					this.data.AccNumber = null;
+					this.selectedNoAcc = null;
+					this.isIdxZero = false;
+				}
+			} else {
+				this.selectedNoAcc = this.data.AccNumber || null;
+				let idx = header.Items.findIndex(x => x.AccNumber == this.selectedNoAcc);
+				if (idx != 0) {
+					this.isIdxZero = false;
+				}
 			}
 
 		} else {
