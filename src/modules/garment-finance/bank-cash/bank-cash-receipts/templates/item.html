@@ -3,7 +3,7 @@
 		<td class="bg-primary">
 			<au-autocomplete value.bind="selectedNoAcc" error.bind="error.NoAcc"
 				loader.bind="chartOfAccountLoader" text.bind="chartOfAccountView"
-				placeholder="Cari No Acc" read-only.bind="true">
+				placeholder="Cari No Acc" read-only.bind="readOnly || isIdxZero">
 			</au-autocomplete>
 		</td>
 		<td class="bg-primary">
