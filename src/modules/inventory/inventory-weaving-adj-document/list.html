@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Pencatatan Keluar Gudang Greige Weaving</h1>
+  <h1 class="page-header">Pencatatan Adjustment Gudang Greige Weaving</h1>
   <au-table
     data.bind="loader"
     columns.bind="columns"
@@ -11,7 +11,7 @@
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
       <button class="btn btn-primary" click.delegate="getExcel()">Download Csv</button>
-      <button class="btn btn-default" click.delegate="upload()">Unggah Csv</button>
+      
     </div>
   </au-table>
 </template>

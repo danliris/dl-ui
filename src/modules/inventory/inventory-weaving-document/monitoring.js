@@ -44,7 +44,16 @@ export class Create {
     { field: "Grade", title: "Grd", sortable: false},
     //{ field: "Piece", title: "Piece", sortable: false},
     { field: "Quantity", title: "Jml. Meter", sortable: false},
-    { field: "QuantityPiece", title: "Jml. Piece", sortable: false}
+    { field: "QuantityPiece", title: "Jml. Piece", sortable: false},
+    { field: "Barcode", title: "Barcode", sortable: false},
+    { 
+        field: "ProductionOrderDate", 
+        title: "Tgl Order Produksi", 
+        sortable: false,
+        formatter: function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
+        },
+    },
   ];
 
 
@@ -69,12 +78,13 @@ search() {
 
 
 reset(){
-    this.fromList = undefined;
-    this.dateFrom = undefined;
-    this.dateTo = undefined;
-
-    this.error = {};
-    this.flag = false;
+    this.fromList = null;
+    this.dateFrom = null;
+    this.dateTo = null;
+    this.data = [];
+    this.info.page = 1;
+    // this.error = {};
+    // this.flag = false;
 }
 
   loader = (info) => {
@@ -87,10 +97,9 @@ reset(){
     let args = {
         page: parseInt(info.offset / info.limit, 10) + 1,
         size: info.limit,
-        fromList: this.from,
-        dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
+        bonType: this.from,
         dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
-        
+        dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
     };
     console.log(this.fromList);
     console.log(args);
