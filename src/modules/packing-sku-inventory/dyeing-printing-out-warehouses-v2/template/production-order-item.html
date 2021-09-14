@@ -88,7 +88,7 @@
       </au-numeric>
     </td>
     <td>
-      <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
+      <au-numeric value.bind="qtyPacking * qty" format="0.00" read-only.bind="true" error.bind="error.Balance"
         options.bind="controlOptions">
       </au-numeric>
     </td>
@@ -105,8 +105,13 @@
   <tr if.bind="isShowing">
     <!-- <td show.bind="!readOnly"></td> -->
     <td colspan="14">
-      <au-collection columns.bind="barcodeColumns" items.bind="data.productPackingCodeList" read-only.bind="readOnly"
+      <au-collection 
+        columns.bind="barcodeColumns" 
+        items.bind="data.productPackingCodeList" 
+        read-only.bind="readOnly"
+        options.bind="listOptions"
         errors.one-way="error.BarcodeList"
+        callback.call="someCallbackFunction()"
         item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item-barcode"
         header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item-barcode-header">
       </au-collection>

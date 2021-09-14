@@ -1,10 +1,10 @@
 <template >  
   <tr>
-      <th show.bind="!readOnly && !isEdit">
+      <th show.bind="!readOnly">
           <au-checkbox 
               value.bind="options.checkedAll"
               disabled.bind="readOnly"
-              change.delegate=changeCheckedAll()>
+              change.delegate=changeCheckedAll(items,options)>
           </au-checkbox>
       </th>
       <th repeat.for="column of columns">

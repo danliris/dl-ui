@@ -12,8 +12,7 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.context);
-    this.data.productPackingCodeList = this.getProductPackingCodeList(this.data.productPackingCode);
+    this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
     this.isShowing = false;
     //this.items = this.context.context.items;
@@ -23,6 +22,10 @@ export class ProductionOrderItem {
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
     this.isTransit = this.destinationArea == "TRANSIT";
+    this.listOptions = {
+      isEdit: this.isEdit,
+      destinationArea: this.destinationArea
+    };
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
@@ -34,7 +37,9 @@ export class ProductionOrderItem {
     if (this.data.id == null){
       this.data.isremovable = true;
     }
-    if (this.data.packagingQty) {
+    
+    //view detail
+    if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
     }
 
@@ -101,9 +106,11 @@ export class ProductionOrderItem {
     else this.isShowing = !this.isShowing;
   }
 
-  getProductPackingCodeList(productPackingCode) {
-    if(productPackingCode !== null && productPackingCode !== ""){
-      return productPackingCode.split(',').map(d => {
+  getProductPackingCodeList(data) {
+    const productPackingCodeRemains = data.productPackingCodeRemains != null ? data.productPackingCodeRemains : data.productPackingCode;
+
+    if(productPackingCodeRemains !== null && productPackingCodeRemains !== ""){
+      return productPackingCodeRemains.split(',').map(d => {
         return {
           packingCode: d
         }
@@ -111,6 +118,10 @@ export class ProductionOrderItem {
     }
     return [];
   }
+
+  someCallbackFunction() {
+    this.qtyPacking = this.data.productPackingCodeList.filter(d => d.IsSave).length;
+  };
   // copycallback(item){
   //   console.log(item);
   //   var itemIndex = this.items.indexOf(item);
