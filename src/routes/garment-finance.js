@@ -432,6 +432,20 @@ module.exports = [
     }
   },
   {
+      route: "garment-finance/local-sales-note-approval",
+      name: "garment-finance/local-sales-note-approval",
+      moduleId: "modules/garment-finance/local-sales-note-approval/index",
+      nav: true,
+      title: "Approval Penjualan Lokal",
+      auth: true,
+      settings: {
+          group: "g-finance",
+          subGroup: "approval",
+          permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+          iconClass: "fa fa-dashboard"
+      }
+  },
+  {
     route: "garment-finance/bank-cash/bank-cash-receipt-detail-locals",
     name: "bank-cash-receipt-detail-locals",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-detail-locals/index",
