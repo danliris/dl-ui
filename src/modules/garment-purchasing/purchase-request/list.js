@@ -9,7 +9,10 @@ export class List {
   context = ["Rincian"]
 
   columns = [
-    { field: "SectionName", title: "Seksi"},
+    { field: "SectionName", title: "Seksi"},  
+    { field: "MDStaff", title: "Nama Staff MD", formatter:function(value, data, index){
+      return value != null ? value : "-"
+    }},
     // { field: "MDStaff", title: "Merchandiser"},
     { field: "PRNo", title: "Nomor PR" },
     {
