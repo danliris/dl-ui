@@ -77,7 +77,7 @@ export class DataForm {
 		if (this.context.isCreate) {
 			let args = {
 				size: 10,
-				filter: JSON.stringify({ "Code": "1101.00.0.00" }),
+				filter: JSON.stringify({ "Code": "1101.00.4.00" }),
 			}
 			let dataCoa = await this.service.getChartOfAccounts(args);
 			if (dataCoa.data.length > 0) {
