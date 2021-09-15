@@ -116,7 +116,27 @@ export class Create {
           if(this.data.warehousesProductionOrders[i].id == null){
             this.data.warehousesProductionOrders[i].id = this.data.warehousesProductionOrders[i-1].id
           }
+
+          if(this.data.warehousesProductionOrders[i].IsSave){
+            var newProductPackingCode = "";
+            var productPackingCodeList = this.data.warehousesProductionOrders[i].productPackingCodeList.filter(c => c.IsSave);
+            for (var j = 0; j < productPackingCodeList.length; j++){
+              if(productPackingCodeList.length - 1 === j){
+                newProductPackingCode += productPackingCodeList[j].packingCode;
+              }else{
+                newProductPackingCode += productPackingCodeList[j].packingCode + ",";
+              }
+            }
+
+            if(newProductPackingCode === ""){
+              alert("Belum ada kode packing yang dipilih");
+              return;
+            }else{
+              this.data.warehousesProductionOrders[i].productPackingCode = newProductPackingCode;
+            }
+          }
         }
+
       } else {
         this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
       }
