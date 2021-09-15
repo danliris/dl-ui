@@ -115,7 +115,7 @@ export class DataForm {
 				for (var item of newValue.Items) {
 					this.data.TotalAmount += item.Credit;
 				}
-				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1103.00.0.00");
+				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1103.00.5.00");
 				this.data.Amount = amount.Credit;
 				this.amountIDR = this.data.Amount * newValue.GarmentCurrency.Rate;
 			}
