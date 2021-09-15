@@ -618,8 +618,8 @@ export class DataForm {
                         }
                         this.data.garmentShippingInvoiceUnits.push(percents[i]);
                     }
-                    console.log("data-form1");
-                    console.log(tempArray);
+                    //console.log("data-form1");
+                    //console.log(tempArray);
                 }
             }
         }
