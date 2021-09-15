@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const EPOLoader = require('../../../../loader/garment-purchase-order-external-simply-loader');
+const EPOLoader = require('../../../../loader/garment-purchase-order-external-simply-str-loader');
 
 var moment = require('moment');
 

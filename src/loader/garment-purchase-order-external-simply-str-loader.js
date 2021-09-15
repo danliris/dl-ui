@@ -7,7 +7,7 @@ module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("purchasing-azure");
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10, supplierId: filter.supplierId, currencyCode: filter.currencyCode, paymentType: filter.paymentType })
         .then(results => {
             return results.data.map(purchaseOrderExternal => {
                 purchaseOrderExternal.toString = function () {
