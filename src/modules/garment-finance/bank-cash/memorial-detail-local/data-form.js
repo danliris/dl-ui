@@ -88,7 +88,7 @@ export class DataForm {
 
 		let args = {
 			size: 1,
-			filter: JSON.stringify({ "Code": "1101.00.0.00" }),
+			filter: JSON.stringify({ "Code": "1101.00.4.00" }),
 		}
 		let dataCoa = await this.service.getChartOfAccounts(args);
 		if (dataCoa.data.length > 0) {
@@ -102,7 +102,7 @@ export class DataForm {
 		if (newValue) {
 			if (newValue.Items) {
 				this.data.TotalAmount = newValue.Items.reduce((acc, cur) => acc += cur.Credit, 0);
-				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1103.00.0.00");
+				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1101.00.4.00");
 				if (amount) {
 					this.credit = amount.Credit;
 					this.amountIDR = this.credit * newValue.GarmentCurrency.Rate;
