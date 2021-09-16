@@ -27,6 +27,12 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/approve-shipping/${data.id}`;
         return super.put(endpoint, data);
     }
+
+    reject(data) {
+        var endpoint = `${serviceUri}/reject-shipping/${data.id}`;
+        return super.put(endpoint, data);
+    }
+
     getSCById(id) {
         var endpoint = `${serviceUriSC}/${id}`;
         return super.get(endpoint);
