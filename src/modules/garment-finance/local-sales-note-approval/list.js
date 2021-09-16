@@ -34,7 +34,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ IsApproveShipping:true, IsUsed:true, IsApproveFinance:false})
+            filter: JSON.stringify({ IsApproveShipping:true, IsUsed:true, IsApproveFinance:false,IsRejectedShipping:false, isRejectedFinance:false})
         }
 
         return this.service.search(arg)

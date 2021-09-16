@@ -6,7 +6,8 @@
 
                 <div slot="actions" class="btn-group">
                     <button class="btn btn-success" click.delegate="context.approve()" if.bind="context.approve">Approve</button>
-                    <button class="btn btn-danger" click.delegate="context.cancel()" if.bind="context.cancel">Cancel</button>
+                    <button class="btn btn-danger" click.delegate="context.reject()" if.bind="context.reject">Reject</button>
+                    <button class="btn" click.delegate="context.cancel()" if.bind="context.cancel">Cancel</button>
                 </div>
                 
                 <au-textbox label="No Nota Penjualan" value.bind="data.noteNo" read-only="true"

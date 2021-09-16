@@ -1,13 +1,16 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { RejectDialog } from "../packing-list-approval/template/dialog/reject";
+import { Dialog } from "../../../au-components/dialog/dialog";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
 
-    constructor(router, service) {
+    constructor(router, service,dialog) {
         this.router = router;
         this.service = service;
+        this.dialog=dialog;
     }
 
     async activate(params) {
@@ -28,6 +31,33 @@ export class View {
                 this.cancel(event);
             });
         }
+    }
+
+    reject(event) {
+        this.dialog.show(RejectDialog, { title: "Alasan Reject" })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.data.rejectedReason=response.output;
+                    if(response.output.trim()=="" || response.output==null){
+                        alert('Alasan Reject Harus Diisi');
+                    }
+                    else{
+                        this.service.reject(this.data)
+                        .then(result => {
+                            alert('Nota Penjualan Lokal berhasil diReject');
+                            this.cancel(event);
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Reject dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                    }
+                    
+                }
+            });
     }
 
 }

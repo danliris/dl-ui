@@ -3,7 +3,8 @@
         <div class="col-sm-12">
 
             <au-input-form title.bind="title" with.bind="context">
-
+                <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+                
                 <au-textbox label="No Nota Penjualan" value.bind="data.noteNo" read-only="true"
                     options.bind="controlOptions" if.bind="readOnly || isEdit">
                 </au-textbox>
