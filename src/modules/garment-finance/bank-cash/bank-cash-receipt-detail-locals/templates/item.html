@@ -27,9 +27,11 @@
 			<au-numeric value.bind="data.Amount" error.bind="error.Amount" read-only.bind="readOnly">
 			</au-numeric>
 		</td>
+		<td if.bind="readOnly"></td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
 		</td>
+		<td if.bind="!readOnly"></td>
 
 	</tr>
 </template>

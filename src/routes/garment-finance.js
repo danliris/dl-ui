@@ -329,7 +329,7 @@ module.exports = [
     name: "bank-cash-receipt-details",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details-memo/index",
     nav: true,
-    title: "Memo Rincian Penerimaan Kas Bank",
+    title: "Rincian Penerimaan Kas Bank - Export",
     auth: true,
     settings: {
       group: "g-finance",
@@ -409,7 +409,7 @@ module.exports = [
     name: "memorial-details",
     moduleId: "./modules/garment-finance/bank-cash/memorial-detail/index",
     nav: true,
-    title: "Rincian Memorial",
+    title: "Rincian Memorial - Export",
     auth: true,
     settings: {
       group: "g-finance",
@@ -430,6 +430,20 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
+  },
+  {
+      route: "garment-finance/local-sales-note-approval",
+      name: "garment-finance/local-sales-note-approval",
+      moduleId: "modules/garment-finance/local-sales-note-approval/index",
+      nav: true,
+      title: "Approval Penjualan Lokal",
+      auth: true,
+      settings: {
+          group: "g-finance",
+          subGroup: "approval",
+          permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+          iconClass: "fa fa-dashboard"
+      }
   },
   {
     route: "garment-finance/bank-cash/bank-cash-receipt-detail-locals",

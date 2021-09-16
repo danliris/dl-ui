@@ -40,7 +40,7 @@ export class List {
 		if (info.sort)
 			order[info.sort] = info.order;
 		else
-			order["BankCashReceiptDate"] = "desc";
+			order["CreatedUtc"] = "desc";
 
 		let arg = {
 			page: parseInt(info.offset / info.limit, 10) + 1,

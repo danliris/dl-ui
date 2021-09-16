@@ -92,12 +92,14 @@ export class OtherItem {
 				size: 10,
 				filter: JSON.stringify({
 					"Month": month,
-					"Currency.Id": dataCurrencies.data[0].Id
+					"Currency.Code": dataCurrencies.data[0].Code
 				})
 			};
 
 
 			let dataIbCurrencies = await this.coreService.getIBCurrencies(args2);
+			console.log("currencies", dataCurrencies);
+			console.log("ibCurrencies", dataIbCurrencies);
 			this.data.Currency = {
 				Id: dataCurrencies.data[0].Id,
 				Code: dataCurrencies.data[0].Code,

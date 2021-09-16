@@ -22,7 +22,8 @@ export class DataForm {
 	}
 
 	filter = {
-		IsUsed: false
+		IsUsed: false,
+		BankCashReceiptTypeName: "PENJUALAN EKSPOR"
 	}
 
 	itemsColumns = [

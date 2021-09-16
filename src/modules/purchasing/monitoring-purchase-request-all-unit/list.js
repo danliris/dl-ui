@@ -7,6 +7,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 var PRLoader = require('../../../loader/purchase-request-all-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
+var ProductLoader = require('../../../loader/product-purchasing-null-tags-loader');
 
 @inject(Service)
 
@@ -90,6 +91,7 @@ export class List {
         this.budget = null;
         this.poStatus = "";
         this.prStatus = "";
+        this.dataProduct = null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
@@ -111,6 +113,7 @@ export class List {
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
+            productId: this.dataProduct ? this.dataProduct.Id: "",
             prStatus: this.prStatus,
             poStatus: this.poStatus,
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
@@ -147,6 +150,7 @@ export class List {
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
+            productId: this.dataProduct ? this.dataProduct.Id: "",
             prStatus: this.prStatus,
             poStatus: this.poStatus,
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
@@ -176,6 +180,10 @@ export class List {
     get budgetLoader() {
         return BudgetLoader;
     }
+
+    get productLoader() {
+        return ProductLoader;
+      }
 
     prView = (tr) => {
       return `${tr.no}`;

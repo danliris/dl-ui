@@ -267,6 +267,7 @@ export class Item {
 				height: lastDetail ? lastDetail.height : 0,
 				index: lastIndex ? lastIndex : 1,
 				sizes: allSizes.map(x => {
+					x.id = 0;
 					x.quantity = 0;
 					return x;
 				}),
