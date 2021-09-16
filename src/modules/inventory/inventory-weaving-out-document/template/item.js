@@ -31,7 +31,7 @@ export class Item {
         
         "Qty Piece Keluar",
         "Qty Keluar",
-        "Barcode"
+        //"Barcode"
       ];
     } else {
       this.itemColumns = [
