@@ -112,6 +112,7 @@ export class Create {
           })
         });
         this.data.warehousesProductionOrders = sppWarehouseList;
+        
         for(var i = 0; i < this.data.warehousesProductionOrders.length; i++){
           if(this.data.warehousesProductionOrders[i].id == null){
             this.data.warehousesProductionOrders[i].id = this.data.warehousesProductionOrders[i-1].id
@@ -129,10 +130,19 @@ export class Create {
             }
 
             if(newProductPackingCode === ""){
-              alert("Belum ada kode packing yang dipilih");
+              alert("Terdapat data yang kode packingnya belum dipilih");
               return;
             }else{
               this.data.warehousesProductionOrders[i].productPackingCode = newProductPackingCode;
+            }
+            
+            if(i > 0 && this.data.warehousesProductionOrders[i].id === this.data.warehousesProductionOrders[i-1].id){
+              var previousProductPackingCodeList = this.data.warehousesProductionOrders[i-1].productPackingCodeList.filter(c => c.IsSave);
+              const haveCommonCode = this.findCommonElements(previousProductPackingCodeList.map(d => d.packingCode), productPackingCodeList.map(d => d.packingCode));
+              if(haveCommonCode){
+                alert("Terdapat duplikasi pada kode packing yang dipilih");
+                return;
+              }
             }
           }
         }
@@ -161,5 +171,22 @@ export class Create {
           }
         });
     }
+  }
+
+  findCommonElements(arr1, arr2) {      
+    let obj = {};
+    for (let i = 0; i < arr1.length; i++) {
+      if(!obj[arr1[i]]) {
+        const element = arr1[i];
+        obj[element] = true;
+        }
+      }
+      
+      for (let j = 0; j < arr2.length ; j++) {
+        if(obj[arr2[j]]) {
+            return true;
+        }
+    }
+    return false;
   }
 }
