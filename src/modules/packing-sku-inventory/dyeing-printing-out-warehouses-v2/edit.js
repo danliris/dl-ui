@@ -58,20 +58,16 @@ export class Edit {
                 }
     
                 this.data.warehousesProductionOrders[i].productPackingCode = newProductPackingCode;
-
-                if(i > 0 && this.data.warehousesProductionOrders[i].id === 0){
-                    var previousProductPackingCodeList = this.data.warehousesProductionOrders[i-1].productPackingCodeList.filter(c => c.IsSave);
-                    
-                    const haveCommonCode = this.findCommonElements(previousProductPackingCodeList.map(d => d.packingCode), productPackingCodeList.map(d => d.packingCode));
-                    if(haveCommonCode){
-                        alert("Terdapat duplikasi pada kode packing yang dipilih");
-                        return;
-                    }
-                }
             }
             
             this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(d => d.productPackingCode !== '');
-            
+                
+            const haveCommonCode = this.findCommonElements(this.data.warehousesProductionOrders);
+            if(haveCommonCode){
+                alert("Terdapat duplikasi pada kode packing yang dipilih");
+                return;
+            }
+
             if(countSelectedPack === 0){
                 alert("Belum ada kode packing yang dipilih");
                 return;
@@ -87,19 +83,27 @@ export class Edit {
         })
     }
 
-    findCommonElements(arr1, arr2) {      
-        let obj = {};
-        for (let i = 0; i < arr1.length; i++) {
-          if(!obj[arr1[i]]) {
-            const element = arr1[i];
-            obj[element] = true;
+    findCommonElements(savedDataList) {      
+        let packCodeList = [];
+        let savedDataListLength = savedDataList.length;
+        for(let i = 0; i < savedDataListLength; i++){
+          let savedPackingCodeList = savedDataList[i].productPackingCodeList.filter(c => c.IsSave);
+    
+          if(packCodeList.length === 0){
+            packCodeList = savedPackingCodeList.map(d => d.packingCode);
+          }else{
+            let l = savedPackingCodeList.length;
+
+          console.log(packCodeList.toString());
+          console.log(savedPackingCodeList.map(d => d.packingCode).toString());
+            for(let j = 0; j < l; j++){
+              if(packCodeList.includes(savedPackingCodeList[j].packingCode)){
+                return true;
+              }else{
+                packCodeList.push(savedPackingCodeList[j].packingCode);
+              }
             }
           }
-          
-          for (let j = 0; j < arr2.length ; j++) {
-            if(obj[arr2[j]]) {
-                return true;
-            }
         }
         return false;
       }
