@@ -43,7 +43,7 @@ export class Upload {
         }else {
             formData.append("fileUpload", fileList[0]);
             formData.append("date", date);
-            formData.append("destination", destination);
+            //formData.append("destination", destination);
 
             var endpoint = 'output-inventory-weaving/upload-output';
             var request = {
