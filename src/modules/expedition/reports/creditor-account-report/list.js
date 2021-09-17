@@ -93,13 +93,17 @@ export class List {
         let subTotalPayment = 0;
         for (var item of result.data) {
           if (item.Date && item.Mutation) {
-            if (item.Mutation > 0) {
-              subTotalPurchase += item.Mutation;
-              this.purchase += item.Mutation;
-            } else {
-              subTotalPayment += item.Mutation;
-              this.payment += item.Mutation;
-            }
+            subTotalPurchase += item.Mutation;
+            this.purchase += item.Mutation;
+            subTotalPayment += item.MutationPayment;
+            this.payment += item.MutationPayment;
+            // if (item.Mutation > 0) {
+            //   subTotalPurchase += item.Mutation;
+            //   this.purchase += item.Mutation;
+            // } else {
+            //   subTotalPayment += item.Mutation;
+            //   this.payment += item.Mutation;
+            // }
 
             var newData = {
               Date: item.Date ? moment(item.Date).format("DD-MMM-YYYY") : null,
@@ -121,8 +125,8 @@ export class List {
                   "0,000.00"
                 )
                 : 0,
-              Payment: item.Mutation
-                ? numeral(item.Mutation < 0 ? item.Mutation : 0).format(
+              Payment: item.MutationPayment
+                ? numeral(item.MutationPayment < 0 ? item.MutationPayment : 0).format(
                   "0,000.00"
                 )
                 : 0,
