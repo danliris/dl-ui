@@ -75,8 +75,9 @@ export class Item {
       "Jumlah Piece",
       "Total",
       "Satuan",
-      "Keterangan"
-
+      "Keterangan",
+      //"Barcode",
+      //"Tanggal Produksi"
     
     ];
   }

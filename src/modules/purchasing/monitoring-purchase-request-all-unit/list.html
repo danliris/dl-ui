@@ -66,6 +66,17 @@
             options.bind="controlOptions"
             items.bind="poStatuses">
         </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="dataProduct"
+            label="Nama Barang" 
+            error.bind="error.product"
+            loader.bind="productLoader"
+            placeholder="cari barang" 
+            key="code"
+            read-only.bind="options.readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
         
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>

@@ -41,7 +41,8 @@ export class List {
             },
         },
         
-        { field: "Items", title: "Kode Barang", sortable: false },
+        // { field: "Items", title: "Kode Barang", sortable: false },
+        { field: "Products", title: "Kode Barang", sortable: false },
     ]
 
     loader = (info) => {
@@ -63,30 +64,44 @@ export class List {
         .then(result => {
             this.totalQuantity=result.info.totalQty;
             var data = {};
+            //console.log(result.data);
             data.total = result.info.total;
             data.data = result.data;
-            data.data.forEach(s => {
-                s.UnitCode=s.Unit.Code;
-                s.UnitFromCode=s.UnitFrom.Code;
-                if(s.Items){
-                s.Items.toString = function () {
-                    var str = "<ul>";
-                    var products = [];
-                    for (var item of s.Items) {
-                        products.push(item.Product.Code)
-                    }
-                    var Products = products.filter(distinct);
-                    for(var product of Products){
-                    str += `<li>${product}</li>`;
-                    }
-                    str += "</ul>";
-                    return str;
-                        }
-                }
-                else{
-                s.Items = "-";
-                }
-            });
+            //Enhance Jason Aug 2021
+             data.data.forEach(s => 
+                {
+                   var arrProductCode = s.Products.split(",");
+                   var arrUniqueProductCode = arrProductCode.filter((value, index, array) => array.indexOf(value) === index);
+                   //console.log(arrUniqueProductCode);
+                   var strProductCode = "<ul>";
+                   for(var item of arrUniqueProductCode)
+                   {
+                    strProductCode += "<li>" + item + "</li>";
+                   }
+                   strProductCode += "</ul>";
+                   //console.log(strProductCode);
+                   s.Products = strProductCode;
+            //     s.UnitCode=s.Unit.Code;
+            //     s.UnitFromCode=s.UnitFrom.Code;
+            //     if(s.Items){
+            //     s.Items.toString = function () {
+            //         var str = "<ul>";
+            //         var products = [];
+            //         for (var item of s.Items) {
+            //             products.push(item.Product.Code)
+            //         }
+            //         var Products = products.filter(distinct);
+            //         for(var product of Products){
+            //         str += `<li>${product}</li>`;
+            //         }
+            //         str += "</ul>";
+            //         return str;
+            //             }
+            //     }
+            //     else{
+            //     s.Items = "-";
+            //     }
+             });
 
             return {
             total: result.info.total,

@@ -250,8 +250,8 @@ export class DataForm {
                     Items.PricePerDealUnit = item.PricePerDealUnit;
                     Items.Quantity = item.Quantity;
                     Items.OldQuantity = item.Quantity;
-                    Items.BuyerId = item.Buyer.Id;
-                    Items.BuyerCode = item.Buyer.Code;
+                    Items.BuyerId = item.Buyer.Id || 0;
+                    Items.BuyerCode = item.Buyer.Code || null;
                     Items.DesignColor = item.DesignColor;
                     Items.FabricType = item.FabricType;
                     Items.IsSave = Items.Quantity > 0;

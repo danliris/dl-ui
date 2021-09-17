@@ -40,6 +40,7 @@ export class List {
         { field: "UnitCode", title: "Unit", sortable: false, width: '5%' },
         
         { field: "RO", title: "Nomor RO", sortable: false, width: '5%' },
+        { field: "ComodityUnitCode", title: "Kode Komoditi Unit", sortable: false, width: '15%' },
         { field: "ComodityCode", title: "Kode Komoditi Gudang Sisa", sortable: false, width: '15%' },
         { field: "Comodity", title: "Komoditi Gudang Sisa", sortable: false, width: '15%' },
         { field: "BeginingbalanceQty", title: "Saldo Awal", sortable: false, width: '3%' },
