@@ -133,7 +133,7 @@ export class PurchasingDispositionItem {
                 var param = {
                     Id: newValue.Id,
                     supplierId: this.data.SupplierId,
-                    currencyId: this.data.CurrencyId
+                    currencyCode: this.data.CurrencyCode
                 }
                 this.selectedEPO = await this.service.getEPOById(param);
 
