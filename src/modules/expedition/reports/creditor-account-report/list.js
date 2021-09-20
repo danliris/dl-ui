@@ -112,7 +112,7 @@ export class List {
               BankExpenditureNoteNo: item.BankExpenditureNoteNo,
               MemoNo: item.UnitPaymentOrderNo,
               InvoiceNo: item.InvoiceNo,
-              CorrectionNo: item.CorrectionNo,
+              CorrectionNo: item.UnitPaymentCorrectionNoteNo,
               PaymentDuration: item.PaymentDuration ? item.PaymentDuration : 0,
               DPP: item.DPPAmount ? numeral(item.DPPAmount).format("0,000.00") : 0,
               DPPCurrency: item.DPPAmountCurrency
