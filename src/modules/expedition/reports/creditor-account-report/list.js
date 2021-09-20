@@ -93,10 +93,10 @@ export class List {
         let subTotalPayment = 0;
         for (var item of result.data) {
           if (item.Date && item.Mutation) {
-            subTotalPurchase += item.Mutation;
-            this.purchase += item.Mutation;
-            subTotalPayment += item.MutationPayment;
-            this.payment += item.MutationPayment;
+            subTotalPurchase += item.PurchaseAmount;
+            this.purchase += item.PurchaseAmount;
+            subTotalPayment += item.PaymentAmount;
+            this.payment += item.PaymentAmount;
             // if (item.Mutation > 0) {
             //   subTotalPurchase += item.Mutation;
             //   this.purchase += item.Mutation;
@@ -110,29 +110,34 @@ export class List {
               Products: item.Products,
               UnitReceiptNoteNo: item.UnitReceiptNoteNo,
               BankExpenditureNoteNo: item.BankExpenditureNoteNo,
-              MemoNo: item.MemoNo,
+              MemoNo: item.UnitPaymentOrderNo,
               InvoiceNo: item.InvoiceNo,
-              CorrectionNo: item.CorrectionNo,
+              CorrectionNo: item.UnitPaymentCorrectionNoteNo,
               PaymentDuration: item.PaymentDuration ? item.PaymentDuration : 0,
-              DPP: item.DPP ? numeral(item.DPP).format("0,000.00") : 0,
-              DPPCurrency: item.DPPCurrency
-                ? numeral(item.DPPCurrency).format("0,000.00")
+              DPP: item.DPPAmount ? numeral(item.DPPAmount).format("0,000.00") : 0,
+              DPPCurrency: item.DPPAmountCurrency
+                ? numeral(item.DPPAmountCurrency).format("0,000.00")
                 : 0,
-              PPN: item.PPN ? numeral(item.PPN).format("0,000.00") : 0,
-              Total: item.Total ? numeral(item.Total).format("0,000.00") : 0,
-              Purchase: item.Mutation
-                ? numeral(item.Mutation > 0 ? item.Mutation : 0).format(
+              PPN: item.VATAmount ? numeral(item.VATAmount).format("0,000.00") : 0,
+              Total: item.Mutation ? numeral(item.Mutation).format("0,000.00") : 0,
+              Purchase: item.PurchaseAmount
+                ? numeral(item.PurchaseAmount > 0 ? item.PurchaseAmount : 0).format(
                   "0,000.00"
                 )
                 : 0,
-              Payment: item.MutationPayment
-                ? numeral(item.MutationPayment < 0 ? item.MutationPayment : 0).format(
+              Payment: item.PaymentAmount
+                ? numeral(item.PaymentAmount > 0 ? item.PaymentAmount : 0).format(
                   "0,000.00"
                 )
                 : 0,
-              FinalBalance: numeral(this.purchase + this.payment).format(
+              FinalBalance: item.FinalBalance
+              ? numeral(item.FinalBalance > 0 ? item.FinalBalance : 0).format(
                 "0,000.00"
-              ),
+              )
+              : 0,
+              // numeral(this.purchase + this.payment).format(
+              //   "0,000.00"
+              // ),
             };
           } else if (!item.Date && item.Mutation != null) {
             // continue;
@@ -142,7 +147,7 @@ export class List {
               DPP: null,
               Purchase: numeral(subTotalPurchase).format("0,000.00"),
               Payment: numeral(subTotalPayment).format("0,000.00"),
-              FinalBalance: numeral(this.purchase + this.payment).format(
+              FinalBalance: numeral(item.FinalBalance).format(
                 "0,000.00"
               ),
             };
