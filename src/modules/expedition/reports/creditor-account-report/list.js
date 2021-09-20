@@ -110,7 +110,7 @@ export class List {
               Products: item.Products,
               UnitReceiptNoteNo: item.UnitReceiptNoteNo,
               BankExpenditureNoteNo: item.BankExpenditureNoteNo,
-              MemoNo: item.MemoNo,
+              MemoNo: item.UnitPaymentOrderNo,
               InvoiceNo: item.InvoiceNo,
               CorrectionNo: item.CorrectionNo,
               PaymentDuration: item.PaymentDuration ? item.PaymentDuration : 0,
