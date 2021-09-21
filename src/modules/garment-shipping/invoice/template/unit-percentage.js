@@ -1,3 +1,5 @@
+import { compose } from "underscore";
+
 export class GarmentShippingInvoiceUnits {
 
   controlOptions = {
@@ -16,28 +18,45 @@ export class GarmentShippingInvoiceUnits {
     this.context = context;
     this.saveAll = false;
     this.data = context.data;
+    //console.log("activate1");
+    //console.log(this.data);
     this.error = context.error;
     this.options = this.context.context.options;
     this.readOnly = this.options.isView;
     this.items=this.context.context.options.itemData;
   }
 
-  get amountPercentage(){
-    this.data.amountPercentage=0;
-    if(this.items){
-      var totAmount=0;
-      var amount=0;
-      for(var item of this.items){
-        totAmount+=item.price * item.quantity;
-        if(item.unit){
-          if(item.unit.code==this.data.unit.code){
-            amount+=item.price * item.quantity;
+  get amountPercentage()
+  {
+    //Enhance Jason Sept 2021
+    if(this.data.amountPercentage != 0)
+    {
+      //do nothing, contains customized amountPercentage from file 'data-form.js'
+      //console.log("amountPercentage1");
+    }
+    else
+    {
+      //console.log("amountPercentage2");
+      this.data.amountPercentage=0;
+      if(this.items)
+      {
+        var totAmount=0;
+        var amount=0;
+        for(var item of this.items)
+        {
+          totAmount+=item.price * item.quantity;
+          if(item.unit)
+          {
+            if(item.unit.code==this.data.unit.code)
+            {
+              amount+=item.price * item.quantity;
+            }
           }
         }
-        
-      }
-      if(amount > 0 && totAmount > 0) {
-        this.data.amountPercentage=amount / totAmount * 100;
+        if(amount > 0 && totAmount > 0) 
+        {
+          this.data.amountPercentage=amount / totAmount * 100;
+        }
       }
     }
     return this.data.amountPercentage;
