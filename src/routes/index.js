@@ -22,7 +22,7 @@ let garmentProductionRoutes = require("./garment-production");
 let packingSKUInventory = require("./packing-sku-inventory");
 let customs = require("./customs");
 let garmentShippingRoutes = require("./garment-shipping");
-let garmentSubconRoutes = require("./garment-subcon");
+//let garmentSubconRoutes = require("./garment-subcon");
 let garmentFinance = require("./garment-finance");
 let garmentDashboard = require("./garment-dashboard");
 let dashboardDP = require('./dashboard-dp');
@@ -50,7 +50,7 @@ export default [].concat(
   accountingRoutes,
   garmentProductionRoutes,
   garmentShippingRoutes,
-  garmentSubconRoutes,
+ // garmentSubconRoutes,
   packingSKUInventory,
   customs,
   garmentDashboard,
