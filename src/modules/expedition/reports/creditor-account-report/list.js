@@ -92,7 +92,7 @@ export class List {
         let subTotalPurchase = 0;
         let subTotalPayment = 0;
         for (var item of result.data) {
-          if (item.Date && item.Mutation) {
+          if (item.Date && item.Remark == null) {
             subTotalPurchase += item.PurchaseAmount;
             this.purchase += item.PurchaseAmount;
             subTotalPayment += item.PaymentAmount;
@@ -139,24 +139,39 @@ export class List {
               //   "0,000.00"
               // ),
             };
-          } else if (!item.Date && item.Mutation != null) {
-            // continue;
-            var newData = {
-              Date: null,
-              InvoiceNo: item.InvoiceNo,
-              DPP: null,
-              Purchase: numeral(subTotalPurchase).format("0,000.00"),
-              Payment: numeral(subTotalPayment).format("0,000.00"),
-              FinalBalance: numeral(item.FinalBalance).format(
-                "0,000.00"
-              ),
-            };
+          // } else if (!item.Date && item.Remark == "TOTAL") {
+          //   // continue;
+          //   var newData = {
+          //     Date: null,
+          //     InvoiceNo: item.InvoiceNo,
+          //     DPP: null,
+          //     Purchase: numeral(subTotalPurchase).format("0,000.00"),
+          //     Payment: numeral(subTotalPayment).format("0,000.00"),
+          //     FinalBalance: numeral(item.FinalBalance).format(
+          //       "0,000.00"
+          //     ),
+          //   };
 
-            subTotalPurchase = 0;
-            subTotalPayment = 0;
+          //   subTotalPurchase = 0;
+          //   subTotalPayment = 0;
+          // } else if (!item.Date && item.Remark == "SALDO AWAL") {
+          //   // continue;
+          //   var newData = {
+          //     Date: null,
+          //     InvoiceNo: item.Remark,
+          //     DPP: null,
+          //     FinalBalance: numeral(item.FinalBalance).format(
+          //       "0,000.00"
+          //     ),
+          //   };
+
+          //   subTotalPurchase = 0;
+          //   subTotalPayment = 0;
+          // } 
           } else {
             var newData = {
-              Previous: null,
+              Previous: item.Remark,
+              DPP: null,
               FinalBalance:
                 item.FinalBalance != null
                   ? numeral(item.FinalBalance).format("0,000.00")
