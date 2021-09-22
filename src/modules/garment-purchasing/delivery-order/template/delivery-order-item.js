@@ -188,6 +188,7 @@ export class DeliveryOrderItem {
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
           isSave : false,
+          remark : item.Remark
         };
         this.data.fulfillments.push(fulfillment);
       }

@@ -53,7 +53,6 @@ export async function configure(aurelia) {
             var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
             var dyeing = "https://dyeing-printing-etl-service-dev.azurewebsites.net/api/";
             const garmentShipping = "https://garment-etl-service-dev.azurewebsites.net/api/";
-            var finance = "http://localhost:53818/v1/";
 
             config.registerEndpoint('auth', auth);
             config.registerEndpoint('core', core);
