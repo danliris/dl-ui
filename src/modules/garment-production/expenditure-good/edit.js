@@ -20,9 +20,9 @@ export class View {
             this.selectedUnit=this.data.Unit;
             this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
         }
-
         var items=[];
         for(var item of this.data.Items){
+            console.log(item)
             if(items.length==0){
                 items.push(item);
             }
@@ -32,7 +32,7 @@ export class View {
                 if(duplicate){
                     var idx= items.indexOf(duplicate);
                     duplicate.Quantity+=item.Quantity;
-                    duplicate.StockQuantity+=item.Quantity;
+                    //duplicate.StockQuantity+=item.Quantity;
                     items[idx]=duplicate;
                 }else{
                     items.push(item);
