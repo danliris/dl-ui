@@ -62,7 +62,7 @@ export class Create {
                             // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
                             pph = item.IncomeTaxValue;
                         }
-                        if (item.IsPayVAT) {
+                        if(item.IsPayVAT) {
                             // ppn=detail.PriceTotal*0.1;
                             ppn = item.VatValue;
                         }
@@ -72,7 +72,7 @@ export class Create {
                         }
                         this.data.IncomeTaxValue+=pph;
                         this.data.IncomeTaxValueView +=pphView;                        
-                        this.data.VatValue += ppn;
+                        this.data.VatValue+=ppn;
                         this.data.VatValueView+=ppnView;                        
                         this.data.DPP+=item.DPPValue;
                         incomeTaxCalculate +=pph;
