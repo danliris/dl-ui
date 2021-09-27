@@ -33,7 +33,7 @@ export class DataForm {
   };
   destinationAreas = ["PACKING", "FINISHING", "PRINTING", "LAIN-LAIN","KOTOR","INSPECTING WEAVING"];
   itemColumns = [
-    "Construction",
+    "Nota",
     ""
   ];
 
