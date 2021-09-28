@@ -554,6 +554,20 @@ module.exports = [
     }
   },
   {
+    route: "garment-finance/report/local-sales-debtor-report",
+    name: "local-sales-debtor-report",
+    moduleId: "./modules/garment-finance/reports/local-sales-debtor-report/index",
+    nav: true,
+    title: "Laporan Debitur Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
     route: "garment-finance/report/local-sales-debtor-summary-report",
     name: "local-sales-debtor-summary-report",
     moduleId: "./modules/garment-finance/bank-cash/report/local-sales-debtor-summary-report/index",
