@@ -82,7 +82,7 @@
               repeat.for="key of datum | keys"
               style="white-space: pre"
               class="key.toString().toLowerCase() == 'dpp' || key.toString().toLowerCase() == 'dppcurrency' || key.toString().toLowerCase() == 'ppn' || key.toString().toLowerCase() == 'total' || key.toString().toLowerCase() == 'purchase' || key.toString().toLowerCase() == 'payment' || key.toString().toLowerCase() == 'finalbalance' ? text-right : '';"
-              colspan="${key.toString().toLowerCase() == 'previous' ? 14 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 8 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 3 : 1}"
+              colspan="${key.toString().toLowerCase() == 'previous' ? 8 : key.toString().toLowerCase() == 'date' && datum[key] === null ? 8 : key.toString().toLowerCase() == 'dpp' && datum[key] === null ? 6 : 1}"
             >
               ${datum[key]}
             </td>
