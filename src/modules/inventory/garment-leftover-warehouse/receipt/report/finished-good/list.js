@@ -43,6 +43,7 @@ export class List {
         { field: "UnitFromCode", title: "Asal Barang", sortable: false, width: '5%' },
         { field: "ExpenditureGoodNo", title: "No Bon Pengeluaran Barang", sortable: false, width: '15%' },
          { field: "RONo", title: "RO", sortable: false, width: '5%' },
+        { field: "UnitComodityCode", title: "Kode Komoditi Unit", sortable: false, width: '10%' },
         { field: "ComodityCode", title: "Kode Komoditi", sortable: false, width: '10%' },
         { field: "ComodityName", title: "Komoditi", sortable: false, width: '10%' },
         { field: "Quantity", title: "Quantity", sortable: false, width: '5%' },
