@@ -389,8 +389,8 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-    },
-    {
+  },
+  {
     route: "garment-finance/bank-cash/bank-cash-receipt-details",
     name: "bank-cash-receipt-details",
     moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
@@ -404,8 +404,8 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
-  
-{
+
+  {
     route: "garment-finance/memorials",
     name: "memorials",
     moduleId: "./modules/garment-finance/bank-cash/memorial/index",
@@ -445,5 +445,20 @@ module.exports = [
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  }
+  },
+  {
+    route: "garment-finance/report/local-sales-debtor-report",
+    name: "local-sales-debtor-report",
+    moduleId: "./modules/garment-finance/reports/local-sales-debtor-report/index",
+    nav: true,
+    title: "Laporan Debitur Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
+
 ]
