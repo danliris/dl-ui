@@ -1,8 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import numeral from "numeral";
-
 import moment from 'moment';
+
+const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
+
 @inject(Service)
 
 export class List {
@@ -44,7 +46,9 @@ export class List {
             length: 4
         }
     };
-    
+    buyerView = (buyer) => {
+        return `${buyer.Code} - ${buyer.Name}`;
+    }
     tableOptions = {
         search: false,
         showToggle: false,
@@ -58,6 +62,9 @@ export class List {
         else if(!this.month){
             alert("Bulan Harus Diisi");
         }
+        else if(!this.buyer){
+            alert("Buyer Harus Diisi");
+        }
         this.searching();
     }
     
@@ -68,11 +75,16 @@ export class List {
             order: order,
             month: this.month.value,
             year: this.year,
+            buyer: this.buyer.Code
         };
         this.service.search(args)
         .then(result => {
             this.data = result.data;
-
+            //this.info.total = result.info.total;
+            for(var _data of this.data){
+                _data.TruckingDate= _data.TruckingDate ? moment.utc(_data.TruckingDate).local().format('DD MMM YYYY') : "";
+                _data.Index=_data.Index==0? "" : _data.Index;
+            }
             this.fillTable();
         });
         
@@ -80,16 +92,17 @@ export class List {
 
     fillTable() {
         const columns = [
-          {field: "index", title: "No", cellStyle: (value, row, index, field) => {
-            return { classes: 'fixed' } }},
-          { field: "buyerCode", title: "Kode" },
-          { field: "buyerName", title: "Nama Buyer" },
-          {
-            field: "endBalance", title: "Saldo Akhir", align: "right", formatter: function (value, data, index) {
-              return numeral(value).format("0,000.00");
+            {field: "Index", title: "No", cellStyle: (value, row, index, field) => {
+                return { classes: 'fixed' } } },
+            { field: "TruckingDate", title: "Tanggal" },
+            { field: "InvoiceNo", title: "No. Invoice" },
+            {
+                field: "Amount", title: "Amount", align: "right", formatter: function (value, data, index) {
+                return numeral(value).format("0,000.00");
+                }
             }
-          }
         ];
+        
         var bootstrapTableOptions = {
             undefinedText: '',
             columns: columns,
@@ -101,13 +114,12 @@ export class List {
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         for (const rowIndex in this.data) {
-            if(this.data[rowIndex].buyerCode=="TOTAL") {
+            if(this.data[rowIndex].InvoiceNo=="TOTAL") {
                 var rowSpan=1;
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "buyerCode", rowspan: rowSpan, colspan: 2 });
+                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "InvoiceNo", rowspan: rowSpan, colspan: 1 });
                 
             }
         }
-
     }
 
     
@@ -128,11 +140,18 @@ export class List {
         else if(!this.month){
             alert("Bulan Harus Diisi");
         }
+        else if(!this.buyer){
+            alert("Buyer Harus Diisi");
+        }
         let args = {
             month: this.month.value,
             year: this.year,
+            buyer: this.buyer.Code
         };
         this.service.generateExcel(args);
     }
 
+    get buyerLoader() {
+        return BuyerLoader;
+    }
 }

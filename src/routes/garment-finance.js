@@ -581,4 +581,18 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
+  {
+    route: "garment-finance/reports/local-sales-outstanding-report",
+    name: "local-sales-outstanding",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-outstanding-sales-report/index",
+    nav: true,
+    title: "Laporan Outstanding Penjualan Lokal ",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
 ]
