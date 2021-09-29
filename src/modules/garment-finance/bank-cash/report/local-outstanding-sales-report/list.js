@@ -62,9 +62,6 @@ export class List {
         else if(!this.month){
             alert("Bulan Harus Diisi");
         }
-        else if(!this.buyer){
-            alert("Buyer Harus Diisi");
-        }
         this.searching();
     }
     
@@ -75,7 +72,7 @@ export class List {
             order: order,
             month: this.month.value,
             year: this.year,
-            buyer: this.buyer.Code
+            buyer: this.buyer ? this.buyer.Code :""
         };
         this.service.search(args)
         .then(result => {
@@ -140,13 +137,10 @@ export class List {
         else if(!this.month){
             alert("Bulan Harus Diisi");
         }
-        else if(!this.buyer){
-            alert("Buyer Harus Diisi");
-        }
         let args = {
             month: this.month.value,
             year: this.year,
-            buyer: this.buyer.Code
+            buyer: this.buyer ? this.buyer.Code :""
         };
         this.service.generateExcel(args);
     }
