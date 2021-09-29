@@ -26,6 +26,7 @@ export class Item {
    
    if (this.options.readOnly == true) {
       this.itemColumns = [
+        "Construction",
         "Grade",
         //"Piece",
         
@@ -46,9 +47,15 @@ export class Item {
     }
     
       
-    if (this.data.Construction) {
+    // if (this.data.Construction) {
+    //   this.selectedMaterial = {};
+    //   this.selectedMaterial.Construction = this.data.Construction;
+    //   this.selectedMaterial.ListItems = this.data.ListItems;
+  
+    // }
+    if (this.data.ReferenceNo) {
       this.selectedMaterial = {};
-      this.selectedMaterial.Construction = this.data.Construction;
+      this.selectedMaterial.ReferenceNo = this.data.ReferenceNo;
       this.selectedMaterial.ListItems = this.data.ListItems;
   
     }
