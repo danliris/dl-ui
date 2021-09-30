@@ -92,7 +92,7 @@ export class List {
             {field: "Index", title: "No", cellStyle: (value, row, index, field) => {
                 return { classes: 'fixed' } } },
             { field: "TruckingDate", title: "Tanggal" },
-            { field: "InvoiceNo", title: "No. Invoice" },
+            { field: "InvoiceNo", title: "No. Nota Penjualan Local" },
             {
                 field: "Amount", title: "Amount", align: "right", formatter: function (value, data, index) {
                 return numeral(value).format("0,000.00");
