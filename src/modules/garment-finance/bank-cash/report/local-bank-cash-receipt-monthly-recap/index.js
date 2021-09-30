@@ -1,9 +1,8 @@
 export class Index {
     configureRouter(config, router) {
         config.map([
-            { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'Outstanding Penjualan Ekspor' },
+            { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'List: Rekap memo per Bulan - Lokal' }
         ]);
-
         this.router = router;
     }
 }
