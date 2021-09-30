@@ -36,6 +36,7 @@ export class DataForm {
 
     detailsColumns = [
         "Kode Barang",
+        "Keterangan",
         "Jumlah Preparing",
         "Jumlah PCS",
         "FC",
@@ -46,6 +47,7 @@ export class DataForm {
 
     detailsColumnsView = [
         { value: "ProductCode", header: "Kode Barang" },
+        { value: "DesignColor", header: "Keterangan" },
         { value: "PreparingQuantity", header: "Jumlah Preparing" },
         { value: "Quantity", header: "Jumlah PCS" },
         { value: "FC", header: "FC" },
@@ -119,6 +121,7 @@ export class DataForm {
                         item.FC=detail.FC;
                         item.PreparingItemId=detail.PreparingItemId;
                         item.Product=detail.Product;
+                        item.DesignColor=detail.DesignColor;
                         this.data.Items.push(item);
                     }
                 }

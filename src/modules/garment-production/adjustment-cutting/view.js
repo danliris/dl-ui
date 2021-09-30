@@ -33,6 +33,7 @@ export class View {
                     item.FC=detail.FC;
                     item.PreparingItemId=detail.PreparingItemId;
                     item.Product=detail.Product;
+                    item.DesignColor=detail.DesignColor;
                     cutInDetails.push(item);
                 }
             }
@@ -43,6 +44,8 @@ export class View {
                 item.Product=cutInDetail.Product;
                 item.CuttingInQuantity=cutInDetail.CuttingInQuantity;
                 item.Remaining = item.Quantity-item.ActualQuantity;
+                item.DesignColor=cutInDetail.DesignColor;
+                
             }
         }
         this.selectedUnit=this.data.Unit;
