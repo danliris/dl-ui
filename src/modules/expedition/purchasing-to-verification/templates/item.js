@@ -43,7 +43,8 @@ export class Item {
     unitPaymentOrderChanged(newV, oldV) {
         if (newV) {
             let items = [],
-                totalPaid = 0;
+                totalPaid = 0,
+                totalPaidCorrection = 0;
 
             let unitReceiptsNo = newV.items.map(p => p.unitReceiptNote.no);
 
@@ -73,7 +74,7 @@ export class Item {
                                     let price, quantity;
 
                                     // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
-
+                                    
 
 
                                     // if (corrections && corrections.length !== 0) {
@@ -138,7 +139,8 @@ export class Item {
                                         urnId: urnObj.UId
                                     });
 
-                                    totalPaid += correctPriceTotal;
+                                    totalPaid += Number((detail.PriceTotal).toFixed(2));
+                                    totalPaidCorrection += correctPriceTotal;
                                 }
                             }
 
@@ -146,11 +148,20 @@ export class Item {
                             // console.log(totalPaid);
                             let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
                             let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
+                            let vatCorrection = newV.useVat ? Number((totalPaidCorrection * 0.1).toFixed(2)) : 0;
+                            let incomeTaxCorrection = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaidCorrection) / 100).toFixed(2)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
 
                             console.log(newV.useVat);
                             if (newV.useVat)
-                                totalPaid += vat
+                            {
+                                totalPaid += vat;
+                                totalPaidCorrection += vatCorrection;
+                            }
+                            
+                            totalPaid += totalPaidCorrection;
+                            vat += vatCorrection;
+                            incomeTax += incomeTaxCorrection;
 
                             // if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
                             // totalPaid = Number((totalPaid + vat).toFixed(2))
