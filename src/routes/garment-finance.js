@@ -348,7 +348,7 @@ module.exports = [
     name: "debtor-card-report",
     moduleId: "./modules/garment-finance/bank-cash/report/debtor-card-report/index",
     nav: true,
-    title: "Report Kartu Debitur",
+    title: "Report Kartu Debitur Export",
     auth: true,
     settings: {
       group: "g-finance",
@@ -502,7 +502,7 @@ module.exports = [
     name: "bank-cash-receipt-monthly-recap",
     moduleId: "./modules/garment-finance/bank-cash/report/bank-cash-receipt-monthly-recap/index",
     nav: true,
-    title: "Rekap Memo per Bulan",
+    title: "Rekap Memo per Bulan - Export",
     auth: true,
     settings: {
       group: "g-finance",
