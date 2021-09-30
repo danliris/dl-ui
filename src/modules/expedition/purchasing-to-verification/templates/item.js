@@ -73,7 +73,7 @@ export class Item {
                                     let price, quantity;
 
                                     // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
-
+                                    
 
 
                                     // if (corrections && corrections.length !== 0) {
@@ -150,7 +150,9 @@ export class Item {
 
                             console.log(newV.useVat);
                             if (newV.useVat)
-                                totalPaid += vat
+                            {
+                                totalPaid += vat;
+                            }
 
                             // if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
                             // totalPaid = Number((totalPaid + vat).toFixed(2))

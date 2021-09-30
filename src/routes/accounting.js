@@ -473,7 +473,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "accounting",
-      permission: { "B1": 1, "C9": 1 },
+      // permission: { "B1": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
@@ -487,7 +487,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "accounting",
-      permission: { "B1": 1, "C9": 1 },
+      // permission: { "B1": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
   }
