@@ -409,9 +409,9 @@ module.exports = [
     }
   },
   {
-    route: 'packing-sku-inventory/dyeing-printing-stock-opname',
-    name: 'dyeing-printing-stock-opname',
-    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname/index',
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-document',
+    name: 'dyeing-printing-stock-opname-document',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-document/index',
     nav: true,
     title: 'Stock Opname Dyeing/Printing (Barcode)',
     auth: true,
@@ -422,9 +422,9 @@ module.exports = [
     }
   },
   {
-    route: 'packing-sku-inventory/dyeing-printing-stock-opname-document',
-    name: 'dyeing-printing-stock-opname-document',
-    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-document/index',
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname',
+    name: 'dyeing-printing-stock-opname',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname/index',
     nav: true,
     title: 'Stock Opname Dyeing/Printing',
     auth: true,
