@@ -43,6 +43,12 @@ const uomServiceUri = 'master/uoms';
         return super.delete(endpoint, data);
     }
 
+    generateExcel(id) {
+
+        var endpoint = `${serviceUri}/xls-document/${id}`;
+        return super.getXls(endpoint);
+    }
+
 
 }
 
