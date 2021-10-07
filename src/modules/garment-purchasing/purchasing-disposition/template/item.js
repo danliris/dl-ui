@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 const ProductLoader = require('../../../../loader/product-loader');
-const EPOLoader = require('../../../../loader/garment-purchase-order-external-simply-loader');
+const EPOLoader = require('../../../../loader/garment-purchase-order-external-simply-str-loader');
 
 var moment = require('moment');
 
@@ -133,7 +133,7 @@ export class PurchasingDispositionItem {
                 var param = {
                     Id: newValue.Id,
                     supplierId: this.data.SupplierId,
-                    currencyId: this.data.CurrencyId
+                    currencyCode: this.data.CurrencyCode
                 }
                 this.selectedEPO = await this.service.getEPOById(param);
 
@@ -151,6 +151,7 @@ export class PurchasingDispositionItem {
                 this.data.IsPayVAT = this.selectedEPO.Id ? this.selectedEPO.IsPayVAT : this.data.IsPayVAT;
                 this.data.IsIncomeTax = this.selectedEPO.Id ? this.selectedEPO.IsIncomeTax : this.data.IsIncomeTax;
                 this.data.IsPayIncomeTax = this.selectedEPO.Id ? this.selectedEPO.IsPayIncomeTax : this.data.IsPayIncomeTax;
+                this.data.IsUseIncomeTax = this.selectedEPO.Id ? this.selectedEPO.IsIncomeTax : this.data.IsIncomeTax;
                 this.data.DispositionAmountCreated = this.selectedEPO.Id ? this.selectedEPO.DispositionAmountCreated : this.data.DispositionAmountCreated;
                 this.data.DispositionPaidCreated = this.selectedEPO.Id ? this.selectedEPO.DispositionAmountPaid : this.data.DispositionAmountPaid;
                 // this.data.CurrencyId =  this.selectedEPO.Id? this.selectedEPO.Currency.Id: this.data.CurrencyId;

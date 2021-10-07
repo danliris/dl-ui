@@ -30,6 +30,10 @@ export class FormDialog {
   async activate(id) {
     console.log(id);
     this.data = await this.service.getById(id);
+    this.vbRealization = await this.service.getRealizationByReferenceNo(this.data.ReferenceNo);
+    
+    if (!this.vbRealization)
+      this.vbRealization = {};
   }
 
   save() {
