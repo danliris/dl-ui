@@ -122,7 +122,7 @@ export class DataForm {
 			}
 			let args2 = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month-1 })
+				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month })
 			}
 
 			this.coreService.getIBCurrencies(args2).then(result => {
