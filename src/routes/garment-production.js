@@ -1051,4 +1051,18 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: 'garment-production/packing-list-items-draft-enhanced',
+        name: 'packing-list-draft-items-enhanced',
+        moduleId: './modules/garment-production/packing-list-items-draft-enhanced/index',
+        nav: true,
+        title: 'Item Draft Packing List Enhanced 2',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "packing list",
+            permission: { "C9": 1, "FP": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
