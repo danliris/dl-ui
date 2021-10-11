@@ -7,7 +7,8 @@
 			</au-autocomplete>
 		</td>
 		<td>
-			<au-textbox value.bind="data.Account.Name" error.bind="error.AccoutName" read-only.bind="true">
+			<au-textbox value.bind="data.Remarks" error.bind="error.Remarks"
+				read-only.bind="readOnly || (isEdit && data.Id)">
 			</au-textbox>
 		</td>
 		<td>
@@ -16,7 +17,7 @@
 			</au-textbox>
 		</td>
 		<td>
-			<au-numeric value.bind="data.Currency.Rate" error.bind="error.Rate" read-only.bind="true">
+			<au-numeric value.bind="data.Currency.Rate" error.bind="error.Rate" read-only.bind="readOnly">
 			</au-numeric>
 		</td>
 		<td>
@@ -27,6 +28,13 @@
 			<au-numeric value.bind="total" error.bind="error.total" read-only.bind="true">
 			</au-numeric>
 		</td>
+		<td>
+			<radiobutton value.bind="data.TypeAmount" error.bind="error.TypeAmount"
+				selections.bind="typeAmountSelection" read-only.bind="readOnly"
+				change.delegate="selectedTypeAmountChanged($event)" options.bind="controlOptions">
+			</radiobutton>
+		</td>
+		<td if.bind="readOnly"></td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
 		</td>

@@ -113,71 +113,6 @@ module.exports = [
     }
   },
   {
-    route: "/garment-finance/garment-purchasing-debt-balance",
-    name: "garment-purchasing-debt-balance",
-    moduleId: "./modules/garment-finance/garment-purchasing-debt-balance/index",
-    nav: true,
-    title: "Kartu Hutang",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      permission: { "C9": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: "/garment-finance/reports/garment-debt-balance-local",
-    name: "garment-debt-balance-local",
-    moduleId: "./modules/garment-finance/reports/garment-debt-balance-local/index",
-    nav: true,
-    title: "Saldo Hutang Lokal",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      permission: { "B13": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: "/garment-finance/reports/garment-purchasing-debt-balance-local-foreign",
-    name: "garment-purchasing-debt-balance-local-foreign",
-    moduleId: "./modules/garment-finance/reports/garment-purchasing-debt-balance-local-foreign/index",
-    nav: true,
-    title: "Saldo Hutang Lokal Valas",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      permission: { "B13": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: "/garment-finance/reports/garment-debt-balance-import",
-    name: "garment-debt-balance-import",
-    moduleId: "./modules/garment-finance/reports/garment-debt-balance-import/index",
-    nav: true,
-    title: "Saldo Hutang Impor",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      permission: { "B13": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: "/garment-finance/reports/garment-debt-detail-report",
-    name: "garment-debt-detail-report",
-    moduleId: "./modules/garment-finance/reports/garment-debt-detail-report/index",
-    nav: true,
-    title: "Laporan Rincian Hutang",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      permission: { "B13": 1, "C9": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
     route: "/garment-finance/garment-disposition-to-verification",
     name: "garment-disposition-to-verification",
     moduleId: "./modules/garment-finance/garment-disposition-to-verification/index",
@@ -297,6 +232,76 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
+  {
+    route: "/garment-finance/garment-purchasing-debt-balance",
+    name: "garment-purchasing-debt-balance",
+    moduleId: "./modules/garment-finance/garment-purchasing-debt-balance/index",
+    nav: true,
+    title: "Kartu Hutang",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      permission: { "C9": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: "/garment-finance/reports/garment-debt-balance-local",
+    name: "garment-debt-balance-local",
+    moduleId: "./modules/garment-finance/reports/garment-debt-balance-local/index",
+    nav: true,
+    title: "Saldo Hutang Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: "/garment-finance/reports/garment-purchasing-debt-balance-local-foreign",
+    name: "garment-purchasing-debt-balance-local-foreign",
+    moduleId: "./modules/garment-finance/reports/garment-purchasing-debt-balance-local-foreign/index",
+    nav: true,
+    title: "Saldo Hutang Lokal Valas",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: "/garment-finance/reports/garment-debt-balance-import",
+    name: "garment-debt-balance-import",
+    moduleId: "./modules/garment-finance/reports/garment-debt-balance-import/index",
+    nav: true,
+    title: "Saldo Hutang Impor",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: "/garment-finance/reports/garment-debt-detail-report",
+    name: "garment-debt-detail-report",
+    moduleId: "./modules/garment-finance/reports/garment-debt-detail-report/index",
+    nav: true,
+    title: "Laporan Rincian Hutang",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      permission: { "B13": 1, "C9": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
   // {
   //     route: '/garment-finance/garment-purchasing-expedition-report',
   //     name: 'garment-purchasing-expedition-report',
@@ -325,11 +330,11 @@ module.exports = [
     }
   },
   {
-    route: "garment-finance/bank-cash/bank-cash-receipt-details",
+    route: "garment-finance/bank-cash/bank-cash-receipt-details-memo",
     name: "bank-cash-receipt-details",
-    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
+    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details-memo/index",
     nav: true,
-    title: "Rincian Penerimaan Kas Bank",
+    title: "Rincian Penerimaan Kas Bank - Export",
     auth: true,
     settings: {
       group: "g-finance",
@@ -343,10 +348,11 @@ module.exports = [
     name: "debtor-card-report",
     moduleId: "./modules/garment-finance/bank-cash/report/debtor-card-report/index",
     nav: true,
-    title: "Report Kartu Debitur",
+    title: "Report Kartu Debitur Export",
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "report kas bank",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
@@ -360,6 +366,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "report kas bank",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
@@ -373,6 +380,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "report kas bank",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
@@ -386,26 +394,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
-      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
-      iconClass: "fa fa-dashboard",
-    }
-    },
-    {
-    route: "garment-finance/bank-cash/bank-cash-receipt-details",
-    name: "bank-cash-receipt-details",
-    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-details/index",
-    nav: true,
-    title: "Rincian Penerimaan Kas Bank",
-    auth: true,
-    settings: {
-      group: "g-finance",
-      subGroup: "kas bank",
+      subGroup: "report kas bank",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
-  
-{
+  {
     route: "garment-finance/memorials",
     name: "memorials",
     moduleId: "./modules/garment-finance/bank-cash/memorial/index",
@@ -424,7 +418,7 @@ module.exports = [
     name: "memorial-details",
     moduleId: "./modules/garment-finance/bank-cash/memorial-detail/index",
     nav: true,
-    title: "Rincian Memorial",
+    title: "Rincian Memorial - Export",
     auth: true,
     settings: {
       group: "g-finance",
@@ -442,8 +436,163 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-finance",
+      subGroup: "report kas bank",
       permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  }
+  },
+  {
+      route: "garment-finance/local-sales-note-approval",
+      name: "garment-finance/local-sales-note-approval",
+      moduleId: "modules/garment-finance/local-sales-note-approval/index",
+      nav: true,
+      title: "Approval Penjualan Lokal",
+      auth: true,
+      settings: {
+          group: "g-finance",
+          subGroup: "approval",
+          permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+          iconClass: "fa fa-dashboard"
+      }
+  },
+  {
+    route: "garment-finance/bank-cash/bank-cash-receipt-detail-locals",
+    name: "bank-cash-receipt-detail-locals",
+    moduleId: "./modules/garment-finance/bank-cash/bank-cash-receipt-detail-locals/index",
+    nav: true,
+    title: "Rincian Penerimaan Kas Bank - Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/memorial-detail-local",
+    name: "memorial-details-local",
+    moduleId: "./modules/garment-finance/bank-cash/memorial-detail-local/index",
+    nav: true,
+    title: "Rincian Memorial - Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/reports/export-sales-outstanding-report",
+    name: "export-sales-outstanding",
+    moduleId: "./modules/garment-finance/reports/export-sales-outstanding-report/index",
+    nav: true,
+    title: "Laporan Outstanding Penjualan Export ",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/bank-cash-receipt-monthly-recap",
+    name: "bank-cash-receipt-monthly-recap",
+    moduleId: "./modules/garment-finance/bank-cash/report/bank-cash-receipt-monthly-recap/index",
+    nav: true,
+    title: "Rekap Memo per Bulan - Export",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/bank-cash/report/local-debtor-card-report",
+    name: "local-debtor-card-report",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-debtor-card-report/index",
+    nav: true,
+    title: "Report Kartu Debitur Lokal",
+    auth: true,
+      settings: {
+          group: "g-finance",
+          subGroup: "report kas bank",
+          permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+          iconClass: "fa fa-dashboard"
+      }
+  },
+  {
+    route: "garment-finance/report/local-bank-cash-receipt-monthly-recap",
+    name: "local-bank-cash-receipt-monthly-recap",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-bank-cash-receipt-monthly-recap/index",
+    nav: true,
+    title: "Rekap Memo per Bulan - Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/local-sales-journal",
+    name: "local-sales-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-sales-journal/index",
+    nav: true,
+    title: "Jurnal Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/local-sales-debtor-report",
+    name: "local-sales-debtor-report",
+    moduleId: "./modules/garment-finance/reports/local-sales-debtor-report/index",
+    nav: true,
+    title: "Laporan Debitur Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/local-sales-debtor-summary-report",
+    name: "local-sales-debtor-summary-report",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-sales-debtor-summary-report/index",
+    nav: true,
+    title: "Laporan Saldo Akhir Debitur Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/reports/local-sales-outstanding-report",
+    name: "local-sales-outstanding",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-outstanding-sales-report/index",
+    nav: true,
+    title: "Laporan Outstanding Penjualan Lokal ",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report kas bank",
+      permission: { "B9": 1, "B13": 1, "B4": 1, "B11": 1, "B1": 1, "B12": 1, "PG": 1, "APG": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
 ]

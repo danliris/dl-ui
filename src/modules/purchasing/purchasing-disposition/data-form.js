@@ -155,10 +155,10 @@ export class DataForm {
     IncomeTaxByChanged(e){
         if(e.srcElement){
             if(e.srcElement.value=="Supplier"){
-                this.data.Amount=this.data.DPP + this.data.VatValue;
+                this.data.Amount=this.data.DPP + this.data.VatValue + this.data.PaymentCorrection;
             }
             else{
-                this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.IncomeTaxValue;
+                this.data.Amount=(this.data.DPP+ this.data.VatValue + this.data.PaymentCorrection) - this.data.IncomeTaxValue;
             }
         }
         this.data.Items.splice(0);
@@ -210,10 +210,10 @@ export class DataForm {
                         this.data.VatValue+=ppn;
                         this.data.DPP+=detail.PaidPrice;
                         if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
+                            this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                         else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
+                            this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                     }
                 }
             }
@@ -245,10 +245,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                         }
                     }
                 }
@@ -301,10 +301,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                         }
                     }
                 }
@@ -339,10 +339,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                         }
                     }
                 }
@@ -375,10 +375,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                         }
                     }
                 }
