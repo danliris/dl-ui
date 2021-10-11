@@ -44,7 +44,7 @@ export class List {
     inventoryTypes = ["","LAMA","BARU"];
     units = ["", "DYEING", "PRINTING"];
     packingTypes = ["", "WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT"];
-    zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING"];
+    zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING", "STOCK OPNAME"];
     columns = [
         // {
         //     field: "date", title: "Tanggal", formatter: function (value, data, index) {
@@ -120,6 +120,37 @@ export class List {
         },
         { field: "satuan", title: "Satuan" },
         { field: "inventoryType", title: "Gudang"}
+    ];
+
+    columns3 = [
+        // {
+        //     field: "date", title: "Tanggal", formatter: function (value, data, index) {
+        //         return moment(value).format("DD MMM YYYY");
+        //     }
+        // },
+        { field: "noSpp", title: "No. SPP" },
+        { field: "construction", title: "Material" },
+        { field: "unit", title: "Unit" },
+        { field: "motif", title: "Motif" },
+        { field: "buyer", title: "Buyer" },
+        { field: "color", title: "Warna" },
+        { field: "grade", title: "Grade" },
+        { field: "jenis", title: "Jenis" },
+        {
+            field: "stockOpname", title: "Stock Opname", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "storageBalance", title: "Saldo Gudang", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "difference", title: "Selisih", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        }
     ];
 
     get productionOrderLoader() {
@@ -318,6 +349,10 @@ export class List {
 
     get isPackingType() {
         return this.zona && (this.zona == "GUDANG JADI" || this.zona == "SHIPPING");
+    }
+
+    get isStockOpname() {
+        return this.zona && this.zona == "STOCK OPNAME";
     }
 
     avalColumns = [

@@ -96,7 +96,7 @@
     "file-saver": "1.3.3",
     "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
-    "jquery": "^3.1.1",
+    "jquery": "^3.6.0",
     "jsx": "^0.9.89",
     "jwt-decode": "^2.1.0",
     "moment": "2.19.3",
@@ -108,8 +108,8 @@
     "react-bootstrap": "0.30.7",
     "react-dom": "15.4.1",
     "react-dynamic-number": "1.4.5",
-    "underscore": "^1.9.2",
-    "xlsx": "^0.13.0"
+    "underscore": "^1.13.1",
+    "xlsx": "^0.17.1"
   },
   "devDependencies": {
     "@easy-webpack/config-aurelia": "^2.2.2",

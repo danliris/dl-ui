@@ -112,11 +112,40 @@ export class Create {
           })
         });
         this.data.warehousesProductionOrders = sppWarehouseList;
+        
         for(var i = 0; i < this.data.warehousesProductionOrders.length; i++){
           if(this.data.warehousesProductionOrders[i].id == null){
             this.data.warehousesProductionOrders[i].id = this.data.warehousesProductionOrders[i-1].id
           }
+
+          if(this.data.warehousesProductionOrders[i].IsSave){
+            var newProductPackingCode = "";
+            var productPackingCodeList = this.data.warehousesProductionOrders[i].productPackingCodeList.filter(c => c.IsSave);
+            for (var j = 0; j < productPackingCodeList.length; j++){
+              if(productPackingCodeList.length - 1 === j){
+                newProductPackingCode += productPackingCodeList[j].packingCode;
+              }else{
+                newProductPackingCode += productPackingCodeList[j].packingCode + ",";
+              }
+            }
+
+            if(newProductPackingCode === ""){
+              alert("Terdapat data yang kode packingnya belum dipilih");
+              return;
+            }else{
+              this.data.warehousesProductionOrders[i].productPackingCode = newProductPackingCode;
+            }
+          }
+
+          const savedDataList = this.data.warehousesProductionOrders.filter(d => d.IsSave);
+          
+          const haveCommonCode = this.findCommonElements(savedDataList);
+            if(haveCommonCode){
+              alert("Terdapat duplikasi pada kode packing yang dipilih");
+              return;
+            }
         }
+
       } else {
         this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
       }
@@ -141,5 +170,27 @@ export class Create {
           }
         });
     }
+  }
+
+  findCommonElements(savedDataList) {      
+    let packCodeList = [];
+    let savedDataListLength = savedDataList.length;
+    for(let i = 0; i < savedDataListLength; i++){
+      let savedPackingCodeList = savedDataList[i].productPackingCodeList.filter(c => c.IsSave);
+
+      if(packCodeList.length === 0){
+        packCodeList = savedPackingCodeList.map(d => d.packingCode);
+      }else{
+        let l = savedPackingCodeList.length;
+        for(let j = 0; j < l; j++){
+          if(packCodeList.includes(savedPackingCodeList[j].packingCode)){
+            return true;
+          }else{
+            packCodeList.push(savedPackingCodeList[j].packingCode);
+          }
+        }
+      }
+    }
+    return false;
   }
 }

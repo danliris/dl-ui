@@ -968,4 +968,18 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/local-sales-note-approval",
+        name: "garment-shipping/local-sales-note-approval",
+        moduleId: "modules/garment-shipping/local-sales-note-approval/index",
+        nav: true,
+        title: "Approval Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "approval",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
