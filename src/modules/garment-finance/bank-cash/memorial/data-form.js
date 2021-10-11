@@ -91,7 +91,7 @@ export class DataForm {
             var month = date.format('M');
             let info = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month-1 })
+				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month })
 			}
             var rate=0;
 			var currency= await this.coreService.getBICurrencies(info);

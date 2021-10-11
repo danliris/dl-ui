@@ -48,7 +48,7 @@
   <br>
   <br>
 
-  <au-table if.bind="!isAval && !isPackingType" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
+  <au-table if.bind="!isAval && !isPackingType && !isStockOpname" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
     options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
     context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">
@@ -64,6 +64,14 @@
   </au-table>
 
   <au-table if.bind="!isAval  && isPackingType" view-model.ref="table" data.bind="loader" columns.bind="columns2" context.bind="context"
+    options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)">
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-primary" click.delegate="export()">Excel</button>
+    </div>
+  </au-table>
+
+  <au-table if.bind="isStockOpname" view-model.ref="table" data.bind="loader" columns.bind="columns3" context.bind="context"
     options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
     context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">

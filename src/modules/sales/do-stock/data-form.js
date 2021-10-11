@@ -74,7 +74,7 @@ export class DataForm {
   };
 
 
-  doStockOptions = ["", "US", "UP", "UK", "RK", "USS", "UPS", "JS", "JB", "SP", "SD", "KKP", "KKF"];;
+  doStockOptions = ["", "US", "UP", "UK", "RK", "USS", "UKS", "UPS", "JS", "JB", "SP", "SD", "KKP", "KKF"];;
 
   packingUomOptions = ["", "Roll", "PCS", "PT", "Carton"];
 

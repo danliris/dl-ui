@@ -16,6 +16,7 @@ export class Collection {
   @bindable footerTemplate = null;
   @bindable columns;
   @bindable responsive = false;
+  @bindable callback = () => {}
 
   defaultOptions = {
     control: {
@@ -184,4 +185,16 @@ export class Collection {
     dispatchCustomEvent("checkall", this.element, $event);
     console.log($event);
   }
+
+  clickCheckBox = () => {
+    this.callback();
+  }
+
+  changeCheckedAll(items, options) {
+    const checkedAll = options.checkedAll;
+      items.forEach((item) => {
+        item.data.IsSave = checkedAll === true;
+      });
+      this.callback();
+    }
 }
