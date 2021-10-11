@@ -45,6 +45,7 @@ export class Create {
 
         //Enhance Jason Sept 2021
         // var validateDouble = this.validateDouble(this.data);
+        var validateDouble = 0;
         if(validateDouble == 0)
         {
             this.service.create(this.data)
