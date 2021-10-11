@@ -1000,7 +1000,7 @@ module.exports = [
         name: "garment-production/packing-list-items",
         moduleId: "modules/garment-production/packing-list-items/index",
         nav: true,
-        title: "Item Draft Packing List",
+        title: "Item Packing List",
         auth: true,
         settings: {
             group: "g-production",
@@ -1021,6 +1021,20 @@ module.exports = [
             subGroup: "packing list",
             permission: { "C9": 1, "FP": 1 },
             iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: "garment-production/packing-list-item-draft",
+        name: "garment-production/packing-list-item-draft",
+        moduleId: "modules/garment-production/packing-list-item-draft/index",
+        nav: true,
+        title: "Draft Item Packing List",
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "packing list",
+            permission: { "C9": 1, "FP": 1 },
+            iconClass: "fa fa-dashboard"
         }
     },
 ];
