@@ -1,7 +1,9 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
+var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request-loader");
 var UomLoader = require("../../../../loader/uom-loader");
+var CurrencyLoader = require("../../../../loader/garment-currency-loader");
 
 @inject(SalesService)
 export class Item {
@@ -9,6 +11,8 @@ export class Item {
     @bindable uom;
     @bindable avG_GW;
     @bindable avG_NW;
+    @bindable selectedPR;
+    @bindable currency;
 
     constructor(salesService) {
         this.salesService = salesService;
@@ -32,6 +36,13 @@ export class Item {
         return filter;
     }
 
+    get PRfilter() {
+        var filter={
+            'RONo.Contains("M") || RONo.Contains("S")': "true",
+        };
+        return filter;
+    }
+
     detailsColumns = [
         { header: "Index"},
         { header: "Carton 1" },
@@ -50,9 +61,20 @@ export class Item {
     get roLoader() {
         return CostCalculationLoader;
     }
+    get prLoader() {
+        return PurchaseRequestLoader;
+    }
 
     get uomLoader() {
         return UomLoader;
+    }
+
+    get currencyLoader() {
+        return CurrencyLoader;
+    }
+
+    currencyView = (currency) => {
+        return `${currency.Code || currency.code}`
     }
 
     uomView = (uom) => {
@@ -62,7 +84,9 @@ export class Item {
     roView = (costCal) => {
         return `${costCal.RO_Number}`
     }
-
+    roView = (pr) => {
+        return `${pr.RONo}`
+    }
     toggle() {
         if (!this.isShowing)
             this.isShowing = true;
@@ -79,6 +103,7 @@ export class Item {
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
         this.header=context.context.options.header;
+        this.isMaster=this.header.roType=="RO MASTER";
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
@@ -93,6 +118,9 @@ export class Item {
                 RO_Number: this.data.RONo || this.data.roNo
             };
             this.uom = this.data.uom;
+            this.selectedPR={
+                RONo:this.data.RONo || this.data.roNo
+            }
         }
         this.isShowing = false;
         if (this.data.details) {
@@ -100,6 +128,11 @@ export class Item {
                 this.isShowing = true;
             }
         }
+        // if(this.data.valas){
+        //     this.currency={
+        //         Code: this.data.valas
+        //     };
+        // }
     }
 
     selectedROChanged(newValue) {
@@ -127,10 +160,28 @@ export class Item {
         }
     }
 
+    selectedPRChanged(newValue){
+        if (newValue) {
+            this.data.roNo = newValue.RONo;
+            this.data.article = newValue.Article;
+            this.data.buyerBrand = newValue.Buyer;
+            this.data.unit = newValue.Unit;
+            this.data.valas = "USD";
+            this.data.scNo = newValue.SCNo;
+        }
+    }
+
     uomChanged(newValue) {
         if(newValue) {
             this.data.uom = newValue;
             this.uom = newValue;
+        }
+    }
+
+    currency(newValue){
+        this.data.valas =null;
+        if(newValue) {
+            this.data.valas = newValue.code || newValue.Code;
         }
     }
 
