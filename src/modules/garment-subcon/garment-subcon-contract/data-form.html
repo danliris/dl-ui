@@ -90,6 +90,17 @@
             read-only.bind="readOnly || data.IsUsed"
             options.bind="controlOptions">
         </au-datepicker>
+        
+        <au-autocomplete
+            value.bind="data.Buyer"
+            error.bind="error.Buyer"
+            label="Buyer"
+            loader.bind="buyerLoader"
+            text.bind = "buyerView"
+            placeholder="Cari Buyer"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
 
     </au-input-form>
     <div class="row"></div>
