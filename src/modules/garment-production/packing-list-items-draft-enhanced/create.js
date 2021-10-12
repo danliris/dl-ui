@@ -7,6 +7,7 @@ const PackingListLoader = require('../../../loader/garment-packing-list-loader')
 @inject(Router, Service)
 export class Create {
 
+
     @bindable packingList;
 
     constructor(router, service) {
