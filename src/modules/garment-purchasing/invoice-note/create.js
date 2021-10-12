@@ -35,7 +35,8 @@ export class Create {
     save(event) 
     {
         //Enhance Jason Sept 2021
-        var validateDouble = this.validateDouble(this.data);
+        //var validateDouble = this.validateDouble(this.data);
+        var validateDouble = 0; //Use Backend Validation
         var validateErrors = this.validateData(this.data);
         // var itemToBeSaved = this.data.items.filter(function (item) {
         //     return item.check

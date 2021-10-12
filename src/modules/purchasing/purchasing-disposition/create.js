@@ -41,11 +41,11 @@ export class Create {
             this.data.IncomeTaxValue=0;
             this.data.DPP=0;
             this.data.VatValue=0;
+            var pph=0;
+            var ppn=0;
             for(var item of this.data.Items){
                 if(item.Details){
                     for(var detail of item.Details){
-                        var pph=0;
-                        var ppn=0;
                         if(item.UseIncomeTax){
                             var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
                             pph=detail.PaidPrice*(parseFloat(rate)/100);
@@ -56,13 +56,14 @@ export class Create {
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
                         this.data.DPP+=detail.PaidPrice;
-                        if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
-                        }
-                        else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
                     }
                 }
+            }
+            if(this.data.IncomeTaxBy=="Supplier"){
+               this.data.Amount=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+            }
+            else{
+               this.data.Amount=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
             }
         }
         this.service.create(this.data)
