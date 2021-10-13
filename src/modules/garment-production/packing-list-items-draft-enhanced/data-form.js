@@ -155,7 +155,7 @@ export class DataForm {
         };
     }
 
-    removeItems() {
+    get removeItems() {
         return (event) => {
             this.data.grossWeight = this.data.items.reduce((acc, cur) => acc += cur.avG_GW, 0);
             this.data.nettWeight = this.data.items.reduce((acc, cur) => acc += cur.avG_NW, 0);
