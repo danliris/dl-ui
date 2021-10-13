@@ -38,13 +38,73 @@ export class Edit {
                     })
             });
             this.data.warehousesProductionOrders = sppWarehouseList;
+
+            let countSelectedPack = 0;
+            for(var i = 0; i < this.data.warehousesProductionOrders.length; i++){
+                if(this.data.warehousesProductionOrders[i].id == null || this.data.warehousesProductionOrders[i].id == undefined){
+                    this.data.warehousesProductionOrders[i].id = 0
+                }
+
+                var newProductPackingCode = "";
+                var productPackingCodeList = this.data.warehousesProductionOrders[i].productPackingCodeList.filter(c => c.IsSave);
+
+                for (var j = 0; j < productPackingCodeList.length; j++){
+                    countSelectedPack++;
+                    if(productPackingCodeList.length - 1 === j){
+                        newProductPackingCode += productPackingCodeList[j].packingCode;
+                    }else{
+                        newProductPackingCode += productPackingCodeList[j].packingCode + ",";
+                    }
+                }
+    
+                this.data.warehousesProductionOrders[i].productPackingCode = newProductPackingCode;
+            }
+            
+            this.data.warehousesProductionOrders = this.data.warehousesProductionOrders.filter(d => d.productPackingCode !== '');
+                
+            const haveCommonCode = this.findCommonElements(this.data.warehousesProductionOrders);
+            if(haveCommonCode){
+                alert("Terdapat duplikasi pada kode packing yang dipilih");
+                return;
+            }
+
+            if(countSelectedPack === 0){
+                alert("Belum ada kode packing yang dipilih");
+                return;
+            }
         } else {
             this.data.warehousesProductionOrders = this.data.adjWarehousesProductionOrders;
         }
+        
         this.service.update(this.data).then(result => {
             this.view();
         }).catch(e => {
             this.error = e;
         })
     }
+
+    findCommonElements(savedDataList) {      
+        let packCodeList = [];
+        let savedDataListLength = savedDataList.length;
+        for(let i = 0; i < savedDataListLength; i++){
+          let savedPackingCodeList = savedDataList[i].productPackingCodeList.filter(c => c.IsSave);
+    
+          if(packCodeList.length === 0){
+            packCodeList = savedPackingCodeList.map(d => d.packingCode);
+          }else{
+            let l = savedPackingCodeList.length;
+
+          console.log(packCodeList.toString());
+          console.log(savedPackingCodeList.map(d => d.packingCode).toString());
+            for(let j = 0; j < l; j++){
+              if(packCodeList.includes(savedPackingCodeList[j].packingCode)){
+                return true;
+              }else{
+                packCodeList.push(savedPackingCodeList[j].packingCode);
+              }
+            }
+          }
+        }
+        return false;
+      }
 }
