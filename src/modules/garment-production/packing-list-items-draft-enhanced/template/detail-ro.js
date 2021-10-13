@@ -30,6 +30,27 @@ export class Item {
     { header: "" },
   ];
 
+  get filter() {
+    var filter = {};
+    let section = this.context.context.options.header.section || {};
+
+    if (section.code === "C") {
+      var filter = {
+        SectionCode: section.code || section.Code,
+        //"SCGarmentId!=null": true
+      };
+    }
+    else {
+      var filter = {
+        BuyerCode: this.data.BuyerCode,
+        SectionCode: section.code || section.Code,
+        //"SCGarmentId!=null": true
+      };
+    }
+    return filter;
+  }
+
+
   get roLoader() {
     return DraftPackingListItemsLoader;
   }
@@ -103,7 +124,14 @@ export class Item {
         })
       };
       let dataDraftPLItems = await this.service.getDraftItemsPlById(newValue.id);
-      console.log(dataDraftPLItems);
+      if (dataDraftPLItems != null) {
+        this.data.comodityDescription = dataDraftPLItems.comodityDescription;
+        this.data.quantity = dataDraftPLItems.quantity;
+        this.data.unit = dataDraftPLItems.unit;
+        this.data.uom = dataDraftPLItems.uom;
+        this.uom = this.data.uom;
+        this.data.orderNo = dataDraftPLItems.orderNo;
+      }
       if (dataDraftPLItems.details != null) {
         if (dataDraftPLItems.details.length > 0) {
           dataDraftPLItems.details.map(x => {
@@ -116,7 +144,6 @@ export class Item {
           });
         }
       }
-      console.log("detilo", this.data.details);
 
       this.salesService.getCostCalculationByRoNo(args)
         .then(data => {
@@ -135,12 +162,7 @@ export class Item {
                         id: psc.SectionId,
                         code: result.Section,
                       };
-                      this.data.comodityDescription = (result.Comodity || {}).Name;
-                      this.data.unit = result.Unit;
-                      this.data.uom = result.UOM;
-                      this.uom = result.UOM;
                       this.data.valas = "USD";
-                      this.data.quantity = result.Quantity;
                       this.data.scNo = sc.SalesContractNo;
                       //this.data.amount=sc.Amount;
                       let avgPrice = 0;
@@ -155,6 +177,7 @@ export class Item {
                       this.data.amount = sc.Amount;
 
                       this.context.context.options.header.section = this.data.section;
+                      this.updateMeasurements();
                     });
                 })
             });
@@ -244,7 +267,7 @@ export class Item {
     };
   }
 
-  removeDetails() {
+  get removeDetails() {
     return (event) => {
       this.error = null;
       this.updateTotalSummary();
@@ -295,7 +318,6 @@ export class Item {
     }
 
     this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
-
   }
 
 
