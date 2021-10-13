@@ -86,7 +86,7 @@ export class Create {
                 // }
             }
             // this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;
-            this.data.Amount =(this.data.DPP+vatCalculate+this.data.MiscAmount)-incomeTaxCalculate;
+            this.data.Amount = parseFloat((this.data.DPP+vatCalculate+this.data.MiscAmount)-incomeTaxCalculate).toFixed(3);
             // this.data.IncomeTaxValue = this.data.IncomeTaxValueView;
             // this.data.VatValue = this.data.VatValueView;
             
