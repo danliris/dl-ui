@@ -476,7 +476,7 @@ export class DataForm {
     }
 
     roTypeChanged(newValue){
-        if(newValue != this.data.roType && this.data.items && this.context.isCreate){
+        if(newValue != this.data.roType && this.data.items && !this.isEdit){
             this.data.items.splice(0);
         }
         if (newValue) {
