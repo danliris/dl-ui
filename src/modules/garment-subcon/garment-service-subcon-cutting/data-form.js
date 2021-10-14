@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader');
 
 @inject(Service, SalesService, CoreService)
 export class DataForm {
@@ -44,6 +45,15 @@ export class DataForm {
             "Komoditi",
             ""
         ]
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
     }
 
     // @computedFrom("data.Unit")
