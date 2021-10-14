@@ -181,6 +181,7 @@ export class Item {
             this.data.unit = newValue.Unit;
             this.data.valas = "USD";
             this.data.scNo = newValue.SCNo;
+            this.unit=this.data.unit;
         }
     }
 
