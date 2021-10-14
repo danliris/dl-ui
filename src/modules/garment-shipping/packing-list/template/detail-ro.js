@@ -94,7 +94,7 @@ export class Item {
     roView = (costCal) => {
         return `${costCal.RO_Number}`
     }
-    roView = (pr) => {
+    prView = (pr) => {
         return `${pr.RONo}`
     }
     toggle() {
