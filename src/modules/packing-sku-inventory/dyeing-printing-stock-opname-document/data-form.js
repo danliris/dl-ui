@@ -123,7 +123,6 @@ export class DataForm {
       }
     }
   }
-
   ExportToExcel() {
     this.service.generateExcel(this.data.id);
   }
