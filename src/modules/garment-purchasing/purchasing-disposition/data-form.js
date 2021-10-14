@@ -220,7 +220,7 @@ export class DataForm {
                 this.data.DPP += dpp;
                 this.data.VatValueView +=ppnView;
                 // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
-                this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
                 //     }
                 // }
@@ -275,7 +275,7 @@ export class DataForm {
                     this.data.VatValueView += ppnView;
                     this.data.DPP += dpp;
                     // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
 
                     //     }
@@ -347,7 +347,7 @@ export class DataForm {
                     this.data.VatValueView += ppnView;                    
                     this.data.DPP += dpp;
                     // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
 
                     //     }
@@ -408,7 +408,7 @@ export class DataForm {
                     this.data.VatValueView += ppnView;                    
                     this.data.DPP += dpp;
                     // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
 
                     //     }
@@ -471,7 +471,7 @@ export class DataForm {
                     this.data.VatValueView += ppnView;                    
                     this.data.DPP += dpp;
                     // this.data.Amount+=dpp+ppn+pph+this.data.MiscAmount;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
 
                     //     }
@@ -527,7 +527,7 @@ export class DataForm {
                     this.data.VatValue += ppn;
                     this.data.VatValueView += ppnView;                    
                     this.data.DPP += dpp;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
                     //     }
                     // }
@@ -584,7 +584,7 @@ export class DataForm {
                     this.data.VatValue += ppn;
                     this.data.VatValueView += ppnView;                    
                     this.data.DPP += dpp;
-                    this.data.Amount += (dpp + ppn + this.data.MiscAmount) - pph;
+                    this.data.Amount += parseFloat((dpp + ppn + this.data.MiscAmount) - pph).toFixed(3);
 
                     //     }
                     // }
