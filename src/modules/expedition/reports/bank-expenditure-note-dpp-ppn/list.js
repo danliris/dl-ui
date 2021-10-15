@@ -260,7 +260,7 @@ export class List {
                 // console.log('akhir', myNewArrObj);
 
                 for (let i in dummy) {
-                    if (dummy[i].DocumentNo != before.DocumentNo) {
+                    if (dummy[i].Id != before.Id) {
                         before = dummy[i];
                         before._DocumentNo_rowspan = 1;
                         before._Date_rowspan = 1;
@@ -308,7 +308,7 @@ export class List {
                 
                 //#region 
                 for (let i in result.data) {
-                    if (result.data[i].DocumentNo != before.DocumentNo) {
+                    if (result.data[i].Id != before.Id) {
                         before = result.data[i];
                         before._DocumentNo_rowspan = 1;
                         before._Date_rowspan = 1;

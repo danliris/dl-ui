@@ -8,6 +8,17 @@
                 text.bind="roView"
                 placeholder="cari RO"
                 query.bind="filter"
+                if.bind="!isMaster"
+                read-only.bind="readOnly || (isEdit && data.id)">
+            </au-autocomplete>
+            <au-autocomplete
+                value.bind="selectedPR"
+                error.bind="error.RONo"
+                loader.bind="prLoader"
+                text.bind="prView"
+                placeholder="cari RO"
+                query.bind="PRfilter"
+                if.bind="isMaster"
                 read-only.bind="readOnly || (isEdit && data.id)">
             </au-autocomplete>
         </td>
@@ -23,7 +34,7 @@
                 read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary" if.bind="header.invoiceType!='SM'">
+        <td class="bg-primary" if.bind="header.invoiceType!='SM' && !isMaster">
             <au-textbox
                 value.bind="data.comodity.Name || data.comodity.name || ''"
                 read-only.bind="true">
@@ -53,7 +64,7 @@
                 read-only.bind="readOnly">
             </au-autocomplete>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary" if.bind="!isMaster">
             <au-numeric
                 value.bind="data.priceRO"
                 read-only.bind="true">
@@ -71,6 +82,15 @@
                 value.bind="data.valas"
                 read-only.bind="true">
             </au-textbox>
+            <!-- <au-autocomplete
+                value.bind="currency"
+                error.bind="error.valas"
+                loader.bind="currencyLoader"
+                text.bind="currencyView"
+                placeholder="cari mata uang"
+                read-only.bind="readOnly"
+                if.bind="isMaster">
+            </au-autocomplete> -->
         </td>
         <td class="bg-primary">
             <au-numeric
@@ -82,8 +102,18 @@
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.unit.Code || data.unit.code || ''"
-                read-only.bind="true">
+                read-only.bind="true"
+                if.bind="!isMaster">
             </au-textbox>
+            <au-autocomplete
+                value.bind="unit"
+                error.bind="error.unit"
+                loader.bind="unitLoader"
+                text.bind="unitView"
+                placeholder="cari unit"
+                read-only.bind="readOnly"
+                if.bind="isMaster">
+            </au-autocomplete>
         </td>
 
         <td if.bind="!readOnly">
