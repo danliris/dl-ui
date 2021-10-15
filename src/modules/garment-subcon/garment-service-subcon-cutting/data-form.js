@@ -47,6 +47,15 @@ export class DataForm {
         ]
     }
 
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
+    }
+
     // @computedFrom("data.Unit")
     // get cuttingInFilter() {
     //     this.selectedCuttingIn = null;

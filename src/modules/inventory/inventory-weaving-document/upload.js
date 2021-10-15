@@ -64,6 +64,7 @@ export class Create {
                     }
                     else if (response.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: nota,benang,type,lusi,pakan,lebar,jlusi,jpakan,alusi,apakan,sp,grade,jenis,piece,meter,barcode,tgl");
+                        this.upload();
                     }
                     else if (response.status == 201) {
                         console.log(response);
@@ -73,7 +74,8 @@ export class Create {
                     else if (response.status == 500)
                     {
                         //var message = response.message;
-                        alert("Nota Sudah Pernah di Input atau Ada Kesalahan Penyimpanan");
+                        alert("Nota Sudah Pernah di Input");
+                        this.upload();
                     }
 
                     console.log(response);

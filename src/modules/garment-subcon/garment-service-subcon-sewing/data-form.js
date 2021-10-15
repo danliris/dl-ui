@@ -46,6 +46,15 @@ export class DataForm {
     ]
   }
 
+  get buyerLoader() {
+    return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+      var buyerName = buyer.Name || buyer.name;
+      var buyerCode = buyer.Code || buyer.code;
+      return `${buyerCode} - ${buyerName}`
+  }
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;

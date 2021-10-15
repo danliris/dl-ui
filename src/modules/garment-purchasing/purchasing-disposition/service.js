@@ -59,7 +59,7 @@ export class Service extends RestService {
 
     getEPOById(param){
         // var endpoint = `${serviceEPOUri}/${epoId}`
-        var endpoint = `${serviceUri}/po-external-id/${param.Id}?supplierId=${param.supplierId}&currencyId=${param.currencyId}`
+        var endpoint = `${serviceUri}/po-external-id/${param.Id}?supplierId=${param.supplierId}&currencyCode=${param.currencyCode}`
         
         return super.get(endpoint)
     }
