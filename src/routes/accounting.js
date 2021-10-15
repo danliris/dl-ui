@@ -462,5 +462,33 @@ module.exports = [
       permission: { "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
+  },
+
+  {
+    route: "accounting/revise-create-date-unit-receipt-note",
+    name: "revise-create-date-unit-receipt-note",
+    moduleId: "./modules/accounting/revise-create-date-unit-receipt-note/index",
+    nav: true,
+    title: "Fitur Ubah Tanggal BUM",
+    auth: true,
+    settings: {
+      group: "accounting",
+      // permission: { "B1": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
+  {
+    route: "accounting/revise-create-date-unit-expenditure-note",
+    name: "revise-create-date-unit-expenditure-note",
+    moduleId: "./modules/accounting/revise-create-date-unit-expenditure-note/index",
+    nav: true,
+    title: "Fitur Ubah Tanggal BUK",
+    auth: true,
+    settings: {
+      group: "accounting",
+      // permission: { "B1": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
   }
 ];

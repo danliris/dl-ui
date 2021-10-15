@@ -577,20 +577,55 @@ export class DataForm {
                         }
                     }
                 }
-                if (percents.length > 0) {
-                    for (var p of percents) {
-                        if (p.amount > 0 && totalamount > 0) {
-                            p.amountPercentage = p.amount / totalamount * 100;
+                if (percents.length > 0) 
+                {
+                    // for (var p of percents) 
+                    // {
+                    //     console.log(p);
+                    //     if (p.amount > 0 && totalamount > 0) 
+                    //     {
+                    //         p.amountPercentage = p.amount / totalamount * 100;
+                    //     }
+                    //     if (p.qty > 0 && totalqty > 0) 
+                    //     {
+                    //         p.quantityPercentage = p.qty / totalqty * 100;
+                    //     }
+                    //     this.data.garmentShippingInvoiceUnits.push(p)
+                    // }
+                    //Enhance Jason Sept 2021
+                    var tempArray = [];
+                    for (var i = 0; i < percents.length; i++) 
+                    {
+                        if (percents[i].amount > 0 && totalamount > 0) 
+                        {
+                            if(i == percents.length - 1)
+                            {
+                                var sumPercentage = tempArray.reduce((a,b) => a + b, 0);
+                                var lastPercentage = 100 - sumPercentage;
+                                percents[i].amountPercentage = parseFloat(lastPercentage.toFixed(2));
+                                tempArray.push(percents[i].amountPercentage);
+                            }
+                            else
+                            {
+                                var percentage = percents[i].amount / totalamount * 100;
+                                percents[i].amountPercentage = parseFloat(percentage.toFixed(2));
+                                tempArray.push(percents[i].amountPercentage);
+                            }
                         }
-                        if (p.qty > 0 && totalqty > 0) {
-                            p.quantityPercentage = p.qty / totalqty * 100;
+                        if (percents[i].qty > 0 && totalqty > 0) 
+                        {
+                            percents[i].quantityPercentage = percents[i].qty / totalqty * 100;
                         }
-                        this.data.garmentShippingInvoiceUnits.push(p)
+                        this.data.garmentShippingInvoiceUnits.push(percents[i]);
                     }
+                    //console.log("data-form1");
+                    //console.log(tempArray);
                 }
             }
         }
+        //console.log("data-form2");
         return this.data.garmentShippingInvoiceUnits
+        //console.log("data-form3");
     }
 
 
