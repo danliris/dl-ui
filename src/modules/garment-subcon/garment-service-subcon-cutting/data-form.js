@@ -137,7 +137,8 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.Items.push({
-                Unit:this.data.Unit
+                Unit:this.data.Unit,
+                Buyer:this.data.Buyer
             });
         };
     }
@@ -171,5 +172,14 @@ export class DataForm {
             }
         }
         return qty;
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
     }
 }

@@ -159,9 +159,9 @@ export class Item {
     return (keyword) => {
       var info = {
         keyword: keyword,
-        //filter: JSON.stringify({ UnitId: this.data.Unit.Id})
+        filter: JSON.stringify({ BuyerCode: this.data.Buyer.Code})
       };
-      return this.service.searchSewingIn(info)
+      return this.service.searchSewingInByRo(info)
         .then((result) => {
           var roList = [];
           for (var a of result.data) {
