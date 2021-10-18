@@ -4,7 +4,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 
 const serviceUri = 'service-subcon-sewings';
 const serviceUriSewIn = 'sewing-ins';
-const serviceUriSewInByRo = 'sewing-ins/by-roNo';
+const serviceUriSewInByRo = 'sewing-ins/get-by-ro';
 const serviceUriPR = 'garment-purchase-requests';
 const comodityPriceserviceUri = 'comodity-prices';
 
