@@ -19,6 +19,15 @@ export class View {
             this.editCallback=null;
             this.deleteCallback=null;
         }
+        if(this.data.isRejectedShipping){
+            this.alertInfo = "<strong>Alasan Reject oleh Shipping:</strong> " + this.data.rejectedReason;
+        }
+        else if(this.data.isRejectedFinance){
+            this.alertInfo = "<strong>Alasan Reject oleh Finance:</strong> " + this.data.rejectedReason;
+        }
+        else{
+            this.alertInfo ="";
+        }
     }
 
     cancelCallback(event) {

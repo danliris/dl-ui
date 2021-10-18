@@ -1,20 +1,20 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service,CoreService,PackingInvService } from '../service';
+import { Service, CoreService, PackingInvService } from '../service';
 import moment from 'moment';
 
-var InvoiceLoader=require('../../../../../loader/garment-shipping-invoice-loader');
+var InvoiceLoader = require('../../../../../loader/garment-shipping-invoice-loader');
 
-@inject(Service,CoreService,PackingInvService)
+@inject(Service, CoreService, PackingInvService)
 export class Item {
 	@bindable selectedInvoice;
 
-	constructor(service,coreService,packingInvService) {
+	constructor(service, coreService, packingInvService) {
 		this.service = service;
-		this.coreService=coreService;
-		this.packingInvService=packingInvService;
+		this.coreService = coreService;
+		this.packingInvService = packingInvService;
 	}
 
-    filter= { "Code": "USD" };
+	filter = { "Code": "USD" };
 
 	activate(context) {
 		this.context = context;
@@ -30,57 +30,56 @@ export class Item {
 			readOnly: this.readOnly,
 			isEdit: this.isEdit,
 		};
-		
+
 		this.selectedInvoice = this.data.InvoiceId ? {
 			id: this.data.InvoiceId,
 			buyerAgent: this.data.Buyer,
 			invoiceNo: this.data.InvoiceNo,
 
-		}: null;
+		} : null;
 
 	}
 
-	get invoiceLoader(){
+	get invoiceLoader() {
 		return InvoiceLoader;
 	}
 
-	async selectedInvoiceChanged(newValue){
-		console.log(newValue);
-		if(newValue){
-			this.data.InvoiceNo=newValue.invoiceNo;
-			this.data.InvoiceId=newValue.id;
-			var date= moment(newValue.pebDate).format("YYYY-MM-DD");
-			this.data.Buyer={
-				Name:newValue.buyerAgent.name || newValue.buyerAgent.Name,
-				Code:newValue.buyerAgent.code || newValue.buyerAgent.Code,
-				Id:newValue.buyerAgent.id|| newValue.buyerAgent.Id,
+	async selectedInvoiceChanged(newValue) {
+		if (newValue) {
+			this.data.InvoiceNo = newValue.invoiceNo;
+			this.data.InvoiceId = newValue.id;
+			var date = moment(newValue.pebDate).format("YYYY-MM-DD");
+			this.data.Buyer = {
+				Name: newValue.buyerAgent.name || newValue.buyerAgent.Name,
+				Code: newValue.buyerAgent.code || newValue.buyerAgent.Code,
+				Id: newValue.buyerAgent.id || newValue.buyerAgent.Id,
 			};
 
-			var invoice= await this.packingInvService.getInvoiceById(this.data.InvoiceId);
-			this.data.Amount=0;
-			var cmtPrice=invoice.items.find(a=>a.cmtPrice>0);
-			if(cmtPrice){
-				for(var item of invoice.items){
-					this.data.Amount+=(item.price - item.cmtPrice)*item.quantity;
+			var invoice = await this.packingInvService.getInvoiceById(this.data.InvoiceId);
+			this.data.Amount = 0;
+			var cmtPrice = invoice.items.find(a => a.cmtPrice > 0);
+			if (cmtPrice) {
+				for (var item of invoice.items) {
+					this.data.Amount += (item.price - item.cmtPrice) * item.quantity;
 				}
-				
+
 			}
 			let info = {
 				size: 10,
 				keyword: "USD",
-				filter: JSON.stringify({ "Code": "USD", "date": date}),
+				filter: JSON.stringify({ "Code": "USD", "date": date }),
 			}
-			var currency= await this.coreService.getGarmentCurrencies(info);
-			this.data.Currency= currency[0];
+			var currency = await this.coreService.getGarmentCurrencies(info);
+			this.data.Currency = currency[0];
 		}
 	}
 
-	get amountIDR(){
-		var qty=0;
-		if(this.data.Amount && this.data.Currency){
-			qty=this.data.Amount*this.data.Currency.Rate;
+	get amountIDR() {
+		var qty = 0;
+		if (this.data.Amount && this.data.Currency) {
+			qty = this.data.Amount * this.data.Currency.Rate;
 		}
-		this.data.AmountIDR=qty;
+		this.data.AmountIDR = qty;
 		return qty;
 	}
 

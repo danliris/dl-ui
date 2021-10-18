@@ -6,6 +6,11 @@ import moment from 'moment';
 export class OtherItem {
 	@bindable selectedAccount;
 
+	typeAmountSelection = [
+		{ id: 1, label: "Kredit", value: "KREDIT" },
+		{ id: 2, label: "Debit", value: "DEBIT" },
+	];
+
 	constructor(service, coreService, packingInvService) {
 		this.service = service;
 		this.coreService = coreService;
@@ -78,11 +83,9 @@ export class OtherItem {
 
 			let dataCurrencies = await this.coreService.getCurrencies(args);
 
-			console.log("dataCurrencies", dataCurrencies);
 			var check = moment(this.header.MemorialDate, 'YYYY/MM/DD');
 
 			var month = check.format('M');
-			console.log(month);
 
 			let args2 = {
 				size: 10,
@@ -122,7 +125,6 @@ export class OtherItem {
 			this.coreService.getGarmentCurrencies(args)
 				.then(result => {
 					let currency = result.data.slice().pop();
-					console.log(currency);
 					this.data.Currency = {
 						Id: currency.Id,
 						Code: currency.Code,
@@ -163,4 +165,12 @@ export class OtherItem {
 		return 0;
 	}
 
+	selectedTypeAmountChanged(e) {
+		let type = (e.detail) ? e.detail : "";
+
+		if (type) {
+			this.data.TypeAmount = type;
+			this.options.TypeAmount = this.data.TypeAmount;
+		}
+	}
 }

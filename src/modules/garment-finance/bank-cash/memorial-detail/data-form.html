@@ -2,8 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
-				<div>
-
+				<div class="col-md-12">
 					<au-autocomplete value.bind="selectedMemorial" loader.one-time="memorialLoader"
 						error.bind="error.Memorial" text="MemorialNo" label="No Memorial"
 						query.bind="filter" read-only.bind="readOnly || isEdit"
@@ -15,12 +14,20 @@
 						error.bind="error.MemorialDate">
 					</au-datepicker>
 
+					<au-numeric label="Amount" value.bind="data.Amount" read-only.bind="true"
+						options.bind="controlOptions" error.bind="error.Amount"></au-numeric>
+
+					<au-numeric label="Amount (IDR)" value.bind="amountIDR" read-only.bind="true"
+						options.bind="controlOptions"></au-numeric>
+
+
+
+				</div>
+
+				<div>
 					<div class="form-group has-error">
 						<p if.bind="error.ItemsCount" class="help-block text-center">
 							${error.ItemsCount}
-						</p>
-						<p if.bind="error.Amount" class="help-block text-center">
-							${error.Amount}
 						</p>
 					</div>
 
@@ -46,8 +53,27 @@
 						footer-template="modules/garment-finance/bank-cash/memorial-detail/template/other-footer">
 					</au-collection>
 
+					<div class="form-group has-error">
+						<p if.bind="error.ItemsCount" class="help-block text-center">
+							${error.RupiahItemsCount}
+						</p>
+					</div>
+					<button class="btn btn-primary" show.bind="!readOnly || isEdit"
+						click.delegate="showDifferentAmount()">Selisih
+						Kurs</button>
+
+					<au-collection items.bind="data.RupiahItems" errors.bind="error.RupiahItems"
+						columns.bind="rupiahItemsColumns" read-only.bind="readOnly"
+						add.bind="addRupiahItems" remove.bind="removeRupiahItems"
+						title="Detail Rupiah" options.bind="Options"
+						item-template="modules/garment-finance/bank-cash/memorial-detail/template/rupiah-item"
+						footer-template="modules/garment-finance/bank-cash/memorial-detail/template/rupiah-footer">
+					</au-collection>
+
 				</div>
+
 			</au-input-form>
+
 		</div>
 	</div>
 </template>
