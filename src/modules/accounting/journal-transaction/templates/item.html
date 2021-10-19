@@ -6,7 +6,7 @@
                              value.bind="data.COA"
                              error.bind="error.COA"
                              loader.one-time="coaLoader"
-                             text="Code"
+                             text.bind="coaTextView"
                              read-only.bind="readOnly"
                              options.bind="controlOptions">
             </au-autocomplete>
