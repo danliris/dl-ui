@@ -8,6 +8,7 @@ const serviceUri = "garment-memorial-details";
 const coaUri = "master/chart-of-accounts";
 const currenciesUri = "master/currencies";
 const ibCurrenciesUri = "master/bi-currencies";
+const memorialUri = "garment-memorials";
 
 class Service extends RestService {
 
@@ -50,6 +51,10 @@ class Service extends RestService {
 		return super.list(endpoint, info);
 	}
 
+	getMemorialById(id) {
+		let endpoint = `${memorialUri}/${id}`
+		return super.get(endpoint);
+	}
 }
 
 const garmentCurrencyUri = 'master/garment-currencies/by-code-before-date';

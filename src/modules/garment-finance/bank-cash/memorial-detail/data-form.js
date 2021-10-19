@@ -13,6 +13,7 @@ export class DataForm {
 	@bindable data = {};
 	@bindable error = {};
 	@bindable selectedMemorial;
+	@bindable amountIDR;
 
 	controlOptions = {
 		label: {
@@ -50,14 +51,22 @@ export class DataForm {
 
 	otherItemsColumns = [
 		{ header: "No Account" },
-		{ header: "Nama Account" },
+		{ header: "Keterangan" },
 		{ header: "Kurs" },
 		{ header: "Rate" },
 		{ header: "Jumlah" },
 		{ header: "Total IDR" },
+		{ header: "Tipe Biaya" },
 		{ header: "" },
 	]
 
+	rupiahItemsColumns = [
+		{ header: "No Account" },
+		{ header: "Nama Account" },
+		{ header: "Debit" },
+		{ header: "Kredit" },
+		{ header: "" },
+	]
 
 	constructor(router, service, coreService, dialog) {
 		this.router = router;
@@ -66,7 +75,7 @@ export class DataForm {
 		this.dialog = dialog;
 	}
 
-	bind(context) {
+	async bind(context) {
 		this.context = context;
 		this.data = this.context.data;
 		this.error = this.context.error;
@@ -82,23 +91,35 @@ export class DataForm {
 		}
 
 		if (this.data) {
-			this.selectedMemorial = this.data.MemorialId ? {
-				Id: this.data.MemorialId,
-				MemorialNo: this.data.MemorialNo,
-				Date: this.data.MemorialDate
-			} : null;
+			if (this.data.MemorialId) {
+				let memorial = await this.service.getMemorialById(this.data.MemorialId);
+				this.selectedMemorial = this.data.MemorialId ? memorial : null;
+			}
+		}
+
+		let args = {
+			size: 1,
+			filter: JSON.stringify({ "Code": "1103.00.5.00" }),
+		}
+		let dataCoa = await this.service.getChartOfAccounts(args);
+		if (dataCoa.data.length > 0) {
+			this.data.InvoiceCoa = dataCoa.data[0];
+			this.data.DebitCoa = dataCoa.data[0];
 		}
 	}
 
 	selectedMemorialChanged(newValue) {
-		this.data.TotalAmount=0;
+		this.data.TotalAmount = 0;
 		if (newValue) {
-			if(newValue.Items){
-				for(var item of newValue.Items){
-					this.data.TotalAmount+=item.Credit;
+			if (newValue.Items) {
+				for (var item of newValue.Items) {
+					this.data.TotalAmount += item.Credit;
 				}
+				let amount = newValue.Items.find(x => x.COA && x.COA.Code == "1103.00.5.00");
+				this.data.Amount = amount.Credit;
+				this.amountIDR = this.data.Amount * newValue.GarmentCurrency.Rate;
 			}
-			
+
 			this.data.MemorialDate = newValue.Date;
 			this.data.MemorialId = newValue.Id;
 			this.data.MemorialNo = newValue.MemorialNo;
@@ -133,5 +154,72 @@ export class DataForm {
 		};
 	}
 
+	get addRupiahItems() {
+		return (event) => {
+			this.data.RupiahItems.push({});
+		};
+	}
 
+	get removeRupiahItems() {
+		return (event) => {
+			this.error = null;
+		};
+	}
+
+	async showDifferentAmount() {
+		let args = { filter: JSON.stringify({ "Code": "7131.00.4.00" }) };
+		let coaSelisihKurs = await this.service.getChartOfAccounts(args);
+
+		let sumCredit = 0;
+		let sumDebit = 0;
+		sumDebit += this.amountIDR;
+		sumCredit += this.data.Items.reduce((acc, cur) => acc += (cur.Amount * cur.Currency.Rate), 0);
+		let otherItemCredit = this.data.OtherItems.filter(x => x.TypeAmount == "KREDIT").reduce((acc, cur) => acc += (cur.Amount * cur.Currency.Rate), 0)
+		let otherItemDebit = this.data.OtherItems.filter(x => x.TypeAmount == "DEBIT").reduce((acc, cur) => acc += (cur.Amount * cur.Currency.Rate), 0)
+
+		sumCredit += otherItemCredit;
+		sumDebit += otherItemDebit;
+
+		let different;
+		let amountDiff;
+
+		if (sumCredit > sumDebit) {
+			amountDiff = sumCredit - sumDebit;
+			different = { Debit: amountDiff }
+		} else {
+			amountDiff = sumDebit - sumCredit;
+			different = { Credit: amountDiff }
+		}
+
+		if (this.data.RupiahItems.length > 0) {
+			if (this.data.RupiahItems[0].Account.Code != "7131.00.4.00") {
+				this.data.RupiahItems.unshift({
+					Account: coaSelisihKurs.data[0],
+					...different
+				});
+			} else {
+				if (this.data.RupiahItems[0].Id != null) {
+					if (different.hasOwnProperty('Credit')) {
+						this.data.RupiahItems[0].Credit = different.Credit;
+					} else {
+						this.data.RupiahItems[0].Debit = different.Debit;
+					}
+				} else {
+					this.data.RupiahItems.shift();
+					this.data.RupiahItems.unshift({
+						Account: coaSelisihKurs.data[0],
+						...different
+					});
+				}
+			}
+		} else {
+			this.data.RupiahItems.push({
+				Account: coaSelisihKurs.data[0],
+				...different
+			});
+
+		}
+
+
+	}
 }
