@@ -39,6 +39,17 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
+
+        <au-autocomplete
+            value.bind="data.Buyer"
+            error.bind="error.Buyer"
+            label="Buyer"
+            loader.bind="buyerLoader"
+            text.bind = "buyerView"
+            placeholder="Cari Buyer"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions">
+        </au-autocomplete>
         
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
@@ -49,7 +60,7 @@
             errors.bind="error.Items"
             columns.bind="itemsInfo.columns"
             read-only.bind="readOnly|| isEdit"
-            show.bind="data.Unit"
+            show.bind="data.Buyer"
             remove.bind="removeItems"
             add.bind="addItems"
             options.bind="itemOptions"
