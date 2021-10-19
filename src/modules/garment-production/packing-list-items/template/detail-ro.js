@@ -110,6 +110,7 @@ export class Item {
     if (this.error && this.error.Details && this.error.Details.length > 0) {
       this.isShowing = true;
     }
+    console.log(this.data);
   }
 
   selectedROChanged(newValue) {
