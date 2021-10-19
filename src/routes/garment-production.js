@@ -1028,7 +1028,7 @@ module.exports = [
         name: "garment-production/packing-list-item-draft",
         moduleId: "modules/garment-production/packing-list-item-draft/index",
         nav: true,
-        title: "Draft Item Packing List",
+        title: "Draft RO Packing List",
         auth: true,
         settings: {
             group: "g-production",
