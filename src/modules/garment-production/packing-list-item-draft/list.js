@@ -11,8 +11,11 @@ export class List {
     columns = [
         { field: "roNo", title: "No RO" },
         { field: "buyerBrandName", title: "Buyer Brand" },
+        { field: "orderNo", title: "PO Buyer" },
+        { field: "colourList", title: "Colour" },
+        { field: "remarks", title: "Keterangan" },
         {
-            field: "createdUtc", title: "Tgl Buat Item", formatter: function (value, data, index) {
+            field: "createdUtc", title: "Tgl Buat Draft RO", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         }
@@ -31,9 +34,12 @@ export class List {
         }
 
         return this.service.search(arg)
-            .then(result => {
+            .then(async result => {
                 for (let data of result.data) {
                     data.buyerBrandName = (data.buyerBrand || {}).name;
+                    if (data.details != null) {
+                        data.colourList = `${data.details.map(p => `- ${p.colour}`).join("<br/>")}`;
+                    }
                 }
 
                 return {
