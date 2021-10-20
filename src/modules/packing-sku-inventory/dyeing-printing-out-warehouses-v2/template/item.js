@@ -36,7 +36,6 @@ export class Item {
         "Panjang Per Packing",
         "Qty Keluar",
         "",
-        "",
       ];
     } else {
       this.itemColumns = [
@@ -54,7 +53,6 @@ export class Item {
         "Jenis",
         "Panjang Per Packing",
         "Qty Keluar",
-        "",
         "",
       ];
     }
