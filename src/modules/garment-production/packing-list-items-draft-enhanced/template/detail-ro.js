@@ -56,7 +56,7 @@ export class Item {
   }
 
   roView = (ro) => {
-    return `${ro.roNo}`
+    return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).join(', ') : ''} - ${ro.remarks}`
   }
 
   get uomLoader() {
@@ -104,7 +104,10 @@ export class Item {
     };
     if (this.data.roNo) {
       this.selectedRO = {
-        roNo: this.data.RONo || this.data.roNo
+        roNo: this.data.RONo || this.data.roNo,
+        orderNo: this.data.orderNo,
+        details: this.data.details,
+        remarks: this.data.remarks
       };
       this.uom = this.data.uom;
     }
@@ -131,6 +134,7 @@ export class Item {
         this.data.uom = dataDraftPLItems.uom;
         this.uom = this.data.uom;
         this.data.orderNo = dataDraftPLItems.orderNo;
+        this.data.remarks = dataDraftPLItems.remarks;
       }
       if (dataDraftPLItems.details != null) {
         if (dataDraftPLItems.details.length > 0) {
