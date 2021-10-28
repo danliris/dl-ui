@@ -29,18 +29,22 @@ export class Item {
                     SubconNo: this.data.SubconNo,
                     Id:this.data.SubconId
                 };
-                var subcon = await this.service.readServiceSubconCuttingById(this.data.SubconId);
-                this.data.date=subcon.SubconDate;
-                this.data.unit=subcon.Unit.Code;
-                this.data.subconType=subcon.SubconType;
+                if(this.data.Id){
+                    var subcon = await this.service.readServiceSubconCuttingById(this.data.SubconId);
+                    this.data.date=subcon.SubconDate;
+                    this.data.unit=subcon.Unit.Code;
+                    this.data.subconType=subcon.SubconType;
+                }
             }
             else{
                 this.selectedSubconSewing={
                     ServiceSubconSewingNo: this.data.SubconNo,
                     Id:this.data.SubconId
                 };
-                var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
-                this.data.date=subcon.ServiceSubconSewingDate;
+                if(this.data.Id){
+                    var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
+                    this.data.date=subcon.ServiceSubconSewingDate;
+                }
             }
             
         }
