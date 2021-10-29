@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'service-subcon-cuttings';
+const resource = 'service-subcon-shrinkage-panels';
 
 module.exports = function (keyword, filter) {
 
