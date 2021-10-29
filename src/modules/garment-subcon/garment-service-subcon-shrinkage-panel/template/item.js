@@ -73,65 +73,66 @@ export class Item {
 	}
 
 	async selectedUENChanged(newValue, oldValue) {
-		if (newValue) {
-			this.data.Details.splice(0);
-			this.data.UnitExpenditureNo = newValue.UENNo;
-			this.data.ExpenditureDate = newValue.ExpenditureDate;
-			this.data.UnitSender = {
-				Id: newValue.UnitSenderId,
-				Code: newValue.UnitSenderCode,
-				Name: newValue.UnitSenderName
-			};
-
-			this.data.UnitRequest = {
-				Id: newValue.UnitRequestId,
-				Code: newValue.UnitRequestCode,
-				Name: newValue.UnitRequestName
-			};
-			newValue.Items.map(async i => {
-				const dataUnitDOItem = await this.purchasingService.getUnitDeliveryOrderItems(i.UnitDOItemId);
-				const detail = {};
-				detail.Product = {
-					Id: i.ProductId,
-					Code: i.ProductCode,
-					Name: i.ProductName,
-					Remark: i.ProductRemark,
+		if (this.isCreate) {
+			if (newValue) {
+				this.data.Details.splice(0);
+				this.data.UnitExpenditureNo = newValue.UENNo;
+				this.data.ExpenditureDate = newValue.ExpenditureDate;
+				this.data.UnitSender = {
+					Id: newValue.UnitSenderId,
+					Code: newValue.UnitSenderCode,
+					Name: newValue.UnitSenderName
 				};
-				detail.Quantity = i.Quantity;
-				detail.DesignColor = dataUnitDOItem.DesignColor;
-				detail.Uom = {
-					Id: i.UomId,
-					Unit: i.UomUnit
-				}
-				this.data.Details.push(detail);
-			})
 
-		} else {
-			this.data.UENNo = null;
+				this.data.UnitRequest = {
+					Id: newValue.UnitRequestId,
+					Code: newValue.UnitRequestCode,
+					Name: newValue.UnitRequestName
+				};
+				newValue.Items.map(async i => {
+					const dataUnitDOItem = await this.purchasingService.getUnitDeliveryOrderItems(i.UnitDOItemId);
+					const detail = {};
+					detail.Product = {
+						Id: i.ProductId,
+						Code: i.ProductCode,
+						Name: i.ProductName,
+						Remark: i.ProductRemark,
+					};
+					detail.Quantity = i.Quantity;
+					detail.DesignColor = dataUnitDOItem.DesignColor;
+					detail.Uom = {
+						Id: i.UomId,
+						Unit: i.UomUnit
+					}
+					this.data.Details.push(detail);
+				})
+
+			} else {
+				this.data.UENNo = null;
+			}
 		}
 	}
-}
 
 	get garmentUENLoader() {
-	return async (keyword) => {
-		var info = {
-			keyword: keyword,
-			filter: JSON.stringify({ ExpenditureType: "SUBCON" })
-		};
+		return async (keyword) => {
+			var info = {
+				keyword: keyword,
+				filter: JSON.stringify({ ExpenditureType: "SUBCON" })
+			};
 
-		let dataSubconShrinkage = await this.service.searchComplete({});
-		let uenNo = [];
-		dataSubconShrinkage.data.map(x => {
-			x.Items.map(item => {
-				uenNo.push(item.UnitExpenditureNo);
-			})
-		});
-
-		return this.purchasingService.getUnitExpenditureNotes(info)
-			.then((result) => {
-				let data = result.data.filter(x => !uenNo.includes(x.UENNo));
-				return data;
+			let dataSubconShrinkage = await this.service.searchComplete({});
+			let uenNo = [];
+			dataSubconShrinkage.data.map(x => {
+				x.Items.map(item => {
+					uenNo.push(item.UnitExpenditureNo);
+				})
 			});
+
+			return this.purchasingService.getUnitExpenditureNotes(info)
+				.then((result) => {
+					let data = result.data.filter(x => !uenNo.includes(x.UENNo));
+					return data;
+				});
+		}
 	}
-}
 }
