@@ -35,7 +35,7 @@ export class DataForm {
     };
     dlTypes=["PROSES","RE PROSES"];
     contractTypes=["SUBCON BAHAN BAKU","SUBCON CUTTING","SUBCON JASA"];
-    serviceTypes=["SUBCON JASA KOMPONEN", "SUBCON JASA GARMENT WASH"];
+    serviceTypes=["SUBCON JASA KOMPONEN", "SUBCON JASA GARMENT WASH", "SUBCON JASA SHRINKAGE PANEL","SUBCON JASA FABRIC WASH"];
     controlOptions = {
         label: {
             length: 3
@@ -112,7 +112,8 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
-            isSubconCutting:this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false
+            isSubconCutting:this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false,
+            serviceType:this.data.ServiceType
         }
 
         if (this.data.Id) {
@@ -178,7 +179,8 @@ export class DataForm {
         this.data.QtyUsed=0;
         this.data.Items.splice(0);
         this.context.selectedContractViewModel.editorValue="";
-        this.itemOptions.isSubconCutting=this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false
+        this.itemOptions.isSubconCutting=this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false;
+        this.itemOptions.serviceType=this.data.ServiceType;
     }
 
     contractView = (contract) => {
