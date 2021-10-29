@@ -56,7 +56,11 @@ export class Item {
   }
 
   roView = (ro) => {
-    return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).join(', ') : ''} - ${ro.remarks}`
+    return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).filter((value, index, self) => self.indexOf(value) === index).join(', ') : ''} - ${ro.remarks}`
+  }
+
+  roDetailView = (ro) => {
+    return `${ro.roNo}`;
   }
 
   get uomLoader() {

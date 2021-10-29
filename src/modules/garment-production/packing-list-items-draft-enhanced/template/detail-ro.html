@@ -1,9 +1,9 @@
 <template>
     <tr>
         <td class="bg-primary col-md-1">
-            <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader" text.bind="roView"
-                placeholder="cari RO" read-only.bind="readOnly || (isEdit && data.id) || data.isCopy"
-                query.bind="filter">
+            <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader"
+                text.bind="readOnly ? roDetailView : roView" placeholder="cari RO"
+                read-only.bind="readOnly || (isEdit && data.id) || data.isCopy" query.bind="filter">
             </au-autocomplete>
         </td>
         <td class="bg-primary">
