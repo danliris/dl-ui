@@ -21,13 +21,14 @@ export class View {
             };
            
             this.selectedContractType=this.data.ContractType;
+            this.selectedServiceType=this.data.ServiceType;
         }
         this.getContractQty();
     }
 
     async getContractQty() {
         var subconContract = await this.service.readSubconContractById(this.data.SubconContractId);
-        if(this.data.ContractType=='SUBCON CUTTING'){
+        if(this.data.ContractType=='SUBCON CUTTING' || this.data.ContractType=='SUBCON JASA'){
             this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
             .then((contract)=>{
                 var usedQty= 0;
