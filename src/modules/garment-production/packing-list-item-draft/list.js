@@ -38,7 +38,7 @@ export class List {
                 for (let data of result.data) {
                     data.buyerBrandName = (data.buyerBrand || {}).name;
                     if (data.details != null) {
-                        data.colourList = `${data.details.map(p => `- ${p.colour}`).join("<br/>")}`;
+                        data.colourList = `${data.details.map(p => `- ${p.colour}`).filter((value, index, self) => self.indexOf(value) === index).join("<br/>")}`;
                     }
                 }
 
