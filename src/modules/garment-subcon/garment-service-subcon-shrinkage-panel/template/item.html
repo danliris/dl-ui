@@ -3,8 +3,8 @@
 		<td class="bg-primary">
 			<au-autocomplete value.bind="selectedUEN" error.bind="error.ExpenditureNoteNo"
 				loader.bind="garmentUENLoader" text.bind="UENView"
-				placeholder="Nomor Bon Pengeluaran Unit" read-only.bind="readOnly || isEdit"
-				query.bind="filter" options.bind="controlOptions">
+				placeholder="Nomor Bon Pengeluaran Unit" read-only.bind="readOnly|| (isEdit && data.Id)"
+				query.bind=" filter" options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
 

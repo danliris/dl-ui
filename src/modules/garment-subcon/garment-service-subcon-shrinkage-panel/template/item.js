@@ -74,6 +74,7 @@ export class Item {
 
 	async selectedUENChanged(newValue, oldValue) {
 		if (newValue) {
+			this.data.Details.splice(0);
 			this.data.UnitExpenditureNo = newValue.UENNo;
 			this.data.ExpenditureDate = newValue.ExpenditureDate;
 			this.data.UnitSender = {
@@ -109,6 +110,25 @@ export class Item {
 	}
 
 	get garmentUENLoader() {
-		return GarmentUnitExpenditureNotesLoader;
+		return async (keyword) => {
+			var info = {
+				keyword: keyword,
+				filter: JSON.stringify({ ExpenditureType: "SUBCON" })
+			};
+
+			let dataSubconShrinkage = await this.service.searchComplete({});
+			let uenNo = [];
+			dataSubconShrinkage.data.map(x => {
+				x.Items.map(item => {
+					uenNo.push(item.UnitExpenditureNo);
+				})
+			});
+
+			return this.purchasingService.getUnitExpenditureNotes(info)
+				.then((result) => {
+					let data = result.data.filter(x => !uenNo.includes(x.UENNo));
+					return data;
+				});
+		}
 	}
 }
