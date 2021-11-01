@@ -29,12 +29,12 @@ export class List {
             { text: "Desember", value: 12 },
         ];
         this.currentYear = moment().format("YYYY");
-    
+
         this.month = { text: "January", value: 1 };
         this.year = this.currentYear;
-    
+
         for (var i = parseInt(this.currentYear); i >= 2018; i--) {
-        this.itemYears.push(i.toString());
+            this.itemYears.push(i.toString());
         }
     }
 
@@ -59,67 +59,70 @@ export class List {
         if (!this.year) {
             alert("Tahun Harus Diisi");
         }
-        else if(!this.month){
+        else if (!this.month) {
             alert("Bulan Harus Diisi");
         }
         this.searching();
     }
-    
+
     async searching() {
-        this.data=[];
+        this.data = [];
         var order = {};
         let args = {
             order: order,
             month: this.month.value,
             year: this.year,
-            buyer: this.buyer ? this.buyer.Code :""
+            buyer: this.buyer ? this.buyer.Code : ""
         };
         this.service.search(args)
-        .then(result => {
-            this.data = result.data;
-            //this.info.total = result.info.total;
-            for(var _data of this.data){
-                _data.TruckingDate= _data.TruckingDate ? moment.utc(_data.TruckingDate).local().format('DD MMM YYYY') : "";
-                _data.Index=_data.Index==0? "" : _data.Index;
-            }
-            this.fillTable();
-        });
-        
+            .then(result => {
+                this.data = result.data;
+                //this.info.total = result.info.total;
+                for (var _data of this.data) {
+                    _data.TruckingDate = _data.TruckingDate ? moment.utc(_data.TruckingDate).local().format('DD MMM YYYY') : "";
+                    _data.Index = _data.Index == 0 ? "" : _data.Index;
+                }
+                this.fillTable();
+            });
+
     }
 
     fillTable() {
         const columns = [
-            {field: "Index", title: "No", cellStyle: (value, row, index, field) => {
-                return { classes: 'fixed' } } },
+            {
+                field: "Index", title: "No", cellStyle: (value, row, index, field) => {
+                    return { classes: 'fixed' }
+                }
+            },
             { field: "TruckingDate", title: "Tanggal" },
             { field: "InvoiceNo", title: "No. Nota Penjualan Lokal" },
             {
                 field: "Amount", title: "Amount", align: "right", formatter: function (value, data, index) {
-                return numeral(value).format("0,000.00");
+                    return numeral(value).format("0,000.00");
                 }
             }
         ];
-        
+
         var bootstrapTableOptions = {
             undefinedText: '',
             columns: columns,
             data: this.data,
-            rowStyle:this.rowFormatter
+            rowStyle: this.rowFormatter
         };
 
         bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
         $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
 
         for (const rowIndex in this.data) {
-            if(this.data[rowIndex].InvoiceNo=="TOTAL") {
-                var rowSpan=1;
-                $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "InvoiceNo", rowspan: rowSpan, colspan: 1 });
-                
+            if (this.data[rowIndex].InvoiceNo == "TOTAL") {
+                var rowSpan = 1;
+                $(this.table).bootstrapTable('mergeCells', { index: rowIndex, field: "InvoiceNo", rowspan: rowSpan, colspan: 1 });
+
             }
         }
     }
 
-    
+
     reset() {
         this.year = moment().format("YYYY");
         this.month = { text: "January", value: 1 };
@@ -127,20 +130,19 @@ export class List {
         this.error = {};
 
         this.flag = false;
-        this.table.refresh();
     }
 
     ExportToExcel() {
         if (!this.year) {
             alert("Tahun Harus Diisi");
         }
-        else if(!this.month){
+        else if (!this.month) {
             alert("Bulan Harus Diisi");
         }
         let args = {
             month: this.month.value,
             year: this.year,
-            buyer: this.buyer ? this.buyer.Code :""
+            buyer: this.buyer ? this.buyer.Code : ""
         };
         this.service.generateExcel(args);
     }
