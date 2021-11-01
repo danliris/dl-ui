@@ -24,14 +24,14 @@ export class Item {
         this.itemOptions=context.context.options;
         if(this.data){
             this.selectedCuttingOut={
-                CutOutNo: this.data.SubconCuttingOutNo,
-                Id:this.data.SubconCuttingOutId
+                CutOutNo: this.data.SubconNo,
+                Id:this.data.SubconId
             };
             this.selectedRO={
                 RONo:this.data.RONo,
             }
-            if(this.data.SubconCuttingOutId){
-                var subcon = await this.service.readSubconCuttingOutById(this.data.SubconCuttingOutId);
+            if(this.data.SubconId){
+                var subcon = await this.service.readSubconCuttingOutById(this.data.SubconId);
             
                 this.data.Details=subcon.Items;
                 
@@ -66,7 +66,7 @@ export class Item {
             RONo:this.data.RONo
         };
         for(var item of this.context.context.items){
-            filter[`CutOutNo == "${item.data.SubconCuttingOutNo}"`]=false;
+            filter[`CutOutNo == "${item.data.SubconNo}"`]=false;
         }
         if(this.context.context.options.DLType!="RE PROSES"){
             filter["IsUsed"]=false;
@@ -88,8 +88,8 @@ export class Item {
         }
         else{
             this.data.RONo="";
-            this.data.SubconCuttingOutId=null;
-            this.data.SubconCuttingOutNo="";
+            this.data.SubconId=null;
+            this.data.SubconNo="";
             this.selectedCuttingOut=null;
             this.data.Details.splice(0);
         }
@@ -99,10 +99,10 @@ export class Item {
             this.data.Details.splice(0);
         }
         if(newValue){
-            this.data.SubconCuttingOutId=newValue.Id;
-            this.data.SubconCuttingOutNo=newValue.CutOutNo;
+            this.data.SubconId=newValue.Id;
+            this.data.SubconNo=newValue.CutOutNo;
 
-            var subcon = await this.service.readSubconCuttingOutById(this.data.SubconCuttingOutId);
+            var subcon = await this.service.readSubconCuttingOutById(this.data.SubconId);
             
             this.data.POSerialNumber=subcon.POSerialNumber;
             this.data.Details=subcon.Items;
