@@ -986,6 +986,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
+            subGroup: "fitur",
             permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -1041,6 +1042,21 @@ module.exports = [
         settings: {
             group: "g-purchasing",
             permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+    {
+        route: '/bcno-feature',
+        name: 'bcno-feature',
+        moduleId: './modules/garment-purchasing/bcno-feature/index',
+        nav: true,
+        title: 'Fitur Cek No BC',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "fitur",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
