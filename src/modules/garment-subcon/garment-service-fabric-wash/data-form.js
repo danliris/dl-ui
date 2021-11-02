@@ -57,7 +57,6 @@ export class DataForm {
 
         }
         
-        console.log(this.itemOptions);
         if (this.data && this.data.Items) {
             // this.data.Items.forEach(
             //     item => {

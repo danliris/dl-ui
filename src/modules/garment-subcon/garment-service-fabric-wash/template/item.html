@@ -43,7 +43,7 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td if.bind="isCreate" class="col-sm-1">
+        <td if.bind="isCreate || isEdit" class="col-sm-1">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
         </td>
     </tr>
