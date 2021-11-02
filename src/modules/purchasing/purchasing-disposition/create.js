@@ -60,10 +60,10 @@ export class Create {
                 }
             }
             if(this.data.IncomeTaxBy=="Supplier"){
-               this.data.Amount=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+               this.data.Amount=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
             }
             else{
-               this.data.Amount=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+               this.data.Amount=detail.PaidPrice+ppn+this.data.PaymentCorrection;
             }
         }
         this.service.create(this.data)
