@@ -106,6 +106,19 @@ export class DataForm {
         { header: "" },
     ]
 
+    itemsColumnsSMMaster =[
+        { header: "RO No" },
+        { header: "SC No" },
+        { header: "Komoditi Description" },
+        { header: "Qty" },
+        { header: "Satuan" },
+        { header: "Price" },
+        { header: "Mata Uang" },
+        { header: "Amount" },
+        { header: "Unit" },
+        { header: "" },
+    ]
+
     measureColumns = [
         { header: "No", value: "MeasurementIndex" },
         { header: "Length" },

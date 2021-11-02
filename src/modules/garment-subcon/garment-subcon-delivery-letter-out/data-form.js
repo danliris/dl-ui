@@ -19,6 +19,7 @@ export class DataForm {
     @bindable selectedContract;
     @bindable selectedDLType;
     @bindable selectedContractType;
+    @bindable selectedServiceType;
 
     constructor(service,purchasingService,coreService) {
         this.service = service;
@@ -34,7 +35,7 @@ export class DataForm {
     };
     dlTypes=["PROSES","RE PROSES"];
     contractTypes=["SUBCON BAHAN BAKU","SUBCON CUTTING","SUBCON JASA"];
-
+    serviceTypes=["SUBCON JASA KOMPONEN", "SUBCON JASA GARMENT WASH", "SUBCON JASA SHRINKAGE PANEL","SUBCON JASA FABRIC WASH"];
     controlOptions = {
         label: {
             length: 3
@@ -60,6 +61,19 @@ export class DataForm {
             "RO",
             "No Cutting Out Subcon",
             "Plan PO",
+            "Jumlah",
+        ],
+        columnsServiceCutting:[
+            "No Subcon Jasa Komponen",
+            "Tgl Subcon",
+            "Asal Unit",
+            "Jenis Subcon",
+            "Jumlah",
+        ],
+        columnsServiceSewing:[
+            "No Subcon Jasa Garment Wash",
+            "Tgl Subcon",
+            //"Asal Unit",
             "Jumlah",
         ]
     }
@@ -97,7 +111,9 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            isSubconCutting:this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false,
+            serviceType:this.data.ServiceType
         }
 
         if (this.data.Id) {
@@ -147,6 +163,24 @@ export class DataForm {
         this.data.QtyUsed=0;
         this.data.Items.splice(0);
         this.context.selectedContractViewModel.editorValue="";
+        this.data.ServiceType="";
+        this.selectedServiceType=null;
+    }
+
+    selectedServiceTypeChanged(newValue){
+        this.data.ServiceType=newValue;
+        this.selectedUEN=null;
+        this.data.UENId = 0;
+        this.data.UENNo = "";
+        this.data.ContractNo="";
+        this.data.SubconContractId=0;
+        this.data.ContractQty=0;
+        this.data.UsedQty=0;
+        this.data.QtyUsed=0;
+        this.data.Items.splice(0);
+        this.context.selectedContractViewModel.editorValue="";
+        this.itemOptions.isSubconCutting=this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false;
+        this.itemOptions.serviceType=this.data.ServiceType;
     }
 
     contractView = (contract) => {
