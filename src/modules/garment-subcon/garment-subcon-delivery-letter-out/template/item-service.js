@@ -5,14 +5,12 @@ const SubconCuttingLoader = require('../../../../loader/garment-service-subcon-c
 const SubconSewingLoader = require('../../../../loader/garment-service-subcon-sewing-loader');
 const SubconFabricLoader = require('../../../../loader/garment-service-subcon-fabric-loader');
 const SubconShrinkageLoader = require('../../../../loader/garment-service-subcon-shrinkage-loader');
-
 @inject(Service, CoreService)
 export class Item {
     @bindable selectedSubconSewing;
     @bindable selectedSubconCutting;
     @bindable selectedSubconShrinkage;
     @bindable selectedSubconFabric;
-
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
@@ -42,7 +40,6 @@ export class Item {
                 }
             }
             else if(this.serviceType=="SUBCON JASA GARMENT WASH"){
-
                 this.selectedSubconSewing={
                     ServiceSubconSewingNo: this.data.SubconNo,
                     Id:this.data.SubconId
@@ -75,7 +72,6 @@ export class Item {
             
         }
         console.log(context)
-        
     }
     
     comodityView = (comodity) => {
@@ -162,6 +158,7 @@ export class Item {
             }
         }
     }
+  
     async selectedSubconShrinkageChanged(newValue){
         this.data.date=null;
         this.data.unit="";
