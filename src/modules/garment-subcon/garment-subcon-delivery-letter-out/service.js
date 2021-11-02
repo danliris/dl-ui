@@ -5,6 +5,8 @@ const subconContractServiceUri = 'subcon-contracts';
 const SubconCuttingOutServiceUri = 'subcon-cutting-outs';
 const ServiceSubconCuttingUri='service-subcon-cuttings';
 const ServiceSubconSewingUri='service-subcon-sewings';
+const ServiceSubconFabricUri = 'service-subcon-fabric-washes';
+const ServiceSubconShrinkageUri = 'service-subcon-shrinkage-panels';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -58,6 +60,15 @@ class Service extends RestService {
 
     readServiceSubconSewingById(id) {
         var endpoint = `${ServiceSubconSewingUri}/${id}`;
+        return super.get(endpoint);
+    }
+    readServiceSubconShrinkageById(id) {
+        var endpoint = `${ServiceSubconShrinkageUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    readServiceSubconFabricById(id) {
+        var endpoint = `${ServiceSubconFabricUri}/${id}`;
         return super.get(endpoint);
     }
 }

@@ -98,7 +98,7 @@
             loader.bind="buyerLoader"
             text.bind = "buyerView"
             placeholder="Cari Buyer"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
         </au-autocomplete>
 

@@ -5,6 +5,7 @@ import { data } from 'jquery';
 
 const serviceUri = 'service-subcon-shrinkage-panels';
 const garmentUnitDeliveryOrderItemsUri = 'garment-unit-delivery-orders';
+const garmentUENUri = 'garment-unit-expenditure-notes';
 
 class Service extends RestService {
 	constructor(http, aggregator, config, endpoint) {
@@ -36,12 +37,20 @@ class Service extends RestService {
 		return super.delete(endpoint, data);
 	}
 
-
+	searchComplete(info) {
+		var endpoint = `${serviceUri}/complete`;
+		return super.list(endpoint, info);
+	}
 }
 
 class PurchasingService extends RestService {
 	constructor(http, aggregator, config, api) {
 		super(http, aggregator, config, "purchasing-azure");
+	}
+
+	getUnitExpenditureNotes(info) {
+		var endpoint = `${garmentUENUri}`;
+		return super.list(endpoint, info)
 	}
 
 	getUnitDeliveryOrderItems(id) {
