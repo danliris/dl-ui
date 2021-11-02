@@ -8,20 +8,20 @@ const BuyerLoader = require('../../../../loader/garment-buyers-loader');
 export class List {
   columns = [
     [
-      {field: "Index", title: "No", rowspan: 2 },
-       { field: "TruckingDate", title: "Tanggal", rowspan: 2 },
-      
+      { field: "Index", title: "No", rowspan: 2 },
+      { field: "TruckingDate", title: "Tanggal", rowspan: 2 },
+
       { field: "InvoiceNo", title: "No. Invoice", rowspan: 2 },
-      
+
       {
         field: "Amount", title: "Amount", rowspan: 2, align: "right", formatter: function (value, data, index) {
           return numeral(value).format("0,000.00");
         }
       }
-       
-         ],
+
+    ],
     [
-     
+
     ]
   ];
 
@@ -70,19 +70,19 @@ export class List {
 
     this.info.month = { text: "January", value: 1 };
     this.info.year = this.currentYear;
-    this.buyer= "";
+    this.buyer = "";
     for (var i = parseInt(this.currentYear); i >= 2018; i--) {
       this.itemYears.push(i.toString());
     }
   }
 
-  
+
 
   loader = (info) => {
 
 
     let params = {
-      
+
       month: this.info.month.value,
       year: this.info.year,
       buyer: this.buyer.Code
@@ -93,8 +93,7 @@ export class List {
       ? this.service.search(params).then((result) => {
         for (var _data of result.data) {
           _data.TruckingDate = _data.TruckingDate ? moment.utc(_data.TruckingDate).local().format('DD MMM YYYY') : "";
-          if (_data.Index === 0)
-          {
+          if (_data.Index === 0) {
             _data.Index = "";
           }
         }
@@ -102,7 +101,7 @@ export class List {
           total: result.data.length,
           data: result.data
         };
-        
+
       })
       : { total: 0, data: [] };
   };
@@ -117,7 +116,7 @@ export class List {
     let params = {
       month: this.info.month.value,
       year: this.info.year,
-      buyer: this.buyer.Code  
+      buyer: this.buyer.Code
     };
 
     this.service.getXls(params);
@@ -126,17 +125,16 @@ export class List {
 
   reset() {
     this.flag = false;
-   
+
     this.data = [];
-    this.tableList.refresh();
     this.info.year = moment().format("YYYY");
     this.info.month = { text: "January", value: 1 };
-    
+
   }
   get buyerLoader() {
     return BuyerLoader;
   }
   buyerView = (buyer) => {
     return `${buyer.Code} - ${buyer.Name}`;
-}
+  }
 }
