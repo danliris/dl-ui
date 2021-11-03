@@ -7,21 +7,21 @@
                 loader.bind="uenLoader"
                 query.bind="UENFilter"
                 placeholder="No Bon Pengeluaran Unit"
-                read-only.bind="readOnly|| isEdit"
+                read-only.bind="readOnly|| (isEdit && data.Id)"
                 options.bind="controlOptions"
-                text.bind="uenView"
+                text="UENNo"
                 view-model.ref="selectedUENViewModel">
             </au-autocomplete>
 
         </td>
         <td class="col-sm-5 bg-primary">
-            <au-textbox
+            <au-datepicker
                 value.bind="data.ExpenditureDate"
                 error.bind="error.ExpenditureDate"
                 read-only="true"
                 if.bind="data.ExpenditureDate"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-datepicker>
         </td>
         <td class="col-sm-5 bg-primary">
             <au-textbox
@@ -60,7 +60,7 @@
                 items.bind="data.Details" 
                 errors.bind="error.Details" 
                 columns.bind="isCreate ? itemsColumnsCreate : itemsColumns"
-                read-only.bind="readOnly || isEdit" 
+                read-only.bind="readOnly|| isEdit" 
                 options.bind="itemOptions"
                 item-template="modules/garment-subcon/garment-service-fabric-wash/template/detail" >
             </au-collection>
