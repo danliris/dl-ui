@@ -2,6 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'service-subcon-fabric-washes';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
+const garmentUENUri = 'garment-unit-expenditure-notes';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -50,6 +51,11 @@ class PurchasingService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "purchasing-azure");
     }
+
+	getUnitExpenditureNotes(info) {
+		var endpoint = `${garmentUENUri}`;
+		return super.list(endpoint, info)
+	}
 
     getGarmentEPO(info) {
         var endpoint = `${garmentEPOServiceUri}`;
