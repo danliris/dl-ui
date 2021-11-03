@@ -1,0 +1,72 @@
+<template>
+    <h4>FITUR PENCARIAN NO BC</h4>
+    <form class="form-horizontal">
+        <au-dropdown 
+              label="Jenis" 
+              value.bind="SearchItem"
+              items.bind="SearchItems"
+              options.bind="controlOptions" >
+      </au-dropdown>
+        <au-textbox label="No BC" value.bind="BCNo" if.bind="SearchItem == 'No BC'"
+            options.bind="controlOptions">
+        </au-textbox>
+        <au-textbox label="No PO" value.bind="pono" if.bind="SearchItem == 'No PO'"
+            options.bind="controlOptions">
+        </au-textbox>
+        <au-textbox label="No RO" value.bind="rono" if.bind="SearchItem == 'No RO'"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <!-- <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div> -->
+        <br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <td>No</td>
+                        <td if.bind ="SearchItem != 'No RO' && SearchItem != 'No BC'">No BC</td>
+                        <td if.bind ="SearchItem != 'No RO'">Tipe BC</td>
+                        <td if.bind ="SearchItem != 'No RO'">Tanggal BC</td>
+                        <td if.bind ="SearchItem != 'No BC'">No Surat Jalan</td>
+                        <td >No PO</td>
+                        <td if.bind ="SearchItem == 'No BC'">Kode Barang</td>
+                        <td if.bind ="SearchItem == 'No BC'">Komposisi</td>
+                        <td if.bind ="SearchItem == 'No BC'">Konstruksi</td>
+                        <td if.bind ="SearchItem == 'No PO'">Quantity</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td>${$index + 1}</td>
+                        <td if.bind ="SearchItem != 'No RO'">${item.BCNo}</td>
+                        <td if.bind ="SearchItem != 'No RO'">${item.BCType}</td>
+                        <td if.bind ="SearchItem != 'No RO'">${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td if.bind ="SearchItem != 'No BC'">${item.DONo}</td>
+                        <td>${item.PO}</td>
+                        <td if.bind ="SearchItem == 'No BC'">${item.ProductCode}</td>
+                        <td if.bind ="SearchItem == 'No BC'">${item.Composition}</td>
+                        <td if.bind ="SearchItem == 'No BC'">${item.Construction}</td>
+                        <td if.bind ="SearchItem == 'No PO'">${item.QtyBC}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+    </form>
+
+
+</template>
