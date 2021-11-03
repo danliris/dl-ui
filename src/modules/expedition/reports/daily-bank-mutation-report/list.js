@@ -126,11 +126,11 @@ export class List {
                             }
 
                             if (data.Status.toString().toLowerCase() == "in") {
-                                dailyTotalDebit += data.Nominal;
-                                dailyTotalDebitValas += data.NominalValas;
+                                dailyTotalDebit += data.NominalValas;
+                                dailyTotalDebitValas += data.Nominal;
                             } else {
-                                dailyTotalKredit += data.Nominal;
-                                dailyTotalKreditValas += data.NominalValas;
+                                dailyTotalKredit += data.NominalValas;
+                                dailyTotalKreditValas += data.Nominal;
                             }
 
                             let dataSet = {
@@ -139,10 +139,10 @@ export class List {
                                 ReferenceNo: data.ReferenceNo,
                                 ReferenceType: data.ReferenceType,
                                 AccountBankCurrencyCode: data.AccountBankCurrencyCode,
-                                Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.Nominal).format('0,0.00') : '',
-                                DebitValas: data.Status.toString().toLowerCase() == "in" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
-                                Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.Nominal).format('0,0.00') : '',
-                                KreditValas: data.Status.toString().toLowerCase() == "out" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.NominalValas).format('0,0.00') : '',
+                                Debit: data.Status.toString().toLowerCase() == "in" ? numeral(data.NominalValas).format('0,0.00') : '',
+                                DebitValas: data.Status.toString().toLowerCase() == "in" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.Nominal).format('0,0.00') : '',
+                                Kredit: data.Status.toString().toLowerCase() == "out" ? numeral(data.NominalValas).format('0,0.00') : '',
+                                KreditValas: data.Status.toString().toLowerCase() == "out" && data.AccountBankCurrencyCode != 'IDR' ? numeral(data.Nominal).format('0,0.00') : '',
                                 AfterNominal: numeral(data.AfterNominal).format('0,0.00'),
                                 AfterNominalValas: numeral(data.AfterNominalValas).format('0,0.00')
                             }
