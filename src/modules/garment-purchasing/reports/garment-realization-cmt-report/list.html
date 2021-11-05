@@ -34,9 +34,9 @@
                         <td align="center" rowspan="2">RO</td>
                         <td align="center" rowspan="2">ARTIKEL</td>
                         <td align="center" rowspan="2">QTY BJ</td>
-                        <td align="center" rowspan="2">FABRIC COST</td>
+                        <!-- <td align="center" rowspan="2">FABRIC COST</td> -->
                         <td align="center" colspan="6">BON PEMAKAIAN</td>
-                        <td align="center" colspan="9">BON PENERIMAAN</td>
+                        <td align="center" colspan="10">BON PENERIMAAN</td>
                     </tr>
                     <tr>
                             <td align="center">NO. BON</td>
@@ -51,24 +51,41 @@
                             <td align="center" >QTY</td>
                             <td align="center">AMOUNT VALAS</td>
                             <td align="center">AMOUNT IDR</td>
+                            <td align="center">SURAT JALAN</td>
                             <td align="center">SUPPLIER</td>
                             <td align="center">NO NOTA</td>
                             <td align="center">NO. BON KECIL</td>
-                            <td align="center">SURAT JALAN</td>
+                            <td align="center">NO KAS BANK</td>
                     </tr>
                     
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
-                        <!-- <td if.bind="item.docspan" rowspan="${item.docspan}">${item.Count}</td>
-                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.InvoiceNo}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${item.ExpenditureGoodNo}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${item.RONo}</td>
-                        <td if.bind="item.docspan" rowspan="${item.docspan}">${item.Article}</td>
-                        <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.UnitQty}</td>
-                        <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.EGAmountIDR}</td>                         -->
+                        <td if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.Count}</td>
+                        <td if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.InvoiceNo}</td>
+                        <td if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.ExpenditureGoodNo}</td>
+                        <td if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.RONo}</td>
+                        <td if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.Article}</td>
+                        <td align="right" if.bind="item.invoicespan" rowspan="${item.invoicespan}">${item.UnitQty}</td>
+                        <!-- <td align="right" if.bind="item.docspan" rowspan="${item.docspan}">${item.EGAmountIDR}</td>                         -->
                         
-                        <td>${$index+1}</td>
+                        <td if.bind="item.uenspan" rowspan="${item.uenspan}">${item.UENNo}</td>
+                        <td if.bind="item.remarkuenspan" rowspan="${item.remarkuenspan}">${item.ProductRemark}</td>
+                        <td align="right" if.bind="item.qtybukspan" rowspan="${item.qtybukspan}">${item.Quantity}</td>
+                        <td align="right" if.bind="item.qtybukspan" rowspan="${item.qtybukspan}">${item.EAmountVLS}</td>
+                        <td align="right" if.bind="item.qtybukspan" rowspan="${item.qtybukspan}">${item.EAmountIDR}</td>                        
+                        <td if.bind="item.rouenspan" rowspan="${item.rouenspan}">${item.RONo}</td>
+                        <td if.bind="item.urnspan" rowspan="${item.urnspan}">${item.URNNo}</td>
+                        <td if.bind="item.remarkurnspan" rowspan="${item.remarkurnspan}">${item.ProductRemark2}</td>
+                        <td align="right" if.bind="item.qtyurnspan" rowspan="${item.qtyurnspan}">${item.ReceiptQuantity}</td>
+                        <td align="right" if.bind="item.qtyurnspan" rowspan="${item.qtyurnspan}">${item.UAmountVLS}</td>
+                        <td align="right" if.bind="item.qtyurnspan" rowspan="${item.qtyurnspan}">${item.UAmountIDR}</td>
+                        <td if.bind="item.billspan" rowspan="${item.billspan}">${item.DONo}</td>  
+                        <td if.bind="item.supplierspan" rowspan="${item.supplierspan}">${item.SupplierName}</td>
+                        <td if.bind="item.billspan" rowspan="${item.billspan}">${item.BillNo}</td>
+                        <td if.bind="item.billspan" rowspan="${item.billspan}">${item.PaymentBill}</td>
+                        <td if.bind="item.billspan" rowspan="${item.billspan}">${item.NoKasBank}</td>
+                        <!-- <td>${$index+1}</td>
                         <td>${item.InvoiceNo}</td>
                         <td>${item.ExpenditureGoodNo}</td>
                         <td>${item.RONo}</td>
@@ -90,7 +107,7 @@
                         <td>${item.SupplierName}</td>
                         <td>${item.BillNo}</td>
                         <td>${item.PaymentBill}</td>
-                        <td>${item.DONo}</td>
+                        <td>${item.DONo}</td> -->
 
                     </tr>
                 </tbody>
