@@ -986,6 +986,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "g-purchasing",
+            subGroup: "fitur",
             permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -1044,7 +1045,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-
     {
         route: 'monitoring-flow-product',
         name: 'monitoring-flow-product',
@@ -1056,6 +1056,20 @@ module.exports = [
             group: "g-purchasing",
             subGroup: "monitoring",
             permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/bcno-feature',
+        name: 'bcno-feature',
+        moduleId: './modules/garment-purchasing/bcno-feature/index',
+        nav: true,
+        title: 'Fitur Cek No BC',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "fitur",
+            permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
