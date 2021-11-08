@@ -110,7 +110,6 @@ export class Item {
     if (this.error && this.error.Details && this.error.Details.length > 0) {
       this.isShowing = true;
     }
-    console.log(this.data);
   }
 
   selectedROChanged(newValue) {
@@ -250,7 +249,7 @@ export class Item {
     let measurementCartons = [];
     for (const item of this.context.context.options.header.items) {
       for (const detail of (item.details || [])) {
-        let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2 && m.index == detail.index);
+        let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2);
         if (!measurement) {
           measurementCartons.push({
             carton1: detail.carton1,
@@ -259,15 +258,13 @@ export class Item {
             width: detail.width,
             height: detail.height,
             cartonsQuantity: detail.cartonQuantity,
-            index: detail.index,
           });
         }
       }
     }
-
     let measurements = [];
     for (const measurementCarton of measurementCartons) {
-      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height && m.index == measurementCarton.index);
+      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
       if (measurement) {
         measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
       } else {
@@ -279,7 +276,7 @@ export class Item {
     this.context.context.options.header.measurements.splice(0);
 
     for (const mt of measurements) {
-      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height && m.index == mt.index);
+      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
       if (measurement) {
         measurement.cartonsQuantity = mt.cartonsQuantity;
         this.context.context.options.header.measurements.push(measurement);
