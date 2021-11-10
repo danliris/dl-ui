@@ -25,7 +25,7 @@ export class List {
 		}
 	}
 
-	context = ["Rincian"];
+	context = ["Rincian", "Cetak"];
 
 	columns = [
 		{ field: "ServiceSubconShrinkagePanelNo", title: "No Subcon Jasa Shrinkage Panel" },
@@ -67,7 +67,9 @@ export class List {
 			case "Rincian":
 				this.router.navigateToRoute('view', { id: data.Id });
 				break;
-
+			case "Cetak":
+				this.service.getPdfById(data.Id);
+				break;
 		}
 	}
 
