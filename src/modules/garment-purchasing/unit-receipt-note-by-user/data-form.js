@@ -593,7 +593,7 @@ export class DataForm {
                 item.Product={
                     Id:i.ProductId,
                     Name:i.ProductName,
-                    Code:i.ProductName,
+                    Code:i.ProductCode,
                     Remark:i.ProductRemark
                 };
                 item.SmallQuantity=i.Quantity;
