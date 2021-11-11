@@ -100,14 +100,14 @@ export class Item {
                                         correctQuantity = detail.QuantityCorrection || detail.deliveredQuantity;
                                     }
 
-                                    let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(2));
+                                    let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(4));
                                     if (correctionState.IsHavingPricePerUnitCorrection) {
-                                        correctPricePerUnit = detail.PricePerDealUnitCorrection ? Number((detail.PricePerDealUnitCorrection).toFixed(2)) : Number((detail.pricePerDealUnit).toFixed(2));
+                                        correctPricePerUnit = detail.PricePerDealUnitCorrection ? Number((detail.PricePerDealUnitCorrection).toFixed(4)) : Number((detail.pricePerDealUnit).toFixed(4));
                                     }
 
-                                    let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(2));
+                                    let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(4));
                                     if (correctionState.IsHavingPriceTotalCorrection) {
-                                        correctPriceTotal = detail.PriceTotalCorrection ? Number((detail.PriceTotalCorrection).toFixed(2)) : Number((correctQuantity * correctPricePerUnit).toFixed(2));
+                                        correctPriceTotal = detail.PriceTotalCorrection ? Number((detail.PriceTotalCorrection).toFixed(4)) : Number((correctQuantity * correctPricePerUnit).toFixed(4));
                                     }
 
                                     // if (detail.QuantityCorrection > 0)
@@ -144,8 +144,8 @@ export class Item {
 
                             // console.log(newV)
                             // console.log(totalPaid);
-                            let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
-                            let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
+                            let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(4)) : 0;
+                            let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(4)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
 
                             console.log(newV.useVat);
