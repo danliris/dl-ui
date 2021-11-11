@@ -44,6 +44,10 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/get-pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 
@@ -52,10 +56,10 @@ class PurchasingService extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-	getUnitExpenditureNotes(info) {
-		var endpoint = `${garmentUENUri}`;
-		return super.list(endpoint, info)
-	}
+    getUnitExpenditureNotes(info) {
+        var endpoint = `${garmentUENUri}`;
+        return super.list(endpoint, info)
+    }
 
     getGarmentEPO(info) {
         var endpoint = `${garmentEPOServiceUri}`;
@@ -69,7 +73,7 @@ class PurchasingService extends RestService {
         var endpoint = `${garmentUENServiceUri}/${id}`;
         return super.get(endpoint);
     }
-    
+
 }
 
 export { Service, PurchasingService }
