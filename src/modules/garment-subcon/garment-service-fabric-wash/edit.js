@@ -21,7 +21,7 @@ export class View {
         //     this.selectedUnit=this.data.Unit;
         //     let ssCuttingItems=[];
         //     let ssCutting = await this.service.searchComplete({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-            
+
         //     if(ssCutting.data.length>0){
         //         for(var ssC of ssCutting.data){
         //             if(ssC.Id!=this.data.Id){
@@ -37,7 +37,7 @@ export class View {
         //                     }
         //                 }
         //             }
-                    
+
         //         }
         //     }
         //     var remainingCuttingInQty=[];
@@ -52,7 +52,7 @@ export class View {
         //                         }
         //                         cuttingInDetail.CuttingInQuantity=cuttingInDetail.CuttingInQuantity-qtyOut;
         //                         remainingCuttingInQty[cuttingInDetail.Id]=cuttingInDetail.CuttingInQuantity;
-                                
+
         //                     }
         //                 }
         //             }
@@ -74,15 +74,15 @@ export class View {
     }
 
     saveCallback(event) {
-        if(this.data.Items){
-            for(var item of this.data.Items){
-                for(var detail of item.Details){
-                    if(detail.Quantity>0){
-                        detail.IsSave=true;
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                for (var detail of item.Details) {
+                    if (detail.Quantity > 0) {
+                        detail.IsSave = true;
                         // detail.CuttingInQuantity=detail.Quantity;
                     }
-                    else{
-                        detail.IsSave=false;
+                    else {
+                        detail.IsSave = false;
                         // detail.CuttingInQuantity=detail.Quantity;
                     }
                 }
