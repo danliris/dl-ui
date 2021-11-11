@@ -15,9 +15,9 @@ export class Item {
     }
 
     get UENFilter() {
-        var UENFilter={};
-        return UENFilter={
-            ExpenditureType : "SUBCON"
+        var UENFilter = {};
+        return UENFilter = {
+            ExpenditureType: "SUBCON"
         };
     }
 
@@ -25,21 +25,13 @@ export class Item {
         this.context = context;
         this.data = context.data;
         this.error = context.error;
-        
+
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        this.itemOptions=context.context.options;
-        if(this.data){
-            this.selectedUEN={
-				UENNo: this.data.UnitExpenditureNo,
-				ExpenditureDate: this.data.ExpenditureDate,
-				UnitSenderId: this.data.UnitSender && this.data.UnitSender.Id,
-				UnitSenderCode: this.data.UnitSender && this.data.UnitSender.Code,
-				UnitSenderName: this.data.UnitSender && this.data.UnitSender.Name,
-				UnitRequestId: this.data.UnitRequest && this.data.UnitRequest.Id,
-				UnitRequestCode: this.data.UnitRequest && this.data.UnitRequest.Code,
-				UnitRequestName: this.data.UnitRequest && this.data.UnitRequest.Name,
-				Items: this.data.Items && []
+        this.itemOptions = context.context.options;
+        if (this.data) {
+            this.selectedUEN = {
+                UENNo: this.data.UnitExpenditureNo
             }
         }
         this.isShowing = true;
@@ -49,107 +41,90 @@ export class Item {
             }
         }
     }
-    itemsColumnsCreate= [
-            "Kode Barang",
-            "Nama Barang",
-            "Keterangan Barang",
-            "Design/Color",
-            "Jumlah",
-            "Satuan"
-        ];
-
-    itemsColumns= [
+    itemsColumnsCreate = [
         "Kode Barang",
         "Nama Barang",
         "Keterangan Barang",
         "Design/Color",
         "Jumlah",
         "Satuan"
-        ];
+    ];
+
+    itemsColumns = [
+        "Kode Barang",
+        "Nama Barang",
+        "Keterangan Barang",
+        "Design/Color",
+        "Jumlah",
+        "Satuan"
+    ];
 
     uenView = (uen) => {
         return `${uen.UENNo}`
     }
 
     get uenLoader() {
-        // return UENLoader;
-        return async (keyword) => {
-			var info = {
-				keyword: keyword,
-				filter: JSON.stringify({ ExpenditureType: "SUBCON" })
-			};
-
-			let dataSubconShrinkage = await this.service.searchComplete({});
-			let uenNo = [];
-			dataSubconShrinkage.data.map(x => {
-				x.Items.map(item => {
-					uenNo.push(item.UnitExpenditureNo);
-				})
-			});
-			console.log(uenNo);
-
-			return this.purchasingService.getUnitExpenditureNotes(info)
-				.then((result) => {
-					let data = result.data.filter(x => !uenNo.includes(x.UENNo));
-                    console.log(data);
-					return data;
-				});
-		}
+        return UENLoader;
     }
 
-    async selectedUENChanged(newValue, oldValue){
-        if(this.isCreate || this.isEdit){
-            if(newValue) {
-                if(this.data.Details.length>0){
+    async selectedUENChanged(newValue, oldValue) {
+        if (this.isCreate) {
+            if (newValue) {
+                if (this.data.Details.length > 0) {
                     this.data.Details.splice(0);
                 }
                 this.data.UnitExpenditureNo = newValue.UENNo;
-                this.data.UnitSender={
-                    Id : newValue.UnitSenderId,
-                    Code : newValue.UnitSenderCode,
-                    Name : newValue.UnitSenderName
-
-                };
-                
-                this.data.UnitRequest={
-                    Id : newValue.UnitRequestId,
-                    Code : newValue.UnitRequestCode,
-                    Name : newValue.UnitRequestName
+                this.data.UnitSender = {
+                    Id: newValue.UnitSenderId,
+                    Code: newValue.UnitSenderCode,
+                    Name: newValue.UnitSenderName
 
                 };
 
-                this.data.ExpenditureDate = newValue.ExpenditureDate;
+                this.data.UnitRequest = {
+                    Id: newValue.UnitRequestId,
+                    Code: newValue.UnitRequestCode,
+                    Name: newValue.UnitRequestName
+
+                };
+
+                this.data.ExpenditureDate = moment(newValue.ExpenditureDate).format("DD MMM YYYY");
                 this.purchasingService.getUnitDeliveryOrderById(newValue.UnitDOId)
                     .then((deliveryOrder) => {
                         var listDesignColor = [];
-                        for(var item of deliveryOrder.Items){
+                        for (var item of deliveryOrder.Items) {
                             listDesignColor.push(item.DesignColor);
                         }
 
                         var desginColor = listDesignColor.toString();
-                
-                        for(var item of newValue.Items){
+
+                        for (var item of newValue.Items) {
                             var detail = {};
                             detail.Product = {
-                                Id : item.ProductId,
-                                Name : item.ProductName,
-                                Code : item.ProductCode,
-                                Remark : item.ProductRemark
+                                Id: item.ProductId,
+                                Name: item.ProductName,
+                                Code: item.ProductCode,
+                                Remark: item.ProductRemark
                             }
-        
+
                             detail.DesignColor = desginColor;
                             detail.Quantity = item.Quantity;
                             detail.Uom = {
-                                Id : item.UomId,
-                                Unit : item.UomUnit
+                                Id: item.UomId,
+                                Unit: item.UomUnit
                             }
-        
+
                             this.data.Details.push(detail);
-                        }   
-                });   
+                        }
+                    });
             }
             else {
-				this.data.UENNo = null;
+                this.context.selectedUENViewModel.editorValue = "";
+                this.data.UnitExpenditureNo = null;
+                this.data.UnitRequest.Name = null;
+                this.data.UnitSender.Code = null;
+                this.data.ExpenditureDate = null;
+                this.data.Details.splice(0);
             }
         }
     }

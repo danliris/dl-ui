@@ -155,10 +155,10 @@ export class DataForm {
     IncomeTaxByChanged(e){
         if(e.srcElement){
             if(e.srcElement.value=="Supplier"){
-                this.data.Amount=this.data.DPP + this.data.VatValue + this.data.PaymentCorrection;
+                this.data.Amount=(this.data.DPP + this.data.VatValue + this.data.PaymentCorrection) - this.data.IncomeTaxValue;
             }
             else{
-                this.data.Amount=(this.data.DPP+ this.data.VatValue + this.data.PaymentCorrection) - this.data.IncomeTaxValue;
+                this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.PaymentCorrection;
             }
         }
         this.data.Items.splice(0);
@@ -201,7 +201,7 @@ export class DataForm {
                         var ppn=0;
                         if(item.UseIncomeTax){
                             var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.1;
+                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                         }
                         if(item.UseVat){
                             ppn=detail.PaidPrice*0.1;
@@ -210,10 +210,10 @@ export class DataForm {
                         this.data.VatValue+=ppn;
                         this.data.DPP+=detail.PaidPrice;
                         if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                            this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection) - pph;
                         }
                         else
-                            this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                            this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                     }
                 }
             }
@@ -236,7 +236,7 @@ export class DataForm {
                             var ppn=0;
                             if(item.UseIncomeTax){
                                 var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.1;
+                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                             }
                             if(item.UseVat){
                                 ppn=detail.PaidPrice*0.1;
@@ -245,10 +245,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection) - pph;
                             }
                             else
-                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -301,10 +301,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection) - pph;
                             }
                             else
-                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -339,10 +339,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection) - pph;
                             }
                             else
-                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -375,10 +375,10 @@ export class DataForm {
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection) - pph;
                             }
                             else
-                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }

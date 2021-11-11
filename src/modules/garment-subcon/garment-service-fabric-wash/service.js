@@ -73,7 +73,6 @@ class PurchasingService extends RestService {
         var endpoint = `${garmentUENServiceUri}/${id}`;
         return super.get(endpoint);
     }
-
 }
 
 export { Service, PurchasingService }

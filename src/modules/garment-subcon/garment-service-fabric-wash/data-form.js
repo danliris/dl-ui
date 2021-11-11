@@ -56,7 +56,8 @@ export class DataForm {
             isEdit: this.isEdit,
 
         }
-        
+
+        console.log(this.itemOptions);
         if (this.data && this.data.Items) {
             // this.data.Items.forEach(
             //     item => {
@@ -100,11 +101,11 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.Items.push({
-                UnitExpenditureNo:"",
-                ExpenditureDate:"",
+                UnitExpenditureNo: "",
+                ExpenditureDate: "",
                 UnitSender: {},
                 UnitRequest: {},
-                Details:[]
+                Details: []
             });
         };
     }
@@ -115,12 +116,12 @@ export class DataForm {
         };
     }
 
-    get totalQuantity(){
-        var qty=0;
-        if(this.data.Items){
-            for(var item of this.data.Items){
-                if(item.Details){
-                    for(var detail of item.Details){
+    get totalQuantity() {
+        var qty = 0;
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                if (item.Details) {
+                    for (var detail of item.Details) {
                         qty += detail.Quantity;
                     }
                 }

@@ -30,6 +30,11 @@ export class Edit {
     }
 
     save() {
+        if(this.data.URNType=="SISA SUBCON"){
+            for(var a of this.data.Items){
+                a.ReceiptQuantity=a.SmallQuantity;
+            }
+        }
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {
