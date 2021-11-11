@@ -15,17 +15,19 @@ export class Item {
 
     get cuttingInFilter() {
         //this.selectedCuttingIn = null;
-        if (this.data.Unit) {
+        if (this.data.Unit && this.data.Buyer) {
             return {
                 UnitId: this.data.Unit.Id,
                 CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
+                CuttingType:"MAIN FABRIC",
+                BuyerCode: this.data.Buyer.Code
             };
         } else {
             return {
                 UnitId: 0,
                 CuttingFrom:"PREPARING",
-                CuttingType:"MAIN FABRIC"
+                CuttingType:"MAIN FABRIC",
+                BuyerCode: ""
             };
         }
     }
@@ -123,7 +125,7 @@ export class Item {
                     }
                 }
                 //console.log()
-                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC" }) }))
+                Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, CuttingType:"MAIN FABRIC"}) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
                             for(var cuttingInItem of cuttingInHeader.Items){

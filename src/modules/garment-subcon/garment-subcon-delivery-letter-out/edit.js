@@ -21,15 +21,17 @@ export class View {
             };
            
             this.selectedContractType=this.data.ContractType;
+            this.selectedServiceType=this.data.ServiceType;
         }
         this.getContractQty();
     }
 
     async getContractQty() {
         var subconContract = await this.service.readSubconContractById(this.data.SubconContractId);
-        if(this.data.ContractType=='SUBCON CUTTING'){
+        if(this.data.ContractType=='SUBCON CUTTING' || this.data.ContractType=='SUBCON JASA'){
             this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
             .then((contract)=>{
+                console.log(contract)
                 var usedQty= 0;
                 if(contract.data.length>0){
                     for(var subcon of contract.data){
@@ -66,6 +68,7 @@ export class View {
             //this.data.UsedQty=this.data.ContractQty;
             if(this.data.Items.length>0){
                 this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+                console.log(this.data.ContractQty,this.data.QtyUsed)
                 for(var item of this.data.Items){
                     item.Product={
                         Id:0
