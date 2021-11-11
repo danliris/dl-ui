@@ -30,6 +30,15 @@
             options.bind="controlOptions">
         </au-dropdown>
 
+        <au-dropdown
+            label="Jenis Subcon Jasa"
+            value.bind="selectedServiceType"
+            error.bind="error.ServiceType"
+            read-only.bind="readOnly || isEdit"
+            items.bind="serviceTypes"
+            if.bind="selectedContractType=='SUBCON JASA'"
+            options.bind="controlOptions">
+        </au-dropdown>
 
         <au-autocomplete
             value.bind="selectedContract"
@@ -113,6 +122,18 @@
             if.bind="data.ContractType=='SUBCON CUTTING'"
             options.bind="itemOptions"
             item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutting">
+        </au-collection>
+        
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="data.ServiceType=='SUBCON JASA KOMPONEN' ? itemsInfo.columnsServiceCutting : itemsInfo.columnsServiceSewing"
+            read-only.bind="readOnly"
+            remove.bind="removeItems"
+            add.bind="addItems"
+            if.bind="data.ContractType=='SUBCON JASA'"
+            options.bind="itemOptions"
+            item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-service">
         </au-collection>
 
         <p if.bind="data.Items"><b>Total Jumlah Keluar : ${totalQuantity} PCS</b></p>
