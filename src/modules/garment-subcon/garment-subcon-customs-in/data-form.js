@@ -59,7 +59,7 @@ export class DataForm {
       isEdit: this.isEdit,
     };
 
-    if (this.data) {
+    if (this.data && this.data.Id) {
       this.selectedSubconType = this.data.SubconType;
       this.selectedSubconContract = {
         Supplier: this.data.Supplier,
