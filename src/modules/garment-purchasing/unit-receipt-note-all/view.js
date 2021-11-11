@@ -73,6 +73,11 @@ export class View {
 
             this.category=this.data.Category;
         }
+        else if(this.data.URNType=="SISA SUBCON"){
+            this.uen={
+                UENNo:this.data.UENNo
+            };
+        }
         this.hasDelete = false;
         this.hasEdit = false;
     }

@@ -25,7 +25,7 @@ export class DataForm {
     @bindable expenditure;
     @bindable category;
 
-    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA'];
+    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA','SISA SUBCON'];
     categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR={
