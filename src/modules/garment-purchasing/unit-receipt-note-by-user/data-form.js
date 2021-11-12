@@ -212,12 +212,16 @@ export class DataForm {
            // this.data.Items=[];
             var DRItems=[];
             var UnitDO= await this.service.getUnitDOById(selectedDR.UnitDOId);
-            console.log(UnitDO);
+            
             var OldUnitDO={};
             if(UnitDO.UnitDOFromId){
                 OldUnitDO=await this.service.getUnitDOById(UnitDO.UnitDOFromId);
+                
                 this.data.UnitFrom=OldUnitDO.UnitSender;
                 this.data.StorageFrom=OldUnitDO.Storage;
+
+                this.data.UnitSender=OldUnitDO.UnitRequest.Name;
+                this.data.StorageSender=OldUnitDO.StorageRequest.name;
             }
             
             for(var dritem of selectedDR.Items ){
@@ -225,6 +229,9 @@ export class DataForm {
                 var DRItem={};
                 if(dup){
                     var oldURN=await this.service.getById(dup.URNId);
+                    if(oldURN.URNType=="GUDANG LAIN"){
+                        this.isDiffStorage=true;
+                    }
                     var same= oldURN.Items.find(a=>a.Id==dup.URNItemId);
                     if(same){
                         DRItem.DRId= dritem.DRId;
