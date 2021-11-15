@@ -34,30 +34,32 @@
                 <thead align="center">
                     <tr>
                         <td>No</td>
-                        <td if.bind ="SearchItem != 'No RO' && SearchItem != 'No BC'">No BC</td>
-                        <td if.bind ="SearchItem != 'No RO'">Tipe BC</td>
-                        <td if.bind ="SearchItem != 'No RO'">Tanggal BC</td>
-                        <td if.bind ="SearchItem != 'No BC'">No Surat Jalan</td>
+                        <td >No RO</td>
+                        <td >Tipe BC</td>
+                        <td >No BC</td>
+                        <td >Tanggal BC</td>
+                        <td >No Surat Jalan</td>
                         <td >No PO</td>
-                        <td if.bind ="SearchItem == 'No BC'">Kode Barang</td>
-                        <td if.bind ="SearchItem == 'No BC'">Komposisi</td>
-                        <td if.bind ="SearchItem == 'No BC'">Konstruksi</td>
-                        <td if.bind ="SearchItem == 'No PO'">Quantity</td>
+                        <td >Quantity</td>
+                        <td >Kode Barang</td>
+                        <td >Komposisi</td>
+                        <td >Konstruksi</td>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
                         <td>${$index + 1}</td>
-                        <td if.bind ="SearchItem != 'No RO'">${item.BCNo}</td>
-                        <td if.bind ="SearchItem != 'No RO'">${item.BCType}</td>
-                        <td if.bind ="SearchItem != 'No RO'">${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td if.bind ="SearchItem != 'No BC'">${item.DONo}</td>
+                        <td >${item.RONo}</td>
+                        <td >${item.BCNo}</td>
+                        <td >${item.BCType}</td>
+                        <td >${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.DONo}</td>
                         <td>${item.PO}</td>
-                        <td if.bind ="SearchItem == 'No BC'">${item.ProductCode}</td>
-                        <td if.bind ="SearchItem == 'No BC'">${item.Composition}</td>
-                        <td if.bind ="SearchItem == 'No BC'">${item.Construction}</td>
-                        <td if.bind ="SearchItem == 'No PO'">${item.QtyBC}</td>
+                        <td >${item.QtyBC}</td>
+                        <td >${item.ProductCode}</td>
+                        <td >${item.Composition}</td>
+                        <td >${item.Construction}</td>
                     </tr>
 
                 </tbody>
