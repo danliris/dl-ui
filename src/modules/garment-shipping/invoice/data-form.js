@@ -509,6 +509,24 @@ export class DataForm {
         this.data.totalAmount = totalAmount;
         return totalAmount;
     }
+
+    get lessFabricCosts() {
+        var lessFabCost = 0;
+
+        if (this.data.items) {
+
+            for (var item of this.data.items) {
+
+                if (item.cmtPrice > 0) {
+                    lessFabCost += ((item.cmtPrice-item.price) * item.quantity);
+                }
+           }
+        }
+
+        this.lessFabCost = lessFabCost;
+        return lessFabCost;
+    }
+        
     get sectionLoader() {
         return SectionLoader;
     }
