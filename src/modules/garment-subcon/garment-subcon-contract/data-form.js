@@ -3,6 +3,7 @@ import { Service } from "./service";
 
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 const SupplierLoader = require('../../../loader/garment-supplier-loader');
+const UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service)
 export class DataForm {
@@ -12,9 +13,11 @@ export class DataForm {
     @bindable isView = false;
     @bindable title;
     @bindable data = {};
+    @bindable selectedContractType;
+    @bindable selectedSubconCategory;
 
-    ContractTypeOptions = ["SUBCON BAHAN BAKU", "SUBCON CUTTING", "SUBCON JASA"];
-
+    ContractTypeOptions = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
+    SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
     constructor(service) {
         this.service = service;
     }
@@ -26,9 +29,28 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    columns= [
+        "Barang",
+        "Jumlah",
+        "Satuan"
+    ];
+
+    Uomfilter={
+            'Unit=="MTR" || Unit=="PCS"': "true",
+        };
+
     controlOptions = {
         label: {
-            length: 2
+            length:3
+        },
+        control: {
+            length: 7
+        }
+    };
+
+    controlOptions2 = {
+        label: {
+            length:3
         },
         control: {
             length: 5
@@ -39,7 +61,22 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        
+        this.itemOptions = {
+            isCreate: this.context.isCreate,
+            isView: this.context.isView,
+            checkedAll: this.context.isCreate == true ? false : true,
+            isEdit: this.isEdit,
+          };
+        this.isItems=false;
+        this.selectedContractType=this.data.ContractType;
+        this.selectedSubconCategory=this.data.SubconCategory;
+        if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
+            this.isItems=true;
+        }
+    }
+
+    get uomLoader() {
+        return UomLoader;
     }
 
     get buyerLoader() {
@@ -95,5 +132,59 @@ export class DataForm {
     set ContractNo(value){
         this.data.ContractNo=value.toUpperCase();
     }
+    
+    get SKEPNo(){
+        return (this.data.SKEPNo || "").toUpperCase();
+    }
+    set SKEPNo(value){
+        this.data.SKEPNo=value.toUpperCase();
+    }
+
+    selectedContractTypeChanged(newValue){
+        if(this.data.ContractType!=newValue){
+            this.data.ContractType=newValue;
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
+            if(this.data.ContractType=="SUBCON GARMENT"){
+                this.SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+            }
+            else if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+                this.SubconCategoryTypeOptions=["SUBCON BB SHRINKAGE/PANEL","SUBCON BB FABRIC WASH/PRINT"];
+            }
+            else if(this.data.ContractType=="SUBCON JASA"){
+                this.SubconCategoryTypeOptions=["SUBCON JASA GARMENT WASH","SUBCON JASA KOMPONEN"];
+            }
+        }
+        
+    }
+
+    selectedSubconCategoryChanged(newValue){
+        if(newValue!=this.data.SubconCategory){
+            this.data.SubconCategory=newValue;
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
+            if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
+                this.isItems=true;
+            }
+            else{
+                this.isItems=false;
+            }
+        }
+        
+    }
+
+    get addItems() {
+        return (event) => {
+          this.data.Items.push({});
+        };
+      }
+    
+      get removeItems() {
+        return (event) => {
+          this.error = null;
+        };
+      }
     
 }
