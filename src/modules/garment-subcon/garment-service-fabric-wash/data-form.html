@@ -13,9 +13,15 @@
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
         </div>
 
-        <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="itemsInfo.columns"
-            read-only.bind="readOnly|| isEdit" show.bind="data.ServiceSubconFabricWashDate" remove.bind="removeItems"
-            add.bind="addItems" options.bind="itemOptions"
+        <au-collection
+            items.bind="data.Items"
+            errors.bind="error.Items"
+            columns.bind="itemsInfo.columns"
+            read-only.bind="readOnly"
+            show.bind="data.ServiceSubconFabricWashDate"
+            remove.bind="removeItems"
+            add.bind="addItems"
+            options.bind="itemOptions"
             item-template="modules/garment-subcon/garment-service-fabric-wash/template/item">
         </au-collection>
 

@@ -83,8 +83,8 @@ export class List {
         this.router.navigateToRoute('view', { id: data.Id });
         break;
       case "Cetak PDF": 
-        this.service.getPdfById(data.Id); 
-        break;
+          this.service.getPdfById(data.Id); 
+          break;
       
     }
   }
