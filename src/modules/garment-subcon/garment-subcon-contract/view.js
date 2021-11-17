@@ -15,6 +15,7 @@ export class View {
         this.data = await this.service.read(id);
         if(this.data.IsUsed){
             this.deleteCallback=null;
+            this.editCallback=null;
         }
     }
 
