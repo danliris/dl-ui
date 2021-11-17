@@ -8,6 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-subcon",
+      subGroup: "kontrak",
       permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -21,6 +22,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-subcon",
+      subGroup: "packing list subcon",
       permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -34,19 +36,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-subcon",
-      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: '/garment-subcon/subcon-delivery-letter-out',
-    name: 'subcon-sewing',
-    moduleId: './modules/garment-subcon/garment-subcon-delivery-letter-out/index',
-    nav: true,
-    title: 'Surat Jalan Subcon - Keluar',
-    auth: true,
-    settings: {
-      group: "g-subcon",
+      subGroup: "packing list subcon",
       permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
@@ -60,6 +50,63 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-subcon",
+      subGroup: "packing list subcon",
+      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-subcon/fabric-wash',
+    name: 'subcon-fabric-wash',
+    moduleId: './modules/garment-subcon/garment-service-fabric-wash/index',
+    nav: true,
+    title: 'Subcon Jasa - Fabric Wash/Print',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "packing list subcon",
+      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-subcon/subcon-delivery-letter-out',
+    name: 'subcon-sewing',
+    moduleId: './modules/garment-subcon/garment-subcon-delivery-letter-out/index',
+    nav: true,
+    title: 'Surat Jalan Subcon - Keluar',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "surat jalan subcon",
+      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-subcon/subcon-customs-in',
+    name: 'subcon-customs-in',
+    moduleId: './modules/garment-subcon/garment-subcon-customs-in/index',
+    nav: true,
+    title: 'BC Masuk',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "bc subcon",
+      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-subcon/subcon-customs-out',
+    name: 'subcon-sewing',
+    moduleId: './modules/garment-subcon/customs-out/index',
+    nav: true,
+    title: 'BC Keluar',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "bc subcon",
       permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }

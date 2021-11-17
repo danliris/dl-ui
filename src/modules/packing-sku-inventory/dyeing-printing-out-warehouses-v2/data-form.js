@@ -96,6 +96,8 @@ export class DataForm {
       destinationArea: this.destinationArea
     };
 
+    console.log('this.detailOptions',this.detailOptions);
+
     if (this.readOnly) {
       this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
     } else {

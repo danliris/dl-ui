@@ -26,7 +26,7 @@ export class List {
     }
   }
 
-  context = ["Rincian"];
+  context = ["Rincian", "Cetak PDF"];
 
   columns = [
     { field: "ServiceSubconSewingNo", title: "No Subcon Jasa Garment Wash" },
@@ -82,6 +82,9 @@ export class List {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
+      case "Cetak PDF": 
+          this.service.getPdfById(data.Id); 
+          break;
       
     }
   }

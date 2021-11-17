@@ -187,7 +187,7 @@
                     value.bind="roType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="roTypes"
-                    if.bind="data.packingListType=='RE EXPORT'"
+                    if.bind="data.packingListType=='RE EXPORT' || data.invoiceType=='SM'"
                     options.bind="controlOptions">
                 </au-dropdown>
             </div>
@@ -210,7 +210,7 @@
                 <au-collection 
                     items.bind="data.items" 
                     errors.bind="error.Items" 
-                    columns.bind="itemsColumnsROMaster"
+                    columns.bind="data.invoiceType=='SM' ? itemsColumnsSMMaster :itemsColumnsROMaster"
                     read-only.bind="readOnly" 
                     add.bind="addItems" 
                     remove.bind="removeItems"
