@@ -73,43 +73,41 @@ export class Item {
 	}
 
 	async selectedUENChanged(newValue, oldValue) {
-		if (this.isCreate) {
-			if (newValue) {
-				this.data.Details.splice(0);
-				this.data.UnitExpenditureNo = newValue.UENNo;
-				this.data.ExpenditureDate = newValue.ExpenditureDate;
-				this.data.UnitSender = {
-					Id: newValue.UnitSenderId,
-					Code: newValue.UnitSenderCode,
-					Name: newValue.UnitSenderName
-				};
+		if (newValue.UENNo != this.data.UnitExpenditureNo) {
+			this.data.Details.splice(0);
+			this.data.UnitExpenditureNo = newValue.UENNo;
+			this.data.ExpenditureDate = newValue.ExpenditureDate;
+			this.data.UnitSender = {
+				Id: newValue.UnitSenderId,
+				Code: newValue.UnitSenderCode,
+				Name: newValue.UnitSenderName
+			};
 
-				this.data.UnitRequest = {
-					Id: newValue.UnitRequestId,
-					Code: newValue.UnitRequestCode,
-					Name: newValue.UnitRequestName
+			this.data.UnitRequest = {
+				Id: newValue.UnitRequestId,
+				Code: newValue.UnitRequestCode,
+				Name: newValue.UnitRequestName
+			};
+			newValue.Items.map(async i => {
+				const dataUnitDOItem = await this.purchasingService.getUnitDeliveryOrderItems(i.UnitDOItemId);
+				const detail = {};
+				detail.Product = {
+					Id: i.ProductId,
+					Code: i.ProductCode,
+					Name: i.ProductName,
+					Remark: i.ProductRemark,
 				};
-				newValue.Items.map(async i => {
-					const dataUnitDOItem = await this.purchasingService.getUnitDeliveryOrderItems(i.UnitDOItemId);
-					const detail = {};
-					detail.Product = {
-						Id: i.ProductId,
-						Code: i.ProductCode,
-						Name: i.ProductName,
-						Remark: i.ProductRemark,
-					};
-					detail.Quantity = i.Quantity;
-					detail.DesignColor = dataUnitDOItem.DesignColor;
-					detail.Uom = {
-						Id: i.UomId,
-						Unit: i.UomUnit
-					}
-					this.data.Details.push(detail);
-				})
+				detail.Quantity = i.Quantity;
+				detail.DesignColor = dataUnitDOItem.DesignColor;
+				detail.Uom = {
+					Id: i.UomId,
+					Unit: i.UomUnit
+				}
+				this.data.Details.push(detail);
+			})
 
-			} else {
-				this.data.UENNo = null;
-			}
+		} else {
+			this.data.UENNo = null;
 		}
 	}
 
