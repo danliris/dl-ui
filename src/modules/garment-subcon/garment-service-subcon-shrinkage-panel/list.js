@@ -28,9 +28,9 @@ export class List {
 	context = ["Rincian", "Cetak"];
 
 	columns = [
-		{ field: "ServiceSubconShrinkagePanelNo", title: "No Subcon Jasa Shrinkage Panel" },
+		{ field: "ServiceSubconShrinkagePanelNo", title: "No Subcon BB Shrinkage / Panel" },
 		{
-			field: "ServiceSubconShrinkagePanelDate", title: "Tgl Subcon Jasa Shrinkage Panel", formatter: function (value, data, index) {
+			field: "ServiceSubconShrinkagePanelDate", title: "Tgl Subcon BB Shrinkage / Panel", formatter: function (value, data, index) {
 				return moment(value).format("DD MMM YYYY")
 			},
 		},
