@@ -24,7 +24,7 @@ export class View {
                 Id:this.data.SubconContractId,
             };
             this.selectedContractType=this.data.ContractType;
-            this.selectedServiceType=this.data.ServiceType;
+            this.selectedSubconCategory=this.data.SubconCategory;
             
         }
     }
