@@ -30,7 +30,17 @@
             options.bind="controlOptions">
         </au-dropdown>
 
-        <au-dropdown
+        <au-dropdown 
+            label="Kategori Subcon" 
+            value.bind="selectedSubconCategory" 
+            error.bind="error.SubconCategory" 
+            read-only.bind="readOnly || isEdit"
+            if.bind="selectedContractType"
+            items.bind="SubconCategoryTypeOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <!-- <au-dropdown
             label="Jenis Subcon Jasa"
             value.bind="selectedServiceType"
             error.bind="error.ServiceType"
@@ -38,7 +48,7 @@
             items.bind="serviceTypes"
             if.bind="selectedContractType=='SUBCON JASA'"
             options.bind="controlOptions">
-        </au-dropdown>
+        </au-dropdown> -->
 
         <au-autocomplete
             value.bind="selectedContract"
@@ -67,7 +77,7 @@
             label="No Bon Pengeluaran Unit"
             loader.bind="uenLoader"
             text.bind="uenView"
-            if.bind="selectedContract && data.ContractType=='SUBCON BAHAN BAKU'"
+            if.bind="selectedContract && data.SubconCategory=='SUBCON CUTTING SEWING'"
             query.bind="UENFilter"
             placeholder="No Bon Pengeluaran Unit"
             read-only.bind="readOnly|| isEdit"
@@ -85,7 +95,7 @@
             placeholder="Nomor PO"
             read-only.bind="readOnly"
             options.bind="controlOptions"
-            if.bind="data.ContractType=='SUBCON BAHAN BAKU'"
+            if.bind="data.SubconCategory=='SUBCON CUTTING SEWING'"
             view-model.ref="selectedCuttingInViewModel">
         </au-autocomplete>
 
@@ -107,7 +117,7 @@
             errors.bind="error.Items"
             columns.bind="itemsInfo.columns"
             read-only.bind="readOnly"
-            if.bind="data.Items && data.ContractType=='SUBCON BAHAN BAKU'"
+            if.bind="data.Items && data.SubconCategory=='SUBCON CUTTING SEWING'"
             options.bind="itemOptions"
             item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item">
         </au-collection>
@@ -119,7 +129,7 @@
             read-only.bind="readOnly"
             remove.bind="removeItems"
             add.bind="addItems"
-            if.bind="data.ContractType=='SUBCON CUTTING'"
+            if.bind="data.SubconCategory=='SUBCON SEWING'"
             options.bind="itemOptions"
             item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutting">
         </au-collection>
@@ -127,11 +137,11 @@
         <au-collection
             items.bind="data.Items"
             errors.bind="error.Items"
-            columns.bind="data.ServiceType=='SUBCON JASA KOMPONEN' ? itemsInfo.columnsServiceCutting : itemsInfo.columnsServiceSewing"
+            columns.bind="data.SubconCategory=='SUBCON JASA KOMPONEN' ? itemsInfo.columnsServiceCutting : itemsInfo.columnsServiceSewing"
             read-only.bind="readOnly"
             remove.bind="removeItems"
             add.bind="addItems"
-            if.bind="data.ContractType=='SUBCON JASA'"
+            if.bind="data.ContractType=='SUBCON JASA' || data.ContractType=='SUBCON BAHAN BAKU'"
             options.bind="itemOptions"
             item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-service">
         </au-collection>

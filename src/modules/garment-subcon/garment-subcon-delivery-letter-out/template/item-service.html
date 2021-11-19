@@ -21,7 +21,7 @@
                 placeholder="Nomor Subcon"
                 read-only.bind="readOnly || data.Id"
                 options.bind="controlOptions"
-                if.bind="serviceType=='SUBCON JASA GARMENT WASH'"
+                if.bind="subconCategory=='SUBCON JASA GARMENT WASH'"
                 query.bind="filter">
             </au-autocomplete>
 
@@ -33,7 +33,7 @@
                 placeholder="Nomor Subcon"
                 read-only.bind="readOnly || data.Id"
                 options.bind="controlOptions"
-                if.bind="serviceType=='SUBCON JASA SHRINKAGE PANEL'"
+                if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL'"
                 query.bind="filter">
             </au-autocomplete>
 
@@ -45,7 +45,7 @@
                 placeholder="Nomor Subcon"
                 read-only.bind="readOnly || data.Id"
                 options.bind="controlOptions"
-                if.bind="serviceType=='SUBCON JASA FABRIC WASH'"
+                if.bind="subconCategory=='SUBCON BB FABRIC WASH/PRINT'"
                 query.bind="filter">
             </au-autocomplete>
         </td>
