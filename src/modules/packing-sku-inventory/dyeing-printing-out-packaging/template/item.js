@@ -15,10 +15,12 @@ export class CartItem {
 
         this.context = context;
         this.data = context.data;
+        
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.type = this.contextOptions.type;
         this.destinationArea = this.dataForm.data.destinationArea;
         this.isTransit = this.destinationArea == "TRANSIT";
 
