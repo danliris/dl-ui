@@ -24,12 +24,14 @@ export class ItemSPP {
     sppFilter = {};
     async activate(context) {
         this.data = context.data;
+       
         this.error = context.error;
         this.options = context.options;
         this.context = context.context;
         this.contextOptions = context.context.options;
-
+        console.log(this.contextOptions);
         this.destinationArea = this.contextOptions.destinationArea;
+        this.type = this.contextOptions.type;
         this.isEdit = this.contextOptions.isEdit;
         this.readOnly = this.contextOptions.readOnly;
         this.selectedProductionOrder = this.data.ProductionOrder || undefined;
@@ -47,7 +49,8 @@ export class ItemSPP {
         // this.isNewStructure = this.context.options.isNewStructure;
         this.itemOptions = {
             isEdit: this.isEdit,
-            destinationArea: this.destinationArea
+            destinationArea: this.destinationArea,
+            type : this.type
         };
 
         this.sppFilter = { "BuyerId": this.selectedBuyerId };
@@ -56,7 +59,11 @@ export class ItemSPP {
                 if (this.destinationArea == "TRANSIT") {
                     this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
                 } else {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan","Status"];
+                    if(this.type ==true){
+                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan",  "QTY Keluar", "Keterangan","Status"];    
+                    }else{
+                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
+                    }
                 }
 
             } else {
