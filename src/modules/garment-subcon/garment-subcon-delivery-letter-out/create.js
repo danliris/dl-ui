@@ -29,7 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+        if(this.data.SubconCategory=="SUBCON CUTTING SEWING"){
             this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
         }
         else{
