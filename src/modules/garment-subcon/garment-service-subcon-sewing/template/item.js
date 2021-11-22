@@ -11,10 +11,11 @@ export class Item {
   }
 
   detailColumns=[
-    "Keterangan",
+    "Color",
     "Unit",
     "Jumlah",
-    "Satuan"
+    "Satuan",
+    "Keterangan"
   ];
 
   activate(context) {
@@ -98,7 +99,7 @@ export class Item {
           }
         }
         //UnitId: this.data.Unit.Id,
-        Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, "GarmentSewingInItem.Any(RemainingQuantity>0)": true }) }))
+        Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo }) }))
           .then(result => {
             for (var sewingIn of result.data) {
               for (var sewingInItem of sewingIn.Items) {
@@ -109,21 +110,21 @@ export class Item {
                     qtyOut += ssSewingItems[sewingInItem.Id].qty;
                   }
                   var qty = sewingInItem.Quantity - qtyOut;
-                  if (qty > 0) {
+                  // if (qty > 0) {
                     if(this.data.Details.length==0){
                       detail.Quantity=qty;
                       detail.SewingInQuantity=qty;
-                      detail.DesignColor=sewingInItem.DesignColor;
+                      detail.DesignColor=sewingInItem.Color;
                       detail.Uom=sewingInItem.Uom;
                       detail.Unit=sewingIn.Unit;
                       this.data.Details.push(detail);
                     }
                     else{
-                      var exist= this.data.Details.find(a=>a.DesignColor==sewingInItem.DesignColor && a.Unit.Id==sewingIn.Unit.Id);
+                      var exist= this.data.Details.find(a=>a.DesignColor==sewingInItem.Color && a.Unit.Id==sewingIn.Unit.Id);
                       if(!exist){
                           detail.Quantity=qty;
                           detail.SewingInQuantity=qty;
-                          detail.DesignColor=sewingInItem.DesignColor;
+                          detail.DesignColor=sewingInItem.Color;
                           detail.Uom=sewingInItem.Uom;
                           detail.Unit=sewingIn.Unit;
                           this.data.Details.push(detail);
@@ -136,7 +137,7 @@ export class Item {
                       }
                     }  
                     
-                  }
+                  // }
                 }
               }
             }
