@@ -149,7 +149,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 "B12": 1 },
+            permission: { "C9": 1, "SG": 1, "B12": 1 },
         iconClass: "fa fa-dashboard",
     },
   },
