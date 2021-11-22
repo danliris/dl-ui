@@ -139,6 +139,20 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+        {
+        route: "garment-detail-currencies",
+        name: "garment-detail-currencies",
+        moduleId: "./modules/master/garment-detail-currency/index",
+        nav: true,
+        title: "Rate tengah BI - USD",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            permission: { "C9": 1, "SG": 1 "B12": 1 },
+        iconClass: "fa fa-dashboard",
+    },
+  },
     {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',

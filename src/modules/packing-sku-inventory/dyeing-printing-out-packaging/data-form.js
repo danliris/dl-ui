@@ -57,6 +57,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
 
+        this.type = this.context.type;
+        
+
         this.data.area = "PACKING";
 
         this.error = this.context.error;
@@ -78,6 +81,7 @@ export class DataForm {
         if (this.data.packagingProductionOrders) {
             this.selectedPackaging = this.data;
             this.selectedPackaging.bonNo = this.data.bonNo;
+            console.log(this.data.packagingProductionOrders);
         }
 
 
@@ -90,7 +94,8 @@ export class DataForm {
         this.detailOptions = {
             isEdit: this.isEdit,
             readOnly: this.readOnly,
-            destinationArea: this.destinationArea
+            destinationArea: this.destinationArea,
+            type : this.type
         };
 
         if (this.ItemsCollection) {
@@ -100,6 +105,8 @@ export class DataForm {
 
     addItemCallback = (e) => {
         this.data.packagingProductionOrders = this.data.packagingProductionOrders || [];
+
+        console.log(this.data.packagingProductionOrders);
         this.data.packagingProductionOrders.push({});
     };
     addItemCallbackAdj = (e) => {
