@@ -121,17 +121,17 @@ export class List {
               PPN: item.VATAmount ? numeral(item.VATAmount).format("0,000.00") : 0,
               Total: item.Mutation ? numeral(item.Mutation).format("0,000.00") : 0,
               Purchase: item.PurchaseAmount
-                ? numeral(item.PurchaseAmount > 0 ? item.PurchaseAmount : 0).format(
+                ? numeral(item.PurchaseAmount).format(
                   "0,000.00"
                 )
                 : 0,
               Payment: item.PaymentAmount
-                ? numeral(item.PaymentAmount > 0 ? item.PaymentAmount : 0).format(
+                ? numeral(item.PaymentAmount).format(
                   "0,000.00"
                 )
                 : 0,
               FinalBalance: item.FinalBalance
-              ? numeral(item.FinalBalance > 0 ? item.FinalBalance : 0).format(
+              ? numeral(item.FinalBalance).format(
                 "0,000.00"
               )
               : 0,

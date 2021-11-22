@@ -479,15 +479,16 @@ module.exports = [
   },
 
   {
-    route: "accounting/revise-create-date-unit-expenditure-note",
-    name: "revise-create-date-unit-expenditure-note",
-    moduleId: "./modules/accounting/revise-create-date-unit-expenditure-note/index",
+    route: "accounting/revise-date-urn-uen",
+    name: "revise-date-urn-uen",
+    moduleId: "./modules/accounting/revise-date-urn-uen/index",
     nav: true,
-    title: "Fitur Ubah Tanggal BUK",
+    title: "Fitur Ubah Tanggal BUK/BUM",
     auth: true,
     settings: {
       group: "accounting",
-      // permission: { "B1": 1, "C9": 1 },
+      subGroup: "fitur",
+      permission: { "B1": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
   }

@@ -1,0 +1,85 @@
+<template >
+    <tr>
+        <td class="col-sm-4 bg-primary">
+            <au-autocomplete
+                value.bind="selectedSubconCutting"
+                error.bind="error.SubconNo"
+                loader.bind="subconCuttingLoader"
+                text="SubconNo"
+                placeholder="Nomor Subcon"
+                read-only.bind="readOnly || data.Id"
+                options.bind="controlOptions"
+                if.bind="isSubconCutting"
+                query.bind="filter">
+            </au-autocomplete>
+
+            <au-autocomplete
+                value.bind="selectedSubconSewing"
+                error.bind="error.SubconNo"
+                loader.bind="subconSewingLoader"
+                text="ServiceSubconSewingNo"
+                placeholder="Nomor Subcon"
+                read-only.bind="readOnly || data.Id"
+                options.bind="controlOptions"
+                if.bind="subconCategory=='SUBCON JASA GARMENT WASH'"
+                query.bind="filter">
+            </au-autocomplete>
+
+            <au-autocomplete
+                value.bind="selectedSubconShrinkage"
+                error.bind="error.SubconNo"
+                loader.bind="subconShrinkageLoader"
+                text="ServiceSubconShrinkagePanelNo"
+                placeholder="Nomor Subcon"
+                read-only.bind="readOnly || data.Id"
+                options.bind="controlOptions"
+                if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL'"
+                query.bind="filter">
+            </au-autocomplete>
+
+            <au-autocomplete
+                value.bind="selectedSubconFabric"
+                error.bind="error.SubconNo"
+                loader.bind="subconFabricLoader"
+                text="ServiceSubconFabricWashNo"
+                placeholder="Nomor Subcon"
+                read-only.bind="readOnly || data.Id"
+                options.bind="controlOptions"
+                if.bind="subconCategory=='SUBCON BB FABRIC WASH/PRINT'"
+                query.bind="filter">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-4 bg-primary">
+            <au-datepicker 
+                value.bind="data.date"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-datepicker>
+        </td>
+        <td class="col-sm-3 bg-primary" if.bind="isSubconCutting">
+            <au-textbox
+                value.bind="data.unit"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-3 bg-primary" if.bind="isSubconCutting">
+            <au-textbox
+                value.bind="data.subconType"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-4 bg-primary">
+            <au-numeric
+                value.bind="data.Quantity"
+                error.bind="error.Quantity"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td if.bind="!readOnly" class="col-sm-1">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
+        </td>
+    </tr>
+</template>

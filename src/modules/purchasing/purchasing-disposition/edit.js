@@ -65,10 +65,11 @@ export class Edit {
                     this.data.VatValue+=ppn;
                     this.data.DPP+=detail.PaidPrice;
                     if(this.data.IncomeTaxBy=="Supplier"){
-                        this.data.Amount+=detail.PaidPrice+ppn;
-                    }
-                    else
-                        this.data.Amount+=detail.PaidPrice+ppn+pph;
+                      this.data.Amount=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
+                   }
+                   else{
+                      this.data.Amount=detail.PaidPrice+ppn+this.data.PaymentCorrection;
+                   }
                 }
             }
         }
