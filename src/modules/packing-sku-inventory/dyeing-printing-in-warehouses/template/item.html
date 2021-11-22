@@ -148,6 +148,7 @@
       <!-- <td show.bind="!readOnly"></td> -->
       <td colspan="14">
           <au-collection columns.bind="itemColumns" items.bind="data.productionOrderItems" read-only.bind="readOnly"
+          options.bind="itemOptions"
               item-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/production-order-item"
               header-template="modules/packing-sku-inventory/dyeing-printing-in-warehouses/template/production-order-item-header">
           </au-collection>
