@@ -87,7 +87,7 @@ export class DataForm {
             "Keterangan",
             "Size",
             "Komoditas",
-            "Keterangan",
+            "Warna",
             "Jumlah Datang",
             "Satuan"
         ],
