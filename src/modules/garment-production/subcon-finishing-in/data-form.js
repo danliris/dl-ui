@@ -79,6 +79,35 @@ export class DataForm {
         }
     };
 
+    subconDetailsCuttingSewing = {
+        columns: [
+            "Kode Barang",
+            "Keterangan",
+            "Size",
+            "Komoditas",
+            "Warna",
+            "Jumlah Datang",
+            "Satuan"
+        ],
+        viewColumns: [
+            { header: "Kode Barang", value: "product" },
+            { header: "Keterangan", value: "DesignColor" },
+            { header: "Size", value: "size" },
+            { header: "Jumlah", value: "Quantity" },
+            { header: "Sisa", value: "RemainingQuantity" },
+            { header: "Satuan", value: "uom" },
+            { header: "Warna", value: "Color" }
+        ],
+        onAdd: function () {
+            this.data.Items.push({ IsSave: true, Comodity: this.data.Comodity, Uom: this.uom, SubconType: this.data.SubconType });
+        }.bind(this),
+        options: {
+            checkedAll: true,
+            subconCuttingList: {}
+        }
+    };
+
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -297,7 +326,7 @@ export class DataForm {
                                     }
                                 });
                         });
-                        this.data.Items.sort((a, b)=>a.Color.localeCompare( b.Color) || a.SizeName.localeCompare( b.SizeName));
+                    this.data.Items.sort((a, b) => a.Color.localeCompare(b.Color) || a.SizeName.localeCompare(b.SizeName));
                 });
         } else {
             this.data.RONo = null;
