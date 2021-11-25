@@ -1,21 +1,21 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service,PurchasingService} from "../service";
+import { Service, PurchasingService } from "../service";
 
-@inject(Service,PurchasingService)
+@inject(Service, PurchasingService)
 export class Item {
   @bindable selectedRO;
 
-  constructor(service,purchasingService) {
-      this.service = service;
-      this.purchasingService = purchasingService;
+  constructor(service, purchasingService) {
+    this.service = service;
+    this.purchasingService = purchasingService;
   }
 
-  detailColumns=[
-    "Color",
+  detailColumns = [
+    "Warna",
     "Unit",
     "Jumlah",
     "Satuan",
-    "Keterangan"
+    "Keterangan",
   ];
 
   activate(context) {
@@ -27,7 +27,7 @@ export class Item {
     this.readOnly = context.options.readOnly;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
-    
+
     this.itemOptions = {
       error: this.error,
       isCreate: this.isCreate,
@@ -40,11 +40,11 @@ export class Item {
         this.isShowing = true;
       }
     }
-    if(this.data.RONo){
-      this.selectedRO={
-          RONo:this.data.RONo
+    if (this.data.RONo) {
+      this.selectedRO = {
+        RONo: this.data.RONo
       }
-  }
+    }
   }
 
   toggle() {
@@ -82,7 +82,7 @@ export class Item {
 
         let ssSewingItems = [];
         let ssSewing = await this.service.searchItem({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
-        
+
         if (ssSewing.data.length > 0) {
           for (var ssS of ssSewing.data) {
             for (var ssSItem of ssS.Details) {
@@ -111,32 +111,32 @@ export class Item {
                   }
                   var qty = sewingInItem.Quantity - qtyOut;
                   // if (qty > 0) {
-                    if(this.data.Details.length==0){
-                      detail.Quantity=qty;
-                      detail.SewingInQuantity=qty;
-                      detail.DesignColor=sewingInItem.Color;
-                      detail.Uom=sewingInItem.Uom;
-                      detail.Unit=sewingIn.Unit;
+                  if (this.data.Details.length == 0) {
+                    detail.Quantity = qty;
+                    detail.SewingInQuantity = qty;
+                    detail.DesignColor = sewingInItem.Color;
+                    detail.Uom = sewingInItem.Uom;
+                    detail.Unit = sewingIn.Unit;
+                    this.data.Details.push(detail);
+                  }
+                  else {
+                    var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.Color && a.Unit.Id == sewingIn.Unit.Id);
+                    if (!exist) {
+                      detail.Quantity = qty;
+                      detail.SewingInQuantity = qty;
+                      detail.DesignColor = sewingInItem.Color;
+                      detail.Uom = sewingInItem.Uom;
+                      detail.Unit = sewingIn.Unit;
                       this.data.Details.push(detail);
                     }
-                    else{
-                      var exist= this.data.Details.find(a=>a.DesignColor==sewingInItem.Color && a.Unit.Id==sewingIn.Unit.Id);
-                      if(!exist){
-                          detail.Quantity=qty;
-                          detail.SewingInQuantity=qty;
-                          detail.DesignColor=sewingInItem.Color;
-                          detail.Uom=sewingInItem.Uom;
-                          detail.Unit=sewingIn.Unit;
-                          this.data.Details.push(detail);
-                      }
-                      else{
-                          var idx= this.data.Details.indexOf(exist);
-                          exist.Quantity+=qty;
-                          exist.SewingInQuantity+=qty;
-                          this.data.Details[idx]=exist;
-                      }
-                    }  
-                    
+                    else {
+                      var idx = this.data.Details.indexOf(exist);
+                      exist.Quantity += qty;
+                      exist.SewingInQuantity += qty;
+                      this.data.Details[idx] = exist;
+                    }
+                  }
+
                   // }
                 }
               }
@@ -160,7 +160,7 @@ export class Item {
     return (keyword) => {
       var info = {
         keyword: keyword,
-        filter: JSON.stringify({ BuyerCode: this.data.Buyer.Code})
+        filter: JSON.stringify({ BuyerCode: this.data.Buyer.Code })
       };
       return this.service.searchSewingInByRo(info)
         .then((result) => {
