@@ -28,10 +28,13 @@ export class List {
     columns = [
         { field: "ContractNo", title: "No/Tgl Kontrak" },
         { field: "ContractType", title: "Jenis Kontrak" },
-        { field: "AgreementNo", title: "No/Tgl Persetujuan" },
+        { field: "AgreementDate", title: "Tgl Persetujuan", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY")
+            },
+        },
         { field: "SupplierName", title: "Penerima" },
         { field: "JobType", title: "Jenis Pekerjaan", sortable: false },
-        { field: "BPJNo", title: "No/Tgl BPJ"},
+        //{ field: "BPJNo", title: "No/Tgl BPJ"},
         { field: "FinishedGoodType", title: "Jenis Barang Jadi"},
         {
             field: "DueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {

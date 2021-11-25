@@ -25,7 +25,7 @@ export class Item {
         this.isEdit = context.context.options.isEdit;
         this.itemOptions=context.context.options;
         this.isSubconCutting=this.itemOptions.isSubconCutting;
-        this.serviceType=this.itemOptions.serviceType;
+        this.subconCategory=this.itemOptions.subconCategory;
         if(this.data){
             if(this.isSubconCutting){
                 this.selectedSubconCutting={
@@ -39,7 +39,7 @@ export class Item {
                     this.data.subconType=subcon.SubconType;
                 }
             }
-            else if(this.serviceType=="SUBCON JASA GARMENT WASH"){
+            else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
                 this.selectedSubconSewing={
                     ServiceSubconSewingNo: this.data.SubconNo,
                     Id:this.data.SubconId
@@ -49,7 +49,7 @@ export class Item {
                     this.data.date=subcon.ServiceSubconSewingDate;
                 }
             }
-            else if(this.serviceType=="SUBCON JASA SHRINKAGE PANEL"){
+            else if(this.subconCategory=="SUBCON BB SHRINKAGE/PANEL"){
                 this.selectedSubconShrinkage={
                     ServiceSubconShrinkagePanelNo: this.data.SubconNo,
                     Id:this.data.SubconId
@@ -59,7 +59,7 @@ export class Item {
                     this.data.date=subcon.ServiceSubconShrinkagePanelDate;
                 }
             }
-            else if(this.serviceType=="SUBCON JASA FABRIC WASH"){
+            else if(this.subconCategory=="SUBCON BB FABRIC WASH/PRINT"){
                 this.selectedSubconFabric={
                     ServiceSubconFabricWashNo: this.data.SubconNo,
                     Id:this.data.SubconId
@@ -86,13 +86,13 @@ export class Item {
             if(this.isSubconCutting){
                 filter[`SubconNo == "${item.data.SubconNo}"`]=false;
             }
-            else if(this.serviceType=="SUBCON JASA GARMENT WASH"){
+            else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
                 filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
             }
-            else if(this.serviceType=="SUBCON JASA SHRINKAGE PANEL"){
+            else if(this.subconCategory=="SUBCON BB SHRINKAGE/PANEL"){
                 filter[`ServiceSubconShrinkagePanelNo == "${item.data.SubconNo}"`]=false;
             }
-            else if(this.serviceType=="SUBCON JASA FABRIC WASH"){
+            else if(this.subconCategory=="SUBCON BB FABRIC WASH/PRINT"){
                 filter[`ServiceSubconFabricWashNo == "${item.data.SubconNo}"`]=false;
             }
             
