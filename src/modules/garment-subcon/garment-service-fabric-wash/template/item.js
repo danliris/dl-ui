@@ -86,12 +86,10 @@ export class Item {
 					uenNo.push(item.UnitExpenditureNo);
 				})
 			});
-			console.log(uenNo);
 
 			return this.purchasingService.getUnitExpenditureNotes(info)
 				.then((result) => {
 					let data = result.data.filter(x => !uenNo.includes(x.UENNo));
-                    console.log(data);
 					return data;
 				});
 		}
@@ -111,16 +109,23 @@ export class Item {
 
                 };
                 
-                this.data.UnitRequest={
-                    Id : newValue.UnitRequestId,
-                    Code : newValue.UnitRequestCode,
-                    Name : newValue.UnitRequestName
+                // this.data.UnitRequest={
+                //     Id : newValue.UnitRequestId,
+                //     Code : newValue.UnitRequestCode,
+                //     Name : newValue.UnitRequestName
 
-                };
+                // };
 
                 this.data.ExpenditureDate = newValue.ExpenditureDate;
                 this.purchasingService.getUnitDeliveryOrderById(newValue.UnitDOId)
-                    .then((deliveryOrder) => {
+                    .then((deliveryOrder) => {                        
+                        this.data.UnitRequest={
+                            Id : deliveryOrder.Storage._id,
+                            Code : deliveryOrder.Storage.code,
+                            Name : deliveryOrder.Storage.name
+        
+                        };
+                        
                         var listDesignColor = [];
                         for(var item of deliveryOrder.Items){
                             listDesignColor.push(item.DesignColor);

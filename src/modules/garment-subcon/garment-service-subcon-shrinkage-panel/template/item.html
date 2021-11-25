@@ -1,15 +1,10 @@
 <template>
 	<tr>
 		<td class="bg-primary">
-			<<<<<<< HEAD <au-autocomplete value.bind="selectedUEN" error.bind="error.ExpenditureNoteNo"
-				loader.bind="garmentUENLoader" text="UENNo" placeholder="Nomor Bon Pengeluaran Unit"
-				read-only.bind="readOnly|| (isEdit && data.Id)" query.bind=" filter" options.bind="controlOptions">
-				=======
-				<au-autocomplete value.bind="selectedUEN" error.bind="error.ExpenditureNoteNo" loader.bind="garmentUENLoader"
-					text="UENNo" placeholder="Nomor Bon Pengeluaran Unit" read-only.bind="readOnly|| (isEdit && data.Id)"
-					query.bind=" filter" options.bind="controlOptions">
-					>>>>>>> migration
-				</au-autocomplete>
+			<au-autocomplete value.bind="selectedUEN" error.bind="error.ExpenditureNoteNo" loader.bind="garmentUENLoader"
+				text="UENNo" placeholder="Nomor Bon Pengeluaran Unit" read-only.bind="readOnly|| (isEdit && data.Id)"
+				query.bind="filter" options.bind="controlOptions">
+			</au-autocomplete>
 		</td>
 
 		<td class="bg-primary">

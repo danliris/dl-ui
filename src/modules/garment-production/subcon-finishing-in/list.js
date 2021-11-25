@@ -30,6 +30,7 @@ export class List {
 
     columns = [
         { field: "FinishingInNo", title: "No Finishing In Subkon" },
+        { field: "SubconType", title: "Jenis Subkon" },
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalFinishingInQuantity", title: "Jumlah", sortable: false },
@@ -55,7 +56,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                this.totalQuantity=result.info.totalQty;
+                this.totalQuantity = result.info.totalQty;
                 result.data.forEach(d => {
                     d.UnitCode = d.Unit.Code;
                     d.UnitFromCode = d.UnitFrom.Code;
