@@ -63,7 +63,7 @@
             if.bind="selectedRONo && !readOnly && data.SubconType == 'SEWING'" options.bind="subconDetails.options"
             header-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-header"
             item-template="modules/garment-production/subcon-finishing-in/template/subcon-detail"
-            footer-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-footer">
+            footer-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-footer-7">
             <button if.bind="!readOnly" slot="body" click.delegate="subconDetails.onAdd()"
                 class="btn btn-primary pull-right">Tambah Detail</button>
         </au-collection>
@@ -79,7 +79,7 @@
             options.bind="subconDetailsCuttingSewing.options"
             header-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-header"
             item-template="modules/garment-production/subcon-finishing-in/template/subcon-detail"
-            footer-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-footer">
+            footer-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-footer-6">
             <button if.bind="!readOnly" slot="body" click.delegate="subconDetailsCuttingSewing.onAdd()"
                 class="btn btn-primary pull-right">Tambah Detail</button>
         </au-collection>
