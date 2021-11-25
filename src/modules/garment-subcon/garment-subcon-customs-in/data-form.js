@@ -72,11 +72,8 @@ export class DataForm {
 
     if (this.data && this.data.Id) {
       this.selectedSubconType = this.data.SubconType;
-      this.selectedSubconContract = {
-        Supplier: this.data.Supplier,
-        Id: this.data.SubconContractId,
-        ContractNo: this.data.SubconContractNo,
-      };
+      var dataSubconContract = await this.service.getSubconContractByID(this.data.SubconContractId);
+      this.selectedSubconContract = dataSubconContract;
       this.selectedSubconCategory = this.data.SubconCategory;
     }
   }
@@ -109,7 +106,9 @@ export class DataForm {
       newValue.Quantity -= dataJumlah;
       this.data.RemainingQuantity = newValue.Quantity;
       this.dataSC = newValue;
-      this.data.Items.splice(0);
+      if (newValue.Id != this.data.SubconContractId) {
+        this.data.Items.splice(0);
+      }
     }
   }
 
