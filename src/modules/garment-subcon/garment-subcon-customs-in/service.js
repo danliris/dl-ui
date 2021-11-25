@@ -2,6 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'subcon-customs-ins';
 const serviceDoUri = 'garment-delivery-orders';
+const subconContractUri = 'subcon-contracts';
 
 class Service extends RestService {
 	constructor(http, aggregator, config, endpoint) {
@@ -36,6 +37,11 @@ class Service extends RestService {
 	delete(data) {
 		var endpoint = `${serviceUri}/${data.Id}`;
 		return super.delete(endpoint, data);
+	}
+
+	getSubconContractByID(id) {
+		var endpoint = `${subconContractUri}/${id}`;
+		return super.get(endpoint);
 	}
 }
 
