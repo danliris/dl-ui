@@ -73,8 +73,14 @@ export class DataForm {
             "Jenis Subcon",
             "Jumlah",
         ],
-        columnsServiceSewing:[
-            "No Subcon Jasa Garment Wash",
+        columnBBPanel:[
+            "No Subcon BB Shrinkage/Panel",
+            "Tgl Subcon",
+            //"Asal Unit",
+            "Jumlah",
+        ],
+        columnBBWash : [
+            "No Subcon BB Fabric Wash/Print",
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
