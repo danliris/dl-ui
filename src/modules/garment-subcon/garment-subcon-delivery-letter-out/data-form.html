@@ -137,7 +137,7 @@
         <au-collection
             items.bind="data.Items"
             errors.bind="error.Items"
-            columns.bind="data.SubconCategory=='SUBCON JASA KOMPONEN' ? itemsInfo.columnsServiceCutting : itemsInfo.columnsServiceSewing"
+            columns.bind="data.SubconCategory=='SUBCON JASA KOMPONEN' ? itemsInfo.columnsServiceCutting : data.SubconCategory=='SUBCON BB SHRINKAGE/PANEL' ?  itemsInfo.columnBBPanel : itemsInfo.columnBBWash"
             read-only.bind="readOnly"
             remove.bind="removeItems"
             add.bind="addItems"
