@@ -29,12 +29,13 @@ export class Item {
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
     this.itemOptions = context.context.options;
-    if (this.data && this.data.Supplier) {
-      this.selectedSupplier = {
+    console.log(this.data);
+    if (this.data && this.data.DoId) {
+      /*this.selectedSupplier = {
         Id: this.data.Supplier && this.data.Supplier.Id,
         Code: this.data.Supplier && this.data.Supplier.Code,
         Name: this.data.Supplier && this.data.Supplier.Name,
-      };
+      };*/
       this.selectedDo = {
         Id: this.data.DoId,
         DoNo: this.data.DoNo,
@@ -53,9 +54,7 @@ export class Item {
   }
 
   supplierView = (supplier) => {
-    return `${supplier.code || supplier.Code} - ${
-      supplier.name || supplier.Name
-    }`;
+    return `${supplier.code || supplier.Code} - ${supplier.name || supplier.Name}`;
   };
 
   get supplierLoader() {
@@ -76,20 +75,20 @@ export class Item {
 
   get doLoader() {
     /*return (keyword) => {
-			var info = {
-				keyword: keyword,
-				filter: JSON.stringify({ supplierId: this.data.Supplier.Id })
-			};
+      var info = {
+        keyword: keyword,
+        filter: JSON.stringify({ supplierId: this.data.Supplier.Id })
+      };
 
-			this.purchasingService.getGarmentDo(info).then(result => {
-				return result.data
-			})
-		}*/
+      this.purchasingService.getGarmentDo(info).then(result => {
+        return result.data
+      })
+    }*/
     return DoLoader;
   }
 
-  doView = (data) => {
-    return `${data.doNo || data.DoNo}`;
+  doView = (deliveryOrder) => {
+    return `${deliveryOrder.doNo || deliveryOrder.DoNo} `;
   };
 
   selectedDoChanged(newValue, oldValue) {
@@ -105,7 +104,7 @@ export class Item {
           return totalQty;
         });
 
-        this.data.Quantity = parseFloat(qty);
+        this.data.Quantity = parseFloat(qty) || 0;
       } else {
         this.data.Quantity = newValue.Quantity;
       }
