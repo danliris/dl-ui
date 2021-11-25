@@ -35,9 +35,9 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    //{ field: "UnitCode", title: "Unit" },
-    // { field: "RONo", title: "RO" },
-    // { field: "Article", title: "No Artikel" },
+    { field: "BuyerName", title: "Buyer" },
+    { field: "TotalQuantity", title: "Total Quantity" },
+    { field: "UOM", title: "Satuan" },
     // { field: "TotalQuantity", title: "Jumlah", sortable: false },
     // { field: "ColorList", title: "Warna", sortable: false },
     // { field: "ProductList", title: "Kode Barang", sortable: false },
