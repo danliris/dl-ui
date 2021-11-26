@@ -15,9 +15,11 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedURN;
     @bindable selectedRONo;
+    @bindable selectedSubconType;
 
     dataDODetails = [];
     itemsRONo = [];
+    itemsSubconType = ["SEWING", "CUTTING SEWING"];
 
     constructor(service, purchasingService, salesService) {
         this.service = service;
@@ -71,7 +73,7 @@ export class DataForm {
             { header: "Warna", value: "Color" }
         ],
         onAdd: function () {
-            this.data.Items.push({ IsSave: true, Comodity: this.data.Comodity, Uom: this.uom });
+            this.data.Items.push({ IsSave: true, Comodity: this.data.Comodity, Uom: this.uom, SubconType: this.data.SubconType });
         }.bind(this),
         options: {
             checkedAll: true,
@@ -113,6 +115,9 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.data.FinishingInType = "PEMBELIAN";
+        if (this.data) {
+            this.selectedSubconType = this.data.SubconType;
+        }
     }
 
     unitView = (unit) => {
@@ -281,7 +286,6 @@ export class DataForm {
                                     }
                                 }
                             }
-
                             this.service.searchSubconCutting(subconCuttingInfo)
                                 .then(subconCuttingResult => {
                                     if (subconCuttingResult.data) {
@@ -312,9 +316,13 @@ export class DataForm {
                                                 Quantity: data.Quantity - data.FinishingInQuantity,
                                                 RemainingQuantity: data.Quantity - data.FinishingInQuantity,
                                                 BasicPrice: data.BasicPrice,
-                                                Uom: this.uom
+                                                Uom: this.uom,
+                                                SubconType: this.data.SubconType
                                             };
-                                            this.data.Items.push(item);
+
+                                            if (this.data.SubconType == "SEWING") {
+                                                this.data.Items.push(item);
+                                            }
                                             this.subconDetails.options.subconCuttingList[data.Product.Code] = {
                                                 Product: data.Product,
                                                 DesignColor: data.DesignColor,
@@ -342,5 +350,12 @@ export class DataForm {
     get totalQuantity() {
         this.data.TotalQuantity = this.dataDODetails.reduce((acc, cur) => acc += cur.Quantity, 0) - this.data.Items.filter(i => i.IsSave).reduce((acc, cur) => acc += cur.Quantity, 0);
         return this.data.TotalQuantity;
+    }
+
+    selectedSubconTypeChanged(newValue, oldValue) {
+        this.data.SubconType = newValue;
+        this.context.selectedURNViewModel.editorValue = "";
+        this.selectedURN = null;
+        this.selectedSupplier = null;
     }
 }
