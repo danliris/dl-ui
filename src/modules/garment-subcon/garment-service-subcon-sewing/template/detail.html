@@ -1,30 +1,25 @@
 <template>
     <tr>
-        <td >
-            <au-textbox 
-                value.bind="data.DesignColor" 
-                read-only.bind="true">
+        <td>
+            <au-textbox value.bind="data.DesignColor" read-only.bind="true">
             </au-textbox>
         </td>
-        <td >
-            <au-textbox 
-                value.bind="data.Unit.Code" 
-                read-only.bind="true">
+        <td>
+            <au-textbox value.bind="data.Unit.Code" read-only.bind="true">
             </au-textbox>
         </td>
-        <td >
-            <au-numeric 
-                value.bind="data.Quantity" 
-                error.bind="error.Quantity" 
-                read-only.bind="readOnly" 
-                format="0">
+        <td>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0">
             </au-numeric>
         </td>
-        <td >
-            <au-textbox 
-                value.bind="data.Uom.Unit" 
-                read-only.bind="true">
+        <td>
+            <au-textbox value.bind="data.Uom.Unit" read-only.bind="true">
             </au-textbox>
         </td>
+        <td>
+            <au-textbox value.bind="data.Remark" read-only.bind="readOnly">
+            </au-textbox>
+        </td>
+
     </tr>
 </template>
