@@ -86,7 +86,7 @@ module.exports = [
     name: 'subcon-fabric-wash',
     moduleId: './modules/garment-subcon/garment-service-fabric-wash/index',
     nav: true,
-    title: 'Subcon Jasa - Fabric Wash/Print',
+    title: 'Subcon BB - Fabric Wash/Print',
     auth: true,
     settings: {
       group: "g-subcon",
