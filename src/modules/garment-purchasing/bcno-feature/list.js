@@ -25,7 +25,7 @@ export class List {
 
     @bindable SearchItem;
 
-    SearchItems= ['No BC','No PO','No RO']
+    SearchItems= ['No RO', 'No BC', 'No PO']
     UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
 
     search(){
