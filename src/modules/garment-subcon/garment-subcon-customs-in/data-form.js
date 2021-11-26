@@ -1,6 +1,7 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
+var moment = require("moment");
 const SubconContractLoader = require("../../../loader/garment-subcon-contract-loader");
 
 @inject(Service)
@@ -15,6 +16,8 @@ export class DataForm {
   @bindable selectedSubconType;
   @bindable selectedSubconContract;
   @bindable selectedSupplier;
+  @bindable selectedSubconCategory;
+  @bindable dataSC = {};
 
   constructor(service) {
     this.service = service;
@@ -27,7 +30,11 @@ export class DataForm {
     editText: "Ubah",
   };
   bcTypes = ["2.6.2", "2.7 - In"];
-  subconTypes = ["SUBCON BAHAN BAKU", "SUBCON CUTTING", "SUBCON JASA"];
+  subconTypes = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
+  subconCategoryGarment = ["SUBCON CUTTING SEWING", "SEWING"];
+  subconCategoryBB = ["SUBCON BB SHRINKAGE/PANEL", "SUBCON BB FABRIC WASH/PRINT"];
+  subconCategoryService = ["SUBCON JASA GARMENT WASH", "SUBCON JASA KOMPONEN"];
+
   controlOptions = {
     label: {
       length: 2,
@@ -38,14 +45,18 @@ export class DataForm {
   };
 
   itemsInfo = {
-    columns: ["Supplier", "No SJ Masuk", "Jumlah", ""],
+    columns: ["No SJ Masuk", "Jumlah", ""],
   };
 
-  @computedFrom("data.SubconType")
+  @computedFrom("data.SubconCategory")
   get contractFilter() {
-    return {
-      ContractType: this.data.SubconType,
+    var current = new Date();
+    var expired = moment(current).format("YYYY-MM-DD");
+    var filter = {
+      SubconCategory: this.data.SubconCategory,
     };
+    filter[`DueDate >= ${JSON.stringify(expired)} `] = true;
+    return filter;
   }
 
   async bind(context) {
@@ -61,11 +72,9 @@ export class DataForm {
 
     if (this.data && this.data.Id) {
       this.selectedSubconType = this.data.SubconType;
-      this.selectedSubconContract = {
-        Supplier: this.data.Supplier,
-        Id: this.data.SubconContractId,
-        ContractNo: this.data.SubconContractNo,
-      };
+      var dataSubconContract = await this.service.getSubconContractByID(this.data.SubconContractId);
+      this.selectedSubconContract = dataSubconContract;
+      this.selectedSubconCategory = this.data.SubconCategory;
     }
   }
 
@@ -81,19 +90,37 @@ export class DataForm {
     }
   }
 
-  selectedSubconContractChanged(newValue) {
+  async selectedSubconContractChanged(newValue) {
     if (newValue) {
       this.data.Supplier = newValue.Supplier;
       this.data.SubconContractId = newValue.Id;
       this.data.SubconContractNo = newValue.ContractNo;
       this.selectedSupplier =
         newValue.Supplier.Code + " - " + newValue.Supplier.Name;
+      //newValue.Quantity = newValue.Quantity;
+      const dataCustomsIn = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+      const dataJumlahCustomsIn = dataCustomsIn.data.map(x => {
+        return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
+      });
+      const dataJumlah = dataJumlahCustomsIn.reduce((acc, cur) => acc += cur, 0);
+      newValue.Quantity -= dataJumlah;
+      this.data.RemainingQuantity = newValue.Quantity;
+      this.dataSC = newValue;
+      if (newValue.Id != this.data.SubconContractId) {
+        this.data.Items.splice(0);
+      }
     }
   }
 
   get addItems() {
     return (event) => {
-      this.data.Items.push({});
+      if (this.data.Supplier != null) {
+        this.data.Items.push({
+          Supplier: this.data.Supplier
+        });
+      } else {
+        alert("Supplier harus di isi");
+      }
     };
   }
 
@@ -104,6 +131,15 @@ export class DataForm {
   }
 
   get totalQuantity() {
-    return this.data.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
+    this.data.TotalQty = this.data.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
+    return this.data.TotalQty;
+  }
+
+  selectedSubconCategoryChanged(newValue) {
+    if (newValue != this.data.SubconCategory) {
+      this.data.SubconCategory = newValue;
+    } else {
+      this.data.SubconCategory = null;
+    }
   }
 }
