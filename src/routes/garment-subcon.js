@@ -46,7 +46,7 @@ module.exports = [
     name: 'service-subcon-shrinkage-panel',
     moduleId: './modules/garment-subcon/garment-service-subcon-shrinkage-panel/index',
     nav: true,
-    title: 'Subcon Jasa - Shrinkage / Panel',
+    title: 'Subcon BB - Shrinkage / Panel',
     auth: true,
     settings: {
       group: "g-subcon",
