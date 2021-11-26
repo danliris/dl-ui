@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {
@@ -43,6 +44,15 @@ export class DataForm {
       "Komoditi",
       ""
     ]
+  }
+
+  get buyerLoader() {
+    return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+      var buyerName = buyer.Name || buyer.name;
+      var buyerCode = buyer.Code || buyer.code;
+      return `${buyerCode} - ${buyerName}`
   }
 
   bind(context) {
@@ -116,6 +126,7 @@ export class DataForm {
     return (event) => {
         this.data.Items.push({
           //  Unit:this.data.Unit
+          Buyer:this.data.Buyer
         });
     };
   }
@@ -146,5 +157,14 @@ export class DataForm {
         }
     }
     return qty;
+  }
+
+  get buyerLoader() {
+      return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+      var buyerName = buyer.Name || buyer.name;
+      var buyerCode = buyer.Code || buyer.code;
+      return `${buyerCode} - ${buyerName}`
   }
 }

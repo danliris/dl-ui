@@ -83,6 +83,11 @@ export class View {
 
             this.category=this.data.Category;
         }
+        else if(this.data.URNType=="SISA SUBCON"){
+            this.uen={
+                UENNo:this.data.UENNo
+            };
+        }
         if(this.data.DONo){
             let CorrectionResult = await this.service.getCorrection({filter: JSON.stringify({ DONo: this.data.DONo,  CorrectionType:"Jumlah"}) });
         
