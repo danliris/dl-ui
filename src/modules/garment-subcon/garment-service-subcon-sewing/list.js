@@ -35,7 +35,9 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    //{ field: "UnitCode", title: "Unit" },
+    { field: "Buyer.Name", title: "Buyer" },
+    { field: "TotalQty", title: "Total Qty" },
+    { field: "Unit", title: "Satuan" }
     // { field: "RONo", title: "RO" },
     // { field: "Article", title: "No Artikel" },
     // { field: "TotalQuantity", title: "Jumlah", sortable: false },
@@ -55,18 +57,26 @@ export class List {
       order: order,
       filter: JSON.stringify(this.filter)
     }
-    
-    return this.service.search(arg)
+
+    return this.service.searchComplete(arg)
       .then(result => {
-        this.totalQuantity = result.info.totalQty;
+        var qty = 0;
         var data = {};
         data.total = result.info.total;
         data.data = result.data;
-        result.data.forEach(s => {
-         // s.UnitCode = s.Unit.Code;
+        result.data.map(s => {
+          var arrQty = s.Items.map(d => {
+            return d.Details.reduce((acc, cur) => acc += cur.Quantity, 0);
+          });
+          s.TotalQty = arrQty.reduce((acc, cur) => acc += cur, 0);
+          s.Unit = "PCS";
+          // s.UnitCode = s.Unit.Code;
           // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
           // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
+          qty += s.TotalQty
         });
+
+        this.totalQuantity = qty;
         return {
           total: result.info.total,
           data: result.data
@@ -77,15 +87,15 @@ export class List {
   async contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
-    
+
     switch (arg.name) {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
-      case "Cetak PDF": 
-        this.service.getPdfById(data.Id); 
+      case "Cetak PDF":
+        this.service.getPdfById(data.Id);
         break;
-      
+
     }
   }
 
