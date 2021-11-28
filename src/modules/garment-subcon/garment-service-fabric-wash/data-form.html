@@ -9,15 +9,10 @@
             error.bind="error.ServiceSubconFabricWashDate" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-multiline
-            value.bind="data.Remark" 
-            error.bind="error.Remark" 
-            placeholder="Keterangan"
-            label="Keterangan"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
+        <au-multiline value.bind="data.Remark" error.bind="error.Remark" placeholder="Keterangan" label="Keterangan"
+            read-only.bind="readOnly" options.bind="controlOptions">
         </au-multiline>
-        
+
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
         </div>
