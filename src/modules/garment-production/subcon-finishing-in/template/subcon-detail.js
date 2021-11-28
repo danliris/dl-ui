@@ -1,12 +1,18 @@
 import { bindable } from "aurelia-framework";
 const SizeLoader = require('../../../../loader/size-loader');
+const ProductLoader = require('../../../../loader/garment-product-loader');
 
 export class SubconDetail {
     @bindable selectedProduct;
     @bindable dataQuantity;
+    @bindable selectedProductCS;
 
     get sizeLoader() {
         return SizeLoader;
+    }
+
+    get productLoader() {
+        return ProductLoader;
     }
 
     activate(context) {
@@ -20,8 +26,11 @@ export class SubconDetail {
         }
 
         if (this.data) {
-            if (this.data.Product) {
+            if (this.data.Product && this.data.SubconType == 'SEWING') {
                 this.selectedProduct = this.data.Product.Code;
+            }
+            if (this.data.Product && this.data.SubconType == 'CUTTING SEWING') {
+                this.selectedProductCS = this.data.Product;
             }
             this.dataQuantity = this.data.Quantity;
         }
@@ -47,5 +56,13 @@ export class SubconDetail {
     dataQuantityChanged(newValue) {
         this.data.Quantity = newValue;
         this.data.RemainingQuantity = newValue;
+    }
+
+    selectedProductCSChanged(newValue, oldValue) {
+        if (newValue) {
+            this.data.Product = newValue;
+        } else {
+            this.data.Product = null;
+        }
     }
 }
