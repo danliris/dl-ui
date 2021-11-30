@@ -9,17 +9,23 @@ export class Service extends RestService {
   }
 
   search(info) {
+    if (!info.bankId)
+      info.bankId != 0;
     let endpoint = `${serviceUri}`;
     // let endpoint = `${serviceUri}?bankId=${info.bankId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
     return super.list(endpoint, info);
   }
 
   getXls(info) {
+    if (!info.bankId)
+      info.bankId != 0;
     let endpoint = `${serviceUri}/download?bankId=${info.bankId}&month=${info.month}&year=${info.year}`;
     return super.getXls(endpoint);
   }
 
   getPdf(info) {
+    if (!info.bankId)
+      info.bankId != 0;
     let endpoint = `${serviceUri}/pdf?bankId=${info.bankId}&month=${info.month}&year=${info.year}`;
     return super.getPdf(endpoint);
   }
