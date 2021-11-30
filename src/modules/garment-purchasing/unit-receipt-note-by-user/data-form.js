@@ -7,6 +7,7 @@ var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-un
 var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
 var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditure-fabric-loader');
 var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
+var UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
 
 var moment = require('moment');
 
@@ -24,8 +25,9 @@ export class DataForm {
     @bindable URNType;
     @bindable expenditure;
     @bindable category;
+    @bindable uen;
 
-    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA'];
+    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA','SISA SUBCON'];
     categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR={
@@ -95,11 +97,17 @@ export class DataForm {
                 { header: "Design/Color" },
             ],
         };
+
     }
 
     filterExpend={
         IsUsed:false,
         ExpenditureDestination:"UNIT"
+    };
+
+    filterUEN={
+        IsReceived:false,
+        ExpenditureType:"SUBCON"
     };
 
 
@@ -212,12 +220,16 @@ export class DataForm {
            // this.data.Items=[];
             var DRItems=[];
             var UnitDO= await this.service.getUnitDOById(selectedDR.UnitDOId);
-            console.log(UnitDO);
+            
             var OldUnitDO={};
             if(UnitDO.UnitDOFromId){
                 OldUnitDO=await this.service.getUnitDOById(UnitDO.UnitDOFromId);
+                
                 this.data.UnitFrom=OldUnitDO.UnitSender;
                 this.data.StorageFrom=OldUnitDO.Storage;
+
+                this.data.UnitSender=OldUnitDO.UnitRequest.Name;
+                this.data.StorageSender=OldUnitDO.StorageRequest.name;
             }
             
             for(var dritem of selectedDR.Items ){
@@ -225,6 +237,9 @@ export class DataForm {
                 var DRItem={};
                 if(dup){
                     var oldURN=await this.service.getById(dup.URNId);
+                    if(oldURN.URNType=="GUDANG LAIN"){
+                        this.isDiffStorage=true;
+                    }
                     var same= oldURN.Items.find(a=>a.Id==dup.URNItemId);
                     if(same){
                         DRItem.DRId= dritem.DRId;
@@ -474,6 +489,10 @@ export class DataForm {
         return StorageLoader;
     }
 
+    get uenLoader() {
+        return UENLoader;
+    }
+
     storageView = (storage) => {
         if (storage.unit) {
             return `${storage.unit.name} - ${storage.name}`;
@@ -514,13 +533,13 @@ export class DataForm {
             var items=[];
             if(this.data.Category=='FABRIC'){
                 var fabExpend= await this.inventoryService.getFabricById(this.data.ExpenditureId);
-                console.log(fabExpend);
+                
                 this.data.Unit=fabExpend.UnitExpenditure;
                 items=fabExpend.Items;
             }
             else{
                 var accExpend= await this.inventoryService.getAccById(this.data.ExpenditureId);
-                console.log(accExpend);
+                
                 this.data.Unit=accExpend.UnitExpenditure;
                 items=accExpend.Items;
             }
@@ -562,5 +581,53 @@ export class DataForm {
             this.data.Items.splice(0);
         }
         this.data.Category=newValue;
+    }
+
+    async uenChanged(newValue){
+        this.data.UENId=null;
+        this.data.UENNo= null;
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
+        if(newValue){
+            console.log(newValue)
+            this.data.UENId=newValue.Id;
+            this.data.UENNo= newValue.UENNo;
+            var uen= await this.service.getUENById(this.data.UENId);
+            var items=uen.Items;
+            for(var i of items){
+                var item={};
+                item.Product={
+                    Id:i.ProductId,
+                    Name:i.ProductName,
+                    Code:i.ProductCode,
+                    Remark:i.ProductRemark
+                };
+                item.SmallQuantity=i.Quantity;
+                item.SmallUom={
+                    Id:i.UomId,
+                    Unit:i.UomUnit
+                };
+                item.Uom={
+                    Id:i.UomId,
+                    Unit:i.UomUnit
+                }
+                item.PRItemId=i.PRItemId;
+                item.DODetailId=i.DODetailId;
+                item.EPOItemId=i.EPOItemId;
+                item.POItemId=i.POItemId;
+                item.POSerialNumber=i.POSerialNumber;
+                item.RONo=i.RONo;
+                item.PricePerDealUnit=i.PricePerDealUnit;
+                item.DesignColor=i.DesignColor;
+                item.Conversion=1;
+                item.UENItemId=i.Id;
+
+                var unitDOItem= await this.service.getUnitDOItemById(i.UnitDOItemId);
+                item.DOCurrencyRate=unitDOItem.DOCurrency.Rate;
+                this.data.Items.push(item);
+
+            }
+        }
     }
 } 

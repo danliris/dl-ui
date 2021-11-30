@@ -120,7 +120,7 @@ export class Detail {
   updateMeasurements() {
     let measurementCartons = [];
     this.context.context.options.header.items.map((item) => {
-    //for (const item of this.context.context.options.header.items) {
+      //for (const item of this.context.context.options.header.items) {
       for (const detail of (item.details || [])) {
         let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2 && m.index == detail.index);
         if (!measurement) {
@@ -131,29 +131,25 @@ export class Detail {
             width: detail.width,
             height: detail.height,
             cartonsQuantity: detail.cartonQuantity,
-            index: detail.index,
           });
         }
       }
     });
 
     let measurements = [];
-    measurementCartons.map((measurementCarton)=>{
-      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height && m.index == measurementCarton.index);
+    measurementCartons.map((measurementCarton) => {
+      let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
       if (measurement) {
         measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
       } else {
         measurements.push(Object.assign({}, measurementCarton));
       }
     })
-    // for (const measurementCarton of measurementCartons) {
-      
-    // }
 
     this.context.context.options.header.measurements = this.context.context.options.header.measurements || [];
     this.context.context.options.header.measurements.splice(0);
-    measurements.map((mt)=>{
-      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height && m.index == mt.index);
+    measurements.map((mt) => {
+      let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
       if (measurement) {
         measurement.cartonsQuantity = mt.cartonsQuantity;
         this.context.context.options.header.measurements.push(measurement);
@@ -161,9 +157,6 @@ export class Detail {
         this.context.context.options.header.measurements.push(mt);
       }
     })
-    // for (const mt of measurements) {
-      
-    // }
 
     this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
 
@@ -222,11 +215,11 @@ export class Detail {
     this.context.context.options.header.grossWeight = 0;
 
     this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
-    this.context.context.options.header.items.map((item)=>{
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
     })
     // for (const item of this.context.context.options.header.items) {
-      
+
     // }
   }
 
@@ -240,11 +233,11 @@ export class Detail {
 
     this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
 
-    this.context.context.options.header.items.map((item)=>{
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.nettWeight += item.subNetWeight || 0;
     })
     // for (const item of this.context.context.options.header.items) {
-      
+
     // }
   }
 
@@ -257,11 +250,11 @@ export class Detail {
     this.context.context.options.header.netNetWeight = 0;
 
     this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
-    this.context.context.options.header.items.map((item)=>{
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
     });
     // for (const item of this.context.context.options.header.items) {
-      
+
     // }
   }
 
@@ -294,13 +287,13 @@ export class Detail {
     this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
     this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
 
-    this.context.context.options.header.items.map((item)=>{
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
       this.context.context.options.header.nettWeight += item.subNetWeight || 0;
       this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
     })
     // for (const item of this.context.context.options.header.items) {
-      
+
     // }
   }
 

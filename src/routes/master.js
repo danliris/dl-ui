@@ -164,6 +164,19 @@ module.exports = [
     },
   },
   {
+    route: "garment-buyers-list",
+    name: "garment-buyers-list",
+    moduleId: "./modules/master/garment-buyer-list/index",
+    nav: true,
+    title: "List Buyer Garment",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { C9: 1, PGA: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "garment-buyer-brands",
     name: "garment-buyer-brands",
     moduleId: "./modules/master/garment-buyer-brand/index",
@@ -173,6 +186,19 @@ module.exports = [
     settings: {
       group: "master",
       permission: { C9: 1, A2: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "garment-buyer-brands-list",
+    name: "garment-buyer-brands-list",
+    moduleId: "./modules/master/garment-buyer-brand-list/index",
+    nav: true,
+    title: "List Brand Buyer Garment",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { C9: 1, PGA: 1 },
       iconClass: "fa fa-dashboard",
     },
   },

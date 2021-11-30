@@ -74,8 +74,13 @@ class Service extends RestService {
              });
      }
 
-     getUnitDOById(id) {
+    getUnitDOById(id) {
         var endpoint = `${UnitDOserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDOItemById(id) {
+        var endpoint = `${UnitDOserviceUri}/item/${id}`;
         return super.get(endpoint);
     }
 

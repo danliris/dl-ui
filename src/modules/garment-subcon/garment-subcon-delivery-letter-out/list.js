@@ -30,6 +30,7 @@ export class List {
         { field: "DLNo", title: "No SJ Subcon Keluar" },
         { field: "DLType", title: "Jenis SJ Subcon" },
         { field: "ContractType", title: "Jenis Subcon Contract" },
+        { field: "SubconCategory", title: "Kategori Subcon" },
         { field: "ContractNo", title: "No Subcon Contract" },
         { field: "DLDate", title: "Tgl SJ", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "UENNo", title: "No Bon Pengeluaran Unit" },
