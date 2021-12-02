@@ -38,7 +38,7 @@ export class List {
     ]
 
     loader = (info) => {
-        var order = { "IsReceived": "ASC" };
+        var order = { "IsReceived": "asc", "Date": "desc" };
         if (info.sort)
             order[info.sort] = info.order;
 
@@ -52,10 +52,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                result.data.forEach(s => {
+                result.data.map(s => {
                     s.BuyerName = s.Buyer.Name;
                     s.Status = s.IsReceived ? "SUDAH TERIMA" : "BELUM DI TERIMA";
-
                 });
                 return {
                     total: result.info.total,
