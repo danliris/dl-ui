@@ -92,7 +92,6 @@ export class List {
                     id: ids,
                     Posted:true
                 }
-                console.log(dataToBePosteds)
                 this.service.postSample(dataToBePosteds)
                     .then(result => {
                         this.table.refresh();
