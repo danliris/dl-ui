@@ -17,7 +17,7 @@ module.exports = [
 		name: 'unit-receipt-note',
 		moduleId: './modules/garment-sample/unit-receipt-note-by-user/index',
 		nav: true,
-		title: 'Bon Terima Unit',
+		title: 'Bon Terima Unit Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
