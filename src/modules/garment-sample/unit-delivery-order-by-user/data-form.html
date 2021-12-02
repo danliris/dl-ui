@@ -93,14 +93,13 @@
                 </au-autocomplete>
 
                 <au-autocomplete
-                    disabled.bind="!(data.UnitSender && data.Storage)"
                     label="No RO Sample"
                     value.bind = "RONoSample"
                     error.bind = "error.RONo"
                     read-only.bind = "readOnly || isEdit"
                     loader.bind = "roLoader"
                     text = "RONoSample"
-                    if.bind="isProses || isRemain || isSample || isSubcon"
+                    if.bind="isRemain || isSample || isSubcon"
                     placeholder = "Cari Nomor RO"
                     view-model.ref="RONoViewModel"
                     options.bind="controlOptions">
