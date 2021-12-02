@@ -19,9 +19,9 @@ export class List {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        // this.filter={
-        //   CreatedBy: username
-        // }
+        this.filter = {
+            IsPosted: true
+        }
     }
 
     context = ["Rincian"];
