@@ -32,12 +32,12 @@ export class ProductionOrderItem {
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
-      
+
     }
-    if (this.data.id == null){
+    if (this.data.id == null) {
       this.data.isremovable = true;
     }
-    
+
     //view detail
     if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
@@ -107,9 +107,10 @@ export class ProductionOrderItem {
   }
 
   getProductPackingCodeList(data) {
+
     const productPackingCodeRemains = data.productPackingCodeRemains != null ? data.productPackingCodeRemains : data.productPackingCode;
 
-    if(productPackingCodeRemains !== null && productPackingCodeRemains !== ""){
+    if (productPackingCodeRemains !== null && productPackingCodeRemains !== "") {
       return productPackingCodeRemains.split(',').map(d => {
         return {
           packingCode: d
@@ -118,6 +119,15 @@ export class ProductionOrderItem {
     }
     return [];
   }
+
+  barcodeColumns = [
+    "Kode Packing"
+  ];
+
+  listOptions = {
+    isEdit: this.isEdit,
+    destinationArea: this.destinationArea
+  };
 
   someCallbackFunction() {
     this.qtyPacking = this.data.productPackingCodeList.filter(d => d.IsSave).length;
