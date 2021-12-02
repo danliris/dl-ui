@@ -1,15 +1,8 @@
 <template>
-    <au-input-form
-        title.bind="title"
-        with.bind="context"
-        options.bind="formOptions">
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-textbox
-            label="No Subcon Jasa"
-            if.bind="data.ServiceSubconFabricWashNo"
-            value.bind="data.ServiceSubconFabricWashNo"
-            read-only="true"
-            options.bind="controlOptions">
+        <au-textbox label="No Subcon Jasa" if.bind="data.ServiceSubconFabricWashNo"
+            value.bind="data.ServiceSubconFabricWashNo" read-only="true" options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker 

@@ -26,6 +26,8 @@ export class DataForm {
     imQuery = { "DestinationArea": "TRANSIT" }
     shippingTypes = ["ZONA GUDANG", "RETUR BARANG"];
     itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+
+    
     returItemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "Jenis Packing", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
@@ -72,7 +74,8 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-
+        this.type = this.context.type;
+        console.log(this.type);
         this.data.area = "SHIPPING";
 
         this.error = this.context.error;
@@ -86,13 +89,18 @@ export class DataForm {
         }
 
         this.returDetailOptions = {
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            type: this.type
         };
 
         if (this.isEdit && !this.readOnly) {
             this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan", ""];
         } else {
+            if(this.type == true){
+                this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];    
+            }else{
             this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+            }
         }
 
         if (this.data.shippingProductionOrders) {

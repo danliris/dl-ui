@@ -142,4 +142,3 @@ export class DataForm {
       this.data.SubconCategory = null;
     }
   }
-}

@@ -17,6 +17,11 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getByIdBon(id) {
+        var endpoint = `${serviceUri}/bon/${id}`;
+        return super.get(endpoint);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
@@ -55,7 +60,7 @@ export class Service extends RestService {
     }
 
     generateExcel(info) {
-        var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&type=${info.type}`;
         return super.getXls(endpoint);
     }
 }

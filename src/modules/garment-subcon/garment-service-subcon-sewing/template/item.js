@@ -130,6 +130,7 @@ export class Item {
                       this.data.Details.push(detail);
                     }
                     else {
+
                       var idx = this.data.Details.indexOf(exist);
                       exist.Quantity += qty;
                       exist.SewingInQuantity += qty;

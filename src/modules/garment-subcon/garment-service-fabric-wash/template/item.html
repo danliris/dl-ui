@@ -1,4 +1,4 @@
-<template >
+<template>
     <tr>
         <td class="col-sm-2 bg-primary">
             <au-autocomplete
@@ -24,23 +24,13 @@
             </au-datepicker>
         </td>
         <td class="col-sm-5 bg-primary">
-            <au-textbox
-                value.bind="data.UnitSender.Code"
-                error.bind="error.UnitSender.Code"
-                text.bind="comodityView"
-                read-only.bind="true"
-                if.bind="data.UnitSender.Code"
-                options.bind="controlOptions">
+            <au-textbox value.bind="data.UnitSender.Code" error.bind="error.UnitSender.Code" text.bind="comodityView"
+                read-only.bind="true" if.bind="data.UnitSender.Code" options.bind="controlOptions">
             </au-textbox>
         </td>
         <td class="col-sm-5 bg-primary">
-            <au-textbox
-                value.bind="data.UnitRequest.Name"
-                error.bind="error.UnitRequest.Name"
-                text.bind="comodityView"
-                read-only.bind="true"
-                if.bind="data.UnitRequest.Name"
-                options.bind="controlOptions">
+            <au-textbox value.bind="data.UnitRequest.Name" error.bind="error.UnitRequest.Name" text.bind="comodityView"
+                read-only.bind="true" if.bind="data.UnitRequest.Name" options.bind="controlOptions">
             </au-textbox>
         </td>
         <td if.bind="isCreate || isEdit" class="col-sm-1">
@@ -62,7 +52,7 @@
                 columns.bind="isCreate ? itemsColumnsCreate : itemsColumns"
                 read-only.bind="readOnly|| isEdit" 
                 options.bind="itemOptions"
-                item-template="modules/garment-subcon/garment-service-fabric-wash/template/detail" >
+                item-template="modules/garment-subcon/garment-service-fabric-wash/template/detail">
             </au-collection>
         </td>
     </tr>
