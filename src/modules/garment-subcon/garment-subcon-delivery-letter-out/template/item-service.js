@@ -5,6 +5,7 @@ const SubconCuttingLoader = require('../../../../loader/garment-service-subcon-c
 const SubconSewingLoader = require('../../../../loader/garment-service-subcon-sewing-loader');
 const SubconFabricLoader = require('../../../../loader/garment-service-subcon-fabric-loader');
 const SubconShrinkageLoader = require('../../../../loader/garment-service-subcon-shrinkage-loader');
+
 @inject(Service, CoreService)
 export class Item {
     @bindable selectedSubconSewing;
@@ -71,7 +72,7 @@ export class Item {
             }
             
         }
-        console.log(context)
+        console.log(context);
     }
     
     comodityView = (comodity) => {
@@ -158,7 +159,7 @@ export class Item {
             }
         }
     }
-  
+
     async selectedSubconShrinkageChanged(newValue){
         this.data.date=null;
         this.data.unit="";

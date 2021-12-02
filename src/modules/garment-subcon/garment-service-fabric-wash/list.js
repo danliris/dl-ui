@@ -25,7 +25,7 @@ export class List {
 
     columns = [
         { field: "ServiceSubconFabricWashNo", title: "No Subcon Jasa Komponen" },
-        { field: "ServiceSubconFabricWashDate", title: "Tgl Subcon Jasa Komponen", formatter: value => moment(value).format("DD MMM YYYY") }
+        { field: "ServiceSubconFabricWashDate", title: "Tgl Subcon BB Fabric Wash / Print", formatter: value => moment(value).format("DD MMM YYYY") }
     ]
 
     loader = (info) => {

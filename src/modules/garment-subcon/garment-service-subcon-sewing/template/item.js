@@ -110,8 +110,18 @@ export class Item {
                     qtyOut += ssSewingItems[sewingInItem.Id].qty;
                   }
                   var qty = sewingInItem.Quantity - qtyOut;
-                  if (qty > 0) {
-                    if (this.data.Details.length == 0) {
+                  // if (qty > 0) {
+                  if (this.data.Details.length == 0) {
+                    detail.Quantity = qty;
+                    detail.SewingInQuantity = qty;
+                    detail.DesignColor = sewingInItem.Color;
+                    detail.Uom = sewingInItem.Uom;
+                    detail.Unit = sewingIn.Unit;
+                    this.data.Details.push(detail);
+                  }
+                  else {
+                    var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.Color && a.Unit.Id == sewingIn.Unit.Id);
+                    if (!exist) {
                       detail.Quantity = qty;
                       detail.SewingInQuantity = qty;
                       detail.DesignColor = sewingInItem.Color;
@@ -120,24 +130,15 @@ export class Item {
                       this.data.Details.push(detail);
                     }
                     else {
-                      var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.Color && a.Unit.Id == sewingIn.Unit.Id);
-                      if (!exist) {
-                        detail.Quantity = qty;
-                        detail.SewingInQuantity = qty;
-                        detail.DesignColor = sewingInItem.Color;
-                        detail.Uom = sewingInItem.Uom;
-                        detail.Unit = sewingIn.Unit;
-                        this.data.Details.push(detail);
-                      }
-                      else {
-                        var idx = this.data.Details.indexOf(exist);
-                        exist.Quantity += qty;
-                        exist.SewingInQuantity += qty;
-                        this.data.Details[idx] = exist;
-                      }
-                    }
 
+                      var idx = this.data.Details.indexOf(exist);
+                      exist.Quantity += qty;
+                      exist.SewingInQuantity += qty;
+                      this.data.Details[idx] = exist;
+                    }
                   }
+
+                  // }
                 }
               }
             }
