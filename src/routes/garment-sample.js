@@ -51,4 +51,17 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: '/garment-sample/unit-expenditure-note-by-user',
+		name: 'unit-expenditure-note',
+		moduleId: './modules/garment-sample/unit-expenditure-note-by-user/index',
+		nav: true,
+		title: 'Bon Pengeluaran Unit',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
