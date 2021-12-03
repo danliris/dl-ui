@@ -15,7 +15,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL', 'SISA', 'SUBCON'];
+    expenditureTypeOptions = ['SAMPLE', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON'];
     controlOptions = {
         label: {
             align : "right",
@@ -39,7 +39,7 @@ export class DataForm {
         this.error = this.context.error;
         this.isTransfer = false;
         this.isItem = false;
-        this.data.ExpenditureTo = "PROSES";
+        this.data.ExpenditureTo = "SAMPLE";
         this.isExternal=false;
         this.options.isExternal=false;
         
@@ -50,8 +50,6 @@ export class DataForm {
             this.data.ExpenditureTo = "PEMBELIAN";
         }else if(this.data.ExpenditureType === "SAMPLE"){
             this.data.ExpenditureTo = "SAMPLE";
-        }else if(this.data.ExpenditureType === "PROSES"){
-            this.data.ExpenditureTo = "PROSES";
         }else if(this.data.ExpenditureType === "SUBCON"){
             this.data.ExpenditureTo = "SUBCON";
         }else if(this.data.ExpenditureType === "SISA"){
@@ -89,31 +87,12 @@ export class DataForm {
 
     @computedFrom("data.ExpenditureType")
     get filterUnitDeliveryOrder() {
-        let username = null;
-        if (this.authService.authenticated) {
-            const me = this.authService.getTokenPayload();
-            username = me.username;
-        }
-        // this.filter={
-        //   CreatedBy: username,
-        //   AdjustmentType: "BARANG JADI"
-        // }
         var unitDeliveryOrderFilter = {
             IsUsed : false
         };
+        unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
+        unitDeliveryOrderFilter[`UnitSenderCode =="SMP1"`]=true;
         
-        if(this.data.ExpenditureType === "EXTERNAL"){
-            unitDeliveryOrderFilter[`UnitDOType== "RETUR" || UnitDOType== "MARKETING"`]=true;
-            //unitDeliveryOrderFilter[`UnitDOType== "MARKETING"`]=true;
-        }
-        else if(this.data.ExpenditureType === "SAMPLE"){
-            unitDeliveryOrderFilter[`UnitSenderCode !="SMP1"`]=true;
-            unitDeliveryOrderFilter[`UnitDOType== "SAMPLE"`]=true;
-        }
-        else{
-            unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
-            unitDeliveryOrderFilter[`CreatedBy== "${username}"`]=true;
-        }
         return unitDeliveryOrderFilter;
     }
 
@@ -143,8 +122,6 @@ export class DataForm {
                 this.data.ExpenditureTo = "PEMBELIAN";
             }else if(this.data.ExpenditureType === "SAMPLE"){
                 this.data.ExpenditureTo = "SAMPLE";
-            }else if(this.data.ExpenditureType === "PROSES"){
-                this.data.ExpenditureTo = "PROSES";
             }else if(this.data.ExpenditureType === "SUBCON"){
                 this.data.ExpenditureTo = "SUBCON";
             }else if(this.data.ExpenditureType === "SISA"){
