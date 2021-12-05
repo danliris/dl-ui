@@ -75,7 +75,7 @@
             <au-textbox value.bind="data.packing" read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
+        <td show.bind = "!type">
             <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true"
                 options.bind="controlOptions">
             </au-numeric>
