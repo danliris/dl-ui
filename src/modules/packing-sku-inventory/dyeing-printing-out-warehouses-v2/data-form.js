@@ -78,6 +78,7 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
+    this.type = this.context.type;
     this.data.area = "GUDANG JADI";
     //console.log(this.error);
     this.error = this.context.error;
@@ -93,7 +94,8 @@ export class DataForm {
     this.detailOptions = {
       isEdit: this.isEdit,
       readOnly: this.readOnly,
-      destinationArea: this.destinationArea
+      destinationArea: this.destinationArea,
+      type : this.type
     };
 
     if (this.readOnly) {
