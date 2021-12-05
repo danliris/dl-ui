@@ -12,7 +12,7 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.context);
+    
     this.error = context.error;
 
     //this.items = this.context.context.items;
@@ -21,6 +21,7 @@ export class ProductionOrderItem {
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
+    this.type = this.contextOptions.type;
     this.isTransit = this.destinationArea == "TRANSIT";
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
