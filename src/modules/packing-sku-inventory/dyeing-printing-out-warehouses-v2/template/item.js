@@ -39,8 +39,11 @@ export class Item {
         "Panjang Per Packing",
         "Qty Keluar",
         "",
+
+        "",
       ];
     } else {
+
 
       if(this.type){
         this.itemColumns = [

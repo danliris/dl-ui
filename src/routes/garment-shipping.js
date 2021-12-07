@@ -501,7 +501,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": , "PGA": 11 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },      

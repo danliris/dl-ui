@@ -65,7 +65,7 @@ export class DataForm {
             this.options.isExternal=true;
         }
 
-        if(this.data.ExpenditureType === "TRANSFER"){
+        if(this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "SAMPLE"){
             this.isTransfer = true;
         }
         
@@ -106,6 +106,10 @@ export class DataForm {
             unitDeliveryOrderFilter[`UnitDOType== "RETUR" || UnitDOType== "MARKETING"`]=true;
             //unitDeliveryOrderFilter[`UnitDOType== "MARKETING"`]=true;
         }
+        else if(this.data.ExpenditureType === "SAMPLE"){
+            unitDeliveryOrderFilter[`UnitSenderCode !="SMP1"`]=true;
+            unitDeliveryOrderFilter[`UnitDOType== "SAMPLE"`]=true;
+        }
         else{
             unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
             unitDeliveryOrderFilter[`CreatedBy== "${username}"`]=true;
@@ -117,7 +121,7 @@ export class DataForm {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
             this.data.ExpenditureType = selectedCategory;
-            if (this.data.ExpenditureType === "TRANSFER") {
+            if (this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "SAMPLE") {
                 this.isTransfer = true;
             }
             else {
