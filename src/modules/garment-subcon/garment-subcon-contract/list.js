@@ -33,6 +33,9 @@ export class List {
             },
         },
         { field: "SupplierName", title: "Penerima" },
+        { field: "BuyerName", title: "Buyer" },
+        { field: "Quantity", title: "Quantity" },
+        { field: "UomUnit", title: "Satuan" },
         { field: "JobType", title: "Jenis Pekerjaan", sortable: false },
         //{ field: "BPJNo", title: "No/Tgl BPJ"},
         { field: "FinishedGoodType", title: "Jenis Barang Jadi"},
@@ -64,7 +67,8 @@ export class List {
             result.data.forEach(s => {
                 s.SupplierCode=s.Supplier.Code;
                 s.SupplierName=s.Supplier.Name;
-                
+                s.BuyerName=s.Buyer.Name;
+                s.UomUnit=s.Uom.Unit;
             });
             return {
             total: result.info.total,

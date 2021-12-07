@@ -81,12 +81,12 @@
                 options.bind="controlOptions">
             </au-dropdown>
         </td>
-        <td if.bind="!isRetur">
+        <td if.bind="!isRetur && !type">
             <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true"
                 error.bind="error.PackingLength" options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td if.bind="isRetur">
+        <td if.bind="isRetur && !type">
             <au-numeric value.bind="packingLength" format="0.00" read-only.bind="readOnly"
                 error.bind="error.PackingLength" options.bind="controlOptions">
             </au-numeric>

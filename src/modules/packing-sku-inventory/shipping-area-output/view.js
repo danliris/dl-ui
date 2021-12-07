@@ -13,6 +13,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.type = false;
         // if (this.data.type == "OUT") {
         //     this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
         // }

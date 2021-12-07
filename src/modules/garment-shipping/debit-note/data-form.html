@@ -14,7 +14,7 @@
 
                 <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="data.buyer"
                     error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView"
-                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                    read-only.bind="readOnly" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <au-numeric label="Amount" value.to-view="totalAmount" error.bind="error.amount" read-only="true"

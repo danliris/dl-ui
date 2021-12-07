@@ -17,8 +17,7 @@
 
             <au-autocomplete label="InvoiceNo" value.bind="packinglists" error.bind="error.InvoiceNo"
                 read-only.bind="readOnly || isEdit || isUpdated" loader.bind="invoiceLoader" text.bind="invoiceView"
-                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel"
-                query.bind="filter">
+                placeholder="Cari Invoice" options.bind="length4" view-model.ref="invoiceViewModel" query.bind="filter">
             </au-autocomplete>
             <au-datepicker label="TGL" value.bind="data.invoiceDate" error.bind="error.InvoiceDate"
                 read-only.bind="true" options.bind="length4">
@@ -70,9 +69,8 @@
                 error.bind="error.ConfirmationOfOrderNo" read-only.bind="readOnly" options.bind="length4">
             </au-textbox>
             <au-autocomplete label="Shipping Staff" value.bind="data.shippingStaff" error.bind="error.ShippingStaff"
-                read-only="true" loader.bind="shippingStaffLoader"
-                text.bind="shippingStaffView" placeholder="Cari Shipping Staff" options.bind="length4"
-                view-model.ref="shippingStaffViewModel">
+                read-only="true" loader.bind="shippingStaffLoader" text.bind="shippingStaffView"
+                placeholder="Cari Shipping Staff" options.bind="length4" view-model.ref="shippingStaffViewModel">
             </au-autocomplete>
             <au-autocomplete label="Jenis Fabric" value.bind="fabricType" error.bind="error.FabricType"
                 read-only.bind="readOnly " loader.bind="fabricTypeLoader" text.bind="fabricTypeView"
@@ -131,18 +129,10 @@
                 <div class="form-group has-error">
                     <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
                 </div>
-                <au-collection 
-                    view-model.ref="itemsCollection" 
-                    items.bind="data.items" 
-                    errors.bind="error.Items"
-                    columns.bind="packinglistColumns.columns" 
-                    add.bind="packinglistColumns.onAdd"
-                    remove.bind="packinglistColumns.onRemove" 
-                    options.bind="options" 
-                    read-only.bind="readOnly" 
-                    show.bind="packinglists" 
-                    responsive.bind="true"
-                    change.delegate="itemChanged($event)"
+                <au-collection view-model.ref="itemsCollection" items.bind="data.items" errors.bind="error.Items"
+                    columns.bind="packinglistColumns.columns" add.bind="packinglistColumns.onAdd"
+                    remove.bind="packinglistColumns.onRemove" options.bind="options" read-only.bind="readOnly"
+                    show.bind="packinglists" responsive.bind="true" change.delegate="itemChanged($event)"
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-item">
                 </au-collection>
             </div>
@@ -150,15 +140,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <au-collection 
-                    view-model.ref="itemsCollection" 
-                    items.bind="data.garmentShippingInvoiceAdjustments"
-                    columns.bind="adjustmentColumns.columns" 
-                    add.bind="adjustmentColumns.onAdd"
-                    errors.bind="error.GarmentShippingInvoiceAdjustments" 
-                    remove.bind="adjustmentColumns.onRemove"
-                    options.bind="options" 
-                    read-only.bind="readOnly"
+                <au-collection view-model.ref="itemsCollection" items.bind="data.garmentShippingInvoiceAdjustments"
+                    columns.bind="adjustmentColumns.columns" add.bind="adjustmentColumns.onAdd"
+                    errors.bind="error.GarmentShippingInvoiceAdjustments" remove.bind="adjustmentColumns.onRemove"
+                    options.bind="options" read-only.bind="readOnly"
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-adjustment">
                 </au-collection>
             </div>
@@ -170,11 +155,14 @@
                     read-only.bind="readOnly || isEdit || isUpdated" options.bind="length4">
                 </au-multiline>
 
-                <au-dropdown label="INCOTERMS" value.bind="data.cPrice" error.bind="error.CPrice" read-only.bind="readOnly"
-                    options.bind="length4" items.bind="INCOTERMSOptions">
+                <au-dropdown label="INCOTERMS" value.bind="data.cPrice" error.bind="error.CPrice"
+                    read-only.bind="readOnly" options.bind="length4" items.bind="INCOTERMSOptions">
                 </au-dropdown>
 
                 <au-numeric label="TOTAL AMOUNT" value.bind="totalAmounts" error.bind="error.totalAmount"
+                    read-only.bind="true" options.bind="length4">
+                </au-numeric>
+                <au-numeric label="LESS FABRIC COST" value.bind="lessFabricCosts" error.bind="error.lessFabricCosts"
                     read-only.bind="true" options.bind="length4">
                 </au-numeric>
                 <au-numeric label="AMOUNT TO BE PAID" value.bind="amountToBePaid" error.bind="error.amountToBePaid"
@@ -187,16 +175,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <au-collection 
-                    view-model.ref="percentageCollection" 
-                    items.bind="data.garmentShippingInvoiceUnits"
-                    columns.bind="unitColumns.columns" 
-                    errors.bind="error.garmentShippingInvoiceUnits"
-                    options.bind="options" 
-                    responsive.bind="true" 
-                    if.bind="packinglists"
-                    item-template="modules/garment-shipping/invoice/template/unit-percentage" 
-                    read-only.bind="readOnly">
+                <au-collection view-model.ref="percentageCollection" items.bind="data.garmentShippingInvoiceUnits"
+                    columns.bind="unitColumns.columns" errors.bind="error.garmentShippingInvoiceUnits"
+                    options.bind="options" responsive.bind="true" if.bind="packinglists"
+                    item-template="modules/garment-shipping/invoice/template/unit-percentage" read-only.bind="readOnly">
                 </au-collection>
             </div>
         </div>
