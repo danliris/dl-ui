@@ -124,7 +124,7 @@ export class DataForm {
         { header: "Length" },
         { header: "Width" },
         { header: "Height" },
-        { header: "Quantity" },
+        { header: "Qty Cartons" },
         { header: "CBM" },
     ]
 

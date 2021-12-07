@@ -12,7 +12,6 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-
     this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
     this.isShowing = false;

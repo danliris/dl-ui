@@ -453,7 +453,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "laporan",
-            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1, "SG": 1 },
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

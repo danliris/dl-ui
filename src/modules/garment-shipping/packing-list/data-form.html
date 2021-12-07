@@ -187,7 +187,7 @@
                     value.bind="roType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="roTypes"
-                    if.bind="data.packingListType=='RE EXPORT'"
+                    if.bind="data.packingListType=='RE EXPORT' || data.invoiceType=='SM'"
                     options.bind="controlOptions">
                 </au-dropdown>
             </div>
@@ -210,7 +210,7 @@
                 <au-collection 
                     items.bind="data.items" 
                     errors.bind="error.Items" 
-                    columns.bind="itemsColumnsROMaster"
+                    columns.bind="data.invoiceType=='SM' ? itemsColumnsSMMaster :itemsColumnsROMaster"
                     read-only.bind="readOnly" 
                     add.bind="addItems" 
                     remove.bind="removeItems"
@@ -255,26 +255,23 @@
               </numeric>
             </div>
             <div class="col-sm-3">
-                 <au-textbox
-                    label="TOTAL QUANTITY"
-                    value.bind="totalQuantities"
-                    error.bind="error.totalQuantities"
+                <numeric
+                    label="TOTAL CARTONS"
+                    value.bind="totalCartons"
+                    error.bind="error.totalCartons"
                     read-only="true" 
+                    options.bind="controlOptions">
+                </numeric>
+            </div>
+        </div>
+        <div class="class row">
+            <div class="col-sm-12">
+                <au-textbox label="TOTAL QUANTITY" value.bind="totalQuantities" error.bind="error.totalQuantities" read-only="true"
                     options.bind="controlOptions">
                 </au-textbox>
             </div>
         </div>
-        <div class="class row">
-                <numeric
-                    label="TOTAL" 
-                    value.bind="totalCartons"
-                    error.bind="error.totalCartons"
-                    read-only="true"
-                    options.bind="controlOptions">
-                </numeric>
-        </div>
-        <div class="class row">
-            <div class="col-sm-12">
+        <div class="row">
             <au-textbox
                 label="SAY"
                 value.bind="say"
@@ -286,9 +283,8 @@
                 read-only.bind="readOnly" 
                 options.bind="controlOptions">
             </au-textbox>
-            </div>
         </div>
-        <div class="class row">
+        <div class="row">
             <div class="col-md-12">
                 <au-textbox
                     label="Komoditi"
