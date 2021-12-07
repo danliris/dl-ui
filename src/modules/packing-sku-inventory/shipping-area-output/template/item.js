@@ -18,6 +18,8 @@ export class CartItem {
         this.buyerId = this.contextOptions.buyerId;
         this.isSales = this.contextOptions.isSales;
         this.isEdit = this.contextOptions.isEdit;
+        this.type = this.contextOptions.type;
+        console.log(this.type);
         
         if (this.data.qty && !this.data.previousBalance) {
             this.data.previousBalance = this.data.qty;
