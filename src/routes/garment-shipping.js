@@ -144,7 +144,7 @@ module.exports = [
         name: "garment-detail-currencies",
         moduleId: "./modules/master/garment-detail-currency/index",
         nav: true,
-        title: "Rate tengah BI - USD",
+        title: "Rate Mingguan - USD",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -445,7 +445,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -459,7 +459,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -473,7 +473,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -487,7 +487,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -501,7 +501,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },      
