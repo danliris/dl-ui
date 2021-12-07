@@ -39,6 +39,7 @@ export class Item {
         "Panjang Per Packing",
         "Qty Keluar",
         "",
+
         "",
       ];
     } else {
