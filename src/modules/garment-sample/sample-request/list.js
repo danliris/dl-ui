@@ -4,15 +4,15 @@ import { Router } from 'aurelia-router';
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service,AuthService)
+@inject(Router, Service, AuthService)
 export class List {
     constructor(router, service, authService) {
         this.service = service;
         this.router = router;
-        this.authService=authService;
+        this.authService = authService;
     }
 
-    filter={};
+    filter = {};
     activate(params) {
         let username = null;
         if (this.authService.authenticated) {
@@ -22,12 +22,13 @@ export class List {
         // this.filter={
         //   CreatedBy: username
         // }
-      }
+    }
 
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
 
     columns = [
-        { field: "isPosting", title: "Post", checkbox: true, sortable: false,
+        {
+            field: "isPosting", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
                 return "";
@@ -52,14 +53,14 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter:JSON.stringify(this.filter)
+            filter: JSON.stringify(this.filter)
         }
 
         return this.service.search(arg)
             .then(result => {
                 result.data.forEach(s => {
-                    s.BuyerName=s.Buyer.Name;
-                    
+                    s.BuyerName = s.Buyer.Name;
+
                 });
                 return {
                     total: result.info.total,
@@ -75,6 +76,9 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
+                break;
         }
     }
 
@@ -86,11 +90,11 @@ export class List {
         const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
         if (unpostedDataToBePosted.length > 0) {
             if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
-                var ids=unpostedDataToBePosted.map(d => d.Id);
-                var dataToBePosteds={
+                var ids = unpostedDataToBePosted.map(d => d.Id);
+                var dataToBePosteds = {
                     Identities: ids,
                     id: ids,
-                    Posted:true
+                    Posted: true
                 }
                 this.service.postSample(dataToBePosteds)
                     .then(result => {
@@ -107,6 +111,6 @@ export class List {
         if (data.IsPosted)
             return { classes: "success" }
         else
-            return { }
+            return {}
     }
 }
