@@ -56,6 +56,11 @@ class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/get-pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
+
 }
 
 class CoreService extends RestService {

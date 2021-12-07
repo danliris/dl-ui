@@ -84,6 +84,11 @@ export class DataForm {
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
+        ],
+        columnsServiceWash:[
+            "No Subcon Jasa Garment Wash",
+            "Tgl Subcon",
+            "Jumlah",
         ]
     }
 
@@ -388,6 +393,11 @@ export class DataForm {
     selectedSubconCategoryChanged(newValue){
         if(newValue!=this.data.SubconCategory){
             this.data.SubconCategory=newValue;
+            this.selectedContract=null;
+            this.data.ContractNo="";
+            this.data.SubconContractId=0;
+            this.data.ContractQty=0;
+
             if(this.data.Items){
                 this.data.Items.splice(0);
             }
