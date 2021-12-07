@@ -28,7 +28,7 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah"
     };
-    subconTypes=["BORDIR","PRINT","PLISKET"];
+    subconTypes=["BORDIR","PRINT","PLISKET","OTHERS"];
     controlOptions = {
         label: {
             length: 2
