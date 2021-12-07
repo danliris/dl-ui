@@ -21,6 +21,7 @@ export class ProductionOrderItem {
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
+    this.type = this.contextOptions.type;
     this.isTransit = this.destinationArea == "TRANSIT";
     this.listOptions = {
       isEdit: this.isEdit,
