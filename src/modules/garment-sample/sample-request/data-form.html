@@ -28,7 +28,7 @@
                     label="Kategori Sample" 
                     value.bind="data.SampleCategory" 
                     error.bind="error.SampleCategory" 
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || isEdit"
                     items.bind="SampleCategoryOptions"
                     options.bind="controlOptions">
                 </au-dropdown>
@@ -144,7 +144,7 @@
         <div class="row">
             <h4>Kelengkapan Sample</h4>
             <div class="form-group has-error">
-                <p if.bind="error.SampleSpecifications" class="help-block text-center">${error.SampleSpecifications}</p>
+                <p if.bind="error.SampleSpecificationsCount" class="help-block text-center">${error.SampleSpecificationsCount}</p>
             </div>
             <au-collection
                 items.bind="data.SampleSpecifications"
