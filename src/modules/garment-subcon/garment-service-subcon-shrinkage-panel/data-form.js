@@ -38,7 +38,6 @@ export class DataForm {
 			"No Bon Pengeluaran Unit",
 			"Tgl Pengeluaran",
 			"Asal Unit",
-			"Asal Gudang",
 			""
 		]
 	}
