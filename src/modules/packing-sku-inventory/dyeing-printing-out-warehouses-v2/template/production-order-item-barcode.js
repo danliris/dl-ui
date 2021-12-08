@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 
 export class ProductionOrderItem {
-  @bindable product;
+  @bindable product;  
 
   packingItems = [];
   packUnit = ["ROLL", "PIECE", "POTONGAN"];
@@ -9,14 +9,14 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-
+    
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
     this.isTransit = this.destinationArea == "TRANSIT";
 
-    if (this.isEdit) {
+    if(this.isEdit){
       this.data.IsSave = true;
     }
   }
