@@ -40,6 +40,7 @@ export class DataForm {
         "Inventory",
         "Detail Spesifikasi",
         "Quantity",
+        "Satuan",
         "Keterangan"
     ];
 

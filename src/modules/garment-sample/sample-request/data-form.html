@@ -41,6 +41,7 @@
                     text.bind = "roView"
                     placeholder="Cari RO CC"
                     read-only.bind="readOnly"
+                    if.bind="data.SampleCategory=='Commercial Sample'"
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
