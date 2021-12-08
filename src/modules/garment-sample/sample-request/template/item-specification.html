@@ -29,6 +29,18 @@
                 options.bind="controlOptions">
 			</au-numeric>
 		</td>
+
+		<td class="col-sm-1 bg-primary">
+			<au-autocomplete 
+                value.bind="data.Uom" 
+                error.bind="error.Uom"
+				loader.bind="uomLoader" 
+                text="Unit" 
+                placeholder="Satuan"
+				read-only.bind="readOnly" 
+                options.bind="controlOptions">
+			</au-autocomplete>
+		</td>
         
         <td class="col-sm-5 bg-primary">
 			<au-textbox 
