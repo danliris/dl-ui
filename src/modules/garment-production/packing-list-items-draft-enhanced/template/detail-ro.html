@@ -1,12 +1,12 @@
 <template>
     <tr>
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary col-md-5" colspan="5">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader"
                 text.bind="readOnly ? roDetailView : roView" placeholder="cari RO"
                 read-only.bind="readOnly || (isEdit && data.id) || data.isCopy" query.bind="filter">
             </au-autocomplete>
         </td>
-        <td class="bg-primary col-md-2">
+        <td class="bg-primary">
             <au-textbox value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''" read-only.bind="true">
             </au-textbox>
         </td>

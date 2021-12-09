@@ -1,11 +1,11 @@
 <template>
     <tr>
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary col-md-5" colspan="5">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader" text.bind="roView"
                 placeholder="cari RO" query.bind="filter" read-only.bind="readOnly">
             </au-autocomplete>
         </td>
-        <td class="bg-primary col-md-2">
+        <td class="bg-primary">
             <au-textbox value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''" read-only.bind="true">
             </au-textbox>
         </td>
@@ -16,21 +16,21 @@
                 read-only.bind="true">
             </au-textbox>
         </td> -->
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary">
             <au-textbox value.bind="data.comodityDescription" error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>
         </td>
-        <td class="bg-primary col-md-1">
+        <td class="bg-primary">
             <au-numeric value.bind="data.quantity" error.bind="error.Quantity" read-only.bind="readOnly">
             </au-numeric>
         </td>
-        <td class="bg-primary col-md-1">
+        <td class="bg-primary">
             <au-autocomplete value.bind="uom" error.bind="error.Uom" loader.bind="uomLoader" text.bind="uomView"
                 placeholder="cari satuan" read-only.bind="readOnly">
             </au-autocomplete>
         </td>
-        <td class="bg-primary col-md-1">
+        <td class="bg-primary">
             <au-autocomplete show.bind="data.roNo" value.bind="data.unit" error.bind="error.unit"
                 loader.bind="unitLoader" query.bind="unitFilter" text.bind="unitView" placeholder="cari unit"
                 read-only.bind="readOnly">
@@ -57,7 +57,7 @@
             </au-multiline>
         </td>
 
-        <td colspan="5">
+        <td colspan="6">
             <au-multiline label="Keterangan" error.bind="error.Remarks" value.bind="data.remarks"
                 read-only.bind="readOnly">
             </au-multiline>

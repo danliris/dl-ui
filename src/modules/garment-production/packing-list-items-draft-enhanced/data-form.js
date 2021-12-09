@@ -55,6 +55,10 @@ export class DataForm {
 
     itemsColumns = [
         { header: "RO No" },
+        { header: "" },
+        { header: "" },
+        { header: "" },
+        { header: "" },
         { header: "Buyer Brand" },
         { header: "Seksi" },
         { header: "Komoditi Description" },
