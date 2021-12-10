@@ -29,6 +29,14 @@ export class Create {
     }
 
     saveCallback(event) {
+        for(var s of this.data.SampleSpecifications){
+            if(!s.Uom){
+                s.Uom={
+                    Id:0,
+                    Unit:""
+                };
+            }
+        }
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
