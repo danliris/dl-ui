@@ -1,20 +1,20 @@
 <template>
     <tr>
-        <td class="bg-primary col-md-5" colspan="5">
+        <td class="bg-primary col-md-3">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader"
                 text.bind="readOnly ? roDetailView : roView" placeholder="cari RO"
                 read-only.bind="readOnly || (isEdit && data.id) || data.isCopy" query.bind="filter">
             </au-autocomplete>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-2">
             <au-textbox value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary">
+        <td class="bg-primary col-md-1">
             <au-textbox value.bind="data.section.code" error.bind="error.Section" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary col-md-2">
+        <td class="bg-primary col-md-3">
             <au-textbox value.bind="data.comodityDescription" error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>
@@ -43,12 +43,12 @@
         </td>
     </tr>
     <tr show.bind="isShowing" style="background-color:#C2B5B2;">
-        <td colspan="3">
+        <td colspan="1">
             <au-textbox label="Artikel" value.bind="data.article" read-only.bind="true">
             </au-textbox>
         </td>
 
-        <td colspan="4">
+        <td colspan="2">
             <au-multiline label="PO Buyer" error.bind="error.OrderNo" value.bind="data.orderNo"
                 read-only.bind="readOnly">
             </au-multiline>
