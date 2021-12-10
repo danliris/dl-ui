@@ -270,6 +270,8 @@ export class Item {
       this.data.details.push({
         carton1: lastDetail ? lastDetail.carton2 + 1 : 0,
         index: lastIndex ? lastIndex : 1,
+        style: lastDetail ? lastDetail.style : '',
+        colour: lastDetail ? lastDetail.colour : '',
         sizes: []
       });
     };
