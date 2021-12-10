@@ -85,12 +85,20 @@ export class List {
          { field: "EPOcreatedBy", title: "Staff Pembelian (P/O)", sortable: false },
          { field: "BeacukaiNo", title: "No BC", sortable: false }, 
          { field: "BCDate", title: "Tanggal BC", sortable: false, formatter: function (value, data, index) {
-            return moment(value).format("DD MMM YYYY");
-        }
+            if (moment(value).format("DD MMM YYYY")=="01 Jan 1970")
+                return "-"
+             else    
+                return moment(value).format("DD MMM YYYY");
+              
+            }
         },
          { field: "BeacukaiDate", title: "Tanggal Input BC", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD MMM YYYY");
+            if (moment(value).format("DD MMM YYYY")=="01 Jan 0001")
+                    return "-"
+                else    
+                    return moment(value).format("DD MMM YYYY");
             }
+            
         },
         { field: "BillNo", title: "No BP Besar", sortable: false },
         { field: "PaymentBill", title: "No BP Kecil", sortable: false },        
