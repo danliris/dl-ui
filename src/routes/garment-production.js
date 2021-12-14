@@ -1037,7 +1037,7 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
-    {
+    /*{
         route: "garment-production/packing-list-items-enhanced",
         name: "garment-production/packing-list-items-enhanced",
         moduleId: "modules/garment-production/packing-list-items-enhanced/index",
@@ -1050,7 +1050,7 @@ module.exports = [
             permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },*/
     {
         route: 'garment-production/packing-list-items-draft-enhanced',
         name: 'packing-list-draft-items-enhanced',
