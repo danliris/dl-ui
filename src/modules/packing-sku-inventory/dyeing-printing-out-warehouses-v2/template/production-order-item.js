@@ -12,7 +12,6 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-
     this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
     this.isShowing = false;
@@ -22,7 +21,6 @@ export class ProductionOrderItem {
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
-    this.type = this.contextOptions.type;
     this.isTransit = this.destinationArea == "TRANSIT";
     this.listOptions = {
       isEdit: this.isEdit,

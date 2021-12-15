@@ -30,6 +30,16 @@
             key="code" 
             options.bind="controlOptions">
         </au-autocomplete>
+
+        <au-textbox label="Nomor BP Besar" 
+            value.bind="billno"
+            placeholder="Masukan Nomor BP Besar" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox label="Nomor BP Kecil" 
+            value.bind="paymentbill"
+            placeholder="Masukan Nomor BP Kecil" options.bind="controlOptions">
+        </au-textbox>
         <!-- <supplier-auto-suggest label="Supplier" value.bind="supplierId"></supplier-auto-suggest> -->
         <au-datepicker
             value.bind="dateFrom"

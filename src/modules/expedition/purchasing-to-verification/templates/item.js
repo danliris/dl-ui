@@ -95,20 +95,20 @@ export class Item {
                                     // }
                                     // else {
 
-                                    let correctQuantity = detail.deliveredQuantity;
-                                    if (correctionState.IsHavingQuantityCorrection) {
-                                        correctQuantity = detail.QuantityCorrection || detail.deliveredQuantity;
-                                    }
-
-                                    let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(4));
-                                    if (correctionState.IsHavingPricePerUnitCorrection) {
-                                        correctPricePerUnit = detail.PricePerDealUnitCorrection ? Number((detail.PricePerDealUnitCorrection).toFixed(4)) : Number((detail.pricePerDealUnit).toFixed(4));
-                                    }
-
-                                    let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(4));
-                                    if (correctionState.IsHavingPriceTotalCorrection) {
-                                        correctPriceTotal = detail.PriceTotalCorrection ? Number((detail.PriceTotalCorrection).toFixed(4)) : Number((correctQuantity * correctPricePerUnit).toFixed(4));
-                                    }
+                                      let correctQuantity = detail.deliveredQuantity;
+                                      if (correctionState.IsHavingQuantityCorrection) {
+                                          correctQuantity = detail.QuantityCorrection;
+                                      }
+  
+                                      let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(4));
+                                      if (correctionState.IsHavingPricePerUnitCorrection) {
+                                          correctPricePerUnit = Number((detail.PricePerDealUnitCorrection).toFixed(4));
+                                      }
+  
+                                      let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(4));
+                                      if (correctionState.IsHavingPriceTotalCorrection) {
+                                          correctPriceTotal = Number((detail.PriceTotalCorrection).toFixed(4));
+                                      }
 
                                     // if (detail.QuantityCorrection > 0)
                                     //     quantity = detail.QuantityCorrection;
