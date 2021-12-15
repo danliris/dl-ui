@@ -79,7 +79,6 @@ export class DataForm {
             };
 
         }
-
         this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
         this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
         this.imagesSrc = this.data.ImagesFile.slice();
@@ -127,7 +126,7 @@ export class DataForm {
     get addItems() {
         return (event) => {
           this.data.SampleProducts.push({});
-          this.data.SampleProducts.forEach((m, i) => m.index = i);
+          this.data.SampleProducts.forEach((m, i) => m.Index = i);
         };
       }
     
@@ -140,7 +139,7 @@ export class DataForm {
     get addSpecs() {
         return (event) => {
           this.data.SampleSpecifications.push({});
-          this.data.SampleSpecifications.forEach((m, i) => m.index = i);
+          this.data.SampleSpecifications.forEach((m, i) => m.Index = i);
         };
     }
     

@@ -40,6 +40,7 @@ export class List {
         { field: "BuyerName", title: "Buyer" },
         { field: "SentDate", title: "Tgl Kirim", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "POBuyer", title: "PO Buyer" },
+        { field: "Status", title: "Status" },
     ]
 
     loader = (info) => {
@@ -59,7 +60,19 @@ export class List {
             .then(result => {
                 result.data.forEach(s => {
                     s.BuyerName=s.Buyer.Name;
-                    
+                    s.Status="CREATED";
+                    if(s.IsPosted && !s.IsReceived && !s.IsRejected && !s.IsRevised){
+                        s.Status="POSTED";
+                    }
+                    else if(s.IsReceived && !s.IsRevised){
+                        s.Status="APPROVED";
+                    }
+                    else if(s.IsRejected){
+                        s.Status="REJECTED";
+                    }
+                    else if(s.IsRevised){
+                        s.Status="REVISED";
+                    }
                 });
                 return {
                     total: result.info.total,
@@ -92,7 +105,6 @@ export class List {
                     id: ids,
                     Posted:true
                 }
-                console.log(dataToBePosteds)
                 this.service.postSample(dataToBePosteds)
                     .then(result => {
                         this.table.refresh();
@@ -105,8 +117,12 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.IsPosted)
+        if (data.Status=="APPROVED")
             return { classes: "success" }
+        else if (data.Status=="REVISED")
+            return { classes: "info" }
+        else if (data.Status=="REJECTED")
+            return { classes: "danger" }
         else
             return { }
     }
