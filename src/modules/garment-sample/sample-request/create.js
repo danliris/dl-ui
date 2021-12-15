@@ -37,6 +37,8 @@ export class Create {
                 };
             }
         }
+        this.data.ImagesName="";
+        this.data.DocumentsFileName="";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
