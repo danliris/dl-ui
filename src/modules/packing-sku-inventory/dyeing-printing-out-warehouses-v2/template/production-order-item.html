@@ -68,7 +68,7 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="qtyPacking" read-only.bind="readOnly" error.bind="error.PackagingQty"
+      <au-numeric value.bind="qtyPacking" read-only.bind="true" error.bind="error.PackagingQty"
         options.bind="controlOptions">
       </au-numeric>
     </td>
@@ -82,19 +82,40 @@
         options.bind="controlOptions">
       </au-textbox>
     </td>
-    <td if.bind = "!type">
-      <au-numeric value.bind="qty" format="0.00" read-only.bind="readOnly" error.bind="error.qty"
+    <td>
+      <au-numeric value.bind="qty" format="0.00" read-only.bind="true"
+        error.bind="error.qty" options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric value.bind="qtyPacking * qty" format="0.00" read-only.bind="true" error.bind="error.Balance"
         options.bind="controlOptions">
       </au-numeric>
     </td>
     <td>
-      <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.Balance"
-        options.bind="controlOptions">
-      </au-numeric>
+      <button class="btn btn-info pull-right" click.delegate="toggle()">
+        i
+      </button>
     </td>
     <td if.bind="!options.readOnly">
       <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
       <button if.bind="data.isremovable" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-  </td>
+    </td>
+  </tr>
+  <tr if.bind="isShowing">
+    <!-- <td show.bind="!readOnly"></td> -->
+    <td colspan="14">
+      <au-collection 
+        columns.bind="barcodeColumns" 
+        items.bind="data.productPackingCodeList" 
+        read-only.bind="readOnly"
+        options.bind="listOptions"
+        errors.one-way="error.BarcodeList"
+        callback.call="someCallbackFunction()"
+        item-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item-barcode"
+        header-template="modules/packing-sku-inventory/dyeing-printing-out-warehouses-v2/template/production-order-item-barcode-header">
+      </au-collection>
+      <!-- show.bind="isAval" -->
+    </td>
   </tr>
 </template>
