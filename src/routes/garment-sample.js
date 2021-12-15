@@ -77,4 +77,17 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: '/garment-sample/sample-cutting-in',
+		name: 'sample-cutting-in',
+		moduleId: './modules/garment-sample/sample-cutting-in/index',
+		nav: true,
+		title: 'Cutting In Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
