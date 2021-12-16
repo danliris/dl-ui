@@ -6,6 +6,18 @@
         <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)" if.one-way="hasUnpost">Unpost</button>
         <div class="row">
             <div class="col-sm-6">
+                
+                <au-autocomplete
+                    value.bind="data.Section"
+                    error.bind="error.Section"
+                    label="Seksi"
+                    loader.bind="sectionLoader"
+                    text = "Code"
+                    placeholder="cari seksi"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
                 <au-textbox
                     error.bind="error.RONoSample"
                     value.bind="data.RONoSample"
@@ -63,6 +75,8 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-autocomplete>
+            </div>
+            <div class="col-sm-6">
 
                 <au-textbox
                     error.bind="error.SampleType"
@@ -82,8 +96,7 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-autocomplete>
-            </div>
-            <div class="col-sm-6">
+                
                 <au-textbox
                     error.bind="error.Packing"
                     value.bind="data.Packing"

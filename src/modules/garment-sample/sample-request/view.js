@@ -22,6 +22,17 @@ export class View {
             this.unpostCallback=null;
             this.hasUnpost=false;
         }
+
+        if(this.data.SampleProducts){
+            this.data.SampleProducts.sort(function (a, b) {
+                return a.Index - b.Index;
+              });
+        }
+        if(this.data.SampleSpecifications){
+            this.data.SampleSpecifications.sort(function (a, b) {
+                return a.Index - b.Index;
+              });
+        }
     }
 
     cancelCallback(event) {

@@ -4,6 +4,7 @@ import { Service } from "./service";
 const BuyerLoader = require('../../../loader/garment-buyers-loader');
 const ROCCLoader = require('../../../loader/cost-calculation-garment-loader');
 const ComodityLoader = require("../../../loader/garment-comodities-loader");
+const SectionLoader = require('../../../loader/garment-sections-loader');
 
 @inject(Service)
 export class DataForm {
@@ -78,7 +79,6 @@ export class DataForm {
             };
 
         }
-        
         this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
         this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
         this.imagesSrc = this.data.ImagesFile.slice();
@@ -120,11 +120,13 @@ export class DataForm {
             }
         }
     }
-
+    get sectionLoader() {
+        return SectionLoader;
+    }
     get addItems() {
         return (event) => {
           this.data.SampleProducts.push({});
-          this.data.SampleProducts.forEach((m, i) => m.index = i);
+          this.data.SampleProducts.forEach((m, i) => m.Index = i);
         };
       }
     
@@ -137,7 +139,7 @@ export class DataForm {
     get addSpecs() {
         return (event) => {
           this.data.SampleSpecifications.push({});
-          this.data.SampleSpecifications.forEach((m, i) => m.index = i);
+          this.data.SampleSpecifications.forEach((m, i) => m.Index = i);
         };
     }
     
