@@ -49,7 +49,7 @@ export class List {
         { field: "Quantity", title: "Quantity", sortable: false, width: '5%' },
         { field: "UomUnit", title: "Satuan", sortable: false, width: '3%'},
         { field: "Price", title: "Harga", sortable: false, width: '3%'},
-        { field: "PO", title: "No PO", sortable: false, width: '3%'},
+        { field: "PoSerialNumbers", title: "No PO", sortable: false, width: '3%'},
         { field: "CustomsNo", title: "Asal BC Masuk", sortable: false, width: '5%' },
         { field: "CustomsType", title: "Tipe Beacukai", sortable: false, width: '5%' },
         { field: "CustomsDate", title: "Tanggal Beacukai",sortable: false, width: '5%' },
@@ -115,6 +115,14 @@ export class List {
                                     var str = "<ul>";
                                     for(var date of s.CustomsDate){
                                         str += `<li>${moment(date).format("DD MMM YYYY")}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                                s.PoSerialNumbers.toString = function () {
+                                    var str = "<ul>";
+                                    for(var type of s.PoSerialNumbers){
+                                        str += `<li>${type}</li>`;
                                     }
                                     str += "</ul>";
                                     return str;

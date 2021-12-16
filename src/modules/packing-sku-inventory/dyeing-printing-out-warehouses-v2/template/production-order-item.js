@@ -32,12 +32,11 @@ export class ProductionOrderItem {
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
-      
+
     }
-    if (this.data.id == null){
+    if (this.data.id == null) {
       this.data.isremovable = true;
     }
-    
     //view detail
     if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
@@ -107,6 +106,7 @@ export class ProductionOrderItem {
   }
 
   getProductPackingCodeList(data) {
+
     const productPackingCodeRemains = data.productPackingCodeRemains != null ? data.productPackingCodeRemains : data.productPackingCode;
 
     if(productPackingCodeRemains !== null && productPackingCodeRemains !== ""){

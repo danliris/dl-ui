@@ -31,7 +31,7 @@ export class Create {
   }
 
   save() {
-    
+
     let errorIndex = 0;
     this.error = {};
 
@@ -68,24 +68,63 @@ export class Create {
       this.error.Group;
     }
 
+    // console.log(this.data.warehousesProductionOrders)
+    let any = this.data.warehousesProductionOrders.find((element) => element.productionOrderItems.find((item) => item.IsSave))
+    // console.log(any)
+    if (!any) {
+      this.error.item = "Nomor Order Harus Dipilih!";
+      errorIndex++;
+    } else {
+      this.error.items = this.data.warehousesProductionOrders.map((element) => {
+        let errorItem = {};
+
+        if (!element.productionOrderItems.find((item) => item.IsSave)) {
+
+        } else {
+          let productionOrderItemErrors = element.productionOrderItems.map((productionOrderItem) => {
+            let errorProductionOrderItem = {}
+
+            if (productionOrderItem.IsSave) {
+              let anyPackingCodeChecked = productionOrderItem.productPackingCodeList.find((packingCode) => packingCode.IsSave);
+              if (!anyPackingCodeChecked) {
+                errorProductionOrderItem.packingCode = "Kode Packing Harus Dipilih!";
+                errorIndex++;
+              }
+                
+            }
+            return errorProductionOrderItem;
+          })
+          errorItem.productionOrderItems = productionOrderItemErrors;
+        }
+
+        return errorItem;
+      })
+    }
+
+    // console.log(this.error);
+
     if (errorIndex === 0) {
-      // var selectedProductionOrders = this.data.warehousesProductionOrders.filter(
-      //   (s) => s.IsSave === true
-      // );
 
       var selectedProductionOrders = this.data.warehousesProductionOrders;
 
       this.data.mappedWarehousesProductionOrders = [];
       selectedProductionOrders.forEach((datum) => {
-        var datumSelected = datum.productionOrderItems.filter((s)=> s.IsSave ===true);
+        var datumSelected = datum.productionOrderItems.filter((s) => s.IsSave === true);
         datumSelected.forEach((datumItem) => {
           datumItem.qtyOrder = datum.productionOrderOrderQuantity;
+          datumItem.packingCodeToCreate = datumItem.productPackingCodeList
+            .filter((element) => element.IsSave)
+            .map((element) => element.packingCode)
+            .join(',')
           this.data.mappedWarehousesProductionOrders.push(datumItem);
         });
       });
-      
+
+      let dataForm = Object.assign({}, this.data);
+      delete dataForm.warehousesProductionOrders;
+
       this.service
-        .create(this.data)
+        .create(dataForm)
         .then((result) => {
           alert("Data berhasil dibuat");
           this.router.navigateToRoute(
@@ -142,12 +181,12 @@ export class Create {
     }
 
     if (errorIndex === 0) {
-      
+
       var selectedProductionOrders = this.data.warehousesProductionOrders;
 
       this.data.mappedWarehousesProductionOrders = [];
       selectedProductionOrders.forEach((datum) => {
-        var datumSelected = datum.productionOrderItems.filter((s)=> s.IsSave ===true);
+        var datumSelected = datum.productionOrderItems.filter((s) => s.IsSave === true);
         datumSelected.forEach((datumItem) => {
           datumItem.qtyOrder = datum.productionOrderOrderQuantity;
           this.data.mappedWarehousesProductionOrders.push(datumItem);

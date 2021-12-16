@@ -453,7 +453,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "laporan",
-            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1, "SG": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -1037,7 +1037,7 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
-    {
+    /*{
         route: "garment-production/packing-list-items-enhanced",
         name: "garment-production/packing-list-items-enhanced",
         moduleId: "modules/garment-production/packing-list-items-enhanced/index",
@@ -1050,7 +1050,7 @@ module.exports = [
             permission: { "C9": 1, "FP": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },*/
     {
         route: 'garment-production/packing-list-items-draft-enhanced',
         name: 'packing-list-draft-items-enhanced',

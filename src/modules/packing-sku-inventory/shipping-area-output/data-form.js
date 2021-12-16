@@ -98,6 +98,8 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
+    this.type = this.context.type;
+    console.log(this.type);
 
     this.data.area = "SHIPPING";
 
@@ -141,23 +143,45 @@ export class DataForm {
             "Berat (KG)"
           ];
         } else {
-          this.itemColumns = [
-            "No. SPP",
-            "Buyer",
-            "Material",
-            "Unit",
-            "Warna",
-            "Motif",
-            "Jenis",
-            "Grade 1",
-            "Grade 2",
-            "Keterangan",
-            "Qty Packing",
-            "Packing",
-            "Panjang Packing",
-            "Qty Keluar",
-            "Berat (KG)"
-          ];
+          if (this.type == true){
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              "Qty Keluar",
+              "Berat (KG)"
+            ];
+
+          }else{
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)"
+            ];
+
+          }
+          
         }
 
       } else {
@@ -255,24 +279,46 @@ export class DataForm {
 
       this.isSales = false;
       if (this.readOnly) {
-        this.itemColumns = [
-          "No. SPP",
-          "Buyer",
-          "Material",
-          "Unit",
-          "Warna",
-          "Motif",
-          "Jenis",
-          "Grade 1",
-          "Grade 2",
-          "Keterangan",
-          "Qty Packing",
-          "Packing",
-          "Panjang Packing",
-          "Qty Keluar",
-          "Berat (KG)",
-          "SJ",
-        ];
+        if (this.type == true){
+          this.itemColumns = [
+            "No. SPP",
+            "Buyer",
+            "Material",
+            "Unit",
+            "Warna",
+            "Motif",
+            "Jenis",
+            "Grade 1",
+            "Grade 2",
+            "Keterangan",
+            "Qty Packing",
+            "Packing",
+            "Panjang Packing",
+            "Qty Keluar",
+            "Berat (KG)",
+            "SJ",
+          ];
+        }else{
+          this.itemColumns = [
+            "No. SPP",
+            "Buyer",
+            "Material",
+            "Unit",
+            "Warna",
+            "Motif",
+            "Jenis",
+            "Grade 1",
+            "Grade 2",
+            "Keterangan",
+            "Qty Packing",
+            "Packing",
+            "Panjang Packing",
+            "Qty Keluar",
+            "Berat (KG)",
+            "SJ",
+          ];
+        }
+        
       } else {
         if (this.isEdit) {
           this.itemColumns = [
@@ -321,6 +367,7 @@ export class DataForm {
     this.detailOptions = {
       isEdit: this.isEdit,
       isSales: this.isSales,
+      type: this.type,
       destinationArea: this.destinationArea
     };
     if (this.readOnly) {
@@ -427,23 +474,44 @@ export class DataForm {
               "Berat (KG)"
             ];
           } else {
-            this.itemColumns = [
-              "No. SPP",
-              "Buyer",
-              "Material",
-              "Unit",
-              "Warna",
-              "Motif",
-              "Jenis",
-              "Grade 1",
-              "Grade 2",
-              "Keterangan",
-              "Qty Packing",
-              "Packing",
-              "Panjang Packing",
-              "Qty Keluar",
-              "Berat (KG)"
-            ];
+            if(this.type == true){
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Qty Packing",
+                "Packing",
+                //"Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)"
+              ];
+            }else{
+              this.itemColumns = [
+                "No. SPP",
+                "Buyer",
+                "Material",
+                "Unit",
+                "Warna",
+                "Motif",
+                "Jenis",
+                "Grade 1",
+                "Grade 2",
+                "Keterangan",
+                "Qty Packing",
+                "Packing",
+                "Panjang Packing",
+                "Qty Keluar",
+                "Berat (KG)"
+              ];
+            }
+           
           }
 
         } else {
@@ -549,24 +617,47 @@ export class DataForm {
 
         this.isSales = false;
         if (this.readOnly) {
-          this.itemColumns = [
-            "No. SPP",
-            "Buyer",
-            "Material",
-            "Unit",
-            "Warna",
-            "Motif",
-            "Jenis",
-            "Grade 1",
-            "Grade 2",
-            "Keterangan",
-            "Qty Packing",
-            "Packing",
-            "Panjang Packing",
-            "Qty Keluar",
-            "Berat (KG)",
-            "SJ",
-          ];
+          if(this.type == true){
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              //"Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)",
+              "SJ",
+            ];
+
+          }else{
+            this.itemColumns = [
+              "No. SPP",
+              "Buyer",
+              "Material",
+              "Unit",
+              "Warna",
+              "Motif",
+              "Jenis",
+              "Grade 1",
+              "Grade 2",
+              "Keterangan",
+              "Qty Packing",
+              "Packing",
+              "Panjang Packing",
+              "Qty Keluar",
+              "Berat (KG)",
+              "SJ",
+            ];
+          }
+          
         } else {
           if (this.isEdit) {
             this.itemColumns = [

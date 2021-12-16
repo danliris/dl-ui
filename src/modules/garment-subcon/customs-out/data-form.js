@@ -110,7 +110,7 @@ export class DataForm {
     }
 
     async selectedContractChanged(newValue) {
-        if (this.data.Items && !this.readOnly) {
+        if (this.data.Items && (!this.readOnly && !this.isEdit)) {
             this.data.Items.splice(0);
         }
 

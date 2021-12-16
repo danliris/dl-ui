@@ -46,11 +46,11 @@ export class List {
         { field: "index", title: "No" , sortable: false},
          { field: "no", title: "Nomor Surat Jalan", sortable: false },
          { field: "supplierDoDate", title: "Tanggal Surat Jalan", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD/MM/YYYY");
+                return moment(value).format("DD MMM YYYY");
             }
         },
          { field: "date", title: "Tanggal Tiba", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD/MM/YYYY");
+                return moment(value).format("DD MMM YYYY");
             }
         },
          { field: "supplierName", title: "Nama Supplier", sortable: false },
@@ -58,14 +58,14 @@ export class List {
             
                 return (value)==""? "Local" : "Import";
             }},
-        { field: "shipmentType", title: "Pengiriman", sortable: false },
-        { field: "shipmentNo", title: "No BL", sortable: false },
-        { field: "isCustoms", title: "Dikenakan Beacukai", sortable: false , formatter: function (value, data) {
+        // { field: "shipmentType", title: "Pengiriman", sortable: false },
+        // { field: "shipmentNo", title: "No BL", sortable: false },
+        // { field: "isCustoms", title: "Dikenakan Beacukai", sortable: false , formatter: function (value, data) {
             
-                return (value)==true? "Ya" : "Tidak";
-            } },
+        //         return (value)==true? "Ya" : "Tidak";
+        //     } },
         { field: "ePONo", title: "No PO Eksternal", sortable: false },
-        { field: "prNo", title: "Nomor PR", sortable: false },
+        // { field: "prNo", title: "Nomor PR", sortable: false },
         { field: "prRefNo", title: "Nomor Referensi PR", sortable: false },
         { field: "roNo", title: "Nomor RO", sortable: false },
         { field: "productCode", title: "Kode Barang", sortable: false },
@@ -82,13 +82,32 @@ export class List {
          { field: "doCurrencyRate", title: "Rate", sortable: false },
          { field: "productRemark", title: "Keterangan", sortable: false },
            { field: "createdBy", title: "Staff Pembelian", sortable: false },
-         { field: "EPOcreatedBy", title: "Staff Pembelian (P/O)", sortable: false },         
+         { field: "EPOcreatedBy", title: "Staff Pembelian (P/O)", sortable: false },
+         { field: "BeacukaiNo", title: "No BC", sortable: false }, 
+         { field: "BCDate", title: "Tanggal BC", sortable: false, formatter: function (value, data, index) {
+            if (moment(value).format("DD MMM YYYY")=="01 Jan 1970")
+                return "-"
+             else    
+                return moment(value).format("DD MMM YYYY");
+              
+            }
+        },
+         { field: "BeacukaiDate", title: "Tanggal Input BC", sortable: false, formatter: function (value, data, index) {
+            if (moment(value).format("DD MMM YYYY")=="01 Jan 0001")
+                    return "-"
+                else    
+                    return moment(value).format("DD MMM YYYY");
+            }
+            
+        },
+        { field: "BillNo", title: "No BP Besar", sortable: false },
+        { field: "PaymentBill", title: "No BP Kecil", sortable: false },        
          { field: "URNNo", title: "Nomor Bon Unit", sortable: false },
          { field: "URNDate", title: "Tanggal Bon Unit", sortable: false, formatter: function (value, data, index) {             
              if (moment(value).format("DD MMM YYYY")=="01 Jan 1970")
                 return "-"
              else    
-                return moment(value).format("DD/MM/YYYY");
+                return moment(value).format("DD MMM YYYY");
               }
          },
 
@@ -125,6 +144,8 @@ export class List {
     reset() {
         this.no = null;
         this.supplier = null;
+        this.billno = null;
+        this.paymentbill = null;
         this.dateFrom = undefined;
         this.dateTo = undefined;
         this.purchaseOrderExternal = null;
@@ -142,6 +163,8 @@ export class List {
             no: this.no ? this.no.doNo : "",
             poEksNo : this.purchaseOrderExternal ? this.purchaseOrderExternal.EPONo : "",
             supplierId: this.supplier ? this.supplier.Id : "",
+            billno : this.billno ? this.billno : "",
+            paymentbill : this.paymentbill ? this.paymentbill : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
         };
@@ -169,6 +192,8 @@ export class List {
             no: this.no ? this.no.doNo : "",
             poEksNo : this.purchaseOrderExternal ? this.purchaseOrderExternal.EPONo : "",
             supplierId: this.supplier ? this.supplier.Id : "",
+            billno : this.billno ? this.billno : "",
+            paymentbill : this.paymentbill ? this.paymentbill : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
