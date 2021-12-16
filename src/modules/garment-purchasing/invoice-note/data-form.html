@@ -105,7 +105,9 @@
         </au-collection>
 
         <au-collection items.bind="data.items" errors.bind="error.items" columns.bind="itemsInfoReadOnly.columnsReadOnly" show.bind="data.items.length > 0 && readOnly"
-            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item">
+            read-only.bind="readOnly" options.bind="options" checkall.delegate="onClickAllDataSource($event)" 
+            item-template="modules/garment-purchasing/invoice-note/template/invoice-note-item"
+            footer-template = "modules/garment-purchasing/invoice-note/template/invoice-note-item-footer">
         </au-collection>
 
         <!-- <div class="text-center">
