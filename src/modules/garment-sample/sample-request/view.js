@@ -31,7 +31,7 @@ export class View {
         if(this.data.SampleSpecifications){
             this.data.SampleSpecifications.sort(function (a, b) {
                 return a.Index - b.Index;
-              });
+            });
         }
     }
 
