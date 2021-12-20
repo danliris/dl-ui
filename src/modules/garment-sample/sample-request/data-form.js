@@ -17,7 +17,7 @@ export class DataForm {
     @bindable SelectedROCC;
 
     SampleCategoryOptions = ["Commercial Sample", "Non Commercial Sample"];
-    
+
     constructor(service) {
         this.service = service;
     }
@@ -29,7 +29,7 @@ export class DataForm {
         editText: "Ubah"
     };
 
-    productColumns= [
+    productColumns = [
         "Style",
         "Color",
         "Size",
@@ -37,7 +37,7 @@ export class DataForm {
         "Quantity"
     ];
 
-    specColumns= [
+    specColumns = [
         "Inventory",
         "Detail Spesifikasi",
         "Quantity",
@@ -47,7 +47,7 @@ export class DataForm {
 
     controlOptions = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 7
@@ -56,13 +56,13 @@ export class DataForm {
 
     controlOptions2 = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 5
         }
     };
-    
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -73,8 +73,8 @@ export class DataForm {
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
         };
-        if(this.data.RONoCC){
-            this.SelectedROCC={
+        if (this.data.RONoCC) {
+            this.SelectedROCC = {
                 RO_Number: this.data.RONoCC
             };
 
@@ -89,7 +89,7 @@ export class DataForm {
 
     roView = (costCal) => {
         return `${costCal.RO_Number}`
-      }
+    }
     get roNoCCLoader() {
         return ROCCLoader;
     }
@@ -104,8 +104,8 @@ export class DataForm {
     }
 
     comodityView = (comodity) => {
-        var code= comodity.code || comodity.Code;
-        var name=comodity.name || comodity.Name;
+        var code = comodity.code || comodity.Code;
+        var name = comodity.name || comodity.Name;
         return `${code} - ${name}`;
     }
 
@@ -113,10 +113,10 @@ export class DataForm {
         return ComodityLoader;
     }
 
-    SelectedROCCChanged(newValue){
-        if(newValue){
-            if(newValue.RO_Number!=this.data.RONoCC){
-                this.data.RONoCC=newValue.RO_Number;
+    SelectedROCCChanged(newValue) {
+        if (newValue) {
+            if (newValue.RO_Number != this.data.RONoCC) {
+                this.data.RONoCC = newValue.RO_Number;
             }
         }
     }
@@ -125,43 +125,43 @@ export class DataForm {
     }
     get addItems() {
         return (event) => {
-          this.data.SampleProducts.push({});
-          this.data.SampleProducts.forEach((m, i) => m.Index = i);
-        };
-      }
-    
-      get removeItems() {
-        return (event) => {
-          this.error = null;
-        };
-      }
-    
-    get addSpecs() {
-        return (event) => {
-          this.data.SampleSpecifications.push({});
-          this.data.SampleSpecifications.forEach((m, i) => m.Index = i);
-        };
-    }
-    
-    get removeSpecs() {
-        return (event) => {
-          this.error = null;
+            this.data.SampleProducts.push({});
+            this.data.SampleProducts.forEach((m, i) => m.Index = i);
         };
     }
 
-    
+    get removeItems() {
+        return (event) => {
+            this.error = null;
+        };
+    }
+
+    get addSpecs() {
+        return (event) => {
+            this.data.SampleSpecifications.push({});
+            this.data.SampleSpecifications.forEach((m, i) => m.Index = i);
+        };
+    }
+
+    get removeSpecs() {
+        return (event) => {
+            this.error = null;
+        };
+    }
+
+
     @bindable imageUpload;
     imageUploadChanged(newValue) {
         if (newValue) {
-        let imageInput = document.getElementById('imageInput');
-        let reader = new FileReader();
-        reader.onload = event => {
-            let base64Image = event.target.result;
-            this.imagesSrc.push(base64Image);
-            this.imagesSrcChanged(this.imagesSrc);
-        }
-        reader.readAsDataURL(imageInput.files[0]);
-        this.imageUpload = null;
+            let imageInput = document.getElementById('imageInput');
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Image = event.target.result;
+                this.imagesSrc.push(base64Image);
+                this.imagesSrcChanged(this.imagesSrc);
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+            this.imageUpload = null;
         }
     }
 
@@ -169,7 +169,7 @@ export class DataForm {
     imagesSrcChanged(newValue) {
         this.data.ImagesFile = [];
         newValue.forEach(imageSrc => {
-        this.data.ImagesFile.push(imageSrc);
+            this.data.ImagesFile.push(imageSrc);
         })
     }
 
@@ -203,25 +203,25 @@ export class DataForm {
         downloadLink.click();
     }
 
-  documentInputChanged(index) {
-    let documentInput = document.getElementById('documentInput' + index);
+    documentInputChanged(index) {
+        let documentInput = document.getElementById('documentInput' + index);
 
-    if (documentInput.files[0]) {
-        let reader = new FileReader();
-        reader.onload = event => {
-            let base64Document = event.target.result;
-            const base64Content = base64Document.substring(base64Document.indexOf(',') + 1);
-            if (base64Content.length * 6 / 8 > 52428800) {
-            documentInput.value = "";
-            this.data.DocumentsFile[index] = "";
-            this.data.DocumentsFileName[index] = "";
-            alert("Maximum Document Size is 50 MB")
-            } else {
-            this.data.DocumentsFile[index] = base64Document;
-            this.data.DocumentsFileName[index] = documentInput.value.replace(/^.*[\\\/]/, '');
+        if (documentInput.files[0]) {
+            let reader = new FileReader();
+            reader.onload = event => {
+                let base64Document = event.target.result;
+                const base64Content = base64Document.substring(base64Document.indexOf(',') + 1);
+                if (base64Content.length * 6 / 8 > 52428800) {
+                    documentInput.value = "";
+                    this.data.DocumentsFile[index] = "";
+                    this.data.DocumentsFileName[index] = "";
+                    alert("Maximum Document Size is 50 MB")
+                } else {
+                    this.data.DocumentsFile[index] = base64Document;
+                    this.data.DocumentsFileName[index] = documentInput.value.replace(/^.*[\\\/]/, '');
+                }
             }
-        }
-        reader.readAsDataURL(documentInput.files[0]);
+            reader.readAsDataURL(documentInput.files[0]);
         }
     }
 }
