@@ -14,10 +14,14 @@ export class View {
         this.data = await this.service.read(id);
 
         if(this.data.SampleProducts){
-            this.data.SampleProducts.sort((a, b)=>a.Index.localeCompare( b.Index));
+            this.data.SampleProducts.sort(function (a, b) {
+                return a.Index - b.Index;
+              });
         }
         if(this.data.SampleSpecifications){
-            this.data.SampleSpecifications.sort((a, b)=>a.Index.localeCompare( b.Index));
+            this.data.SampleSpecifications.sort(function (a, b) {
+                return a.Index - b.Index;
+            });
         }
     }
 
