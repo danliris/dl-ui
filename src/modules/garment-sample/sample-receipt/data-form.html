@@ -1,7 +1,11 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
         <button slot="actions" class="btn btn-primary" click.delegate="receivedCallback($event)"
-            if.one-way="hasReceived">Terima</button>
+            if.one-way="hasReceived">Approve</button>
+        <button slot="actions" class="btn btn-danger" click.delegate="rejectedCallback($event)"
+            if.one-way="hasRejected">Reject</button>
+        <button slot="actions" class="btn btn-info" click.delegate="revisedCallback($event)"
+            if.one-way="hasRevised">Revised</button>
         <div class="row">
             <div class="col-sm-12">
                 <div class="col-sm-6">
@@ -94,6 +98,71 @@
                 </au-collection>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>File Dokumen</h4>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <th class="col-md-11">File</th>
+                        <th if.bind="!readOnly" class="col-md-1">
+                            <button click.delegate="onAddDocument()" class="btn btn-success pull-right">+</button>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr if.bind="!data.DocumentsFileName || data.DocumentsFileName.length < 1">
+                            <td colspan="2">
+                                Tidak ada file
+                            </td>
+                        </tr>
+                        <tr if.bind="data.DocumentsFileName" repeat.for="doc of data.DocumentsFileName">
+                            <td if.bind="readOnly">
+                                <button class="btn btn-primary justify-content-center"
+                                    click.delegate="downloadDocument($index)">${doc}</button>
+                            </td>
+                            <td if.bind="!readOnly">
+                                <input if.bind="!documentsPathTemp[$index]" type="file" id="documentInput${$index}"
+                                    value.bind="documentUpload" change.delegate="documentInputChanged($index)"
+                                    accept=".pdf, .xls, .xlsx, .doc, .docx">
+                                <button if.bind="documentsPathTemp[$index]"
+                                    class="btn btn-primary justify-content-center"
+                                    click.delegate="downloadDocument($index)">${doc}</button>
+                                <span class="text-danger"
+                                    if.bind="error.DocumentsFile[$index]">${error.DocumentsFile[$index]}</span>
+                            </td>
+                            <td if.bind="!readOnly">
+                                <button class="btn btn-danger pull-right"
+                                    click.delegate="onRemoveDocument($index)">-</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>File Gambar</h4>
+                <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" style="display: none;">
+                <button type="button" if.bind="!readOnly" onclick="document.getElementById('imageInput').click()">Add
+                    Image</button>
+                <br>
+                <br>
+                <template repeat.for="imageSrc of imagesSrc">
+                    <div style="display: inline-block; height: 250px; width: auto; margin-right:20px;">
+                        <img src.bind="imageSrc" class="center-block" height="200px">
+                        <br>
+                        <au-textbox class="center-block" value.bind="data.ImagesName[$index]" read-only.bind="readOnly">
+                        </au-textbox>
+                        <br>
+                        <button type="button" class="btn btn-danger center-block" if.bind="!readOnly"
+                            click.delegate="removeImage($index)">Remove</button>
+                    </div>
+                </template>
+                <au-textbox error.bind="error.ImageFile" read-only.bind="true"></au-textbox>
+            </div>
+        </div>
+
     </au-input-form>
     <div class="row"></div>
 </template>
