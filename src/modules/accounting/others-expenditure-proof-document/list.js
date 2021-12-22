@@ -135,7 +135,12 @@ export class List {
     this.service
       .posting(items)
       .then((result) => {
-        alert("Data berhasil disimpan");
+        if (result != "") {
+          alert("Data berhasil disimpan\n" + result + "telah di posting sebelumnya")
+        }
+        else {
+          alert("Data berhasil disimpan");
+        }
         this.error = {};
         this.table.refresh();
         this.selectedItems = [];
