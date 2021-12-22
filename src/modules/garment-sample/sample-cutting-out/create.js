@@ -13,7 +13,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { SampleProducts: [], SampleSpecifications : [] };
+        this.data = { Items: [] };
         this.error = {};
     }
 
@@ -29,16 +29,21 @@ export class Create {
     }
 
     saveCallback(event) {
-        for(var s of this.data.SampleSpecifications){
-            if(!s.Uom){
-                s.Uom={
-                    Id:0,
-                    Unit:""
-                };
+        var CuttingInDate=null;
+        if(this.data){
+            if(this.data.Items){
+                for(var item of this.data.Items){
+                    if(item.IsSave){
+                        if(CuttingInDate==null || CuttingInDate<item.CuttingInDate|| CuttingInDate==undefined)
+                            CuttingInDate=item.CuttingInDate;
+                        for(var detail of item.Details){
+                            item.TotalCuttingOutQuantity += detail.CuttingOutQuantity;
+                        }
+                    }
+                }
             }
         }
-        this.data.ImagesName="";
-        this.data.DocumentsFileName="";
+        this.data.CuttingInDate=CuttingInDate;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
