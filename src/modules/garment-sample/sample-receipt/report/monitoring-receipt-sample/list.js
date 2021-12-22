@@ -27,9 +27,9 @@ export class List {
                 console.log(result);
                 for(var _data of result){
                     _data.quantity=_data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    _data._sentDate = moment(this.sentDate).format("YYYY-MM-DD") ;
-                    _data._receivedDate = moment(this.receivedDate).format("YYYY-MM-DD") ;
-                    _data._sampleRequestDate =  moment(this.sampleRequestDate).format("YYYY-MM-DD") ;
+                    _data._sentDate = moment(_data.sentDate).format("DD-MMMM-YYYY") ;
+                    _data._receivedDate = moment(_data.receivedDate).format("DD-MMMM-YYYY") ;
+                    _data._sampleRequestDate =  moment(_data.sampleRequestDate).format("DD-MMMM-YYYY") ;
                     this.data.push(_data);
 
                  }
