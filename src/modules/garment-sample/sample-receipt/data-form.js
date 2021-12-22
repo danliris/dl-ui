@@ -76,8 +76,14 @@ export class DataForm {
             this.SelectedROCC = {
                 RO_Number: this.data.RONoCC
             };
-
         }
+
+        this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
+        this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
+        this.imagesSrc = this.data.ImagesFile.slice();
+        this.data.DocumentsFile = this.data.DocumentsFile || [];
+        this.data.DocumentsFileName = this.data.DocumentsFileName || [];
+        this.documentsPathTemp = [].concat(this.data.DocumentsPath);
     }
 
     roView = (costCal) => {
@@ -137,4 +143,17 @@ export class DataForm {
             this.error = null;
         };
     }
+
+    downloadDocument(index) {
+        // this.service.getFile((this.documentsPathTemp[index] || '').replace('/sales/', ''), this.data.DocumentsFileName[index]);
+
+        const linkSource = this.data.DocumentsFile[index];
+        const downloadLink = document.createElement("a");
+        const fileName = this.data.DocumentsFileName[index];
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+
 }

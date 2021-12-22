@@ -24,7 +24,7 @@ export class List {
         }
     }
 
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
 
     columns = [
         { field: "RONoSample", title: "RO Sample" },
@@ -38,7 +38,7 @@ export class List {
     ]
 
     loader = (info) => {
-        var order = { "IsReceived": "asc", "Date": "desc" };
+        var order = { "IsReceived": "asc", "IsRejected": "desc", "Date": "desc" };
         if (info.sort)
             order[info.sort] = info.order;
 
@@ -54,7 +54,7 @@ export class List {
             .then(result => {
                 result.data.map(s => {
                     s.BuyerName = s.Buyer.Name;
-                    s.Status = s.IsReceived ? "SUDAH TERIMA" : "BELUM DI TERIMA";
+                    s.Status = s.IsReceived && !s.IsRevised ? "SUDAH TERIMA" : "BELUM DI TERIMA";
                 });
                 return {
                     total: result.info.total,
@@ -70,11 +70,18 @@ export class List {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
                 break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
+                break;
         }
     }
 
     rowFormatter(data, index) {
-        if (data.IsReceived)
+        if (data.IsRevised)
+            return { classes: "info" }
+        else if (data.IsRejected)
+            return { classes: "danger" }
+        else if (data.IsReceived)
             return { classes: "success" }
         else
             return {}
