@@ -116,5 +116,19 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: '/garment-sample/sample-sewing-in',
+		name: 'sample-sewing-in',
+		moduleId: './modules/garment-sample/sample-sewing-in/index',
+		nav: true,
+		title: 'Sewing In Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	
 	
 ]
