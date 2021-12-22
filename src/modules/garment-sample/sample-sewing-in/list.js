@@ -42,7 +42,7 @@ export class List {
         },
         
         // { field: "Items", title: "Kode Barang", sortable: false },
-        { field: "Products", title: "Kode Barang", sortable: false },
+        { field: "Items", title: "Kode Barang", sortable: false },
     ]
 
     loader = (info) => {
@@ -65,11 +65,12 @@ export class List {
             console.log(result)
             this.totalQuantity=result.info.totalQty;
             var data = {};
-            //console.log(result.data);
             data.total = result.info.total;
             data.data = result.data;
-            //Enhance Jason Aug 2021
+            
             data.data.forEach(s => {
+                s.UnitCode= s.Unit.Code;
+                s.UnitFromCode= s.UnitFrom.Code;
                 if(s.Items){
                 s.Items.toString = function () {
                     var str = "<ul>";
