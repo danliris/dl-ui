@@ -13,7 +13,7 @@ export class Create {
     }
 
     bind() {
-        this.data = { SampleProducts: [], SampleSpecifications : [] };
+        this.data = { SampleProducts: [], SampleSpecifications: [] };
         this.error = {};
     }
 
@@ -29,16 +29,14 @@ export class Create {
     }
 
     saveCallback(event) {
-        for(var s of this.data.SampleSpecifications){
-            if(!s.Uom){
-                s.Uom={
-                    Id:0,
-                    Unit:""
+        for (var s of this.data.SampleSpecifications) {
+            if (!s.Uom) {
+                s.Uom = {
+                    Id: 0,
+                    Unit: ""
                 };
             }
         }
-        this.data.ImagesName="";
-        this.data.DocumentsFileName="";
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
