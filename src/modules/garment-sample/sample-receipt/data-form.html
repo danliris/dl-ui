@@ -1,5 +1,6 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
         <button slot="actions" class="btn btn-primary" click.delegate="receivedCallback($event)"
             if.one-way="hasReceived">Approve</button>
         <button slot="actions" class="btn btn-danger" click.delegate="rejectedCallback($event)"

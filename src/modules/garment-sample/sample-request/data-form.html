@@ -1,5 +1,8 @@
 <template>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+    <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+    <div class="alert alert-danger" role="alert" if.bind="alertDanger" innerhtml.bind="alertDanger"></div>
+
     <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)"
       if.one-way="hasUnpost">Unpost</button>
     <div class="row">
