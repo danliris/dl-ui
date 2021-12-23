@@ -20,7 +20,9 @@ export class List {
             username = me.username;
         }
         this.filter = {
-            IsPosted: true
+            IsPosted: true,
+            IsRejected: false,
+            IsRevised: false
         }
     }
 
@@ -38,7 +40,7 @@ export class List {
     ]
 
     loader = (info) => {
-        var order = { "IsReceived": "asc", "IsRejected": "desc", "Date": "desc" };
+        var order = { "IsReceived": "asc", "Date": "desc" };
         if (info.sort)
             order[info.sort] = info.order;
 
@@ -54,7 +56,7 @@ export class List {
             .then(result => {
                 result.data.map(s => {
                     s.BuyerName = s.Buyer.Name;
-                    s.Status = s.IsReceived && !s.IsRevised ? "SUDAH TERIMA" : "BELUM DI TERIMA";
+                    s.Status = s.IsReceived ? "SUDAH TERIMA" : "BELUM DI TERIMA";
                 });
                 return {
                     total: result.info.total,
@@ -77,11 +79,7 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.IsRevised)
-            return { classes: "info" }
-        else if (data.IsRejected)
-            return { classes: "danger" }
-        else if (data.IsReceived)
+        if (data.IsReceived)
             return { classes: "success" }
         else
             return {}

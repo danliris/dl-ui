@@ -13,26 +13,35 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        if(this.data.IsPosted){
-            this.deleteCallback=null;
-            this.editCallback=null;
-            this.hasUnpost=true;
+        if (this.data.IsPosted) {
+            this.deleteCallback = null;
+            this.editCallback = null;
+            this.hasUnpost = true;
         }
-        if(this.data.IsReceived){
-            this.unpostCallback=null;
-            this.hasUnpost=false;
+        if (this.data.IsReceived) {
+            this.unpostCallback = null;
+            this.hasUnpost = false;
         }
 
-        if(this.data.SampleProducts){
+        if (this.data.SampleProducts) {
             this.data.SampleProducts.sort(function (a, b) {
                 return a.Index - b.Index;
-              });
+            });
         }
-        if(this.data.SampleSpecifications){
+        if (this.data.SampleSpecifications) {
             this.data.SampleSpecifications.sort(function (a, b) {
                 return a.Index - b.Index;
             });
         }
+
+        if (this.data.IsRejected) {
+            this.alertDanger = "<strong>Alasan Reject </strong> " + this.data.RejectedReason;
+        }
+
+        if (this.data.IsRevised) {
+            this.alertInfo = "<strong>Alasan Revisi </strong> " + this.data.RevisedReason;
+        }
+
     }
 
     cancelCallback(event) {
@@ -60,12 +69,12 @@ export class View {
     }
 
     unpostCallback(event) {
-        if (confirm(`Unpost ${this.data.SampleRequestNo}?`)){
-            var ids=[];
+        if (confirm(`Unpost ${this.data.SampleRequestNo}?`)) {
+            var ids = [];
             ids.push(this.data.Id)
-            var dataToBeUnPosted={
+            var dataToBeUnPosted = {
                 id: ids,
-                Posted:false
+                Posted: false
             }
             this.service.postSample(dataToBeUnPosted)
                 .then(result => {
@@ -80,6 +89,6 @@ export class View {
                     }
                 })
         }
-            
+
     }
 }
