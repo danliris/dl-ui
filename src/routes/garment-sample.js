@@ -117,6 +117,19 @@ module.exports = [
 		}
 	},
 	{
+		route: '/garment-sample/sample-sewing-out',
+		name: 'sample-sewing-out',
+		moduleId: './modules/garment-sample/sample-sewing-out/index',
+		nav: true,
+		title: 'Sewing Out Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
 		route: '/garment-sample/sample-preparing/report/monitoring-sample-prepare',
 		name: 'monitoring-sample-prepare',
 		moduleId: './modules/garment-sample/sample-preparing/report/monitoring-sample-prepare/index',
