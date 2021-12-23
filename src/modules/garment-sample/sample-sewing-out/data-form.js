@@ -164,11 +164,11 @@ export class DataForm {
                 this.data.Article = newValue.Article;
                 this.data.Comodity = newValue.Comodity;
 
-                let pr = await this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) });
+                let pr = await this.service.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) });
                 
-                if(pr.data.length>0){
-                    this.data.Buyer = pr.data[0].Buyer;
-                    this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
+               if(pr.data.length>0){
+                   this.data.Buyer = pr.data[0].Buyer;
+                   this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
                 }
 
                 let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
@@ -179,7 +179,7 @@ export class DataForm {
                     this.data.Price=0;
                 }
 
-                Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, "GarmentSewingInItem.Any(RemainingQuantity>0)" : true }) }))
+                Promise.resolve(this.service.searchSewingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, "GarmentSampleSewingInItem.Any(RemainingQuantity>0)" : true }) }))
                     .then(result => {
                         for(var sewingIn of result.data){
                             for(var sewingInItem of sewingIn.Items){
@@ -221,7 +221,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id, "GarmentSewingInItem.Any(RemainingQuantity>0)" : true})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, "GarmentSampleSewingInItem.Any(RemainingQuantity>0)" : true})
             };
             return this.service.searchSewingInByRo(info)
                 .then((result) => {
