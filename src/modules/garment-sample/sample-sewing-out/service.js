@@ -2,9 +2,9 @@ import { RestService } from '../../../utils/rest-service';
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 
-const serviceUri = 'sample-sewing-outs';
+const serviceUri = 'garment-sample-sewing-outs';
 const UnitServiceUri = 'master/units';
-const serviceUriSewIn = 'garment-sample-sewing-ins';
+const serviceUriSewIn =  'garment-sample-sewing-ins';
 const serviceUriPR = 'garment-sample-requests';
 const comodityPriceserviceUri = 'comodity-prices';
 const serviceUriFinIn = 'finishing-ins';
@@ -43,7 +43,10 @@ class Service extends RestService {
         var endpoint = `${serviceUriSewIn}/${id}`;
         return super.get(endpoint);
     }
-
+    getGarmentPR(info) {
+        var endpoint = `${serviceUriSewIn}`;
+        return super.list(endpoint, info);
+    }
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
