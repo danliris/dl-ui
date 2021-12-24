@@ -47,6 +47,20 @@ class Service extends RestService {
         return super.put(endpoint, data);
     }
 
+    rejectedSample(data) {
+        var endpoint = `${serviceUri}/rejected/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    revisedSample(data) {
+        var endpoint = `${serviceUri}/revised/${data.Id}`;
+        return super.put(endpoint, data);
+    }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/get-pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 export { Service }
