@@ -2,19 +2,18 @@ import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
-import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
-    isCreate = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
     bind() {
-        this.data = { SampleProducts: [], SampleSpecifications: [] };
+        this.data = {};
         this.error = {};
+        this.checkedAll = false;
     }
 
     determineActivationStrategy() {
@@ -29,12 +28,16 @@ export class Create {
     }
 
     saveCallback(event) {
-        for (var s of this.data.SampleSpecifications) {
-            if (!s.Uom) {
-                s.Uom = {
-                    Id: 0,
-                    Unit: ""
-                };
+        this.data.CuttingFrom="PREPARING";
+        this.data.PreparingDate=null;
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                for(var detail of item.Details){
+                    if(detail.IsSave){
+                        if(this.data.PreparingDate==null || this.data.PreparingDate<item.ProcessDate)
+                            this.data.PreparingDate=item.ProcessDate;
+                    }
+                }
             }
         }
         this.service.create(this.data)
@@ -44,11 +47,6 @@ export class Create {
             })
             .catch(e => {
                 this.error = e;
-                if (typeof (this.error) == "string") {
-                    alert(this.error);
-                } else {
-                    alert("Missing Some Data");
-                }
             })
     }
 }
