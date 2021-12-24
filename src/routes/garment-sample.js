@@ -103,7 +103,7 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-	{ 
+	{
 		route: '/garment-sample/sample-cutting-out',
 		name: 'sample-cutting-out',
 		moduleId: './modules/garment-sample/sample-cutting-out/index',
@@ -116,6 +116,7 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
 		route: '/garment-sample/sample-preparing/report/monitoring-sample-prepare',
 		name: 'monitoring-sample-prepare',
 		moduleId: './modules/garment-sample/sample-preparing/report/monitoring-sample-prepare/index',
@@ -127,7 +128,8 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
-	},{
+	},
+	{
 		route: '/garment-sample/sample-receipt/report/monitoring-receipt-sample',
 		name: 'monitoring-sample-receipt',
 		moduleId: './modules/garment-sample/sample-receipt/report/monitoring-receipt-sample/index',
@@ -152,7 +154,5 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
-	},
-
-
+	}
 ]
