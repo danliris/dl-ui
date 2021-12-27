@@ -44,7 +44,7 @@ class Service extends RestService {
         return super.get(endpoint);
     }
     getGarmentPR(info) {
-        var endpoint = `${serviceUriSewIn}`;
+        var endpoint = `${serviceUriPR}`;
         return super.list(endpoint, info);
     }
     create(data) {
@@ -79,7 +79,7 @@ class PurchasingService extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-    getGarmentPR(info) {
+    getGarmentPRs(info) {
         var endpoint = `${serviceUriPR}`;
         return super.list(endpoint, info);
     }

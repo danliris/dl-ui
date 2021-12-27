@@ -72,8 +72,8 @@ export class DataForm {
             this.selectedUnitTo=this.data.Unit;
         }
         else{
-            this.data.UnitTo=null;
-            this.selectedUnitTo=null;
+            this.data.UnitTo=this.data.Unit;
+            this.selectedUnitTo=this.data.Unit;
         }
     }
 
@@ -164,7 +164,7 @@ export class DataForm {
                 this.data.Article = newValue.Article;
                 this.data.Comodity = newValue.Comodity;
 
-                let pr = await this.service.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) });
+                let pr = await this.service.getGarmentPR({ size: 1, filter: JSON.stringify({ RONoSample: this.data.RONo }) });
                 
                if(pr.data.length>0){
                    this.data.Buyer = pr.data[0].Buyer;
