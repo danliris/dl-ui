@@ -81,7 +81,7 @@ export class List {
     async contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
-        let pr = await this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: data.RONo }) });
+        let pr = await this.service.getGarmentPR({ size: 1, filter: JSON.stringify({ RONoSample: data.RONo }) });
         var buyer="";
         if(pr.data.length>0){
             buyer = pr.data[0].Buyer.Code;

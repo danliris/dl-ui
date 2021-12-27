@@ -49,7 +49,7 @@ export async function configure(aurelia) {
             const sales = "https://com-danliris-service-sales-dev.azurewebsites.net/v1/";
             var weaving = "https://com-danliris-service-weaving-dev.azurewebsites.net/";
             var finance = "https://com-danliris-service-finance-accounting-dev.azurewebsites.net/v1/";
-            var garmentProduction = "http://localhost:57914/";
+            var garmentProduction = "https://com-danliris-service-garment-dev.azurewebsites.net/";
             var packingInventory = "https://com-danliris-service-packing-inventory-dev.azurewebsites.net/v1/";
             var dyeing = "https://dyeing-printing-etl-service-dev.azurewebsites.net/api/";
             const garmentShipping = "https://garment-etl-service-dev.azurewebsites.net/api/";
