@@ -35,10 +35,11 @@ export class InternNoteItem {
 		this.error = context.error;
 		this.isShowing = false;
     this.options = context.context.options;
-    // console.log(context);
 		if (this.data.garmentInvoice && this.data.garmentInvoice.invoiceNo) {
 			this.invoice =  this.data.garmentInvoice ;
+			this.data.garmentInvoice.totalAmount2 =  this.getTotal(this.invoice);
 			this.data.garmentInvoice.totalAmount = this.data.garmentInvoice.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+			
 		}
 
 		this.filter={};
@@ -99,6 +100,7 @@ export class InternNoteItem {
 			.then(garmentInvoice => {
 				this.data.garmentInvoice = garmentInvoice;
 				this.data.garmentInvoice.totalAmount = this.getTotal(garmentInvoice).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+				this.data.garmentInvoice.totalAmount2 = this.getTotal(garmentInvoice);
 				this.details = [];
 				for(var garmentInvoiceItem of garmentInvoice.items){
 					for(var detail of garmentInvoiceItem.details){
