@@ -154,7 +154,8 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
-	},{
+	},
+	{
 		route: '/garment-sample/sample-receipt/report/monitoring-receipt-sample',
 		name: 'monitoring-sample-receipt',
 		moduleId: './modules/garment-sample/sample-receipt/report/monitoring-receipt-sample/index',
@@ -167,5 +168,17 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-
+	{
+		route: '/garment-sample/sample-delivery-return',
+		name: 'sample-delivery-return',
+		moduleId: './modules/garment-sample/sample-delivery-return/index',
+		nav: true,
+		title: 'Retur Proses Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
