@@ -24,7 +24,12 @@ export class UnitReceiptNoteItem {
       this.totalPrice=this.totalPrice.toLocaleString('en-EN', { minimumFractionDigits: 4 });
     }
 
-    this.correctionAmount = parseFloat(this.data.priceTotalAfter.replace(/[,]/g, '')) - this.data.priceTotalBefore;
+    if (this.data.priceTotalAfter != 0){
+      this.correctionAmount = parseFloat(this.data.priceTotalAfter.replace(/[,]/g, '')) - this.data.priceTotalBefore;
+    }
+    else{
+      this.correctionAmount = parseFloat(this.data.priceTotalAfter) - this.data.priceTotalBefore;
+    }
     // console.log();
     // console.log(this.correctionAmount);
 
