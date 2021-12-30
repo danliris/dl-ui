@@ -120,7 +120,6 @@ export class DataForm {
 
                 let sampleRequest = await this.service.getSampleRequest({ size: 1, filter: JSON.stringify({ RONoSample: newValue.RONo }) });
                 this.data.Comodity = sampleRequest.data[0].Comodity;
-console.log(sampleRequest)
                 // let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
                 // if(noResult.data.length>0){
                 //     this.data.Comodity = noResult.data[0].Comodity;
