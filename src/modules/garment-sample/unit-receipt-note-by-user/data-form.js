@@ -4,7 +4,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
 var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
-var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
+var DeliveryReturnLoader = require('../../../loader/garment-sample-delivery-return-loader');
 var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditure-fabric-loader');
 var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
 var UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
@@ -27,7 +27,7 @@ export class DataForm {
     @bindable category;
     @bindable uen;
 
-    typeOptions = ['PEMBELIAN'];
+    typeOptions = ['PEMBELIAN','PROSES'];
     categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR = {
