@@ -143,7 +143,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "transaksi",
-            permission: { "PGA": 1, "C7": 1, "B7": 1, "C9": 1 },
+            permission: { "PGA": 1, "C7": 1, "B7": 1, "C9": 1, "B1": 1 },
             iconClass: 'fa fa-calculator',
             byUser: false
         }
