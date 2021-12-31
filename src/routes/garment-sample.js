@@ -194,5 +194,17 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-
+	{
+		route: '/garment-sample/sample-aval-component',
+		name: 'sample-aval-component',
+		moduleId: './modules/garment-sample/sample-aval-component/index',
+		nav: true,
+		title: 'Aval Komponen Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
