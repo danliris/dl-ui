@@ -463,6 +463,20 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+        {
+        route: "garment-shipping/monitoring/omzet-by-buyer-brand",
+        name: "garment-shipping/monitoring/omzet-by-buyer-brand",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-brand/index",
+        nav: true,
+        title: "Report Omzet Garment Per Buyer Buyer / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
     {
         route: "garment-shipping/monitoring/omzet-by-setion",
         name: "garment-shipping/monitoring/omzet-by-section",

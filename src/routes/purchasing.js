@@ -413,7 +413,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",            
-            permission: { "C9": 1 },
+            permission: { "C9": 1, "B1": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -581,20 +581,6 @@ module.exports = [
             group: "purchasing",
             subGroup: "laporan",
             permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "B9": 1, "B4": 1, "C5": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'disposition-payment-report',
-        name: 'disposition-payment-report',
-        moduleId: './modules/expedition/disposition-payment-report/index',
-        nav: true,
-        title: 'Laporan Bukti Pembayaran Disposisi',
-        auth: true,
-        settings: {
-            group: "purchasing",
-            subGroup: "laporan",
-            permission: { "P1": 1, "P3": 1, "P4": 1, "P6": 1, "P7": 1, "PI": 1, "PG": 1, "PK": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }
