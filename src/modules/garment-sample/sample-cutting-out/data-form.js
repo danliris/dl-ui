@@ -132,24 +132,21 @@ export class DataForm {
                 //     }
                 // }
 
-                // let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
-                // if(priceResult.data.length>0){
-                //     this.data.Price= priceResult.data[0].Price;
-                //     //console.log(this.data.Price)
-                // }
-                // else{
-                //     this.data.Price=0;
-                // }
-                this.data.Price=0;
-                // let priceSewingResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
-                // if(priceSewingResult.data.length>0){
-                //     this.data.PriceSewing= priceSewingResult.data[0].Price;
-                //     //console.log(this.data.Price)
-                // }
-                // else{
-                //     this.data.PriceSewing=0;
-                // }
-                this.data.PriceSewing=0;
+                let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.UnitFrom.Id , IsValid:true})});
+                if(priceResult.data.length>0){
+                    this.data.Price= priceResult.data[0].Price;
+                }
+                else{
+                    this.data.Price=0;
+                }
+                let priceSewingResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
+                if(priceSewingResult.data.length>0){
+                    this.data.PriceSewing= priceSewingResult.data[0].Price;
+                    //console.log(this.data.Price)
+                }
+                else{
+                    this.data.PriceSewing=0;
+                }
                 Promise.resolve(this.service.getCuttingIn({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitFrom.Id, CuttingType:"MAIN FABRIC" }) }))
                     .then(result => {
                         for(var cuttingInHeader of result.data){
