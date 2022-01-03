@@ -158,7 +158,7 @@ module.exports = [
 		name: 'sample-finishing-in',
 		moduleId: './modules/garment-sample/sample-finishing-in/index',
 		nav: true,
-		title: 'finishing In Sample',
+		title: 'Finishing In Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
