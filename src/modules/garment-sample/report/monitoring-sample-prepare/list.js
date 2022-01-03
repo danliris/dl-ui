@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import {Service,CoreService} from "./service";
 import moment from 'moment';
-const UnitLoader = require('../../../../../loader/garment-units-loader');
+const UnitLoader = require('../../../../loader/garment-units-loader');
 
 @inject(Service, CoreService)
 export class List {
