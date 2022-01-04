@@ -1,0 +1,110 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+    <style>
+        table>tbody>tr>td {
+            white-space: pre;
+        }
+    </style>
+
+    <h1 class="page-header">Monitoring Scan Barcode</h1>
+
+    <form class="form-horizontal">
+      <!-- <au-autocomplete 
+          value.bind="unit" 
+          label="Unit" 
+          loader.bind="unitLoader"
+          placeholder="Cari Nama Unit" 
+          read-only.bind="readOnly" 
+          text.bind="unitView"
+          options.bind="controlOptions">
+      </au-autocomplete> -->
+
+       <!-- <au-autocomplete value.bind="selectedProductionOrder"
+                             error.bind="error.ProductionOrder"
+                             loader.bind="productionOrderLoader"
+                             label ="SPP"
+                             text.bind="sPPFormatter"
+                             read-only.bind="readOnly"
+                             options.bind="controlOptions">
+        </au-autocomplete> -->
+
+        <au-autocomplete label="No SPP" value.bind="selectedProductionOrder"
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions">
+    </au-autocomplete>
+
+            <au-textbox value.bind="documentNo"
+                        read-only.bind="readOnly"
+                        label="Jalur"
+                        error.bind="error.documentNo"
+                        options.bind="controlOptions">
+            </au-textbox>
+
+    <au-dropdown options.bind="controlOptions" label="Grade" value.bind="grade"
+            read-only.bind="readOnly" items.bind="grades">
+    
+    </au-dropdown>
+
+      
+
+      <div class="form-group">
+          <label for="contact" class="col-sm-6 control-label"></label>
+          <div class="col-sm-3">
+              <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+              <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+          </div>
+      </div>
+
+      <div class="btn-group pull-left">
+          <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+      </div>
+  </form>
+  <br>
+</br>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <tr>
+                <td>SPP</td>
+                <td>BARCODE</td>
+                <td>GRADE</td>
+                <td>QTY PACKING</td>
+                <td>QTY PER ROLL</td>
+                <td>QTY</td>
+                <td>JALUR</td>
+            </tr>
+        </thead>
+ 
+        <tbody>
+            <require from="../../../lib/number-format-value-converter"></require>
+            <tr repeat.for="item of data">
+                <td class="text-center">${item.productionOrderNo}</td>
+                <td class="text-center">${item.productPackingCodes}</td>
+                <td class="text-right">${item.grade}</td>
+                <td class="text-center">${item.packagingQty}</td>
+                <td class="text-center">${item.packagingLength}</td>
+                <td class="text-center">${item.balance}</td>
+                <td class="text-center">${item.documentNo}</td>
+                
+            </tr>
+            <!-- <tr class="active">
+                <td class="text-center" colspan="3"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong>0</strong></td>        
+                <td class="text-right"><strong>0</strong></td>
+                <td class="text-right"><strong>0</strong></td>
+            </tr> -->
+            <tr class="active">
+                <td class="text-center" colspan="3"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong>${sumPackagingQty}</strong></td>        
+                <td class="text-right"><strong></strong></td>
+                <td class="text-right"><strong>${sumBalance}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+  Tidak ada data.
+</div>
+<hr/>
+  </au-input-form>
+  <div class="row"></div>
+</template>
