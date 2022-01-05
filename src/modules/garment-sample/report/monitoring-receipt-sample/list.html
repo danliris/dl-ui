@@ -25,51 +25,13 @@
   </form>
   <br>
 </br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover" border="1" id="myTable">
-        <thead align="center">
-            <tr>
-                <td>No Surat Sample</td>
-                <td>RO Sample</td>
-                <td>Kategori Sample</td>
-                <td>Jenis Sample</td>
-                <td>Buyer</td>
-                <td>Article</td>
-                <td>Color</td>
-                <td>Size</td>
-                <td>Keterangan Size</td>
-                <td>Quantity</td>
-                <td>Tgl Shipment</td>
-                <td>Tgl Terima Surat Sample</td>
-                <td>Md</td>
-                <td>Tgl Pembuatan Surat Sample</td>
-            </tr>
-        </thead>
-        <tbody>
-            <require from="../../../../lib/number-format-value-converter"></require>
-            <tr repeat.for="item of data">
-                <td class="text-center">${item.sampleRequestNo}</td>
-                <td class="text-center">${item.roNoSample}</td>
-                <td class="text-center">${item.sampleCategory}</td>
-                <td class="text-center">${item.sampleType}</td>
-                <td class="text-center">${item.buyer}</td>
-                <td class="text-center">${item.style}</td>
-                <td class="text-left">${item.color}</td>
-                <td class="text-left">${item.sizeName}</td>
-                <td class="text-left">${item.sizeDescription}</td>
-                <td class="text-right">${item.quantity}</td>
-                <td class="text-center">${item._sentDate}</td>
-                <td class="text-center">${item._receivedDate}</td>
-                <td class="text-center">${item.garmentSectionName}</td>
-                <td class="text-center">${item._sampleRequestDate}</td>
-            </tr>
-           
-        </tbody>
-    </table>
-</div>
+<table ref="table" class="table table-bordered table-hover" border="1" id="myTable" ></table>
+
 <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-  Tidak ada data.
+    Tidak ada data.
 </div>
+<pagination if.bind="args.total>args.size" info.bind="args" change.delegate="changePage($event)" id="pager"></pagination>
+
 <hr/>
   </au-input-form>
   <div class="row"></div>
