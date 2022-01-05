@@ -28,21 +28,34 @@
                              options.bind="controlOptions">
         </au-autocomplete> -->
 
-        <au-autocomplete label="No SPP" value.bind="selectedProductionOrder"
+    <au-autocomplete label="No SPP" value.bind="selectedProductionOrder"
       loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions">
     </au-autocomplete>
 
-            <au-textbox value.bind="documentNo"
-                        read-only.bind="readOnly"
-                        label="Jalur"
-                        error.bind="error.documentNo"
-                        options.bind="controlOptions">
-            </au-textbox>
+    <au-textbox value.bind="barcode"
+                read-only.bind="readOnly"
+                label="Barcode"
+                error.bind="error.barcode"
+                options.bind="controlOptions">
+    </au-textbox>
+    <au-textbox value.bind="documentNo"
+                read-only.bind="readOnly"
+                label="Jalur"
+                error.bind="error.documentNo"
+                options.bind="controlOptions">
+    </au-textbox>
 
     <au-dropdown options.bind="controlOptions" label="Grade" value.bind="grade"
             read-only.bind="readOnly" items.bind="grades">
     
     </au-dropdown>
+
+    <au-textbox value.bind="userFilter"
+                read-only.bind="readOnly"
+                label="User"
+                error.bind="error.userFilter"
+                options.bind="controlOptions">
+    </au-textbox>
 
       
 
@@ -71,6 +84,7 @@
                 <td>QTY PER ROLL</td>
                 <td>QTY</td>
                 <td>JALUR</td>
+                <td>USER</td>
             </tr>
         </thead>
  
@@ -84,6 +98,7 @@
                 <td class="text-center">${item.packagingLength}</td>
                 <td class="text-center">${item.balance}</td>
                 <td class="text-center">${item.documentNo}</td>
+                <td class="text-center">${item.createdBy}</td>
                 
             </tr>
             <!-- <tr class="active">

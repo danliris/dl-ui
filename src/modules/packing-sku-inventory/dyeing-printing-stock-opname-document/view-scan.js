@@ -24,8 +24,10 @@ export class ViewScan {
     searching() {
         var info = {
             productionOrderId: this.selectedProductionOrder ? this.selectedProductionOrder.Id : null,
+            barcode : this.barcode,
             documentNo : this.documentNo,
-            grade : this.grade
+            grade : this.grade,
+            userFilter : this.userFilter
         }
         this.service.searchViewScan(info)
             .then(result => {
@@ -47,12 +49,14 @@ export class ViewScan {
     
     // ExportToExcel() {
     //     var info = {
-    //         unit : this.unit ? this.unit.Id : "",
-    //         dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-    //         dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+    //         productionOrderId: this.selectedProductionOrder ? this.selectedProductionOrder.Id : null,
+    //         barcode : this.barcode,
+    //         documentNo : this.documentNo,
+    //         grade : this.grade,
+    //         userFilter : this.userFilter
       
     //     }
-    //     this.service.generateExcel(info);
+    //     this.service.generateExcelMonitoring(info);
     // }
 
     // get unitLoader(){
@@ -68,6 +72,8 @@ export class ViewScan {
         this.selectedProductionOrder = null;
         this.documentNo = null;
         this.grade = null;
+        this.userFilter= null;
+        this.barcode = null;
     }
 
     get sumPackagingQty()
