@@ -154,9 +154,9 @@ module.exports = [
 		}
 	},
 	{
-		route: '/garment-sample/sample-preparing/report/monitoring-sample-prepare',
+		route: '/garment-sample/report/monitoring-sample-prepare',
 		name: 'monitoring-sample-prepare',
-		moduleId: './modules/garment-sample/sample-preparing/report/monitoring-sample-prepare/index',
+		moduleId: './modules/garment-sample/report/monitoring-sample-prepare/index',
 		nav: true,
 		title: 'Monitoring Preparing Sample',
 		auth: true,
@@ -168,9 +168,9 @@ module.exports = [
 		}
 	},
 	{
-		route: '/garment-sample/sample-receipt/report/monitoring-receipt-sample',
+		route: '/garment-sample/report/monitoring-receipt-sample',
 		name: 'monitoring-sample-receipt',
-		moduleId: './modules/garment-sample/sample-receipt/report/monitoring-receipt-sample/index',
+		moduleId: './modules/garment-sample/report/monitoring-receipt-sample/index',
 		nav: true,
 		title: 'Monitoring Penerimaan Surat Sample',
 		auth: true,
