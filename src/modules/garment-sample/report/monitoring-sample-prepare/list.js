@@ -42,8 +42,8 @@ export class List {
                     _data.receipts=_data.receipt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.mainFabricExpenditures=_data.mainFabricExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.nonMainFabricExpenditures=_data.nonMainFabricExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    //_data.expenditures=_data.expenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-                    //_data.avals=_data.aval.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+                    _data.expenditures=_data.deliveryReturn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+                    _data.avals=_data.aval.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
                     _data.remainQtys=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
                     this.data.push(_data);
 
@@ -136,7 +136,7 @@ export class List {
         {
             for(var item of this.data)
             {
-                sum += item.expenditure;
+                sum += item.deliveryReturn;
             }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
