@@ -55,15 +55,11 @@ export class DataForm {
 
     itemsColumns = [
         { header: "RO No" },
-        { header: "SC No" },
         { header: "Buyer Brand" },
         { header: "Seksi" },
         { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
-        { header: "Price RO" },
-        { header: "Mata Uang" },
-        { header: "Amount" },
         { header: "Unit" },
         { header: "" },
     ]
