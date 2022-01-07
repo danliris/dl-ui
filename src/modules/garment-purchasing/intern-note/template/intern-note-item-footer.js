@@ -13,14 +13,40 @@ export class DetailFooter {
     if (this.context.items.length > 0) {
       var total = this.context.items
         .map((item) => {
-          if(isNaN(item.data.garmentInvoice.totalAmount) ){
+
+          console.log(item.data.garmentInvoice.totalAmount2);
+          if(isNaN(item.data.garmentInvoice.totalAmount2) ){
  
             return 0
           }
           else{
-            return parseFloat(item.data.garmentInvoice.totalAmount)
+            return parseFloat(item.data.garmentInvoice.totalAmount2)
           }
         });
+        
+      return total
+        .reduce((prev, curr, index) => {
+          return prev + parseFloat(curr)
+        }, 0);
+    }
+    else {
+      return 0
+    }
+  }
+
+  get grandTotalPrice2() {
+    if (this.context.items.length > 0) {
+      var total = this.context.items
+        .map((item) => {
+          if(isNaN(item.data.garmentInvoice.totalAmount2) ){
+ 
+            return 0
+          }
+          else{
+            return parseFloat(item.data.garmentInvoice.totalAmount2)
+          }
+        });
+        
       return total
         .reduce((prev, curr, index) => {
           return prev + parseFloat(curr)
