@@ -40,15 +40,15 @@
             if.bind="URNType=='GUDANG SISA' && data.Category!='FABRIC'" text="ExpenditureNo">
         </au-autocomplete>
 
-        <au-autocomplete value.bind="uen" label="No Bon Pengeluaran Unit" loader.bind="uenLoader"
+        <!-- <au-autocomplete value.bind="uen" label="No Bon Pengeluaran Unit" loader.bind="uenLoader"
             read-only.bind="readOnly || isEdit" error.bind="error.UENNo" options.bind="auInputOptions"
             placeholder="cari no bon pengeluaran unit" query.bind="filterUEN" options.bind="auInputOptions"
             if.bind="URNType=='SISA SUBCON'" text="UENNo">
-        </au-autocomplete>
+        </au-autocomplete> -->
 
-        <au-textbox label="No Bon Pengeluaran Unit" value.bind="data.UENNo"
+        <!-- <au-textbox label="No Bon Pengeluaran Unit" value.bind="data.UENNo"
             if.bind="isDiffStorage && URNType!='GUDANG SISA'" read-only.bind="true" options.bind="auInputOptions">
-        </au-textbox>
+        </au-textbox> -->
 
 
         <au-autocomplete value.bind="deliveryReturn" label="No Retur Proses" loader.bind="deliveryReturnLoader"

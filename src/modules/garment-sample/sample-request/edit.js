@@ -12,6 +12,17 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
+
+        if(this.data.SampleProducts){
+            this.data.SampleProducts.sort(function (a, b) {
+                return a.Index - b.Index;
+              });
+        }
+        if(this.data.SampleSpecifications){
+            this.data.SampleSpecifications.sort(function (a, b) {
+                return a.Index - b.Index;
+            });
+        }
     }
 
     bind() {
@@ -24,6 +35,14 @@ export class View {
     }
 
     saveCallback(event) {
+        for(var s of this.data.SampleSpecifications){
+            if(!s.Uom){
+                s.Uom={
+                    Id:0,
+                    Unit:""
+                };
+            }
+        }
         this.service.update(this.data)
             .then(result => {
                 this.cancelCallback();

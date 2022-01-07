@@ -51,6 +51,11 @@ export class View {
             {
                 this.unitDOType = this.data.UnitDOType;
             }
+
+            if(this.data.StorageRequest.code==null){
+                this.data.StorageRequest=this.data.Storage;
+                this.storageRequest = this.data.StorageRequest;
+            }
         }
     }
 
