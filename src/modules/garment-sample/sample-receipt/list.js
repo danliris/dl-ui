@@ -20,11 +20,13 @@ export class List {
             username = me.username;
         }
         this.filter = {
-            IsPosted: true
+            IsPosted: true,
+            IsRejected: false,
+            IsRevised: false
         }
     }
 
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak PDF"];
 
     columns = [
         { field: "RONoSample", title: "RO Sample" },
@@ -69,6 +71,9 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak PDF":
+                this.service.getPdfById(data.Id);
                 break;
         }
     }

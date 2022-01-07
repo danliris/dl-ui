@@ -16,7 +16,7 @@ export class DataForm {
     @bindable SelectedROCC;
 
     SampleCategoryOptions = ["Commercial Sample", "Non Commercial Sample"];
-    
+
     constructor(service) {
         this.service = service;
     }
@@ -28,7 +28,7 @@ export class DataForm {
         editText: "Ubah"
     };
 
-    productColumns= [
+    productColumns = [
         "Style",
         "Color",
         "Size",
@@ -36,16 +36,17 @@ export class DataForm {
         "Quantity"
     ];
 
-    specColumns= [
+    specColumns = [
         "Inventory",
         "Detail Spesifikasi",
         "Quantity",
+        "Satuan",
         "Keterangan"
     ];
 
     controlOptions = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 7
@@ -54,13 +55,13 @@ export class DataForm {
 
     controlOptions2 = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 5
         }
     };
-    
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -71,17 +72,23 @@ export class DataForm {
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
         };
-        if(this.data.RONoCC){
-            this.SelectedROCC={
+        if (this.data.RONoCC) {
+            this.SelectedROCC = {
                 RO_Number: this.data.RONoCC
             };
-
         }
+
+        this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
+        this.data.ImagesName = this.data.ImagesName ? this.data.ImagesName : [];
+        this.imagesSrc = this.data.ImagesFile.slice();
+        this.data.DocumentsFile = this.data.DocumentsFile || [];
+        this.data.DocumentsFileName = this.data.DocumentsFileName || [];
+        this.documentsPathTemp = [].concat(this.data.DocumentsPath);
     }
 
     roView = (costCal) => {
         return `${costCal.RO_Number}`
-      }
+    }
     get roNoCCLoader() {
         return ROCCLoader;
     }
@@ -96,8 +103,8 @@ export class DataForm {
     }
 
     comodityView = (comodity) => {
-        var code= comodity.code || comodity.Code;
-        var name=comodity.name || comodity.Name;
+        var code = comodity.code || comodity.Code;
+        var name = comodity.name || comodity.Name;
         return `${code} - ${name}`;
     }
 
@@ -105,35 +112,48 @@ export class DataForm {
         return ComodityLoader;
     }
 
-    SelectedROCCChanged(newValue){
-        if(newValue){
-            if(newValue.RO_Number!=this.data.RONoCC){
-                this.data.RONoCC=newValue.RO_Number;
+    SelectedROCCChanged(newValue) {
+        if (newValue) {
+            if (newValue.RO_Number != this.data.RONoCC) {
+                this.data.RONoCC = newValue.RO_Number;
             }
         }
     }
 
     get addItems() {
         return (event) => {
-          this.data.SampleProducts.push({});
+            this.data.SampleProducts.push({});
         };
-      }
-    
-      get removeItems() {
+    }
+
+    get removeItems() {
         return (event) => {
-          this.error = null;
+            this.error = null;
         };
-      }
-    
+    }
+
     get addSpecs() {
         return (event) => {
-          this.data.SampleSpecifications.push({});
+            this.data.SampleSpecifications.push({});
         };
     }
-    
+
     get removeSpecs() {
         return (event) => {
-          this.error = null;
+            this.error = null;
         };
     }
+
+    downloadDocument(index) {
+        // this.service.getFile((this.documentsPathTemp[index] || '').replace('/sales/', ''), this.data.DocumentsFileName[index]);
+
+        const linkSource = this.data.DocumentsFile[index];
+        const downloadLink = document.createElement("a");
+        const fileName = this.data.DocumentsFileName[index];
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+    }
+
 }
