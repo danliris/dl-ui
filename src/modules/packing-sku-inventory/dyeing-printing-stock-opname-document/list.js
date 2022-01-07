@@ -55,8 +55,8 @@ export class List {
     }
   }
 
-  create() {
-    this.router.navigateToRoute("create");
+  viewscan() {
+    this.router.navigateToRoute("view-scan");
   }
  
 }

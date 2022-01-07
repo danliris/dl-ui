@@ -49,6 +49,21 @@ const uomServiceUri = 'master/uoms';
         return super.getXls(endpoint);
     }
 
+    // searchViewScan(info){
+
+    //     console.log(info);
+    //     var endpoint = `${serviceUri}/monitoring?productionOrderId=${info.produtionOrderId}&documentNo=${info.documentNo}&grade=${info.grade}`;
+    //     console.log(endpoint);
+    //     return super.list(endpoint);
+    // }
+
+    searchViewScan(info) {
+        console.log(info);
+        let endpoint = `${serviceUri}/monitoring`;
+        return super.list(endpoint, info);
+        
+    }
+
 
 }
 
