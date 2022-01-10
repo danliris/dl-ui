@@ -266,4 +266,18 @@ module.exports = [
 		}
 	},
 	
+    {
+        route: '/garment-sample/feature/change-date-feature',
+        name: 'garment-production-change-date-feature',
+        moduleId: './modules/garment-sample/feature/change-date-feature/index',
+        nav: true,
+        title: 'Fitur Ubah Tanggal',
+        auth: true,
+        settings: {
+            group: "g-sample",
+            subGroup: "fitur",
+            permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
