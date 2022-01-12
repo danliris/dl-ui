@@ -1,11 +1,11 @@
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { Service,CoreService } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var UnitLoader = require('../../../loader/garment-units-loader');
-var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var UnitReceiptLoader = require('../../../loader/garment-unit-receipt-note-loader');
+var UnitLoader = require('../../../../loader/garment-units-loader');
+var SupplierLoader = require('../../../../loader/garment-supplier-loader');
+var UnitReceiptLoader = require('../../../../loader/garment-unit-receipt-note-loader');
 
 @inject(Router, Service,CoreService)
 export class List {
