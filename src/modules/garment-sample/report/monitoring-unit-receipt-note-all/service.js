@@ -1,6 +1,6 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../../utils/rest-service';
+import {RestService} from '../../../../utils/rest-service';
 
 const serviceUri = 'unit-receipt-note-monitoring-all';
 
