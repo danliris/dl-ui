@@ -10,8 +10,8 @@ const serviceUriCuttingOut= 'garment-sample-cutting-outs';
 const serviceUriSewingIn = 'garment-sample-sewing-ins';
 const serviceUriSewingOut = 'garment-sample-sewing-outs';
 const serviceUriFinishingIn = 'garment-sample-finishing-ins';
-const serviceUriFinishingOut = 'finishing-outs';
-const serviceUriExpenditure = 'expenditure-goods';
+const serviceUriFinishingOut = 'garment-sample-finishing-outs';
+const serviceUriExpenditure = 'garment-sample-expenditure-goods';
 
 export class Service extends RestService {
 
