@@ -154,6 +154,20 @@ module.exports = [
 		}
 	},
 	{
+		route: '/garment-sample/sample-finishing-out',
+		name: 'sample-finishing-out',
+		moduleId: './modules/garment-sample/sample-finishing-out/index',
+		nav: true,
+		title: 'Finishing Out Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+            subGroup: "transaksi",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
 		route: '/garment-sample/report/monitoring-sample-prepare',
 		name: 'monitoring-sample-prepare',
 		moduleId: './modules/garment-sample/report/monitoring-sample-prepare/index',
