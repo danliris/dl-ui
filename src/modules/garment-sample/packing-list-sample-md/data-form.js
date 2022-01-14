@@ -1,12 +1,11 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { AuthService } from 'aurelia-authentication';
 import { Service, CoreService } from "./service";
 
 var SectionLoader = require('../../../loader/garment-sections-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
 
-@inject(Service, AuthService, CoreService)
+@inject(Service, CoreService)
 export class DataForm {
 
     @bindable readOnly = false;
@@ -15,11 +14,9 @@ export class DataForm {
     @bindable selectedBuyer;
     @bindable selectedLC;
     @bindable selectedInvoiceType;
-    @bindable roType;
 
-    constructor(service, authService, coreService) {
+    constructor(service, coreService) {
         this.service = service;
-        this.authService = authService;
         this.coreService = coreService;
     }
 
@@ -30,18 +27,6 @@ export class DataForm {
     activeTab = 0;
     changeRole(tab) {
         this.activeTab = tab;
-        // if (tab != 2) {
-        //     this.context.saveCallback=null;
-        //     this.context.cancelCallback=null;
-        //     this.context.deleteCallback=null;
-        //     this.context.editCallback=null;
-        // }
-        // else{
-        //     this.context.saveCallback=this.save;
-        //     this.context.cancelCallback=this.cancel;
-        //     this.context.deleteCallback=this.delete;
-        //     this.context.editCallback=this.edit;
-        // }
     }
 
     controlOptions = {
@@ -67,7 +52,6 @@ export class DataForm {
         { header: "SC No" },
         { header: "Buyer Brand" },
         { header: "Komoditi" },
-        { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
         { header: "Price RO" },
@@ -81,7 +65,6 @@ export class DataForm {
     itemsColumnsSM = [
         { header: "RO No" },
         { header: "SC No" },
-        { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
         { header: "Price RO" },
@@ -96,7 +79,6 @@ export class DataForm {
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
-        { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
         { header: "Price" },
@@ -109,7 +91,6 @@ export class DataForm {
     itemsColumnsSMMaster = [
         { header: "RO No" },
         { header: "SC No" },
-        { header: "Komoditi Description" },
         { header: "Qty" },
         { header: "Satuan" },
         { header: "Price" },
@@ -128,11 +109,9 @@ export class DataForm {
         { header: "CBM" },
     ]
 
-    PackingTypeOptions = ["EXPORT", "RE EXPORT"];
-    InvoiceTypeOptions = ["DL", "DS", "SM"];
-    InvoiceTypeOptionsR = ["DLR", "SMR"];
-    PaymentTermOptions = ["LC", "TT/OA", "NON COMERCIAL"];
-    roTypes = ["RO JOB", "RO MASTER"]
+    PackingTypeOptions = ["EXPORT"];
+    InvoiceTypeOptions = ["DS", "SM"];
+    PaymentTermOptions = ["LC", "TT/OA", "NON COMMERCIAL"];
 
     countries = ["", "AFGHANISTAN", "ALBANIA", "ALGERIA", "ANDORRA", "ANGOLA", "ANGUILLA", "ANTIGUA AND BARBUDA", "ARGENTINA", "ARMENIA", "ARUBA", "AUSTRALIA", "AUSTRIA", "AZERBAIJAN", "BAHAMAS", "BAHRAIN", "BANGLADESH", "BARBADOS", "BELARUS", "BELGIUM", "BELIZE", "BENIN", "BERMUDA", "BHUTAN", "BOLIVIA", "BOSNIA AND HERZEGOVINA", "BOTSWANA", "BRAZIL", "BRITISH VIRGIN ISLANDS", "BRUNEI", "BULGARIA", "BURKINA FASO", "BURUNDI", "CAMBODIA", "CAMEROON", "CANADA", "CAPE VERDE", "CAYMAN ISLANDS", "CHAD", "CHILE", "CHINA", "COLOMBIA", "CONGO", "COOK ISLANDS", "COSTA RICA", "COTE D IVOIRE", "CROATIA", "CRUISE SHIP", "CUBA", "CYPRUS", "CZECH REPUBLIC", "DENMARK", "DJIBOUTI", "DOMINICA", "DOMINICAN REPUBLIC", "ECUADOR", "EGYPT", "EL SALVADOR", "EQUATORIAL GUINEA", "ESTONIA", "ETHIOPIA", "FALKLAND ISLANDS", "FAROE ISLANDS", "FIJI", "FINLAND", "FRANCE", "FRENCH POLYNESIA", "FRENCH WEST INDIES", "GABON", "GAMBIA", "GEORGIA", "GERMANY", "GHANA", "GIBRALTAR", "GREECE", "GREENLAND", "GRENADA", "GUAM", "GUATEMALA", "GUERNSEY", "GUINEA", "GUINEA BISSAU", "GUYANA", "HAITI", "HONDURAS", "HONG KONG", "HUNGARY", "ICELAND", "INDIA", "INDONESIA", "IRAN", "IRAQ", "IRELAND", "ISLE OF MAN", "ISRAEL", "ITALY", "JAMAICA", "JAPAN", "JERSEY", "JORDAN", "KAZAKHSTAN", "KENYA", "KUWAIT", "KYRGYZ REPUBLIC", "LAOS", "LATVIA", "LEBANON", "LESOTHO", "LIBERIA", "LIBYA", "LIECHTENSTEIN", "LITHUANIA", "LUXEMBOURG", "MACAU", "MACEDONIA", "MADAGASCAR", "MALAWI", "MALAYSIA", "MALDIVES", "MALI", "MALTA", "MAURITANIA", "MAURITIUS", "MEXICO", "MOLDOVA", "MONACO", "MONGOLIA", "MONTENEGRO", "MONTSERRAT", "MOROCCO", "MOZAMBIQUE", "NAMIBIA", "NEPAL", "NETHERLANDS", "NETHERLANDS ANTILLES", "NEW CALEDONIA", "NEW ZEALAND", "NICARAGUA", "NIGER", "NIGERIA", "NORTH KOREA", "NORWAY", "OMAN", "PAKISTAN", "PALESTINE", "PANAMA", "PAPUA NEW GUINEA", "PARAGUAY", "PERU", "PHILIPPINES", "POLAND", "PORTUGAL", "PUERTO RICO", "QATAR", "REUNION", "ROMANIA", "RUSSIA", "RWANDA", "SAINT PIERRE AND MIQUELON", "SAMOA", "SAN MARINO", "SATELLITE", "SAUDI ARABIA", "SENEGAL", "SERBIA", "SEYCHELLES", "SIERRA LEONE", "SINGAPORE", "SLOVAKIA", "SLOVENIA", "SOUTH AFRICA", "SOUTH KOREA", "SPAIN", "SRI LANKA", "ST KITTS AND NEVIS", "ST LUCIA", "ST VINCENT", "ST. LUCIA", "SUDAN", "SURINAME", "SWAZILAND", "SWEDEN", "SWITZERLAND", "SYRIA", "TAIWAN", "TAJIKISTAN", "TANZANIA", "THAILAND", "TIMOR L'ESTE", "TOGO", "TONGA", "TRINIDAD AND TOBAGO", "TUNISIA", "TURKEY", "TURKMENISTAN", "TURKS AND CAICOS", "UGANDA", "UKRAINE", "UNITED ARAB EMIRATES", "UNITED KINGDOM", "UNITED STATES OF AMERICA", "URUGUAY", "UZBEKISTAN", "VENEZUELA", "VIETNAM", "VIRGIN ISLANDS (US)", "YEMEN", "ZAMBIA", "ZIMBABWE"];
 
@@ -204,29 +183,7 @@ export class DataForm {
             this.selectedLC = {
                 documentCreditNo: this.data.lcNo
             };
-            if (this.data.packingListType == "RE EXPORT") {
-                this.roType = "RO JOB";
-                for (var a of this.data.items) {
-                    if (a.roNo.indexOf("M") != -1 || a.roNo.indexOf("S") != -1) {
-                        this.roType = "RO MASTER";
-                    }
-                    break;
-                }
-            }
-
         }
-        // if(this.activeTab!=2){
-        //     this.context.saveCallback=null;
-        //     this.context.cancelCallback=null;
-        //     this.context.deleteCallback=null;
-        //     this.context.editCallback=null;
-        // }
-        // else{
-        //     this.context.saveCallback=this.save;
-        //     this.context.cancelCallback=this.cancel;
-        //     this.context.deleteCallback=this.delete;
-        //     this.context.editCallback=this.edit;
-        // }
         this.data.items = this.Items;
         if (this.data.items && this.data.id) {
             for (var item of this.data.items) {
@@ -240,18 +197,7 @@ export class DataForm {
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
-
-        let username = null;
-        if (this.authService.authenticated) {
-            const me = this.authService.getTokenPayload();
-            username = me.username;
-        }
-        var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
-        this.data.shippingStaffName = shippingStaff.data[0].Name;
-        this.data.shippingStaff = {
-            id: shippingStaff.data[0].Id,
-            name: shippingStaff.data[0].Name
-        };
+        this.data.isShipping = false;
     }
 
     get addMeasurements() {
@@ -309,7 +255,7 @@ export class DataForm {
         }
     }
 
-    selectedInvoiceTypeChanged(newValue) {
+    async selectedInvoiceTypeChanged(newValue) {
         if (newValue != this.data.invoiceType && this.data.items) {
             this.data.items.splice(0);
             if (this.data.measurements)
@@ -317,6 +263,27 @@ export class DataForm {
         }
         if (newValue) {
             this.data.invoiceType = newValue;
+            if (newValue == "DS") {
+                this.data.omzet = true;
+                this.data.accounting = true;
+                var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "DEDE" }) });
+                this.data.shippingStaffName = shippingStaff.data[0].Name;
+                this.data.shippingStaff = {
+                    id: shippingStaff.data[0].Id,
+                    name: shippingStaff.data[0].Name
+                };
+
+            } else {
+                this.data.omzet = false;
+                this.data.accounting = false;
+                var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "SYARIF" }) });
+                this.data.shippingStaffName = shippingStaff.data[0].Name;
+                this.data.shippingStaff = {
+                    id: shippingStaff.data[0].Id,
+                    name: shippingStaff.data[0].Name
+                };
+
+            }
         }
     }
 
@@ -486,16 +453,4 @@ export class DataForm {
 
         this.data.measurements.forEach((m, i) => m.MeasurementIndex = i);
     }
-
-    roTypeChanged(newValue) {
-        if (newValue != this.data.roType && this.data.items && this.isEdit) {
-            this.data.items.splice(0);
-        }
-        if (newValue) {
-            this.data.roType = newValue;
-        } else {
-            this.data.roType = null;
-        }
-    }
-
 }
