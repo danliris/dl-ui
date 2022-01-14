@@ -85,5 +85,4 @@ export class List {
             return { classes: "danger" }
         }
     }
-
 }
