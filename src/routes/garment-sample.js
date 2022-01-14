@@ -320,5 +320,19 @@ module.exports = [
             permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    },
+	},
+	{
+		route: '/garment-sample/feature/ro-sample-copy',
+		name: 'garment-sample-ro-sample-copy',
+		moduleId: './modules/garment-sample/feature/ro-sample-copy/copy/index',
+		nav: true,
+		title: 'Copy RO Sample',
+		auth: true,
+		settings: {
+				group: "g-sample",
+				subGroup: "fitur",
+				permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+				iconClass: 'fa fa-dashboard'
+		}
+},
 ]
