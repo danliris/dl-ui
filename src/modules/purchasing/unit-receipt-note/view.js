@@ -49,7 +49,13 @@ export class View {
 
     delete() {
         this.service.delete(this.data).then(result => {
-            this.list();
+          if (result != "") {
+            alert(result)
+          }
+          else {
+            alert("Data berhasil dihapus");
+          }
+          this.list();
         });
     }
 
