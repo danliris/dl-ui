@@ -22,7 +22,7 @@ module.exports = [
 		auth: true,
 		settings: {
 			group: "g-sample",
-			subGroup: "transaksi",
+			subGroup: "md",
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
@@ -153,7 +153,6 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-
 	{
 		route: '/garment-sample/sample-finishing-out',
 		name: 'sample-finishing-out',
