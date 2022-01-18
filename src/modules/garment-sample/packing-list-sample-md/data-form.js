@@ -230,7 +230,7 @@ export class DataForm {
     get removeItems() {
         return (event) => {
             this.error = null;
-            this.updateMeasurements();
+            //this.updateMeasurements();
         };
     }
 
@@ -260,8 +260,8 @@ export class DataForm {
     async selectedInvoiceTypeChanged(newValue) {
         if (newValue != this.data.invoiceType && this.data.items) {
             this.data.items.splice(0);
-            if (this.data.measurements)
-                this.data.measurements.splice(0);
+            /*if (this.data.measurements)
+                this.data.measurements.splice(0);*/
         }
         if (newValue) {
             this.data.invoiceType = newValue;
