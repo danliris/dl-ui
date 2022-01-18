@@ -4,7 +4,7 @@ import { Service } from '../service';
 
 @inject(Router, Service)
 export class Edit {
-    
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -29,12 +29,12 @@ export class Edit {
         this.data = await this.service.getById(id);
         console.log(this.data);
         //this.clearDataProperties();
-        
+
     }
 
     clearDataProperties() {
         this.identityProperties.concat([
-            
+
             "DocumentsPath"
         ]).forEach(prop => delete this.data[prop]);
         (this.data.SampleProducts || {}).RONoSample = null;
@@ -58,6 +58,7 @@ export class Edit {
     saveCallback() {
         this.service.create(this.data)
             .then(result => {
+                alert("Data berhasil dibuat");
                 this.cancelCallback();
             })
             .catch(e => {
