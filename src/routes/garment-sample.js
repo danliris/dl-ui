@@ -336,11 +336,11 @@ module.exports = [
 		}
 	},
 	{
-		route: '/garment-sample/feature/ro-sample-copy',
-		name: 'garment-sample-ro-sample-copy',
-		moduleId: './modules/garment-sample/feature/ro-sample-copy/copy/index',
+		route: '/garment-sample/feature/sample-request-copy',
+		name: 'garment-sample-request-copy',
+		moduleId: './modules/garment-sample/feature/sample-request-copy/copy/index',
 		nav: true,
-		title: 'Copy RO Sample',
+		title: 'Copy Surat Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
