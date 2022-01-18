@@ -1,18 +1,19 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
-
+    isCreate = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
     bind() {
-        this.data = { Items: [] };
+        this.data = { SampleProducts: [], SampleSpecifications: [] };
         this.error = {};
     }
 
@@ -20,23 +21,34 @@ export class Create {
         return activationStrategy.replace; //replace the viewmodel with a new instance
         // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
         // or activationStrategy.noChange to explicitly use the default behavior
+        // return activationStrategy.invokeLifecycle;
     }
 
     cancelCallback(event) {
-        if (confirm("Apakah Anda yakin keluar dari halaman ini?")) {
-            this.router.navigateToRoute('list');
-        }
+        this.router.navigateToRoute('list');
     }
 
     saveCallback(event) {
-        this.data.isShipping = true;
+        for (var s of this.data.SampleSpecifications) {
+            if (!s.Uom) {
+                s.Uom = {
+                    Id: 0,
+                    Unit: ""
+                };
+            }
+        }
         this.service.create(this.data)
             .then(result => {
-                alert("Data berhasil dibuat, No Invoice: " + result);
+                alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
-            .catch(error => {
-                this.error = error;
-            });
+            .catch(e => {
+                this.error = e;
+                if (typeof (this.error) == "string") {
+                    alert(this.error);
+                } else {
+                    alert("Missing Some Data");
+                }
+            })
     }
 }
