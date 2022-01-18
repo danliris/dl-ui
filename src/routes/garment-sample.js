@@ -308,4 +308,18 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-sample/sample-expenditure-good',
+        name: 'garment-sample-expenditure-good',
+        moduleId: './modules/garment-sample/sample-expenditure-good/index',
+        nav: true,
+        title: 'Pengeluaran Barang Jadi',
+        auth: true,
+        settings: {
+            group: "g-sample",
+            subGroup: "transaksi",
+            permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
