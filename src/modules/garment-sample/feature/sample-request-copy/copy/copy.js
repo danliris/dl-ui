@@ -27,6 +27,27 @@ export class Edit {
     async activate(params) {
         const id = params.id;
         this.data = await this.service.getById(id);
+        this.copiedFrom = { RONoSample: this.data.RONoSample };
+        this.data.IsPosted = false;
+        this.data.IsReceived = false;
+        this.data.ReceivedBy = null;
+        this.data.ReceivedDate = this.data.CreatedDate;
+        this.data.IsRejected = false;
+        this.data.RejectedBy = null;
+        this.data.RejectedDate = null;
+        this.data.IsRevised = false;
+        this.data.RevisedBy = null;
+        this.data.RevisedDate = null;
+        this.data.RevisedReason = null;
+        this.data.RejectedReason = null;
+        this.data.SampleSpecifications.map(x => {
+            if (x.Uom == null) {
+                x.Uom = {
+                    Id: 0,
+                    Unit: ""
+                }
+            }
+        })
         console.log(this.data);
         //this.clearDataProperties();
 
