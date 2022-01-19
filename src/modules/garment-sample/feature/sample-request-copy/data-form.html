@@ -13,11 +13,11 @@
         </au-autocomplete>
 
         <au-textbox error.bind="error.RONoSample" value.bind="data.RONoSample" label="Nomor RO Sample"
-          read-only.bind="false" if.bind="data.RONoSample" options.bind="controlOptions">
+          read-only.bind="true" show.bind="false" options.bind="controlOptions">
         </au-textbox>
 
         <au-textbox error.bind="error.SampleRequestNo" value.bind="data.SampleRequestNo" label="Nomor Surat Sample"
-          read-only.bind="true" if.bind="data.SampleRequestNo" options.bind="controlOptions">
+          read-only.bind="true" show.bind="false" options.bind="controlOptions">
         </au-textbox>
 
         <au-dropdown label="Kategori Sample" value.bind="data.SampleCategory" error.bind="error.SampleCategory"
@@ -91,7 +91,8 @@
         </div>
         <au-collection items.bind="data.SampleSpecifications" errors.bind="error.SampleSpecifications"
           columns.bind="specColumns" read-only.bind="readOnly" remove.bind="removeSpecs" add.bind="addSpecs"
-          options.bind="itemOptions" item-template="modules/garment-sample/sample-request/template/item-specification">
+          options.bind="itemOptions"
+          item-template="modules/garment-sample/feature/sample-request-copy/template/item-specification">
         </au-collection>
       </div>
     </div>
