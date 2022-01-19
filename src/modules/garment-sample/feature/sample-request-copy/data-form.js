@@ -138,7 +138,9 @@ export class DataForm {
 
     get addSpecs() {
         return (event) => {
-            this.data.SampleSpecifications.push({});
+            this.data.SampleSpecifications.push({
+                Uom: { Id: 0, Unit: "" }
+            });
             this.data.SampleSpecifications.forEach((m, i) => m.Index = i);
         };
     }
