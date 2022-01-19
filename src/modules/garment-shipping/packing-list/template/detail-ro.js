@@ -4,7 +4,7 @@ var CostCalculationLoader = require("../../../../loader/cost-calculation-garment
 var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request-loader");
 var UomLoader = require("../../../../loader/uom-loader");
 var CurrencyLoader = require("../../../../loader/garment-currency-loader");
-var UnitLoader=require("../../../../loader/garment-units-loader");
+var UnitLoader = require("../../../../loader/garment-units-loader");
 
 @inject(SalesService)
 export class Item {
@@ -21,15 +21,15 @@ export class Item {
     }
 
     get filter() {
-        var filter={};
-        if(this.header.invoiceType!="SM"){
+        var filter = {};
+        if (this.header.invoiceType != "SM") {
             filter = {
                 BuyerCode: this.data.BuyerCodeFilter,
                 Section: this.data.SectionFilter,
                 "SCGarmentId!=null": true
             };
         }
-        else{
+        else {
             filter = {
                 Section: this.data.SectionFilter,
                 "SCGarmentId!=null": true
@@ -39,14 +39,14 @@ export class Item {
     }
 
     get PRfilter() {
-        var filter={
+        var filter = {
             'RONo.Contains("M") || RONo.Contains("S")': "true",
         };
         return filter;
     }
 
     detailsColumns = [
-        { header: "Index"},
+        { header: "Index" },
         { header: "Carton 1" },
         { header: "Carton 2" },
         { header: "Style" },
@@ -112,8 +112,8 @@ export class Item {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        this.header=context.context.options.header;
-        this.isMaster=this.header.roType=="RO MASTER";
+        this.header = context.context.options.header;
+        this.isMaster = this.header.roType == "RO MASTER";
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
@@ -122,17 +122,17 @@ export class Item {
             header: this.header,
             item: this.data
         };
-        this.header=context.context.options.header;
-        if(this.data){
-            this.unit=this.data.unit;
+        this.header = context.context.options.header;
+        if (this.data) {
+            this.unit = this.data.unit;
         }
         if (this.data.roNo) {
             this.selectedRO = {
                 RO_Number: this.data.RONo || this.data.roNo
             };
             this.uom = this.data.uom;
-            this.selectedPR={
-                RONo:this.data.RONo || this.data.roNo
+            this.selectedPR = {
+                RONo: this.data.RONo || this.data.roNo
             }
         }
         this.isShowing = false;
@@ -173,7 +173,7 @@ export class Item {
         }
     }
 
-    selectedPRChanged(newValue){
+    selectedPRChanged(newValue) {
         if (newValue) {
             this.data.roNo = newValue.RONo;
             this.data.article = newValue.Article;
@@ -181,26 +181,26 @@ export class Item {
             this.data.unit = newValue.Unit;
             this.data.valas = "USD";
             this.data.scNo = newValue.SCNo;
-            this.unit=this.data.unit;
+            this.unit = this.data.unit;
         }
     }
 
     uomChanged(newValue) {
-        if(newValue) {
+        if (newValue) {
             this.data.uom = newValue;
             this.uom = newValue;
         }
     }
 
-    currency(newValue){
-        this.data.valas =null;
-        if(newValue) {
+    currency(newValue) {
+        this.data.valas = null;
+        if (newValue) {
             this.data.valas = newValue.code || newValue.Code;
         }
     }
 
-    unitChanged(newValue){
-        if(newValue) {
+    unitChanged(newValue) {
+        if (newValue) {
             this.data.unit = newValue;
             this.unit = newValue;
         }
@@ -240,7 +240,7 @@ export class Item {
             this.data.subGrossWeight = gw;
             this.data.subNetWeight = nw;
             this.data.subNetNetWeight = nnw;
-            this.updateMeasurements();
+            //this.updateMeasurements();
         };
     }
 
@@ -332,7 +332,7 @@ export class Item {
             }
             return qty;
         }
-        
+
         // if (this.data.details) {
         //     for (var detail of this.data.details) {
         //         if (detail.cartonQuantity) {
@@ -352,58 +352,58 @@ export class Item {
     }
 
     get subGrossWeight() {
-      return this.sumSubTotal(0);
+        return this.sumSubTotal(0);
     }
 
     get subNetWeight() {
-      return this.sumSubTotal(1);
+        return this.sumSubTotal(1);
     }
 
     get subNetNetWeight() {
-      return this.sumSubTotal(2);
+        return this.sumSubTotal(2);
     }
 
     sumSubTotal(opt) {
-      let result = 0;
-      const newDetails = this.data.details.map(d => {
-        return {
-          carton1: d.carton1,
-          carton2: d.carton2,
-          cartonQuantity: d.cartonQuantity,
-          grossWeight: d.grossWeight,
-          netWeight: d.netWeight,
-          netNetWeight: d.netNetWeight,
-          index: d.index
-        };
-      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
-      for (const detail of newDetails) {
-        const cartonExist = false;
-        const indexItem = this.context.context.options.header.items.indexOf(this.data);
-        if (indexItem > 0) {
-          for (let i = 0; i < indexItem; i++) {
-            const item = this.context.context.options.header.items[i];
-            for (const prevDetail of item.details) {
-              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
-                cartonExist = true;
-                break;
-              }
+        let result = 0;
+        const newDetails = this.data.details.map(d => {
+            return {
+                carton1: d.carton1,
+                carton2: d.carton2,
+                cartonQuantity: d.cartonQuantity,
+                grossWeight: d.grossWeight,
+                netWeight: d.netWeight,
+                netNetWeight: d.netNetWeight,
+                index: d.index
+            };
+        }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
+        for (const detail of newDetails) {
+            const cartonExist = false;
+            const indexItem = this.context.context.options.header.items.indexOf(this.data);
+            if (indexItem > 0) {
+                for (let i = 0; i < indexItem; i++) {
+                    const item = this.context.context.options.header.items[i];
+                    for (const prevDetail of item.details) {
+                        if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                            cartonExist = true;
+                            break;
+                        }
+                    }
+                }
             }
-          }
+            if (!cartonExist) {
+                switch (opt) {
+                    case 0:
+                        result += detail.grossWeight * detail.cartonQuantity;
+                        break;
+                    case 1:
+                        result += detail.netWeight * detail.cartonQuantity;
+                        break;
+                    case 2:
+                        result += detail.netNetWeight * detail.cartonQuantity;
+                        break;
+                }
+            }
         }
-        if (!cartonExist) {
-          switch (opt) {
-            case 0:
-              result += detail.grossWeight * detail.cartonQuantity;
-              break;
-            case 1:
-              result += detail.netWeight * detail.cartonQuantity;
-              break;
-            case 2:
-              result += detail.netNetWeight * detail.cartonQuantity;
-              break;
-          }
-        }
-      }
-      return result;
+        return result;
     }
 }
