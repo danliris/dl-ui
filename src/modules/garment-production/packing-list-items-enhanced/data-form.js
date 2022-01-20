@@ -246,7 +246,8 @@ export class DataForm {
 						width: detail.width,
 						height: detail.height,
 						cartonsQuantity: detail.cartonQuantity,
-						index: detail.index
+						index: detail.index,
+						createdBy: detail.createdBy
 					});
 				}
 			}
