@@ -252,5 +252,60 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-
+	{
+		route: '/garment-sample/report/garment-unit-flow-penerimaan-report',
+		name: '/garment-unit-flow-penerimaan-report',
+		moduleId: './modules/garment-sample/report/garment-unit-flow-penerimaan-report/index',
+		nav: true,
+		title: 'Laporan Flow Penerimaan Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+            subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/report/laporan-flow-pengeluaran',
+		name: 'laporan-flow-pengeluaran',
+		moduleId: './modules/garment-sample/report/garment-unit-flow-detail-material-report/index',
+		nav: true,
+		title: 'Laporan Flow Pengeluaran Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+            subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+	route: '/garment-sample/report/monitoring-unit-receipt-note-all',
+	name: 'unit-receipt-note',
+	moduleId: './modules/garment-sample/report/monitoring-unit-receipt-note-all/index',
+	nav: true,
+	title: 'Monitoring Bon Terima Unit All Sample',
+	auth: true,
+	settings: {
+		group: "g-sample",
+		subGroup: "laporan",
+		permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+		iconClass: 'fa fa-dashboard'
+	}
+},
+    {
+        route: '/garment-sample/feature/change-date-feature',
+        name: 'garment-production-change-date-feature',
+        moduleId: './modules/garment-sample/feature/change-date-feature/index',
+        nav: true,
+        title: 'Fitur Ubah Tanggal',
+        auth: true,
+        settings: {
+            group: "g-sample",
+            subGroup: "fitur",
+            permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ]
