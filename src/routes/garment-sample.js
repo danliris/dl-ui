@@ -368,7 +368,7 @@ module.exports = [
 		name: 'garment-sample-expenditure-good',
 		moduleId: './modules/garment-sample/sample-expenditure-good/index',
 		nav: true,
-		title: 'Pengeluaran Barang Jadi',
+		title: 'Pengeluaran Barang Jadi Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
