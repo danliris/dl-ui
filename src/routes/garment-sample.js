@@ -294,18 +294,74 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-    {
-        route: '/garment-sample/feature/change-date-feature',
-        name: 'garment-production-change-date-feature',
-        moduleId: './modules/garment-sample/feature/change-date-feature/index',
-        nav: true,
-        title: 'Fitur Ubah Tanggal',
-        auth: true,
-        settings: {
-            group: "g-sample",
-            subGroup: "fitur",
-            permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+	{
+		route: '/garment-sample/feature/change-date-feature',
+		name: 'garment-production-change-date-feature',
+		moduleId: './modules/garment-sample/feature/change-date-feature/index',
+		nav: true,
+		title: 'Fitur Ubah Tanggal',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "fitur",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/packing-list-sample-md',
+		name: 'garment-packing-list-sample-md',
+		moduleId: './modules/garment-sample/packing-list-sample-md/index',
+		nav: true,
+		title: 'Packing list Sample - Md',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "md",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/feature/sample-request-copy',
+		name: 'garment-sample-request-copy',
+		moduleId: './modules/garment-sample/feature/sample-request-copy/copy/index',
+		nav: true,
+		title: 'Copy Surat Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "md",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Laporan Stock Gudang Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/sample-expenditure-good',
+		name: 'garment-sample-expenditure-good',
+		moduleId: './modules/garment-sample/sample-expenditure-good/index',
+		nav: true,
+		title: 'Pengeluaran Barang Jadi Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "transaksi",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
