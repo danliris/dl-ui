@@ -19,7 +19,7 @@ export class Create {
             length: 4,
         },
     };
-
+    type = ["BON", "PACKING LIST", "LIST BARCODE"];
     list() {
         this.router.navigateToRoute('list');
     }
