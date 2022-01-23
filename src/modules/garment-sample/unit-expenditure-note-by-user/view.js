@@ -25,7 +25,9 @@ export class View {
                     return item && item.toString().trim().length > 0;
                 }).join(" - ");
         }
-
+        if(this.data.StorageRequest.code==null){
+            this.data.StorageRequest=this.data.Storage;
+        }
         this.data.StorageRequest.toString = function () {
             return [this.code, this.name]
                 .filter((item, index) => {

@@ -77,4 +77,13 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    rowFormatter(data, index) {
+        if (data.isShipping) {
+            return { classes: "success" }
+        } else {
+            return { classes: "danger" }
+        }
+    }
+
 }

@@ -29,7 +29,6 @@ export class Create {
         if (this.filter) {
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
-            this.info.type = this.filter.type;
         }
         this.service.generateExcelAll(this.info);
     }

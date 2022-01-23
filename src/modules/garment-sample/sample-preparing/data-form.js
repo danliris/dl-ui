@@ -42,7 +42,8 @@ export class DataForm {
     get filterUen() {
         return {
             ExpenditureType: "SAMPLE",
-            UnitRequestId: this.data.Unit.Id
+            UnitRequestId: this.data.Unit.Id,
+            UnitSenderCode: "SMP1"
         }
     }
 
