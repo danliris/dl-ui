@@ -173,23 +173,13 @@ export class DataForm {
             var items=[];
 
             let sr = await this.service.getSampleRequest({ size: 1, filter: JSON.stringify({ RONoSample: this.data.RONo }) });
-                console.log(sr)
+
             if(sr.data.length>0){
                 this.data.Buyer = sr.data[0].Buyer;
                 this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;
                 this.data.ContractNo =sr.data[0].SampleRequestNo;
             }
 
-            // let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
-            // if(noResult.data.length>0){
-            //     this.data.Description = noResult.data[0].CommodityDescription;
-            // }
-
-            // let salesContractResult = await this.salesService.getSalesContractByRONo({ size: 1, filter: JSON.stringify({ RONumber: this.data.RONo }) });
-            // if(salesContractResult.data.length>0){
-            //     this.data.ContractNo = salesContractResult.data[0].SalesContractNo;
-            // }
-            
             let priceResult= await this.service.getComodityPrice({ filter: JSON.stringify({ ComodityId: this.data.Comodity.Id, UnitId: this.data.Unit.Id , IsValid:true})});
             if(priceResult.data.length>0){
                 this.data.Price= priceResult.data[0].Price;
