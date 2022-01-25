@@ -83,7 +83,7 @@ export class Edit {
         }
 
         if (this.data.Items) {
-            var calculateDppSplit = this.data.DPP / this.data.Items.length;
+            //var calculateDppSplit = this.data.DPP / this.data.Items.length;
             this.data.Items = this.data.Items.map(item => {
                 var mappingItem = {
                     Id: item.Id,
@@ -108,7 +108,7 @@ export class Edit {
                     EPONo: item.EPONo,
                     GarmentDispositionPurchaseId: item.GarmentDispositionPurchaseId,
                     IncomeTaxValue: item.IncomeTaxValue,
-                    IncomeTaxValueView: this.data.IncomeTaxValue,
+                    IncomeTaxValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * (item.IncomeTaxRate / 100),
                     IsDispositionCreated: item.IsDispositionCreated,
                     IsDispositionPaid: item.IsDispositionPaid,
                     IsUseIncomeTax: item.IsUseIncomeTax,
@@ -117,12 +117,12 @@ export class Edit {
                     IsUseVat: item.IsUseVat,
                     IsPayVAT: item.IsPayVat,
                     VatValue: item.VatValue,
-                    VatValueView: this.data.VatValue,
+                    VatValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * 0.1,
                     DispositionAmountPaid: item.DispositionAmountPaid,
                     DispositionAmountCreated: item.DispositionAmountCreated,
                     DispositionQuantityCreated: item.DispositionQuantityCreated,
                     DispositionQuantityPaid: item.DispositionQuantityPaid,
-                    DPPValue: calculateDppSplit,
+                    DPPValue: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0),
                     Active: item.Active,
                     CreatedAgent: item.CreatedAgent,
                     CreatedBy: item.CreatedBy,
