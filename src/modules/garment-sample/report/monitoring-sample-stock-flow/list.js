@@ -1,20 +1,33 @@
 import {inject, bindable} from 'aurelia-framework';
-import {Service} from "./service";
+import {Service,CoreService} from "./service";
 import {Router} from 'aurelia-router';
 import moment from 'moment';
-const UnitLoader = require('../../../loader/garment-units-loader');
+const UnitLoader = require('../../../../loader/garment-units-loader');
 
-@inject(Router, Service)
+@inject(Router, Service,CoreService)
 export class List {
-    constructor(router, service) {
+    @bindable selectedUnit;
+    constructor(router, service,coreService) {
         this.service = service;
         this.router = router;
+        this.coreService = coreService;
 
     }
-    bind(context) {
+    async bind(context) {
         this.context = context;
-    }
+        if (!this.unit) {
+            var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+            this.selectedUnit = units.data[0];
 
+        }
+    }
+    selectedUnitChanged(newValue) {
+        if (newValue) {
+            this.unit = newValue;
+        } else {
+            this.unit = null;
+        }
+    }
     controlOptions = {
         label: {
             length: 4
@@ -24,14 +37,10 @@ export class List {
         }
     };
 
-    @bindable UnitItem;
-
-    UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
-
     searching() {
         var info = {
             // unit : this.unit ? this.unit.Id : "",
-            unit : this.unit ? this.unit : 0,
+            unit : this.selectedUnit ? this.selectedUnit.Id : 0,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             ro : this.ro ?this.ro:""
@@ -146,7 +155,7 @@ export class List {
 
     ExportToExcel() {
         var info = {
-            unit : this.unit ? this.unit : 0,
+            unit : this.selectedUnit ? this.selectedUnit.Id : 0,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             ro : this.ro ?this.ro:""
