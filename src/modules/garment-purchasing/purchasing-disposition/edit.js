@@ -39,7 +39,7 @@ export class Edit {
         // }
         var id = params.id;
         this.data = await this.service.getById(id);
-
+        
         if (this.data.Currency) {
             this.selectedCurrency = this.data.Currency;
         }
@@ -108,11 +108,16 @@ export class Edit {
                     EPONo: item.EPONo,
                     GarmentDispositionPurchaseId: item.GarmentDispositionPurchaseId,
                     IncomeTaxValue: item.IncomeTaxValue,
+                    IncomeTaxValueView: this.data.IncomeTaxValue,
                     IsDispositionCreated: item.IsDispositionCreated,
                     IsDispositionPaid: item.IsDispositionPaid,
                     IsUseIncomeTax: item.IsUseIncomeTax,
+                    IsIncomeTax: item.IsUseIncomeTax,
+                    IsPayIncomeTax: item.IsPayIncomeTax,
                     IsUseVat: item.IsUseVat,
+                    IsPayVAT: item.IsPayVat,
                     VatValue: item.VatValue,
+                    VatValueView: this.data.VatValue,
                     DispositionAmountPaid: item.DispositionAmountPaid,
                     DispositionAmountCreated: item.DispositionAmountCreated,
                     DispositionQuantityCreated: item.DispositionQuantityCreated,
@@ -190,16 +195,16 @@ export class Edit {
                 var ppn = 0;
                 var ppnView = 0;
                 if (item.IsIncomeTax) {
-                    // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
-                    // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
-                    pphView = item.IncomeTaxValueView ? item.IncomeTaxValueView : item.IncomeTaxValue;
+                  // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
+                  // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
+                  pphView = item.IncomeTaxValueView ? item.IncomeTaxValueView : item.IncomeTaxValue;
                 }
                 if (item.IsPayIncomeTax) {
                     // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
                     // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
                     pph = item.IncomeTaxValue ? item.IncomeTaxValueView : item.IncomeTaxValue;
                 }
-                if (item.IsPayVat) {
+                if (item.IsPayVAT) {
                     // ppn=detail.PriceTotal*0.1;
                     ppn = item.VatValue;
                 }
@@ -207,13 +212,13 @@ export class Edit {
                     // ppn=detail.PriceTotal*0.1;
                     ppnView = item.VatValueView ? item.VatValueView : item.VatValue;
                 }
-                this.data.IncomeTaxValue += pph;
-                this.data.IncomeTaxValueView += pphView;
-                this.data.VatValue += ppn;
-                this.data.VatValueView += ppnView;
-                this.data.DPP += item.DPPValue;
-                incomeTaxCalculate += pph;
-                vatCalculate += ppn;
+                this.data.IncomeTaxValue+=pphView;
+                this.data.IncomeTaxValueView +=pphView;                        
+                this.data.VatValue+=ppnView;
+                this.data.VatValueView+=ppnView;                        
+                this.data.DPP+=item.DPPValue;
+                incomeTaxCalculate +=pph;
+                vatCalculate +=ppn;
                 // if(this.data.IncomeTaxBy=="Supplier"){
                 //     this.data.Amount+=detail.PaidPrice+ppn;
                 // }
