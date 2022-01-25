@@ -9,22 +9,10 @@
     <h1 class="page-header">Monitoring Flow Persediaan</h1>
 
     <form class="form-horizontal">
-      <!-- <au-autocomplete 
-            value.bind="unit" 
-            label="Unit" 
-            loader.bind="unitLoader"
-            placeholder="Cari Nama Unit" 
-            read-only.bind="false" 
-            text.bind="unitView"
-            options.bind="controlOptions">
-      </au-autocomplete> -->
-
-      <au-dropdown 
-        label="Unit" 
-        value.bind="UnitItem"
-        items.bind="UnitItems"
-        options.bind="controlOptions">
-      </au-dropdown>
+     
+      <au-autocomplete label="Unit" value.bind="selectedUnit"  read-only.bind="true"
+    options.bind="controlOptions" loader.bind="unitLoader" text.bind="unitView" placeholder="Unit">
+    </au-autocomplete>
       
       <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
       <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
@@ -59,7 +47,7 @@
                 <td rowspan="3">JUMLAH ORDER</td>
                 <td colspan="8">CUTTING</td>
                 <td colspan="6">LOADING</td>
-                <td colspan="9">SEWING</td>
+                <td colspan="5">SEWING</td>
                 <td colspan="11">FINISHING</td>
                 <td colspan="9">BARANG JADI</td>
             </tr>
@@ -83,10 +71,7 @@
                 <td rowspan="2">Saldo Awal WIP Sewing</td>
                 <td rowspan="2">Sewing In (WIP Sewing)</td>
                 <td rowspan="2">Sewing Out (WIP Finishing)</td>
-                <td rowspan="2">Sewing In Transfer</td>
-                <td rowspan="2">Sewing Out Tranfer WIP Sewing</td>
-                <td rowspan="2">Sewing Out Transfer WIP Finishing</td>
-                <td rowspan="2">Retur ke Cutting</td>
+ 
                 <td rowspan="2">Adjs Sewing</td>
                 <td rowspan="2">Saldo Akhir WIP Sewing</td>
 
@@ -116,7 +101,7 @@
             </tr>
         </thead>
         <tbody>
-            <require from="../../../lib/number-format-value-converter"></require>
+            <require from="../../../../lib/number-format-value-converter"></require>
             <tr repeat.for="item of data">
                 <td class="text-center">${item.Ro}</td>
                 <td class="text-center">${item.Article}</td>
@@ -139,10 +124,7 @@
                 <td class="text-center">${item._BeginingBalanceSewingQty}</td>
                 <td class="text-right">${item._QtySewingIn}</td>
                 <td class="text-right">${item._QtySewingOut}</td>
-                <td class="text-right">${item._QtySewingInTransfer}</td>
-                <td class="text-right">${item._WipSewingOut}</td>
-                <td class="text-right">${item._WipFinishingOut}</td>
-                <td class="text-right">${item._QtySewingRetur}</td>
+
                 <td class="text-right">${item._QtySewingAdj}</td>
                 <td class="text-right">${item._EndBalanceSewingQty}</td>
                 <td class="text-center">${item._BeginingBalanceFinishingQty}</td>
@@ -187,13 +169,9 @@
                 <td class="text-right"><strong>${BeginingBalanceSewingQtyTotal}</strong></td>
                 <td class="text-right"><strong>${QtySewingInTotal}</strong></td>
                 <td class="text-right"><strong>${QtySewingOutTotal}</strong></td>
-                <td class="text-right"><strong>${QtySewingInTransferTotal}</strong></td>
-                <td class="text-right"><strong>${WipSewingOutTotal}</strong></td>
-                <td class="text-right"><strong>${WipFinishingOutTotal}</strong></td>
-              
-                <td class="text-right"><strong>${QtySewingReturTotal}</strong></td>
                 <td class="text-right"><strong>${QtySewingAdjTotal}</strong></td>
                 <td class="text-right"><strong>${EndBalanceSewingQtyTotal}</strong></td>
+                
                 <td class="text-center"><strong>${BeginingBalanceFinishingQtyTotal}</strong></td>
                 <td class="text-right"><strong>${FinishingInQtyTotal}</strong></td>
                 <td class="text-right"><strong>${BeginingBalanceSubconQtyTotal}</strong></td>

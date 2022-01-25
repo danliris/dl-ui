@@ -1,10 +1,11 @@
 
-import { RestService } from '../../../utils/rest-service';
+import { RestService } from '../../../../utils/rest-service';
 
 
-const serviceUri = 'monitoringFlowProduction';
+const serviceUri = 'monitoringFlowSample';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
-const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
+const unitExpenditureNoteUri = 'garment-unit-expenditure-notes';
+const UnitServiceUri = 'master/units';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -88,5 +89,16 @@ export class PurchasingService extends RestService {
     getUnitExpenditureNoteById(id) {
         var endpoint = `${unitExpenditureNoteUri}/${id}`;
         return super.get(endpoint);
+    }
+}
+
+export class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    getSampleUnit(info) {
+        var endpoint = `${UnitServiceUri}`;
+        return super.list(endpoint, info);
     }
 }
