@@ -56,7 +56,14 @@ export class DataForm {
         if (newVal) {
             this.data.MemoDetail = newVal;
             if (newVal.Items && newVal.Items.length > 0) {
-                this.data.Items = newVal.Items;
+              for (var i = 0; i < newVal.Items.length; i++) {
+                var newItem = {
+                  ChartOfAccount:newVal.Items[i].ChartOfAccount,
+                  DebitAmount: newVal.Items[i].DebitAmount,
+                  CreditAmount: newVal.Items[i].CreditAmount
+                };
+                this.data.Items.push(newItem);
+              }
             }
         } else {
             this.data.MemoDetail = null;
