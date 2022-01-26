@@ -1,13 +1,12 @@
 <template>
     <tr>
+        <td class="bg-primary">
+            <au-dropdown value.bind="selectedROType" items.bind="roTypeOptions" error.bind="error.roType"
+                readonly.bind="readOnly || (isEdit && data.id)" options.bind="controlOptions"></au-dropdown>
+        </td>
         <td class="bg-primary col-md-1">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader" text.bind="roView"
-                placeholder="cari RO" query.bind="filter" if.bind="!isMaster"
-                read-only.bind="readOnly || (isEdit && data.id)">
-            </au-autocomplete>
-            <au-autocomplete value.bind="selectedPR" error.bind="error.RONo" loader.bind="prLoader" text.bind="prView"
-                placeholder="cari RO" query.bind="PRfilter" if.bind="isMaster"
-                read-only.bind="readOnly || (isEdit && data.id)">
+                placeholder="cari RO" query.bind="filter" read-only.bind="readOnly || (isEdit && data.id)">
             </au-autocomplete>
         </td>
         <td class="bg-primary">
@@ -18,7 +17,7 @@
             <au-textbox value.bind="data.buyerBrand.Name || data.buyerBrand.name ||''" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary" if.bind="header.invoiceType!='SM' && !isMaster">
+        <td class="bg-primary" if.bind="header.invoiceType!='SM'">
             <au-textbox value.bind="data.comodity.Name || data.comodity.name || ''" read-only.bind="true">
             </au-textbox>
         </td>
@@ -31,7 +30,7 @@
                 placeholder="cari satuan" read-only.bind="readOnly">
             </au-autocomplete>
         </td>
-        <td class="bg-primary" if.bind="!isMaster">
+        <td class="bg-primary">
             <au-numeric value.bind="data.priceRO" read-only.bind="true">
             </au-numeric>
         </td>
@@ -42,26 +41,14 @@
         <td class="bg-primary">
             <au-textbox value.bind="data.valas" read-only.bind="true">
             </au-textbox>
-            <!-- <au-autocomplete
-                value.bind="currency"
-                error.bind="error.valas"
-                loader.bind="currencyLoader"
-                text.bind="currencyView"
-                placeholder="cari mata uang"
-                read-only.bind="readOnly"
-                if.bind="isMaster">
-            </au-autocomplete> -->
         </td>
         <td class="bg-primary">
             <au-numeric value.bind="amount" read-only.bind="true" format="0.00">
             </au-numeric>
         </td>
         <td class="bg-primary">
-            <au-textbox value.bind="data.unit.Code || data.unit.code || ''" read-only.bind="true" if.bind="!isMaster">
+            <au-textbox value.bind="data.unit.Code || data.unit.code || ''" read-only.bind="true">
             </au-textbox>
-            <au-autocomplete value.bind="unit" error.bind="error.unit" loader.bind="unitLoader" text.bind="unitView"
-                placeholder="cari unit" read-only.bind="readOnly" if.bind="isMaster">
-            </au-autocomplete>
         </td>
 
         <td if.bind="!readOnly">
