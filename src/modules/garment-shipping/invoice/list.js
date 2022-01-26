@@ -7,7 +7,7 @@ import moment from 'moment';
 @inject(Router, Service, AuthService)
 export class List {
 
-    context = ["detail","Cetak PDF Invoice", "Cetak PDF Invoice CMT"]
+    context = ["detail","Cetak PDF Invoice", "Cetak PDF Invoice CMT", "Cetak PDF Invoice W/ Kop", "Cetak PDF Invoice CMT W/ Kop"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
@@ -78,6 +78,12 @@ export class List {
             case "Cetak PDF Invoice CMT": 
                 this.service.getPdfById(data.id, "cmt"); 
                 break;
+            case "Cetak PDF Invoice W/ Kop": 
+                this.service.getPdfWHById(data.id, "fob"); 
+                break;
+            case "Cetak PDF Invoice CMT W/ Kop": 
+                this.service.getPdfWHById(data.id, "cmt"); 
+                break;                
         }
     }
 
