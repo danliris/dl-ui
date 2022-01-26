@@ -7,7 +7,7 @@ import { AuthService } from "aurelia-authentication";
 @inject(Router, Service, AuthService)
 export class List {
 
-    context = ["Detail", "Cetak", "Cetak-Excel"]
+    context = ["Detail", "Cetak", "Cetak W/ Kop", "Cetak-Excel"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },
@@ -79,6 +79,9 @@ export class List {
             case "Cetak":
                 this.service.getPdfById(data.id);
                 break;
+            case "Cetak W/ Kop":
+                this.service.getPdfWHById(data.id);
+                break;                
             case "Cetak-Excel":
                 this.service.getExcelById(data.id);
                 break;
