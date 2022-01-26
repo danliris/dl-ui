@@ -381,7 +381,7 @@ module.exports = [
 		name: 'monitoring-sample-flow-by-size',
 		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
 		nav: true,
-		title: 'Laporan Flow Stock Sample per Size',
+		title: 'Monitoring Flow  Sample per Size',
 		auth: true,
 		settings: {
 			group: "g-sample",
@@ -395,7 +395,7 @@ module.exports = [
 		name: 'monitoring-sample-stock-flow',
 		moduleId: './modules/garment-sample/report/monitoring-sample-stock-flow/index',
 		nav: true,
-		title: 'Laporan Flow Stock Sample',
+		title: 'Monitoring Flow Stock Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
