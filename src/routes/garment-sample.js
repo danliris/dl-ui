@@ -389,5 +389,18 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
+	},{
+		route: 'sample-finishing-monitoring',
+		name: 'sample-finishing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
 	},
 ]
