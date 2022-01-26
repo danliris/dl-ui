@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Monitoring Cutting Sample</h1>
+      <h1 class="page-header">Monitoring Finishing Sample</h1>
   
       <form class="form-horizontal">
         <au-autocomplete 
@@ -44,12 +44,11 @@
                   <td>ARTICLE</td>
                   <td>QTY ORDER</td>
                   <td>STYLE</td>
-                  <td>FC</td>
-                  <td>HASIL POTONG (M)</td>
                   <td>STOCK AWAL</td>
-                  <td>HASIL POTONG</td>
+                  <td>BARANG MASUK</td>
                   <td>BARANG KELUAR</td>
                   <td>SISA</td>
+                  <td>SATUAN</td>
               </tr>
           </thead>
    
@@ -60,20 +59,20 @@
                   <td class="text-center">${item.article}</td>
                   <td class="text-right">${item.qtyOrder}</td>
                   <td class="text-center">${item.style}</td>
-                  <td class="text-center">${item.fc}</td>
-                  <td class="text-right">${item.cuttingQtyMeter}</td>
                   <td class="text-right">${item.stocks}</td>
-                  <td class="text-right">${item.cuttingsQtyPcs}</td> 
-                  <td class="text-right">${item.expenditures}</td>
-                  <td class="text-right">${item.remainQtys}</td>
+                  <td class="text-right">${item.sewingOutsQtyPcs}</td> 
+                  <td class="text-right">${item.finishingOutsQtyPcs}</td>
+                  <td class="text-right">${item.remainsQty}</td>
+                  <td class="text-center">${item.uomUnit}</td>
               </tr>
               <tr class="active">
-                  <td class="text-center" colspan="6"><strong>T O T A L </strong></td>
-                  <td class="text-right"><strong>${sumStock}</strong></td>        
-                  <td class="text-right"><strong>${sumCuttingQtyPcs}</strong></td>
-                  <td class="text-right"><strong>${sumExpenditure}</strong></td>
-                  <td class="text-right"><strong>${sumRemainQty}</strong></td>
-              </tr>
+                <td class="text-center" colspan="4"><strong>T O T A L </strong></td>
+                <td class="text-right"><strong>${sumStock}</strong></td>        
+                <td class="text-right"><strong>${sumSewingOutQtyPcs}</strong></td>
+                <td class="text-right"><strong>${sumFinishingOutQtyPcs}</strong></td>
+                <td class="text-right"><strong>${sumRemainQty}</strong></td>
+                <td class="text-right"><strong></strong></td>
+            </tr>
           </tbody>
       </table>
   </div>

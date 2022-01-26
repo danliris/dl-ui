@@ -8,25 +8,27 @@ export class View {
         this.router = router;
         this.service = service;
     }
-    isEdit=true;
+    isEdit = true;
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-
         if (this.data) {
-            this.selectedContract={
+            if (this.data.IsUsed) {
+                this.deleteCallback = null;
+                this.editCallback = null;
+            }
+            this.selectedContract = {
                 ContractNo: this.data.SubconContractNo,
-                Id:this.data.SubconContractId,
+                Id: this.data.SubconContractId,
             };
-            this.selectedSubconType=this.data.SubconType;
+            this.selectedSubconType = this.data.SubconType;
             if (this.data.Items) {
-                for(var item of this.data.Items){
-                    item.IsSave=true;
+                for (var item of this.data.Items) {
+                    item.IsSave = true;
                 }
             }
         }
     }
-
 
     bind() {
         this.error = {};
@@ -38,7 +40,7 @@ export class View {
     }
 
     saveCallback(event) {
-        var dataToBeSaved=Object.assign({}, this.data);
+        var dataToBeSaved = Object.assign({}, this.data);
         dataToBeSaved.Items = this.data.Items.filter(item => item.IsSave);
         this.service.update(dataToBeSaved)
             .then(result => {

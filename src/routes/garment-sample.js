@@ -376,5 +376,31 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
+	},	{
+		route: 'monitoring-sample-flow-by-size',
+		name: 'monitoring-sample-flow-by-size',
+		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
+		nav: true,
+		title: 'Laporan Flow Stock Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},{
+		route: 'sample-finishing-monitoring',
+		name: 'sample-finishing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
 	},
 ]
