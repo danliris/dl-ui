@@ -53,7 +53,7 @@ export class DataForm {
 
     @bindable memoDetail;
     memoDetailChanged(newVal, oldVal) {
-          if (newVal) {
+        if (newVal) {
             this.data.MemoDetail = newVal;
             if (newVal.Items && newVal.Items.length > 0) {
               for (var i = 0; i < newVal.Items.length; i++) {
