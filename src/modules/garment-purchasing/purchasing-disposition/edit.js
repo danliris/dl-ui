@@ -83,7 +83,7 @@ export class Edit {
         }
 
         if (this.data.Items) {
-            var calculateDppSplit = this.data.DPP / this.data.Items.length;
+            // var calculateDppSplit = this.data.DPP / this.data.Items.length;
             this.data.Items = this.data.Items.map(item => {
                 var mappingItem = {
                     Id: item.Id,
@@ -108,16 +108,22 @@ export class Edit {
                     EPONo: item.EPONo,
                     GarmentDispositionPurchaseId: item.GarmentDispositionPurchaseId,
                     IncomeTaxValue: item.IncomeTaxValue,
+                    IncomeTaxValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * (item.IncomeTaxRate / 100),
                     IsDispositionCreated: item.IsDispositionCreated,
                     IsDispositionPaid: item.IsDispositionPaid,
                     IsUseIncomeTax: item.IsUseIncomeTax,
+                    IsIncomeTax: item.IsUseIncomeTax,
+                    IsPayIncomeTax: item.IsPayIncomeTax,
                     IsUseVat: item.IsUseVat,
+                    IsPayVAT: item.IsPayVat,
                     VatValue: item.VatValue,
+                    VatValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * 0.1,
                     DispositionAmountPaid: item.DispositionAmountPaid,
                     DispositionAmountCreated: item.DispositionAmountCreated,
                     DispositionQuantityCreated: item.DispositionQuantityCreated,
                     DispositionQuantityPaid: item.DispositionQuantityPaid,
                     DPPValue: calculateDppSplit,
+                    DPPValue: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0),
                     Active: item.Active,
                     CreatedAgent: item.CreatedAgent,
                     CreatedBy: item.CreatedBy,
@@ -199,7 +205,7 @@ export class Edit {
                     // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
                     pph = item.IncomeTaxValue ? item.IncomeTaxValueView : item.IncomeTaxValue;
                 }
-                if (item.IsPayVat) {
+                if (item.IsPayVAT) {
                     // ppn=detail.PriceTotal*0.1;
                     ppn = item.VatValue;
                 }
@@ -207,13 +213,13 @@ export class Edit {
                     // ppn=detail.PriceTotal*0.1;
                     ppnView = item.VatValueView ? item.VatValueView : item.VatValue;
                 }
-                this.data.IncomeTaxValue += pph;
-                this.data.IncomeTaxValueView += pphView;
-                this.data.VatValue += ppn;
-                this.data.VatValueView += ppnView;
-                this.data.DPP += item.DPPValue;
-                incomeTaxCalculate += pph;
-                vatCalculate += ppn;
+                this.data.IncomeTaxValue+=pphView;
+                this.data.IncomeTaxValueView +=pphView;                        
+                this.data.VatValue+=ppnView;
+                this.data.VatValueView+=ppnView;                        
+                this.data.DPP+=item.DPPValue;
+                incomeTaxCalculate +=pph;
+                vatCalculate +=ppn;
                 // if(this.data.IncomeTaxBy=="Supplier"){
                 //     this.data.Amount+=detail.PaidPrice+ppn;
                 // }
