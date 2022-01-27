@@ -1,4 +1,4 @@
-import {inject} from 'aurelia-framework';
+import {inject, bindable} from 'aurelia-framework';
 import {Service,CoreService} from "./service";
 import {Router} from 'aurelia-router';
 import moment from 'moment';
@@ -10,7 +10,9 @@ export class List {
         this.service = service;
         this.router = router;
         this.coreService=coreService;
+
     }
+
     async bind(context) {
         this.context = context;
         if (!this.unit) {
@@ -19,7 +21,7 @@ export class List {
 
         }
     }
-    
+  
     searching() {
         var info = {
             unit : this.unit ? this.unit.Id : "",
@@ -31,18 +33,17 @@ export class List {
                 this.data=[];
                 console.log(result);
                 for(var _data of result){
-                   
-                    _data.qtyOrder=_data.qtyOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    _data.stocks=_data.stock.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    _data.sewingOutsQtyPcs=_data.sewingOutQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    _data.finishingOutsQtyPcs=_data.finishingOutQtyPcs.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    _data.remainsQty=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                      
+                    _data.expenditureDate= moment(_data.expenditureDate).format("YYYY-MM-DD");
+                    _data.pebDate=  moment(_data.pebDate).format("DD MMM YYYY") == "01 Jan 1970" || moment(_data.pebDate).format("DD MMM YYYY") == "01 Jan 1900" ? "-" : moment(_data.pebDate).format("YYYY-MM-DD");
+                    _data.price=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data.qtys=_data.qty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     this.data.push(_data);
 
                  }
             });
     }
-    
+
     ExportToExcel() {
         var info = {
             unit : this.unit ? this.unit.Id : "",
@@ -67,58 +68,17 @@ export class List {
         this.dateTo = null;
         this.unit = null;
     }
-
-    get sumStock()
+    get sumQty()
     {
         var sum=0;
         if(this.data)
         {
             for(var item of this.data)
             {
-                sum += item.stock;
+                sum += item.qty;
             }
         }
         
-        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-    }
-    get sumSewingOutQtyPcs()
-    {
-        var sum=0;
-        if(this.data)
-        {
-            for(var item of this.data)
-            {
-                sum += item.sewingOutQtyPcs;
-            }
-        }
-        
-        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-    }
-    
-    get sumFinishingOutQtyPcs()
-    {
-        var sum=0;
-        if(this.data)
-        {
-            for(var item of this.data)
-            {
-                sum += item.finishingOutQtyPcs;
-            }
-        }
-       
-        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
-    }
-    get sumRemainQty()
-    {
-        var sum=0;
-        if(this.data)
-        {
-            for(var item of this.data)
-            {
-                sum += item.remainQty;
-            }
-        }
-       
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
 }
