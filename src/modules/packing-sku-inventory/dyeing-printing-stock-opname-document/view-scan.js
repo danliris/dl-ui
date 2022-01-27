@@ -47,17 +47,17 @@ export class ViewScan {
             });
     }
     
-    // ExportToExcel() {
-    //     var info = {
-    //         productionOrderId: this.selectedProductionOrder ? this.selectedProductionOrder.Id : null,
-    //         barcode : this.barcode,
-    //         documentNo : this.documentNo,
-    //         grade : this.grade,
-    //         userFilter : this.userFilter
+    ExportToExcel() {
+        var info = {
+            productionOrderId: this.selectedProductionOrder ? this.selectedProductionOrder.Id : null,
+            barcode : this.barcode,
+            documentNo : this.documentNo,
+            grade : this.grade,
+            userFilter : this.userFilter
       
-    //     }
-    //     this.service.generateExcelMonitoring(info);
-    // }
+        }
+        this.service.generateExcelMonitoring(info);
+    }
 
     // get unitLoader(){
     //     return UnitLoader;
