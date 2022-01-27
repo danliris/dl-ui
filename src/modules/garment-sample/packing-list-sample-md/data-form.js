@@ -14,6 +14,7 @@ export class DataForm {
     @bindable selectedBuyer;
     @bindable selectedLC;
     @bindable selectedInvoiceType;
+    @bindable truckingDate;
 
     constructor(service, coreService) {
         this.service = service;
@@ -48,6 +49,7 @@ export class DataForm {
     };
 
     itemsColumns = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -63,6 +65,7 @@ export class DataForm {
     ]
 
     itemsColumnsSM = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Qty" },
@@ -76,6 +79,7 @@ export class DataForm {
     ]
 
     itemsColumnsROMaster = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -89,6 +93,7 @@ export class DataForm {
     ]
 
     itemsColumnsSMMaster = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Qty" },
@@ -183,8 +188,10 @@ export class DataForm {
             this.selectedLC = {
                 documentCreditNo: this.data.lcNo
             };
-
-            this.data.shippingStaffName = this.data.shippingStaff.name;
+            this.truckingDate = this.data.truckingDate;
+            if (this.data.shippingStaff) {
+                this.data.shippingStaffName = this.data.shippingStaff.name;
+            }
         }
         this.data.items = this.Items;
         if (this.data.items && this.data.id) {
@@ -454,5 +461,11 @@ export class DataForm {
         }
 
         this.data.measurements.forEach((m, i) => m.MeasurementIndex = i);
+    }
+
+    truckingDateChanged(newValue, oldValue) {
+        this.data.truckingDate = newValue;
+        var dateNow = new Date(newValue);
+        this.data.exportEstimationDate = new Date(dateNow.setDate(dateNow.getDate() + 7));
     }
 }
