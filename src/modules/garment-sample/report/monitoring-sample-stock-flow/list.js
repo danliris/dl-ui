@@ -127,6 +127,9 @@ export class List {
                     _data._ExpenditureGoodRemainingPrice = _data.ExpenditureGoodRemainingPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._SampleQty = _data.SampleQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._SamplePrice = _data.SamplePrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._MDQty = _data.MDQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._MDPrice = _data.MDPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                   
                     _data._ExportQty = _data.ExportQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._ExportPrice = _data.ExportPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._OtherQty = _data.OtherQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -194,6 +197,18 @@ export class List {
         }
         }
         return beginingBalanceCuttingQtyTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get MDTotal()
+    {
+        var qtyMDTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            qtyMDTotal += item.MDQty;
+        }
+        }
+        return qtyMDTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     get QtyCuttingInTotal()
     {
