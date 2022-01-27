@@ -128,7 +128,7 @@ export class List {
             {field: 'QtyOrder', title: 'Jumlah Order', footerFormatter: ""},
             {field: 'Size', title: 'Ukuran', footerFormatter: ""},
             {field: 'QtyCutting', title: 'Hasil Potong',footerFormatter: () => {return totalCutting ; } },
-            {field: 'QtyLoading', title: 'Hasil Loading',footerFormatter: () => {return totalLoading ; } },
+            //{field: 'QtyLoading', title: 'Hasil Loading',footerFormatter: () => {return totalLoading ; } },
             {field: 'QtySewing', title: 'Hasil Sewing',footerFormatter: () => {return totalSewing ; } },
             {field: 'QtyFinishing', title: 'Hasil Finishing',footerFormatter: () => {return totalFinishing ; } },
             {field: 'Wip', title: 'Barang Dalam Proses',footerFormatter: () => {return totalWip ; } }  
