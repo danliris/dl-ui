@@ -8,7 +8,17 @@ export class List {
 
     context = ["Detail", "Cetak"]
 
+
+    dataTobeDelivered = []
+
     columns = [
+        {
+            field: "isSampleDelivering", title: "Sudah Dikirim", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.isSampleDelivered;
+                return "";
+            }
+        },
         { field: "invoiceNo", title: "No Invoice" },
         { field: "SectionCode", title: "Seksi" },
         { field: "BuyerAgentName", title: "Buyer Agent" },
@@ -85,5 +95,22 @@ export class List {
             return { classes: "danger" }
         }
     }
+
+    delivered() {
+        const DataToBeDelivered = this.dataToBeDelivered.filter(d => d.isSampleDelivered === false);
+        if (DataToBeDelivered.length > 0) {
+            if (confirm(`Deliver ${DataToBeDelivered.length} data?`)) {
+                var ids = DataToBeDelivered.map(d => d.id);
+                this.service.deliveredSample(ids)
+                    .then(result => {
+                        this.table.refresh();
+                        this.dataToBeDelivered = [];
+                    }).catch(e => {
+                        this.error = e;
+                    })
+            }
+        }
+    }
+
 
 }

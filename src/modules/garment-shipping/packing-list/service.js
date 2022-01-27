@@ -37,6 +37,12 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${id}`;
         return super.getPdf(endpoint);
     }
+
+    deliveredSample(data) {
+        var endpoint = `${serviceUri}/delivered`;
+        return super.put(endpoint, data);
+    }
+
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
@@ -69,8 +75,8 @@ class CoreService extends RestService {
     }
 
     getStaffIdByName(name) {
-      var endpoint = `${shippingStaffUri}`;
-      return super.list(endpoint, name);
+        var endpoint = `${shippingStaffUri}`;
+        return super.list(endpoint, name);
     }
 }
 
