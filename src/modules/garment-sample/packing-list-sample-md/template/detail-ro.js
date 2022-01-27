@@ -1,9 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService, GarmentProductionService, CoreService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
-var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request-loader");
 var UomLoader = require("../../../../loader/uom-loader");
-var CurrencyLoader = require("../../../../loader/garment-currency-loader");
 var UnitLoader = require("../../../../loader/garment-units-loader");
 var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
@@ -13,10 +11,7 @@ export class Item {
     @bindable uom;
     @bindable avG_GW;
     @bindable avG_NW;
-    @bindable selectedPR;
-    @bindable currency;
     @bindable unit;
-    @bindable selectedROType;
 
     roTypeOptions = ["RO SAMPLE", "RO JOB"];
 
@@ -46,13 +41,6 @@ export class Item {
         return filter;
     }
 
-    get PRfilter() {
-        var filter = {
-            'RONo.Contains("M") || RONo.Contains("S")': "true",
-        };
-        return filter;
-    }
-
     detailsColumns = [
         { header: "Index" },
         { header: "Carton 1" },
@@ -75,16 +63,9 @@ export class Item {
             return CostCalculationLoader;
         }
     }
-    get prLoader() {
-        return PurchaseRequestLoader;
-    }
 
     get uomLoader() {
         return UomLoader;
-    }
-
-    get currencyLoader() {
-        return CurrencyLoader;
     }
 
     get unitLoader() {
@@ -104,14 +85,12 @@ export class Item {
     }
 
     roView = (ro) => {
-        if (this.data.roType == 'RO JOB')
-            return `${ro.RO_Number}`;
-        else
+        if (this.data.roType == 'RO SAMPLE')
             return `${ro.RONoSample}`;
+        else
+            return `${ro.RO_Number}`;
     }
-    prView = (pr) => {
-        return `${pr.RONo}`
-    }
+
     toggle() {
         if (!this.isShowing)
             this.isShowing = true;
@@ -128,7 +107,6 @@ export class Item {
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
         this.header = context.context.options.header;
-        console.log("BEFORE", this.selectedRoType);
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
@@ -138,22 +116,17 @@ export class Item {
             item: this.data
         };
         this.header = context.context.options.header;
-        if (this.data) {
-            this.unit = this.data.unit;
-        }
-        // if (this.data.roType) {
-
-        //     this.selectedRoType = this.data.roType;
-        // }
-        if (this.data.roNo) {
-            if (this.data.roType == 'RO JOB') {
-                this.selectedRO = {
-                    RO_Number: this.data.RONo || this.data.roNo,
-                };
-            } else {
-                this.selectedRO = {
-                    RONoSample: this.data.RONo || this.data.roNo,
-                };
+        if (this.data.roType) {
+            if (this.data.roNo) {
+                if (this.data.roType == 'RO SAMPLE') {
+                    this.selectedRO = {
+                        RONoSample: this.data.RONo || this.data.roNo,
+                    };
+                } else {
+                    this.selectedRO = {
+                        RO_Number: this.data.RONo || this.data.roNo,
+                    };
+                }
             }
         }
 
@@ -166,16 +139,9 @@ export class Item {
                 this.isShowing = true;
             }
         }
-        if (this.data.valas) {
-            this.currency = {
-                Code: this.data.valas
-            };
-        }
-
-        console.log("AFTER", this.selectedRoType);
     }
 
-    selectedROChanged(newValue) {
+    async selectedROChanged(newValue) {
         if (newValue) {
             if (this.data.roType == 'RO JOB') {
                 this.salesService.getCostCalculationById(newValue.Id)
@@ -203,7 +169,8 @@ export class Item {
             } else {
                 this.garmentProductionService.getSampleRequestById(newValue.Id)
                     .then(async result => {
-                        this.data.roNo = result.RONOSample;
+                        console.log(result);
+                        this.data.roNo = result.RONoSample;
                         this.data.article = result.SampleProducts.map(x => x.Style).join(',');
                         this.data.buyerBrand = result.Buyer;
                         var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
@@ -216,23 +183,12 @@ export class Item {
                         this.data.quantity = result.SampleProducts.reduce((acc, cur) => acc += cur.Quantity, 0);
                         this.data.scNo = result.SampleRequestNo;
                         //this.data.amount=sc.Amount;
-                        this.data.price = 0;
-                        this.data.priceRO = 0;
+                        this.data.price = result.Price;
+                        this.data.priceRO = result.Price;
                         this.data.comodity = result.Comodity;
+                        this.data.amount = result.Amount;
                     })
             }
-        }
-    }
-
-    selectedPRChanged(newValue) {
-        if (newValue) {
-            this.data.roNo = newValue.RONo;
-            this.data.article = newValue.Article;
-            this.data.buyerBrand = newValue.Buyer;
-            this.data.unit = newValue.Unit;
-            this.data.valas = "USD";
-            this.data.scNo = newValue.SCNo;
-            this.unit = this.data.unit;
         }
     }
 
@@ -240,20 +196,6 @@ export class Item {
         if (newValue) {
             this.data.uom = newValue;
             this.uom = newValue;
-        }
-    }
-
-    currency(newValue) {
-        this.data.valas = null;
-        if (newValue) {
-            this.data.valas = newValue.code || newValue.Code;
-        }
-    }
-
-    unitChanged(newValue) {
-        if (newValue) {
-            this.data.unit = newValue;
-            this.unit = newValue;
         }
     }
 
@@ -383,15 +325,6 @@ export class Item {
             }
             return qty;
         }
-
-        // if (this.data.details) {
-        //     for (var detail of this.data.details) {
-        //         if (detail.cartonQuantity) {
-        //             qty += detail.cartonQuantity;
-        //         }
-        //     }
-        // }
-        // return qty;
     }
 
     get amount() {
@@ -458,9 +391,12 @@ export class Item {
         return result;
     }
 
-    selectedROTypeChanged(newValue) {
-        if (newValue) {
-            this.data.roType = newValue;
+    roTypeChanged(e) {
+        let type = (e.detail) ? e.detail : "";
+
+        if (type) {
+            this.data.roType = type;
         }
+
     }
 }

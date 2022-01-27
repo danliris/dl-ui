@@ -1,8 +1,8 @@
 <template>
     <tr>
         <td class="bg-primary">
-            <au-dropdown value.bind="selectedROType" items.bind="roTypeOptions" error.bind="error.roType"
-                readonly.bind="readOnly || (isEdit && data.id)" options.bind="controlOptions"></au-dropdown>
+            <au-dropdown value.bind="data.roType" items.bind="roTypeOptions" error.bind="error.roType"
+                read-only.bind="readOnly || (isEdit && data.id)" options.bind="controlOptions" change.delegate="roTypeChanged($event)"></au-dropdown>
         </td>
         <td class="bg-primary col-md-1">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader" text.bind="roView"

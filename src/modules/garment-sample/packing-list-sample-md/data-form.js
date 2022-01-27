@@ -188,6 +188,7 @@ export class DataForm {
             this.selectedLC = {
                 documentCreditNo: this.data.lcNo
             };
+            this.truckingDate = this.data.truckingDate;
             if (this.data.shippingStaff) {
                 this.data.shippingStaffName = this.data.shippingStaff.name;
             }
@@ -465,6 +466,6 @@ export class DataForm {
     truckingDateChanged(newValue, oldValue) {
         this.data.truckingDate = newValue;
         var dateNow = new Date(newValue);
-        this.data.exportEstimationDate = dateNow.setDate(dateNow.getDate() + 7);
+        this.data.exportEstimationDate = new Date(dateNow.setDate(dateNow.getDate() + 7));
     }
 }
