@@ -94,7 +94,7 @@
                         </au-dropdown>
 
                         <au-datepicker label="TGL Trucking" value.bind="data.truckingDate"
-                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions">
+                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions" change.delegate="truckingDateChanged($event)">
                         </au-datepicker>
 
 
