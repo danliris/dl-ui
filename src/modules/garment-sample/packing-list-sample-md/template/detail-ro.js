@@ -141,7 +141,7 @@ export class Item {
         }
     }
 
-    async selectedROChanged(newValue) {
+    selectedROChanged(newValue) {
         if (newValue) {
             if (this.data.roType == 'RO JOB') {
                 this.salesService.getCostCalculationById(newValue.Id)
@@ -169,7 +169,6 @@ export class Item {
             } else {
                 this.garmentProductionService.getSampleRequestById(newValue.Id)
                     .then(async result => {
-                        console.log(result);
                         this.data.roNo = result.RONoSample;
                         this.data.article = result.SampleProducts.map(x => x.Style).join(',');
                         this.data.buyerBrand = result.Buyer;
@@ -183,10 +182,10 @@ export class Item {
                         this.data.quantity = result.SampleProducts.reduce((acc, cur) => acc += cur.Quantity, 0);
                         this.data.scNo = result.SampleRequestNo;
                         //this.data.amount=sc.Amount;
-                        this.data.price = result.Price;
-                        this.data.priceRO = result.Price;
+                        this.data.price = 0;
+                        this.data.priceRO = 0;
                         this.data.comodity = result.Comodity;
-                        this.data.amount = result.Amount;
+                        this.data.amount = 0;
                     })
             }
         }

@@ -93,8 +93,8 @@
                             read-only.bind="readOnly" items.bind="countries" options.bind="controlOptions">
                         </au-dropdown>
 
-                        <au-datepicker label="TGL Trucking" value.bind="truckingDate"
-                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        <au-datepicker label="TGL Trucking" value.bind="data.truckingDate"
+                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions" change.delegate="truckingDateChanged($event)">
                         </au-datepicker>
 
 
