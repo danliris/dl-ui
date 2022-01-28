@@ -422,7 +422,7 @@ module.exports = [
 		name: 'monitoring-sample-stock-flow',
 		moduleId: './modules/garment-sample/report/monitoring-sample-stock-flow/index',
 		nav: true,
-		title: 'Monitoring Flow Stock Sample',
+		title: 'Monitoring Flow Persediaan Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
