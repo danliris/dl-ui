@@ -458,4 +458,18 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: '/garment-sample/sample-archive-report',
+		name: 'sample-archive-report',
+		moduleId: './modules/garment-sample/report/sample-archive-report/index',
+		nav: true,
+		title: 'Laporan Arsip Sample/MD',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
