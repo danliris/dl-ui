@@ -410,7 +410,7 @@ module.exports = [
 		name: 'garment-stock-sample-report',
 		moduleId: './modules/garment-sample/report/garment-stock-report/index',
 		nav: true,
-		title: 'Laporan Stock Gudang Sample',
+		title: 'Monitoring Flow Persediaan Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
