@@ -377,4 +377,60 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: 'monitoring-sample-flow-by-size',
+		name: 'monitoring-sample-flow-by-size',
+		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
+		nav: true,
+		title: 'Monitoring Flow  Sample per Size',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'monitoring-sample-stock-flow',
+		name: 'monitoring-sample-stock-flow',
+		moduleId: './modules/garment-sample/report/monitoring-sample-stock-flow/index',
+		nav: true,
+		title: 'Monitoring Flow Stock Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Monitoring Flow Persediaan Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Laporan Stock Gudang Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 ]
