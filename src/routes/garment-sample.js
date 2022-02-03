@@ -418,6 +418,32 @@ module.exports = [
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
+	},{
+		route: 'sample-finishing-monitoring',
+		name: 'sample-finishing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},{
+		route: 'sample-expenditure-good-delivery-monitoring',
+		name: 'sample-expenditure-good-delivery-monitoring',
+		moduleId: './modules/garment-sample/report/sample-expenditure-good-delivery-monitoring/index',
+		nav: true,
+		title: 'Monitoring Pengiriman Barang Jadi Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
 	},
 	{
 		route: 'garment-stock-sample-report',
@@ -443,6 +469,20 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/sample-archive-report',
+		name: 'sample-archive-report',
+		moduleId: './modules/garment-sample/report/sample-archive-report/index',
+		nav: true,
+		title: 'Laporan Arsip Sample/MD',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
