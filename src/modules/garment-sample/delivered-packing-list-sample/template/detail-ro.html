@@ -1,10 +1,5 @@
 <template>
     <tr>
-        <td class="bg-primary">
-            <au-dropdown value.bind="data.roType" items.bind="roTypeOptions" error.bind="error.roType"
-                read-only.bind="readOnly || (isEdit && data.id)" options.bind="controlOptions"
-                change.delegate="roTypeChanged($event)"></au-dropdown>
-        </td>
         <td class="bg-primary col-md-1">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader" text.bind="roView"
                 placeholder="cari RO" query.bind="filter" if.bind="!isMaster"
@@ -104,7 +99,7 @@
         <td colspan="10" style='border:none;'>
             <au-collection items.bind="data.details" errors.bind="error.Details" columns.bind="detailsColumns"
                 read-only.bind="readOnly" add.bind="addDetails" remove.bind="removeDetails" options.bind="itemOptions"
-                item-template="modules/garment-sample/packing-list-sample-md/template/detail-carton">
+                item-template="modules/garment-sample/delivered-packing-list-sample/template/detail-carton">
             </au-collection>
         </td>
         <td colspan="2" style='border:none;'>
