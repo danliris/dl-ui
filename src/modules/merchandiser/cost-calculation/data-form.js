@@ -330,9 +330,9 @@ export class DataForm {
     {
       this.data.LeadTime = 25;
     }
-    else if (newVal === "35 hari")
+    else if (newVal === "40 hari")
     {      
-      this.data.LeadTime = 35;
+      this.data.LeadTime = 40;
       
     }
     else

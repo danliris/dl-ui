@@ -6,7 +6,7 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["Detail", "Cetak"]
+    context = ["Detail", "Cetak", "Cetak W/ Kop"]
 
 
     dataTobeDelivered = []
@@ -81,6 +81,9 @@ export class List {
             case "Cetak":
                 this.service.getPdfById(data.id);
                 break;
+            case "Cetak W/ Kop":
+                this.service.getPdfWHById(data.id);
+                break;                 
         }
     }
 
