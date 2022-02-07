@@ -9,7 +9,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "gudang sample",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -23,7 +23,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "md",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "PGA":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -37,7 +37,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -51,7 +51,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "gudang sample",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -65,7 +65,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "gudang sample",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -79,7 +79,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -93,7 +93,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -107,7 +107,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -121,7 +121,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -135,7 +135,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -149,7 +149,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -163,7 +163,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -177,7 +177,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -191,7 +191,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -205,7 +205,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -219,7 +219,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -233,7 +233,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -247,7 +247,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -261,7 +261,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -275,7 +275,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -289,7 +289,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -303,7 +303,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -317,7 +317,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "fitur",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -331,7 +331,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "md",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "PGA": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -345,7 +345,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "md",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "PGA": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -359,7 +359,7 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "laporan",
-			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
@@ -373,7 +373,145 @@ module.exports = [
 		settings: {
 			group: "g-sample",
 			subGroup: "transaksi",
+			permission: { "C9": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'monitoring-sample-flow-by-size',
+		name: 'monitoring-sample-flow-by-size',
+		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
+		nav: true,
+		title: 'Monitoring Flow  Sample per Size',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
 			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'monitoring-sample-stock-flow',
+		name: 'monitoring-sample-stock-flow',
+		moduleId: './modules/garment-sample/report/monitoring-sample-stock-flow/index',
+		nav: true,
+		title: 'Monitoring Flow Stock Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Monitoring Flow Persediaan Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},{
+		route: 'sample-finishing-monitoring',
+		name: 'sample-finishing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},{
+		route: 'sample-expenditure-good-delivery-monitoring',
+		name: 'sample-expenditure-good-delivery-monitoring',
+		moduleId: './modules/garment-sample/report/sample-expenditure-good-delivery-monitoring/index',
+		nav: true,
+		title: 'Monitoring Pengiriman Barang Jadi Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Laporan Stock Gudang Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'monitoring-sample-flow-by-size',
+		name: 'monitoring-sample-flow-by-size',
+		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
+		nav: true,
+		title: 'Monitoring Flow  Sample per Size',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'monitoring-sample-stock-flow',
+		name: 'monitoring-sample-stock-flow',
+		moduleId: './modules/garment-sample/report/monitoring-sample-stock-flow/index',
+		nav: true,
+		title: 'Laporan Stock Gudang Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/delivered-packing-list-sample',
+		name: 'garment-delivered-packing-list-sample',
+		moduleId: './modules/garment-sample/delivered-packing-list-sample/index',
+		nav: true,
+		title: 'Delivered Packing list Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "transaksi",
+			permission: { "C9": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/sample-archive-report',
+		name: 'sample-archive-report',
+		moduleId: './modules/garment-sample/report/sample-archive-report/index',
+		nav: true,
+		title: 'Laporan Arsip Sample/MD',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1, "PGA":1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},

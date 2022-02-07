@@ -94,7 +94,7 @@
                         </au-dropdown>
 
                         <au-datepicker label="TGL Trucking" value.bind="data.truckingDate"
-                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions" change.delegate="truckingDateChanged($event)">
+                            error.bind="error.TruckingDate" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-datepicker>
 
 
@@ -130,7 +130,7 @@
                                 columns.bind="data.invoiceType=='SM' ? itemsColumnsSM : itemsColumns"
                                 read-only.bind="readOnly" add.bind="addItems" remove.bind="removeItems"
                                 options.bind="Options" show.bind="data.buyerAgent && data.section"
-                                item-template="modules/garment-sample/packing-list-sample-md/template/detail-ro">
+                                item-template="modules/garment-sample/delivered-packing-list-sample/template/detail-ro">
                             </au-collection>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                             <au-collection items.bind="data.measurements" errors.bind="error.Measurements"
                                 columns.bind="measureColumns" read-only.bind="readOnly || data.invoiceType=='DL'"
                                 add.bind="addMeasurements" remove.bind="removeMeasurements" options.bind="Options"
-                                item-template="modules/garment-sample/packing-list-sample-md/template/detail-measurement">
+                                item-template="modules/garment-sample/delivered-packing-list-sample/template/detail-measurement">
                             </au-collection>
                         </div>
 
