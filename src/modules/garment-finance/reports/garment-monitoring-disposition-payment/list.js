@@ -164,8 +164,6 @@ selectedInvoChanged(newValue) {
 		let endDate = this.endDate && this.endDate != "Invalid Date" ? moment(this.endDate).format("YYYY-MM-DD") : null;
 		let invoiceNo= this.invoiceNo   ? this.invoiceNo.InvoiceNo: "";
 		let dispositionNo= this.dispositionNo  ? this.dispositionNo.DispositionNo: "";
-
-
     let params = {
 		invoiceNo, dispositionNo, startDate, endDate
 
