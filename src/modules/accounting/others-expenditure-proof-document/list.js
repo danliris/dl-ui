@@ -58,13 +58,13 @@ export class List {
     { field: "Type", title: "Jenis Transaksi" },
   ];
 
-  tableOptions = {
-    // showColumns: false,
-    search: false,
-    // showToggle: false,
-    // sortable: false,
-    pagination: true,
-  };
+ // tableOptions = {
+    // showColumns: true,
+  //  search: true,
+   //  showToggle: true,
+   //  sortable: true,
+   // pagination: true,
+ // };
 
   loader = (info) => {
     // if (info.sort)
