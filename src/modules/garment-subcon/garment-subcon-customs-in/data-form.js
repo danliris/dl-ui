@@ -87,6 +87,8 @@ export class DataForm {
       this.data.SubconType = newValue;
       this.selectedSubconContract = null;
       this.selectedSupplier = null;
+      this.dataSC = null;
+      this.data.SubconContractNo = null;
     }
   }
 
@@ -138,6 +140,10 @@ export class DataForm {
   selectedSubconCategoryChanged(newValue) {
     if (newValue != this.data.SubconCategory) {
       this.data.SubconCategory = newValue;
+      this.selectedSubconContract = null;
+      this.selectedSupplier = null;
+      this.dataSC = null;
+      this.data.SubconContractNo = null;
     } else {
       this.data.SubconCategory = null;
     }
