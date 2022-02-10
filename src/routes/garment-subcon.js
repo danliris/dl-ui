@@ -126,6 +126,7 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+
   {
     route: '/garment-subcon/report/garment-subcon-contract-report',
     name: 'garment-subcon-contract-report',
@@ -140,5 +141,6 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+
 
 ]

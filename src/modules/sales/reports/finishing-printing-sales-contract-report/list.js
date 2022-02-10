@@ -77,6 +77,58 @@ export class List {
                 // for(var a of this.data){
                 //     a.deliverySchedule=moment(item.deliverySchedule).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.deliverySchedule).format("DD MMM YYYY");
                 // }
+
+                this.rowCount=[];
+                var rowDoc=[];
+                var index=0;
+
+                for (var a of result.data){
+                  var doc = a.salesContractNo;
+
+                  if (!rowDoc[doc])
+                  {
+                    index++;
+                    rowDoc[doc] = 1;
+                  }
+                  else
+                  {
+                    rowDoc[doc]++;
+                  }
+                }
+
+                for (var _data of result.data)
+                {
+                  _data.salesContractNo = _data.salesContractNo == "" ? "-" : _data.salesContractNo;
+                  _data.CreatedUtc = moment(_data.CreatedUtc).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.CreatedUtc).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.CreatedUtc).format("DD MMM YYYY");
+                  _data.buyerName = _data.buyerName == "" ? "-" : _data.buyerName;
+                  _data.buyerType = _data.buyerType == "" ? "-" : _data.buyerType;
+                  _data.dispositionNo = _data.dispositionNo == "" ? "-" : _data.dispositionNo;
+                  _data.orderType = _data.orderType == "" ? "-" : _data.orderType;
+                  _data.comodityName = _data.comodityName == "" ? "-" : _data.comodityName;
+                  _data.qualityName = _data.qualityName == "" ? "-" : _data.qualityName;
+                  _data.orderQuantity = _data.orderQuantity == "" ? "-" : _data.orderQuantity;
+                  _data.sppOrderNo = _data.sppOrderNo == "" ? "-" : _data.sppOrderNo;
+                  _data.productionOrderQuantity = _data.productionOrderQuantity == "" ? "-" : _data.productionOrderQuantity;
+                  _data.uomUnit = _data.uomUnit == "" ? "-" : _data.uomUnit;
+                  _data.sppDate = moment(_data.sppDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.sppDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.sppDate).format("DD MMM YYYY");
+                  _data.shippingQuantityTolerance = _data.shippingQuantityTolerance == "" ? "-" : _data.shippingQuantityTolerance;
+                  _data.termOfPaymentName = _data.termOfPaymentName == "" ? "-" : _data.termOfPaymentName;
+                  _data.paymentTo = _data.paymentTo == "" ? "-" : _data.paymentTo;
+                  _data.deliverySchedule = moment(_data.deliverySchedule).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.deliverySchedule).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.deliverySchedule).format("DD MMM YYYY");
+                  _data.agentName = _data.agentName == "" ? "-" : _data.agentName;
+                  _data.comission = _data.comission == "" ? "-" : _data.comission;
+                  _data.color = _data.color == "" ? "-" : _data.color;
+                  _data.price = _data.price == "" ? "-" : _data.price;
+                  _data.accountCurrencyCode = _data.accountCurrencyCode == "" ? "-" : _data.accountCurrencyCode;
+                  _data.useIncomeTax = _data.useIncomeTax == "" ? "-" : _data.useIncomeTax;
+                  _data.status = _data.status == "" ? "-" : _data.status;
+
+                  let spp = result.data.find(o=>o.salesContractNo == _data.salesContractNo);
+
+                  if(spp) {
+                    spp.docspan = rowDoc[_data.salesContractNo];
+                  }
+                }
             })
     }
 

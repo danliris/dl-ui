@@ -78,7 +78,6 @@ export class DataForm {
   async bind(context) {
     this.context = context;
     this.data = this.context.data;
-    this.type = this.context.type;
     this.data.area = "GUDANG JADI";
     //console.log(this.error);
     this.error = this.context.error;
@@ -94,9 +93,10 @@ export class DataForm {
     this.detailOptions = {
       isEdit: this.isEdit,
       readOnly: this.readOnly,
-      destinationArea: this.destinationArea,
-      type : this.type
+      destinationArea: this.destinationArea
     };
+
+    console.log('this.detailOptions',this.detailOptions);
 
     if (this.readOnly) {
       this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
