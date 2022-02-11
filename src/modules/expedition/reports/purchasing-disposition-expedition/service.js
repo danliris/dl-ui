@@ -14,12 +14,15 @@ class Service extends RestService {
 
     getReport(info) {
         let endpoint = `${uriFinanceDispositionReport}`;
+      
         return super.list(endpoint, info);
     }
 
     getXls(info) {
-        var query = `?filter=${info.filter}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         
+        var query = `?filter=${info.filter}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&dateFromPayment=${info.dateFromPayment}&dateToPayment=${info.dateToPayment}&bankExpenditureNoteNo=${info.bankExpenditureNoteNo}&SPBStatus=${info.SPBStatus}&PaymentStatus=${info.PaymentStatus}`;
+        console.log(info);
+        console.log(query);
         let endpoint = `${uriFinanceDispositionReport}/downloads/xls${query}`;
         return super.getXls(endpoint);
     }
