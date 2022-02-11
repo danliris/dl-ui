@@ -4,9 +4,10 @@ import numeral from 'numeral';
 import XLSX from 'xlsx';
 import { Service, PurchasingService } from './service';
 const SupplierLoader = require('../../../../loader/supplier-loader');
-const DivisionLoader = require('../../../../loader/division-loader');
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 const DispositionLoader = require('../../../../loader/purchase-dispositions-all-loader');
+const DispoExpeditionLoader= require('../../../../loader/purchasing-disposition-expedition-loader');
+const DivisionLoader= require('../../../../loader/division-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 
 @inject(Service, PurchasingService)
@@ -207,6 +208,18 @@ export class List {
             { text: 'Bag. Keuangan', value: 7 },
             // { text: 'Bag. Keuangan', value: 8 },
         ];
+        this.paymentStatus = [
+            { text: 'ALL', value: 0 },
+            { text: 'SUDAH DIBAYAR', value: 1 },
+            { text: 'BELUM DIBAYAR', value: 2 },
+            
+        ];
+        this.spbStatus = [
+            { text: 'ALL', value: 0 },
+            { text: 'SUDAH ADA', value: 1 },
+            { text: 'BELUM ADA', value: 2 },
+            
+        ];
     }
 
     loader = (info) => {
@@ -225,25 +238,33 @@ export class List {
         if (this.supplier) {
             filter.supplierCode = this.supplier.code;
         }
-
+        if (this.division) {
+            filter.divisionName = this.division.Name;
+        }
+       
         if (this.Position) {
             if (this.Position.value != 0)
                 filter.Position = this.Position.value;
         }
-
+        
         if (this.staffName) {
             filter.CreatedBy = this.staffName.username;
         }
-
+        
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             filter: JSON.stringify(filter),
             order: order
         };
-
+        
+        arg.bankExpenditureNoteNo=this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo:null;
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
+        arg.dateFromPayment = this.dateFromPayment ? moment(this.dateFromPayment).format("YYYY-MM-DD") : null;
+        arg.dateToPayment = this.dateToPayment ? moment(this.dateToPayment).format("YYYY-MM-DD") : null;
+        arg.SPBStatus= this.SPBStatus ? this.SPBStatus.text :null;
+        arg.PaymentStatus= this.PaymentStatus ? this.PaymentStatus.text :null;
         return this.flag ? (
             this.service.getReport(arg)
             .then(result => {
@@ -287,11 +308,17 @@ export class List {
         if (this.staffName) {
             filter.CreatedBy = this.staffName.username;
         }
-
+        if (this.division) {
+            filter.divisionName = this.division.Name;
+        }
         let arg = {
             filter: JSON.stringify(filter)
         };
-
+        arg.bankExpenditureNoteNo=this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo:"";
+        arg.dateFromPayment = this.dateFromPayment ? moment(this.dateFromPayment).format("YYYY-MM-DD") : null;
+        arg.dateToPayment = this.dateToPayment ? moment(this.dateToPayment).format("YYYY-MM-DD") : null;
+        arg.SPBStatus= this.SPBStatus ? this.SPBStatus.text :null;
+        arg.PaymentStatus= this.PaymentStatus ? this.PaymentStatus.text :null;
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.service.getXls(arg);
@@ -305,12 +332,17 @@ export class List {
         this.staffName = null;
         this.flag = false;
         this.disposition = null;
+        this.bankExpenditureNo = null;
         this.unitPaymentOrder = undefined;
         this.supplier = undefined;
         this.division = undefined;
         this.Position = { value: 0 };
+        this.PaymentStatus = { value: 0 };
+        this.SPBStatus = { value: 0 };
         this.dateFrom = undefined;
         this.dateTo = undefined;
+        this.dateFromPayment = undefined;
+        this.dateToPayment = undefined;
         this.tableList.refresh();
     }
 
@@ -322,8 +354,28 @@ export class List {
         return DispositionLoader;
     }
 
+    get dispoExpeditionLoader()
+    {
+        return DispoExpeditionLoader;
+    }
+
     get accountLoader() {
         return AccountLoader;
+    }
+
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+
+
+    dispoExpeditionView = (disExpedition) => {
+        console.log(disExpedition);
+        return `${disExpedition.bankExpenditureNoteNo}`
+    }
+
+    divisionView = (division) => {
+       
+        return `${division.Name}`
     }
 
     stafView = (staff) => {
