@@ -61,8 +61,8 @@ export class List {
                 for(var item of this.data)
                 {
                     this.resultTotal= item.Total;
-                   
                     item.totalBudget =  numeral(item.prBudgetPrice * item.poDefaultQty).format("0,000.00");
+
                 }
          this.info.total= this.resultTotal;
             })
