@@ -53,9 +53,16 @@ export class List {
     
         this.service.search(args)
             .then(result => {
-                this.info.total=result.info.total; 
+                console.log(result.data);
+                var resultTotal=0;
+                //this.info.total=result.info.total; 
                 this.data = result.data;
-         
+                for(var item of this.data)
+                {
+                    this.resultTotal= item.Total;
+                    item.totalBudget = item.prBudgetPrice * item.poDefaultQty;
+                }
+         this.info.total= this.resultTotal;
             })
     }
 
