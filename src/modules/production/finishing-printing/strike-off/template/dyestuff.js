@@ -10,13 +10,26 @@ export class CartItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        this.Type = this.contextOptions.type;
+
+        console.log(this.Type);
+        console.log(this.options);
+
         if (this.data.Product) {
             this.selectedProduct = this.data.Product;
         }
+
+        // if (this.data.SubType) {
+        //     this.subtype = this.data.SubType;
+        // }
+
+
     }
     productQuery = {
         "Tags": "Dye Stuff Printing"
     }
+    
+    subTypes = ["REAKTIF", "RESIST", "PIGMENT", "BROM"];
 
     controlOptions = {
         control: {
@@ -38,4 +51,5 @@ export class CartItem {
             this.data.Product = {};
         }
     }
+
 }
