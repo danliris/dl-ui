@@ -83,7 +83,7 @@ export class List {
                 break;
             case "Cetak W/ Kop":
                 this.service.getPdfWHById(data.id);
-                break;                 
+                break;                
         }
     }
 
