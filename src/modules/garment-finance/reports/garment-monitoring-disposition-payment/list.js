@@ -162,8 +162,8 @@ selectedInvoChanged(newValue) {
   excel() {
     let startDate = this.startDate && this.startDate != "Invalid Date" ? moment(this.startDate).format("YYYY-MM-DD") : null;
 		let endDate = this.endDate && this.endDate != "Invalid Date" ? moment(this.endDate).format("YYYY-MM-DD") : null;
-		let invoiceNo= this.invoiceNo   ? this.invoiceNo.InvoiceNo: null;
-		let dispositionNo= this.dispositionNo  ? this.dispositionNo.DispositionNo: null;
+		let invoiceNo= this.invoiceNo   ? this.invoiceNo.InvoiceNo: "";
+		let dispositionNo= this.dispositionNo  ? this.dispositionNo.DispositionNo: "";
 
 
     let params = {
