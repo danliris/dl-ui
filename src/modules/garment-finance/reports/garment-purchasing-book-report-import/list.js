@@ -112,6 +112,9 @@ export class List {
     this.currencies = [];
   }
 
+  get dispositionLoader() {
+    return DispositionLoader;
+  }
   loader = (info) => {
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
