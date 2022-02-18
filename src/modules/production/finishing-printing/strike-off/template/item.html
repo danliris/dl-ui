@@ -19,7 +19,7 @@
 
             <au-collection columns.bind="dyeStuffColumns" view-model.ref="DyeStuffCollections"
                 items.bind="data.DyeStuffItems" add.bind="addItemCallback" remove.bind="removeDetails"
-                read-only.bind="readOnly" errors.bind="error.DyeStuffItems"
+                read-only.bind="readOnly" errors.bind="error.DyeStuffItems" options.bind ="listTypeOptions"
                 item-template="modules/production/finishing-printing/strike-off/template/dyestuff">
             </au-collection>
 
