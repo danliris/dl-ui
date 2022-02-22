@@ -170,6 +170,24 @@
                     options.bind="controlOptions">
         </au-numeric>
 
+        <au-numeric label="Bank Charges"
+                    value.bind="data.BankCharges"
+                    error.bind="error.BankCharges"
+                    read-only.bind="readOnly"
+                    format="0,0.0000"
+                    if.bind="data.SourceType == 'Pendanaan' && data.SourceFundingType=='Internal'"
+                    options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric label="Rates (Buy/Sell)"
+                    value.bind="data.Rates"
+                    error.bind="error.Rates"
+                    read-only.bind="readOnly"
+                    format="0,0.0000"
+                    if.bind="data.SourceType == 'Pendanaan'&& data.SourceFundingType=='Internal' && data.OutputBank && data.Bank.Currency && data.OutputBank.Currency.Code!=data.Bank.Currency.Code "
+                    options.bind="controlOptions">
+        </au-numeric>
+
         <au-numeric label="Nominal Masuk"
                     value.bind="data.TransactionNominal"
                     error.bind="error.TransactionNominal"

@@ -2,7 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './service';
 import moment from 'moment';
 
-const CurrencyLoader = require('../../../loader/currency-loader');
+const CurrencyLoader = require('../../../loader/currency-in-garment-currency-loader');
 const UnitVBNonPO = require('../../../loader/unit-vb-non-po-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 

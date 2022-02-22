@@ -1,10 +1,15 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "../service";
+const UomLoader = require("../../../../loader/uom-loader");
 
 @inject(Service)
 export class Specification {
     constructor(service) {
         this.service = service;
+    }
+
+    get uomLoader() {
+        return UomLoader;
     }
 
     activate(context) {

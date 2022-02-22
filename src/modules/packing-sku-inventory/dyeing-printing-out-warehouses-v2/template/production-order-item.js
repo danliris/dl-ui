@@ -12,29 +12,33 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    
+    this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
-
+    this.isShowing = false;
     //this.items = this.context.context.items;
     // console.log(this.error);
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
-    this.type = this.contextOptions.type;
     this.isTransit = this.destinationArea == "TRANSIT";
+    this.listOptions = {
+      isEdit: this.isEdit,
+      destinationArea: this.destinationArea
+    };
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
-      
+
     }
-    if (this.data.id == null){
+    if (this.data.id == null) {
       this.data.isremovable = true;
     }
-    if (this.data.packagingQty) {
+    //view detail
+    if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
     }
 
@@ -45,6 +49,10 @@ export class ProductionOrderItem {
     if (this.data.quantity) {
       this.qty = this.data.quantity;
     }
+
+    this.barcodeColumns = [
+      "Kode Packing"
+    ];
   }
 
   controlOptions = {
@@ -91,6 +99,29 @@ export class ProductionOrderItem {
       this.data.balance = this.data.packagingQty * this.data.quantity;
     }
   }
+
+  toggle() {
+    if (!this.isShowing) this.isShowing = true;
+    else this.isShowing = !this.isShowing;
+  }
+
+  getProductPackingCodeList(data) {
+
+    const productPackingCodeRemains = data.productPackingCodeRemains != null ? data.productPackingCodeRemains : data.productPackingCode;
+
+    if(productPackingCodeRemains !== null && productPackingCodeRemains !== ""){
+      return productPackingCodeRemains.split(',').map(d => {
+        return {
+          packingCode: d
+        }
+      });
+    }
+    return [];
+  }
+
+  someCallbackFunction() {
+    this.qtyPacking = this.data.productPackingCodeList.filter(d => d.IsSave).length;
+  };
   // copycallback(item){
   //   console.log(item);
   //   var itemIndex = this.items.indexOf(item);

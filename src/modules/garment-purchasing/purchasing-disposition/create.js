@@ -52,27 +52,27 @@ export class Create {
                         var pphView=0;
                         var ppn=0;
                         var ppnView =0;
-                        if(item.IsIncomeTax){
-                            // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
-                            // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
-                            pphView = item.IncomeTaxValueView;
+                        if (item.IsIncomeTax) {
+                          // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
+                          // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
+                          pphView = item.IncomeTaxValueView;
                         }
-                        if(item.IsPayIncomeTax){
+                        if (item.IsPayIncomeTax) {
                             // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
                             // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
                             pph = item.IncomeTaxValue;
                         }
-                        if(item.IsPayVAT){
+                        if (item.IsPayVAT) {
                             // ppn=detail.PriceTotal*0.1;
                             ppn = item.VatValue;
                         }
-                        if(item.IsUseVat){
+                        if (item.IsUseVat) {
                             // ppn=detail.PriceTotal*0.1;
                             ppnView = item.VatValueView;
                         }
-                        this.data.IncomeTaxValue+=pph;
+                        this.data.IncomeTaxValue+=pphView;
                         this.data.IncomeTaxValueView +=pphView;                        
-                        this.data.VatValue+=ppn;
+                        this.data.VatValue+=ppnView;
                         this.data.VatValueView+=ppnView;                        
                         this.data.DPP+=item.DPPValue;
                         incomeTaxCalculate +=pph;
