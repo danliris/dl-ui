@@ -17,8 +17,14 @@ export class List {
   items = [];
   async bind() {
 
+    var keyword = "";
+    if (this.keyword) {
+      keyword = this.keyword;
+    }
+
     var arg = {
       size: Number.MAX_SAFE_INTEGER,
+      keyword: keyword
     }
     let headerDataPromise = this.service.searchHeader(arg)
       .then(result => {
@@ -29,7 +35,8 @@ export class List {
       size: Number.MAX_SAFE_INTEGER,
       order: {
         Code: "asc"
-      }
+      },
+      keyword: keyword
     }
     let ledgerDataPromise = this.service.searchAll(ledgerArg)
       .then(result => {
@@ -68,8 +75,8 @@ export class List {
         let item = {
           name: header.Name,
           code: header.Code,
-          balance : 0,
-          balanceString : 0,
+          balance: 0,
+          balanceString: 0,
           subHeaders: []
         }
         items.push(item);
@@ -79,25 +86,29 @@ export class List {
     this.items = items;
   }
 
-  loader = (info) => {
-    var order = {};
-    if (info.sort)
-      order[info.sort] = info.order;
+  // loader = (info) => {
+  //   var order = {};
+  //   if (info.sort)
+  //     order[info.sort] = info.order;
 
-    var arg = {
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
-      order: order
-    }
+  //   var arg = {
+  //     page: parseInt(info.offset / info.limit, 10) + 1,
+  //     size: info.limit,
+  //     keyword: info.search,
+  //     order: order
+  //   }
 
-    return this.service.searchAll(arg)
-      .then(result => {
-        return {
-          total: result.info.total,
-          data: result.data
-        }
-      });
+  //   return this.service.searchAll(arg)
+  //     .then(result => {
+  //       return {
+  //         total: result.info.total,
+  //         data: result.data
+  //       }
+  //     });
+  // }
+
+  search() {
+    this.bind()
   }
 
   constructor(router, service) {
@@ -145,91 +156,5 @@ export class List {
   delete(id) {
     console.log(id);
   }
-
-  // items = [{
-  //   header: "Header 1",
-  //   headerCode: "01",
-  //   subHeaders: [{
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }, {
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }]
-  // }, {
-  //   header: "Header 2",
-  //   headerCode: "02",
-  //   subHeaders: [{
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }, {
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }]
-  // }, {
-  //   header: "Header 3",
-  //   headerCode: "03",
-  //   subHeaders: [{
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }, {
-  //     subHeader: "SubHeader",
-  //     ledgers: [{
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }, {
-  //       code: "code",
-  //       name: "name"
-  //     }]
-  //   }]
-  // }]
 
 }

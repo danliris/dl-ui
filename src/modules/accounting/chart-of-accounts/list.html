@@ -37,6 +37,19 @@
 
   <br></br>
 
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-3">
+      <au-textbox value.bind="keyword"></au-textbox>
+    </div>
+    <div class="col-sm-1" style="margin-top: 12px;">
+      <button class="btn btn-primary"
+              click.delegate="search()">Cari</button>
+    </div>
+  </div>
+
+  <br></br>
+
   <aubs-accordion close-others.bind="true">
     <aubs-accordion-group repeat.for="item of items">
       <template replace-part="header">
