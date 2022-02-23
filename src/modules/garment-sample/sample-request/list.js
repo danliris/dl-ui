@@ -28,7 +28,7 @@ export class List {
 
     columns = [
         {
-            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            field: "IsPosted", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
                 return "";
@@ -41,6 +41,7 @@ export class List {
         { field: "BuyerName", title: "Buyer" },
         { field: "SentDate", title: "Tgl Kirim", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "POBuyer", title: "PO Buyer" },
+        { field: "Status", title: "Status" },
     ]
 
     loader = (info) => {
@@ -59,8 +60,20 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 result.data.forEach(s => {
-                    s.BuyerName = s.Buyer.Name;
-
+                    s.BuyerName=s.Buyer.Name;
+                    s.Status="CREATED";
+                    if(s.IsPosted && !s.IsReceived && !s.IsRejected && !s.IsRevised){
+                        s.Status="POSTED";
+                    }
+                    else if(s.IsReceived && !s.IsRevised){
+                        s.Status="APPROVED";
+                    }
+                    else if(s.IsRejected){
+                        s.Status="REJECTED";
+                    }
+                    else if(s.IsRevised){
+                        s.Status="REVISED";
+                    }
                 });
                 return {
                     total: result.info.total,
@@ -87,7 +100,7 @@ export class List {
     }
 
     posting() {
-        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+        const unpostedDataToBePosted = this.dataToBePosted;//.filter(d => d.IsPosted === false);
         if (unpostedDataToBePosted.length > 0) {
             if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
                 var ids = unpostedDataToBePosted.map(d => d.Id);
@@ -108,8 +121,12 @@ export class List {
     }
 
     rowFormatter(data, index) {
-        if (data.IsPosted)
+        if (data.Status=="APPROVED")
             return { classes: "success" }
+        else if (data.Status=="REVISED")
+            return { classes: "info" }
+        else if (data.Status=="REJECTED")
+            return { classes: "danger" }
         else
             return {}
     }

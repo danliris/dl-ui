@@ -15,6 +15,13 @@ export class Index {
           title: "Create: Stop Opname Gudang Barang Jadi - Dyeing & Printing"
         },
         {
+          route: "view-scan",
+          moduleId: "./view-scan",
+          name: "view-scan",
+          nav: false,
+          title: "View-Scan: Stop Opname Gudang Barang Jadi - Dyeing & Printing"
+        },
+        {
           route: 'view/:id',
           moduleId: './view',
           name: 'view',

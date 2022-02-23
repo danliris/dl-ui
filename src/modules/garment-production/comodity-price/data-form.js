@@ -1,7 +1,7 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
-const UnitLoader = require('../../../loader/garment-units-loader');
+const UnitLoader = require('../../../loader/garment-sample-unit-loader');
 
 @inject(Service)
 export class DataForm {

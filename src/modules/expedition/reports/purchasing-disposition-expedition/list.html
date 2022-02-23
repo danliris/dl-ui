@@ -39,15 +39,59 @@
             text.bind="stafView">
         </au-autocomplete>
 
-        <au-datepicker
+        <au-autocomplete value.bind="bankExpenditureNo" 
+            label="No Bukti Pengeluaran Bank" 
+            loader.bind="dispoExpeditionLoader" 
+            options.bind="controlOptions"
+            placeholder="no bukti pengeluaran bank"        
+            text.bind="dispoExpeditionView">
+        </au-autocomplete>
+
+        <au-autocomplete value.bind="division" 
+            label="Divisi" 
+            loader.bind="divisionLoader" 
+            options.bind="controlOptions"
+            placeholder="divisi"        
+            text.bind="divisionView">
+        </au-autocomplete>
+
+        <au-dropdown
+            value.bind="PaymentStatus"
+            label="Status Bayar"
+            options.bind="controlOptions"
+            items.bind="paymentStatus"
+            key="value"
+            text="text">    
+        </au-dropdown>
+        <au-dropdown
+            value.bind="SPBStatus"
+            label="Status SPB"
+            options.bind="controlOptions"
+            items.bind="spbStatus"
+            key="value"
+            text="text">    
+        </au-dropdown>
+            <au-datepicker
             value.bind="dateFrom"
-            label="Tanggal Awal"
+            label="Tanggal Awal Disposisi"
             options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker
             value.bind="dateTo"
-            label="Tanggal Akhir"
+            label="Tanggal Akhir Diposisi"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker
+            value.bind="dateFromPayment"
+            label="Tanggal Awal Pembayaran"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker
+            value.bind="dateToPayment"
+            label="Tanggal Akhir Pembayaran"
             options.bind="controlOptions">
         </au-datepicker>
 

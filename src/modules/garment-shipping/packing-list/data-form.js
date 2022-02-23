@@ -62,7 +62,7 @@ export class DataForm {
         }
     };
 
-    itemsColumns =[
+    itemsColumns = [
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -78,7 +78,7 @@ export class DataForm {
         { header: "" },
     ]
 
-    itemsColumnsSM =[
+    itemsColumnsSM = [
         { header: "RO No" },
         { header: "SC No" },
         { header: "Komoditi Description" },
@@ -92,7 +92,7 @@ export class DataForm {
         { header: "" },
     ]
 
-    itemsColumnsROMaster =[
+    itemsColumnsROMaster = [
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -106,7 +106,7 @@ export class DataForm {
         { header: "" },
     ]
 
-    itemsColumnsSMMaster =[
+    itemsColumnsSMMaster = [
         { header: "RO No" },
         { header: "SC No" },
         { header: "Komoditi Description" },
@@ -132,9 +132,9 @@ export class DataForm {
     InvoiceTypeOptions = ["DL", "DS", "SM"];
     InvoiceTypeOptionsR = ["DLR", "SMR"];
     PaymentTermOptions = ["LC", "TT/OA", "NON COMERCIAL"];
-    roTypes=["RO JOB", "RO MASTER"]
+    roTypes = ["RO JOB", "RO MASTER"]
 
-    countries =  ["", "AFGHANISTAN", "ALBANIA", "ALGERIA", "ANDORRA", "ANGOLA", "ANGUILLA", "ANTIGUA AND BARBUDA", "ARGENTINA", "ARMENIA", "ARUBA", "AUSTRALIA", "AUSTRIA", "AZERBAIJAN", "BAHAMAS", "BAHRAIN", "BANGLADESH", "BARBADOS", "BELARUS", "BELGIUM", "BELIZE", "BENIN", "BERMUDA", "BHUTAN", "BOLIVIA", "BOSNIA AND HERZEGOVINA", "BOTSWANA", "BRAZIL", "BRITISH VIRGIN ISLANDS", "BRUNEI", "BULGARIA", "BURKINA FASO", "BURUNDI", "CAMBODIA", "CAMEROON", "CANADA", "CAPE VERDE", "CAYMAN ISLANDS", "CHAD", "CHILE", "CHINA", "COLOMBIA", "CONGO", "COOK ISLANDS", "COSTA RICA", "COTE D IVOIRE", "CROATIA", "CRUISE SHIP", "CUBA", "CYPRUS", "CZECH REPUBLIC", "DENMARK", "DJIBOUTI", "DOMINICA", "DOMINICAN REPUBLIC", "ECUADOR", "EGYPT", "EL SALVADOR", "EQUATORIAL GUINEA", "ESTONIA", "ETHIOPIA", "FALKLAND ISLANDS", "FAROE ISLANDS", "FIJI", "FINLAND", "FRANCE", "FRENCH POLYNESIA", "FRENCH WEST INDIES", "GABON", "GAMBIA", "GEORGIA", "GERMANY", "GHANA", "GIBRALTAR", "GREECE", "GREENLAND", "GRENADA", "GUAM", "GUATEMALA", "GUERNSEY", "GUINEA", "GUINEA BISSAU", "GUYANA", "HAITI", "HONDURAS", "HONG KONG", "HUNGARY", "ICELAND", "INDIA", "INDONESIA", "IRAN", "IRAQ", "IRELAND", "ISLE OF MAN", "ISRAEL", "ITALY", "JAMAICA", "JAPAN", "JERSEY", "JORDAN", "KAZAKHSTAN", "KENYA", "KUWAIT", "KYRGYZ REPUBLIC", "LAOS", "LATVIA", "LEBANON", "LESOTHO", "LIBERIA", "LIBYA", "LIECHTENSTEIN", "LITHUANIA", "LUXEMBOURG", "MACAU", "MACEDONIA", "MADAGASCAR", "MALAWI", "MALAYSIA", "MALDIVES", "MALI", "MALTA", "MAURITANIA", "MAURITIUS", "MEXICO", "MOLDOVA", "MONACO", "MONGOLIA", "MONTENEGRO", "MONTSERRAT", "MOROCCO", "MOZAMBIQUE", "NAMIBIA", "NEPAL", "NETHERLANDS", "NETHERLANDS ANTILLES", "NEW CALEDONIA", "NEW ZEALAND", "NICARAGUA", "NIGER", "NIGERIA", "NORTH KOREA", "NORWAY", "OMAN", "PAKISTAN", "PALESTINE", "PANAMA", "PAPUA NEW GUINEA", "PARAGUAY", "PERU", "PHILIPPINES", "POLAND", "PORTUGAL", "PUERTO RICO", "QATAR", "REUNION", "ROMANIA", "RUSSIA", "RWANDA", "SAINT PIERRE AND MIQUELON", "SAMOA", "SAN MARINO", "SATELLITE", "SAUDI ARABIA", "SENEGAL", "SERBIA", "SEYCHELLES", "SIERRA LEONE", "SINGAPORE", "SLOVAKIA", "SLOVENIA", "SOUTH AFRICA", "SOUTH KOREA", "SPAIN", "SRI LANKA", "ST KITTS AND NEVIS", "ST LUCIA", "ST VINCENT", "ST. LUCIA", "SUDAN", "SURINAME", "SWAZILAND", "SWEDEN", "SWITZERLAND", "SYRIA", "TAIWAN", "TAJIKISTAN", "TANZANIA", "THAILAND", "TIMOR L'ESTE", "TOGO", "TONGA", "TRINIDAD AND TOBAGO", "TUNISIA", "TURKEY", "TURKMENISTAN", "TURKS AND CAICOS", "UGANDA", "UKRAINE", "UNITED ARAB EMIRATES", "UNITED KINGDOM", "UNITED STATES OF AMERICA", "URUGUAY", "UZBEKISTAN", "VENEZUELA", "VIETNAM", "VIRGIN ISLANDS (US)", "YEMEN", "ZAMBIA", "ZIMBABWE"];
+    countries = ["", "AFGHANISTAN", "ALBANIA", "ALGERIA", "ANDORRA", "ANGOLA", "ANGUILLA", "ANTIGUA AND BARBUDA", "ARGENTINA", "ARMENIA", "ARUBA", "AUSTRALIA", "AUSTRIA", "AZERBAIJAN", "BAHAMAS", "BAHRAIN", "BANGLADESH", "BARBADOS", "BELARUS", "BELGIUM", "BELIZE", "BENIN", "BERMUDA", "BHUTAN", "BOLIVIA", "BOSNIA AND HERZEGOVINA", "BOTSWANA", "BRAZIL", "BRITISH VIRGIN ISLANDS", "BRUNEI", "BULGARIA", "BURKINA FASO", "BURUNDI", "CAMBODIA", "CAMEROON", "CANADA", "CAPE VERDE", "CAYMAN ISLANDS", "CHAD", "CHILE", "CHINA", "COLOMBIA", "CONGO", "COOK ISLANDS", "COSTA RICA", "COTE D IVOIRE", "CROATIA", "CRUISE SHIP", "CUBA", "CYPRUS", "CZECH REPUBLIC", "DENMARK", "DJIBOUTI", "DOMINICA", "DOMINICAN REPUBLIC", "ECUADOR", "EGYPT", "EL SALVADOR", "EQUATORIAL GUINEA", "ESTONIA", "ETHIOPIA", "FALKLAND ISLANDS", "FAROE ISLANDS", "FIJI", "FINLAND", "FRANCE", "FRENCH POLYNESIA", "FRENCH WEST INDIES", "GABON", "GAMBIA", "GEORGIA", "GERMANY", "GHANA", "GIBRALTAR", "GREECE", "GREENLAND", "GRENADA", "GUAM", "GUATEMALA", "GUERNSEY", "GUINEA", "GUINEA BISSAU", "GUYANA", "HAITI", "HONDURAS", "HONG KONG", "HUNGARY", "ICELAND", "INDIA", "INDONESIA", "IRAN", "IRAQ", "IRELAND", "ISLE OF MAN", "ISRAEL", "ITALY", "JAMAICA", "JAPAN", "JERSEY", "JORDAN", "KAZAKHSTAN", "KENYA", "KUWAIT", "KYRGYZ REPUBLIC", "LAOS", "LATVIA", "LEBANON", "LESOTHO", "LIBERIA", "LIBYA", "LIECHTENSTEIN", "LITHUANIA", "LUXEMBOURG", "MACAU", "MACEDONIA", "MADAGASCAR", "MALAWI", "MALAYSIA", "MALDIVES", "MALI", "MALTA", "MAURITANIA", "MAURITIUS", "MEXICO", "MOLDOVA", "MONACO", "MONGOLIA", "MONTENEGRO", "MONTSERRAT", "MOROCCO", "MOZAMBIQUE", "NAMIBIA", "NEPAL", "NETHERLANDS", "NETHERLANDS ANTILLES", "NEW CALEDONIA", "NEW ZEALAND", "NICARAGUA", "NIGER", "NIGERIA", "NORTH KOREA", "NORWAY", "OMAN", "PAKISTAN", "PALESTINE", "PANAMA", "PAPUA NEW GUINEA", "PARAGUAY", "PERU", "PHILIPPINES", "POLAND", "PORTUGAL", "PUERTO RICO", "QATAR", "REUNION", "ROMANIA", "RUSSIA", "RWANDA", "SAINT PIERRE AND MIQUELON", "SAMOA", "SAN MARINO", "SATELLITE", "SAUDI ARABIA", "SENEGAL", "SERBIA", "SEYCHELLES", "SIERRA LEONE", "SINGAPORE", "SLOVAKIA", "SLOVENIA", "SOUTH AFRICA", "SOUTH KOREA", "SPAIN", "SRI LANKA", "ST KITTS AND NEVIS", "ST LUCIA", "ST VINCENT", "ST. LUCIA", "SUDAN", "SURINAME", "SWAZILAND", "SWEDEN", "SWITZERLAND", "SYRIA", "TAIWAN", "TAJIKISTAN", "TANZANIA", "THAILAND", "TIMOR L'ESTE", "TOGO", "TONGA", "TRINIDAD AND TOBAGO", "TUNISIA", "TURKEY", "TURKMENISTAN", "TURKS AND CAICOS", "UGANDA", "UKRAINE", "UNITED ARAB EMIRATES", "UNITED KINGDOM", "UNITED STATES OF AMERICA", "URUGUAY", "UZBEKISTAN", "VENEZUELA", "VIETNAM", "VIRGIN ISLANDS (US)", "YEMEN", "ZAMBIA", "ZIMBABWE"];
 
     get say() {
         var number = this.data.totalCartons;
@@ -204,16 +204,16 @@ export class DataForm {
             this.selectedLC = {
                 documentCreditNo: this.data.lcNo
             };
-            if(this.data.packingListType=="RE EXPORT"){
-                this.roType="RO JOB";
-                for(var a of this.data.items){
-                    if(a.roNo.indexOf("M")!=-1 || a.roNo.indexOf("S")!=-1){
-                        this.roType="RO MASTER";
+            if (this.data.packingListType == "RE EXPORT") {
+                this.roType = "RO JOB";
+                for (var a of this.data.items) {
+                    if (a.roNo.indexOf("M") != -1 || a.roNo.indexOf("S") != -1) {
+                        this.roType = "RO MASTER";
                     }
                     break;
                 }
             }
-            
+
         }
         // if(this.activeTab!=2){
         //     this.context.saveCallback=null;
@@ -246,13 +246,12 @@ export class DataForm {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        var shippingStaff = await this.coreService.getStaffIdByName({size: 1, filter: JSON.stringify({ Name: username })});
+        var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
         this.data.shippingStaffName = shippingStaff.data[0].Name;
         this.data.shippingStaff = {
-          id : shippingStaff.data[0].Id,
-          name : shippingStaff.data[0].Name
+            id: shippingStaff.data[0].Id,
+            name: shippingStaff.data[0].Name
         };
-
     }
 
     get addMeasurements() {
@@ -283,7 +282,7 @@ export class DataForm {
     get removeItems() {
         return (event) => {
             this.error = null;
-            this.updateMeasurements();
+            //this.updateMeasurements();
         };
     }
 
@@ -310,11 +309,11 @@ export class DataForm {
         }
     }
 
-    selectedInvoiceTypeChanged(newValue){
-        if (newValue != this.data.invoiceType && this.data.items){
+    selectedInvoiceTypeChanged(newValue) {
+        if (newValue != this.data.invoiceType && this.data.items) {
             this.data.items.splice(0);
-            if(this.data.measurements)
-                this.data.measurements.splice(0);
+            /*if (this.data.measurements)
+                this.data.measurements.splice(0);*/
         }
         if (newValue) {
             this.data.invoiceType = newValue;
@@ -365,15 +364,15 @@ export class DataForm {
         if (this.data.items) {
             var no = 1;
             for (var item of this.data.items) {
-                let unit = item.uom.unit || item.uom.Unit;
+                let unit = item.uom != null ? item.uom.unit || item.uom.Unit : "";
                 if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
                     quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
-                    if(units.findIndex(u => u.unit == unit) < 0) {
+                    if (units.findIndex(u => u.unit == unit) < 0) {
                         units.push({ unit: unit });
                     }
                 }
                 no++;
-                
+
             }
         }
         for (var u of units) {
@@ -437,7 +436,7 @@ export class DataForm {
     }
 
     get shippingStaffLoader() {
-      return ShippingStaffLoader;
+        return ShippingStaffLoader;
     }
 
     shippingStaffView = (data) => {
@@ -488,8 +487,8 @@ export class DataForm {
         this.data.measurements.forEach((m, i) => m.MeasurementIndex = i);
     }
 
-    roTypeChanged(newValue){
-        if(newValue != this.data.roType && this.data.items && this.isEdit){
+    roTypeChanged(newValue) {
+        if (newValue != this.data.roType && this.data.items && this.isEdit) {
             this.data.items.splice(0);
         }
         if (newValue) {
@@ -498,5 +497,5 @@ export class DataForm {
             this.data.roType = null;
         }
     }
-    
+
 }

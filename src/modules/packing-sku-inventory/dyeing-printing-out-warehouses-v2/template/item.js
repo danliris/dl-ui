@@ -12,14 +12,11 @@ export class Item {
     this.options = context.options;
     this.contextOptions = context.context.options;
     this.isEdit = this.contextOptions.isEdit;
-    this.type = this.contextOptions.type;
-    console.log(this.type);
     this.destinationArea = this.contextOptions.destinationArea;
     this.isShowing = false;
     this.listOptions = {
       isEdit: this.isEdit,
-      destinationArea: this.destinationArea,
-      type : this.type
+      destinationArea: this.destinationArea
     };
     if (this.destinationArea == "TRANSIT") {
       this.itemColumns = [
@@ -39,47 +36,27 @@ export class Item {
         "Panjang Per Packing",
         "Qty Keluar",
         "",
+        "",
       ];
     } else {
-
-      if(this.type){
-        this.itemColumns = [
-          "Nomor DO",
-          "Material",
-          "Unit",
-          "Buyer",
-          "Warna",
-          "Motif",
-          "Grade",
-          "Satuan",
-          "Zona Asal",
-          "Qty Packing",
-          "Packing",
-          "Jenis",
-          "Qty Keluar",
-          "",
-        ];
-      }else{
-        this.itemColumns = [
-          "Nomor DO",
-          "Material",
-          "Unit",
-          "Buyer",
-          "Warna",
-          "Motif",
-          "Grade",
-          "Satuan",
-          "Zona Asal",
-          "Qty Packing",
-          "Packing",
-          "Jenis",
-          "Panjang Per Packing",
-          "Qty Keluar",
-          "",
-        ];
-
-      }
-      
+      this.itemColumns = [
+        "Nomor DO",
+        "Material",
+        "Unit",
+        "Buyer",
+        "Warna",
+        "Motif",
+        "Grade",
+        "Satuan",
+        "Zona Asal",
+        "Qty Packing",
+        "Packing",
+        "Jenis",
+        "Panjang Per Packing",
+        "Qty Keluar",
+        "",
+        "",
+      ];
     }
 
     if (this.data.productionOrderId) {
