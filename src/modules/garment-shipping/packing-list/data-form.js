@@ -317,6 +317,14 @@ export class DataForm {
         }
         if (newValue) {
             this.data.invoiceType = newValue;
+            if (newValue == "DS" || newValue == "DL") {
+                this.data.omzet = true;
+                this.data.accounting = true;
+            }else
+            {
+                this.data.omzet = false;
+                this.data.accounting = false;
+            }
         }
     }
 
