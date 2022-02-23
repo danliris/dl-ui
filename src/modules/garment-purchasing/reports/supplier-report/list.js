@@ -81,6 +81,8 @@ export class List {
                             paymentMethod : data.PaymentMethod,
                             quantity : data.Quantity,
                             uomUnit : data.UOMUnit,
+                            smallQty : data.SmallQty,
+                            smallUom : data.SmallUOM, 
                             Amount : data.AmountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                         });
                         
