@@ -143,15 +143,7 @@
                             value.bind="RONo" 
                             read-only.bind="readOnly || isEdit"
                             placeholder = "Cari Nomor RO"
-                            if.bind="isProses || isRemain || isSample || isSubcon"
-                            >
-                        </au-textbox>
-                        <au-textbox 
-                            disabled.bind="!(data.UnitSender && data.Storage)"
-                            value.bind="RONo" 
-                            read-only.bind="readOnly || isEdit"
-                            placeholder = "Cari Nomor RO"
-                            if.bind="isSTransfer">
+                            if.bind="isProses || isRemain || isSample || isSubcon || isSTransfer">
                         </au-textbox>
                     </div>
                     <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
