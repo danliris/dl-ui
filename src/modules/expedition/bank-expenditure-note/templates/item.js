@@ -1,3 +1,4 @@
+import {bindable} from 'aurelia-framework'
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 
 export class Item {
@@ -35,8 +36,15 @@ export class Item {
             this.listURNNo = listURNNo.length != 0 ? listURNNo.join('\n') : listURNNo;
         }
 
-
-
+        if (this.data.SupplierPayment) {
+          this.SupplierPayment = this.data.SupplierPayment;
+          this.data.AmountPaid = this.data.TotalPaid - (this.data.SupplierPayment + this.data.PaymentDifference);
+        }
+        else {
+          this.SupplierPayment = this.data.TotalPaid - this.data.AmountPaid;
+          this.data.SupplierPayment = this.SupplierPayment;
+        }
+        
         console.log(context);
     }
 
@@ -67,5 +75,11 @@ export class Item {
 
     get unitPaymentOrderLoader() {
         return UnitPaymentOrderLoader;
+    }
+
+    @bindable SupplierPayment
+    SupplierPaymentChanged(newValue) {
+      this.data.SupplierPayment = newValue;
+      this.data.PaymentDifference = this.data.TotalPaid - (this.data.AmountPaid + newValue);
     }
 }

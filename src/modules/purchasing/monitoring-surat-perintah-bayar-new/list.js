@@ -69,6 +69,7 @@ export class List {
         { field: "unit", title: "unit", sortable: false },
         { field: "div", title: "Div", sortable: false },
         { field: "adm", title: "ADM", sortable: false },
+        { field: "term", title: "Term", sortable: false },
         { field: "matauang", title: "MtUang", sortable: false },
         { field: "kategori", title: "Kat", sortable: false },
          

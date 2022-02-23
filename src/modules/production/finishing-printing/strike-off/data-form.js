@@ -60,7 +60,7 @@ export class DataForm {
 
     itemColumns = ["Kode Warna", ""];
     isRegular = false;
-    types = ["PRINTING REAKTIF", "PRINTING REAKTIF RESIST", "PRINTING PIGMENT"];
+    types = ["PRINTING REAKTIF", "PRINTING PIGMENT", "PRINTING RIPPLE", "GROUND PRINTING"];
     clothes = ["Cotton", "Rayon"];
 
     addItemCallback = (e) => {

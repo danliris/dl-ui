@@ -28,7 +28,7 @@ export class List {
 
     columns = [
         {
-            field: "isPosting", title: "Post", checkbox: true, sortable: false,
+            field: "IsPosted", title: "Post", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.IsPosted;
                 return "";
@@ -100,7 +100,7 @@ export class List {
     }
 
     posting() {
-        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+        const unpostedDataToBePosted = this.dataToBePosted;//.filter(d => d.IsPosted === false);
         if (unpostedDataToBePosted.length > 0) {
             if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
                 var ids = unpostedDataToBePosted.map(d => d.Id);
