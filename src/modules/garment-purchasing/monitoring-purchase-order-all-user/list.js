@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require('moment');
+import numeral from 'numeral';
 var UnitLoader = require('../../../loader/garment-units-loader');
 var CategoryLoader = require('../../../loader/garment-category-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
@@ -55,9 +56,17 @@ export class List {
     
         this.service.search(args)
             .then(result => {
-                this.info.total=result.info.total; 
-                this.data = result.data;
-         
+                console.log(result.data);
+                var resultTotal=0;
+                //this.info.total=result.info.total; 
+                this.data = result.data.Result;
+                for(var item of this.data)
+                {
+                    this.resultTotal= item.Total;
+                   
+                    item.totalBudget =  numeral(item.prBudgetPrice * item.poDefaultQty).format("0,000.00");
+                }
+         this.info.total= this.resultTotal;
             })
     }
 
