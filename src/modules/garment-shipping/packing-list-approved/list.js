@@ -81,7 +81,7 @@ export class List {
                 break;
             case "Cetak W/ Kop":
                 this.service.getPdfWHById(data.id);
-                break;                 
+                break;                
             case "Cetak-Excel":
                 this.service.getExcelById(data.id);
                 break;

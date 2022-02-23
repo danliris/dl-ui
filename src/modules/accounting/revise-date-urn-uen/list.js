@@ -191,7 +191,6 @@ export class List {
             dataUpdate.Ids = dataIds;
             dataUpdate.reviseDate = this.date ? moment(this.date).format("YYYY-MM-DD") : null;
             this.service.updateDate(dataUpdate,this.selectedProcess )
-
             .then(result => {
                 // this.service.addhistories(dataUpdate,this.selectedProcess )
                 alert("Data berhasil diubah");
