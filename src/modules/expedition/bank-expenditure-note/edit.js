@@ -81,7 +81,8 @@ export class Edit {
         for (var a of this.data.Details) {
             a.SupplierName = this.data.Supplier.Name;
             a.Currency = this.data.Bank.Currency.Code;
-            a.SupplierPayment = a.TotalPaid;
+            a.SupplierPayment = this.data.GrandTotal;
+            a.PaymentDifference = a.TotalPaid - a.AmountPaid;
         }
 
         this.IDR = false;
