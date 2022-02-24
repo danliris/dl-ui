@@ -18,6 +18,7 @@ export class ItemView {
                 this.data.currencyIDR = "IDR";
             }
         }
+        this.data.AmountPaid = this.data.TotalPaid - (this.data.SupplierPayment + this.data.PaymentDifference);
     }
 
     toggle() {
