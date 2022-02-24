@@ -69,7 +69,7 @@ export class Edit {
 
         let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
-                let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
                 
                 return resultData;
             });
@@ -81,8 +81,7 @@ export class Edit {
         for (var a of this.data.Details) {
             a.SupplierName = this.data.Supplier.Name;
             a.Currency = this.data.Bank.Currency.Code;
-            a.SupplierPayment = this.data.GrandTotal;
-            a.PaymentDifference = a.TotalPaid - a.AmountPaid;
+            a.PaymentDifference = a.TotalPaid - (a.AmountPaid + a.SupplierPayment);
         }
 
         this.IDR = false;
