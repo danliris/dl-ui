@@ -51,7 +51,7 @@ export class items {
     this.readOnlyDesc1 = this.options.isAdd;
     this.isEdit = this.options.isEdit;
     this.isUpdated = this.options.isUpdated;
-
+console.log(this.data);
     this.roNo = this.data.roNo;
     if (this.data) {
       this.uom = this.data.uom;
