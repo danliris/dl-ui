@@ -24,8 +24,6 @@ export class ItemView {
 
             this.listURNNo = listURNNo.length != 0 ? listURNNo.join('\n') : listURNNo;
         }
-
-        this.data.AmountPaid = this.data.TotalPaid - (this.data.SupplierPayment + this.data.PaymentDifference);
     }
 
     toggle() {
