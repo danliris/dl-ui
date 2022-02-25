@@ -165,7 +165,6 @@ selectedInvoChanged(newValue) {
 		let invoiceNo= this.invoiceNo   ? this.invoiceNo.InvoiceNo: "";
 		let dispositionNo= this.dispositionNo  ? this.dispositionNo.DispositionNo: "";
 
-
     let params = {
 		invoiceNo, dispositionNo, startDate, endDate
 

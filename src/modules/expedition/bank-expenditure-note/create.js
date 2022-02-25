@@ -221,7 +221,7 @@ export class Create {
 
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
-                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
 
                         return resultData;
                     });
@@ -277,7 +277,7 @@ export class Create {
 
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
-                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
 
                         return resultData;
                     });
@@ -345,7 +345,7 @@ export class Create {
 
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                     .then((result) => {
-                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                        let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
 
                         return resultData;
                     });
@@ -448,7 +448,7 @@ export class Create {
             if (this.selectedSupplier)
                 this.UPOResults = await this.service.searchAllByPosition(arg)
                 .then((result) => {
-                    let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
+                    let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
 
                     return resultData;
                 });
