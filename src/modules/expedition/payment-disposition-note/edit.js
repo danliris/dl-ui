@@ -28,7 +28,7 @@ export class Edit {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Total Pembayaran', 'Mata Uang', 'Total yang sudah dibayar', 'Total yang dibayar ke Supplier', 'Selisih Total yang dibayar', ''],
         };
     }
 
@@ -48,6 +48,7 @@ export class Edit {
         for(var a of this.data.Items){
             a.SupplierName=this.data.Supplier.Name;
             a.Currency=this.data.AccountBank.Currency.Code;
+            a.PaymentDifference = a.payToSupplier - (a.AmountPaid + a.SupplierPayment);
         }
 
         this.IDR=false;
@@ -62,12 +63,12 @@ export class Edit {
 
         if(!this.IDR || this.sameCurrency){
             this.collection = {
-                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Total Pembayaran', 'Mata Uang', 'Total yang sudah dibayar', 'Total yang dibayar ke Supplier', 'Selisih Total yang dibayar', ''],
             };
         }
         else{
             this.collection = {
-                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier','Kategori','Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', 'Jumlah dibayar ke Supplier(IDR)', 'Mata Uang', ''],
+                columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Total Pembayaran', 'Mata Uang', 'Total Pembayaran(IDR)', 'Mata Uang', 'Total yang sudah dibayar', 'Total yang dibayar ke Supplier', 'Selisih Total yang dibayar', ''],
             };
         }
         this.collectionOptions={
@@ -119,8 +120,8 @@ export class Edit {
         if (this.Items && this.Items.length > 0) {
             for (let detail of this.Items) {
                 if (detail.Select){
-                    result += detail.payToSupplier;
-                    viewResult+=(detail.payToSupplier*this.data.CurrencyRate);
+                    result += detail.SupplierPayment;
+                    viewResult += (detail.SupplierPayment * this.data.CurrencyRate);
                 }
             }
         }
