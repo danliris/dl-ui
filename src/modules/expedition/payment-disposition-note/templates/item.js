@@ -21,14 +21,8 @@ export class Item {
             }
         }
 
-        if (this.data.PaymentDifference) {
-          this.SupplierPayment = this.data.SupplierPayment;
-          this.data.AmountPaid = this.data.TotalPaid - (this.data.SupplierPayment + this.data.PaymentDifference);
-        }
-        else {
-          this.SupplierPayment = this.data.TotalPaid - this.data.AmountPaid;
-          this.data.SupplierPayment = this.SupplierPayment;
-        }
+        this.SupplierPayment = this.data.payToSupplier - this.data.AmountPaid;
+        this.data.SupplierPayment = this.SupplierPayment;
         
     }
 
@@ -43,7 +37,7 @@ export class Item {
     @bindable SupplierPayment
     SupplierPaymentChanged(newValue) {
       this.data.SupplierPayment = newValue;
-      this.data.PaymentDifference = this.data.TotalPaid - (this.data.AmountPaid + newValue);
+      this.data.PaymentDifference = this.data.payToSupplier - (this.data.AmountPaid + newValue);
     }
 
 }

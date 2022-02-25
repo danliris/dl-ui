@@ -135,8 +135,9 @@ export class Create {
     }
 
     async DispositionData(arg) {
-        this.Items = await this.service.searchDispoEx(arg)
+        this.Items = await this.service.searchAllByPosition(arg)
             .then((result) => {
+                result.data = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.IsPosted == true) : [];
                 var expeditionDatas = [];
                 for (var ex of result.data) {
                     ex.purchasingDispositionExpeditionId = ex.Id;

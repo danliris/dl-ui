@@ -37,7 +37,7 @@ export class View {
         for (var a of this.data.Items) {
             a.SupplierName = this.data.Supplier.Name;
             a.Currency = this.data.AccountBank.Currency.Code;
-            a.PaymentDifference = a.TotalPaid - (a.AmountPaid + a.SupplierPayment);
+            a.PaymentDifference = a.payToSupplier - (a.AmountPaid + a.SupplierPayment);
         }
         this.IDR = false;
         this.sameCurrency = false;
