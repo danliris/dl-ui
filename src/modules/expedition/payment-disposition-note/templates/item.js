@@ -21,7 +21,7 @@ export class Item {
             }
         }
 
-        if (this.data.SupplierPayment) {
+        if (this.data.PaymentDifference) {
           this.SupplierPayment = this.data.SupplierPayment;
           this.data.AmountPaid = this.data.TotalPaid - (this.data.SupplierPayment + this.data.PaymentDifference);
         }
