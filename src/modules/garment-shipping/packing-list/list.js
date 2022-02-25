@@ -99,7 +99,8 @@ export class List {
     }
 
     delivered() {
-        const DataToBeDelivered = this.dataToBeDelivered.filter(d => d.isSampleDelivered === false);
+        console.log(this.dataToBeDelivered);
+        const DataToBeDelivered = this.dataToBeDelivered;
         if (DataToBeDelivered.length > 0) {
             if (confirm(`Deliver ${DataToBeDelivered.length} data?`)) {
                 var ids = DataToBeDelivered.map(d => d.id);
