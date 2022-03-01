@@ -17,7 +17,7 @@ export class List {
             {
                 field: 'Date',
                 title: 'Tgl SPB',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
@@ -26,7 +26,7 @@ export class List {
             {
                 field: 'DueDate',
                 title: 'Tgl Jatuh Tempo',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
@@ -34,7 +34,7 @@ export class List {
             },
             { field: 'InvoiceNo', title: 'Nomor Invoice', rowspan: 2, sortable: true },
             { field: 'Supplier.name', title: 'Supplier', rowspan: 2, sortable: true },
-            { field: 'PaymentMethod', title: 'Term Pembayaran', rowspan: 2, sortable: true},
+            { field: 'PaymentMethod', title: 'Term Pembayaran', rowspan: 2, sortable: true },
             { field: 'Currency', title: 'Kurs', rowspan: 2, sortable: true },
             { title: 'Jumlah', colspan: 4 },
             {
@@ -45,7 +45,7 @@ export class List {
                 title: 'Tempo',
                 rowspan: 2,
                 sortable: true,
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return Math.abs(Math.ceil((moment(data.DueDate) - moment(data.Date)) / (1000 * 60 * 60 * 24)));
                 }
             },
@@ -65,7 +65,7 @@ export class List {
             {
                 field: 'SendToVerificationDivisionDate',
                 title: 'Tgl Pembelian Kirim',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
                 rowspan: 2,
@@ -79,82 +79,100 @@ export class List {
                 sortable: true,
                 rowspan: 2
             },
-            { title: 'Kasir', colspan: 2 }
+            { title: 'Kasir', colspan: 2 },
+            {
+                field: 'PaymentNominal',
+                title: 'Nominal Pembayaran',
+                formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
+                },
+                align: 'right',
+                rowspan: 2
+            },
+            {
+                field: 'PaymentDifference',
+                title: 'Sisa yang Belum Dibayar',
+                formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
+                },
+                align: 'right',
+                rowspan: 2
+            }
         ],
         [{
-                field: 'DPP',
-                title: 'DPP',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                sortable: true,
-                align: 'right'
+            field: 'DPP',
+            title: 'DPP',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
+            sortable: true,
+            align: 'right'
+        },
 
-            {
-                field: 'PPn',
-                title: 'PPn',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                sortable: true,
-                align: 'right'
+        {
+            field: 'PPn',
+            title: 'PPn',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'PPh',
-                title: 'PPh',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                sortable: true,
-                align: 'right'
+            sortable: true,
+            align: 'right'
+        },
+        {
+            field: 'PPh',
+            title: 'PPh',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'TotalTax',
-                title: 'Total',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                sortable: true,
-                align: 'right'
+            sortable: true,
+            align: 'right'
+        },
+        {
+            field: 'TotalTax',
+            title: 'Total',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'VerificationDivisionDate',
-                title: 'Tgl Terima',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-                sortable: true,
+            sortable: true,
+            align: 'right'
+        },
+        {
+            field: 'VerificationDivisionDate',
+            title: 'Tgl Terima',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'VerifyDate',
-                title: 'Tgl Cek',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-                sortable: true,
+            sortable: true,
+        },
+        {
+            field: 'VerifyDate',
+            title: 'Tgl Cek',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'SendDate',
-                title: 'Tgl Kirim',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-                sortable: true,
+            sortable: true,
+        },
+        {
+            field: 'SendDate',
+            title: 'Tgl Kirim',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'CashierDivisionDate',
-                title: 'Tgl Terima',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
-                sortable: true,
+            sortable: true,
+        },
+        {
+            field: 'CashierDivisionDate',
+            title: 'Tgl Terima',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'BankExpenditureNoteNo',
-                title: 'No Bukti Pengeluaran Bank',
-                sortable: true,
-            },
+            sortable: true,
+        },
+        {
+            field: 'BankExpenditureNoteNo',
+            title: 'No Bukti Pengeluaran Bank',
+            sortable: true,
+        },
         ]
     ];
 
@@ -251,27 +269,27 @@ export class List {
 
         return this.flag ? (
             this.service.search(arg)
-            .then(result => {
-                // let unitPaymentOrders = result.data.map(p => p.no);
+                .then(result => {
+                    // let unitPaymentOrders = result.data.map(p => p.no);
 
-                // return this.azureService.search({ unitPaymentOrders })
-                // .then(response => {
-                // let expeditions = response.data;
+                    // return this.azureService.search({ unitPaymentOrders })
+                    // .then(response => {
+                    // let expeditions = response.data;
 
-                // for (let d of result.data) {
-                //     let expedition = expeditions.find(p => p.UnitPaymentOrderNo == d.no);
+                    // for (let d of result.data) {
+                    //     let expedition = expeditions.find(p => p.UnitPaymentOrderNo == d.no);
 
-                //     if (expedition) {
-                //         Object.assign(d, expedition);
-                //     }
-                // }
+                    //     if (expedition) {
+                    //         Object.assign(d, expedition);
+                    //     }
+                    // }
 
-                return {
-                    total: result.info.total,
-                    data: result.data
-                }
-                // });
-            })
+                    return {
+                        total: result.info.total,
+                        data: result.data
+                    }
+                    // });
+                })
         ) : { total: 0, data: [] };
     }
 
@@ -344,11 +362,11 @@ export class List {
         return DivisionLoader;
     }
     divisionView = (division) => {
-            return `${division.Name}`;
-        }
-        // get currencyLoader() {
-        //     return CurrencyLoader;
-        // }
+        return `${division.Name}`;
+    }
+    // get currencyLoader() {
+    //     return CurrencyLoader;
+    // }
 
     // get categoryLoader() {
     //     return CategoryLoader;

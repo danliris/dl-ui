@@ -53,7 +53,19 @@ export class List {
             },
             align: 'right'
         },
-        { field: 'TransactionType', title: 'Jenis Transaki' }
+        { field: 'TransactionType', title: 'Jenis Transaki' },
+        {
+            field: 'DispositionNominal', title: 'Total Disposisi', formatter: function (value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        },
+        {
+            field: 'DifferenceAmount', title: 'Sisa yang Belum Dibayar', formatter: function (value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        }
     ];
 
     controlOptions = {
