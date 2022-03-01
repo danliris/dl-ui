@@ -62,6 +62,12 @@ export class List {
             },
             align: 'right'
         },
+        {
+            field: 'DifferenceNominal', title: 'Sisa yang Belum Dibayar', formatter: function (value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        },
         { field: 'Currency', title: 'Mata Uang' },
         { field: 'BankName', title: 'Bank Bayar PPH' },
         { field: 'SupplierName', title: 'Supplier' },
@@ -83,13 +89,7 @@ export class List {
             },
             align: 'right'
         },
-        { field: 'InvoiceNumber', title: 'No Invoice' },
-        {
-            field: 'DifferenceNominal', title: 'Sisa yang Belum Dibayar', formatter: function (value, data, index) {
-                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
-            },
-            align: 'right'
-        }
+        { field: 'InvoiceNumber', title: 'No Invoice' }
     ];
 
     controlOptions = {
