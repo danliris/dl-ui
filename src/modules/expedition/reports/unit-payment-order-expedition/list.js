@@ -79,16 +79,7 @@ export class List {
                 sortable: true,
                 rowspan: 2
             },
-            { title: 'Kasir', colspan: 2 },
-            {
-                field: 'PaymentNominal',
-                title: 'Nominal Pembayaran',
-                formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right',
-                rowspan: 2
-            },
+            { title: 'Kasir', colspan: 3 },
             {
                 field: 'PaymentDifference',
                 title: 'Sisa yang Belum Dibayar',
@@ -173,6 +164,14 @@ export class List {
             title: 'No Bukti Pengeluaran Bank',
             sortable: true,
         },
+        {
+            field: 'PaymentNominal',
+            title: 'Nominal Pembayaran',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
+            },
+            align: 'right',
+        }
         ]
     ];
 
