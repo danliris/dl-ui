@@ -39,7 +39,7 @@ export class Edit {
         // }
         var id = params.id;
         this.data = await this.service.getById(id);
-
+        
         if (this.data.Currency) {
             this.selectedCurrency = this.data.Currency;
         }
@@ -83,7 +83,7 @@ export class Edit {
         }
 
         if (this.data.Items) {
-            // var calculateDppSplit = this.data.DPP / this.data.Items.length;
+            //var calculateDppSplit = this.data.DPP / this.data.Items.length;
             this.data.Items = this.data.Items.map(item => {
                 var mappingItem = {
                     Id: item.Id,
@@ -122,7 +122,6 @@ export class Edit {
                     DispositionAmountCreated: item.DispositionAmountCreated,
                     DispositionQuantityCreated: item.DispositionQuantityCreated,
                     DispositionQuantityPaid: item.DispositionQuantityPaid,
-                    DPPValue: calculateDppSplit,
                     DPPValue: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0),
                     Active: item.Active,
                     CreatedAgent: item.CreatedAgent,
@@ -196,9 +195,9 @@ export class Edit {
                 var ppn = 0;
                 var ppnView = 0;
                 if (item.IsIncomeTax) {
-                    // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
-                    // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
-                    pphView = item.IncomeTaxValueView ? item.IncomeTaxValueView : item.IncomeTaxValue;
+                  // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;
+                  // pph=parseFloat(detail.PriceTotal)*parseFloat(rate)*0.01;
+                  pphView = item.IncomeTaxValueView ? item.IncomeTaxValueView : item.IncomeTaxValue;
                 }
                 if (item.IsPayIncomeTax) {
                     // var rate= item.IncomeTax ? item.IncomeTax.Rate : 0;

@@ -34,7 +34,8 @@
         </div>
       </div>
       <br>
-
+      <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)"
+      if.one-way="hasUnpost">Unpost</button>
       <!-- DESC -->
       <div class="row" if.bind="activeTab==0">
         <div class="row">
@@ -89,7 +90,7 @@
                     label="Payment Term"
                     value.bind="data.paymentTerm"
                     error.bind="error.PaymentTerm"
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly"
                     items.bind="PaymentTermOptions"
                     change.delegate="paymentTermChanged()"
                     options.bind="controlOptions">

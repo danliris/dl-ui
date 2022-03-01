@@ -49,7 +49,7 @@ export class List {
     var args = {
             page: this.info.page,
             size: this.info.size,
-            product : this.product ? this.product.Name : "",
+            product : this.product ? this.product.Id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -74,7 +74,7 @@ export class List {
 
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             var info = {
-                product : this.product ? this.product.Name : "",
+                product : this.product ? this.product.Id : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }

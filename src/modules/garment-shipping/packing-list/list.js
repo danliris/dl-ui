@@ -6,17 +6,18 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["Detail", "Cetak"]
+    context = ["Detail", "Cetak", "Cetak W/ Kop"]
 
 
     dataTobeDelivered = []
 
     columns = [
         {
-            field: "isSampleDelivering", title: "Sudah Dikirim", checkbox: true, sortable: false,
+            field: "isSampleDelivered", title: "Sudah Dikirim", checkbox: true, sortable: false,
             formatter: function (value, data, index) {
                 this.checkboxEnabled = !data.isSampleDelivered;
-                return "";
+                
+                return '';
             }
         },
         { field: "invoiceNo", title: "No Invoice" },
@@ -55,6 +56,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result.data);
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
                     data.BuyerAgentName = data.buyerAgent.name;
@@ -81,6 +83,9 @@ export class List {
             case "Cetak":
                 this.service.getPdfById(data.id);
                 break;
+            case "Cetak W/ Kop":
+                this.service.getPdfWHById(data.id);
+                break;                 
         }
     }
 
@@ -97,7 +102,8 @@ export class List {
     }
 
     delivered() {
-        const DataToBeDelivered = this.dataToBeDelivered.filter(d => d.isSampleDelivered === false);
+        console.log(this.dataToBeDelivered);
+        const DataToBeDelivered = this.dataToBeDelivered;
         if (DataToBeDelivered.length > 0) {
             if (confirm(`Deliver ${DataToBeDelivered.length} data?`)) {
                 var ids = DataToBeDelivered.map(d => d.id);
