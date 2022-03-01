@@ -57,6 +57,8 @@
                     <th class="text-center">Metode Bayar</th>
                     <th class="text-center">Jumlah</th>
                     <th class="text-center">Satuan</th>
+                    <th class="text-center">Jumlah Konversi</th>
+                    <th class="text-center">Satuan Kecil</th> 
                     <th class="text-center">Nominal [Rp]</th>
                 </tr>
             </thead>
@@ -70,17 +72,19 @@
                         <td>${data.paymentMethod}</td>
                         <td>${data.quantity}</td>
                         <td>${data.uomUnit}</td>
+                        <td>${data.smallQty}</td>
+                        <td>${data.smallUom}</td> 
                         <td class="text-right"><strong>${data.Amount}</strong></td>
                     </tr>
                     <tr class="active">
                         <td class="text-center">.</td>
-                        <td colspan="4"><strong>${supplier.supplier}</strong></td>
+                        <td colspan="6"><strong>${supplier.supplier}</strong></td>
                         <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${supplier.subTotal}</strong></td>
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="7"><strong>T O T A L  P E M B E L I A N . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="9"><strong>T O T A L  P E M B E L I A N . . . . . . . . . . . . . . .</strong></td>
                         <td class="text-right"><strong>${AmtTotal}</strong></td>
                     </tr>
             </tbody>

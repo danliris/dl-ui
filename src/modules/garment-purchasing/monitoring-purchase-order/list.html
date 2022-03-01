@@ -85,11 +85,15 @@
                         <td rowspan="3">STATUS</td>
                         <td rowspan="3">KODE BARANG</td>
                         <td rowspan="3">NAMA BARANG</td>
+                        <td rowspan="3">CONST</td>
+                        <td rowspan="3">YARN</td>
+                        <td rowspan="3">WIDTH</td>
+                        <td rowspan="3">COMPOSITION</td>
                         <td rowspan="3">KETERANGAN BARANG(PR)</td> 
                         <td rowspan="3">KETERANGAN BARANG(POEKS)</td>                        
                         <td colspan="2">JUMLAH</td>
                         <td rowspan="3">SATUAN</td>
-                        <td colspan="6">HARGA</td>
+                        <td colspan="7">HARGA</td>
                        
                         <td rowspan="3">TANGGAL TERIMA PO INTERN</td>
                        
@@ -128,7 +132,8 @@
                         
                         <td rowspan="2">BUDGET</td>
                         <td rowspan="2">BELI</td>
-                        <td rowspan="2">TOTAL</td>
+                        <td rowspan="2">TOTAL BELI</td>
+                        <td rowspan="2">TOTAL BUDGET</td>
                         <td rowspan="2">MT UANG</td>
                         <td rowspan="2">KURS</td>
                         <td rowspan="2">TOTAL RP</td>
@@ -201,6 +206,10 @@
                         <td>${item.status}</td>
                         <td>${item.productCode}</td>
                         <td>${item.productName}</td>
+                        <td>${item.consts}</td>
+                        <td>${item.yarn}</td>
+                        <td>${item.width}</td>
+                        <td>${item.composition}</td>
                         <td>${item.prProductRemark}</td>
                         <td>${item.poProductRemark}</td>
                         
@@ -211,9 +220,12 @@
                         <td align="right">${item.prBudgetPrice}</td>
                         <td align="right">${item.poPricePerDealUnit}</td>
                         <td align="right">${item.totalNominalPO}</td>
+                        <td align="right">${item.totalBudget}</td>  
                         <td>${item.poCurrencyCode}</td>
                         <td align="right">${item.poCurrencyRate}</td>
-                        <td align="right">${item.totalNominalRp}</td>              
+                        <td align="right">${item.totalNominalRp}</td>   
+                      
+                                   
                         <td>${item.ipoDate}</td>
                         <td>${item.doNo}</td>
                         <td>${item.doDate}</td>
