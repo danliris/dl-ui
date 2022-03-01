@@ -67,7 +67,7 @@ export class Create {
     }
 
     saveCallback(event) {
-        console.log(this.data);
+        this.data.BankAccountCOA = this.data.AccountBank.AccountCOA;
         this.data.Items = this.Items.filter((item) => item.Select);
         if (this.data.CurrencyRate == "") {
             this.data.CurrencyRate = 0;
