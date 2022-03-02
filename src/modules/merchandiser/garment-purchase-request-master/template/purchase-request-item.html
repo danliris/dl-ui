@@ -97,16 +97,16 @@
             </au-textbox>
         </td> -->
         <td class="col-sm-1">
-            <au-autocomplete
-                value.bind="selectedUom"
-                error.bind="error.UOM"
-                loader.bind="uomLoader"
-                read-only.bind="readOnly"
-                placeholder="Satuan"
-                text="Unit"
-                change.delegate="uomChanged($event)"
-                options.bind="controlOptions">
-            </au-autocomplete>
+             
+         <au-autocomplete
+            value.bind="selectedUom"
+            error.bind="error.Unit"
+            loader.bind="uomLoader"
+            placeholder="Satuan"
+            text="Unit"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
         </td>
         <td class="col-sm-1">
             <au-numeric 
