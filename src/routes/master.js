@@ -375,6 +375,31 @@ module.exports = [
     },
   },
   {
+    route: "products/non-purchasing",
+    name: "products/non-purchasing",
+    moduleId: "./modules/master/product-non-purchasing/index",
+    nav: true,
+    title: "Barang Non Pembelian",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { 
+         C9: 1,
+        F4: 1,
+        F2: 1,
+        A2: 1,
+        A1: 1,
+        S1: 1,
+        S2: 1,
+        S3: 1,
+        S4: 1,
+        SP3: 1,
+        W2: 1
+        },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "income-taxes",
     name: "income-taxes",
     moduleId: "./modules/master/income-tax/index",

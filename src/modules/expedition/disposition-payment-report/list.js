@@ -48,7 +48,19 @@ export class List {
             align: 'right'
         },
         {
+            field: 'DispositionNominal', title: 'Total Disposisi', formatter: function (value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        },
+        {
             field: 'PaidAmount', title: 'Jumlah dibayar ke Supplier', formatter: function (value, data, index) {
+                return value || value == 0 ? numeral(value).format("0,000.00") : "-";
+            },
+            align: 'right'
+        },
+        {
+            field: 'DifferenceAmount', title: 'Sisa yang Belum Dibayar', formatter: function (value, data, index) {
                 return value || value == 0 ? numeral(value).format("0,000.00") : "-";
             },
             align: 'right'
@@ -183,14 +195,14 @@ export class List {
             if (this.info.supplier)
 
                 arg.supplierId = this.info.supplier.Id;
- 
+
             else
                 arg.supplierId = 0;
             if (this.info.division)
                 arg.divisionId = this.info.division.Id;
             else
                 arg.divisionId = 0;
- 
+
             if ((this.info.startDate && this.info.startDate != 'Invalid Date') || (this.info.endDate && this.info.endDate != 'Invalid Date')) {
                 arg.startDate = this.info.startDate && this.info.startDate != 'Invalid Date' ? this.info.startDate : '';
                 arg.endDate = this.info.endDate && this.info.endDate != 'Invalid Date' ? this.info.endDate : '';
@@ -199,12 +211,12 @@ export class List {
                     arg.startDate = new Date(arg.endDate);
                     arg.startDate.setMonth(arg.startDate.getMonth() - 1);
                 }
-    
+
                 if (!arg.endDate) {
                     arg.endDate = new Date(arg.startDate);
                     arg.endDate.setMonth(arg.endDate.getMonth() + 1);
                 }
-    
+
                 arg.startDate = moment(arg.startDate).format();
                 arg.endDate = moment(arg.endDate).format();
             }

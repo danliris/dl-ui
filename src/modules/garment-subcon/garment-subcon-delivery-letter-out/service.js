@@ -72,6 +72,11 @@ class Service extends RestService {
         var endpoint = `${ServiceSubconFabricUri}/${id}`;
         return super.get(endpoint);
     }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/get-pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
