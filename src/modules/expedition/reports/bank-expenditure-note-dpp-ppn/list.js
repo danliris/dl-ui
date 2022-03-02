@@ -436,6 +436,7 @@ export class List {
                             'DPP': data.DPP ? numeral(data.DPP).format('0,000.00') : '-',
                             'PPN': data.VAT ? numeral(data.VAT).format('0,000.00') : '-',
                             'TotalPaid': data.TotalPaid ? numeral(data.TotalPaid).format('0,000.00') : '-',
+                            'Sisa yang Belum Dibayar': data.DifferenceNominal ? numeral(data.DifferenceNominal).format('0,000.00') : '-',
                             'Mata Uang': data.Currency,
                             'Bank Bayar PPH': data.BankName,
                             'Supplier': data.SupplierName,

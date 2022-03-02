@@ -72,6 +72,12 @@ export class List {
             { field: 'VerifiedBy', title: 'Verifikator', rowspan: 2, sortable: true },
 
             { title: 'Kasir', colspan: 5 },
+            {
+                field: 'DifferenceNominal', title: 'Sisa yang Belum Dibayar', rowspan: 2, formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
+                },
+                align: 'right'
+            },
 
             { field: 'ExternalPurchaseOrderNo', title: 'PO Eksternal', rowspan: 2, sortable: true },
             { field: 'DONo', title: 'Nomor Surat Jalan', rowspan: 2, sortable: true },
@@ -79,13 +85,7 @@ export class List {
             { field: 'UnitPaymentOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
             { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
 
-            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
-            {
-                field: 'DifferenceNominal', title: 'Sisa yang Belum Dibayar', rowspan: 2, formatter: function (value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
-            }
+            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true }
         ],
         [{
             field: 'DPP',
