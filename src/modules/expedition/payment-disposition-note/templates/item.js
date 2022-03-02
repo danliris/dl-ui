@@ -1,4 +1,4 @@
-
+import {bindable} from 'aurelia-framework'
 export class Item {
 
     constructor() {
@@ -20,6 +20,9 @@ export class Item {
                 this.data.currencyIDR="IDR";
             }
         }
+
+        this.SupplierPayment = this.data.payToSupplier - this.data.AmountPaid;
+        this.data.SupplierPayment = this.SupplierPayment;
         
     }
 
@@ -29,6 +32,12 @@ export class Item {
 
     onRemove() {
         this.bind();
+    }
+
+    @bindable SupplierPayment
+    SupplierPaymentChanged(newValue) {
+      this.data.SupplierPayment = newValue;
+      this.data.PaymentDifference = this.data.payToSupplier - (this.data.AmountPaid + newValue);
     }
 
 }

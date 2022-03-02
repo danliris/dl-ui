@@ -48,7 +48,7 @@
                     label="Unit yang meminta" 
                     value.bind="unitRequest" 
                     error.bind="error.UnitRequest" 
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly || isEdit || isSTransfer"
                     loader.bind="unitRequestLoader"
                     text.bind = "unitRequestView"
                     placeholder = "Cari Unit"
@@ -57,7 +57,7 @@
                 </au-autocomplete>
                 
                 <au-autocomplete
-                    if.bind="isTransfer"
+                    if.bind="isTransfer || isSTransfer"
                     disabled.bind="!data.UnitRequest"
                     label="Gudang yang meminta"
                     value.bind="storageRequest"
@@ -98,7 +98,8 @@
                 </au-autocomplete>
 
                 <div class="row form-group">
-                    <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="!isTransfer">No RO</label>
+                    <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="!isTransfer || !isSTransfer">No RO</label>
+                    <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="isSTransfer">No RO Asal</label>
                     <!-- <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="isTransfer">No RO Asal</label> -->
                     <!-- <label for="name" class="au-target col-sm-4 text-left au-layout control-label">No RO</label> -->
                     <div class = "col-sm-5">
@@ -109,7 +110,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "unitReceiptNoteLoader"
                             text = "RONo"
-                            if.bind="!isProses && !isTransfer && !isRemain && !isSample && !isSubcon"
+                            if.bind="!isProses && !isTransfer && !isRemain && !isSample && !isSubcon && !isSTransfer"
                             placeholder = "Cari Nomor RO"
                             query.bind = "filterRONoByUnit"
                             view-model.ref="RONoViewModel">
@@ -122,7 +123,7 @@
                             read-only.bind = "readOnly || isEdit"
                             loader.bind = "roLoader"
                             text = "RONo"
-                            if.bind="isProses || isRemain || isSample || isSubcon"
+                            if.bind="isProses || isRemain || isSample || isSubcon || isSTransfer"
                             placeholder = "Cari Nomor RO"
                             view-model.ref="RONoViewModel">
                         </au-autocomplete>
@@ -181,7 +182,7 @@
                     query.bind = "filterRONoAddProductByUnit"
                     options.bind="controlOptions"
                     view-model.ref="RONoHeaderViewModel"
-                    if.bind="isTransfer|| isProses || isSample || isRemain || isSubcon"
+                    if.bind="isTransfer|| isProses || isSample || isRemain || isSubcon || isSTransfer"
                     >
                 </au-autocomplete>
 

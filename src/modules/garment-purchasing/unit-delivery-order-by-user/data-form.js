@@ -1,5 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service,CoreService } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
 //var UnitLoader = require('../../../loader/garment-units-loader');
 var UnitSenderLoader = require('../../../loader/garment-sample-unit-loader');
@@ -8,7 +8,7 @@ var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-f
 import moment from 'moment';
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(Service,CoreService, BindingEngine)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -29,9 +29,10 @@ export class DataForm {
     @bindable isSample = false;
     @bindable isRemain = false;
     @bindable isSubcon = false;
+    @bindable isSTransfer = false;
     @bindable RONoJob;
 
-    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE','SISA', 'SUBCON'];
+    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER', 'SAMPLE','SISA', 'SUBCON','TRANSFER SAMPLE'];
 
     controlOptions = {
         label: {
@@ -44,9 +45,10 @@ export class DataForm {
         }
     }
 
-    constructor(service, bindingEngine) {
+    constructor(service,coreService, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
+        this.coreService=coreService;
     }
 
     bind(context) {
@@ -84,6 +86,7 @@ export class DataForm {
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
+            this.isSTransfer = this.data.UnitDOType === "TRANSFER SAMPLE";
         }
     }
 
@@ -135,7 +138,7 @@ export class DataForm {
         return rONoFilter;
     }
 
-    unitDOTypeChanged(newValue) {
+    async unitDOTypeChanged(newValue) {
         var selectedCategory = newValue;
         if (selectedCategory) {
             this.data.UnitDOType = selectedCategory;
@@ -145,6 +148,7 @@ export class DataForm {
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
+            this.isSTransfer = this.data.UnitDOType === "TRANSFER SAMPLE";
 
             this.unitRequest = null;
             this.unitSender = null;
@@ -154,6 +158,13 @@ export class DataForm {
             this.RONoHeader = null;
             this.data.Article = null;
 
+            if(this.isSTransfer){
+                if (!this.unitRequest) {
+                    var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+                    this.unitRequest = units.data[0];
+                    this.data.UnitRequest = this.unitRequest;
+                }
+            }
             //this.context.error.Items = [];
             this.context.error = [];
         }
@@ -194,7 +205,7 @@ export class DataForm {
         }
         else {
             this.data.UnitRequest = null;
-            if (this.isProses || this.isSample|| this.isRemain || this.isSubcon) {
+            if (this.isProses || this.isSample|| this.isRemain || this.isSubcon || this.isSTransfer) {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
@@ -379,7 +390,7 @@ export class DataForm {
                     })
                 });
         }
-        else if(!this.isProses && !this.isTransfer && !this.isRemain && !this.isSample && !this.isSubcon)
+        else if(!this.isProses && !this.isTransfer && !this.isRemain && !this.isSample && !this.isSubcon&& !this.isSTransfer)
         {
             var data = [];
             var rONoFilter = {};
