@@ -21,6 +21,7 @@ export class List {
         { field: "UnitDOType", title: "Jenis Delivery Order" },
         { field: "UnitRequestName", title: "Unit Yang Meminta" },
         { field: "StorageName", title: "Gudang Yang Mengirim" },
+        { field: "CreatedBy", title: "Yamg Membuat" },        
     ];
 
     loader = (info) => {
