@@ -51,8 +51,6 @@ class Service extends RestService {
     unpost(data) {
         console.log(data);
         var endpoint = `${serviceUri}/unpostDelivered/${data.id}`;
-       
-        console.log(endpoint);
         return super.put(endpoint, data);
     }
 }
