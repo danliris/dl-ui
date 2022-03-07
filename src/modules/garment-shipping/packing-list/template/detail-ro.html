@@ -77,6 +77,13 @@
                 read-only.bind="readOnly">
             </au-numeric>
         </td>
+        <td class="bg-primary col-md-1">
+            <au-numeric 
+                value.bind="data.priceCMT" 
+                error.bind="error.Price" 
+                read-only.bind="readOnly">
+            </au-numeric>
+        </td>
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.valas"
