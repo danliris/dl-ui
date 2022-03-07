@@ -3,6 +3,7 @@ import { SalesService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
 var UomLoader = require("../../../../loader/uom-loader");
 var UnitLoader = require("../../../../loader/unit-loader");
+var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
 @inject(SalesService)
 export class Item {
@@ -49,9 +50,12 @@ export class Item {
   ];
 
   get roLoader() {
-    return CostCalculationLoader;
+    if (this.data.roType == 'RO SAMPLE') {
+        return SampleRequestLoader;
+    } else {
+        return CostCalculationLoader;
+    }
   }
-
   roView = (costCal) => {
     return `${costCal.RO_Number}`
   }

@@ -5,6 +5,7 @@ var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request
 var UomLoader = require("../../../../loader/uom-loader");
 var CurrencyLoader = require("../../../../loader/garment-currency-loader");
 var UnitLoader = require("../../../../loader/garment-units-loader");
+var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
 @inject(SalesService)
 export class Item {
@@ -59,10 +60,15 @@ export class Item {
         { header: "NNW" },
         { header: "" },
     ];
-
+    
     get roLoader() {
-        return CostCalculationLoader;
+        if (this.data.roType == 'RO SAMPLE') {
+            return SampleRequestLoader;
+        } else {
+            return CostCalculationLoader;
+        }
     }
+    
     get prLoader() {
         return PurchaseRequestLoader;
     }
