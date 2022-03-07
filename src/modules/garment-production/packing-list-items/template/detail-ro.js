@@ -12,7 +12,7 @@ export class Item {
   constructor(salesService) {
     this.salesService = salesService;
   }
-
+  roTypeOptions = ["RO JOB", "RO SAMPLE"];
   get filter() {
     var filter = {};
     let section = this.context.context.options.header.section || {};
@@ -372,6 +372,14 @@ export class Item {
     if (newValue) {
       this.data.uom = newValue;
       this.uom = newValue;
+    }
+  }
+
+  roTypeChanged(e) {
+    let type = (e.detail) ? e.detail : "";
+
+    if (type) {
+        this.data.roType = type;
     }
   }
 }

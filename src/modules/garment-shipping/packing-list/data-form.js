@@ -63,6 +63,7 @@ export class DataForm {
     };
 
     itemsColumns = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -80,6 +81,7 @@ export class DataForm {
     ]
 
     itemsColumnsSM = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Komoditi Description" },
