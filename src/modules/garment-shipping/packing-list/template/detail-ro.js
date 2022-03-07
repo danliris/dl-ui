@@ -19,7 +19,7 @@ export class Item {
     constructor(salesService) {
         this.salesService = salesService;
     }
-
+    roTypeOptions = ["RO JOB", "RO SAMPLE"];
     get filter() {
         var filter = {};
         if (this.header.invoiceType != "SM") {
@@ -405,5 +405,14 @@ export class Item {
             }
         }
         return result;
+    }
+
+    roTypeChanged(e) {
+        let type = (e.detail) ? e.detail : "";
+
+        if (type) {
+            this.data.roType = type;
+        }
+
     }
 }
