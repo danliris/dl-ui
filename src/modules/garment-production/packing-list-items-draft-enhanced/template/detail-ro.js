@@ -4,6 +4,7 @@ var CostCalculationLoader = require("../../../../loader/cost-calculation-garment
 var DraftPackingListItemsLoader = require("../../../../loader/garment-draft-packing-list-items-loader");
 var UomLoader = require("../../../../loader/uom-loader");
 var UnitLoader = require("../../../../loader/unit-loader");
+var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
 @inject(SalesService, Service)
 export class Item {
@@ -50,10 +51,14 @@ export class Item {
     return filter;
   }
 
-
   get roLoader() {
-    return DraftPackingListItemsLoader;
+    if (this.data.roType == 'RO SAMPLE') {
+        return SampleRequestLoader;
+    } else {
+        return DraftPackingListItemsLoader;
+    }
   }
+  
 
   roView = (ro) => {
     return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).filter((value, index, self) => self.indexOf(value) === index).join(', ') : ''} - ${ro.remarks}`
