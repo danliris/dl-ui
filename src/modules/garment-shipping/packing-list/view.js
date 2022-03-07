@@ -25,6 +25,11 @@ export class View {
             // this.editCallback=null;
             this.deleteCallback=null;
         }
+        console.log(this.data);
+        if(this.data.isSampleDelivered)
+        {
+            this.hasUnpost = true;
+        }
 
         if (this.data.section) {
             this.selectedSection = await this.coreService.getSectionById(this.data.section.id);
@@ -48,6 +53,30 @@ export class View {
                 this.cancelCallback();
             });
         }
+    }
+    unpostCallback(event) {
+        if (confirm(`Yakin Unpost Data ini ?`)) {
+            var ids = [];
+            ids.push(this.data.id)
+            console.log(this.data);
+            var dataToBeUnPosted = {
+                id: ids,
+                isSampleDelivered: false
+            }
+            this.service.unpost(dataToBeUnPosted)
+                .then(result => {
+                    this.cancelCallback();
+                })
+                .catch(e => {
+                    this.error = e;
+                    if (typeof (this.error) == "string") {
+                        alert(this.error);
+                    } else {
+                        alert("Missing Some Data");
+                    }
+                })
+        }
+
     }
 
 }
