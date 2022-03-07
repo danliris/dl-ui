@@ -61,7 +61,7 @@
           <au-numeric value.bind="data.AmountPaid" format="0,000.0000" read-only.bind="true">
           </au-numeric>
         </td>
-        <td>
+        <td style="width: 10%;">
           <au-numeric value.bind="data.SupplierPayment" read-only.bind="true" format = "0,0.000" options.bind="controlOptions">
           </au-numeric>
         </td>
@@ -69,7 +69,7 @@
             <au-numeric value.bind="data.PaymentDifference" format="0,000.0000" read-only.bind="true">
             </au-numeric>
           </td>
-        <td class="col-sm-1">
+        <td>
             <button class="btn btn-info" click.delegate="toggle()">i</button>
         </td>
     </tr>
