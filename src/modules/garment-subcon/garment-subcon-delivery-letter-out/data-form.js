@@ -96,7 +96,9 @@ export class DataForm {
     get contractFilter() {
         return {
             ContractType :this.data.ContractType,
-            SubconCategory:this.data.SubconCategory
+            SubconCategory:this.data.SubconCategory,
+            '(BPJNo!=null && BPJNo!="")':true,
+            '(SKEPNo!=null && SKEPNo!="")':true
         } 
     }
 
