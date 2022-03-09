@@ -1,5 +1,5 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { SalesService } from "../service";
+import { SalesService,GarmentProductionService,CoreService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
 var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request-loader");
 var UomLoader = require("../../../../loader/uom-loader");
@@ -7,7 +7,7 @@ var CurrencyLoader = require("../../../../loader/garment-currency-loader");
 var UnitLoader = require("../../../../loader/garment-units-loader");
 var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
-@inject(SalesService)
+@inject(SalesService,GarmentProductionService,CoreService)
 export class Item {
     @bindable selectedRO;
     @bindable uom;
@@ -17,24 +17,28 @@ export class Item {
     @bindable currency;
     @bindable unit;
 
-    constructor(salesService) {
+    constructor(salesService,garmentProductionService,coreService) {
         this.salesService = salesService;
+        this.garmentProductionService=garmentProductionService;
+        this.coreService=coreService;
     }
     roTypeOptions = ["RO JOB", "RO SAMPLE"];
     get filter() {
         var filter = {};
-        if (this.header.invoiceType != "SM") {
-            filter = {
-                BuyerCode: this.data.BuyerCodeFilter,
-                Section: this.data.SectionFilter,
-                "SCGarmentId!=null": true
-            };
-        }
-        else {
-            filter = {
-                Section: this.data.SectionFilter,
-                "SCGarmentId!=null": true
-            };
+        if(this.data.roType == 'RO JOB'){
+            if (this.header.invoiceType != "SM") {
+                filter = {
+                    BuyerCode: this.data.BuyerCodeFilter,
+                    Section: this.data.SectionFilter,
+                    "SCGarmentId!=null": true
+                };
+            }
+            else {
+                filter = {
+                    Section: this.data.SectionFilter,
+                    "SCGarmentId!=null": true
+                };
+            }
         }
         return filter;
     }
@@ -60,7 +64,7 @@ export class Item {
         { header: "NNW" },
         { header: "" },
     ];
-    
+
     get roLoader() {
         if (this.data.roType == 'RO SAMPLE') {
             return SampleRequestLoader;
@@ -96,10 +100,14 @@ export class Item {
     uomView = (uom) => {
         return `${uom.Unit || uom.unit}`
     }
-
-    roView = (costCal) => {
-        return `${costCal.RO_Number}`
+    
+    roView = (ro) => {
+        if (this.data.roType == 'RO SAMPLE')
+            return `${ro.RONoSample}`;
+        else
+            return `${ro.RO_Number}`;
     }
+    
     prView = (pr) => {
         return `${pr.RONo}`
     }
@@ -156,7 +164,8 @@ export class Item {
 
     selectedROChanged(newValue) {
         if (newValue) {
-            this.salesService.getCostCalculationById(newValue.Id)
+            if(this.data.roType=='RO JOB'){
+                this.salesService.getCostCalculationById(newValue.Id)
                 .then(result => {
                     this.salesService.getSalesContractById(result.SCGarmentId)
                         .then(sc => {
@@ -176,6 +185,30 @@ export class Item {
                             this.data.amount = sc.Amount;
                         })
                 });
+            }
+            else{
+                this.garmentProductionService.getSampleRequestById(newValue.Id)
+                    .then(async result => {
+                        this.data.roNo = result.RONoSample;
+                        this.data.article = result.SampleProducts.map(x => x.Style).join(',');
+                        this.data.buyerBrand = result.Buyer;
+                        var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+                        this.data.unit = units.data[0];
+
+                        let uomResult = await this.coreService.getUom({ size: 1, keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
+                        this.data.uom = uomResult.data[0];
+                        this.uom = uomResult.data[0];
+                        this.data.valas = "USD";
+                        this.data.quantity = result.SampleProducts.reduce((acc, cur) => acc += cur.Quantity, 0);
+                        this.data.scNo = result.SampleRequestNo;
+                        //this.data.amount=sc.Amount;
+                        this.data.price = 0;
+                        this.data.priceRO = 0;
+                        this.data.comodity = result.Comodity;
+                        this.data.amount = 0;
+                    })
+            }
+            
         }
     }
 
@@ -415,7 +448,6 @@ export class Item {
 
     roTypeChanged(e) {
         let type = (e.detail) ? e.detail : "";
-
         if (type) {
             this.data.roType = type;
         }

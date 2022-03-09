@@ -35,7 +35,7 @@
         </td>
         <td class="bg-primary">
             <au-textbox
-                value.bind="data.section.code"
+                value.bind="data.section.code || data.section.Code || ''"
                 error.bind="error.Section"
                 read-only.bind="true">
             </au-textbox>

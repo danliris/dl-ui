@@ -21,10 +21,10 @@
             </au-textbox>
         </td>
         <td class="bg-primary col-md-1">
-            <au-textbox value.bind="data.section.code" error.bind="error.Section" read-only.bind="true">
+            <au-textbox value.bind="data.section.code|| data.section.Code ||''" error.bind="error.Section" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary col-md-2">
             <au-textbox value.bind="data.comodityDescription" error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>
