@@ -142,7 +142,8 @@ export class Item {
         }
         if (this.data.roNo) {
             this.selectedRO = {
-                RO_Number: this.data.RONo || this.data.roNo
+                RO_Number: this.data.RONo || this.data.roNo,
+                RONoSample: this.data.RONo || this.data.roNo
             };
             this.uom = this.data.uom;
             this.selectedPR = {
