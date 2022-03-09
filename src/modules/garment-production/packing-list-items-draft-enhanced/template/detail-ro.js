@@ -128,7 +128,8 @@ export class Item {
         roNo: this.data.RONo || this.data.roNo,
         orderNo: this.data.orderNo,
         details: this.data.details,
-        remarks: this.data.remarks
+        remarks: this.data.remarks,
+        RONoSample: this.data.RONo || this.data.roNo
       };
       this.uom = this.data.uom;
     }
