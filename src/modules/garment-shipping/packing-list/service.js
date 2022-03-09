@@ -73,7 +73,9 @@ class SalesService extends RestService {
     }
 }
 
+const UnitServiceUri = "master/units";
 const sectionServiceUri = "master/garment-sections";
+const uomServiceUri = 'master/uoms';
 class CoreService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "core");
@@ -88,6 +90,30 @@ class CoreService extends RestService {
         var endpoint = `${shippingStaffUri}`;
         return super.list(endpoint, name);
     }
+
+    getSampleUnit(info) {
+        var endpoint = `${UnitServiceUri}`;
+        return super.list(endpoint, info);
+    }
+    
+    getUom(info) {
+        var endpoint = `${uomServiceUri}`;
+        return super.list(endpoint, info);
+    }
 }
 
-export { Service, SalesService, CoreService }
+
+const garmentSampleRequestUri = "garment-sample-requests";
+
+class GarmentProductionService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "garment-production");
+    }
+
+    getSampleRequestById(id) {
+        var endpoint = `${garmentSampleRequestUri}/${id}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, SalesService, CoreService,GarmentProductionService }
