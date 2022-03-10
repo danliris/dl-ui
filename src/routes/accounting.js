@@ -501,7 +501,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "accounting",
-      subGroup: "report",
+      subGroup: "report sample",
       permission: { "C9": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
