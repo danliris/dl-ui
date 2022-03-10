@@ -50,6 +50,11 @@ export class View {
                 this.statusActivityRemark = "<strong>Alasan Reject oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 this.statusActivityAlert = "alert-danger";
                 break;
+                case "REVISED_TO_MD":
+                    this.statusActivityRemark = "<strong>Alasan Reject :</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                    this.statusActivityAlert = "alert-info";
+                  
+                    break;
             default:
                 break;
         }
@@ -102,4 +107,7 @@ export class View {
                 }
             });
     }
+
+    
+
 }
