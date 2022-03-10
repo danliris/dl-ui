@@ -15,7 +15,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['SAMPLE', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON'];
+    expenditureTypeOptions = ['SAMPLE', 'TRANSFER', 'SISA', 'SUBCON','LAIN-LAIN'];//'EXTERNAL',
     controlOptions = {
         label: {
             align : "right",
