@@ -38,6 +38,7 @@ export class List {
                 this.data=[];
                 console.log(result);
                 for(var _data of result){
+                    _data.prices=_data.price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.stocks=_data.stock.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.receipts=_data.receipt.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.mainFabricExpenditures=_data.mainFabricExpenditure.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
@@ -45,6 +46,7 @@ export class List {
                     _data.expenditures=_data.deliveryReturn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data.avals=_data.aval.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
                     _data.remainQtys=_data.remainQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+                    _data.remainNominals=(_data.remainQty * _data.price).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
                     this.data.push(_data);
 
                  }
@@ -55,7 +57,8 @@ export class List {
         var info = {
             unit : this.unit ? this.unit.Id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            type :"bookkeeping"
       
         }
         this.service.generateExcel(info);
@@ -164,6 +167,19 @@ export class List {
             {
                 sum += item.remainQty;
             }
+        }
+        
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
+    get sumNominal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.remainQty * item.price;
+            } 
         }
         
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
