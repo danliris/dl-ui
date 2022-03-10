@@ -62,6 +62,10 @@ export class View {
             case "DRAFT":
                 this.formOptions.saveText = "Post Booking";
                 break;
+            case "REVISED_TO_MD":
+                    this.formOptions.saveText = "";
+                    this.saveCallback = null;
+                    break;
             case "DRAFT_POSTED":
             case "DRAFT_REJECTED_MD":
             case "DRAFT_REJECTED_SHIPPING":
@@ -97,6 +101,9 @@ export class View {
             case "REVISED_MD":
                 this.alertInfo = "<strong>Alasan Revisi oleh Md:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 break;
+                case "REVISED_TO_MD":
+                    this.alertInfo = "<strong>Alasan Revisi:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
+                    break;
             case "REVISED_SHIPPING":
                 this.alertInfo = "<strong>Alasan Revisi oleh Shipping:</strong> " + (this.data.statusActivities.slice(-1)[0] || {}).remark;
                 break;
