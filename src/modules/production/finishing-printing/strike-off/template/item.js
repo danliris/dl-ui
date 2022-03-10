@@ -621,7 +621,7 @@ export class CartItem {
                             });
 
                             this.data.ChemicalItems.push({
-                                Name: "Alkali Donor",
+                                Name: "Soda Kue / Alkali Donor",
                                 Quantity: 20,
                                 Index: idx++
                             });
