@@ -43,7 +43,7 @@
                     label="Unit yang meminta" 
                     value.bind="unitRequest" 
                     error.bind="error.UnitRequest" 
-                    read-only.bind="true"
+                    read-only.bind="readOnly || !isOther"
                     loader.bind="unitRequestLoader"
                     text.bind = "unitRequestView"
                     placeholder = "Cari Unit"
@@ -52,7 +52,7 @@
                 </au-autocomplete>
                 
                 <au-autocomplete
-                    if.bind="isSample"
+                    if.bind="isSample || isOther"
                     disabled.bind="!data.UnitRequest"
                     label="Gudang yang meminta"
                     value.bind="storageRequest"
@@ -70,7 +70,7 @@
                     label="Unit yang mengirim"
                     value.bind = "unitSender"
                     error.bind="error.UnitSender"
-                    read-only.bind="readOnly || isEdit ||  isRemain || isSubcon"
+                    read-only.bind="readOnly || isEdit ||  isRemain || isSubcon || isOther"
                     loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
@@ -104,6 +104,22 @@
                     view-model.ref="RONoViewModel"
                     options.bind="controlOptions">
                 </au-autocomplete>
+
+                <div class="row form-group">
+                    <label for="name" class="col-sm-4 text-left au-layout control-label" if.bind="isOther">No RO Asal</label>
+                    <div class = "col-sm-5">
+                        <au-textbox 
+                            disabled.bind="!(data.UnitSender && data.Storage)"
+                            value.bind="RONo" 
+                            read-only.bind="readOnly || isEdit"
+                            placeholder = "Cari Nomor RO"
+                            if.bind="isOther">
+                        </au-textbox>
+                    </div>
+                    <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
+                        <button class="btn btn-success" click.delegate="searchRONo()"  if.bind="isOther" disabled.bind="!RONo">Cari</button>
+                    </div>
+                </div>
                 
                 <au-textbox
                     label="Artikel"
@@ -112,6 +128,15 @@
                     read-only.bind="true" 
                     options.bind="controlOptions">
                 </au-textbox>
+                
+                <au-multiline
+                    label="Keterangan Lain-lain"
+                    value.bind="data.OtherDescription"
+                    error.bind="error.OtherDescription" 
+                    read-only.bind="read-only" 
+                    if.bind="isOther"
+                    options.bind="controlOptions">
+                </au-multiline>
             </div>
             <div class="col-md-6" show.bind="!readOnly ">
                 <h4>Tambah Data Barang</h4>
@@ -127,7 +152,7 @@
                     query.bind = "filterRONoAddProductByUnit"
                     options.bind="controlOptions"
                     view-model.ref="RONoHeaderViewModel"
-                    if.bind="isSample || isRemain || isSubcon"
+                    if.bind="isSample || isRemain || isSubcon || isOther"
                     >
                 </au-autocomplete>
 
