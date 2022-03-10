@@ -45,7 +45,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ "(Status == \"APPROVED_MD\" || Status == \"APPROVED_SHIPPING\" || Status == \"REJECTED_SHIPPING_MD\")": true })
+            filter: JSON.stringify({ "(Status == \"APPROVED_MD\" || Status == \"APPROVED_SHIPPING\" || Status == \"REVISED_TO_MD\"|| Status == \"REJECTED_SHIPPING_MD\")": true })
         }
 
         return this.service.search(arg)
@@ -72,6 +72,8 @@ export class List {
                 return { classes: "success" }
             case "REJECTED_SHIPPING_MD":
                 return { classes: "danger" }
+            case "REVISED_TO_MD":
+                return { classes: "info"  }
             case "APPROVED_MD":
             default:
                 return { css: { "background": "white" } }

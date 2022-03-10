@@ -19,6 +19,7 @@ export class View {
         editText: "Edit",
         deleteText: "Cancel",
         saveText: "Revisi",
+        
     }
 
     async activate(params) {
@@ -68,11 +69,30 @@ export class View {
             });
     }
 
-    saveCallback(event) {
+    revisiUnit(event) {
         this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Revisi" } })
             .then(response => {
                 if (!response.wasCancelled) {
                     this.service.revise({ id: this.data.id, reason: response.output })
+                        .then(result => {
+                            alert('Packing List berhasil di-Revisi');
+                            this.cancelCallback();
+                        })
+                        .catch(error => {
+                            if (typeof error === 'string') {
+                                alert(`Revisi dibatalkan : ${error}`);
+                            } else {
+                                alert(`Error : ${error.message}`);
+                            }
+                        });
+                }
+            });
+    }
+    revisiMD(event) {
+        this.dialogService.open({ viewModel: Dialog, model: { title: "Alasan Revisi" } })
+            .then(response => {
+                if (!response.wasCancelled) {
+                    this.service.reviseToMD({ id: this.data.id, reason: response.output })
                         .then(result => {
                             alert('Packing List berhasil di-Revisi');
                             this.cancelCallback();
