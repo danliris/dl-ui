@@ -358,9 +358,12 @@ export class DataForm {
             this.data.PackingListId=newValue.id;
             
             let InvoiceId = await this.packingInventoryService.getDataByPackingLisId(newValue.id);
-            if(InvoiceId.invoiceId == 0)
+            console.log(InvoiceId);
+            if(InvoiceId == null)
             {
-                alert("Invoice belum dibuat. Pilih Invoice lain");
+               
+                this.data.InvoiceId =0;
+                
             }else
             {
                 this.data.InvoiceId = InvoiceId.invoiceId;
