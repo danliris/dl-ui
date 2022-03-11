@@ -54,6 +54,7 @@ export class DataForm {
     };
 
     itemsColumns = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
