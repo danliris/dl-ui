@@ -1,4 +1,4 @@
-import {bindable, inject} from 'aurelia-framework'
+import { bindable, inject } from 'aurelia-framework'
 import moment from 'moment';
 import numeral from 'numeral';
 import { Service } from '../service';
@@ -14,7 +14,7 @@ export class Item {
         this.bindingEngine = bindingEngine;
 
         this.columns = ['Unit', 'Nama Barang', 'Jumlah', 'UOM', 'Harga'];
-        
+
     }
     activate(context) {
         this.context = context;
@@ -22,7 +22,7 @@ export class Item {
         this.options = context.options;
         this.filter = {};
         this.error = context.error;
-        if(this.data){
+        if (this.data) {
             this.selectedPurchaseDisposition = this.data.dispositionNo;
         }
     }
@@ -32,14 +32,14 @@ export class Item {
         return PurchasingDispositionLoader;
     }
 
-    selectedPurchaseDispositionChanged(newValue){
-        if(newValue===null){
-            this.data.items=[];
+    selectedPurchaseDispositionChanged(newValue) {
+        if (newValue === null) {
+            this.data.items = [];
             this.error = {};
-        } else if(newValue){
-            var paytoSupp=newValue.DPP+ newValue.VatValue+newValue.PaymentCorrection;
-            if(newValue.IncomeTaxBy=="Supplier"){
-                paytoSupp=newValue.DPP+ newValue.VatValue-newValue.IncomeTaxValue+newValue.PaymentCorrection;
+        } else if (newValue) {
+            var paytoSupp = newValue.DPP + newValue.VatValue + newValue.PaymentCorrection;
+            if (newValue.IncomeTaxBy == "Supplier") {
+                paytoSupp = newValue.DPP + newValue.VatValue - newValue.IncomeTaxValue + newValue.PaymentCorrection;
             }
             this.data.dispositionDate = newValue.CreatedUtc;
             this.data.currency = {};
@@ -69,27 +69,28 @@ export class Item {
             this.data.useIncomeTax = newValue.Items[0].UseIncomeTax;
             this.data.useVat = newValue.Items[0].UseVat;
             this.data.paymentMethod = newValue.PaymentMethod;
-            this.data.vatValue= newValue.VatValue;
-            this.data.incomeTaxValue= newValue.IncomeTaxValue;
-            this.data.dpp= newValue.DPP;
-            this.data.payToSupplier=paytoSupp;
-            if(this.data.useVat == true){
+            this.data.paymentCorrection = newValue.PaymentCorrection;
+            this.data.vatValue = newValue.VatValue;
+            this.data.incomeTaxValue = newValue.IncomeTaxValue;
+            this.data.dpp = newValue.DPP;
+            this.data.payToSupplier = paytoSupp;
+            if (this.data.useVat == true) {
                 this.data.vat = newValue.Amount * 0.1;
             } else {
                 this.data.vat = 0;
             }
             this.data.totalPaid = newValue.DPP + this.data.vatValue;
-            this.data.items= [];
-            for (var items of newValue.Items){
-                for (var details of items.Details){
+            this.data.items = [];
+            for (var items of newValue.Items) {
+                for (var details of items.Details) {
                     var item = {
-                        price : details.PaidPrice,
-                        product : details.Product,
-                        quantity : details.PaidQuantity,
-                        unit : details.Unit,
-                        uom : details.DealUom,
-                        purchasingDispositionDetailId : details.Id,
-                        epoId:items.EPOId
+                        price: details.PaidPrice,
+                        product: details.Product,
+                        quantity: details.PaidQuantity,
+                        unit: details.Unit,
+                        uom: details.DealUom,
+                        purchasingDispositionDetailId: details.Id,
+                        epoId: items.EPOId
                     };
                     this.data.items.push(item);
                 }
