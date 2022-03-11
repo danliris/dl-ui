@@ -22,6 +22,16 @@
         </au-autocomplete>
 
         <au-autocomplete 
+                value.bind="division" 
+                label="Divisi" 
+                loader.bind="divisionLoader"
+                placeholder="cari divisi" 
+                key="name"
+                text.bind="divisionView"
+                options.bind="controlOptions">
+            </au-autocomplete>
+
+        <au-autocomplete 
             value.bind="unit" 
             label="Unit" 
             loader.bind="unitLoader"
