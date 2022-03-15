@@ -491,5 +491,19 @@ module.exports = [
       permission: { "B1": 1, "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  }
+  },
+  {
+    route: '/garment-production/monitoring-sample-prepare-bookkeeping',
+    name: 'garment-production-monitoring-sample-prepare-bookkeeping',
+    moduleId: './modules/garment-sample/report/monitoring-sample-prepare-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Prepare Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];

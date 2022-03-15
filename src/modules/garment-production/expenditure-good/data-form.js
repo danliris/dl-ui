@@ -1,10 +1,10 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service,SalesService,PurchasingService } from "./service";
+import { Service,SalesService,PurchasingService,PackingInventoryService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 const PlLoader= require('../../../loader/garment-packing-list-loader');
 
-@inject(Service,SalesService,PurchasingService)
+@inject(Service,SalesService,PurchasingService,PackingInventoryService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -21,10 +21,11 @@ export class DataForm {
     @bindable selectedInvoice;
     @bindable manual;
 
-    constructor(service,salesService,purchasingService) {
+    constructor(service,salesService,purchasingService,packingInventoryService) {
         this.service = service;
         this.salesService=salesService;
         this.purchasingService=purchasingService;
+        this.packingInventoryService= packingInventoryService;
     }
     expenditureTypes=["EXPORT","LAIN-LAIN","SISA"];
 
@@ -289,6 +290,7 @@ export class DataForm {
                     qty += item.Quantity;
             }
         }
+        this.data.TotalQty= qty;
         return qty;
     }
     selectedSizeChanged(e){
@@ -349,15 +351,30 @@ export class DataForm {
      };
     }
 
-    selectedInvoiceChanged(newValue){
+    async selectedInvoiceChanged(newValue){
+        console.log(newValue);
         if(newValue){
             this.data.Invoice= newValue.invoiceNo;
             this.data.PackingListId=newValue.id;
+            
+            let InvoiceId = await this.packingInventoryService.getDataByPackingLisId(newValue.id);
+            console.log(InvoiceId);
+            if(InvoiceId == null)
+            {
+               
+                this.data.InvoiceId =0;
+                
+            }else
+            {
+                this.data.InvoiceId = InvoiceId.invoiceId;
+            }
         }
         else{
             this.data.Invoice= "";
             this.data.PackingListId=0;
+            this.data.InvoiceId = 0;
         }
+       
     }
     manualChanged(newValue){
         if(!this.readOnly){
