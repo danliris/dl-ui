@@ -14,7 +14,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL', 'SISA', 'SUBCON'];
+    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL', 'SISA', 'SUBCON', 'TRANSFER SAMPLE'];
     controlOptions = {
         label: {
             align : "right",
@@ -56,6 +56,8 @@ export class DataForm {
         }else if(this.data.ExpenditureType === "SISA"){
             this.data.ExpenditureTo = "GUDANG SISA";
             this.items.columns.push("Status Barang");
+        }else if(this.data.ExpenditureType === "TRANSFER SAMPLE"){
+            this.data.ExpenditureTo = "GUDANG LAIN";
         }
         this.options.ExpenditureType = this.data.ExpenditureType;
 
@@ -64,7 +66,7 @@ export class DataForm {
             this.options.isExternal=true;
         }
 
-        if(this.data.ExpenditureType === "TRANSFER"){
+        if(this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "TRANSFER SAMPLE"){
             this.isTransfer = true;
         }
         
@@ -106,7 +108,7 @@ export class DataForm {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
             this.data.ExpenditureType = selectedCategory;
-            if (this.data.ExpenditureType === "TRANSFER") {
+            if (this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "TRANSFER SAMPLE") {
                 this.isTransfer = true;
             }
             else {
@@ -135,6 +137,8 @@ export class DataForm {
             }else if(this.data.ExpenditureType === "SISA"){
                 this.data.ExpenditureTo = "GUDANG SISA";
                 this.items.columns.push("Status Barang");
+            }else if(this.data.ExpenditureType === "TRANSFER SAMPLE"){
+                this.data.ExpenditureTo = "GUDANG LAIN";
             }
             this.options.ExpenditureType = this.data.ExpenditureType;
         }

@@ -8,6 +8,7 @@ var PRLoader = require('../../../loader/purchase-request-all-loader');
 var URNLoader = require('../../../loader/unit-receipt-note-all-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
+var DivisionLoader = require('../../../loader/division-loader');
 
 @inject(Router, Service)
 export class List {
@@ -50,6 +51,18 @@ export class List {
         { field: "quantity", title: "Jumlah (+/-/0)", sortable: false,formatter:(value,data)=>{
             return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
         }  },
+
+        { field: "pricePerDealUnit", title: "Harga Satuan", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+
+        { field: "totalPrice", title: "Harga Total", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
+
+
+        
+        
     ];
 
     constructor(router, service) {
@@ -73,6 +86,7 @@ export class List {
         this.category = null;
         this.unitReceiptNote = null;
         this.supplier = null;
+        this.division = null;
         this.dateTo = undefined;
         this.dateFrom = undefined;
         this.error = {};
@@ -92,6 +106,7 @@ export class List {
             size: info.limit,
             urnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
             prNo: this.pr ? this.pr.no : "",
+            divisionId : this.division? this.division.Id :"",
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             supplierId: this.supplier ? this.supplier._id : "",
@@ -123,6 +138,7 @@ export class List {
             let args = {
             urnNo:this.unitReceiptNote? this.unitReceiptNote.no:"",
             prNo: this.pr ? this.pr.no : "",
+            divisionId : this.division? this.division.Id :"",
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             supplierId: this.supplier ? this.supplier._id : "",
@@ -158,12 +174,19 @@ export class List {
         return URNLoader;
     }
 
+    get divisionLoader() {
+        return DivisionLoader;
+    }
+
     prView = (tr) => {
       return `${tr.no}`;
     }
     urnView = (urn) => {
         return `${urn.no}`;
     }
+    divisionView = (division) => {
+        return `${division.Name}`;
+      }
 
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);

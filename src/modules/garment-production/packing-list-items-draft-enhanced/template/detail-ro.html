@@ -1,5 +1,15 @@
 <template>
     <tr>
+        <td class="bg-primary col-md-1">
+            <au-dropdown 
+                value.bind="data.roType" 
+                items.bind="roTypeOptions" 
+                error.bind="error.roType"
+                read-only.bind="readOnly || (isEdit && data.id)" 
+                options.bind="controlOptions" 
+                change.delegate="roTypeChanged($event)">
+            </au-dropdown>
+        </td>
         <td class="bg-primary col-md-3">
             <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader"
                 text.bind="readOnly ? roDetailView : roView" placeholder="cari RO"
@@ -11,10 +21,10 @@
             </au-textbox>
         </td>
         <td class="bg-primary col-md-1">
-            <au-textbox value.bind="data.section.code" error.bind="error.Section" read-only.bind="true">
+            <au-textbox value.bind="data.section.code|| data.section.Code ||''" error.bind="error.Section" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="bg-primary col-md-3">
+        <td class="bg-primary col-md-2">
             <au-textbox value.bind="data.comodityDescription" error.bind="error.comodityDescription"
                 read-only.bind="readOnly">
             </au-textbox>

@@ -59,7 +59,7 @@ export class List {
                 return (value)==""? "Local" : "Import";
             }},
         // { field: "shipmentType", title: "Pengiriman", sortable: false },
-        { field: "shipmentNo", title: "No BL / AWB", sortable: false },
+        { field: "shipmentNo", title: "No BL/AWB", sortable: false },
         // { field: "isCustoms", title: "Dikenakan Beacukai", sortable: false , formatter: function (value, data) {
             
         //         return (value)==true? "Ya" : "Tidak";
@@ -110,9 +110,9 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
               }
          },
-         { field: "urnQuantity", title: "Jumlah Bon Unit", sortable: false, formatter:(value,data)=>{
+        { field: "urnQuantity", title: "Jumlah Bon Unit", sortable: false, formatter:(value,data)=>{
             return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
-         }  },
+        }  },
          { field: "urnUom", title: "Satuan", sortable: false },
          { field: "UnitName", title: "Nama Unit", sortable: false },
          { field: "INNo", title: "No Nota Intern", sortable: false },

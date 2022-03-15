@@ -113,6 +113,11 @@
 
                         <au-textbox label="Shipping Staff" value.bind="data.shippingStaffName" read-only.bind="true">
                         </au-textbox>
+                        <au-multiline label="Keterangan" value.bind="data.sampleRemarkMd" error.bind="error.sampleRemarkMd"
+                            read-only.bind="readOnly"  
+                            options.bind="controlOptions">
+                        </au-multiline>
+                         
 
                     </div>
                 </div>
