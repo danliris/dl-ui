@@ -35,7 +35,7 @@ export class List {
     }
 
     shippinginvoiceNoView = (invoiceNo) => {
-        return `${invoiceNo.InvoiceNoe}`
+        return `${invoiceNo.invoiceNo}`
     }
    
     activate() {
@@ -45,8 +45,8 @@ export class List {
     searching() {
         {
         var info = {
-            buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
-            invoiceNo : this.invoiceNo ? this.invoiceNo.InvoiceNo : "",
+            buyerAgent : this.buyerAgent ? this.buyerAgent.Name : "",
+            invoiceNo : this.invoiceNo ? this.invoiceNo.invoiceNo : "",
             paymentTerm : this.paymentTerm ? this.paymentTerm : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
@@ -77,6 +77,8 @@ export class List {
                                 bankName : data.bankName,
                                 amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),        
                                 toBePaid : data.toBePaid.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                                paidAmount : data.paidAmount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                                balanceAmount : data.balanceAmount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                          
                                 nettNegoTT : data.nettNegoTT.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),    
                                 bankChargeTT : data.bankChargeTT.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),    
@@ -102,7 +104,7 @@ export class List {
                         if (!subTotalBuyer2[Buyer]) {
                             subTotalBuyer2[Buyer] = 0;
                             } 
-                            subTotalBuyer2[Buyer] = data.toBePaid;  
+                            subTotalBuyer2[Buyer] += data.toBePaid;  
                             
                         if (!subTotalBuyer3[Buyer]) {
                                 subTotalBuyer3[Buyer] = 0;
@@ -133,8 +135,8 @@ export class List {
     ExportToExcel() {
         {
             var info = {
-                buyerAgent : this.buyerAgent ? this.buyerAgent.Code : "",
-                invoiceNo : this.invoiceNo ? this.invoiceNo.InvoiceNo : "",
+                buyerAgent : this.buyerAgent ? this.buyerAgent.Name : "",
+                invoiceNo : this.invoiceNo ? this.invoiceNo.invoiceNo : "",
                 paymentTerm : this.paymentTerm ? this.paymentTerm : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
