@@ -1,18 +1,21 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Service, SalesService } from "../service";
+import { Service, SalesService,GarmentProductionService,CoreService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
 var DraftPackingListItemsLoader = require("../../../../loader/garment-draft-packing-list-items-loader");
 var UomLoader = require("../../../../loader/uom-loader");
 var UnitLoader = require("../../../../loader/unit-loader");
+var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
-@inject(SalesService, Service)
+@inject(SalesService, Service,GarmentProductionService,CoreService)
 export class Item {
   @bindable selectedRO;
   @bindable uom;
 
-  constructor(salesService, service) {
+  constructor(salesService, service,garmentProductionService,coreService) {
     this.salesService = salesService;
     this.service = service;
+    this.garmentProductionService=garmentProductionService;
+    this.coreService=coreService;
   }
 
   detailsColumns = [
@@ -29,34 +32,48 @@ export class Item {
     { header: "NNW" },
     { header: "" },
   ];
-
+  roTypeOptions = ["RO JOB", "RO SAMPLE"];
   get filter() {
     var filter = {};
     let section = this.context.context.options.header.section || {};
-
-    if (section.code === "C") {
-      var filter = {
-        SectionCode: section.code || section.Code,
-        //"SCGarmentId!=null": true
-      };
+    if(this.data.roType=='RO JOB'){
+      if (section.code === "C") {
+        filter = {
+          SectionCode: section.code || section.Code,
+          //"SCGarmentId!=null": true
+        };
+      }
+      else {
+        filter = {
+          BuyerCode: this.data.BuyerCode,
+          SectionCode: section.code || section.Code,
+          //"SCGarmentId!=null": true
+        };
+      }
     }
-    else {
-      var filter = {
+    else{
+      filter = {
         BuyerCode: this.data.BuyerCode,
         SectionCode: section.code || section.Code,
-        //"SCGarmentId!=null": true
       };
     }
     return filter;
   }
 
-
   get roLoader() {
-    return DraftPackingListItemsLoader;
+    if (this.data.roType == 'RO SAMPLE') {
+        return SampleRequestLoader;
+    } else {
+        return DraftPackingListItemsLoader;
+    }
   }
+  
 
   roView = (ro) => {
-    return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).filter((value, index, self) => self.indexOf(value) === index).join(', ') : ''} - ${ro.remarks}`
+    if (this.data.roType == 'RO SAMPLE')
+        return `${ro.RONoSample}`;
+    else
+        return `${ro.roNo} - ${ro.orderNo} - ${ro.details != null ? ro.details.map(x => x.colour).filter((value, index, self) => self.indexOf(value) === index).join(', ') : ''} - ${ro.remarks}`
   }
 
   roDetailView = (ro) => {
@@ -111,7 +128,8 @@ export class Item {
         roNo: this.data.RONo || this.data.roNo,
         orderNo: this.data.orderNo,
         details: this.data.details,
-        remarks: this.data.remarks
+        remarks: this.data.remarks,
+        RONoSample: this.data.RONo || this.data.roNo
       };
       this.uom = this.data.uom;
     }
@@ -124,73 +142,98 @@ export class Item {
 
   async selectedROChanged(newValue) {
     if (newValue) {
-      let section = this.context.context.options.header.section || {};
-      let args = {
-        filter: JSON.stringify({
-          RO_Number: newValue.roNo,
-        })
-      };
-      let dataDraftPLItems = await this.service.getDraftItemsPlById(newValue.id);
-      if (dataDraftPLItems != null) {
-        this.data.comodityDescription = dataDraftPLItems.comodityDescription;
-        this.data.quantity = dataDraftPLItems.quantity;
-        this.data.unit = dataDraftPLItems.unit;
-        this.data.uom = dataDraftPLItems.uom;
-        this.uom = this.data.uom;
-        this.data.orderNo = dataDraftPLItems.orderNo;
-        this.data.remarks = dataDraftPLItems.remarks;
-      }
-      if (dataDraftPLItems.details != null) {
-        if (dataDraftPLItems.details.length > 0) {
-          dataDraftPLItems.details.map(x => {
-            x.id = 0;
-            x.sizes.map(s => {
-              s.id = 0;
-              return s;
+      if(this.data.roType=='RO JOB'){
+        let section = this.context.context.options.header.section || {};
+        let args = {
+          filter: JSON.stringify({
+            RO_Number: newValue.roNo,
+          })
+        };
+        let dataDraftPLItems = await this.service.getDraftItemsPlById(newValue.id);
+        if (dataDraftPLItems != null) {
+          this.data.comodityDescription = dataDraftPLItems.comodityDescription;
+          this.data.quantity = dataDraftPLItems.quantity;
+          this.data.unit = dataDraftPLItems.unit;
+          this.data.uom = dataDraftPLItems.uom;
+          this.uom = this.data.uom;
+          this.data.orderNo = dataDraftPLItems.orderNo;
+          this.data.remarks = dataDraftPLItems.remarks;
+        }
+        if (dataDraftPLItems.details != null) {
+          if (dataDraftPLItems.details.length > 0) {
+            dataDraftPLItems.details.map(x => {
+              x.id = 0;
+              x.sizes.map(s => {
+                s.id = 0;
+                return s;
+              });
+              this.data.details.push(x);
             });
-            this.data.details.push(x);
+          }
+        }
+  
+        this.salesService.getCostCalculationByRoNo(args)
+          .then(data => {
+            this.salesService.getCostCalculationById(data.data[0].Id)
+              .then(result => {
+                this.salesService.getSalesContractById(result.SCGarmentId)
+                  .then(sc => {
+                    this.salesService.getPreSalesContractById(result.PreSCId)
+                      .then(psc => {
+                        this.data.roNo = result.RO_Number;
+                        this.data.article = result.Article;
+                        this.data.buyerAgent = result.Buyer;
+                        this.data.buyerBrand = result.BuyerBrand;
+                        this.data.sectionName = result.SectionName;
+                        this.data.section = {
+                          id: psc.SectionId,
+                          code: result.Section,
+                        };
+                        this.data.valas = "USD";
+                        this.data.scNo = sc.SalesContractNo;
+                        //this.data.amount=sc.Amount;
+                        let avgPrice = 0;
+                        if (sc.Price == 0) {
+                          avgPrice = sc.Items.reduce((acc, cur) => acc += cur.Price, 0) / sc.Items.length;
+                        } else {
+                          avgPrice = sc.Price;
+                        }
+                        this.data.price = avgPrice;
+                        this.data.priceRO = avgPrice;
+                        this.data.comodity = result.Comodity;
+                        this.data.amount = sc.Amount;
+  
+                        this.context.context.options.header.section = this.data.section;
+                        this.updateMeasurements();
+                      });
+                  })
+              });
           });
+      }
+      else{
+        this.garmentProductionService.getSampleRequestById(newValue.Id)
+            .then(async result => {
+                this.data.roNo = result.RONoSample;
+                this.data.article = result.SampleProducts.map(x => x.Style).join(',');
+                this.data.buyerBrand = result.Buyer;
+                var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+                this.data.unit = units.data[0];
+
+                let uomResult = await this.coreService.getUom({ size: 1, keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
+                this.data.uom = uomResult.data[0];
+                this.uom = uomResult.data[0];
+                this.data.valas = "USD";
+                this.data.quantity = result.SampleProducts.reduce((acc, cur) => acc += cur.Quantity, 0);
+                this.data.scNo = result.SampleRequestNo;
+                //this.data.amount=sc.Amount;
+                this.data.price = 0;
+                this.data.priceRO = 0;
+                this.data.comodity = result.Comodity;
+                this.data.amount = 0;
+                this.data.section=result.Section;
+            })
         }
       }
-
-      this.salesService.getCostCalculationByRoNo(args)
-        .then(data => {
-          this.salesService.getCostCalculationById(data.data[0].Id)
-            .then(result => {
-              this.salesService.getSalesContractById(result.SCGarmentId)
-                .then(sc => {
-                  this.salesService.getPreSalesContractById(result.PreSCId)
-                    .then(psc => {
-                      this.data.roNo = result.RO_Number;
-                      this.data.article = result.Article;
-                      this.data.buyerAgent = result.Buyer;
-                      this.data.buyerBrand = result.BuyerBrand;
-                      this.data.sectionName = result.SectionName;
-                      this.data.section = {
-                        id: psc.SectionId,
-                        code: result.Section,
-                      };
-                      this.data.valas = "USD";
-                      this.data.scNo = sc.SalesContractNo;
-                      //this.data.amount=sc.Amount;
-                      let avgPrice = 0;
-                      if (sc.Price == 0) {
-                        avgPrice = sc.Items.reduce((acc, cur) => acc += cur.Price, 0) / sc.Items.length;
-                      } else {
-                        avgPrice = sc.Price;
-                      }
-                      this.data.price = avgPrice;
-                      this.data.priceRO = avgPrice;
-                      this.data.comodity = result.Comodity;
-                      this.data.amount = sc.Amount;
-
-                      this.context.context.options.header.section = this.data.section;
-                      this.updateMeasurements();
-                    });
-                })
-            });
-        });
-    }
   }
 
   sumSubTotal(opt) {
@@ -412,6 +455,14 @@ export class Item {
     if (newValue) {
       this.data.uom = newValue;
       this.uom = newValue;
+    }
+  }
+
+  roTypeChanged(e) {
+    let type = (e.detail) ? e.detail : "";
+
+    if (type) {
+        this.data.roType = type;
     }
   }
 }

@@ -57,6 +57,7 @@ export class DataForm {
         { header: "Satuan" },
         { header: "Price RO" },
         { header: "Price" },
+        { header: "Price CMT" },
         { header: "Mata Uang" },
         { header: "Amount" },
         { header: "Unit" },
@@ -71,6 +72,7 @@ export class DataForm {
         { header: "Satuan" },
         { header: "Price RO" },
         { header: "Price" },
+        { header: "Price CMT" },
         { header: "Mata Uang" },
         { header: "Amount" },
         { header: "Unit" },
@@ -141,6 +143,7 @@ export class DataForm {
     }
 
     async bind(context) {
+      
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -157,6 +160,7 @@ export class DataForm {
             header: this.data
         }
         if (this.data) {
+            console.log(this.data);
             this.selectedBuyer = this.data.buyerAgent;
             this.selectedLC = {
                 documentCreditNo: this.data.lcNo
@@ -174,7 +178,6 @@ export class DataForm {
         }
 
         this.data.sayUnit = this.data.sayUnit || "CARTON";
-
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;

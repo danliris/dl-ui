@@ -219,8 +219,13 @@ export class PurchaseRequestItem {
   }
 
   selectedUomChanged(newValue) {
-    this.data.Uom = newValue;
+  
+    this.data.Uom = {
+      Id :newValue.Id,
+      Unit : newValue.Unit
+    } ;
     this.data.PriceUom = newValue;
     this.data.PriceConversion = 1;
+    console.log(this.data.Uom);
   }
 }

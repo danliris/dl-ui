@@ -63,6 +63,7 @@ export class DataForm {
     };
 
     itemsColumns = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Buyer Brand" },
@@ -72,6 +73,7 @@ export class DataForm {
         { header: "Satuan" },
         { header: "Price RO" },
         { header: "Price" },
+        { header: "Price CMT" },
         { header: "Mata Uang" },
         { header: "Amount" },
         { header: "Unit" },
@@ -79,6 +81,7 @@ export class DataForm {
     ]
 
     itemsColumnsSM = [
+        { header: "Jenis RO" },
         { header: "RO No" },
         { header: "SC No" },
         { header: "Komoditi Description" },
@@ -86,6 +89,7 @@ export class DataForm {
         { header: "Satuan" },
         { header: "Price RO" },
         { header: "Price" },
+        { header: "Price CMT" },
         { header: "Mata Uang" },
         { header: "Amount" },
         { header: "Unit" },
@@ -317,6 +321,14 @@ export class DataForm {
         }
         if (newValue) {
             this.data.invoiceType = newValue;
+            if (newValue == "DS" || newValue == "DL") {
+                this.data.omzet = true;
+                this.data.accounting = true;
+            }else
+            {
+                this.data.omzet = false;
+                this.data.accounting = false;
+            }
         }
     }
 

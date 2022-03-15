@@ -72,3 +72,15 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 }
+
+const UnitServiceUri = 'master/units';
+export class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    getSampleUnit(info) {
+        var endpoint = `${UnitServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
