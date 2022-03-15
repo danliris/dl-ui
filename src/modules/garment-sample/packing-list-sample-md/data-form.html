@@ -64,7 +64,7 @@
                         </au-datepicker>
 
                         <au-dropdown label="Payment Term" value.bind="data.paymentTerm" error.bind="error.PaymentTerm"
-                            read-only.bind="readOnly || isEdit" items.bind="PaymentTermOptions"
+                            read-only.bind="readOnly" items.bind="PaymentTermOptions"
                             change.delegate="paymentTermChanged()" options.bind="controlOptions">
                         </au-dropdown>
 

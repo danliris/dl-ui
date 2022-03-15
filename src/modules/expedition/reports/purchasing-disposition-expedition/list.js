@@ -6,8 +6,8 @@ import { Service, PurchasingService } from './service';
 const SupplierLoader = require('../../../../loader/supplier-loader');
 const UnitPaymentOrderLoader = require('../../../../loader/unit-payment-order-loader');
 const DispositionLoader = require('../../../../loader/purchase-dispositions-all-loader');
-const DispoExpeditionLoader= require('../../../../loader/purchasing-disposition-expedition-loader');
-const DivisionLoader= require('../../../../loader/division-loader');
+const DispoExpeditionLoader = require('../../../../loader/purchasing-disposition-expedition-loader');
+const DivisionLoader = require('../../../../loader/division-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 
 @inject(Service, PurchasingService)
@@ -18,7 +18,7 @@ export class List {
             {
                 field: 'CreatedUtc',
                 title: 'Tgl Disposisi',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
@@ -27,7 +27,7 @@ export class List {
             {
                 field: 'PaymentDueDate',
                 title: 'Tgl Jatuh Tempo',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return moment(value).format('DD MMM YYYY');
                 },
                 rowspan: 2,
@@ -39,12 +39,12 @@ export class List {
                 field: 'CurrencyRate',
                 title: 'Kurs',
                 rowspan: 2,
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return value ? numeral(value).format('0,000.00') : '-';
                 },
                 align: 'right'
             },
-            { title: 'Jumlah', colspan: 4 },
+            { title: 'Jumlah', colspan: 5 },
             { field: 'DueDateDays', title: 'Tempo', rowspan: 2, sortable: true },
             { field: 'Category', title: 'Kategori', rowspan: 2, sortable: true },
             { field: 'Unit', title: 'Unit', rowspan: 2, sortable: true },
@@ -63,7 +63,7 @@ export class List {
             {
                 field: 'SentToVerificationDivisionDate',
                 title: 'Tgl Pembelian Kirim',
-                formatter: function(value, data, index) {
+                formatter: function (value, data, index) {
                     return value ? moment(value).format('DD MMM YYYY') : '-';
                 },
                 rowspan: 2,
@@ -72,6 +72,12 @@ export class List {
             { field: 'VerifiedBy', title: 'Verifikator', rowspan: 2, sortable: true },
 
             { title: 'Kasir', colspan: 5 },
+            {
+                field: 'DifferenceNominal', title: 'Sisa yang Belum Dibayar', rowspan: 2, formatter: function (value, data, index) {
+                    return value ? numeral(value).format('0,000.00') : '-';
+                },
+                align: 'right'
+            },
 
             { field: 'ExternalPurchaseOrderNo', title: 'PO Eksternal', rowspan: 2, sortable: true },
             { field: 'DONo', title: 'Nomor Surat Jalan', rowspan: 2, sortable: true },
@@ -79,91 +85,99 @@ export class List {
             { field: 'UnitPaymentOrderDate', title: 'Tanggal SPB', rowspan: 2, sortable: true },
             { field: 'UnitPaymentOrderNo', title: 'Nomor SPB', rowspan: 2, sortable: true },
 
-            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true },
+            { field: 'Staff', title: 'Staff', rowspan: 2, sortable: true }
         ],
         [{
-                field: 'DPP',
-                title: 'DPP',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
+            field: 'DPP',
+            title: 'DPP',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'VAT',
-                title: 'PPN',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
+            align: 'right'
+        },
+        {
+            field: 'VAT',
+            title: 'PPN',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'IncomeTax',
-                title: 'PPh',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
+            align: 'right'
+        },
+        {
+            field: 'IncomeTax',
+            title: 'PPh',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'Total',
-                title: 'Total',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
+            align: 'right'
+        },
+        {
+            field: 'PaymentCorrection',
+            title: 'Koreksi Pembayaran',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'VerificationDivisionDate',
-                title: 'Tgl Terima',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
+            align: 'right'
+        },
+        {
+            field: 'PayToSupplier',
+            title: 'Total',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'VerifyDate',
-                title: 'Tgl Cek',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
+            align: 'right'
+        },
+        {
+            field: 'VerificationDivisionDate',
+            title: 'Tgl Terima',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'SendDate',
-                title: 'Tgl Kirim',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
+        },
+        {
+            field: 'VerifyDate',
+            title: 'Tgl Cek',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'CashierDivisionDate',
-                title: 'Tgl Terima',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
+        },
+        {
+            field: 'SendDate',
+            title: 'Tgl Kirim',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'BankExpenditureNoteDate',
-                title: 'Tgl Bayar',
-                formatter: function(value, data, index) {
-                    return value ? moment(value).format('DD MMM YYYY') : '-';
-                },
+        },
+        {
+            field: 'CashierDivisionDate',
+            title: 'Tgl Terima',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'BankExpenditureNoteNo',
-                title: 'No Bukti Pengeluaran Bank'
+        },
+        {
+            field: 'BankExpenditureNoteDate',
+            title: 'Tgl Bayar',
+            formatter: function (value, data, index) {
+                return value ? moment(value).format('DD MMM YYYY') : '-';
             },
-            {
-                field: 'PayToSupplier',
-                title: 'Nominal yang dibayar',
-                formatter: function(value, data, index) {
-                    return value ? numeral(value).format('0,000.00') : '-';
-                },
-                align: 'right'
+        },
+        {
+            field: 'BankExpenditureNoteNo',
+            title: 'No Bukti Pengeluaran Bank'
+        },
+        {
+            field: 'SupplierPayment',
+            title: 'Nominal yang dibayar',
+            formatter: function (value, data, index) {
+                return value ? numeral(value).format('0,000.00') : '-';
             },
-            {
-                field: 'Currency',
-                title: 'Mata Uang'
-            },
+            align: 'right'
+        },
+        {
+            field: 'Currency',
+            title: 'Mata Uang'
+        },
             // {
             //     field: 'BankExpenditureNotePPHDate', title: 'Tgl Bayar PPH', formatter: function (value, data, index) {
             //         return value ? moment(value).format('DD MMM YYYY') : '-';
@@ -212,13 +226,13 @@ export class List {
             { text: 'ALL', value: 0 },
             { text: 'SUDAH DIBAYAR', value: 1 },
             { text: 'BELUM DIBAYAR', value: 2 },
-            
+
         ];
         this.spbStatus = [
             { text: 'ALL', value: 0 },
             { text: 'SUDAH ADA', value: 1 },
             { text: 'BELUM ADA', value: 2 },
-            
+
         ];
     }
 
@@ -241,38 +255,38 @@ export class List {
         if (this.division) {
             filter.divisionName = this.division.Name;
         }
-       
+
         if (this.Position) {
             if (this.Position.value != 0)
                 filter.Position = this.Position.value;
         }
-        
+
         if (this.staffName) {
             filter.CreatedBy = this.staffName.username;
         }
-        
+
         let arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             filter: JSON.stringify(filter),
             order: order
         };
-        
-        arg.bankExpenditureNoteNo=this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo:null;
+
+        arg.bankExpenditureNoteNo = this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo : null;
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         arg.dateFromPayment = this.dateFromPayment ? moment(this.dateFromPayment).format("YYYY-MM-DD") : null;
         arg.dateToPayment = this.dateToPayment ? moment(this.dateToPayment).format("YYYY-MM-DD") : null;
-        arg.SPBStatus= this.SPBStatus ? this.SPBStatus.text :null;
-        arg.PaymentStatus= this.PaymentStatus ? this.PaymentStatus.text :null;
+        arg.SPBStatus = this.SPBStatus ? this.SPBStatus.text : null;
+        arg.PaymentStatus = this.PaymentStatus ? this.PaymentStatus.text : null;
         return this.flag ? (
             this.service.getReport(arg)
-            .then(result => {
-                return {
-                    total: result.info.Count,
-                    data: result.data
-                };
-            })
+                .then(result => {
+                    return {
+                        total: result.info.Count,
+                        data: result.data
+                    };
+                })
         ) : { total: 0, data: [] };
     }
 
@@ -314,11 +328,11 @@ export class List {
         let arg = {
             filter: JSON.stringify(filter)
         };
-        arg.bankExpenditureNoteNo=this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo:"";
+        arg.bankExpenditureNoteNo = this.bankExpenditureNo ? this.bankExpenditureNo.bankExpenditureNoteNo : "";
         arg.dateFromPayment = this.dateFromPayment ? moment(this.dateFromPayment).format("YYYY-MM-DD") : null;
         arg.dateToPayment = this.dateToPayment ? moment(this.dateToPayment).format("YYYY-MM-DD") : null;
-        arg.SPBStatus= this.SPBStatus ? this.SPBStatus.text :null;
-        arg.PaymentStatus= this.PaymentStatus ? this.PaymentStatus.text :null;
+        arg.SPBStatus = this.SPBStatus ? this.SPBStatus.text : null;
+        arg.PaymentStatus = this.PaymentStatus ? this.PaymentStatus.text : null;
         arg.dateFrom = this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null;
         arg.dateTo = this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null;
         this.service.getXls(arg);
@@ -354,8 +368,7 @@ export class List {
         return DispositionLoader;
     }
 
-    get dispoExpeditionLoader()
-    {
+    get dispoExpeditionLoader() {
         return DispoExpeditionLoader;
     }
 
@@ -374,7 +387,7 @@ export class List {
     }
 
     divisionView = (division) => {
-       
+
         return `${division.Name}`
     }
 
