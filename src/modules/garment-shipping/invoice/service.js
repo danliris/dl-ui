@@ -47,7 +47,7 @@ class Service extends RestService {
     getPdfWHById(id, type) {
         var endpoint = `${serviceUri}/whpdf/${id}/${type}`;
         return super.getPdf(endpoint);
-    }    
+    }
 
     getInvoiceNo(info) {
         var endpoint = `${resourceStockUri}`;

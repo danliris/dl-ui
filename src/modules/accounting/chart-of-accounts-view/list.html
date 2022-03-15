@@ -40,10 +40,24 @@
 
   <br></br>
 
+  <div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-3">
+      <au-textbox value.bind="keyword"></au-textbox>
+    </div>
+    <div class="col-sm-1" style="margin-top: 12px;">
+      <button class="btn btn-primary"
+              click.delegate="search()">Cari</button>
+    </div>
+  </div>
+
+  <br></br>
+
   <aubs-accordion close-others.bind="true">
     <aubs-accordion-group repeat.for="item of items">
       <template replace-part="header">
-        <h4 class="panel-title" style="cursor: pointer;">
+        <h4 class="panel-title"
+            style="cursor: pointer;">
           <div class="row">
             <div class="col-md-10"><a click.delegate="toggle()">${item.name}</a></div>
             <div class="col-md-2">${item.balanceString}</div>
@@ -54,7 +68,8 @@
       <aubs-accordion close-others.bind="true">
         <aubs-accordion-group repeat.for="subHeader of item.subHeaders">
           <template replace-part="header">
-            <h4 class="panel-title" style="cursor: pointer;">
+            <h4 class="panel-title"
+                style="cursor: pointer;">
               <div class="row">
                 <div class="col-md-10"><a click.delegate="toggle()">${subHeader.name}</a></div>
                 <div class="col-md-2">${subHeader.balanceString}</div>

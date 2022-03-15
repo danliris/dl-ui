@@ -17,8 +17,14 @@ export class List {
   items = [];
   async bind() {
 
+    var keyword = "";
+    if (this.keyword) {
+      keyword = this.keyword;
+    }
+
     var arg = {
       size: Number.MAX_SAFE_INTEGER,
+      keyword: keyword
     }
     let headerDataPromise = this.service.searchHeader(arg)
       .then(result => {
@@ -29,7 +35,8 @@ export class List {
       size: Number.MAX_SAFE_INTEGER,
       order: {
         Code: "asc"
-      }
+      },
+      keyword: keyword
     }
     let ledgerDataPromise = this.service.searchAll(ledgerArg)
       .then(result => {
@@ -77,6 +84,10 @@ export class List {
     }
 
     this.items = items;
+  }
+
+  search() {
+    this.bind()
   }
 
   loader = (info) => {

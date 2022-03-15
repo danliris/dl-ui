@@ -83,7 +83,7 @@ export class List {
                 break;
             case "Cetak PDF Invoice CMT W/ Kop": 
                 this.service.getPdfWHById(data.id, "cmt"); 
-                break;                                
+                break;                
         }
     }
 
