@@ -901,7 +901,7 @@ module.exports = [
     name: "vat",
     moduleId: "./modules/master/vat/index",
     nav: true,
-    title: "PPN",
+    title: "Pajak PPN",
     auth: true,
     settings: {
       group: "master",
