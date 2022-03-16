@@ -167,34 +167,8 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-	{
-		route: '/garment-sample/report/monitoring-sample-prepare',
-		name: 'monitoring-sample-prepare',
-		moduleId: './modules/garment-sample/report/monitoring-sample-prepare/index',
-		nav: true,
-		title: 'Monitoring Preparing Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
-	{
-		route: '/garment-sample/report/monitoring-receipt-sample',
-		name: 'monitoring-sample-receipt',
-		moduleId: './modules/garment-sample/report/monitoring-receipt-sample/index',
-		nav: true,
-		title: 'Monitoring Penerimaan Surat Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
+	
+	
 	{
 		route: '/garment-sample/sample-delivery-return',
 		name: 'sample-delivery-return',
@@ -237,26 +211,28 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	
 	{
-		route: '/garment-sample/report/sample-cutting-monitoring',
-		name: '/sample-cutting-monitoring',
-		moduleId: './modules/garment-sample/report/sample-cutting-monitoring/index',
+		route: '/garment-sample/delivered-packing-list-sample',
+		name: 'garment-delivered-packing-list-sample',
+		moduleId: './modules/garment-sample/delivered-packing-list-sample/index',
 		nav: true,
-		title: 'Monitoring Cutting Sample',
+		title: 'Delivered Packing list Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			subGroup: "transaksi",
+			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	
 	{
-		route: '/garment-sample/report/sample-sewing-monitoring',
-		name: '/sample-sewing-monitoring',
-		moduleId: './modules/garment-sample/report/sample-sewing-monitoring/index',
+		route: '/garment-sample/report/monitoring-unit-receipt-note-all',
+		name: 'unit-receipt-note',
+		moduleId: './modules/garment-sample/report/monitoring-unit-receipt-note-all/index',
 		nav: true,
-		title: 'Monitoring Sewing Sample',
+		title: 'Monitoring Bon Terima Unit All Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
@@ -294,11 +270,81 @@ module.exports = [
 		}
 	},
 	{
-		route: '/garment-sample/report/monitoring-unit-receipt-note-all',
-		name: 'unit-receipt-note',
-		moduleId: './modules/garment-sample/report/monitoring-unit-receipt-note-all/index',
+		route: '/garment-sample/report/monitoring-receipt-sample',
+		name: 'monitoring-sample-receipt',
+		moduleId: './modules/garment-sample/report/monitoring-receipt-sample/index',
 		nav: true,
-		title: 'Monitoring Bon Terima Unit All Sample',
+		title: 'Monitoring Penerimaan Surat Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/report/monitoring-sample-prepare',
+		name: 'monitoring-sample-prepare',
+		moduleId: './modules/garment-sample/report/monitoring-sample-prepare/index',
+		nav: true,
+		title: 'Monitoring Preparing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/report/sample-cutting-monitoring',
+		name: '/sample-cutting-monitoring',
+		moduleId: './modules/garment-sample/report/sample-cutting-monitoring/index',
+		nav: true,
+		title: 'Monitoring Cutting Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/report/sample-sewing-monitoring',
+		name: '/sample-sewing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-sewing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Sewing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'sample-finishing-monitoring',
+		name: 'sample-finishing-monitoring',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: 'sample-expenditure-good-delivery-monitoring',
+		name: 'sample-expenditure-good-delivery-monitoring',
+		moduleId: './modules/garment-sample/report/sample-expenditure-good-delivery-monitoring/index',
+		nav: true,
+		title: 'Monitoring Pengiriman Barang Jadi Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
@@ -376,46 +422,8 @@ module.exports = [
 			permission: { "C9": 1, "SMP1": 1 },
 			iconClass: 'fa fa-dashboard'
 		}
-	}, {
-		route: 'monitoring-sample-flow-by-size',
-		name: 'monitoring-sample-flow-by-size',
-		moduleId: './modules/garment-sample/report/monitoring-sample-flow-by-size/index',
-		nav: true,
-		title: 'Laporan Flow Stock Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},{
-		route: 'sample-finishing-monitoring',
-		name: 'sample-finishing-monitoring',
-		moduleId: './modules/garment-sample/report/sample-finishing-monitoring/index',
-		nav: true,
-		title: 'Monitoring Finishing Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},{
-		route: 'sample-expenditure-good-delivery-monitoring',
-		name: 'sample-expenditure-good-delivery-monitoring',
-		moduleId: './modules/garment-sample/report/sample-expenditure-good-delivery-monitoring/index',
-		nav: true,
-		title: 'Monitoring Pengiriman Barang Jadi Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
 	},
+	
 	{
 		route: 'monitoring-sample-flow-by-size',
 		name: 'monitoring-sample-flow-by-size',
@@ -445,20 +453,6 @@ module.exports = [
 		}
 	},
 	{
-		route: '/garment-sample/delivered-packing-list-sample',
-		name: 'garment-delivered-packing-list-sample',
-		moduleId: './modules/garment-sample/delivered-packing-list-sample/index',
-		nav: true,
-		title: 'Delivered Packing list Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "transaksi",
-			permission: { "C9": 1, "SMP1": 1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
-	{
 		route: '/garment-sample/sample-archive-report',
 		name: 'sample-archive-report',
 		moduleId: './modules/garment-sample/report/sample-archive-report/index',
@@ -472,4 +466,6 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	
+	
 ]
