@@ -3,7 +3,7 @@ import { Service,CoreService,ProductionService } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
 var ROLoader = require('../../../loader/garment-sample-request-loader');
 var UnitSenderLoader = require('../../../loader/garment-sample-unit-loader');
-var UnitRequestLoader = require('../../../loader/garment-units-loader');
+var UnitRequestLoader = require('../../../loader/garment-sample-unit-loader');
 var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
 import moment from 'moment';
 
@@ -29,9 +29,10 @@ export class DataForm {
     @bindable isSample = false;
     @bindable isRemain = false;
     @bindable isSubcon = false;
+    @bindable isOther = false;
     @bindable RONoSample;
 
-    typeUnitDeliveryOrderOptions = ['SAMPLE', 'SISA', 'SUBCON'];
+    typeUnitDeliveryOrderOptions = ['SAMPLE', 'SISA', 'SUBCON','LAIN-LAIN'];
 
     controlOptions = {
         label: {
@@ -61,9 +62,14 @@ export class DataForm {
             readOnly : this.readOnly,
             isEdit : this.isEdit
         };
-        if(!this.data.UnitRequest){
+        if(!this.data.UnitRequest && !this.isOther){
             var unit= await this.coreService.getSampleUnit({ size: 1,keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
             this.unitRequest=unit.data[0];
+
+        }
+        if(!this.data.UnitSender && this.isOther){
+            var unit= await this.coreService.getSampleUnit({ size: 1,keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+            this.UnitSender=unit.data[0];
 
         }
 
@@ -88,6 +94,7 @@ export class DataForm {
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
+            this.isOther = this.data.UnitDOType === "LAIN-LAIN";
         }
     }
 
@@ -147,6 +154,7 @@ export class DataForm {
             this.isSample = this.data.UnitDOType === "SAMPLE";
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
+            this.isOther = this.data.UnitDOType === "LAIN-LAIN";
 
             //this.unitRequest = null;
             this.unitSender = this.unitRequest;
@@ -360,5 +368,71 @@ export class DataForm {
             var unique = article.filter((v, i, a) => a.indexOf(v) === i);
             this.data.Article=unique.join(", ");
         }
+    }
+
+    async searchRONo() {
+        // this.data.Items = this.dataItems;
+        this.data.Items = [];
+        this.dataItems = [];
+
+        var filter= JSON.stringify({RONo:this.RONo});
+        var info = {
+            keyword: this.RONo,
+            filter: filter
+        };
+        this.data.RONo = this.RONo;
+        var ro=[];
+        this.service.getGarmentEPOByRONo(info)
+            .then((epo)=>{
+                for(var a of epo.data){
+                    if(a.RONo==this.data.RONo){
+                        ro.push(a);break;
+                    }
+                }
+                this.data.Article = ro[0].Article;
+                this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
+                .then(result=>{
+                    if(result.data.length>0){
+                        for(var item of result.data){ 
+                            
+                            var Items = {};
+                            Items.DOItemsId = item.DOItemsId;
+                            Items.URNItemId = item.URNItemId;
+                            Items.URNNo = item.URNNo;
+                            Items.DODetailId = item.DODetailId;
+                            Items.URNId = item.URNId;
+                            Items.POItemId = item.POItemId;
+                            Items.EPOItemId = item.EPOItemId;
+                            Items.PRItemId = item.PRItemId;
+                            Items.RONo = item.RONo;
+                            Items.Article = item.Article;
+                            Items.POSerialNumber = item.POSerialNumber;
+                            Items.ProductId = item.ProductId;
+                            Items.ProductCode = item.ProductCode;
+                            Items.ProductName = item.ProductName;
+                            Items.ProductRemark = `${item.POSerialNumber}; ${item.Article}; ${item.RONo}; ${item.ProductRemark}`;
+                            Items.UomId = item.SmallUomId;
+                            Items.UomUnit = item.SmallUomUnit;
+                            Items.PricePerDealUnit = item.PricePerDealUnit;
+                            Items.DesignColor = item.DesignColor;
+                            Items.DefaultDOQuantity = parseFloat(item.RemainingQuantity.toFixed(2));
+                            Items.Quantity = Items.DefaultDOQuantity;
+                            Items.IsSave = Items.Quantity > 0;
+                            Items.IsDisabled = !(Items.Quantity > 0);
+            
+                            this.dataItems.push(Items);
+                        }
+                    }
+                    this.data.Items = this.dataItems;
+                })
+            }); 
+        
+
+        this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
+        this.context.error.Items = [];
+        this.context.error = [];
+        this.RONoHeader = null;
+        this.context.RONoHeaderViewModel.editorValue = "";
+    
     }
 }
