@@ -33,7 +33,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
-
+    
+    getExcelById(id) {
+        var endpoint = `${serviceUri}/xls/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
 
 export { Service }
