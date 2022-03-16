@@ -20,10 +20,9 @@ export class List {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-      
       }
 
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak Excel"];
     
     columns = [
         { field: "ContractNo", title: "No/Tgl Kontrak" },
@@ -83,6 +82,9 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak Excel":
+                this.service.getExcelById(data.Id);
                 break;
         }
     }
