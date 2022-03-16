@@ -347,6 +347,11 @@ export class DataForm {
         return `${name} - ${rate}`
     }
 
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
+    }
+
     async search() {
         var result = await this.service.searchByTags(this.keywords, this.data.Category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
 
