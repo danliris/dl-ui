@@ -75,7 +75,9 @@ export class DataForm {
             this.data.invoiceNo = newValue.invoiceNo;
             this.data.date = newValue.invoiceDate;
             this.data.amount = newValue.totalAmount;
-            this.data.amountToBePaid = newValue.amountToBePaid;
+            this.data.amountToBePaid = newValue.amountToBePaid - newValue.amountCA;
+            this.data.amountPaid = newValue.amountToBePaid - newValue.amountCA;
+            this.data.balancaAmount =  this.data.amountToBePaid - this.data.amountPaid;
             
             if (this.data.packingListId) {
                 this.service.getPackingListById(this.data.packingListId)
@@ -145,4 +147,14 @@ export class DataForm {
         }    
       }
 
+       @computedFrom('data.amountToBePaid', 'data.amountPaid')
+        get BalanceAmount() {
+            console.log(this.data.amountToBePaid);
+            console.log(this.data.amountPaid);
+            let BalanceAmount = this.data.amountToBePaid - this.data.amountPaid;
+            console.log(BalanceAmount);
+            BalanceAmount = numeral(BalanceAmount).format();
+            this.data.balanceAmount = numeral(BalanceAmount).value();           
+            return BalanceAmount;                    
+      }
 }
