@@ -3,6 +3,7 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 import moment from 'moment';
 
 @containerless()
@@ -15,10 +16,10 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedIncomeTax;
+    @bindable selectedVatTax;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
     @bindable kurs = {};
-
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -36,9 +37,7 @@ export class DataForm {
         control: {
             length: 5
         }
-    }
-
-    
+    }    
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -55,8 +54,6 @@ export class DataForm {
             this.data.OrderDate=new Date().toLocaleDateString();
         }
 
-        
-        
         if (this.data.Category) {
             if (this.data.Category === "FABRIC") {
                 this.isFabric = true;
@@ -194,6 +191,17 @@ export class DataForm {
         }
     }
 
+    selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+        
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+            this.data.Vat = _selectedVatTax;
+        } else {
+            this.data.Vat = {};
+        }
+    }
+
     categoryChanged(e) {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
@@ -252,6 +260,7 @@ export class DataForm {
             this.context.DetailsCollection.bind();
         }
     }
+
     paymentTypeChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
@@ -315,6 +324,10 @@ export class DataForm {
 
     get incomeTaxLoader() {
         return IncomeTaxLoader;
+    }
+
+    get vatTaxLoader() {
+        return VatTaxLoader;
     }
 
     supplierView = (supplier) => {

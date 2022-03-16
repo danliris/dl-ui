@@ -200,6 +200,11 @@
                     if.bind="data.SupplierId"
                     options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-autocomplete value.bind="selectedVatTax" error.bind="error.Vat" label="Ppn" 
+                    if.bind="data.Supplier.usevat" loader.bind="vatTaxLoader" text.bind = "vatTaxView"
+                    placeholder="cari ppn" key="rate" read-only.bind="readOnly" post-fix="%" options.bind="controlOptions">
+                </au-autocomplete>
                 
                 <au-dropdown
                     label="Kategori"

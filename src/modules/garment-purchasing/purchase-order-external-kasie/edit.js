@@ -49,10 +49,12 @@ export class Edit {
             
         }
         
-    
-
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
+        }
+
+        if(this.data.Vat){
+            this.selectedVatTax=this.data.Vat;
         }
 
         var getUsedBudget = [];
@@ -100,10 +102,7 @@ export class Edit {
                         }
                     }
                 }
-                
-
             });
-        
     }
 
     cancel(event) {

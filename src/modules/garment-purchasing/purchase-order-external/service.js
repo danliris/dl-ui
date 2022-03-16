@@ -108,8 +108,6 @@ export class Service extends RestService {
         return super.get(endpoint, null, info);
     }
 
-
-
     cancel(id) {
         var endpoint = `garment-external-purchase-orders/cancel/${id}`;
         return super.put(endpoint);
