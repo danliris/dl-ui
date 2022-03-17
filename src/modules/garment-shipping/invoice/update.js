@@ -26,6 +26,7 @@ export class Update {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+         console.log(this.data);
         if(this.data.isUsed == true)
         {
            this.isUsed = true;
@@ -43,6 +44,7 @@ export class Update {
 
     save(event) {
         this.service.update(this.data).then(result => {
+           
             this.cancel();
         }).catch(e => {
             this.error = e;
