@@ -57,28 +57,29 @@ export class DataForm {
     @computedFrom("data.supplier")
     get filter() {
         if(this.context.hasCreate){
-        var filter = {
-            supplierId: this.data.supplierId || this.data.supplier.Id,
-            isEdit: this.isEdit,
-            hasView: this.context.hasView,
-            hasEdit:this.context.hasEdit,
-            hasCreate:this.context.hasCreate
+            var filter = {
+                supplierId: this.data.supplierId || this.data.supplier.Id,
+                isEdit: this.isEdit,
+                hasView: this.context.hasView,
+                hasEdit:this.context.hasEdit,
+                hasCreate:this.context.hasCreate
+            }
+        } else {
+            var filter = {
+                supplierId: this.data.supplierId || this.data.supplier.Id,
+                paymentType: this.data.paymentType,
+                paymentMethod: this.data.paymentMethod,
+                isUseVat: this.data.useVat,
+                vatRate: this.data.vat.Rate,
+                isIncomeTax: this.data.useIncomeTax,
+                incomeTaxName: this.data.incomeTax.Name || undefined,
+                incomeTaxRate: this.data.incomeTax.Rate || undefined,
+                isEdit: this.isEdit,
+                hasView: this.context.hasView,
+                hasEdit:this.context.hasEdit,
+                hasCreate:this.context.hasCreate
+            }
         }
-    } else {
-        var filter = {
-            supplierId: this.data.supplierId || this.data.supplier.Id,
-            paymentType: this.data.paymentType,
-            paymentMethod: this.data.paymentMethod,
-            isUseVat: this.data.useVat,
-            isIncomeTax: this.data.useIncomeTax,
-            incomeTaxName: this.data.incomeTax.Name || undefined,
-            incomeTaxRate: this.data.incomeTax.Rate || undefined,
-            isEdit: this.isEdit,
-            hasView: this.context.hasView,
-            hasEdit:this.context.hasEdit,
-            hasCreate:this.context.hasCreate
-        }
-    }
         return filter;
     }
 
@@ -92,7 +93,6 @@ export class DataForm {
         } else {
             return (this.data.shipmentNo || '') ? "Import" : "Lokal";
         }
-        
     }
 
     @computedFrom("data.supplier")
@@ -146,6 +146,7 @@ export class DataForm {
             this.data.shipmentNo = "";
         }
     }
+
     itemChanged(e){
         console.log("after change parent",this);
         console.log("after change parent event",e);
