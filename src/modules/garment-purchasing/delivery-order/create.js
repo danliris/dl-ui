@@ -40,6 +40,7 @@ export class Create {
             this.data.paymentMethod = this.data.items[0].paymentMethod;
             this.data.currency = this.data.items[0].currency;
             this.data.useVat = this.data.items[0].useVat;
+            this.data.vat = this.data.items[0].vat;
             this.data.useIncomeTax = this.data.items[0].useIncomeTax;
             this.data.isPayVAT = this.data.items[0].isPayVAT;
             this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
