@@ -150,6 +150,8 @@
                      options.bind="controlOptions">
     </au-autocomplete>
 
+    
+
     <numeric label="Rate Pph"
              value.bind="data.incomeTaxRate"
              error.bind="error.incomeTaxRate"
@@ -167,13 +169,25 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-checkbox label="Apakah kena Ppn?"
+    <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     change.delegate="selectedVatTaxChanged($event)"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+    </au-autocomplete>
+
+    <!-- <au-checkbox label="Apakah kena Ppn?"
                  value.bind="data.useVat"
                  error.bind="error.useVat"
                  read-only.bind="readOnly"
                  change.delegate="useVatChanged($event)"
                  options.bind="controlOptions">
-    </au-checkbox>
+    </au-checkbox> -->
 
     <au-multiline label="Keterangan"
                   value.bind="data.remark"
