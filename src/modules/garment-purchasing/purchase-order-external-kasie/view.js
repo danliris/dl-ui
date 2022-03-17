@@ -51,6 +51,11 @@ export class View {
             this.selectedIncomeTax=this.data.IncomeTax;
         }
 
+        if(this.data.Vat){
+            this.selectedVatTax=this.data.Vat;
+            console.log(this.data.Vat);
+        }
+
         if (!this.data.IsPosted && !this.data.IsApproved) {
             this.hasDelete = true;
             this.hasEdit = true;
