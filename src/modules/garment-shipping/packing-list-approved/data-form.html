@@ -23,7 +23,11 @@
     </style>
 
     <au-input-form  title.bind="title"  title.bind="title" with.bind="context" options.bind="formOptions">
-
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-success" click.delegate="context.revisiUnit()" if.bind="context.revisiUnit">Revisi Unit</button>
+        <button class="btn btn-success" click.delegate="context.revisiMD()" if.bind="context.revisiMD">Revisi Md</button>
+        </div>
+        
         <div class="row">
             <div class="col-sm-4 tab ${activeTab === 0 ? 'active' : ''}" click.delegate="changeRole(0)">
                 DESCRIPTION
