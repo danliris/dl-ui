@@ -51,6 +51,11 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/revise-shipping/${data.id}`;
         return super.put(endpoint, JSON.stringify(data.reason));
     }
+
+    reviseToMD(data) {
+        var endpoint = `${serviceUri}/revise-to-md/${data.id}`;
+        return super.put(endpoint, JSON.stringify(data.reason));
+    }
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
