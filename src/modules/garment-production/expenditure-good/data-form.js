@@ -349,7 +349,7 @@ export class DataForm {
      };
     }
 
-    selectedInvoiceChanged(newValue){
+    async selectedInvoiceChanged(newValue){
         if(newValue){
             this.data.Invoice= newValue.invoiceNo;
             this.data.PackingListId=newValue.id;
