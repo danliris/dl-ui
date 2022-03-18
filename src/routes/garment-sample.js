@@ -27,20 +27,7 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-	{
-		route: '/garment-sample/sample-receipt',
-		name: 'sample-receipt',
-		moduleId: './modules/garment-sample/sample-receipt/index',
-		nav: true,
-		title: 'Penerimaan Surat Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "transaksi",
-			permission: { "C9": 1, "SMP1": 1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
+	
 	{
 		route: '/garment-sample/unit-delivery-order-by-user',
 		name: 'unit-delivery-order',
@@ -70,11 +57,39 @@ module.exports = [
 		}
 	},
 	{
+		route: '/garment-sample/sample-receipt',
+		name: 'sample-receipt',
+		moduleId: './modules/garment-sample/sample-receipt/index',
+		nav: true,
+		title: 'Penerimaan Surat Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "transaksi",
+			permission: { "C9": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
 		route: '/garment-sample/sample-preparing',
 		name: 'sample-preparing',
 		moduleId: './modules/garment-sample/sample-preparing/index',
 		nav: true,
 		title: 'Preparing Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "transaksi",
+			permission: { "C9": 1, "SMP1": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
+		route: '/garment-sample/sample-delivery-return',
+		name: 'sample-delivery-return',
+		moduleId: './modules/garment-sample/sample-delivery-return/index',
+		nav: true,
+		title: 'Retur Proses Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
@@ -168,13 +183,12 @@ module.exports = [
 		}
 	},
 	
-	
 	{
-		route: '/garment-sample/sample-delivery-return',
-		name: 'sample-delivery-return',
-		moduleId: './modules/garment-sample/sample-delivery-return/index',
+		route: '/garment-sample/sample-expenditure-good',
+		name: 'garment-sample-expenditure-good',
+		moduleId: './modules/garment-sample/sample-expenditure-good/index',
 		nav: true,
-		title: 'Retur Proses Sample',
+		title: 'Pengeluaran Barang Jadi Sample',
 		auth: true,
 		settings: {
 			group: "g-sample",
@@ -183,6 +197,7 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	
 	{
 		route: '/garment-sample/sample-aval-product',
 		name: 'sample-aval-product',
@@ -269,6 +284,21 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: 'garment-stock-sample-report',
+		name: 'garment-stock-sample-report',
+		moduleId: './modules/garment-sample/report/garment-stock-report/index',
+		nav: true,
+		title: 'Laporan Stock Gudang Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	
 	{
 		route: '/garment-sample/report/monitoring-receipt-sample',
 		name: 'monitoring-sample-receipt',
@@ -395,34 +425,7 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-	{
-		route: 'garment-stock-sample-report',
-		name: 'garment-stock-sample-report',
-		moduleId: './modules/garment-sample/report/garment-stock-report/index',
-		nav: true,
-		title: 'Laporan Stock Gudang Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "laporan",
-			permission: { "C9": 1, "SMP1": 1, "B12":1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
-	{
-		route: '/garment-sample/sample-expenditure-good',
-		name: 'garment-sample-expenditure-good',
-		moduleId: './modules/garment-sample/sample-expenditure-good/index',
-		nav: true,
-		title: 'Pengeluaran Barang Jadi Sample',
-		auth: true,
-		settings: {
-			group: "g-sample",
-			subGroup: "transaksi",
-			permission: { "C9": 1, "SMP1": 1 },
-			iconClass: 'fa fa-dashboard'
-		}
-	},
+	
 	
 	{
 		route: 'monitoring-sample-flow-by-size',
