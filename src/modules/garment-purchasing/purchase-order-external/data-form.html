@@ -77,7 +77,7 @@
 
                 <au-autocomplete value.bind="selectedCurrency" error.bind="error.Currency" label="Mata Uang"
                     loader.bind="currencyLoader" text.bind="currencyView" placeholder="cari mata uang" key="code"
-                    read-only.bind="(readOnly ||isEdit) " options.bind="controlOptions">
+                    read-only.bind="(readOnly ||isEdit)" options.bind="controlOptions">
                 </au-autocomplete>
 
                 <numeric label="Rate" value.bind="data.CurrencyRate" error.bind="error.currencyRate" format="0"
@@ -95,9 +95,11 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-autocomplete>-->
+
                 <au-checkbox label="Apakah kena Pph?" value.bind="data.Supplier.usetax" read-only.bind="true"
                     if.bind="data.SupplierId" options.bind="controlOptions">
                 </au-checkbox>
+
                 <au-textbox label="Pph" value.bind="data.IncomeTax.Name" read-only.bind="true"
                     if.bind="data.Supplier.usetax" options.bind="controlOptions">
                 </au-textbox>
@@ -110,6 +112,15 @@
                     read-only.bind="true" change.delegate="useVatChanged($event)" if.bind="data.SupplierId"
                     options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-autocomplete value.bind="selectedVatTax" error.bind="error.Vat" label="Ppn" 
+                    if.bind="data.Supplier.usevat" loader.bind="vatTaxLoader" text.bind = "vatTaxView"
+                    placeholder="cari ppn" key="rate" read-only.bind="readOnly" post-fix="%" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <!-- <numeric label="Rate Ppn" value.bind="data.Vat.Rate" error.bind="error.VatRate"
+                    if.bind="data.Supplier.usevat" format="0" read-only.bind="(readOnly||isEdit)" post-fix="%">
+                </numeric> -->
 
                 <au-checkbox label="Apakah bayar PPN?" value.bind="data.IsPayVAT" error.bind="error.IsPayVAT"
                     read-only.bind="readOnly" if.bind="data.Supplier.usevat" options.bind="controlOptions">

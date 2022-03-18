@@ -53,6 +53,10 @@ export class Edit {
             this.selectedIncomeTax=this.data.IncomeTax;
         }
 
+        if(this.data.Vat){
+            this.selectedVatTax=this.data.Vat;
+        }
+
         var getUsedBudget = [];
         for(var item of this.data.Items){
             getUsedBudget.push(this.service.getPoId(item.POId));
@@ -98,10 +102,7 @@ export class Edit {
                         }
                     }
                 }
-                
-
             });
-        
     }
 
     cancel(event) {
@@ -109,6 +110,7 @@ export class Edit {
     }
 
     save(event) {
+        //this.data.Vat = this.selectedVatTax;
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

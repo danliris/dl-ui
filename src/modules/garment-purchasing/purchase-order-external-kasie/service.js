@@ -7,7 +7,6 @@ import moment from 'moment';
 
 const serviceUri = 'garment-external-purchase-orders';
 
-
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -107,8 +106,6 @@ export class Service extends RestService {
         var info = { select: select };
         return super.get(endpoint, null, info);
     }
-
-
 
     cancel(id) {
         var endpoint = `garment-external-purchase-orders/cancel/${id}`;
