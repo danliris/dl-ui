@@ -247,7 +247,8 @@ export class DataForm {
             };
 
             const subconCuttingInfo = {
-                filter: JSON.stringify({ RONo: newValue })
+                filter: JSON.stringify({ RONo: newValue }),
+                size:100
             };
 
             const costCalculationInfo = {

@@ -4,6 +4,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var UnitLoader = require('../../../loader/unit-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -15,6 +16,7 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedIncomeTax;
+    @bindable selectedVatTax;
     @bindable selectedUnit;
     @bindable options = { useVat: false };
 
@@ -55,6 +57,11 @@ export class DataForm {
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;
             this.data.incomeTaxRate=this.data.incomeTax.rate;
+        }
+
+        if (this.data.vatTax) {
+            this.selectedVatTax = this.data.vatTax;
+            this.options.useVat = true;
         }
         if (this.data.useVat) {
             this.options.useVat = true;
@@ -147,29 +154,62 @@ export class DataForm {
         }
     }
 
-    useVatChanged(e) {
-        var selectedUseVat = e.srcElement.checked || false;
-        if (!selectedUseVat) {
-            this.options.useVat = false;
-            for (var po of this.data.items) {
-                for (var poItem of po.items) {
-                    poItem.useVat = false;
-                    poItem.pricePerDealUnit = poItem.priceBeforeTax;
-                }
-            }
-            if(this.data.items){
-                for(var item of this.data.items){
-                    if(item.details)
-                        for(var detail of item.details){
-                            detail.includePpn=false;
-                        }
-                }
-            }
+    // useVatChanged(e) {
+    //     var selectedUseVat = e.srcElement.checked || false;
+    //     if (!selectedUseVat) {
+    //         this.options.useVat = false;
+    //         for (var po of this.data.items) {
+    //             for (var poItem of po.items) {
+    //                 poItem.useVat = false;
+    //                 poItem.pricePerDealUnit = poItem.priceBeforeTax;
+    //             }
+    //         }
+    //         if(this.data.items){
+    //             for(var item of this.data.items){
+    //                 if(item.details)
+    //                     for(var detail of item.details){
+    //                         detail.includePpn=false;
+    //                     }
+    //             }
+    //         }
             
-        } else {
-            this.options.useVat = true;
+    //     } else {
+    //         this.options.useVat = true;
+    //     }
+    // }
+
+    selectedVatTaxChanged(newValue) {
+        var _selectedVatTax = newValue;
+        console.log(_selectedVatTax);
+        if (!_selectedVatTax) {
+          this.data.useVat = false;
+          this.options.useVat = false;
+          this.data.vatTaxRate = 0;
+          this.data.vatTaxId = 0;
+          this.data.vatTax = {};
+          for (var po of this.data.items) {
+            for (var poItem of po.items) {
+              poItem.useVat = false;
+              poItem.pricePerDealUnit = poItem.priceBeforeTax;
+            }
+          }
+          if (this.data.items) {
+            for (var item of this.data.items) {
+              if (item.details)
+                for (var detail of item.details) {
+                  detail.includePpn = false;
+                }
+            }
+          }
+        } else if (_selectedVatTax._id || _selectedVatTax.Id) {
+          this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
+          this.data.useVatTax = true;
+          this.options.useVat = true;
+          this.data.useVat = true;
+          this.data.vatTax = _selectedVatTax;
+          this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
         }
-    }
+      }
 
     get supplierLoader() {
         return SupplierLoader;
@@ -194,6 +234,10 @@ export class DataForm {
         };
     }
 
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+
     supplierView = (supplier) => {
         return `${supplier.code} - ${supplier.name}`
     }
@@ -209,5 +253,8 @@ export class DataForm {
     incomeTaxView = (incomeTax) => {
         return incomeTax.name?`${incomeTax.name} - ${incomeTax.rate}`:"";
     }
-
+    
+    vatTaxView = (vatTax) => {
+        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+      }
 } 

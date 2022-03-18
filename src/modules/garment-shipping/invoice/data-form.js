@@ -316,8 +316,15 @@ export class DataForm {
             _item.Section = this.data.section.code;
             _item.roNo = item.roNo;
             _item.scNo = item.scNo;
-            _item.price = item.priceFOB;
+           
             _item.priceRO = item.priceRO;
+            if(packingItem.invoiceType ==='DS' || packingItem.invoiceType ==='SM')
+            {
+                _item.price = item.price; 
+            }else
+            {
+                 _item.price = item.priceFOB;
+            }
             _item.quantity = item.quantity;
             _item.cmtPrice = item.priceCMT;
             _item.comodity = {
