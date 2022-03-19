@@ -140,6 +140,16 @@ export class Service extends RestService {
             });
     }
 
+    getDefaultVat(info){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/vat`;
+        return _endpoint.find(_serviceUri, info)
+        .then(result => {
+            return result.data;
+        })
+    }
+
     SmallUom(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
