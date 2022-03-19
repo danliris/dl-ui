@@ -5,6 +5,7 @@ var CurrencyLoader = require('../../../loader/currency-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var CategoryLoader = require('../../../loader/category-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -16,6 +17,7 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedIncomeTax;
+    @bindable selectedVatTax;
     @bindable selectedDivision;
     @bindable selectedCategory;
     @bindable isImport = false;
@@ -144,6 +146,30 @@ export class DataForm {
         this.resetErrorItems();
     }
 
+    selectedVatTaxChanged(newValue) {
+        var _selectedVatTax = newValue || {};
+        console.log(_selectedVatTax);
+        if (!_selectedVatTax) {
+          this.data.useVat = false;
+        //   this.options.useVat = false;
+        //   this.data.vatTaxRate = 0;
+        //   this.data.vatTaxId = 0;
+          this.data.vatTax = {};
+          
+        } else if (_selectedVatTax._id || _selectedVatTax.Id) {
+          this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
+          this.data.useVatTax = true;
+          //this.options.useVat = true;
+          this.data.useVat = true;
+          this.data.vatTax = _selectedVatTax;
+          this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
+
+        this.data.items = [];
+        this.data.vatNo = "";
+        this.data.vatDate = null;
+        }
+      }
+
     useIncomeTaxChanged(e) {
         this.data.items = [];
         this.selectedIncomeTax = null;
@@ -189,6 +215,10 @@ export class DataForm {
         return `${incomeTax.name} - ${incomeTax.rate}`
     }
 
+    vatTaxView = (vatTax) => {
+        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+      }
+
     get divisionLoader() {
         return DivisionLoader;
     }
@@ -207,6 +237,10 @@ export class DataForm {
 
     get incomeTaxLoader() {
         return IncomeTaxLoader;
+    }
+
+    get vatTaxLoader() {
+        return VatTaxLoader;
     }
 
     addItems = (e) => {

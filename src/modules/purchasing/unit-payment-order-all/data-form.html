@@ -197,14 +197,26 @@
                     options.bind="controlOptions">
                 </au-datepicker>
 
-                <au-checkbox 
+                <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     change.delegate="selectedVatTaxChanged($event)"
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+                </au-autocomplete>
+
+                <!-- <au-checkbox 
                     label="Apakah kena Ppn?" 
                     value.bind="data.useVat" 
                     error.bind="error.useVat" 
                     read-only.bind="(readOnly || isEdit)"
                     change.delegate="useVatChanged($event)"
                     options.bind="controlOptions">
-                </au-checkbox>
+                </au-checkbox> -->
 
                 <au-textbox 
                     label="No. Faktur Pajak (PPN)" 
