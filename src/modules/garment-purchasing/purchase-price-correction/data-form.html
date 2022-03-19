@@ -65,6 +65,16 @@
             show.bind="data.Supplier">
         </au-checkbox>
 
+        <au-textbox 
+            value.bind="data.Vat.Rate" 
+            error.bind="error.UseVat"
+            label="Ppn Rate"   
+            show.bind="data.Supplier"  
+            read-only.bind="true"
+            options.bind="controlOptions"
+            if.bind="deliveryOrder">
+        </au-textbox>
+
         <au-checkbox 
             label="Dikenakan koreksi Pph?" 
             value.bind="data.UseIncomeTax" 
