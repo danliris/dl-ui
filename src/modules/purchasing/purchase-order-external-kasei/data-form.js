@@ -178,15 +178,12 @@ export class DataForm {
     //     }
     // }
 
-    selectedVatTaxChanged(newValue) {
-        var _selectedVatTax = newValue;
-        console.log(_selectedVatTax);
-        if (!_selectedVatTax) {
-          this.data.useVat = false;
-          this.options.useVat = false;
-          this.data.vatTaxRate = 0;
-          this.data.vatTaxId = 0;
+    async useVatChanged(e) {
+        var selectedUseVat = e.srcElement.checked || false;
+        if (!selectedUseVat) {
+          this.data.useVat = selectedUseVat;
           this.data.vatTax = {};
+          this.options.useVat = false;
           for (var po of this.data.items) {
             for (var poItem of po.items) {
               poItem.useVat = false;
@@ -201,15 +198,93 @@ export class DataForm {
                 }
             }
           }
-        } else if (_selectedVatTax._id || _selectedVatTax.Id) {
-          this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
-          this.data.useVatTax = true;
+    
+        } else {
+         
           this.options.useVat = true;
-          this.data.useVat = true;
-          this.data.vatTax = _selectedVatTax;
-          this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
+          this.data.useVat = selectedUseVat;
+    
+            if(this.data.useVat){
+    
+              let info = {
+                  keyword:'',
+                  order: '{ "Rate" : "desc" }',
+                  size: 1,
+              };
+    
+              var defaultVat = await this.service.getDefaultVat(info);
+              console.log(defaultVat);
+    
+              if(defaultVat.length > 0){
+                  if(defaultVat[0]){
+                      if(defaultVat[0].Id){
+                         // this.data.vatTax = defaultVat[0];
+                          
+                          
+                          this.selectedVatTax = defaultVat[0];
+                          console.log(this.selectedVatTax);
+                          //this.data.vatTax = this.selectedVatTax;
+                          this.data.vatTax= {
+                            _id : this.selectedVatTax.Id || this.selectedVatTax._id,
+                            rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
+                          } 
+    
+                          console.log(this.data.vatTax);
+                          //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
+                      }
+                  }
+              }
+         }
+    
         }
       }
+    
+      selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+        
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+          this.data.vatTax= {
+            _id : _selectedVatTax.Id || _selectedVatTax._id,
+            rate : _selectedVatTax.Rate || _selectedVatTax.rate
+          } 
+        } else {
+            this.data.vatTax = {};
+        }
+    }
+
+    // selectedVatTaxChanged(newValue) {
+    //     var _selectedVatTax = newValue;
+    //     console.log(_selectedVatTax);
+    //     if (!_selectedVatTax) {
+    //       this.data.useVat = false;
+    //       this.options.useVat = false;
+    //       this.data.vatTaxRate = 0;
+    //       this.data.vatTaxId = 0;
+    //       this.data.vatTax = {};
+    //       for (var po of this.data.items) {
+    //         for (var poItem of po.items) {
+    //           poItem.useVat = false;
+    //           poItem.pricePerDealUnit = poItem.priceBeforeTax;
+    //         }
+    //       }
+    //       if (this.data.items) {
+    //         for (var item of this.data.items) {
+    //           if (item.details)
+    //             for (var detail of item.details) {
+    //               detail.includePpn = false;
+    //             }
+    //         }
+    //       }
+    //     } else if (_selectedVatTax._id || _selectedVatTax.Id) {
+    //       this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
+    //       this.data.useVatTax = true;
+    //       this.options.useVat = true;
+    //       this.data.useVat = true;
+    //       this.data.vatTax = _selectedVatTax;
+    //       this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
+    //     }
+    //   }
 
     get supplierLoader() {
         return SupplierLoader;
