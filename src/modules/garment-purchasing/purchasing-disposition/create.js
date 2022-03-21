@@ -91,10 +91,11 @@ export class Create {
             // this.data.VatValue = this.data.VatValueView;
             
         }
-        console.log(this.data);
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
+                console.log(this.data);
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {
