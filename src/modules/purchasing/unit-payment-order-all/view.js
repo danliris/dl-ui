@@ -35,6 +35,10 @@ export class View {
             this.selectedIncomeTax = this.data.incomeTax;
         }
 
+        if (this.data.vatTax) {
+            this.selectedVatTax = this.data.vatTax;
+        }
+
         // if (this.data.items) {
         //     // this.isCorrection = this.data.items
         //     //     .map((item) => {
