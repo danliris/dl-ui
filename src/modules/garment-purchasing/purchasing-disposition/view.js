@@ -71,6 +71,10 @@ export class View {
                         Id: item.IncomeTaxId,
                         Rate: item.IncomeTaxRate,
                     },
+                    Vat: {
+                        Id: item.VatId,
+                        Rate: item.VatRate,
+                    },
                     Details: item.Details,
                     EPOId: item.EPOId,
                     EPONo: item.EPONo,
