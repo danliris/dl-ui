@@ -23,8 +23,6 @@
             placeholder="cari mata uang" key="code" read-only.bind="readO" options.bind="controlOptions"    read-only.bind="isReadOnly" >
         </au-autocomplete>
 
-        
-
         <au-checkbox label="Apakah kena Ppn?" 
             value.bind="data.useVat" error.bind="error.useVat" 
             change.delegate="useVatChanged($event)" 
@@ -42,6 +40,14 @@
             read-only.bind="readOnly" show.bind="data.useVat"
             options.bind="controlOptions">
         </au-datepicker>
+
+        <au-autocomplete value.bind="vatTax" 
+            error.bind="error.vat" label="Jenis Ppn" 
+            loader.bind="vatLoader" text.bind="vatView" placeholder="cari ppn" 
+            read-only.bind="readOnly || isEdit" show.bind="data.useVat" 
+            options.bind="controlOptions" view-model.ref="vatTaxVM" 
+            change.delegate="vatTaxChanged($event)">
+        </au-autocomplete>
 
         <au-checkbox label="Apakah kena Pph?" value.bind="data.useIncomeTax" 
             error.bind="error.useIncomeTax" change.delegate="useIncomeTaxChanged($event)" 
@@ -61,8 +67,8 @@
 
         <au-autocomplete value.bind="incomeTax" 
             error.bind="error.incomeTax" label="Jenis Pph" 
-            loader.bind="vatLoader" text.bind="vatView" placeholder="cari pph" 
-            read-only.bind="readOnly|| isEdit" show.bind="data.useIncomeTax" 
+            loader.bind="incomeTaxLoader" text.bind="incomeTaxView" placeholder="cari pph" 
+            read-only.bind="readOnly || isEdit" show.bind="data.useIncomeTax" 
             options.bind="controlOptions" view-model.ref="vatVM" 
             change.delegate="incomeTaxChanged($event)">
         </au-autocomplete>
