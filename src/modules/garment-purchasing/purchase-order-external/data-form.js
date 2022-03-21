@@ -150,7 +150,7 @@ export class DataForm {
             return false
     }
 
-    selectedSupplierChanged(newValue) {
+    async selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
         if (_selectedSupplier.Id) {
             this.data.Supplier = _selectedSupplier;
@@ -167,6 +167,26 @@ export class DataForm {
             this.data.IncomeTax.Rate = _selectedSupplier.IncomeTaxes.Rate ? _selectedSupplier.IncomeTaxes.Rate : _selectedSupplier.IncomeTaxes.rate ? _selectedSupplier.IncomeTaxes.rate : 0;
             // this.data.IncomeTax.rate=this.data.IncomeTax.Rate;
             
+            if(this.data.IsUseVat){
+
+                let info = {
+                    keyword:'',
+                    order: '{ "Rate" : "desc" }',
+                    size: 1,
+                };
+
+                var defaultVat = await this.service.getDefaultVat(info);
+                console.log(defaultVat);
+
+                if(defaultVat.length > 0){
+                    if(defaultVat[0]){
+                        if(defaultVat[0].Id){
+                            this.data.Vat = defaultVat[0];
+                            this.selectedVatTax = defaultVat[0];
+                        }
+                    }
+                }
+            }
         }
         console.log(this.data.Supplier);
     }
@@ -322,7 +342,7 @@ export class DataForm {
                 poItem.UseVat = false;
             }
         } else {
-            this.options.isUseVat = true;
+           this.options.isUseVat = true;
         }
     }
 
