@@ -188,7 +188,6 @@ export class DataForm {
                 }
             }
         }
-        console.log(this.data.Supplier);
     }
 
     async selectedCurrencyChanged(newValue) {
