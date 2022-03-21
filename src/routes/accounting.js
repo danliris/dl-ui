@@ -494,10 +494,52 @@ module.exports = [
   },
   {
     route: '/garment-production/monitoring-sample-prepare-bookkeeping',
-    name: 'garment-production-monitoring-sample-prepare-bookkeeping',
+    name: 'garment-sample-monitoring-sample-prepare-bookkeeping',
     moduleId: './modules/garment-sample/report/monitoring-sample-prepare-bookkeeping/index',
     nav: true,
     title: 'Monitoring Sample Prepare Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-cutting-bookkeeping',
+    name: 'garment-sample-monitoring-sample-cutting-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-cutting-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Cutting Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/unit-receipt-note-recap',
+    name: 'unit-receipt-note-recap',
+    moduleId: './modules/accounting/sample-reports/unit-receipt-note-recap/index',
+    nav: true,
+    title: 'Laporan Rekap BUM Sample',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/unit-expenditure-note-recap',
+    name: 'unit-receipt-note-recap',
+    moduleId: './modules/accounting/sample-reports/unit-expenditure-note-recap/index',
+    nav: true,
+    title: 'Laporan Rekap BUK Sample',
     auth: true,
     settings: {
       group: "accounting",
