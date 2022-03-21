@@ -36,6 +36,9 @@ export class Edit {
         if (this.data.incomeTax) {
             this.selectedIncomeTax = this.data.incomeTax;
         }
+        if (this.data.vatTax) {
+            this.selectedVatTax = this.data.vatTax;
+        }
     }
 
     cancel(event) {
