@@ -30,6 +30,7 @@ export class Edit {
                 if (response.ok) {
                     this.service.update(this.data)
                         .then(result => {
+                            alert("Data berhasil Diubah");
                             this.router.navigateToRoute('view', { id: this.data.Id });
                         })
                         .catch(e => {

@@ -1,5 +1,6 @@
 import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
 var IncomeTaxLoader = require('../../../../loader/income-tax-loader');
+var VatTaxLoader = require('../../../../loader/vat-tax-loader');
 
 // @inject(BindingSignaler)
 export class Item {
@@ -19,12 +20,20 @@ export class Item {
     this.selectedPPh = this.data.IsGetPPh;
     this.selectedVat = this.data.IsGetPPn;
 
+
     if (this.data.IncomeTax) {
       this.selectedIncomeTax = this.data.IncomeTax;
       this.selectedIncomeTax.name = this.data.IncomeTax.Name;
       this.selectedIncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
       this.data.IncomeTax.rate = this.data.IncomeTax.Rate ? this.data.IncomeTax.Rate : 0;
     }
+
+    if (this.data.VatTax) {
+      this.selectedVatTax = this.data.VatTax;
+      this.selectedVatTax.Rate = this.data.VatTax.Rate ? this.data.VatTax.Rate :"";
+      this.data.VatTax.Rate = this.data.VatTax.Rate ? this.data.VatTax.Rate : "";
+    }
+   
 
     this.calculateTotalAmount();
   }
@@ -40,6 +49,14 @@ export class Item {
     return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
 
   }
+
+  vatTaxView = (vatTax) => {
+    return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+  }
+
+  get vatTaxLoader() {
+    return VatTaxLoader;
+}
 
   @bindable selectedIncomeTaxBy;
   selectedIncomeTaxByChanged(newValue) {
@@ -57,10 +74,11 @@ export class Item {
   selectedVatChanged(newValue) {
     if (newValue) {
       this.data.IsGetPPn = newValue
-      this.calculateTotalAmount();
+      // this.calculateTotalAmount();
     } else {
+      this.selectedVatTax = null;
       delete this.data.IsGetPPn;
-      this.calculateTotalAmount();
+      // this.calculateTotalAmount();
     }
   }
 
@@ -77,16 +95,17 @@ export class Item {
     }
   }
 
+
   calculateTotalAmount() {
     if (this.data.IncomeTaxBy == "Supplier" && this.data.IsGetPPh && this.data.IncomeTax) {
       let vatAmount = 0;
-      if (this.data.IsGetPPn)
-        vatAmount = this.data.Amount * 0.1;
+      if (this.data.IsGetPPn && this.data.VatTax)
+        vatAmount = this.data.Amount * (this.data.VatTax.Rate / 100);
       this.data.Total = Math.round((this.data.Amount - (this.data.Amount * (this.data.IncomeTax.rate / 100)) + vatAmount + Number.EPSILON) * 100) / 100;
     } else {
       let vatAmount = 0;
-      if (this.data.IsGetPPn)
-        vatAmount = this.data.Amount * 0.1;
+      if (this.data.IsGetPPn && this.data.VatTax)
+        vatAmount = this.data.Amount * (this.data.VatTax.Rate / 100);
       this.data.Total = Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100
       
     }
@@ -107,6 +126,19 @@ export class Item {
       this.calculateTotalAmount();
     }
   }
+
+  @bindable selectedVatTax;
+  selectedVatTaxChanged(newValue, oldValue) {
+    if (newValue) {
+      this.data.VatTax = newValue;
+      this.data.VatTax.Rate = this.data.VatTax.Rate;
+      this.calculateTotalAmount();
+    }else{
+      this.data.VatTax = {};
+      this.data.VatTax.Rate = "";
+      this.calculateTotalAmount();
+  }
+}
 
   @bindable selectedAmount;
   selectedAmountChanged(newValue, oldValue) {

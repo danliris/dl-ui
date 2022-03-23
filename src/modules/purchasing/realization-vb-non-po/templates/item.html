@@ -31,6 +31,20 @@
                    options.bind="controlOptions"
                    checked.bind="IsGetPPn">
       </au-checkbox>
+
+      <br>
+
+      <div show.bind="selectedVat">
+        <au-autocomplete value.bind="selectedVatTax"
+                         error.bind="error.VatTax"
+                         loader.bind="vatTaxLoader"
+                         placeholder="cari ppn"
+                         text.bind="vatTaxView"
+                         read-only.bind="readOnly">
+        </au-autocomplete>
+        
+      </div>
+
     </td>
     <td style="text-align:center;">
       <au-checkbox value.bind="selectedPPh"
