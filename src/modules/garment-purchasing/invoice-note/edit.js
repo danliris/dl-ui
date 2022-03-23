@@ -23,7 +23,8 @@ export class Edit {
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
         this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
-        this.vat = this.data.vat;
+        this.vat={Id:this.data.vatId, Rate:this.data.vatRate};
+        //this.vat = this.data.vat;
 
         
 

@@ -2,6 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import { item } from '../../garment-shipping/payment-disposition-recap/template/item';
 
 @inject(Router, Service)
 export class Create {
@@ -49,8 +50,7 @@ export class Create {
             {
                 this.incometaxdate="Tanggal PPH harus diisi";
 
-            }else
-            {
+            } else {
             this.service.create(this.data)
                 .then(result => {
                     alert("Data berhasil dibuat");

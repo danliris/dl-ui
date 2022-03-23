@@ -25,8 +25,9 @@ export class View {
         this.supplier = this.data.supplier;
         this.currency = this.data.currency;
         this.incomeTax={Id:this.data.incomeTaxId,name:this.data.incomeTaxName,rate:this.data.incomeTaxRate};
+        this.vatTax={Id:this.data.vatId, Rate:this.data.vatRate};
         
-        this.vat = this.data.vat;
+        //this.vat = this.data.vat;
         this.items = this.data.items;
         this.totalData = this.items.length;
         for(var item in this.data.items)

@@ -2,7 +2,8 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var VatLoader = require('../../../loader/vat-loader');
+var IncomeTaxLoader = require('../../../loader/vat-loader');
+var VatLoader = require('../../../loader/vat-tax-loader');
 
 @inject(BindingEngine, Element, Service)
 export class DataForm {
@@ -13,6 +14,7 @@ export class DataForm {
     @bindable supplier;
     @bindable currency;
     @bindable incomeTax;
+    @bindable vatTax;
     @bindable options = { readOnly: false };
 
     controlOptions = {
@@ -46,7 +48,6 @@ export class DataForm {
             { header: "Total Amount" }]
     }
 
-
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
         this.element = element;
@@ -72,17 +73,24 @@ export class DataForm {
         if(this.data.supplier){
             this.options.supplierCode = this.data.supplier.Code;      
         }
+
         this.options.useVat=this.data.useVat;
         this.options.useIncomeTax=this.data.useIncomeTax;
+
         if(this.data.useIncomeTax === true)
         {
             this.options.incomeTaxName=this.data.incomeTaxName;
             this.options.incomeTaxId=this.data.incomeTaxId;
         }
+
+        if(this.data.useVat === true) {
+            this.options.vatRate=this.data.vatRate;
+            this.options.vatId=this.data.vatId;
+        }
+
         if(this.data.currency){
             this.options.currencyCode = this.data.currency.Code;
-        }
-      
+        } 
     }
     
     // async supplierChanged(newValue) {
@@ -173,10 +181,10 @@ export class DataForm {
                 
                 this.data.incomeTax = selectedIncomeTax;
                 this.data.incomeTaxId = selectedIncomeTax.Id;
-                this.data.incomeTaxRate=selectedIncomeTax.rate;
-                this.data.incomeTaxName=selectedIncomeTax.name;
+                this.data.incomeTaxRate = selectedIncomeTax.rate;
+                this.data.incomeTaxName = selectedIncomeTax.name;
                 this.options.incomeTaxId = selectedIncomeTax.Id;
-                this.options.incomeTaxName=selectedIncomeTax.name;
+                this.options.incomeTaxName = selectedIncomeTax.name;
             }
             else {
                 this.data.incomeTax = null;
@@ -184,6 +192,31 @@ export class DataForm {
         }
         else {
             this.data.incomeTax = null;
+        }
+        if(newValue!=oldValue)
+             this.data.items.splice(0);
+        this.resetErrorItems();
+    }
+
+    vatTaxChanged(newValue,oldValue) {
+        var selectedVat = newValue;
+        
+        if (selectedVat) {
+            if (selectedVat.Id) {
+                
+                //this.data.vat = selectedVat;
+                this.data.vatId = selectedVat.Id;
+                this.data.vatRate = selectedVat.Rate;
+                this.options.vatId = selectedVat.Id;
+                this.options.vatRate = selectedVat.Rate;
+
+            }
+            else {
+                this.data.vat = null;
+            }
+        }
+        else {
+            this.data.vat = null;
         }
         if(newValue!=oldValue)
              this.data.items.splice(0);
@@ -222,8 +255,17 @@ export class DataForm {
         return VatLoader;
     }
 
+    get incomeTaxLoader() {
+        return IncomeTaxLoader;
+    }
+
     vatView = (vat) => {
-        return `${vat.name} - ${vat.rate}`
+        var rate = vat.rate ? vat.rate : vat.Rate;
+        return `${rate}`;
+    }
+
+    incomeTaxView = (incomeTax) => {
+        return `${incomeTax.name} - ${incomeTax.rate}`;
     }
 
     resetErrorItems() {
@@ -238,11 +280,13 @@ export class DataForm {
         var selectedUseVat = e.srcElement.checked || false;
         this.data.vatNo = "";
         this.data.vatDate = "";
-        this.context.vatVM.editorValue = "";
+        this.data.vatId = 0;
+        this.data.vatRate = 0;
+        //this.context.vatTaxVM.editorValue = "";
         
-        this.options.useVat=selectedUseVat;
+        this.options.useVat = selectedUseVat;
         if (!this.data.useVat) {
-            this.data.isPayVat = false
+            this.data.isPayVat = false;
         }
         if (this.context.error.useVat) {
             this.context.error.useVat = "";
@@ -254,9 +298,9 @@ export class DataForm {
         var selectedUseIncomeTax = e.srcElement.checked || false;
         this.data.incomeTaxNo = "";
         this.data.incomeTaxDate = "";
-        this.data.incomeTaxName="";
+        this.data.incomeTaxName ="";
         this.data.incomeTaxId = 0;
-        this.data.incomeTaxRate=0;
+        this.data.incomeTaxRate = 0;
         //this.incomeTax={};
 
         this.options.useIncomeTax=selectedUseIncomeTax;
@@ -266,7 +310,7 @@ export class DataForm {
         if (this.context.error.useIncomeTax) {
             this.context.error.useIncomeTax = "";
         }
-            this.data.items.splice(0);
+        this.data.items.splice(0);
             // this.data.incomeTax={};
             // this.data.incomeTaxNo="";
             // this.data.incomeTaxName="";
@@ -275,6 +319,7 @@ export class DataForm {
             // this.options.incomeTaxId = null;
         
     }
+
     isPayTaxChanged(e){
         var selectedisPayTax = e.srcElement.checked || false;
         this.options.isPayTax = selectedisPayTax;
