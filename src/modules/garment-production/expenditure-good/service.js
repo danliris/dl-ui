@@ -94,4 +94,18 @@ class PurchasingService extends RestService {
     }
 }
 
-export { Service,SalesService,PurchasingService }
+const shippingInvoiceServiceUri = 'garment-shipping/invoices/packingListById'; 
+class PackingInventoryService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "packing-inventory");
+    }
+
+    getDataByPackingLisId(id) {
+        var endpoint = `${shippingInvoiceServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+     
+}
+export { Service,SalesService,PurchasingService ,PackingInventoryService}
+
