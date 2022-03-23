@@ -10,6 +10,8 @@ module.exports = function (keyword, filter) {
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter) })
         .then(results => {
+            
+            console.log(results.data);
             return results.data;
         });
 }
