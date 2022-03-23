@@ -74,14 +74,18 @@ export class List {
         rowspan: 2,
         sortable: true,
       },
+      // {
+      //   field: "SendToVerificationDate",
+      //   title: "Tgl Pembelian Kirim",
+      //   formatter: function (value, data, index) {
+      //     return value ? moment(value).format("DD MMM YYYY") : "-";
+      //   },
+      //   rowspan: 2,
+      //   sortable: true,
+      // },
       {
-        field: "SendToVerificationDate",
-        title: "Tgl Pembelian Kirim",
-        formatter: function (value, data, index) {
-          return value ? moment(value).format("DD MMM YYYY") : "-";
-        },
-        rowspan: 2,
-        sortable: true,
+        title: "Tgl Pembelian Kirim", colspan: 2 
+
       },
       { field: "Remark", title: "Keterangan", rowspan: 2, sortable: true },
       { field: "SendToVerificationBy", title: "Admin", rowspan: 2, sortable: true },
@@ -92,7 +96,7 @@ export class List {
         sortable: true,
         rowspan: 2,
       },
-      { title: "Kasir", colspan: 2 },
+      { title: "Kasir", colspan: 3 },
       { title: "Pembelian", colspan: 3 },
       { title: "Accounting", colspan: 2 },
     ],
@@ -135,6 +139,22 @@ export class List {
         align: "right",
       },
       {
+        field: "SendToVerificationDate",
+        title: "Verifikasi",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
+        field: "SendToAccountingDate",
+        title: "Accounting",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
+        sortable: true,
+      },
+      {
         field: "VerificationAcceptedDate",
         title: "Tgl Terima",
         formatter: function (value, data, index) {
@@ -161,6 +181,14 @@ export class List {
       {
         field: "BankExpenditureNoteNo",
         title: "No Bukti Pengeluaran Bank",
+        sortable: true,
+      },
+      {
+        field: "BankExpenditureNoteDate",
+        title: "Tgl Bukti Pengeluaran",
+        formatter: function (value, data, index) {
+          return value ? moment(value).format("DD MMM YYYY") : "-";
+        },
         sortable: true,
       },
       {
@@ -213,8 +241,11 @@ export class List {
     sortable: false
   };
 
-  startDateLabel = "Tgl Pembelian Kirim Awal";
-  endDateLabel = "Tgl Pembelian Kirim Akhir";
+  startDateLabel = "Tgl Pembelian Kirim Verifikasi Awal";
+  endDateLabel = "Tgl Pembelian Kirim Verifikasi Akhir";
+
+  startDateAccountingLabel  = "Tgl Kirim ke Accounting Awal";
+  endDateAccountingLabel = "Tgl Kirim ke Accounting Awal";
 
   constructor(service, azureService) {
     this.service = service;
@@ -247,8 +278,8 @@ export class List {
           this.endDateLabel = "Tgl Pembelian Terima Akhir";
           break;
         case 2:
-          this.startDateLabel = "Tgl Pembelian Kirim Awal";
-          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          this.startDateLabel = "Tgl Pembelian Kirim Verifikasi Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Verifikasi Akhir";
           break;
         case 3:
           this.startDateLabel = "Tgl Verifikasi Terima Awal";
@@ -267,13 +298,13 @@ export class List {
           this.endDateLabel = "Tgl Accounting Diterima Akhir";
           break;
         default:
-          this.startDateLabel = "Tgl Pembelian Kirim Awal";
-          this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+          this.startDateLabel = "Tgl Pembelian Kirim Verifikasi Awal";
+          this.endDateLabel = "Tgl Pembelian Kirim Verifikasi Akhir";
           break;
       }
     } else {
-      this.startDateLabel = "Tgl Pembelian Kirim Awal";
-      this.endDateLabel = "Tgl Pembelian Kirim Akhir";
+      this.startDateLabel = "Tgl Pembelian Kirim Verifikasi Awal";
+      this.endDateLabel = "Tgl Pembelian Kirim Verifikasi Akhir";
     }
   }
 
@@ -302,6 +333,15 @@ export class List {
       filter.startDate = moment(filter.startDate).format("MM/DD/YYYY");
       filter.endDate = moment(filter.endDate).format("MM/DD/YYYY");
     }
+
+    if (this.dateFromAccounting && this.dateFromAccounting != "Invalid Date") {
+      filter.startDateAccounting = this.dateFromAccounting;
+      filter.endDateAccounting = this.dateToAccounting;
+
+      filter.startDateAccounting = moment(filter.startDateAccounting).format("MM/DD/YYYY");
+      filter.endDateAccounting = moment(filter.endDateAccounting).format("MM/DD/YYYY");
+    }
+
 
     let arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
