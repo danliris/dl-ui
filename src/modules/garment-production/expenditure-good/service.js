@@ -108,5 +108,5 @@ class PackingInventoryService extends RestService {
 
      
 }
+export { Service,SalesService,PurchasingService ,PackingInventoryService}
 
-export { Service,SalesService,PurchasingService,PackingInventoryService }
