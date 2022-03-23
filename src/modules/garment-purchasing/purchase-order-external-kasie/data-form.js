@@ -176,6 +176,10 @@ export class DataForm {
                         }
                     }
                 }
+            } else {
+                this.data.Vat = {};
+                this.selectedVatTax = {};
+
             }
         }
     }

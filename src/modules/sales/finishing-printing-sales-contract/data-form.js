@@ -13,6 +13,8 @@ import QualityLoader from "../../../loader/quality-loader";
 import TermOfPaymentLoader from "../../../loader/term-of-payment-loader";
 import AccountBankLoader from "../../../loader/account-banks-loader";
 
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
+
 @inject(BindingEngine, Service, Element)
 export class DataForm {
   @bindable isCreate = false;
@@ -55,6 +57,7 @@ export class DataForm {
     this.selectedOrderType = this.data.OrderType || null;
     this.selectedAccountBank = this.data.AccountBank || null;
     this.selectedUseIncomeTax = this.data.UseIncomeTax || false;
+    this.selectedVatTax = this.data.VatTax || false;
     this.selectedPointSystem = this.data.PointSystem || 10;
     console.log(context);
   }
@@ -112,12 +115,70 @@ export class DataForm {
   }
 
   @bindable selectedUseIncomeTax = false;
-  selectedUseIncomeTaxChanged(newValue, oldValue) {
+ async  selectedUseIncomeTaxChanged(newValue, oldValue) {
     this.data.UseIncomeTax = newValue
+    //console.log(this.data.UseIncomeTax);
     this.data.Details.map((detail) => {
       detail.isUseIncomeTax = newValue
     })
+
+    if(this.isCreate){
+      if(this.data.UseIncomeTax){
+      
+        let info = {
+            keyword:'',
+            order: '{ "Rate" : "desc" }',
+            size: 1,
+        };
+
+        var defaultVat = await this.service.getDefaultVat(info);
+        //console.log(defaultVat);
+
+            if(defaultVat.length > 0){
+                if(defaultVat[0]){
+                    if(defaultVat[0].Id){
+                      // this.data.vatTax = defaultVat[0];
+                        
+                        
+                        this.selectedVatTax = defaultVat[0];
+                        console.log(this.selectedVatTax);
+                        //this.data.vatTax = this.selectedVatTax;
+                        this.data.VatTax= {
+                          _id : this.selectedVatTax.Id || this.selectedVatTax._id,
+                          rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
+                        } 
+
+                        //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
+                    }
+                }
+            }
+      } else {
+        this.data.VatTax = {};
+
+
+      }
+    }
     this.context.FPCollection.bind();
+  }
+
+  @bindable selectedVatTax;
+  selectedVatTaxChanged(newValue) {
+    var _selectedVatTax = newValue || {};
+    console.log(_selectedVatTax);
+    if (!_selectedVatTax) {
+     
+      this.data.VatTax = {};
+      
+    } else if (_selectedVatTax._id || _selectedVatTax.Id) {
+      //this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
+      //this.data.useVatTax = true;
+     
+      this.data.VatTax = _selectedVatTax;
+      console.log(this.data.VatTax);
+      //this.data.VatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
+
+    
+    }
   }
 
   isPrinting = false;
@@ -229,8 +290,16 @@ export class DataForm {
     return AccountBankLoader;
   }
 
+  get vatTaxLoader() {
+    return VatTaxLoader;
+  }
+
   bankView(bank) {
     return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
+  }
+
+  vatTaxView = (vatTax) => {
+    return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
   }
 
   controlOptions = {
