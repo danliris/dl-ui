@@ -150,23 +150,17 @@ export class DataForm {
         var _selectedVatTax = newValue || {};
         console.log(_selectedVatTax);
         if (!_selectedVatTax) {
-          this.data.useVat = false;
-        //   this.options.useVat = false;
-        //   this.data.vatTaxRate = 0;
-        //   this.data.vatTaxId = 0;
+         
           this.data.vatTax = {};
           
         } else if (_selectedVatTax._id || _selectedVatTax.Id) {
           this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
           this.data.useVatTax = true;
-          //this.options.useVat = true;
-          this.data.useVat = true;
+         
           this.data.vatTax = _selectedVatTax;
           this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
 
-        this.data.items = [];
-        this.data.vatNo = "";
-        this.data.vatDate = null;
+        
         }
       }
 
@@ -180,10 +174,48 @@ export class DataForm {
         this.data.incomeTaxBy = "";
     }
 
-    useVatChanged(e) {
+    async useVatChanged(e) {
         this.data.items = [];
         this.data.vatNo = "";
         this.data.vatDate = null;
+        var selectedUseVat = e.srcElement.checked || false;
+        this.data.useVat = selectedUseVat;
+    
+        if(this.data.useVat){
+    
+            let info = {
+                keyword:'',
+                order: '{ "Rate" : "desc" }',
+                size: 1,
+            };
+  
+            var defaultVat = await this.service.getDefaultVat(info);
+            console.log(defaultVat);
+  
+            if(defaultVat.length > 0){
+                if(defaultVat[0]){
+                    if(defaultVat[0].Id){
+                       // this.data.vatTax = defaultVat[0];
+                        
+                        
+                        this.selectedVatTax = defaultVat[0];
+                        console.log(this.selectedVatTax);
+                        //this.data.vatTax = this.selectedVatTax;
+                        this.data.vatTax= {
+                          _id : this.selectedVatTax.Id || this.selectedVatTax._id,
+                          rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
+                        } 
+  
+                        console.log(this.data.vatTax);
+                        //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
+                    }
+                }
+            }
+       } else {
+        this.data.vatTax = {};
+
+
+       }
     }
 
     resetErrorItems() {

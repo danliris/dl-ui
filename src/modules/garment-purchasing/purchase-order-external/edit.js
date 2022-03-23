@@ -46,7 +46,6 @@ export class Edit {
             if(this.data.IsIncomeTax){
                 this.data.Supplier.usetax=true;
             }
-            
         }
 
         if(this.data.IncomeTax){
