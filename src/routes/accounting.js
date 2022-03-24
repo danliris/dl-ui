@@ -521,6 +521,20 @@ module.exports = [
     }
   },
   {
+    route: '/accounting/sample-reports/monitoring-sample-sewing-bookkeeping',
+    name: 'garment-sample-monitoring-sample-sewing-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-sewing-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Sewing Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: '/accounting/sample-reports/unit-receipt-note-recap',
     name: 'unit-receipt-note-recap',
     moduleId: './modules/accounting/sample-reports/unit-receipt-note-recap/index',

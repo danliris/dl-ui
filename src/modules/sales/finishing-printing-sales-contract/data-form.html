@@ -235,6 +235,19 @@
           read-only.bind="readOnly">
         </checkbox>
 
+        <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     if.bind = "selectedUseIncomeTax"
+                     
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+                </au-autocomplete>
+
         <au-autocomplete
           label="Syarat Pembayaran"
           value.bind="data.TermOfPayment"
