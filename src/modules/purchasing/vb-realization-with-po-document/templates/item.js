@@ -44,7 +44,7 @@ export class Item {
             let result = this.data.UnitPaymentOrder.Amount;
 
             if (this.data.UnitPaymentOrder.UseVat)
-                result += this.data.UnitPaymentOrder.Amount * 0.1;
+                result += this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.VatTax.Rate / 100);
 
             if (this.data.UnitPaymentOrder.UseIncomeTax && this.data.UnitPaymentOrder.IncomeTaxBy == "Supplier")
                 result -= this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.IncomeTax.Rate / 100);
