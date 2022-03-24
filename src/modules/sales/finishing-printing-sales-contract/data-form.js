@@ -17,7 +17,7 @@ var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
-  @bindable isCreate = false;
+  @bindable isCreate;
 
   @bindable readOnly = false;
   @bindable data = {};
@@ -52,7 +52,7 @@ export class DataForm {
     this.itemsOptions = {
       useIncomeTax: this.data.UseIncomeTax || false
     };
-
+    this.isCreate = this.context.isCreate;
     this.selectedBuyer = this.data.Buyer || null;
     this.selectedOrderType = this.data.OrderType || null;
     this.selectedAccountBank = this.data.AccountBank || null;
@@ -121,7 +121,7 @@ export class DataForm {
     this.data.Details.map((detail) => {
       detail.isUseIncomeTax = newValue
     })
-
+    console.log(this.isCreate);
     if(this.isCreate){
       if(this.data.UseIncomeTax){
       

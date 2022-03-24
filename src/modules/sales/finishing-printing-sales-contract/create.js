@@ -12,8 +12,12 @@ export class Create {
         this.service = service;
         this.data = {};
         this.error = {};
+        
     }
 
+    activate(params) {
+        this.isCreate = true;
+    }
 
     back() {
         this.router.navigateToRoute('list');
