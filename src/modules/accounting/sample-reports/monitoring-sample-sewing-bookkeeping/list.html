@@ -9,9 +9,9 @@
       <h1 class="page-header">Monitoring Sewing</h1>
   
       <form class="form-horizontal">
-        <au-autocomplete label="Unit" value.bind="selectedUnit"  read-only.bind="true"
-        options.bind="controlOptions" loader.bind="unitLoader" text.bind="unitView" placeholder="Unit">
-        </au-autocomplete>
+         <au-autocomplete label="Unit" value.bind="selectedUnit"  read-only.bind="true"
+    options.bind="controlOptions" loader.bind="unitLoader" text.bind="unitView" placeholder="Unit">
+    </au-autocomplete>
   
         <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
@@ -43,12 +43,8 @@
                   <td >Saldo Awal WIP Sewing</td>
                   <td >Sewing In (WIP Sewing)</td>
                   <td >Sewing Out (WIP Finishing)</td>
-                  <td >Sewing In Transfer</td>
-                  <td >Sewing Out Tranfer WIP Sewing</td>
-                  <td >Sewing Out Transfer WIP Finishing</td>
                   <td >Retur ke Cutting</td>
-                  <td >Adjs Sewing</td>
-                  <td >Saldo Akhir WIP Sewing</td>
+                   <td >Saldo Akhir WIP Sewing</td>
                   <td >Nominal Saldo Akhir WIP Sewing</td>
               </tr>
           </thead>
@@ -65,11 +61,7 @@
                   <td class="text-right">${item._beginingBalanceSewingQty}</td>
                   <td class="text-right">${item._qtySewingIn}</td>
                   <td class="text-right">${item._qtySewingOut}</td>
-                  <td class="text-right">${item._qtySewingInTransfer}</td>
-                  <td class="text-right">${item._wipSewingOut}</td> 
-                  <td class="text-right">${item._wipFinishingOut}</td> 
                   <td class="text-right">${item._qtySewingRetur}</td>
-                  <td class="text-right">${item._qtySewingAdj}</td>
                   <td class="text-right">${item._endBalanceSewingQty}</td>
                   <td class="text-right">${item._endBalanceSewingPrice}</td>
               </tr>
@@ -78,11 +70,7 @@
                 <td class="text-right"><strong>${sumBeginingBalanceSewingQty}</strong></td>        
                 <td class="text-right"><strong>${sumSewingIn}</strong></td>
                 <td class="text-right"><strong>${sumSewingOut}</strong></td>
-                <td class="text-right"><strong>${sumSewingInTransfer}</strong></td>
-                <td class="text-right"><strong>${sumWIPSewingOut}</strong></td>
-                <td class="text-right"><strong>${sumWIPFinishingOut}</strong></td>
                 <td class="text-right"><strong>${sumSewingRetur}</strong></td>
-                <td class="text-right"><strong>${sumSewingAdj}</strong></td>
                 <td class="text-right"><strong>${sumEndBalanceSewingQty}</strong></td>
                 <td class="text-right"><strong>${sumEndBalanceSewingPrice}</strong></td>
                  
