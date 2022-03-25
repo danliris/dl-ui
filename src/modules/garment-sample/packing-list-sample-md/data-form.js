@@ -182,6 +182,12 @@ export class DataForm {
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
         this.data.isShipping = false;
+
+        this.isInvoice=false;
+        var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
+        if(invoice.data.length>0){
+            this.isInvoice=true;
+        }
     }
 
     get addMeasurements() {
@@ -231,8 +237,25 @@ export class DataForm {
     }
 
     selectedBuyerChanged(newValue) {
-        if (newValue != this.data.buyerAgent && this.data.items)
-            this.data.items.splice(0);
+        if (newValue != this.data.buyerAgent && this.data.items){
+            if(this.isEdit){
+                if(this.data.items && this.data.items.length>0){
+                    for(var item of this.data.items){
+                        if(item.roType=="RO JOB"){
+                            var index = this.data.items.indexOf(item);
+                            console.log(index)
+                            if (index !== -1) {
+                                this.data.items.splice(index, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                this.data.items.splice(0);
+            }
+            
+        }
         this.data.buyerAgent = null;
         if (newValue) {
             this.data.buyerAgent = newValue;
