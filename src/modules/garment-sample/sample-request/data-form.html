@@ -24,6 +24,10 @@
           read-only.bind="readOnly || isEdit" items.bind="SampleCategoryOptions" options.bind="controlOptions">
         </au-dropdown>
 
+        <au-dropdown label="Tipe Sample" value.bind="data.SampleTo" error.bind="error.SampleTo"
+          read-only.bind="readOnly" items.bind="SampleToOptions" options.bind="controlOptions">
+        </au-dropdown>
+
         <au-autocomplete value.bind="SelectedROCC" error.bind="error.RONoCC" label="No RO CC" loader.bind="roNoCCLoader"
           text.bind="roView" placeholder="Cari RO CC" read-only.bind="readOnly"
           if.bind="data.SampleCategory=='Commercial Sample'" options.bind="controlOptions">
