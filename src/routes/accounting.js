@@ -533,6 +533,34 @@ module.exports = [
       permission: { "C9": 1, "B1": 1 },
       iconClass: 'fa fa-dashboard'
     }
+  }, 
+  {
+    route: '/accounting/sample-reports/monitoring-sample-finishing-bookkeeping',
+    name: 'garment-sample-monitoring-sample-finishing-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-finishing-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Finishing Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping',
+    name: 'garment-sample-monitoring-sample-expenditure-good-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Pengiriman Barang Jadi Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
   },
   {
     route: '/accounting/sample-reports/unit-receipt-note-recap',
