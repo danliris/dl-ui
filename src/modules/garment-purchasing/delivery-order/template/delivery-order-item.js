@@ -41,7 +41,7 @@ export class DeliveryOrderItem {
     this.error = context.error;
     this.options = context.options;
     console.log(context);
-    if(this.data && this.context.context.options.hasCreate){
+    if(this.data && this.context.context.options.hasCreate) {
       if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
           this.filter = 
           {
@@ -50,6 +50,7 @@ export class DeliveryOrderItem {
             "PaymentType": this.context.context.items[0].data.paymentType,
             "PaymentMethod": this.context.context.items[0].data.paymentMethod,
             "IsUseVat": this.context.context.items[0].data.useVat,
+            "VatRate": this.context.context.items[0].data.vat.Rate,
             "IsIncomeTax": this.context.context.items[0].data.useIncomeTax,
             "IncomeTaxName": this.context.context.items[0].data.incomeTax.Name,
             "IncomeTaxRate": this.context.context.items[0].data.incomeTax.Rate,
@@ -68,7 +69,7 @@ export class DeliveryOrderItem {
         } : {};
       }
     } else {
-      if(this.context.context.items[0].data.purchaseOrderExternal.no!=""){
+      if(this.context.context.items[0].data.purchaseOrderExternal.no!="") {
         this.filter = 
         {
           "SupplierId": this.context.context.options.supplierId,
@@ -76,6 +77,7 @@ export class DeliveryOrderItem {
           "PaymentType": this.context.context.options.paymentType,
           "PaymentMethod": this.context.context.options.paymentMethod,
           "IsUseVat": this.context.context.options.isUseVat,
+          "VatRate": this.context.context.options.vatRate,
           "IsIncomeTax": this.context.context.options.isIncomeTax,
           "IncomeTaxName": this.context.context.options.incomeTaxName,
           "IncomeTaxRate": this.context.context.options.incomeTaxRate,
@@ -104,12 +106,12 @@ export class DeliveryOrderItem {
       this.errorCount += 1;
     }
     
-    if (this.data){
-      if(this.context.context.options.hasCreate){
+    if (this.data) {
+      if(this.context.context.options.hasCreate) {
         // if (this.data.fulfillments) {
         //   this.isShowing = true;
         // }
-      } else if(this.context.context.options.hasEdit || this.context.context.options.hasView){
+      } else if(this.context.context.options.hasEdit || this.context.context.options.hasView) {
         //this.isShowing = true;
         if (this.data.fulfillments) {
           for(var fulfillments of this.data.fulfillments){
@@ -133,6 +135,7 @@ export class DeliveryOrderItem {
       this.error = {};
       this.isShowing = false;
     } else if (newValue.EPONo && this.context.context.options.hasCreate) {
+
       this.data.fulfillments = [];
       this.data.purchaseOrderExternal = newValue;
       this.data.purchaseOrderExternal.no = newValue.EPONo;
@@ -144,11 +147,16 @@ export class DeliveryOrderItem {
       this.data.currency.Id = newValue.Currency.Id;
       this.data.currency.Code = newValue.Currency.Code;
       this.data.useVat = newValue.IsUseVat;
+      if(this.data.useVat==true) {
+        this.data.vat = newValue.Vat
+      } else {
+        this.data.vat={};
+      }
       this.data.useIncomeTax = newValue.IsIncomeTax;
       this.data.isPayVAT = newValue.IsPayVAT;
       this.data.isPayIncomeTax = newValue.IsPayIncomeTax;
       this.data.incomeTax={};
-      if(this.data.useIncomeTax==true){
+      if(this.data.useIncomeTax==true) {
         this.data.incomeTax.Id = newValue.IncomeTax.Id;
         this.data.incomeTax.Name = newValue.IncomeTax.Name;
         this.data.incomeTax.Rate = newValue.IncomeTax.Rate;
@@ -156,7 +164,7 @@ export class DeliveryOrderItem {
         this.data.incomeTax={};
       }
 
-      for(var item of newValue.Items){
+      for(var item of newValue.Items) {
         var filterGarmentCategory = {
           "_IsDeleted": false,
           "Name": item.Product.Name,
@@ -164,7 +172,7 @@ export class DeliveryOrderItem {
         var info = { filter: JSON.stringify(filterGarmentCategory), size: 2147483647 };
         var categoryProduct = await this.service.searchGarmentCategory(info);
         var codeRequirmentTemp = "";
-        for (var data of categoryProduct){
+        for (var data of categoryProduct) {
           codeRequirmentTemp = data.codeRequirement;
         }
 
@@ -192,7 +200,7 @@ export class DeliveryOrderItem {
         };
         this.data.fulfillments.push(fulfillment);
       }
-        this.isShowing = true;
+      this.isShowing = true;
         
     } else if (newValue.EPONo && (this.context.context.options.hasView || this.context.context.options.hasEdit)) {
       this.data.purchaseOrderExternal.no = newValue.EPONo;

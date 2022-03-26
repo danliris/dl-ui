@@ -59,7 +59,8 @@ export class Edit {
                         pph=detail.PaidPrice*(parseFloat(rate)/100);
                     }
                     if(item.UseVat){
-                        ppn=detail.PaidPrice*0.1;
+                        var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                        ppn=detail.PaidPrice*(parseFloat(rate)/100);
                     }
                     this.data.IncomeTaxValue+=pph;
                     this.data.VatValue+=ppn;

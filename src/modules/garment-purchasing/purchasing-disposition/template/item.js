@@ -136,6 +136,7 @@ export class PurchasingDispositionItem {
                     currencyCode: this.data.CurrencyCode
                 }
                 this.selectedEPO = await this.service.getEPOById(param);
+                console.log(this.selectedEPO);
 
             }
 
@@ -157,6 +158,7 @@ export class PurchasingDispositionItem {
                 // this.data.CurrencyId =  this.selectedEPO.Id? this.selectedEPO.Currency.Id: this.data.CurrencyId;
                 // this.data.CurrencyCode =  this.selectedEPO.Id? this.selectedEPO.Currency.Code: this.data.CurrencyCode;
                 this.data.CurrencyRate = this.selectedEPO.Id ? this.selectedEPO.Currency.Rate : this.data.CurrencyRate;
+                this.data.Vat = this.selectedEPO.Id ? this.selectedEPO.Vat : this.data.Vat;
                 if (this.selectedEPO.IsIncomeTax) {
                     this.data.IncomeTax = this.selectedEPO.IsIncomeTax ? this.selectedEPO.IncomeTax : this.data.IncomeTax;
                     this.data.IncomeTaxName = this.selectedEPO.IncomeTax.Name;
@@ -172,6 +174,12 @@ export class PurchasingDispositionItem {
                     this.data.IncomeTaxRate = 0;
                     this.incomeTax = "-";
                 }
+
+                if(this.selectedEPO.IsUseVat){
+                    this.data.VatId = this.selectedEPO.Vat.Id;
+                    this.data.VatRate = this.selectedEPO.Vat.Rate;
+                }
+
                 var arg = {
                     epoId: this.data.EPOId
                 }
@@ -223,11 +231,11 @@ export class PurchasingDispositionItem {
                     if (this.data.IsPayIncomeTax) {
                         pph = item.PricePerDealUnit * qtyRemains * (this.data.IncomeTax.Rate / 100);
                     }
-                    if (this.data.IsPayVAT) {
-                        ppn = item.PricePerDealUnit * qtyRemains * 0.1;
+                    if (this.data.IsPayVAT) {  
+                        ppn = item.PricePerDealUnit * qtyRemains *( this.selectedEPO.Vat.Rate / 100);                      
                     }
-                    if (this.data.IsUseVat) {
-                        ppnView = item.PricePerDealUnit * qtyRemains * 0.1;
+                    if (this.data.IsUseVat) {  
+                        ppnView = item.PricePerDealUnit * qtyRemains * (this.selectedEPO.Vat.Rate / 100);
                     }
                     this.incomeTaxValue += pph;
                     this.incomeTaxValueView += pphView;
@@ -300,10 +308,11 @@ export class PurchasingDispositionItem {
                     pph = parseFloat(detail.PaidPrice) * (parseFloat(this.data.IncomeTax.Rate) / 100);
                 }
                 if (this.data.IsPayVAT) {
-                    ppn = parseFloat(detail.PaidPrice) * 0.1;
+                    ppn = parseFloat(detail.PaidPrice) * (this.data.Vat.Rate / 100);
                 }
                 if (this.data.IsUseVat) {
-                    ppnView = parseFloat(detail.PaidPrice) * 0.1;
+                    console.log(this.selectedEPO);
+                    ppnView = parseFloat(detail.PaidPrice) * (this.data.Vat.Rate / 100);
                 }
                 this.incomeTaxValue += pph;
                 this.incomeTaxValueView += pphView;

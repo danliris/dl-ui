@@ -8,6 +8,7 @@ import moment from 'moment';
 export class Edit {
   hasCancel = true;
   hasSave = true;
+  hasCreate = false;
 
   constructor(router, service) {
     this.router = router;
@@ -25,6 +26,14 @@ export class Edit {
     moment.locale(locale);
     var id = params.id;
     this.data = await this.service.getById(id);
+    console.log(this.data);
+    if(this.data.VatTax){
+      this.data.useVat = true;
+    }
+
+    // if (this.data.VatTax) {
+    //   this.selectedVatTax = this.data.VatTax;
+    // }
 
   }
 

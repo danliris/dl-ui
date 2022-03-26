@@ -25,6 +25,9 @@ export class Edit {
     moment.locale(locale);
     var id = params.id;
     this.data = await this.service.getById(id);
+    if(this.data.VatTax){
+      this.data.useVat = true;
+    }
     // this.data.deliverySchedule = moment(this.data.deliverySchedule).format('YYYY-MM-DD');
 
     // this.data.accountBank.toString = function () {
