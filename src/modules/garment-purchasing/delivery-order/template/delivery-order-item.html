@@ -3,15 +3,15 @@
         <td >
             <div class="col-sm-11">
                 <au-autocomplete 
-                        value.bind="selectedPurchaseOrderExternal"
-                        error.bind="error.purchaseOrderExternal"
-                        loader.bind="purchaseOrderExternalLoader"
-                        text.bind="purchaseOrderExternalView"
-                        placeholder="cari nomor purchase order external" 
-                        key="no"
-                        query.bind="filter"
-                        read-only.bind="options.readOnly || isEdit"
-                        options.bind="controlOptions">
+                    value.bind="selectedPurchaseOrderExternal"
+                    error.bind="error.purchaseOrderExternal"
+                    loader.bind="purchaseOrderExternalLoader"
+                    text.bind="purchaseOrderExternalView"
+                    placeholder="cari nomor purchase order external" 
+                    key="no"
+                    query.bind="filter"
+                    read-only.bind="options.readOnly || isEdit"
+                    options.bind="controlOptions">
                 </au-autocomplete>
             </div>
             <div class="col-sm-1">
@@ -22,7 +22,7 @@
     </tr>
     <tr show.bind="isShowing">
         <td>
-                <div if.bind="error.fulfillmentscount" class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span></div>
+            <div if.bind="error.fulfillmentscount" class="form-group has-error"><span class="text-danger help-block">${error.fulfillmentscount}</span></div>
             <au-collection 
                 items.bind="data.fulfillments" 
                 errors.bind="error.fulfillments"

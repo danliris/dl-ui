@@ -40,6 +40,7 @@ export class Edit {
                 this.data.useIncomeTax = this.data.items[0].useIncomeTax;
                 this.data.incomeTax = this.data.items[0].incomeTax;
                 this.data.isPayVAT = this.data.items[0].isPayVAT;
+                this.data.vat = this.data.items[0].vat;
                 this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
             }
         }

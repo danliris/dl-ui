@@ -100,6 +100,10 @@ export class Edit {
                         Id: item.IncomeTaxId,
                         Rate: item.IncomeTaxRate,
                     },
+                    Vat: {
+                        Id: item.VatId,
+                        Rate: item.VatRate,
+                    },
                     IncomeTaxName: item.IncomeTaxName,
                     IncomeTaxId: item.IncomeTaxId,
                     IncomeTaxRate: item.IncomeTaxRate,
@@ -117,7 +121,7 @@ export class Edit {
                     IsUseVat: item.IsUseVat,
                     IsPayVAT: item.IsPayVat,
                     VatValue: item.VatValue,
-                    VatValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * 0.1,
+                    VatValueView: item.Details.map(detail => detail['PaidPrice']).reduce((sum, current) => sum + current, 0) * (item.VatRate / 100),
                     DispositionAmountPaid: item.DispositionAmountPaid,
                     DispositionAmountCreated: item.DispositionAmountCreated,
                     DispositionQuantityCreated: item.DispositionQuantityCreated,
@@ -129,7 +133,9 @@ export class Edit {
                     CreatedUtc: item.CreatedUtc,
                     LastModifiedAgent: item.LastModifiedAgent,
                     LastModifiedBy: item.LastModifiedBy,
-                    LastModifiedUtc: item.LastModifiedUtc
+                    LastModifiedUtc: item.LastModifiedUtc,
+                    VatRate : item.VatRate,
+                    VatId : item.VatId
                 };
                 return mappingItem;
             });

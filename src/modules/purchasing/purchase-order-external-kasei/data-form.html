@@ -142,6 +142,7 @@
             post-fix="%">
         </numeric>
 
+
         <au-checkbox 
             label="Apakah kena Ppn?" 
             value.bind="data.useVat" 
@@ -150,6 +151,21 @@
             change.delegate="useVatChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
+
+        <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     if.bind ="data.useVat"
+                     
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+        </au-autocomplete>
+
+        
             
         <au-dropdown
             label="PPH Ditanggung oleh"

@@ -149,6 +149,8 @@ export class DataForm {
                     this.data.Currency = deliveryOrder.docurrency;
 
                     this.data.UseVat = deliveryOrder.useVat;
+                    this.data.Vat = deliveryOrder.vat;
+                    
                     this.data.UseIncomeTax = deliveryOrder.useIncomeTax;
                     this.data.IncomeTax = deliveryOrder.incomeTax;
 

@@ -7,7 +7,6 @@ import moment from 'moment';
 
 const serviceUri = 'garment-external-purchase-orders';
 
-
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -108,8 +107,6 @@ export class Service extends RestService {
         return super.get(endpoint, null, info);
     }
 
-
-
     cancel(id) {
         var endpoint = `garment-external-purchase-orders/cancel/${id}`;
         return super.put(endpoint);
@@ -141,6 +138,16 @@ export class Service extends RestService {
             .then(result => {
                 return result.data;
             });
+    }
+
+    getDefaultVat(info){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/vat`;
+        return _endpoint.find(_serviceUri, info)
+        .then(result => {
+            return result.data;
+        })
     }
 
     SmallUom(id) {
