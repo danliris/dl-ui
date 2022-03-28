@@ -159,7 +159,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1, A2: 1 },
+      permission: { C9: 1, A2: 1,SG:1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -172,7 +172,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1, PGA: 1 },
+      permission: { C9: 1, PGA: 1 ,SG:1},
       iconClass: "fa fa-dashboard",
     },
   },
@@ -185,7 +185,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1, A2: 1 },
+      permission: { C9: 1, A2: 1 ,SG:1},
       iconClass: "fa fa-dashboard",
     },
   },
@@ -198,7 +198,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "master",
-      permission: { C9: 1, PGA: 1 },
+      permission: { C9: 1, PGA: 1 ,SG:1},
       iconClass: "fa fa-dashboard",
     },
   },

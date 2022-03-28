@@ -3,6 +3,7 @@ import { Service } from "./service";
 
 const TransactionTypeLoader = require('../../../loader/garment-transaction-type-loader');
 const BuyerLoader = require('../../../loader/garment-leftover-warehouse-buyer-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @inject(Service)
 export class DataForm {
@@ -11,6 +12,7 @@ export class DataForm {
     @bindable isEdit = false;
     @bindable title;
     @bindable selectedTransactionType;
+    @bindable selectedVatTax;
 
     controlOptions = {
         label: {
@@ -61,6 +63,15 @@ export class DataForm {
         return data.Address || data.address;
     }
 
+    get vatTaxLoader() {
+       return VatTaxLoader;
+    }
+
+    vatTaxView = (vatTax) => {
+       console.log(vatTax);
+       return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+    }
+
     bind(context) {
         this.context = context;
         this.data = context.data;
@@ -76,8 +87,24 @@ export class DataForm {
         if(!this.data.sellerNPWP || this.data.sellerNPWP==""){
             this.data.sellerNPWP="01.139.907.8-532.000";
         }
+
+        this.selectedVatTax = this.data.vat || false;       
     }
 
+    selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+    
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+            this.data.vat= {
+            id : _selectedVatTax.Id || _selectedVatTax.id,
+            rate : _selectedVatTax.Rate || _selectedVatTax.rate
+        } 
+        console.log(this.data.vat.rate);
+        } else {
+            this.data.vat = {};
+        }
+    }
 
     get subtotal() {
         this.data.subTotal = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
@@ -85,19 +112,24 @@ export class DataForm {
         return this.data.subTotal;
     }
 
+    @computedFrom('data.vat.rate','data.subTotal')
     get ppn() {
-        var ppn=0;
+        var ppn=0;    
+        console.log(this.data.subTotal);
+        console.log(this.data.isUseVat);
         if(this.data.subTotal && this.data.isUseVat){
-            ppn=this.data.subTotal*10/100;
+           ppn=this.data.subTotal*(this.data.vat.rate/100);
         }
+        
         return ppn;
     }
 
+    @computedFrom('data.vat.rate','data.subTotal')
     get total() {
         var total=0;
         if(this.data.subTotal){
             if( this.data.isUseVat)
-                total=(this.data.subTotal*10/100) + this.data.subTotal;
+                total=(this.data.subTotal*(this.data.vat.rate/100)) + this.data.subTotal;
             else
                 total=this.data.subTotal;
         }
