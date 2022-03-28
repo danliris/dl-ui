@@ -7,7 +7,6 @@ var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
 
 @inject(Service, CoreService)
 export class DataForm {
-
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedSection;
@@ -143,7 +142,6 @@ export class DataForm {
     }
 
     async bind(context) {
-      
         this.context = context;
         this.data = context.data;
         this.error = context.error;
@@ -238,7 +236,7 @@ export class DataForm {
 
     selectedBuyerChanged(newValue) {
         if (newValue != this.data.buyerAgent && this.data.items){
-            if(this.isEdit){
+            if(this.context.isEdit){
                 if(this.data.items && this.data.items.length>0){
                     for(var item of this.data.items){
                         if(item.roType=="RO JOB"){
@@ -254,7 +252,6 @@ export class DataForm {
             else{
                 this.data.items.splice(0);
             }
-            
         }
         this.data.buyerAgent = null;
         if (newValue) {
@@ -346,7 +343,6 @@ export class DataForm {
                     }
                 }
                 no++;
-
             }
         }
         for (var u of units) {
