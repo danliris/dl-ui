@@ -43,6 +43,12 @@ export class Edit {
     } else {
       this.data.mode = "CREATE";
     }
+
+    this.isInvoice=false;
+    var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
+    if(invoice.data.length>0){
+        this.isInvoice=true;
+    }
   }
 
   cancelCallback(event) {
