@@ -32,6 +32,7 @@ export class View {
         if(this.data.invoiceType){
             this.selectedInvoiceType= this.data.invoiceType;
         }
+        
     }
 
     cancelCallback(event) {
