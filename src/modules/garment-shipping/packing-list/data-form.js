@@ -196,7 +196,6 @@ export class DataForm {
         this.delete = this.context.deleteCallback;
         this.edit = this.context.editCallback;
         this.Items = this.data.items;
-        console.log(this.context.isEdit)
         this.Options = {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
@@ -263,6 +262,7 @@ export class DataForm {
         if(invoice.data.length>0){
             this.isInvoice=true;
         }
+        console.log(this.isInvoice)
     }
 
     get addMeasurements() {
