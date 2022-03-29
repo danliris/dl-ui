@@ -52,6 +52,7 @@ export class List {
                 for(var _data of result){
                     _data.QtyOrder = _data.QtyOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data.FC = _data.FC.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                     _data._BasicPrice = _data.BasicPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
                     _data._BeginingBalanceCuttingQty = _data.BeginingBalanceCuttingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._BeginingBalanceCuttingPrice = _data.BeginingBalanceCuttingPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._QtyCuttingIn = _data.QtyCuttingIn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -161,7 +162,8 @@ export class List {
             unit : this.selectedUnit ? this.selectedUnit.Id : 0,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            ro : this.ro ?this.ro:""
+            ro : this.ro ?this.ro:"",
+            type: "bookkeeping"
         }
         this.service.generateExcel(info);
     }
@@ -198,6 +200,18 @@ export class List {
         }
         return beginingBalanceCuttingQtyTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get BeginingBalanceCuttingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceCuttingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get MDTotal()
     {
         var qtyMDTotal=0;
@@ -209,6 +223,18 @@ export class List {
         }
         }
         return qtyMDTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get MDPriceTotal()
+    {
+        var priceMDTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            priceMDTotal += item.MDPrice;
+        }
+        }
+        return priceMDTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     get QtyCuttingInTotal()
     {
@@ -222,6 +248,18 @@ export class List {
         }
         return qtyCuttingInTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceCuttingInTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceCuttingIn;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtyCuttingOutTotal()
     {
         var qtyCuttingOutTotal=0;
@@ -234,6 +272,19 @@ export class List {
         }
         return qtyCuttingOutTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceCuttingOutTotal()
+    {
+        var qtyCuttingOutTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            qtyCuttingOutTotal += item.PriceCuttingOut;
+        }
+        }
+        return qtyCuttingOutTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
+
 
     get QtyCuttingTransferTotal()
     {
@@ -247,7 +298,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get PriceCuttingTransferTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceCuttingTransfer;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtyCuttingsubkonTotal()
     {
         var sum=0;
@@ -259,6 +321,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get PriceCuttingsubkonTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceCuttingsubkon;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
 
     get AvalCuttingTotal()
@@ -273,6 +347,19 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceAvalCuttingTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.AvalCuttingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
+
 
     get AvalSewingTotal()
     {
@@ -286,7 +373,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get PriceAvalSewingTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.AvalSewingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get AvalSewingTotal()
     {
         var sum=0;
@@ -312,7 +410,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get EndBalancCuttingePriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalancCuttingePrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get BeginingBalanceLoadingQtyotal()
     {
         var sum=0;
@@ -325,7 +434,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get BeginingBalanceLoadingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceLoadingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtyLoadingInTotal()
     {
         var sum=0;
@@ -337,6 +457,30 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get PriceLoadingInTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceLoadingIn;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
+     get PriceLoadingInTotalTransfer()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceLoadingInTransfer;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get QtyLoadingInTransferTotal()
     {
@@ -362,6 +506,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceLoadingTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceLoading;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtyLoadingAdjsTotal()
     {
         var sum=0;
@@ -373,6 +529,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get PriceLoadingAdjsTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceLoadingAdjs;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get EndBalanceLoadingQtyTotal()
     {
@@ -386,7 +554,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get EndBalanceLoadingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalanceLoadingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get BeginingBalanceSewingQtyTotal()
     {
         var sum=0;
@@ -398,6 +577,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get BeginingBalanceSewingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceSewingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get QtySewingInTotal()
     {
@@ -411,7 +602,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get PriceSewingInTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceSewingIn;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtySewingOutTotal()
     {
         var sum=0;
@@ -424,6 +626,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceSewingOutTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceSewingOut;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtySewingInTransferTotal()
     {
         var sum=0;
@@ -447,6 +661,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get PriceSewingInTransferTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceSewingInTransfer;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get WipSewingOutTotal()
     {
@@ -460,6 +686,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceWipSewingOutTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.WipSewingOutPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }   
     get WipFinishingOutTotal()
     {
         var sum=0;
@@ -471,6 +709,17 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } get PriceWipFinishingOutTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.WipFinishingOutPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get QtySewingReturTotal()
     {
@@ -484,6 +733,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceSewingReturTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceSewingRetur;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }
     get QtySewingAdjTotal()
     {
         var sum=0;
@@ -496,6 +757,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceSewingAdjTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.PriceSewingAdj;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get EndBalanceSewingQtyTotal()
     {
         var sum=0;
@@ -508,6 +781,19 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+
+    get EndBalanceSewingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalanceSewingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get BeginingBalanceFinishingQtyTotal()
     {
         var sum=0;
@@ -520,6 +806,19 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+
+    get BeginingBalanceFinishingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceFinishingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }   
     get FinishingInQtyTotal()
     {
         var sum=0;
@@ -531,6 +830,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get FinishingInPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingInPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get BeginingBalanceSubconQtyTotal()
     {
@@ -544,6 +855,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get BeginingBalanceSubconPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceSubconPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get SubconInQtyTotal()
     {
         var sum=0;
@@ -556,6 +879,19 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+
+    get SubconInPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.SubconInPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }   
     get SubconOutQtyTotal()
     {
         var sum=0;
@@ -567,6 +903,19 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    get SubconOutPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.SubconOutPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get EndBalanceSubconQtyTotal()
     {
@@ -580,6 +929,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get EndBalanceSubconPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalanceSubconPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get FinishingOutQtyTotal()
     {
         var sum=0;
@@ -592,6 +953,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get FinishingOutPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingOutPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get FinishingInTransferQtyTotal()
     {
         var sum=0;
@@ -604,7 +977,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get FinishingInTransferPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingInTransferPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get FinishingAdjQtyTotal()
     {
         var sum=0;
@@ -617,6 +1001,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get FinishingAdjPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingAdjPRice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get FinishingReturQtyTotal()
     {
         var sum=0;
@@ -629,6 +1025,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get FinishingReturPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingReturPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get EndBalanceFinishingQtyTotal()
     {
         var sum=0;
@@ -641,6 +1049,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get EndBalanceFinishingPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalanceFinishingPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get BeginingBalanceExpenditureGoodTotal()
     {
         var sum=0;
@@ -653,6 +1073,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceBeginingBalanceExpenditureGoodTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.BeginingBalanceExpenditureGoodPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get FinishingInExpenditureTotal()
     {
         var sum=0;
@@ -664,6 +1096,18 @@ export class List {
         }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get PriceFinishingInExpenditureTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.FinishingInExpenditurepPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
     get ExpenditureGoodInTransferTotal()
     {
@@ -677,6 +1121,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceExpenditureGoodInTransferTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.ExpenditureGoodInTransferPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get ExpenditureGoodReturTotal()
     {
         var sum=0;
@@ -689,6 +1145,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceExpenditureGoodReturTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.ExpenditureGoodReturPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get ExportQtyTotal()
     {
         var sum=0;
@@ -701,6 +1169,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get ExportPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.ExportPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    } 
     get OtherQtyTotal()
     {
         var sum=0;
@@ -713,6 +1193,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get OtherPriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.OtherPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get SampleQtyTotal()
     {
         var sum=0;
@@ -725,6 +1217,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get SamplePriceTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.SamplePrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get ExpenditureGoodAdjTotal()
     {
         var sum=0;
@@ -737,6 +1241,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    get PriceExpenditureGoodAdjTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.ExpenditureGoodAdjPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     get EndBalanceExpenditureGoodTotal()
     {
         var sum=0;
@@ -749,7 +1265,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-
+    get PriceEndBalanceExpenditureGoodTotal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            sum += item.EndBalanceExpenditureGoodPrice;
+        }
+        }
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
+    }  
     reset() {
         this.ro = null;
         this.date  = null;
