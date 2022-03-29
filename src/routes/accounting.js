@@ -590,4 +590,18 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: '/accounting/sample-reports/stock-report',
+    name: 'sample-stock-report',
+    moduleId: './modules/accounting/sample-reports/stock-report/index',
+    nav: true,
+    title: 'Laporan Stok Sample Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];

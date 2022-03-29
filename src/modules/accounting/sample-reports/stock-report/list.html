@@ -45,12 +45,9 @@
                         <td align="center" rowspan="3">NAMA BARANG</td>
                         <td align="center" rowspan="3">BUYER</td>
                         <td align="center" colspan="3" rowspan="2">SALDO AWAL</td>
-                        <td if.bind ="UnitItem != ''" colspan="14">P E M A S U K A N</td>
-                        <td if.bind ="UnitItem == ''" colspan="16">P E M A S U K A N</td>
-                        <td colspan="18">P E N G E L U A R A N</td>
-                        <td align="center" rowspan="2" colspan="3">SALDO AKHIR</td>
-                        
-    
+                        <td align="center" colspan="16">P E M A S U K A N</td>
+                        <td colspan="20">P E N G E L U A R A N</td>
+                        <td align="center" rowspan="2" colspan="2">SALDO AKHIR</td>
                      </tr>
                     <tr>
                         <td colspan="2">KOREKSI</td>
@@ -63,8 +60,9 @@
                         <td colspan="2" if.bind ="UnitItem != 'KONFEKSI 1B'">KONFEKSI 1B</td>
                         <td colspan="2">RETUR</td>
                         <td colspan="2">SISA</td>
-                        <td colspan="2">PROSES</td>
                         <td colspan="2">SAMPLE</td>
+                        <td colspan="2">SUBCON</td>
+                        <td colspan="2">LAIN-LAIN</td>
                         <td colspan="2" >KONFEKSI 2A</td>
                         <td colspan="2" >KONFEKSI 2B</td>
                         <td colspan="2" >KONFEKSI 2C/EX. K4</td>
@@ -77,6 +75,10 @@
                         <td>HARGA</td>
                         <td if.bind ="UnitItem == ''">JUMLAH</td>
                         <td if.bind ="UnitItem == ''">HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
+                        <td>JUMLAH</td>
+                        <td>HARGA</td>
                         <td>JUMLAH</td>
                         <td>HARGA</td>
                         <td>JUMLAH</td>
@@ -145,10 +147,12 @@
                         <td>${item.ExpendReturPrice}</td>
                         <td>${item.ExpendRestQty}</td>
                         <td>${item.ExpendRestPrice}</td>
-                        <td>${item.ExpendProcessQty}</td>
-                        <td>${item.ExpendProcessPrice}</td>
                         <td>${item.ExpendSampleQty}</td>
                         <td>${item.ExpendSamplePrice}</td>
+                        <td>${item.ExpendSubconQty}</td>
+                        <td>${item.ExpendSubconPrice}</td>
+                        <td>${item.ExpendOtherQty}</td>
+                        <td>${item.ExpendOtherPrice}</td>
                         <td>${item.ExpendKon2AQty}</td>
                         <td>${item.ExpendKon2APrice}</td>
                         <td>${item.ExpendKon2BQty}</td>
