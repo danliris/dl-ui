@@ -77,6 +77,7 @@ export class List {
             { field: 'sampleRequestNo', title: 'No Surat Sample', footerFormatter: "" },
             { field: 'roNoSample', title: 'RO Sample', footerFormatter: "" },
             { field: 'sampleCategory', title: 'Kategori', footerFormatter: "" },
+            { field: 'sampleTo', title: 'Jenis Sample', footerFormatter: "" },
             { field: 'sampleType', title: 'Jenis Sample', footerFormatter: "" },
             { field: 'buyer', title: 'Buyer', footerFormatter: "" },
             { field: 'style', title: 'Article', footerFormatter: "" },
@@ -108,6 +109,7 @@ export class List {
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "sampleRequestNo", rowspan: rowSpan, colspan: 1, rowFormatter:"red" });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "roNoSample", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "sampleCategory", rowspan: rowSpan, colspan: 1 });
+                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "sampleTo", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "sampleType", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "buyer", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "sentDate", rowspan: rowSpan, colspan: 1 });

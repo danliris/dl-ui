@@ -52,9 +52,25 @@
                 </au-autocomplete>
 <hr>
                 
-                <au-checkbox label="Apakah kena PPN ?" value.bind="data.isUseVat" error.bind="error.isUseVat"
-                    read-only.bind="readOnly" options.bind="controlOptions">
+                <au-checkbox label="Apakah kena Ppn?"
+                    value.bind="data.isUseVat"
+                    error.bind="error.isUseVat"
+                    read-only.bind="readOnly"
+                    change.delegate="selectedVatTaxChanged($event)"
+                    options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="Cari Vat Rate"
+                     key=""
+                     if.bind = "data.isUseVat"                     
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+                </au-autocomplete>
 
                 <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"
                     options.bind="controlOptions">
@@ -71,7 +87,7 @@
                     label="Sub Total">
                 </au-numeric>
                 <au-numeric value.to-view="ppn" read-only.bind="true" options.bind="controlOptions"
-                    label="PPN 10%">
+                    label="PPN">
                 </au-numeric>
                 <au-numeric value.to-view="total" read-only.bind="true" options.bind="controlOptions"
                     label="TOTAL">

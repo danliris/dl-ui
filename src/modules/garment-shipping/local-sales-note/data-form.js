@@ -4,6 +4,7 @@ import { Service } from "./service";
 const TransactionTypeLoader = require('../../../loader/garment-transaction-type-loader');
 const BuyerLoader = require('../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesContractLoader=require('../../../loader/garment-shipping-local-sales-contract-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @inject(Service)
 export class DataForm {
@@ -14,6 +15,8 @@ export class DataForm {
     @bindable selectedTransactionType;
     @bindable selectedSalesContract;
     @bindable selectedPaymentType;
+    @bindable selectedVatTax;
+    @bindable options = { useVat: false };
 
     constructor(service) {
         this.service = service;
@@ -80,6 +83,16 @@ export class DataForm {
         return data.KaberType || data.kaberType;
     }
 
+    get vatTaxLoader() {
+       return VatTaxLoader;
+    }
+
+    vatTaxView = (vatTax) => {
+       console.log(vatTax);
+       return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+    }
+
+
     async bind(context) {
         this.context = context;
         this.data = context.data;
@@ -88,6 +101,7 @@ export class DataForm {
         if (this.data && this.data.transactionType) {
             this.items.options.transactionTypeId = this.data.transactionType.id;
         }
+        
         if(this.data.id){
             this.selectedSalesContract={
                 salesContractNo:this.data.salesContractNo,
@@ -104,7 +118,12 @@ export class DataForm {
                     item.remQty=scItem.remainingQuantity+item.quantity;
                 }
             }
+        }
             
+        this.selectedVatTax = this.data.vat || false;  
+
+        if (this.data.useVat) {
+            this.options.useVat = true;            
         }
     }
 
@@ -138,13 +157,21 @@ export class DataForm {
             this.data.items.splice(0);
         if (newValue) {
             if(newValue.id!=this.data.localSalesContractId){
+                console.log(this.data);
                 this.data.localSalesContractId=newValue.id;
                 this.data.salesContractNo = newValue.salesContractNo;
                 this.data.transactionType=newValue.transactionType;
                 this.data.buyer=newValue.buyer;
                 this.data.useVat=newValue.isUseVat;
+                      
+
                 if(!this.data.id){
                     var sc = await this.service.getSCById(newValue.id);
+                    this.data.vat= {
+                         id : newValue.vat.Id || newValue.vat.id,
+                         rate : newValue.vat.Rate || newValue.vat.rate
+                        } 
+                    console.log(this.data.vat.rate);
                     for(var a of sc.items){
                         var item={};
                         if(a.remainingQuantity>0){
@@ -176,6 +203,21 @@ export class DataForm {
             this.data.tempo=0;
         }
     }
+    
+    selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+    
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+            this.data.vat= {
+            id : _selectedVatTax.Id || _selectedVatTax.id,
+            rate : _selectedVatTax.Rate || _selectedVatTax.rate
+        } 
+        console.log(this.data.vat.rate);
+        } else {
+            this.data.vat = {};
+        }
+    }
 
     get subtotal() {
         this.data.subTotal = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
@@ -183,23 +225,28 @@ export class DataForm {
         return this.data.subTotal;
     }
 
+   @computedFrom('data.vat.rate','data.subTotal')
     get ppn() {
-        var ppn=0;
+        var ppn=0;    
+        console.log(this.data.subTotal);
+        console.log(this.data.useVat);
         if(this.data.subTotal && this.data.useVat){
-            ppn=this.data.subTotal*10/100;
+           ppn=this.data.subTotal*(this.data.vat.rate/100);
         }
+        
         return ppn;
     }
 
+    @computedFrom('data.vat.rate','data.subTotal')
     get total() {
-        this.data.totalAmount=0;
+        var total=0;
         if(this.data.subTotal){
             if( this.data.useVat)
-                this.data.totalAmount=(this.data.subTotal*10/100) + this.data.subTotal;
+                total=(this.data.subTotal*(this.data.vat.rate/100)) + this.data.subTotal;
             else
-                this.data.totalAmount=this.data.subTotal;
+                total=this.data.subTotal;
         }
-        return this.data.totalAmount;
+        return total;
     }
 
 }

@@ -133,7 +133,7 @@
                     loader.bind="buyerLoader"
                     text.bind = "buyerView"
                     placeholder="cari buyer"
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly || isInvoice"
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
@@ -207,7 +207,7 @@
                     add.bind="addItems" 
                     remove.bind="removeItems"
                     options.bind="Options"
-                    show.bind="data.buyerAgent && data.section"
+                    show.bind="(data.buyerAgent || isEdit) && data.section"
                     if.bind="roType!='RO MASTER'"
                     item-template="modules/garment-shipping/packing-list/template/detail-ro">
                 </au-collection>   
@@ -219,7 +219,7 @@
                     add.bind="addItems" 
                     remove.bind="removeItems"
                     options.bind="Options"
-                    show.bind="data.buyerAgent && data.section"
+                    show.bind="(data.buyerAgent || isEdit) && data.section"
                     if.bind="roType=='RO MASTER'"
                     item-template="modules/garment-shipping/packing-list/template/detail-ro">
                 </au-collection>  

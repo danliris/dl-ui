@@ -72,8 +72,7 @@ export class List {
               }
               this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
               this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-              
-          })
+        })
     }
 
     reset() {
@@ -112,7 +111,6 @@ export class List {
     }
 
     unitView = (unit) => {
-
       return `${unit.Code} - ${unit.Name}`
     }
 

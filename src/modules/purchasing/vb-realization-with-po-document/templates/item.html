@@ -25,11 +25,20 @@
                         options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <td class="text-center">
+            <div class="row">
             <au-checkbox value.bind="data.UnitPaymentOrder.UseVat"
                          read-only.bind="true"
                          options.bind="controlOptions">
             </au-checkbox>
+            </div>
+            <div class="row"
+                if.bind="data.UnitPaymentOrder.UseVat">
+                <au-textbox value.bind="data.UnitPaymentOrder.VatTax.Rate"
+                       read-only.bind="true">
+                </au-textbox>
+            </div>
+
         </td>
         <td class="text-center">
             <div class="row">

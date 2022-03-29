@@ -69,6 +69,47 @@
         </au-autocomplete>
 
         <au-multiline label="Packing" placeholder="input packing" value.bind="data.Packing" error.bind="error.Packing" read-only.bind="(readOnly)"></au-multiline>
+        
+        <div class="row">
+          <div class="col-sm-4" style="padding-left:20%">
+
+            <textbox label="Kena PPN?" read-only="true"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+              <au-checkbox 
+                  
+                  value.bind="data.useVat" 
+                  error.bind="error.useVat" 
+                  read-only.bind="(readOnly || isEdit)"
+                  change.delegate="useVatChanged($event)"
+                  options.bind="controlOptions">
+              </au-checkbox>
+          </div>
+
+          <div class="col-sm-1">
+
+            <textbox label="PPN" read-only="true" if.bind = "data.useVat"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+
+            <au-autocomplete value.bind="selectedVatTax"
+                error.bind="error.vatTax"
+                
+                loader.bind="vatTaxLoader"
+                text.bind="vatTaxView"
+                placeholder="cari PPN"
+                key=""
+                if.bind = "data.useVat"
+                
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-autocomplete>
+          </div>
+        </div>
 
         <au-dropdown label="PPN" value.bind="data.IncomeTax" error.bind="error.IncomeTax" read-only.bind="(readOnly)" items.bind="incomeTaxOptions"
           keypress.delegate="enterDelegate($event)"></au-dropdown>

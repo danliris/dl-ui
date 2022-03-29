@@ -23,9 +23,12 @@ export class ItemView {
     toggle() {
         this.isShowing = !this.isShowing;
     }
+
+    onRemove() {
+      this.bind();
+    }
+
     TotalPaidPaymentChanged(e){
-        // console.log("Total Paid Changed",e)
-        this.data.DiffTotalPaidPayment = this.data.TotalPaid-(e.srcElement.value+this.data.TotalPaidPaymentBefore)
-        
+      this.data.DiffTotalPaidPayment = parseFloat(this.data.TotalPaid.toFixed(4))-(parseFloat(e.srcElement.value)+parseFloat(this.data.TotalPaidPaymentBefore.toFixed(4)))
     }
 }

@@ -256,6 +256,13 @@ export class DataForm {
             id: shippingStaff.data[0].Id,
             name: shippingStaff.data[0].Name
         };
+
+        this.isInvoice=false;
+        var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
+        if(invoice.data.length>0){
+            this.isInvoice=true;
+        }
+        console.log(this.isInvoice)
     }
 
     get addMeasurements() {
@@ -305,8 +312,23 @@ export class DataForm {
     }
 
     selectedBuyerChanged(newValue) {
-        if (newValue != this.data.buyerAgent && this.data.items)
-            this.data.items.splice(0);
+        if (newValue != this.data.buyerAgent && this.data.items){
+            if(this.context.isEdit){
+                if(this.data.items && this.data.items.length>0){
+                    for(var item of this.data.items){
+                        if(item.roType=="RO JOB"){
+                            var index = this.data.items.indexOf(item);
+                            if (index !== -1) {
+                                this.data.items.splice(index, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                this.data.items.splice(0);
+            }
+        }
         this.data.buyerAgent = null;
         if (newValue) {
             this.data.buyerAgent = newValue;

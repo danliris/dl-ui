@@ -16,6 +16,7 @@ export class DataForm {
     @bindable SelectedROCC;
 
     SampleCategoryOptions = ["Commercial Sample", "Non Commercial Sample"];
+    SampleToOptions=["MARKETING","JOB ORDER"];
 
     constructor(service) {
         this.service = service;
