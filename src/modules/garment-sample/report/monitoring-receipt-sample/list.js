@@ -77,7 +77,7 @@ export class List {
             { field: 'sampleRequestNo', title: 'No Surat Sample', footerFormatter: "" },
             { field: 'roNoSample', title: 'RO Sample', footerFormatter: "" },
             { field: 'sampleCategory', title: 'Kategori', footerFormatter: "" },
-            { field: 'sampleTo', title: 'Jenis Sample', footerFormatter: "" },
+            { field: 'sampleTo', title: 'Tipe Sample', footerFormatter: "" },
             { field: 'sampleType', title: 'Jenis Sample', footerFormatter: "" },
             { field: 'buyer', title: 'Buyer', footerFormatter: "" },
             { field: 'style', title: 'Article', footerFormatter: "" },

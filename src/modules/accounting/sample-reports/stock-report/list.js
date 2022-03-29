@@ -42,7 +42,9 @@ export class List {
             this.info.total=0;
             this.searching();        
     }
-    
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+      }
     tableData = []
     searching() {
         var args = {
