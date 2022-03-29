@@ -563,6 +563,34 @@ module.exports = [
     }
   },
   {
+    route: '/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping',
+    name: 'garment-sample-monitoring-sample-flow-by-size-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Flow Per Size Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping',
+    name: 'garment-sample-monitoring-sample-stock-flow-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Persediaan Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: '/accounting/sample-reports/unit-receipt-note-recap',
     name: 'unit-receipt-note-recap',
     moduleId: './modules/accounting/sample-reports/unit-receipt-note-recap/index',
