@@ -279,7 +279,7 @@ export class DataForm {
             this.dataItems=this.data.items;
             this.data.totalAmount = TotalAmount;
 
-            this.data.consignee = consignees.join("\n");
+            this.data.consignee = packingItem.buyerAgent.name;//consignees.join("\n");
             this.percentageProcess(this.dataItems);
 
         }
