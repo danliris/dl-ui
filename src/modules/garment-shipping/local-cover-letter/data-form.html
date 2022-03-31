@@ -7,11 +7,17 @@
                     options.bind="controlOptions" if.bind="data.id">
                 </au-textbox>
 
-                <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
+                <!--<au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
                     error.bind="error.localSalesNote" text="noteNo" loader.bind="salesNoteLoader"
                     placeholder="No Nota Penjualan" read-only.bind="readOnly || isEdit" 
                     options.bind="controlOptions" query.bind="filter">
-                </au-autocomplete>
+                </au-autocomplete>-->
+
+                <au-autocomplete label="No Nota Penjualan" value.bind="selectedSalesNote"
+                    error.bind="error.localSalesNote" text="noteNo" loader.bind="salesNoteLoader"
+                    placeholder="No Nota Penjualan" read-only.bind="readOnly || isEdit" 
+                    options.bind="controlOptions">
+                </au-autocomplete>                
 
                 <au-datepicker label="Tgl Surat Pengantar" value.bind="data.date" error.bind="error.date"
                     read-only.bind="readOnly" options.bind="controlOptions">
