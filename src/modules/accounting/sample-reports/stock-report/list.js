@@ -15,6 +15,11 @@ export class List {
             this.unit=this.selectedUnit;
         }
     }
+
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+    }
+
     constructor(router, service,coreService) {
         this.service = service;
         this.router = router;
@@ -42,9 +47,7 @@ export class List {
             this.info.total=0;
             this.searching();        
     }
-    unitView = (unit) => {
-        return `${unit.Code} - ${unit.Name}`
-      }
+    
     tableData = []
     searching() {
         var args = {
@@ -99,7 +102,8 @@ export class List {
                     _data.ReceiptKon2CPrice = _data.ReceiptKon2CPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                     _data.ReceiptKon1BPrice = _data.ReceiptKon1BPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                     _data.ReceiptProcessPrice = _data.ReceiptProcessPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                    _data.ReceiptPurchasePrice = _data.ReceiptPurchasePrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.ExpendSubconPrice = _data.ExpendSubconPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    _data.ExpendOtherPrice = _data.ExpendOtherPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                     this.data.push(_data);
 
                 }

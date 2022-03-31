@@ -399,7 +399,7 @@ export class DataForm {
             var no = 1;
             for (var item of this.data.items) {
                 let unit = item.uom != null ? item.uom.unit || item.uom.Unit : "";
-                if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
+                if (item.quantity){// && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
                     quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
                     if (units.findIndex(u => u.unit == unit) < 0) {
                         units.push({ unit: unit });
