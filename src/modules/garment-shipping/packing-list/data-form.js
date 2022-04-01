@@ -262,7 +262,6 @@ export class DataForm {
         if(invoice.data.length>0){
             this.isInvoice=true;
         }
-        console.log(this.isInvoice)
     }
 
     get addMeasurements() {
