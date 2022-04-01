@@ -250,19 +250,19 @@ export class DataForm {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
-        this.data.shippingStaffName = shippingStaff.data[0].Name;
-        this.data.shippingStaff = {
-            id: shippingStaff.data[0].Id,
-            name: shippingStaff.data[0].Name
-        };
+
+        // var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
+        this.data.shippingStaffName = this.data.shippingStaff.Name || this.data.shippingStaff.name;
+        // this.data.shippingStaff = {
+        //     id: shippingStaff.data[0].Id,
+        //     name: shippingStaff.data[0].Name
+        // };
 
         this.isInvoice=false;
         var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
         if(invoice.data.length>0){
             this.isInvoice=true;
         }
-        console.log(this.isInvoice)
     }
 
     get addMeasurements() {
