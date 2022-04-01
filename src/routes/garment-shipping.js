@@ -697,7 +697,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 "B1": 1 },
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -711,7 +711,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 "B1": 1 },
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
             iconClass: "fa fa-dashboard"
         }
     },  
