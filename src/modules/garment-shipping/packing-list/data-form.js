@@ -250,12 +250,19 @@ export class DataForm {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-        var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
-        this.data.shippingStaffName = shippingStaff.data[0].Name;
-        this.data.shippingStaff = {
-            id: shippingStaff.data[0].Id,
-            name: shippingStaff.data[0].Name
-        };
+
+        // var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
+        this.data.shippingStaffName = this.data.shippingStaff.Name || this.data.shippingStaff.name;
+        // this.data.shippingStaff = {
+        //     id: shippingStaff.data[0].Id,
+        //     name: shippingStaff.data[0].Name
+        // };
+
+        this.isInvoice=false;
+        var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
+        if(invoice.data.length>0){
+            this.isInvoice=true;
+        }
     }
 
     get addMeasurements() {
@@ -305,8 +312,23 @@ export class DataForm {
     }
 
     selectedBuyerChanged(newValue) {
-        if (newValue != this.data.buyerAgent && this.data.items)
-            this.data.items.splice(0);
+        if (newValue != this.data.buyerAgent && this.data.items){
+            if(this.context.isEdit){
+                if(this.data.items && this.data.items.length>0){
+                    for(var item of this.data.items){
+                        if(item.roType=="RO JOB"){
+                            var index = this.data.items.indexOf(item);
+                            if (index !== -1) {
+                                this.data.items.splice(index, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                this.data.items.splice(0);
+            }
+        }
         this.data.buyerAgent = null;
         if (newValue) {
             this.data.buyerAgent = newValue;
@@ -377,7 +399,7 @@ export class DataForm {
             var no = 1;
             for (var item of this.data.items) {
                 let unit = item.uom != null ? item.uom.unit || item.uom.Unit : "";
-                if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
+                if (item.quantity){// && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
                     quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
                     if (units.findIndex(u => u.unit == unit) < 0) {
                         units.push({ unit: unit });

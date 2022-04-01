@@ -507,90 +507,6 @@ module.exports = [
     }
   },
   {
-    route: '/accounting/sample-reports/monitoring-sample-cutting-bookkeeping',
-    name: 'garment-sample-monitoring-sample-cutting-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-cutting-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Cutting Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: '/accounting/sample-reports/monitoring-sample-sewing-bookkeeping',
-    name: 'garment-sample-monitoring-sample-sewing-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-sewing-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Sewing Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  }, 
-  {
-    route: '/accounting/sample-reports/monitoring-sample-finishing-bookkeeping',
-    name: 'garment-sample-monitoring-sample-finishing-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-finishing-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Finishing Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: '/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping',
-    name: 'garment-sample-monitoring-sample-expenditure-good-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Pengiriman Barang Jadi Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: '/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping',
-    name: 'garment-sample-monitoring-sample-flow-by-size-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Flow Per Size Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
-    route: '/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping',
-    name: 'garment-sample-monitoring-sample-stock-flow-bookkeeping',
-    moduleId: './modules/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping/index',
-    nav: true,
-    title: 'Monitoring Sample Persediaan Pembukuan',
-    auth: true,
-    settings: {
-      group: "accounting",
-      subGroup: "report sample",
-      permission: { "C9": 1, "B1": 1 },
-      iconClass: 'fa fa-dashboard'
-    }
-  },
-  {
     route: '/accounting/sample-reports/unit-receipt-note-recap',
     name: 'unit-receipt-note-recap',
     moduleId: './modules/accounting/sample-reports/unit-receipt-note-recap/index',
@@ -610,6 +526,20 @@ module.exports = [
     moduleId: './modules/accounting/sample-reports/unit-expenditure-note-recap/index',
     nav: true,
     title: 'Laporan Rekap BUK Sample',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/stock-report',
+    name: 'sample-stock-report',
+    moduleId: './modules/accounting/sample-reports/stock-report/index',
+    nav: true,
+    title: 'Laporan Stok Sample Pembukuan',
     auth: true,
     settings: {
       group: "accounting",
