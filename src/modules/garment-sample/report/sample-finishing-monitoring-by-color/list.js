@@ -125,7 +125,7 @@ export class List {
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "article", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "qtyOrder", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "style", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "color", rowspan: rowSpan, colspan: 1 });
+                    
                          }
             }
             // var bootstrapTableOptions = {
