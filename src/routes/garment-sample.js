@@ -370,6 +370,20 @@ module.exports = [
 		}
 	},
 	{
+		route: 'sample-finishing-monitoring-by-color',
+		name: 'sample-finishing-monitoring-by-color',
+		moduleId: './modules/garment-sample/report/sample-finishing-monitoring-by-color/index',
+		nav: true,
+		title: 'Monitoring Finishing Sample By Color',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
+	{
 		route: 'sample-expenditure-good-delivery-monitoring',
 		name: 'sample-expenditure-good-delivery-monitoring',
 		moduleId: './modules/garment-sample/report/sample-expenditure-good-delivery-monitoring/index',
