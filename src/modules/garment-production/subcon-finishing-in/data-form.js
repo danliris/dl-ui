@@ -132,7 +132,7 @@ export class DataForm {
         return (keyword) => {
             var info = {
                 keyword: keyword,
-                filter: JSON.stringify({ SupplierId: this.data.Supplier.Id })
+                filter: JSON.stringify({ SupplierId: this.data.Supplier.Id, UnitId : this.data.Unit.Id })
             };
             return this.purchasingService.getGarmentURN(info)
                 .then((result) => {
@@ -178,7 +178,8 @@ export class DataForm {
     get filter() {
         if (this.data.Supplier) {
             return {
-                SupplierId: this.data.Supplier.Id
+                SupplierId: this.data.Supplier.Id,
+                UnitId : this.data.Unit.Id
             };
         } else {
             return {
