@@ -648,6 +648,34 @@ module.exports = [
         }
     },
     {
+        route: '/garment-purchasing-disposition',
+        name: 'garment-purchasing-disposition',
+        moduleId: './modules/garment-purchasing/purchasing-disposition/index',
+        nav: true,
+        title: 'Disposisi Pembayaran',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "transaksi",
+            permission: { "PG": 1, "APG": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/garment-purchasing-disposition/all',
+        name: 'garment-purchasing-disposition-all',
+        moduleId: './modules/garment-purchasing/purchasing-disposition-all/index',
+        nav: true,
+        title: 'Disposisi Pembayaran (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "transaksi",
+            permission: { "PG": 1, "APG": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'garment/monitoring-ro-job-order',
         name: 'garment-monitoring-ro-job-order',
         moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
@@ -1019,19 +1047,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: '/garment-purchasing-disposition',
-        name: 'garment-purchasing-disposition',
-        moduleId: './modules/garment-purchasing/purchasing-disposition/index',
-        nav: true,
-        title: 'Disposisi Pembayaran',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            permission: { "PG": 1, "APG": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: '/garment-purchasing-disposition',
+    //     name: 'garment-purchasing-disposition',
+    //     moduleId: './modules/garment-purchasing/purchasing-disposition/index',
+    //     nav: true,
+    //     title: 'Disposisi Pembayaran',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-purchasing",
+    //         permission: { "PG": 1, "APG": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: '/garment-closing-date',
         name: 'garment-closing-date',
