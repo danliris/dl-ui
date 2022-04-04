@@ -494,7 +494,7 @@ module.exports = [
   },
   {
     route: '/garment-production/monitoring-sample-prepare-bookkeeping',
-    name: 'garment-production-monitoring-sample-prepare-bookkeeping',
+    name: 'garment-sample-monitoring-sample-prepare-bookkeeping',
     moduleId: './modules/garment-sample/report/monitoring-sample-prepare-bookkeeping/index',
     nav: true,
     title: 'Monitoring Sample Prepare Pembukuan',

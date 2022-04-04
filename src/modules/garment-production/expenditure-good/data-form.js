@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service,SalesService,PurchasingService,PackingInventoryService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-const PlLoader= require('../../../loader/garment-packing-list-loader');
+const PlLoader= require('../../../loader/garment-shipping-invoice-loader');
 
 @inject(Service,SalesService,PurchasingService,PackingInventoryService)
 export class DataForm {
@@ -121,9 +121,9 @@ export class DataForm {
         return SewingOutLoader;
     }
 
-    plFilter={
-        status:"DELIVERED"
-    }
+    // plFilter={
+    //     status:"DELIVERED"
+    // }
 
     selectedUnitChanged(newValue){
         this.selectedRO=null;
@@ -356,18 +356,8 @@ export class DataForm {
         if(newValue){
             this.data.Invoice= newValue.invoiceNo;
             this.data.PackingListId=newValue.id;
-            
-            let InvoiceId = await this.packingInventoryService.getDataByPackingLisId(newValue.id);
-            console.log(InvoiceId);
-            if(InvoiceId == null)
-            {
-               
-                this.data.InvoiceId =0;
-                
-            }else
-            {
-                this.data.InvoiceId = InvoiceId.invoiceId;
-            }
+            this.data.PackingListId=newValue.packingListId;
+            this.data.InvoiceId = newValue.id;
         }
         else{
             this.data.Invoice= "";
