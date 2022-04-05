@@ -22,7 +22,15 @@
                             options.bind="controlOptions">
                         </au-numeric>
 
-                        <au-numeric label="Amount To Be Paid" value.bind="data.amountToBePaid" read-only="true"
+                        <au-numeric label="Amount To Be Paid (US$)" value.bind="data.amountToBePaid" read-only="true"
+                            options.bind="controlOptions">
+                        </au-numeric>
+                        
+                        <au-numeric label="Paid Amount (US$)" value.bind="data.amountPaid" read-only.bind="readOnly" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Balance Amount(US$)" value.bind="BalanceAmount" read-only="true"
                             options.bind="controlOptions">
                         </au-numeric>
 
