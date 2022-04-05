@@ -86,7 +86,7 @@
                     <div class="col-sm-6">
                         <au-autocomplete value.bind="selectedBuyer" error.bind="error.BuyerAgent" label="Buyer Agent"
                             loader.bind="buyerLoader" text.bind="buyerView" placeholder="cari buyer"
-                            read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                            read-only.bind="readOnly || isInvoice" options.bind="controlOptions">
                         </au-autocomplete>
 
                         <au-dropdown label="Destination" value.bind="data.destination" error.bind="error.Destination"
@@ -134,7 +134,7 @@
                             <au-collection items.bind="data.items" errors.bind="error.Items"
                                 columns.bind="data.invoiceType=='SM' ? itemsColumnsSM : itemsColumns"
                                 read-only.bind="readOnly" add.bind="addItems" remove.bind="removeItems"
-                                options.bind="Options" show.bind="data.buyerAgent && data.section"
+                                options.bind="Options" show.bind="(data.buyerAgent || isEdit) && data.section"
                                 item-template="modules/garment-sample/packing-list-sample-md/template/detail-ro">
                             </au-collection>
                         </div>
