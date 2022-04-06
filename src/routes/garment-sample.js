@@ -412,6 +412,20 @@ module.exports = [
 		}
 	},
 	{
+        route: '/garment-sample/sample-flow-feature',
+        name: 'garment-sample-flow-feature',
+        moduleId: './modules/garment-sample/sample-flow-feature/index',
+        nav: true,
+        title: 'Fitur Flow Barang Sample',
+        auth: true,
+        settings: {
+            group: "g-sample",
+            subGroup: "fitur",
+			permission: { "C9": 1, "SMP1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+	{
 		route: '/garment-sample/packing-list-sample-md',
 		name: 'garment-packing-list-sample-md',
 		moduleId: './modules/garment-sample/packing-list-sample-md/index',
