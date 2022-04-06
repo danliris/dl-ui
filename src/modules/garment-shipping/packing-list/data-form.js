@@ -259,9 +259,11 @@ export class DataForm {
         // };
 
         this.isInvoice=false;
-        var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
-        if(invoice.data.length>0){
-            this.isInvoice=true;
+        if(this.data.invoiceNo){
+            var invoice = await this.service.getInvoiceByPLNo({ size: 1, keyword: this.data.invoiceNo, filter: JSON.stringify({ InvoiceNo: this.data.invoiceNo }) });
+            if(invoice.data.length>0){
+                this.isInvoice=true;
+            }
         }
     }
 
