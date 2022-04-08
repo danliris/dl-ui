@@ -633,11 +633,11 @@ module.exports = [
     }
   },
   {
-    route: '/accounting/sample-reports/stock-report',
-    name: 'sample-stock-report',
-    moduleId: './modules/accounting/sample-reports/stock-report/index',
+    route: '/accounting/sample-reports/unit-expenditure-note-recap',
+    name: 'unit-receipt-note-recap',
+    moduleId: './modules/accounting/sample-reports/unit-expenditure-note-recap/index',
     nav: true,
-    title: 'Laporan Stok Sample Pembukuan',
+    title: 'Laporan Rekap BUK Sample',
     auth: true,
     settings: {
       group: "accounting",
@@ -647,11 +647,11 @@ module.exports = [
     }
   },
   {
-    route: '/accounting/sample-reports/unit-expenditure-note-recap',
-    name: 'unit-receipt-note-recap',
-    moduleId: './modules/accounting/sample-reports/unit-expenditure-note-recap/index',
+    route: '/accounting/sample-reports/stock-report',
+    name: 'sample-stock-report',
+    moduleId: './modules/accounting/sample-reports/stock-report/index',
     nav: true,
-    title: 'Laporan Rekap BUK Sample',
+    title: 'Laporan Stok Sample Pembukuan',
     auth: true,
     settings: {
       group: "accounting",
