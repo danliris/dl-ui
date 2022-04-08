@@ -700,6 +700,20 @@ module.exports = [
             permission: { "C9": 1, "SG": 1, "B1": 1 },
             iconClass: "fa fa-dashboard"
         }
+    }, 
+    {
+        route: "garment-shipping/monitoring/omzet-local-sales-unpaid",
+        name: "garment-shipping/monitoring/omzet-local-sales-unpaid",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales-unpaid/index",
+        nav: true,
+        title: "Monitoring Omzet Penjualan Lokal Tidak Dibayar",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
+            iconClass: "fa fa-dashboard"
+        }
     },
     {
         route: "garment-shipping/monitoring/omzet-local-sales-unpaid",

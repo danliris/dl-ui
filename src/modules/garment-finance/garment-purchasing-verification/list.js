@@ -42,7 +42,10 @@ export class List {
                 return value != 'Kirim ke Pembelian (Not Verified)' ? data.Remark : data.SendToPurchasingRemark;
             }
         },
+        { field: 'PaymentType', title: 'Tipe Pembayaran' },
+        
     ];
+
 
     constructor(router, service) {
         this.service = service;
