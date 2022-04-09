@@ -99,7 +99,7 @@
     "jquery": "^3.6.0",
     "jsx": "^0.9.89",
     "jwt-decode": "^2.1.0",
-    "moment": "2.19.3",
+    "moment": "2.29.2",
     "numeral": "^2.0.4",
     "powerbi-client": "^2.2.3",
     "rc-time-picker": "^2.2.1",
