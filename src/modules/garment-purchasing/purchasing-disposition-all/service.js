@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'garment-disposition-purchase';
+const serviceUri = 'garment-disposition-purchase/all';
 const serviceEPOUri = 'garment-external-purchase-orders';
 
 export class Service extends RestService {
@@ -14,7 +14,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}/all`;
+        var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }
 
