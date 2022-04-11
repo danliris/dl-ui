@@ -497,6 +497,20 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
+	{
+		route: 'monitoring-sample-delivered-packing-list',
+		name: 'monitoring-sample-delivered-packing-list',
+		moduleId: './modules/garment-sample/report/monitoring-sample-delivered-packing-list/index',
+		nav: true,
+		title: 'Monitoring Delivered Packing List Sample',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "laporan",
+			permission: { "C9": 1, "SMP1": 1, "B12":1, "PGA":1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 	
 	
 ]
