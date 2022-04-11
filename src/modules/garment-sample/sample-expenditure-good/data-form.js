@@ -25,7 +25,7 @@ export class DataForm {
         this.service = service;
         this.coreService = coreService;
     }
-    expenditureTypes = ["EXPORT", "SISA", "ARSIP MD", "ARSIP SAMPLE"];
+    expenditureTypes = ["EXPORT", "SISA", "ARSIP MD", "ARSIP SAMPLE", "PENGIRIMAN LOKAL", "EXPORT (NON COMERCIAL SAMPLE)"];
 
     formOptions = {
         cancelText: "Kembali",
