@@ -163,17 +163,17 @@ export class List {
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "buyerAgent", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "truckingDate", rowspan: rowSpan, colspan: 1 });
                     $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "destination", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "roNo", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "article", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "comodity", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "quantity", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "index", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "carton1", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "carton2", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "style", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "colour", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "cartonQuantity", rowspan: rowSpan, colspan: 1 });
-                    $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "quantityPCS", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "roNo", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "article", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "comodity", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "quantity", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "index", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "carton1", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "carton2", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "style", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "colour", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "cartonQuantity", rowspan: rowSpan, colspan: 1 });
+                    // $(this.table).bootstrapTable('mergeCells', { index : rowIndex, field: "quantityPCS", rowspan: rowSpan, colspan: 1 });
                 }
             }
     
