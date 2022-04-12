@@ -27,13 +27,13 @@
         </td>
         <td class="text-center">
             <div class="row">
-            <au-checkbox value.bind="data.UnitPaymentOrder.UseVat"
+            <au-checkbox value.bind="data.UnitPaymentOrder.IsPayVat"
                          read-only.bind="true"
                          options.bind="controlOptions">
             </au-checkbox>
             </div>
             <div class="row"
-                if.bind="data.UnitPaymentOrder.UseVat">
+                if.bind="data.UnitPaymentOrder.IsPayVat">
                 <au-textbox value.bind="data.UnitPaymentOrder.VatTax.Rate"
                        read-only.bind="true">
                 </au-textbox>
@@ -42,19 +42,19 @@
         </td>
         <td class="text-center">
             <div class="row">
-                <au-checkbox value.bind="data.UnitPaymentOrder.UseIncomeTax"
+                <au-checkbox value.bind="data.UnitPaymentOrder.IsPayTax"
                              read-only.bind="true"
                              options.bind="controlOptions">
                 </au-checkbox>
             </div>
             <div class="row"
-                 if.bind="data.UnitPaymentOrder.UseIncomeTax">
+                 if.bind="data.UnitPaymentOrder.IsPayTax">
                 <au-textbox value.bind="data.UnitPaymentOrder.IncomeTax.Name"
                             read-only.bind="true">
                 </au-textbox>
             </div>
             <div class="row"
-                 if.bind="data.UnitPaymentOrder.UseIncomeTax">
+                 if.bind="data.UnitPaymentOrder.IsPayTax">
                 <div class="col-6">
                     <au-textbox value.bind="'Rate: '"
                                 read-only.bind="true">
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="row"
-                 if.bind="data.UnitPaymentOrder.UseIncomeTax">
+                 if.bind="data.UnitPaymentOrder.IsPayTax">
                 <div class="col-6">
                     <au-textbox value.bind="'Ditanggung oleh: '"
                                 read-only.bind="true">
