@@ -450,11 +450,11 @@ module.exports = [
         }
     },
     {
-        route: "garment-shipping/monitoring/omzet-by-buyer",
-        name: "garment-shipping/monitoring/omzet-by-buyer",
+        route: "garment-shipping/monitoring/omzet-by-buyer-agent",
+        name: "garment-shipping/monitoring/omzet-by-buyer-agent",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-buyer/index",
         nav: true,
-        title: "Report Omzet Garment Per Buyer / Bulan",
+        title: "Report Omzet Garment Per Buyer Agent / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",
@@ -468,7 +468,7 @@ module.exports = [
         name: "garment-shipping/monitoring/omzet-by-buyer-brand",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-brand/index",
         nav: true,
-        title: "Report Omzet Garment Per Buyer Buyer / Bulan",
+        title: "Report Omzet Garment Per Buyer Buyer Brand / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",
