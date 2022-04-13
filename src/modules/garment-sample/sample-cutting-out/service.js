@@ -7,6 +7,8 @@ const uomServiceUri = 'master/uoms';
 const SampleserviceUri = 'garment-sample-requests';
 const UnitServiceUri = 'master/units';
 
+const sewingInServiceUri = 'garment-sample-sewing-ins';
+
 const comodityPriceserviceUri = 'comodity-prices';
 const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
 const costCalculationServiceUri = 'cost-calculation-garments';
@@ -63,6 +65,11 @@ class Service extends RestService {
 
     getSampleRequest(info) {
         var endpoint = `${SampleserviceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getSewingIn(info) { 
+        var endpoint = `${sewingInServiceUri}/complete`;
         return super.list(endpoint, info);
     }
 }
