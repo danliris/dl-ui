@@ -34,7 +34,7 @@ export class View {
             var filter = {};
             filter[`Items.Any(SewingOutItemId.ToString()=="${this.data.Items[0].Id.toString()}")`] = true;
             var finIn= await this.service.searchFinishingIn({ filter: JSON.stringify(filter),size:1});
-        
+        console.log(this.data.Items[0].Id,finIn)
             if(finIn.data.length>0){
                 if(finIn.data[0].TotalFinishingInQuantity!=finIn.data[0].TotalRemainingQuantity){
                     this.deleteCallback = null;
