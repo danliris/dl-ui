@@ -36,7 +36,7 @@ export class Create {
 
     saveCallback(event) {
         console.log(this.data);
-        if(this.data.ExpenditureType == "EXPORT" ||  this.data.ExpenditureType =="EXPORT (NON COMMERCIAL SAMPLE)")
+        if((this.data.Invoice == null || this.data.Invoice == "" )&&( this.data.ExpenditureType == "EXPORT" ||  this.data.ExpenditureType =="EXPORT (NON COMMERCIAL SAMPLE)"))
         {
             alert("Invoice harus diisi untuk tipe ini!");
         }else
