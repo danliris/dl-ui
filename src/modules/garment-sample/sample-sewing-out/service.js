@@ -7,7 +7,7 @@ const UnitServiceUri = 'master/units';
 const serviceUriSewIn =  'garment-sample-sewing-ins';
 const serviceUriPR = 'garment-sample-requests';
 const comodityPriceserviceUri = 'comodity-prices';
-const serviceUriFinIn = 'finishing-ins';
+const serviceUriFinIn = 'garment-sample-finishing-ins';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {

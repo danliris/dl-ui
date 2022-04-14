@@ -21,38 +21,21 @@ export class View {
             this.selectedUnit=this.data.Unit;
             this.selectedUnitFrom=this.data.UnitFrom;
 
-        //     this.dataCutting = await this.service.getSewingDO(id);
-        //     let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
-        //     if (this.data.Items) {
-        //         var i = 0;
-        //         for(var sewingItem of this.dataCutting.Items){
-        //             if(sewingItem.RemainingQuantity < sewingItem.Quantity){
-        //                 i++;
-        //             }
-        //         }
-        // //         let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
-
-        // //         this.data.Items.forEach(
-        // //             item => item.Details.forEach(
-        // //                 detail => {
-        // //                     detail.ProductCode = detail.Product.Code;
-        // //                     detail.CuttingInUomUnit = detail.CuttingInUom.Unit;
-        // //                     detail.Currency = "IDR";
-
-        // //                     dataRemainingQuantity += detail.RemainingQuantity;
-        // //                     dataCuttingInQuantity += detail.CuttingInQuantity;
-        // //                 }
-        // //             )
-        // //         );
+            var filter = {};
+            filter={
+                CuttingOutNo:this.data.CutOutNo
+            };
+            var sewIn= await this.service.getSewingIn({ filter: JSON.stringify(filter),size:1});
+        
+            if(sewIn.data.length>0){
+                for(var a of sewIn.data[0].Items){
+                    if(a.RemainingQuantity!=a.Quantity){
+                        this.deleteCallback = null;
+                        break;
+                    }
+                }
                 
-        // //         if(dataRemainingQuantity < dataCuttingInQuantity) {
-        // //             this.editCallback = null;
-        // //             this.deleteCallback = null;
-        // //         }
-        //     }
-        //     if(i>0){
-        //         this.deleteCallback = null;
-        //     }
+            }
         }
     }
 
