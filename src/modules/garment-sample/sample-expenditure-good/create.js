@@ -35,7 +35,13 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.service.create(this.data)
+        console.log(this.data);
+        if((this.data.Invoice == null || this.data.Invoice == "" )&&( this.data.ExpenditureType == "EXPORT" ||  this.data.ExpenditureType =="EXPORT (NON COMMERCIAL SAMPLE)"))
+        {
+            alert("Invoice harus diisi untuk tipe ini!");
+        }else
+        {
+            this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -48,5 +54,7 @@ export class Create {
                     alert("Missing Some Data");
                 }
             })
+        }
+       
     }
 }

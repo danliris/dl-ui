@@ -78,21 +78,21 @@
                 </au-datepicker> 
             </div>
             <div class="col-md-6">
-                <au-checkbox
+                <!-- <au-checkbox
                     label="Manual?"
                     value.bind="manual"
                     change.delegate="manualChanged($event)"
                     if.bind="!readOnly"
                     options.bind="controlOptions">
-                </au-checkbox>
-                <au-textbox
+                </au-checkbox> -->
+                <!-- <au-textbox
                     value.bind="data.Invoice"
                     error.bind="error.Invoice"
                     label="Invoice"
                     read-only.bind="readOnly"
                     if.bind="manual"
                     options.bind="controlOptions">
-                </au-textbox>
+                </au-textbox> -->
                 <au-autocomplete
                     value.bind="selectedInvoice"
                     error.bind="error.Invoice"
@@ -101,9 +101,9 @@
                     text="invoiceNo"
                     placeholder="cari no invoice"
                     read-only.bind="readOnly"
-                    query.bind="plFilter"
+                    
                     options.bind="controlOptions"
-                    if.bind="!manual"
+                   
                     view-model.ref="selectedInvoiceViewModel">
                 </au-autocomplete>
 
