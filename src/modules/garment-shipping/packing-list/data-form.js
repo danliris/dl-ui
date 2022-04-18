@@ -250,6 +250,7 @@ export class DataForm {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
+
         // var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: username }) });
         this.data.shippingStaffName = this.data.shippingStaff.Name || this.data.shippingStaff.name;
         // this.data.shippingStaff = {
