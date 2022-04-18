@@ -72,7 +72,7 @@ export class List {
             case "Cetak":
                 this.service.getPdfById(data.id);
                 break;
-            case "Cetak Kop":
+           case "Cetak Kop":
                 this.service.getPdfWHById(data.id);
                 break; 
             case "Cetak Kop Sie D":

@@ -7,7 +7,7 @@ import { AuthService } from "aurelia-authentication";
 @inject(Router, Service, AuthService)
 export class List {
 
-    context = ["Detail", "Cetak", "Cetak Kop", "Cetak Kop Sie D", "Cetak-Excel"]
+     context = ["Detail", "Cetak", "Cetak Kop", "Cetak Kop Sie D", "Cetak-Excel"]
 
     columns = [
         { field: "invoiceNo", title: "No Invoice" },

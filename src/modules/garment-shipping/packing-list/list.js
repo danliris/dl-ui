@@ -88,7 +88,7 @@ export class List {
                 break;                
             case "Cetak Kop Sie D":
                 this.service.getPdfWHSectionDById(data.id);
-                break;                 
+                break;                
         }
     }
 
