@@ -21,6 +21,16 @@
 			</au-textbox>
 		</td>
 
+		<td class="col-sm-3 bg-primary">
+			<au-textbox 
+                error.bind="error.Fabric" 
+                value.bind="data.Fabric" 
+				read-only.bind="readOnly"
+                placeholder="Fabric"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+
 		<td class="col-sm-1 bg-primary">
 			<au-autocomplete 
                 value.bind="data.Size" 
