@@ -468,7 +468,7 @@ module.exports = [
         name: "garment-shipping/monitoring/omzet-by-buyer-brand",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-brand/index",
         nav: true,
-        title: "Report Omzet Garment Per Buyer Buyer Brand / Bulan",
+        title: "Report Omzet Garment Per Buyer Brand / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",
