@@ -32,6 +32,7 @@ export class DataForm {
     productColumns = [
         "Style",
         "Color",
+        "Fabric",
         "Size",
         "Keterangan Size",
         "Quantity"
