@@ -36,13 +36,13 @@ export class List {
         return value ? "YA" : "TIDAK";
       }
     },    
-    { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
-      if(data.IncomeTaxes.name == "" || data.IncomeTaxes.name == null && data.IncomeTaxes.rate == 0){
-        return "-"
-      }else{
-        return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
-      }
-    } },
+    // { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
+    //   if(data.IncomeTaxes.name == "" || data.IncomeTaxes.name == null && data.IncomeTaxes.rate == 0){
+    //     return "-"
+    //   }else{
+    //     return data.IncomeTaxes.name + " - " + data.IncomeTaxes.rate;
+    //   }
+    // } },
   ];
 
   loader = (info) => {
