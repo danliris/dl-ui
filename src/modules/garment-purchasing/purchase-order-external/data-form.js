@@ -77,6 +77,10 @@ export class DataForm {
         if (this.data.useVat) {
             this.options.isUseVat = true;
         }
+        
+        if (this.data.isIncomeTax) {
+            this.options.isIncomeTax = true;
+        }
 
         if (this.data.PaymentMethod === "CMT" && this.data.PaymentType === "FREE") {
             this.options.checkOverBudget = false;
@@ -160,11 +164,11 @@ export class DataForm {
             this.data.Supplier.Id = _selectedSupplier.Id;
             this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
             this.data.IsUseVat = _selectedSupplier.usevat;
-            //this.data.Vat = {};
+            this.data.Vat = {};
             this.data.IsIncomeTax = _selectedSupplier.usetax;
-            this.data.IncomeTax = _selectedSupplier.IncomeTaxes;
-            this.data.IncomeTax.Name = _selectedSupplier.IncomeTaxes.name;
-            this.data.IncomeTax.Rate = _selectedSupplier.IncomeTaxes.Rate ? _selectedSupplier.IncomeTaxes.Rate : _selectedSupplier.IncomeTaxes.rate ? _selectedSupplier.IncomeTaxes.rate : 0;
+            // this.data.IncomeTax = _selectedSupplier.IncomeTaxes;
+            // this.data.IncomeTax.Name = _selectedSupplier.IncomeTaxes.name;
+            // this.data.IncomeTax.Rate = _selectedSupplier.IncomeTaxes.Rate ? _selectedSupplier.IncomeTaxes.Rate : _selectedSupplier.IncomeTaxes.rate ? _selectedSupplier.IncomeTaxes.rate : 0;
             // this.data.IncomeTax.rate=this.data.IncomeTax.Rate;
             
             if(this.data.IsUseVat){
@@ -325,15 +329,18 @@ export class DataForm {
     }
 
     selectedIncomeTaxChanged(newValue) {
+        console.log(newValue);       
         var _selectedIncomeTax = newValue;
         if (!_selectedIncomeTax) {
             this.data.IncomeTaxRate = 0;
             this.data.UseIncomeTax = false;
             this.data.IncomeTax = {};
-        } else if (_selectedIncomeTax.Id) {
+        } else if (_selectedIncomeTax.Id) {            
+            console.log(_selectedIncomeTax);
             this.data.IncomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.UseIncomeTax = true;
             this.data.IncomeTax = _selectedIncomeTax;
+            this.data.IncomeTaxId = _selectedIncomeTax.Id;  
         }
     }
 
@@ -582,7 +589,5 @@ export class DataForm {
     itemsChanged(e) {
         this.checkOverBudgetAll();
     }
-
-
 
 }
