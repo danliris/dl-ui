@@ -454,7 +454,20 @@ module.exports = [
 		}
 	},
 	
-	
+	{
+		route: '/garment-sample/sample-receipt-from-buyer',
+		name: 'garment-sample-receipt-from-buyer',
+		moduleId: './modules/garment-sample/sample-receipt-from-buyer/index',
+		nav: true,
+		title: 'Penerimaan Barang Jadi Sample Dari Buyer',
+		auth: true,
+		settings: {
+			group: "g-sample",
+			subGroup: "md",
+			permission: { "C9": 1, "PGA": 1 },
+			iconClass: 'fa fa-dashboard'
+		}
+	},
 	{
 		route: 'monitoring-sample-flow-by-size',
 		name: 'monitoring-sample-flow-by-size',
