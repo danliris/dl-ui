@@ -33,7 +33,7 @@ export class ItemFooter {
         if (item.data.BLAWBNumber !== null) {
           vat = item.data.PPnAmount;
         } else {
-          vat = amount * 0.1;
+          vat = amount * (item.data.VatRate/100);
         }
       }
 
@@ -89,7 +89,7 @@ export class ItemFooter {
         if (item.data.BLAWBNumber !== null) {
           vat = item.data.PPnAmount;
         } else {
-          vat = amount * 0.1;
+          vat = amount * (item.data.VatRate/100);
         }
       }
 
@@ -106,7 +106,7 @@ export class ItemFooter {
       if (item.data.UseVat && item.data.BLAWBNumber !== null) {
         amount += item.data.PPnAmount;
       } else if (item.data.UseVat && item.data.BLAWBNumber == null) {
-        amount += item.data.Amount * 0.1;
+        amount += item.data.Amount * (item.data.VatRate/100);
       }
       return amount;
     });
