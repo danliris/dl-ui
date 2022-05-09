@@ -5,6 +5,7 @@ import { Service, CoreService } from "./service";
 var SectionLoader = require('../../../loader/garment-sections-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
+var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
 
 @inject(Service, AuthService, CoreService)
 export class DataForm {
@@ -185,6 +186,14 @@ export class DataForm {
 
     get lcLoader() {
         return LCLoader;
+    }
+
+    get shippingStaffLoader() {
+        return ShippingStaffLoader;
+    }
+    
+    shippingStaffView = (data) => {
+        return `${data.Name || data.name}`
     }
 
     async bind(context) {
