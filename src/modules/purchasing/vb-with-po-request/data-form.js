@@ -124,7 +124,7 @@ export class DataForm {
                         // let dealQuantity = parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
                         let price = epoItem.DealQuantity * epoItem.Price;
                         if (epoItem.UseVat)
-                            price += price * 0.1;
+                            price += price * (epoItem.VatTax.Rate/100);
                         result += price;
                     }
                 }
