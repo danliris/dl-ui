@@ -108,9 +108,14 @@ export class Create {
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
+                console.log(e.ProductSKU);
                 if (e.statusCode == 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
+                } else if(e.ProductSKU == "SKU belum ada") {
+
+                    alert("SKU Belum ada");
+                } 
+                else {
                     this.error = e;
                 }
             });
