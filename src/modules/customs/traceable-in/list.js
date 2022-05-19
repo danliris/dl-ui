@@ -109,7 +109,7 @@ export class List {
         let args = {
             // page: this.info.page,
             // size: this.info.size,
-            bcno : this.BCNo ? this.BCNo.beacukaiNo : this.rojob ? this.rojob.RONo : this.itemcode? this.itemcode.ItemCode : "",
+            bcno : this.BCNo ? this.BCNo.beacukaiNo : this.rojob ? this.rojob : this.itemcode? this.itemcode.ItemCode : "",
             type : this.tipe ? this.tipe : "",
             tipebc : this.typebc ? this.typebc : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
@@ -456,7 +456,7 @@ export class List {
             this.error ={};
             if(Object.getOwnPropertyNames(this.error).length === 0){
                 let args = {
-                    bcno : this.BCNo ? this.BCNo.beacukaiNo : this.rojob ? this.rojob.RONo : this.itemcode? this.itemcode.ItemCode : "",
+                    bcno : this.BCNo ? this.BCNo.beacukaiNo : this.rojob ? this.rojob : this.itemcode? this.itemcode.ItemCode : "",
                     type : this.tipe ? this.tipe : "",
                     tipebc : this.typebc ? this.typebc : "",
                     dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
