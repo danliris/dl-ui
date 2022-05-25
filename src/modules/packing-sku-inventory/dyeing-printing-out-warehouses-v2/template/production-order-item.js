@@ -12,6 +12,7 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
+    console.log(this.data);
     this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
     this.isShowing = false;
@@ -41,7 +42,7 @@ export class ProductionOrderItem {
     if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
     }
-
+    console.log(this.qtyPacking);
     // if (this.data.qty) {
     //   this.qty = this.data.qty;
     // }
@@ -49,6 +50,9 @@ export class ProductionOrderItem {
     if (this.data.quantity) {
       this.qty = this.data.quantity;
     }
+
+    this.data.qtyOut = this.qtyPacking * this.qty;
+    console.log(this.data.qtyOut);
 
     this.barcodeColumns = [
       "Kode Packing"
@@ -88,6 +92,7 @@ export class ProductionOrderItem {
     if (this.qtyPacking) {
       this.data.packagingQty = this.qtyPacking;
       this.data.balance = this.data.packagingQty * this.data.quantity;
+      this.data.qtyOut = this.data.packagingQty * this.data.quantity;
     }
   }
 
@@ -97,7 +102,9 @@ export class ProductionOrderItem {
       this.data.qty = this.qty;
       this.data.quantity = this.qty;
       this.data.balance = this.data.packagingQty * this.data.quantity;
+      this.data.qtyOut = this.data.packagingQty * this.data.quantity;
     }
+    console.log(this.qty);
   }
 
   toggle() {
@@ -121,7 +128,37 @@ export class ProductionOrderItem {
 
   someCallbackFunction() {
     this.qtyPacking = this.data.productPackingCodeList.filter(d => d.IsSave).length;
+
+    console.log(this.qtyPacking);
   };
+
+  @bindable qtyPacking
+  qtyPackingChanged(newValue, olderValue) {
+        // if (this.dataForm.context.isCreate) {
+            console.log(newValue);
+            console.log(olderValue);
+        if (newValue != olderValue) {
+            this.data.qtyOut = this.qty * newValue;
+
+            console.log(this.qtyPacking);
+
+            this.data.packagingQty = this.qtyPacking;
+
+            console.log(this.data.packagingQty);
+
+          
+            // if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
+
+            //     var sum = this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)
+            //         .reduce((a, b) => +a + +b.qtyOut, 0);
+            //     for (var item of this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)) {
+            //         item.balanceRemains = item.previousBalance - sum;
+
+            //     }
+            // }
+        }
+    }
+
   // copycallback(item){
   //   console.log(item);
   //   var itemIndex = this.items.indexOf(item);

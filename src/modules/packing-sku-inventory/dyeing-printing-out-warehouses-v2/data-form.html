@@ -35,7 +35,7 @@
       add.bind="addItemCallback"
       text.bind="areaMovementTextFormatter">
     </au-autocomplete> -->
-
+    <p style="color:red;" show.bind="!readOnly && !isEdit"> ** Perhatian!!! Maksimal simpan 30 Barcode </p>
      <div if.bind="!isAdj">
       <au-textbox show.bind="error.WarehousesProductionOrder" read-only.bind="true"
         value.bind="error.WarehousesProductionOrder" style="color: red;"></au-textbox>
