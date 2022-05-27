@@ -94,6 +94,22 @@ module.exports = [
         },
 
     },
+
+     {
+        route: '/customs/beacukai_temp',
+        name: 'customs-beacukaitemp',
+        moduleId: './modules/customs-report/beacukai_temp/index',
+        nav: true,
+        title: 'Posting BC-23 dan BC-27',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"PG": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+
     {
         route: '/customs/realization-bom',
         name: 'monitoring-realization-bom',
@@ -108,4 +124,5 @@ module.exports = [
         },
 
     },
+
 ]
