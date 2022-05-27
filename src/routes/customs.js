@@ -94,6 +94,7 @@ module.exports = [
         },
 
     },
+
      {
         route: '/customs/beacukai_temp',
         name: 'customs-beacukaitemp',
@@ -107,5 +108,21 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
 
-    }
+    },
+
+    {
+        route: '/customs/realization-bom',
+        name: 'monitoring-realization-bom',
+        moduleId: './modules/customs/realization_bom/index',
+        nav: true,
+        title: 'Laporan Monitoring BOM (Bill of Material)',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+
 ]
