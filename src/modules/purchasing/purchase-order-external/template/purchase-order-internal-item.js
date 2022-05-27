@@ -80,7 +80,8 @@ export class PurchaseOrderItem {
 
   updatePrice() {
     if (this.data.includePpn) {
-      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / 110;
+//    this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / 110;
+      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / (100 + parseFloat(this.data.vatTax.rate));       
     } else {
       this.data.pricePerDealUnit = parseFloat(this.data.priceBeforeTax);
     }
