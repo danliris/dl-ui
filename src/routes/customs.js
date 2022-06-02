@@ -125,4 +125,62 @@ module.exports = [
 
     },
 
+    {
+        route: '/customs/pemasukan-tc-kecil',
+        name: 'monitoring-pemasukan-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-tc-kecil',
+        name: 'monitoring-pengeluaran-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    
+    {
+        route: '/customs/pemasukan-sampah-sapuan',
+        name: 'monitoring-pemasukan-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-sampah-sapuan',
+        name: 'monitoring-pengeluaran-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+
 ]
