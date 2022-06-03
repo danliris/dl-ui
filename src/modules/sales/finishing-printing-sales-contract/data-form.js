@@ -230,7 +230,7 @@ export class DataForm {
     }
   }
 
-  categoryPayment = ['', 'Tunai ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryPayment = ['', 'Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
   categoryDP = ['', 'Pembayaran dengan DP','Tanpa DP'];
 
   get detailHeader() {
