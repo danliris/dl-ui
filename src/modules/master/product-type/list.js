@@ -1,22 +1,15 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  context = ["detail"];
+  context = ["Rincian"];
   columns = [
-    { field: "Code", title: "Kode" },
-    { field: "NIK", title: "NIK" },    
-    { field: "Name", title: "Nama" },
-    { field: "Address", title: "Alamat" },
-    { field: "City", title: "Kota" },
-    { field: "Country", title: "Negara" },
-    { field: "Contact", title: "Kontak" },
-    { field: "Tempo", title: "Tempo" },
-    { field: "Type", title: "Tipe" },
-    { field: "Job", title: "Jabatan/Pekerjaan" },
-  ];
+    // { field: "code", title: "Kode" },
+    { field: "Name", title: "Jenis Produk" },    
+];
 
   loader = (info) => {
     var order = {};
@@ -27,7 +20,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code","NIK", "Name", "Address", "City", "Country", "Contact", "Tempo","Type", "Job"],
+      select: ["Name"],
       order: order
     }
 
@@ -43,15 +36,13 @@ export class List {
   constructor(router, service) {
     this.service = service;
     this.router = router;
-    this.buyerId = "";
-    this.buyers = [];
   }
 
   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-      case "detail":
+      case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
@@ -59,10 +50,6 @@ export class List {
 
   create() {
     this.router.navigateToRoute('create');
-  }
-
-  upload() {
-    this.router.navigateToRoute('upload');
   }
 
 }
