@@ -16,8 +16,9 @@ export class Create {
 
   async activate(params) {
     this.data = {};
-    this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
-    console.log(this.data.displayWarehousesProductionOrders);
+    //this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
+    //console.log(this.data.displayWarehousesProductionOrders);
+    
     // for (var item in this.data.displayWarehousesProductionOrders){
     //   //console.log(this.data.displayWarehousesProductionOrders[item]);
     //   for(var detail in this.data.displayWarehousesProductionOrders[item].productionOrderItems){
@@ -166,7 +167,7 @@ export class Create {
           } else {
             
             this.error = e;
-            console.log(this.error);
+            //console.log(this.error);
           }
         });
     }

@@ -58,7 +58,7 @@
                 <!-- <td colspan="6">LOADING</td> -->
                 <td colspan="5">SEWING</td>
                 <td colspan="5">FINISHING</td>
-                <td colspan="7">BARANG JADI</td>
+                <td colspan="9">BARANG JADI</td>
             </tr>
             <tr>
                 <td rowspan="2">Saldo Awal WIP Cutting</td>
@@ -108,6 +108,8 @@
                 <td rowspan="2">Pengiriman Gudang Sisa</td>
                 <td rowspan="2">Pengiriman Arsip Sample</td>
                 <td rowspan="2">Pengiriman Arsip Md</td>
+                <td rowspan="2">Pengiriman Lokal</td>
+                <td rowspan="2">Pengiriman Export NCS</td>
                 <td rowspan="2">Saldo Akhir Barang Jadi</td>
                
             </tr>
@@ -161,7 +163,9 @@
                 <td class="text-right">${item._ExportQty}</td>
                 <td class="text-right">${item._OtherQty}</td>
                 <td class="text-right">${item._SampleQty}</td>
-                 <td class="text-right">${item._MDQty}</td>
+                <td class="text-right">${item._MDQty}</td>
+                <td class="text-right">${item._LocalQty}</td>
+                <td class="text-right">${item._NCSQty}</td>
                 <!-- <td class="text-right">${item._ExpenditureGoodAdj}</td> -->
                 <td class="text-right">${item._EndBalanceExpenditureGood}</td>
             </tr>
@@ -212,6 +216,8 @@
                 <td class="text-right"><strong>${OtherQtyTotal}</strong></td>
                 <td class="text-right"><strong>${SampleQtyTotal}</strong></td>
                 <td class="text-right"><strong>${MDTotal}</strong></td>
+                <td class="text-right"><strong>${LocalTotal}</strong></td>
+                <td class="text-right"><strong>${NCSTotal}</strong></td>
                 <td class="text-right"><strong>${EndBalanceExpenditureGoodTotal}</strong></td>
               </tr>
         </tbody>

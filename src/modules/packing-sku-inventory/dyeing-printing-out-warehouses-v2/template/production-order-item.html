@@ -68,7 +68,7 @@
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="qtyPacking" read-only.bind="true" error.bind="error.PackagingQty"
+      <au-numeric value.bind="qtyPacking" read-only.bind="true" error.bind="error.PackagingQty" change.delegate="qtyPackingChanged"
         options.bind="controlOptions">
       </au-numeric>
     </td>
@@ -87,8 +87,13 @@
         error.bind="error.qty" options.bind="controlOptions">
       </au-numeric>
     </td>
-    <td>
+    <!-- <td>
       <au-numeric value.bind="qtyPacking * qty" format="0.00" read-only.bind="true" error.bind="error.Balance"
+        options.bind="controlOptions">
+      </au-numeric>
+    </td> -->
+    <td>
+      <au-numeric value.bind="data.qtyOut" format="0.00" read-only.bind="true" error.bind="error.Balance"
         options.bind="controlOptions">
       </au-numeric>
     </td>

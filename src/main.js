@@ -76,6 +76,7 @@ export async function configure(aurelia) {
             config.registerEndpoint('packing-inventory', packingInventory, defaultConfig);
             config.registerEndpoint('dyeing', dyeing, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
             config.registerEndpoint('garment-shipping', garmentShipping, defaultConfig);
+            config.registerEndpoint('ItInven', ItInven, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
         })
         .plugin("aurelia-authentication", baseConfig => {
             baseConfig.configure(authConfig);

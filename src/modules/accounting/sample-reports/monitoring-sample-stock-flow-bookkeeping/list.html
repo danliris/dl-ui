@@ -59,7 +59,7 @@
                 <td colspan="12">CUTTING</td>
                 <td colspan="10">SEWING</td>
                 <td colspan="10">FINISHING</td>
-                <td colspan="14">BARANG JADI</td>
+                <td colspan="18">BARANG JADI</td>
             </tr>
             <tr>
                 <td colspan="2">Saldo Awal WIP Cutting</td>
@@ -88,6 +88,8 @@
                 <td colspan="2">Pengiriman Gudang Sisa</td>
                 <td colspan="2">Pengiriman Arsip Sample</td>
                 <td colspan="2">Pengiriman Arsip Md</td>
+                <td colspan="2">Pengiriman Lokal</td>                
+                <td colspan="2">Pengiriman Export NCS</td>
                 <td colspan="2">Saldo Akhir Barang Jadi</td>
                
             </tr>
@@ -141,7 +143,10 @@
               <td rowspan="2">Harga</td>
               <td rowspan="2">Qty</td>
               <td rowspan="2">Harga</td>
-           
+              <td rowspan="2">Qty</td>
+              <td rowspan="2">Harga</td>
+              <td rowspan="2">Qty</td>
+              <td rowspan="2">Harga</td>           
             </tr>
         </thead>
         <tbody>
@@ -208,8 +213,14 @@
                 <td class="text-right">${item._OtherPrice}</td>
                 <td class="text-right">${item._SampleQty}</td>
                 <td class="text-right">${item._SamplePrice}</td>
-                 <td class="text-right">${item._MDQty}</td>
-                 <td class="text-right">${item._MDPrice}</td>
+                <td class="text-right">${item._MDQty}</td>
+                <td class="text-right">${item._MDPrice}</td>
+
+                <td class="text-right">${item._LocalQty}</td>
+                <td class="text-right">${item._LocalPrice}</td>
+                <td class="text-right">${item._NCSQty}</td>
+                <td class="text-right">${item._NCSPrice}</td>
+
                 <!-- <td class="text-right">${item._ExpenditureGoodAdj}</td> -->
                 <td class="text-right">${item._EndBalanceExpenditureGood}</td>
                 <td class="text-right">${item._EndBalanceExpenditureGoodPrice}</td>
@@ -265,6 +276,10 @@
                 <td class="text-right"><strong>${SamplePriceTotal}</strong></td>   
                 <td class="text-right"><strong>${MDTotal}</strong></td>
                 <td class="text-right"><strong>${MDPriceTotal}</strong></td>
+                <td class="text-right"><strong>${LocalTotal}</strong></td>
+                <td class="text-right"><strong>${LocalPriceTotal}</strong></td>
+                <td class="text-right"><strong>${NCSTotal}</strong></td>
+                <td class="text-right"><strong>${NCSPriceTotal}</strong></td>                
                 <td class="text-right"><strong>${EndBalanceExpenditureGoodTotal}</strong></td>
                 <td class="text-right"><strong>${PriceEndBalanceExpenditureGoodTotal}</strong></td>
                

@@ -9,7 +9,7 @@ export class List {
     context = ['Rincian', 'Cetak PDF'];
 
     dataToBePosted = [];
-
+    
     columns = [{
             field: "isPosting",
             title: "Post",
@@ -53,6 +53,14 @@ export class List {
             },
             align: 'right'
         },
+        {
+            field: 'TotalAmountIDR',
+            title: 'Amount IDR',
+            formatter: function(value, data, index) {
+                return numeral(value).format('0,000.00');
+            },
+            align: 'right'
+        },
         { field: 'paymentDueDates', title: 'Tanggal Jatuh Tempo' },
         { field: 'TransactionType', title: 'Jenis Transaksi' }
     ];
@@ -88,6 +96,8 @@ export class List {
                         let listDispo = [];
                         let listDueDate = [];
                         let totalAmount= 0;
+                        let totalAmountIDR= 0;
+                        // console.log(datum.CurrencyRate)
                         for (let item of datum.Items) {
                             let existDispo = listDispo.find((disposisi) => disposisi == '- ' + item.DispositionNoteNo);
                             if (!existDispo) {
@@ -99,11 +109,13 @@ export class List {
                                 listDueDate.push('- ' + moment(item.DispositionNoteDueDate).format('DD MMM YYYY'));
                             }
                             totalAmount +=item.TotalPaidPayment;
+                            totalAmountIDR +=item.TotalPaidPayment * datum.CurrencyRate;
                         }
 
                         datum.dispositions = listDispo.join('\n');
                         datum.paymentDueDates = listDueDate.join('\n');
                         datum.TotalAmount= totalAmount;
+                        datum.TotalAmountIDR= totalAmountIDR;                        
                         return datum;
                     })
                 }
