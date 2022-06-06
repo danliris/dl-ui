@@ -20,7 +20,6 @@ export class List {
             const me = this.authService.getTokenPayload();
             username = me.username;
         }
-      
       }
 
     context = ["Rincian", "Cetak Excel"];

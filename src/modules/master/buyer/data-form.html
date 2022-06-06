@@ -81,6 +81,13 @@
           items.bind="types"
         ></au-dropdown>
 
+        <au-textbox
+          label="Jabatan/Pekerjaan"
+          value.bind="data.Job"
+          error.bind="error.Job"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
         <template replaceable part="actions"></template>
         </au-input-form>
       </div>

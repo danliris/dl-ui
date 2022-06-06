@@ -15,6 +15,7 @@ export class List {
     { field: "Contact", title: "Kontak" },
     { field: "Tempo", title: "Tempo" },
     { field: "Type", title: "Tipe" },
+    { field: "Job", title: "Jabatan/Pekerjaan" },
   ];
 
   loader = (info) => {
@@ -26,7 +27,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code","NIK", "Name", "Address", "City", "Country", "Contact", "Tempo","Type"],
+      select: ["Code","NIK", "Name", "Address", "City", "Country", "Contact", "Tempo","Type", "Job"],
       order: order
     }
 
