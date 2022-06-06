@@ -124,8 +124,6 @@ module.exports = [
         },
 
     },
-
-
     {
         route: '/customs/pemasukan-tc-kecil',
         name: 'monitoring-pemasukan-tc-kecil',
@@ -136,6 +134,7 @@ module.exports = [
         settings: {
             group: "customs",
             permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -150,6 +149,7 @@ module.exports = [
         settings: {
             group: "customs",
             permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -165,6 +165,7 @@ module.exports = [
         settings: {
             group: "customs",
             permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -179,6 +180,7 @@ module.exports = [
         settings: {
             group: "customs",
             permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
