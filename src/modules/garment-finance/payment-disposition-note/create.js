@@ -168,7 +168,7 @@ export class Create {
     @bindable selectedBank;
     async selectedBankChanged(newVal) {
         this.data.AccountBank = newVal;
-        this.IDR = false;
+     //   this.IDR = false;
         if (newVal) {
             if (this.selectedSupplier) {
                 let arg = {
@@ -299,12 +299,12 @@ export class Create {
             for (let detail of this.Items) {
                 if (detail.Select) {
                     result += detail.TotalPaidPayment;
-                    viewResult += (detail.TotalPaidPayment);
+                    viewResult += (detail.TotalPaidPayment * this.data.CurrencyRate);
                 }
             }
         }
-        this.data.Amount = result;
-        if (this.IDR)
+        //this.data.Amount = result;
+        if (this.data.CurrencyCode==="IDR")
             return viewResult
         else
             return result;

@@ -131,6 +131,11 @@ export class List {
                     _data._MDQty = _data.MDQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._MDPrice = _data.MDPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                    
+                    _data._LocalQty = _data.LocalQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._LocalPrice = _data.LocalPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._NCSQty = _data.NCSQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._NCSPrice = _data.NCSPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                   
                     _data._ExportQty = _data.ExportQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._ExportPrice = _data.ExportPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._OtherQty = _data.OtherQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -236,6 +241,57 @@ export class List {
         }
         return priceMDTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+    //
+    get LocalTotal()
+    {
+        var qtyLocalTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            qtyLocalTotal += item.LocalQty;
+        }
+        }
+        return qtyLocalTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get LocalPriceTotal()
+    {
+        var priceLocalTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            priceLocalTotal += item.LocalPrice;
+        }
+        }
+        return priceLocalTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    //
+     get NCSTotal()
+    {
+        var qtyNCSTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            qtyNCSTotal += item.NCSQty;
+        }
+        }
+        return qtyNCSTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    get NCSPriceTotal()
+    {
+        var priceNCSTotal=0;
+        if(this.data)
+        {
+        for(var item of this.data)
+        {
+            priceNCSTotal += item.NCSPrice;
+        }
+        }
+        return priceNCSTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    //
     get QtyCuttingInTotal()
     {
         var qtyCuttingInTotal=0;
@@ -385,18 +441,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });  
     }
-    get AvalSewingTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.AvalSewing;
-        }
-        }
-        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
+    // get AvalSewingTotal()
+    // {
+    //     var sum=0;
+    //     if(this.data)
+    //     {
+    //     for(var item of this.data)
+    //     {
+    //         sum += item.AvalSewing;
+    //     }
+    //     }
+    //     return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // }
 
     get EndBalancCuttingeQtyTotal()
     {
@@ -650,18 +706,18 @@ export class List {
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingInTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingInTransfer;
-        }
-        }
-        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
+    // get QtySewingInTransferTotal()
+    // {
+    //     var sum=0;
+    //     if(this.data)
+    //     {
+    //     for(var item of this.data)
+    //     {
+    //         sum += item.QtySewingInTransfer;
+    //     }
+    //     }
+    //     return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // }
     get PriceSewingInTransferTotal()
     {
         var sum=0;

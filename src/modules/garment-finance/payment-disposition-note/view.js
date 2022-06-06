@@ -38,14 +38,23 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         let totalAmount =0;
+        let totalAmountIDR =0;
         for (var a of this.data.Items) {
             a.SupplierName = this.data.Supplier.Name;
             a.Currency = this.data.AccountBank.Currency.Code;
             totalAmount += a.TotalPaidPayment;
+            totalAmountIDR += a.TotalPaidPayment * this.data.CurrencyRate;
+            
         }
-        this.IDR = false;
-        this.sameCurrency = false;
-        this.Amount = totalAmount;
+        //this.IDR = false;
+        //this.sameCurrency = false;
+       console.log(totalAmount)
+       console.log(totalAmountIDR)
+       
+        if (this.data.AccountBank.Currency.Code==="IDR")
+              this.Amount = totalAmountIDR;
+        else
+             this.Amount = totalAmount;
 
         // if (this.data.AccountBank.Currency.Code == "IDR") {
         //     this.IDR = true;
@@ -75,12 +84,12 @@ export class View {
             this.deleteCallback = undefined;
         }
 
-        this.collectionOptions = {
-            IDR: this.IDR,
-            rate: this.data.CurrencyRate,
-            SameCurrency: this.sameCurrency,
-            payToSupplierCurrency: this.data.CurrencyCode
-        };
+        // this.collectionOptions = {
+        //     IDR: this.IDR,
+        //     rate: this.data.CurrencyRate,
+        //     SameCurrency: this.sameCurrency,
+        //     payToSupplierCurrency: this.data.CurrencyCode
+        // };
     }
 
     cancelCallback(event) {
