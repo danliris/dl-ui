@@ -48,7 +48,7 @@
   <br>
   <br>
 
-  <au-table if.bind="!isAval && !isPackingType" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
+  <au-table if.bind="!isAval && !isPackingType && !isStockOpname" view-model.ref="table" data.bind="loader" columns.bind="columns" context.bind="context"
     options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
     context-show.call="contextShowCallback(index, context, data)">
     <div slot="toolbar" class="btn-group">
@@ -71,4 +71,66 @@
     </div>
   </au-table>
 
+  <!-- <au-table if.bind="isStockOpname" view-model.ref="table" data.bind="loader" columns.bind="columns3" context.bind="context"
+    options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+    context-show.call="contextShowCallback(index, context, data)">
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-primary" click.delegate="export()">Excel</button>
+    </div>
+  </au-table> -->
+
+  <div class="row" if.bind="isStockOpname">
+    <div class="col-md-12" style="overflow-x: auto">
+      <!--Table-->
+      <table class="table table-bordered" context.bind="context"
+      options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+      context-show.call="contextShowCallback(index, context, data)">
+        <!--Table head-->
+        <thead>
+          <tr>
+            <th>No. SPP</th>
+            <th>Material</th>
+            <th>Unit</th>
+            <th>Motif</th>
+            <th>Buyer</th>
+            <th>Warna</th>
+            <th>Grade</th>
+            <th>Jenis</th>
+            <th>Stock Opname</th>
+            <th>Saldo Gudang</th>
+            <th>Selisih</th>
+          </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+          <tr show.bind="isEmpty">
+            <td colspan="11">
+              <div class="alert alert-info">Tidak ada data</div>
+            </td>
+          </tr>
+          <tr repeat.for="datum of data">
+            <td
+              repeat.for="key of datum | keys"
+            >
+              ${datum[key]}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" colspan="8">TOTAL</td>
+            <td>${sumStockOpname}</td>
+            <td>${sumStorageBalance}</td>
+            <td>${sumDifference}</td>
+          </tr>
+        </tbody>
+        <!--Table body-->
+        <div style="margin-bottom: 1%" slot="toolbar" class="btn-group">
+          <button class="btn btn-primary" click.delegate="export()">
+            Excel
+          </button>
+        </div>
+      </table>
+      <!--Table-->
+    </div>
+  </div>
 </template>

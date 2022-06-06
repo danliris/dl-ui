@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/currency-in-garment-currency-loader');
 var UnitLoader = require('../../../loader/unit-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var CategoryLoader = require('../../../loader/category-loader');
@@ -155,10 +155,10 @@ export class DataForm {
     IncomeTaxByChanged(e){
         if(e.srcElement){
             if(e.srcElement.value=="Supplier"){
-                this.data.Amount=this.data.DPP + this.data.VatValue;
+                this.data.Amount=(this.data.DPP+ this.data.VatValue + this.data.PaymentCorrection) - this.data.IncomeTaxValue;
             }
             else{
-                this.data.Amount=this.data.DPP+ this.data.VatValue + this.data.IncomeTaxValue;
+                this.data.Amount=this.data.DPP + this.data.VatValue + this.data.PaymentCorrection;
             }
         }
         this.data.Items.splice(0);
@@ -201,19 +201,20 @@ export class DataForm {
                         var ppn=0;
                         if(item.UseIncomeTax){
                             var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.1;
+                            pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                         }
                         if(item.UseVat){
-                            ppn=detail.PaidPrice*0.1;
+                            var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                            ppn=detail.PaidPrice*(parseFloat(rate)/100);
                         }
                         this.data.IncomeTaxValue+=pph;
                         this.data.VatValue+=ppn;
                         this.data.DPP+=detail.PaidPrice;
                         if(this.data.IncomeTaxBy=="Supplier"){
-                            this.data.Amount+=detail.PaidPrice+ppn;
+                            this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                         }
                         else
-                            this.data.Amount+=detail.PaidPrice+ppn+pph;
+                            this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                     }
                 }
             }
@@ -236,19 +237,20 @@ export class DataForm {
                             var ppn=0;
                             if(item.UseIncomeTax){
                                 var rate= item.IncomeTax.Rate ? item.IncomeTax.Rate : item.IncomeTax.rate;
-                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.1;
+                                pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                             }
                             if(item.UseVat){
-                                ppn=detail.PaidPrice*0.1;
+                                var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                                ppn=detail.PaidPrice*(parseFloat(rate)/100);
                             }
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -295,16 +297,17 @@ export class DataForm {
                                 pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                             }
                             if(item.UseVat){
-                                ppn=detail.PaidPrice*0.1;
+                                var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                                ppn=detail.PaidPrice*(parseFloat(rate)/100);
                             }
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -333,16 +336,17 @@ export class DataForm {
                                 pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                             }
                             if(item.UseVat){
-                                ppn=detail.PaidPrice*0.1;
+                                var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                                ppn=detail.PaidPrice*(parseFloat(rate)/100);
                             }
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }
@@ -369,16 +373,17 @@ export class DataForm {
                                 pph=parseFloat(detail.PaidPrice)*parseFloat(rate)*0.01;
                             }
                             if(item.UseVat){
-                                ppn=detail.PaidPrice*0.1;
+                                var rate= item.vatTax.rate ? item.vatTax.rate : item.vatTax.rate;
+                                ppn=detail.PaidPrice*(parseFloat(rate)/100);
                             }
                             this.data.IncomeTaxValue+=pph;
                             this.data.VatValue+=ppn;
                             this.data.DPP+=detail.PaidPrice;
                             if(this.data.IncomeTaxBy=="Supplier"){
-                                this.data.Amount+=detail.PaidPrice+ppn;
+                                this.data.Amount+=(detail.PaidPrice+ppn+this.data.PaymentCorrection)-pph;
                             }
                             else
-                                this.data.Amount+=detail.PaidPrice+ppn+pph;
+                                this.data.Amount+=detail.PaidPrice+ppn+this.data.PaymentCorrection;
                         }
                     }
                 }

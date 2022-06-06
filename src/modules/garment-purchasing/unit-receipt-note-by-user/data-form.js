@@ -1,13 +1,17 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service, InventoryService } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
 var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
 var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
+var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditure-fabric-loader');
+var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
+var UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
+
 var moment = require('moment');
 
-@inject(Service, BindingEngine, Element)
+@inject(Service,InventoryService, BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -19,17 +23,22 @@ export class DataForm {
     @bindable storage;
     @bindable deliveryReturn;
     @bindable URNType;
+    @bindable expenditure;
+    @bindable category;
+    @bindable uen;
 
-    typeOptions = ['PEMBELIAN','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA','SISA SUBCON'];
+    categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR={
         IsUsed :false
     };
 
-    constructor(service, bindingEngine, element) {
+    constructor(service, inventoryService, bindingEngine, element) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
+        this.inventoryService = inventoryService;
 
         this.auInputOptions = {
             label: {
@@ -75,7 +84,32 @@ export class DataForm {
                 this.bind();
             }
         };
+
+        this.expenditureItem={
+            columns: [
+                { header: "Kode Barang" },
+                { header: "Nama Barang" },
+                { header: "Keterangan Barang" },
+                { header: "PO No" },
+                { header: "RO Asal" },
+                { header: "Jumlah" },
+                { header: "Satuan" },
+                { header: "Design/Color" },
+            ],
+        };
+
     }
+
+    filterExpend={
+        IsUsed:false,
+        ExpenditureDestination:"UNIT"
+    };
+
+    filterUEN={
+        IsReceived:false,
+        ExpenditureType:"SUBCON"
+    };
+
 
     @computedFrom("data.Id")
     get isEdit() {
@@ -186,12 +220,16 @@ export class DataForm {
            // this.data.Items=[];
             var DRItems=[];
             var UnitDO= await this.service.getUnitDOById(selectedDR.UnitDOId);
-            console.log(UnitDO);
+            
             var OldUnitDO={};
             if(UnitDO.UnitDOFromId){
                 OldUnitDO=await this.service.getUnitDOById(UnitDO.UnitDOFromId);
+                
                 this.data.UnitFrom=OldUnitDO.UnitSender;
                 this.data.StorageFrom=OldUnitDO.Storage;
+
+                this.data.UnitSender=OldUnitDO.UnitRequest.Name;
+                this.data.StorageSender=OldUnitDO.StorageRequest.name;
             }
             
             for(var dritem of selectedDR.Items ){
@@ -199,6 +237,9 @@ export class DataForm {
                 var DRItem={};
                 if(dup){
                     var oldURN=await this.service.getById(dup.URNId);
+                    if(oldURN.URNType=="GUDANG LAIN"){
+                        this.isDiffStorage=true;
+                    }
                     var same= oldURN.Items.find(a=>a.Id==dup.URNItemId);
                     if(same){
                         DRItem.DRId= dritem.DRId;
@@ -274,6 +315,36 @@ export class DataForm {
             this.supplier=null;
             this.data.UnitFrom=null;
             this.data.StorageFrom=null;
+            this.data.ExpenditureId=null;
+            this.data.ExpenditureNo="";
+            this.data.Category="";
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
+        }
+        else if(this.data.URNType=="GUDANG SISA"){
+            this.isProcess=false;
+            this.deliveryReturn=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.deliveryOrder=null;
+            this.data.ReturnType="";
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
         }
         else{
             this.isProcess=false;
@@ -295,6 +366,12 @@ export class DataForm {
             this.data.RONo="";
             this.data.UnitFrom=null;
             this.data.StorageFrom=null;
+            this.data.ExpenditureId=null;
+            this.data.ExpenditureNo="";
+            this.data.Category="";
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
         }
     }
 
@@ -412,6 +489,10 @@ export class DataForm {
         return StorageLoader;
     }
 
+    get uenLoader() {
+        return UENLoader;
+    }
+
     storageView = (storage) => {
         if (storage.unit) {
             return `${storage.unit.name} - ${storage.name}`;
@@ -432,5 +513,121 @@ export class DataForm {
         return DeliveryReturnLoader;
     }
 
-    
+    get fabricLoader() {
+        return FabricLoader;
+    }
+
+    get accLoader() {
+        return AccLoader;
+    }
+
+    async expenditureChanged(newValue){
+        this.data.ExpenditureId=null;
+        this.data.ExpenditureNo="";
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
+        if(newValue){
+            this.data.ExpenditureId=newValue.Id;
+            this.data.ExpenditureNo=newValue.ExpenditureNo;
+            var items=[];
+            if(this.data.Category=='FABRIC'){
+                var fabExpend= await this.inventoryService.getFabricById(this.data.ExpenditureId);
+                
+                this.data.Unit=fabExpend.UnitExpenditure;
+                items=fabExpend.Items;
+            }
+            else{
+                var accExpend= await this.inventoryService.getAccById(this.data.ExpenditureId);
+                
+                this.data.Unit=accExpend.UnitExpenditure;
+                items=accExpend.Items;
+            }
+            this.unit=this.data.Unit;
+            for(var expendItem of items){
+                var item={};
+                var stock= await this.inventoryService.getStockById(expendItem.StockId);
+                var epoItem = await this.service.searchEPO({ filter: JSON.stringify({ PO_SerialNumber: expendItem.PONo}), Keyword:expendItem.PONo });
+                var epoItemData=epoItem.data[0];
+                console.log(epoItemData)
+                
+                item.Conversion=1;
+                item.POSerialNumber=expendItem.PONo;
+                item.SmallQuantity=expendItem.Quantity;
+                item.ReceiptQuantity=expendItem.Quantity;
+                item.SmallUom=expendItem.Uom;
+                item.Uom=expendItem.Uom;
+                item.Product=stock.Product;
+                item.CorrectionConversion=1;
+                item.DOCurrencyRate=1;
+                item.OrderQuantity=0;
+                item.PricePerDealUnit=stock.BasicPrice;
+                item.ExpenditureItemId=expendItem.Id;
+                item.RONo=epoItemData.RONo;
+                item.Product.Remark= expendItem.PONo + "; " + epoItemData.RONo + "; " + epoItemData.Article;
+
+                this.data.Items.push(item);
+                
+            }
+        }
+    }
+
+    categoryChanged(newValue){
+        this.data.ExpenditureId=null;
+        this.data.ExpenditureNo="";
+        this.expenditure=null;
+        this.unit=null;
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
+        this.data.Category=newValue;
+    }
+
+    async uenChanged(newValue){
+        this.data.UENId=null;
+        this.data.UENNo= null;
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
+        if(newValue){
+            console.log(newValue)
+            this.data.UENId=newValue.Id;
+            this.data.UENNo= newValue.UENNo;
+            var uen= await this.service.getUENById(this.data.UENId);
+            var items=uen.Items;
+            for(var i of items){
+                var item={};
+                item.Product={
+                    Id:i.ProductId,
+                    Name:i.ProductName,
+                    Code:i.ProductCode,
+                    Remark:i.ProductRemark
+                };
+                item.SmallQuantity=i.Quantity;
+                item.SmallUom={
+                    Id:i.UomId,
+                    Unit:i.UomUnit
+                };
+                item.Uom={
+                    Id:i.UomId,
+                    Unit:i.UomUnit
+                }
+                item.PRItemId=i.PRItemId;
+                item.DODetailId=i.DODetailId;
+                item.EPOItemId=i.EPOItemId;
+                item.POItemId=i.POItemId;
+                item.POSerialNumber=i.POSerialNumber;
+                item.RONo=i.RONo;
+                item.PricePerDealUnit=i.PricePerDealUnit;
+                item.DesignColor=i.DesignColor;
+                item.Conversion=1;
+                item.UENItemId=i.Id;
+
+                var unitDOItem= await this.service.getUnitDOItemById(i.UnitDOItemId);
+                item.DOCurrencyRate=unitDOItem.DOCurrency.Rate;
+                this.data.Items.push(item);
+
+            }
+        }
+    }
 } 

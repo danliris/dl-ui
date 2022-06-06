@@ -130,11 +130,16 @@ export class Create {
     this.accessCount = 0;
 
     for (let i = this.roles.length - 1; i >= 0; i--) {
-      if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-        this.roles[i].hasPermission = true;
-        this.accessCount++;
-        this.activeRole = this.roles[i];
+
+      for (let code of this.roles[i].code) {
+        if (this.permissions.hasOwnProperty(code)) {
+          this.roles[i].hasPermission = true;
+          this.accessCount++;
+          this.activeRole = this.roles[i];
+          this.changeTable(this.activeRole);
+        }
       }
+
     }
   }
 

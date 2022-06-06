@@ -1,13 +1,16 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service, InventoryService } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
 var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
 var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
+var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditure-fabric-loader');
+var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
+
 var moment = require('moment');
 
-@inject(Service, BindingEngine, Element)
+@inject(Service,InventoryService, BindingEngine, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -19,17 +22,21 @@ export class DataForm {
     @bindable storage;
     @bindable deliveryReturn;
     @bindable URNType;
+    @bindable expenditure;
+    @bindable category;
 
-    typeOptions = ['PEMBELIAN','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES','GUDANG SISA','SISA SUBCON'];
+    categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR={
         IsUsed :false
     };
 
-    constructor(service, bindingEngine, element) {
+    constructor(service, inventoryService, bindingEngine, element) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.element = element;
+        this.inventoryService = inventoryService;
 
         this.auInputOptions = {
             label: {
@@ -75,7 +82,26 @@ export class DataForm {
                 this.bind();
             }
         };
+
+        this.expenditureItem={
+            columns: [
+                { header: "Kode Barang" },
+                { header: "Nama Barang" },
+                { header: "Keterangan Barang" },
+                { header: "PO No" },
+                { header: "RO Asal" },
+                { header: "Jumlah" },
+                { header: "Satuan" },
+                { header: "Design/Color" },
+            ],
+        };
     }
+
+    filterExpend={
+        IsUsed:false,
+        ExpenditureDestination:"UNIT"
+    };
+
 
     @computedFrom("data.Id")
     get isEdit() {
@@ -274,6 +300,36 @@ export class DataForm {
             this.supplier=null;
             this.data.UnitFrom=null;
             this.data.StorageFrom=null;
+            this.data.ExpenditureId=null;
+            this.data.ExpenditureNo="";
+            this.data.Category="";
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
+        }
+        else if(this.data.URNType=="GUDANG SISA"){
+            this.isProcess=false;
+            this.deliveryReturn=null;
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.deliveryOrder=null;
+            this.data.ReturnType="";
+            this.unit=null;
+            this.storage=null;
+            this.data.Storage=null;
+            this.data.ReturnDate=null;
+            this.data.Unit=null;
+            this.data.UnitDONo="";
+            this.data.DRId=null;
+            this.data.DRNo="";
+            this.data.Article="";
+            this.data.RONo="";
+            this.data.UnitFrom=null;
+            this.data.StorageFrom=null;
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
         }
         else{
             this.isProcess=false;
@@ -295,6 +351,12 @@ export class DataForm {
             this.data.RONo="";
             this.data.UnitFrom=null;
             this.data.StorageFrom=null;
+            this.data.ExpenditureId=null;
+            this.data.ExpenditureNo="";
+            this.data.Category="";
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
         }
     }
 
@@ -432,5 +494,69 @@ export class DataForm {
         return DeliveryReturnLoader;
     }
 
-    
+    get fabricLoader() {
+        return FabricLoader;
+    }
+
+    get accLoader() {
+        return AccLoader;
+    }
+
+    async expenditureChanged(newValue){
+        this.data.ExpenditureId=null;
+        this.data.ExpenditureNo="";
+        if(this.data.Items){
+            this.data.Items.splice(0);
+        }
+        if(newValue){
+            this.data.ExpenditureId=newValue.Id;
+            this.data.ExpenditureNo=newValue.ExpenditureNo;
+            this.data.Items=[];
+            var items=[];
+            if(this.data.Category=='FABRIC'){
+                var fabExpend= await this.inventoryService.getFabricById(this.data.ExpenditureId);
+                console.log(fabExpend);
+                this.data.Unit=fabExpend.UnitExpenditure;
+                items=fabExpend.Items;
+            }
+            else{
+                var accExpend= await this.inventoryService.getAccById(this.data.ExpenditureId);
+                console.log(accExpend);
+                this.data.Unit=accExpend.Unit;
+                items=accExpend.Items;
+            }
+            this.unit=this.data.Unit;
+            for(var expendItem of items){
+                var item={};
+                var stock= await this.inventoryService.getStockById(expendItem.StockId);
+                var prItem = await this.service.searchPR({ filter: JSON.stringify({ PO_SerialNumber: expendItem.PONo}) });
+                var prId=prItem.data[0].GarmentPRId;
+                console.log(prItem)
+                var pr= await this.service.getPRById(prId);
+                item.Conversion=1;
+                item.POSerialNumber=expendItem.PONo;
+                item.SmallQuantity=expendItem.Quantity;
+                item.ReceiptQuantity=expendItem.Quantity;
+                item.SmallUom=expendItem.Uom;
+                item.Uom=expendItem.Uom;
+                item.Product=stock.Product;
+                item.CorrectionConversion=1;
+                item.DOCurrencyRate=1;
+                item.OrderQuantity=0;
+                item.PricePerDealUnit=stock.BasicPrice;
+                item.ExpenditureItemId=expendItem.Id;
+                item.RONo=pr.RONo;
+                item.Product.Remark= expendItem.PONo + "; " + pr.RONo + "; " + pr.Article;
+
+                this.data.Items.push(item);
+                
+            }
+        }
+    }
+
+    categoryChanged(newValue){
+        this.data.ExpenditureId=null;
+        this.data.ExpenditureNo="";
+        this.data.Category=newValue;
+    }
 } 

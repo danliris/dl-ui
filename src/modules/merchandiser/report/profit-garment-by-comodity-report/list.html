@@ -18,12 +18,15 @@
             <table class="table table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
-                    <th class="text-center">Nomor</th>
+                    <th class="text-center">No</th>
                     <th class="text-center">Komoditi</th>
                     <th class="text-center">Nama Komoditi</th>
-                    <th class="text-center">Qty Order</th>
+                    <th class="text-center">Quantity</th>
                     <th class="text-center">Satuan</th>
-                    <th class="text-center">Amount</th>        
+                    <th class="text-center">Amount USD</th>   
+                    <th class="text-center">Profit USD</th>   
+                    <th class="text-center">Profit IDR</th>   
+                    <th class="text-center">Profit FOB</th>   
                  </tr>
             </thead>
             <tbody>
@@ -35,16 +38,25 @@
                         <td class="text-right">${item.Quantity}</td>
                         <td>${item.UOMUnit}</td>                        
                         <td class="text-right">${item.Amount}</td>      
+                        <td class="text-right">${item.ProfitUSD}</td>      
+                        <td class="text-right">${item.ProfitIDR}</td>      
+                        <td class="text-right">${item.ProfitFOB}</td>                              
                     </tr>
                     <tr class="active">
                         <td class="text-center" colspan="3"><strong>${UOMX.UoM}</strong></td>
                         <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${UOMX.subTotal}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.subTotal1}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.subTotal2}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.subTotal3}</strong></td>                                             
                     </tr>
                 </template>
                     <tr class="active">
                         <td class="text-center" colspan="5"><strong>T O T A L . . . . . . :</strong></td>
-                        <td class="text-right"><strong>${AmountTotal}</strong></td>                     
+                        <td class="text-right"><strong>${AmountTotal}</strong></td> 
+                        <td class="text-right"><strong>${AmountTotal1}</strong></td> 
+                        <td class="text-right"><strong>${AmountTotal2}</strong></td> 
+                        <td class="text-right"><strong>${AmountTotal3}</strong></td> 
                     </tr>
             </tbody>
         </table>

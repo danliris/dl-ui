@@ -14,7 +14,7 @@ export class DataForm {
       
         // this.info;
     }
-    fromList = ["","PRODUKSI", "RETUR PACKING", "RETUR FINISHING", "RETUR PRINTING", "RECHEKING", "LAIN-LAIN"];
+    fromList = ["","PRODUKSI", "RETUR PACKING", "RETUR FINISHING", "RETUR PRINTING", "RECHEKING", "DEVELOPMENT", "LAIN-LAIN"];
 
     auInputOptions = {
         label: {

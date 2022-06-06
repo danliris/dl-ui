@@ -92,6 +92,7 @@ export class ItemSPP {
             this.selectedProductionOrder.materialConstruction.name = this.data.materialConstruction.name;
 
             this.selectedProductionOrder.materialWidth = this.data.materialWidth;
+            this.selectedProductionOrder.materialOrigin = this.data.materialOrigin;
             this.selectedProductionOrder.finishWidth = this.data.finishWidth;
 
             this.selectedProductionOrder.processType = {};

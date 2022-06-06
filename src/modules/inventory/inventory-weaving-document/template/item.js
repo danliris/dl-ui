@@ -70,13 +70,14 @@ export class Item {
     this.itemColumns = [
       
       "Grade",
-      "Jenis Piece",
+      //"Jenis Piece",
       "Asal Benang",
       "Jumlah Piece",
       "Total",
       "Satuan",
-      "Keterangan"
-
+      "Keterangan",
+      //"Barcode",
+      //"Tanggal Produksi"
     
     ];
   }

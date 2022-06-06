@@ -27,7 +27,7 @@ export class DataForm {
     };
   
     filter= {
-        IsUsed:false        
+        IsUsed:false
     }
     
     get forwarderLoader() {

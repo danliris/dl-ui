@@ -80,6 +80,10 @@ export class ItemAcc {
         }
     }
 
+    poView = (po) => {
+        return `${po.PO_SerialNumber} - ${po.ProductCode}`;
+    }
+
     selectedUomChanged(newValue, oldValue) {
         this.data.Uom = null;
 

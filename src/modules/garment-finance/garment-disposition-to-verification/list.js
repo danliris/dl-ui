@@ -31,7 +31,8 @@ export class List {
                 return numeral(value).format("0,000.00");
             }, align: "right"
         },
-        { field: 'Remark', title: 'Keterangan' }
+      { field: 'Remark', title: 'Keterangan' },
+      { field: 'CreatedBy', title: 'Nama Staff Pembelian' }
     ];
 
     constructor(router, service) {

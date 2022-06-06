@@ -65,7 +65,7 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-
+    this.type = this.context.type;
     this.data.area = "GUDANG JADI";
 
     this.error = this.context.error;
@@ -75,6 +75,9 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
 
+    this.detailOptions = {
+      type : this.type
+  };
     if (this.ItemsCollection) {
         this.ItemsCollection.bind();
     }

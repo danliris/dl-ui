@@ -15,7 +15,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'SAMPLE', 'EXTERNAL', 'SISA', 'SUBCON'];
+    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON', 'SAMPLE','TRANSFER SAMPLE'];
     controlOptions = {
         label: {
             align : "right",
@@ -57,6 +57,8 @@ export class DataForm {
         }else if(this.data.ExpenditureType === "SISA"){
             this.data.ExpenditureTo = "GUDANG SISA";
             this.items.columns.push("Status Barang");
+        }else if(this.data.ExpenditureType === "TRANSFER SAMPLE"){
+            this.data.ExpenditureTo = "GUDANG LAIN";
         }
         this.options.ExpenditureType = this.data.ExpenditureType;
 
@@ -65,7 +67,7 @@ export class DataForm {
             this.options.isExternal=true;
         }
 
-        if(this.data.ExpenditureType === "TRANSFER"){
+        if(this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "SAMPLE" || this.data.ExpenditureType === "TRANSFER SAMPLE"){
             this.isTransfer = true;
         }
         
@@ -106,6 +108,10 @@ export class DataForm {
             unitDeliveryOrderFilter[`UnitDOType== "RETUR" || UnitDOType== "MARKETING"`]=true;
             //unitDeliveryOrderFilter[`UnitDOType== "MARKETING"`]=true;
         }
+        else if(this.data.ExpenditureType === "SAMPLE"){
+            unitDeliveryOrderFilter[`UnitSenderCode !="SMP1"`]=true;
+            unitDeliveryOrderFilter[`UnitDOType== "SAMPLE"`]=true;
+        }
         else{
             unitDeliveryOrderFilter[`UnitDOType== "${this.data.ExpenditureType}"`]=true;
             unitDeliveryOrderFilter[`CreatedBy== "${username}"`]=true;
@@ -117,7 +123,7 @@ export class DataForm {
         var selectedCategory = e.srcElement.value;
         if (selectedCategory) {
             this.data.ExpenditureType = selectedCategory;
-            if (this.data.ExpenditureType === "TRANSFER") {
+            if (this.data.ExpenditureType === "TRANSFER" || this.data.ExpenditureType === "SAMPLE" || this.data.ExpenditureType === "TRANSFER SAMPLE") {
                 this.isTransfer = true;
             }
             else {
@@ -146,6 +152,8 @@ export class DataForm {
             }else if(this.data.ExpenditureType === "SISA"){
                 this.data.ExpenditureTo = "GUDANG SISA";
                 this.items.columns.push("Status Barang");
+            }else if(this.data.ExpenditureType === "TRANSFER SAMPLE"){
+                this.data.ExpenditureTo = "GUDANG LAIN";
             }
             this.options.ExpenditureType = this.data.ExpenditureType;
         }
@@ -250,8 +258,8 @@ export class DataForm {
                     Items.PricePerDealUnit = item.PricePerDealUnit;
                     Items.Quantity = item.Quantity;
                     Items.OldQuantity = item.Quantity;
-                    Items.BuyerId = item.Buyer.Id;
-                    Items.BuyerCode = item.Buyer.Code;
+                    Items.BuyerId = item.Buyer.Id || 0;
+                    Items.BuyerCode = item.Buyer.Code || null;
                     Items.DesignColor = item.DesignColor;
                     Items.FabricType = item.FabricType;
                     Items.IsSave = Items.Quantity > 0;

@@ -32,6 +32,7 @@ export class PriceCorrectionItem {
 
     set priceTotal(value) {
         this.data.PriceTotalAfter = value;
+        this.data.PricePerDealUnitAfter = parseFloat((this.data.PriceTotalAfter / this.data.Quantity).toFixed(2));
         return this.data.PriceTotalAfter;
     }
 }

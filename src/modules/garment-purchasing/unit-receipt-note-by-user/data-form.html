@@ -32,10 +32,62 @@
             options.bind="auInputOptions">
         </au-dropdown>
 
+        <au-dropdown 
+            label="Kategori" 
+            value.bind="category" 
+            error.bind="error.Category" 
+            read-only.bind="readOnly || isEdit"
+            items.bind="categoryOptions"
+            if.bind="URNType=='GUDANG SISA'"
+            options.bind="auInputOptions">
+        </au-dropdown>
+
+        <au-autocomplete 
+            value.bind="expenditure"
+            label="No Pengeluaran Gudang Sisa" 
+            loader.bind="fabricLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.ExpenditureNo"
+            options.bind="auInputOptions"
+            placeholder="cari no pengeluaran gudang sisa"
+            query.bind="filterExpend"
+            options.bind="auInputOptions"
+            if.bind="URNType=='GUDANG SISA' && data.Category=='FABRIC'"
+            text="ExpenditureNo">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="expenditure"
+            label="No Pengeluaran Gudang Sisa" 
+            loader.bind="accLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.ExpenditureNo"
+            options.bind="auInputOptions"
+            placeholder="cari no pengeluaran gudang sisa"
+            query.bind="filterExpend"
+            options.bind="auInputOptions"
+            if.bind="URNType=='GUDANG SISA' && data.Category!='FABRIC'"
+            text="ExpenditureNo">
+        </au-autocomplete>
+
+        <au-autocomplete 
+            value.bind="uen"
+            label="No Bon Pengeluaran Unit" 
+            loader.bind="uenLoader" 
+            read-only.bind="readOnly || isEdit"
+            error.bind="error.UENNo"
+            options.bind="auInputOptions"
+            placeholder="cari no bon pengeluaran unit"
+            query.bind="filterUEN"
+            options.bind="auInputOptions"
+            if.bind="URNType=='SISA SUBCON'"
+            text="UENNo">
+        </au-autocomplete>
+
         <au-textbox 
             label="No Bon Pengeluaran Unit" 
             value.bind="data.UENNo" 
-            if.bind="isDiffStorage"
+            if.bind="isDiffStorage && URNType!='GUDANG SISA'"
             read-only.bind="true"
             options.bind="auInputOptions">
         </au-textbox>
@@ -147,10 +199,10 @@
             label="Unit" 
             loader.bind="unitLoader" 
             text.bind="unitView"
-            read-only.bind="readOnly || isEdit"
+            read-only.bind="readOnly || isEdit || URNType=='GUDANG SISA'"
             error.bind="error.Unit"
             placeholder="cari unit"
-            show.bind= "!isProcess"
+            show.bind= "!isProcess || URNType=='GUDANG SISA' || URNType=='SISA SUBCON'"
             options.bind="auInputOptions">
         </au-autocomplete>
        
@@ -163,7 +215,7 @@
             error.bind="error.Supplier"
             placeholder="cari supplier"
             options.bind="auInputOptions"
-            show.bind="!isProcess && !isDiffStorage">
+            show.bind="!isProcess && !isDiffStorage && URNType!='GUDANG SISA' && URNType!='SISA SUBCON'">
         </au-autocomplete>
 
         <au-autocomplete 
@@ -174,7 +226,7 @@
             error.bind="error.DeliveryOrder"
             options.bind="auInputOptions"
             query.bind="filter"
-            show.bind="data.Supplier && data.Unit && !isProcess && !isDiffStorage"
+            show.bind="data.Supplier && data.Unit && !isProcess && !isDiffStorage && URNType!='GUDANG SISA'&& URNType!='SISA SUBCON'"
             text="doNo"
             placeholder="cari surat jalan"
             view-model.ref="deliveryOrderAU">
@@ -198,7 +250,7 @@
             query.bind="filterUnit"
             placeholder="cari nama storage" 
             text.bind="storageView"
-            show.bind="data.DOId || data.DRId"
+            show.bind="data.DOId || data.DRId || data.ExpenditureId || data.UENId"
             if.bind="!isProcess"
             options.bind="auInputOptions">
         </au-autocomplete>
@@ -242,7 +294,7 @@
             read-only.bind="readOnly || isEdit"
             show.bind="!isProcess"
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-order-item"
-            if.bind="deliveryOrder">
+            if.bind="deliveryOrder && data.URNType!='GUDANG SISA' && data.URNType!='SISA SUBCON'" >
         </au-collection>
 
         <au-collection 
@@ -254,6 +306,24 @@
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item"
             if.bind="deliveryReturn"
             show.bind="isProcess">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            columns.bind="expenditureItem.columns"
+            errors.bind="error.Items"
+            read-only.bind="readOnly || isEdit"
+            item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/expenditure-item"
+            if.bind="expenditure && data.URNType=='GUDANG SISA'">
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            columns.bind="expenditureItem.columns"
+            errors.bind="error.Items"
+            read-only.bind="readOnly || isEdit"
+            item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/uen-item"
+            if.bind="uen && data.URNType=='SISA SUBCON'">
         </au-collection>
     </au-input-form>
 </template>

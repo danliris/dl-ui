@@ -27,6 +27,10 @@ export class DataForm {
         }
     };
 
+    filter={
+        IsApproveFinance:true
+    }
+
     get salesNoteLoader() {
         return SalesNoteLoader;
     }

@@ -7,7 +7,6 @@ import moment from 'moment';
 
 const serviceUri = 'garment-external-purchase-orders';
 
-
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
@@ -108,8 +107,6 @@ export class Service extends RestService {
         return super.get(endpoint, null, info);
     }
 
-
-
     cancel(id) {
         var endpoint = `garment-external-purchase-orders/cancel/${id}`;
         return super.put(endpoint);
@@ -143,6 +140,16 @@ export class Service extends RestService {
             });
     }
 
+    getDefaultVat(info){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/vat`;
+        return _endpoint.find(_serviceUri, info)
+        .then(result => {
+            return result.data;
+        })
+    }
+
     SmallUom(id) {
         var config = Container.instance.get(Config);
         var _endpoint = config.getEndpoint("core");
@@ -158,4 +165,15 @@ export class Service extends RestService {
         var endpoint = `garment-unit-expenditure-notes/${id}`;
         return super.get(endpoint);
     }
+}
+
+export class ServiceFinance extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "finance");
+  }
+
+  getVbWithPO(id){
+    var endpoint = `vb-request-documents/purchasing/${id}`;
+    return super.get(endpoint);
+  }
 }

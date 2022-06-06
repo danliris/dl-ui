@@ -13,7 +13,7 @@ module.exports = function (keyword, filter) {
             return results.data
             .map(bank => {
                 bank.toString = function () {
-                    return [this.accountName, this.bankName,this.accountNumber,this.currency.code]
+                    return [this.AccountName, this.BankName,this.AccountNumber,this.Currency.Code]
                         .filter((item, index) => {
                             return item && item.toString().trim().length > 0;
                         }).join(" - ");

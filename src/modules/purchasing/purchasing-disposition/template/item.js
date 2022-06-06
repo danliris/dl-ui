@@ -44,6 +44,7 @@ export class PurchasingDispositionItem {
         }
         if(this.data.EPONo){
             this.selectedEPO=this.data;
+            console.log(this.data)
         }
 
         if(this.data.Details){
@@ -126,6 +127,14 @@ export class PurchasingDispositionItem {
                     this.data.IncomeTax.rate=0;
                     this.incomeTax="-";
                 }
+                
+                if(this.data.UseVat){
+                    this.data.vatTax = newValue.vatTax;
+                    // this.data.vatRate = newValue.vatTax.rate;
+                }   
+                // console.log(newValue.vatTax._id);
+                console.log( this.data.vatTax);
+                // console.log(newValue.vatTax.rate);
                 var arg = {
                     epoId:this.data.EPOId
                 }
@@ -178,7 +187,7 @@ export class PurchasingDispositionItem {
                             pph= detail.pricePerDealUnit*qty*(this.data.IncomeTax.rate/100);
                         }
                         if(this.data.UseVat){
-                            ppn= detail.pricePerDealUnit*qty*0.1;
+                            ppn= detail.pricePerDealUnit*qty*(this.data.vatTax.rate / 100);
                         }
                         this.incomeTaxValue+=pph;
                         this.vatValue+=ppn;
@@ -224,7 +233,7 @@ export class PurchasingDispositionItem {
                     pph=parseFloat(detail.PaidPrice) *(parseFloat(this.data.IncomeTax.rate)/100);
                 }
                 if(this.data.UseVat){
-                    ppn= parseFloat(detail.PaidPrice)*0.1;
+                    ppn= parseFloat(detail.PaidPrice)*(this.data.vatTax.rate / 100);
                 }
                 this.incomeTaxValue+=pph;
                 this.vatValue+=ppn;

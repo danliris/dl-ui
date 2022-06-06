@@ -2,6 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
+import { item } from '../../garment-shipping/payment-disposition-recap/template/item';
 
 @inject(Router, Service)
 export class Create {
@@ -32,7 +33,11 @@ export class Create {
         // or activationStrategy.noChange to explicitly use the default behavior
     }
 
-    save(event) {
+    save(event) 
+    {
+        //Enhance Jason Sept 2021
+        //var validateDouble = this.validateDouble(this.data);
+        var validateDouble = 0; //Use Backend Validation
         var validateErrors = this.validateData(this.data);
         // var itemToBeSaved = this.data.items.filter(function (item) {
         //     return item.check
@@ -40,13 +45,12 @@ export class Create {
         // var _data = Object.assign({}, this.data);
         // _data.items = itemToBeSaved;
         
-        if (validateErrors.length == 0) {
+        if (validateErrors.length == 0 && validateDouble == 0) {
             if(this.data.useIncomeTax && this.data.incomeTaxDate == "undefined")
             {
                 this.incometaxdate="Tanggal PPH harus diisi";
 
-            }else
-            {
+            } else {
             this.service.create(this.data)
                 .then(result => {
                     alert("Data berhasil dibuat");
@@ -64,6 +68,27 @@ export class Create {
                 })
             }
         }
+    }
+
+    //Enhance Jason Sept 2021
+    validateDouble(valid)
+    {
+        var arrDoNo = [];
+        var errCounter = 0;
+        for(var data of valid.items)
+        {
+            arrDoNo.push(data.deliveryOrder.doNo);
+        }
+
+        arrDoNo.forEach((v,i,a) => 
+        {
+            if(a.indexOf(v) != i)
+            {
+                errCounter++;
+                alert("Terdapat Duplikasi Nomor Surat Jalan " + a[i] + ". Mohon Menghapus Salah Satu Data Duplikat");
+            }
+        })
+        return errCounter;
     }
 
     validateData(valid) {

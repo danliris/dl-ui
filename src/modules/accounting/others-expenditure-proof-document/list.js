@@ -58,13 +58,13 @@ export class List {
     { field: "Type", title: "Jenis Transaksi" },
   ];
 
-  tableOptions = {
-    // showColumns: false,
-    search: false,
-    // showToggle: false,
-    // sortable: false,
-    pagination: true,
-  };
+ // tableOptions = {
+    // showColumns: true,
+  //  search: true,
+   //  showToggle: true,
+   //  sortable: true,
+   // pagination: true,
+ // };
 
   loader = (info) => {
     // if (info.sort)
@@ -135,7 +135,12 @@ export class List {
     this.service
       .posting(items)
       .then((result) => {
-        alert("Data berhasil disimpan");
+        if (result != "") {
+          alert("Data berhasil disimpan\n" + result + "telah di posting sebelumnya")
+        }
+        else {
+          alert("Data berhasil disimpan");
+        }
         this.error = {};
         this.table.refresh();
         this.selectedItems = [];

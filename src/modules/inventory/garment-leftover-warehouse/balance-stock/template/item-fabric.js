@@ -81,4 +81,8 @@ export class ItemFabric {
             this.data.BasicPrice= uenItem.BasicPrice || 0;
         }
     }
+
+    poView = (po) => {
+        return `${po.PO_SerialNumber} - ${po.ProductCode}`;
+    }
 }

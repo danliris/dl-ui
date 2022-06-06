@@ -33,10 +33,10 @@ export class View {
         }
 
         if (this.data.items) {
-            for (const item of this.data.items) {
+            this.data.items.map((item)=>{
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
-            }
+            });
         }
     }
 

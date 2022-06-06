@@ -3,6 +3,7 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 import moment from 'moment';
 
 @containerless()
@@ -15,10 +16,10 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedIncomeTax;
+    @bindable selectedVatTax;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
     @bindable kurs = {};
-
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -36,9 +37,7 @@ export class DataForm {
         control: {
             length: 5
         }
-    }
-
-    
+    }    
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -55,8 +54,6 @@ export class DataForm {
             this.data.OrderDate=new Date().toLocaleDateString();
         }
 
-        
-        
         if (this.data.Category) {
             if (this.data.Category === "FABRIC") {
                 this.isFabric = true;
@@ -145,7 +142,7 @@ export class DataForm {
             return false
     }
 
-    selectedSupplierChanged(newValue) {
+    async selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
         if (_selectedSupplier.Id) {
             this.data.Supplier = _selectedSupplier;
@@ -159,6 +156,31 @@ export class DataForm {
             this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
             this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
             this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
+
+            if(this.data.IsUseVat){
+
+                let info = {
+                    keyword:'',
+                    order: '{ "Rate" : "desc" }',
+                    size: 1,
+                };
+
+                var defaultVat = await this.service.getDefaultVat(info);
+                console.log(defaultVat);
+
+                if(defaultVat.length > 0){
+                    if(defaultVat[0]){
+                        if(defaultVat[0].Id){
+                            this.data.Vat = defaultVat[0];
+                            this.selectedVatTax = defaultVat[0];
+                        }
+                    }
+                }
+            } else {
+                this.data.Vat = {};
+                this.selectedVatTax = {};
+
+            }
         }
     }
 
@@ -191,6 +213,17 @@ export class DataForm {
         else {
             this.data.Currency = null;
             this.data.CurrencyRate = 0;
+        }
+    }
+
+    selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+        
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+            this.data.Vat = _selectedVatTax;
+        } else {
+            this.data.Vat = {};
         }
     }
 
@@ -252,6 +285,7 @@ export class DataForm {
             this.context.DetailsCollection.bind();
         }
     }
+
     paymentTypeChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
@@ -317,6 +351,10 @@ export class DataForm {
         return IncomeTaxLoader;
     }
 
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+
     supplierView = (supplier) => {
         var code=supplier.code? supplier.code : supplier.Code;
         var name=supplier.name? supplier.name : supplier.Name;
@@ -332,6 +370,11 @@ export class DataForm {
         var rate=incomeTax.rate? incomeTax.rate : incomeTax.Rate;
         var name=incomeTax.name? incomeTax.name : incomeTax.Name;
         return `${name} - ${rate}`
+    }
+
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
     }
 
     async search() {

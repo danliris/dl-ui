@@ -10,7 +10,7 @@ export class Service extends RestService {
 
     search(info) {
         let endpoint = `${serviceUri}/recapStock`;
-        console.log(endpoint,info);
+        console.log(endpoint, info);
         return super.list(endpoint, info);
     }
 
@@ -22,16 +22,16 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/download-recap-stock`;
         var query = '';
-        
+
         if (info.dateFrom)
             if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;    
+            else query = `${query}&dateFrom=${info.dateFrom}`;
 
         if (info.dateTo) {
             if (query === '') query = `dateTo=${info.dateTo}`;
             else query = `${query}&dateTo=${info.dateTo}`;
         }
-         
+
         if (query !== '')
             endpoint = `${serviceUri}/download-recap-stock?${query}`;
 

@@ -44,7 +44,9 @@ export class Create {
             SameCurrency: this.sameCurrency
         };
 
-
+        this.sameCurrencyValue = true;
+        this.bankCurrency = null;
+        this.currencyCodeValue = null;
     }
 
     determineActivationStrategy() {
@@ -166,7 +168,7 @@ export class Create {
     @bindable selectedBank;
     async selectedBankChanged(newVal) {
         this.data.AccountBank = newVal;
-        this.IDR = false;
+     //   this.IDR = false;
         if (newVal) {
             if (this.selectedSupplier) {
                 let arg = {
@@ -178,6 +180,13 @@ export class Create {
                     Position: 5
                 };
                 await this.DispositionData(arg);
+            }
+            this.bankCurrency = newVal.Currency.Code;
+            if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null){
+                this.sameCurrencyValue = false;
+            }
+            else{
+                this.sameCurrencyValue = true;
             }
             //this.isExistBankAndSupplier = true;
             // this.currency = newVal.Currency.Code;
@@ -216,12 +225,12 @@ export class Create {
 
     @bindable selectedCurrency;
     async selectedCurrencyChanged(newVal) {
-        this.sameCurrency = false;
         this.data.CurrencyRate = 0;
         if (newVal) {
             this.data.CurrencyCode = newVal.code;
             this.data.CurrencyId = newVal.Id;
             this.data.CurrencyRate = newVal.rate;
+            this.currencyCodeValue = this.data.CurrencyCode;
             // if (newVal.Code == "IDR") {
             //     this.sameCurrency = true;
             //     this.data.CurrencyRate = 1;
@@ -237,7 +246,12 @@ export class Create {
                 };
                 await this.DispositionData(arg);
             }
-
+            if (this.bankCurrency == "IDR" && this.currencyCodeValue != "IDR" && this.currencyCodeValue != null){
+                this.sameCurrencyValue = false;
+            }
+            else{
+                this.sameCurrencyValue = true;
+            }
             // if (!this.IDR || this.sameCurrency) {
             //     this.collection = {
             //         columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'Divisi', 'PPN', 'Jumlah dibayar ke Supplier', 'Mata Uang', ''],
@@ -285,12 +299,12 @@ export class Create {
             for (let detail of this.Items) {
                 if (detail.Select) {
                     result += detail.TotalPaidPayment;
-                    viewResult += (detail.TotalPaidPayment);
+                    viewResult += (detail.TotalPaidPayment * this.data.CurrencyRate);
                 }
             }
         }
-        this.data.Amount = result;
-        if (this.IDR)
+        //this.data.Amount = result;
+        if (this.data.CurrencyCode==="IDR")
             return viewResult
         else
             return result;

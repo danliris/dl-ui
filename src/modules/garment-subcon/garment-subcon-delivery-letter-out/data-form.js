@@ -19,6 +19,8 @@ export class DataForm {
     @bindable selectedContract;
     @bindable selectedDLType;
     @bindable selectedContractType;
+    @bindable selectedServiceType;
+    @bindable selectedSubconCategory;
 
     constructor(service,purchasingService,coreService) {
         this.service = service;
@@ -32,9 +34,11 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah"
     };
-    dlTypes=["PROSES","RE PROSES"];
-    contractTypes=["SUBCON BAHAN BAKU","SUBCON CUTTING","SUBCON JASA"];
 
+    dlTypes=["PROSES","RE PROSES"];
+    contractTypes = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
+    SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+    //serviceTypes=["SUBCON JASA KOMPONEN", "SUBCON JASA GARMENT WASH", "SUBCON JASA SHRINKAGE PANEL","SUBCON JASA FABRIC WASH"];
     controlOptions = {
         label: {
             length: 3
@@ -61,13 +65,40 @@ export class DataForm {
             "No Cutting Out Subcon",
             "Plan PO",
             "Jumlah",
+        ],
+        columnsServiceCutting:[
+            "No Subcon Jasa Komponen",
+            "Tgl Subcon",
+            "Asal Unit",
+            "Jenis Subcon",
+            "Jumlah",
+        ],
+        columnBBPanel:[
+            "No Subcon BB Shrinkage/Panel",
+            "Tgl Subcon",
+            //"Asal Unit",
+            "Jumlah",
+        ],
+        columnBBWash : [
+            "No Subcon BB Fabric Wash/Print",
+            "Tgl Subcon",
+            //"Asal Unit",
+            "Jumlah",
+        ],
+        columnsServiceWash:[
+            "No Subcon Jasa Garment Wash",
+            "Tgl Subcon",
+            "Jumlah",
         ]
     }
 
-    @computedFrom("data.ContractType")
+    @computedFrom("data.ContractType && data.SubconCategory")
     get contractFilter() {
         return {
-            ContractType :this.data.ContractType
+            ContractType :this.data.ContractType,
+            SubconCategory:this.data.SubconCategory,
+            '(BPJNo!=null && BPJNo!="")':true,
+            '(SKEPNo!=null && SKEPNo!="")':true
         } 
     }
 
@@ -97,11 +128,13 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
-            isEdit: this.isEdit
+            isEdit: this.isEdit,
+            isSubconCutting:this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false,
+            subconCategory:this.data.SubconCategory
         }
 
         if (this.data.Id) {
-            if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+            if(this.data.SubconCategory=="SUBCON CUTTING SEWING"){
                 var uen= await this.purchasingService.getUENById(this.data.UENId);
                 this.selectedUEN={
                     UENNo:this.data.UENNo,
@@ -135,19 +168,52 @@ export class DataForm {
     }
 
     selectedContractTypeChanged(newValue){
-        this.data.ContractType=newValue;
-        this.selectedUEN=null;
-        this.data.UENId = 0;
-        this.data.UENNo = "";
-        this.selectedContract=null;
-        this.data.ContractNo="";
-        this.data.SubconContractId=0;
-        this.data.ContractQty=0;
-        this.data.UsedQty=0;
-        this.data.QtyUsed=0;
-        this.data.Items.splice(0);
-        this.context.selectedContractViewModel.editorValue="";
+        if(this.data.ContractType!=newValue){
+            this.data.ContractType=newValue;
+            this.selectedUEN=null;
+            this.data.UENId = 0;
+            this.data.UENNo = "";
+            this.selectedContract=null;
+            this.data.ContractNo="";
+            this.data.SubconContractId=0;
+            this.data.ContractQty=0;
+            this.data.UsedQty=0;
+            this.data.QtyUsed=0;
+            this.data.Items.splice(0);
+            this.context.selectedContractViewModel.editorValue="";
+            this.data.ServiceType="";
+            this.selectedServiceType=null;
+            this.data.SubconCategory="";
+            this.selectedSubconCategory=null;
+            if(this.data.ContractType=="SUBCON GARMENT"){
+                this.SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+            }
+            else if(this.data.ContractType=="SUBCON BAHAN BAKU"){
+                this.SubconCategoryTypeOptions=["SUBCON BB SHRINKAGE/PANEL","SUBCON BB FABRIC WASH/PRINT"];
+            }
+            else if(this.data.ContractType=="SUBCON JASA"){
+                this.SubconCategoryTypeOptions=["SUBCON JASA GARMENT WASH","SUBCON JASA KOMPONEN"];
+            }
+        }
+        
+        this.itemOptions.isSubconCutting=this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false;
     }
+
+    // selectedServiceTypeChanged(newValue){
+    //     this.data.ServiceType=newValue;
+    //     this.selectedUEN=null;
+    //     this.data.UENId = 0;
+    //     this.data.UENNo = "";
+    //     this.data.ContractNo="";
+    //     this.data.SubconContractId=0;
+    //     this.data.ContractQty=0;
+    //     this.data.UsedQty=0;
+    //     this.data.QtyUsed=0;
+    //     this.data.Items.splice(0);
+    //     this.context.selectedContractViewModel.editorValue="";
+    //     this.itemOptions.isSubconCutting=this.data.ServiceType=="SUBCON JASA KOMPONEN"?true : false;
+    //     this.itemOptions.serviceType=this.data.ServiceType;
+    // }
 
     contractView = (contract) => {
         return `${contract.ContractNo}`;
@@ -167,6 +233,7 @@ export class DataForm {
 
     async selectedUENChanged(newValue, oldValue){
         if(newValue) {
+            console.log(newValue)
             if(this.data.Items.length>0){
                 this.data.Items.splice(0);
             }
@@ -253,7 +320,7 @@ export class DataForm {
         this.data.UENId = 0;
         this.data.UENNo = "";
         this.data.ContractQty=0;
-        if(this.data.ContractType!='SUBCON CUTTING')
+        if(this.data.SubconCategory!='SUBCON SEWING')
             this.data.Items.splice(0);
         if(newValue){
             this.data.ContractNo=newValue.ContractNo;
@@ -269,7 +336,7 @@ export class DataForm {
             this.data.UENNo = "";
             this.data.ContractQty=0;
             this.context.selectedContractViewModel.editorValue="";
-            if(this.data.ContractType!='SUBCON CUTTING')
+            if(this.data.SubconCategory!='SUBCON SEWING')
                 this.data.Items.splice(0);
         }
     }
@@ -323,5 +390,22 @@ export class DataForm {
         return (event) => {
             this.error = null;
         };
+    }
+
+    selectedSubconCategoryChanged(newValue){
+        if(newValue!=this.data.SubconCategory){
+            this.data.SubconCategory=newValue;
+            this.selectedContract=null;
+            this.data.ContractNo="";
+            this.data.SubconContractId=0;
+            this.data.ContractQty=0;
+
+            if(this.data.Items){
+                this.data.Items.splice(0);
+            }
+            this.itemOptions.subconCategory=this.data.SubconCategory
+            this.itemOptions.isSubconCutting=this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false;
+        }
+        
     }
 }

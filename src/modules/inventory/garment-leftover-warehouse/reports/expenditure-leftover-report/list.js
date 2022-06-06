@@ -32,6 +32,7 @@ export class List {
                 }
             }
         },
+        { field: "UnitFrom.Name", title: "Asal"},
         { field: "ExpenditureDestination", title: "Tujuan"},
         { field: "DescriptionOfPurpose", title: "Keterangan Tujuan"},
         { field: "QtyKG", title: "Jumlah Keluar (KG)"},
@@ -42,6 +43,7 @@ export class List {
         { field: "Product.Code", title: "Kode Barang"},
         { field: "Quantity", title: "Qty"},
         { field: "Uom.Unit", title: "Satuan"},
+        { field: "Price", title: "Harga"},
         { field: "LocalSalesNoteNo", title: "No Nota Penjualan"},
         { field: "BCNo", title: "No BC Keluar"},
         { field: "BCType", title: "Tipe BC"},

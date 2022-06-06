@@ -7,13 +7,13 @@
                 options.bind="controlOptions">
             </au-checkbox>
         </td>
-        <td>
+        <!-- <td>
             <au-textbox 
                 value.bind="data.pRNo" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td>
             <au-textbox 
                 value.bind="data.poSerialNumber" 
@@ -27,6 +27,13 @@
                 loader.bind="productLoader" 
                 text.bind="productView"
                 key="code" 
+                read-only.bind="true" 
+                options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-autocomplete 
+                value.bind="data.remark" 
                 read-only.bind="true" 
                 options.bind="controlOptions">
             </au-autocomplete>

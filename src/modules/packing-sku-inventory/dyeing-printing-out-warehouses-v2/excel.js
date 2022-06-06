@@ -19,7 +19,6 @@ export class Create {
             length: 4,
         },
     };
-
     list() {
         this.router.navigateToRoute('list');
     }

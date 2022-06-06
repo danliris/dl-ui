@@ -23,6 +23,13 @@ export class Index {
         title: "View:  Gudang Barang Jadi - Dyeing & Printing",
       },
       {
+        route: "view-bon/:id",
+        moduleId: "./view-bon",
+        name: "view-bon",
+        nav: false,
+        title: "View-Bon:  Gudang Barang Jadi - Dyeing & Printing",
+      },
+      {
         route: "edit/:id",
         moduleId: "./edit",
         name: "edit",

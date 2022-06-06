@@ -30,13 +30,24 @@ export class List {
     }
 
     async search() {
+
+
         let arg = {
-            startDate : this.info.startDate,
-            endDate : this.info.endDate,
-            bankExpenditureNo : this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null,
-            dateExpenditure : this.info.date
-            // division : this.info.division.code,
+            // startDate : this.info.startDate,
+            // endDate : this.info.endDate,
+            // bankExpenditureNo : this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null,
+            // dateExpenditure : this.info.date
+            // // division : this.info.division.code,
         }
+        if(this.info.startDate!= undefined)
+            arg.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
+        if(this.info.endDate!= undefined)
+            arg.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
+        if(this.info.date!= undefined)
+            arg.dateExpenditure = moment(this.info.date).format("YYYY-MM-DD");
+        if(this.info.bankExpenditureNo!= undefined)
+            arg.bankExpenditureNo = this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null;
+
 
         this.data = await this.service.search(arg)
             .then((result) => {
@@ -76,23 +87,31 @@ export class List {
     }
 
     excel() {
-        let args= {
-            startDate : this.info.startDate,
-            endDate : this.info.endDate,
-            bankExpenditureNo : this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null,
-            dateExpenditure : this.info.date
-            // division : this.info.division.code,
+        let arg= {
+            // startDate : this.info.startDate,
+            // endDate : this.info.endDate,
+            // bankExpenditureNo : this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null,
+            // dateExpenditure : this.info.date
+            // // division : this.info.division.code,
         }
-        this.service.getXls(args);
+        if(this.info.startDate!= undefined)
+            arg.startDate = moment(this.info.startDate).format("YYYY-MM-DD");
+        if(this.info.endDate!= undefined)
+            arg.endDate = moment(this.info.endDate).format("YYYY-MM-DD");
+        if(this.info.date!= undefined)
+            arg.dateExpenditure = moment(this.info.date).format("YYYY-MM-DD");
+        if(this.info.bankExpenditureNo!= undefined)
+            arg.bankExpenditureNo = this.info.bankExpenditureNo? this.info.bankExpenditureNo.DocumentNo: null;
+        this.service.getXls(arg);
     }
 
     reset() {
         this.error = {};
         this.info.bankExpenditureNo = undefined;
-        this.info.date = null;
+        this.info.date = undefined;
         this.info.division = undefined;
-        this.info.startDate =null;
-        this.info.endDate = null;
+        this.info.startDate =undefined;
+        this.info.endDate = undefined;
     }
 }
 export class KeysValueConverter {

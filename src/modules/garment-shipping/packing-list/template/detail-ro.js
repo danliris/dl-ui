@@ -1,39 +1,57 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { SalesService } from "../service";
+import { SalesService,GarmentProductionService,CoreService } from "../service";
 var CostCalculationLoader = require("../../../../loader/cost-calculation-garment-loader");
+var PurchaseRequestLoader = require("../../../../loader/garment-purchase-request-loader");
 var UomLoader = require("../../../../loader/uom-loader");
+var CurrencyLoader = require("../../../../loader/garment-currency-loader");
+var UnitLoader = require("../../../../loader/garment-units-loader");
+var SampleRequestLoader = require("../../../../loader/garment-sample-request-loader");
 
-@inject(SalesService)
+@inject(SalesService,GarmentProductionService,CoreService)
 export class Item {
     @bindable selectedRO;
     @bindable uom;
     @bindable avG_GW;
     @bindable avG_NW;
+    @bindable selectedPR;
+    @bindable currency;
+    @bindable unit;
 
-    constructor(salesService) {
+    constructor(salesService,garmentProductionService,coreService) {
         this.salesService = salesService;
+        this.garmentProductionService=garmentProductionService;
+        this.coreService=coreService;
     }
-
+    roTypeOptions = ["RO JOB", "RO SAMPLE"];
     get filter() {
-        var filter={};
-        if(this.header.invoiceType!="SM"){
-            filter = {
-                BuyerCode: this.data.BuyerCodeFilter,
-                Section: this.data.SectionFilter,
-                "SCGarmentId!=null": true
-            };
-        }
-        else{
-            filter = {
-                Section: this.data.SectionFilter,
-                "SCGarmentId!=null": true
-            };
+        var filter = {};
+        if(this.data.roType == 'RO JOB'){
+            if (this.header.invoiceType != "SM") {
+                filter = {
+                    BuyerCode: this.data.BuyerCodeFilter,
+                    Section: this.data.SectionFilter,
+                    "SCGarmentId!=null": true
+                };
+            }
+            else {
+                filter = {
+                    Section: this.data.SectionFilter,
+                    "SCGarmentId!=null": true
+                };
+            }
         }
         return filter;
     }
 
+    get PRfilter() {
+        var filter = {
+            'RONo.Contains("M") || RONo.Contains("S")': "true",
+        };
+        return filter;
+    }
+
     detailsColumns = [
-        { header: "Index"},
+        { header: "Index" },
         { header: "Carton 1" },
         { header: "Carton 2" },
         { header: "Style" },
@@ -48,21 +66,51 @@ export class Item {
     ];
 
     get roLoader() {
-        return CostCalculationLoader;
+        if (this.data.roType == 'RO SAMPLE') {
+            return SampleRequestLoader;
+        } else {
+            return CostCalculationLoader;
+        }
+    }
+    
+    get prLoader() {
+        return PurchaseRequestLoader;
     }
 
     get uomLoader() {
         return UomLoader;
     }
 
+    get currencyLoader() {
+        return CurrencyLoader;
+    }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    currencyView = (currency) => {
+        return `${currency.Code || currency.code}`
+    }
+
+    unitView = (unit) => {
+        return `${unit.Code || unit.code}`
+    }
+
     uomView = (uom) => {
         return `${uom.Unit || uom.unit}`
     }
-
-    roView = (costCal) => {
-        return `${costCal.RO_Number}`
+    
+    roView = (ro) => {
+        if (this.data.roType == 'RO SAMPLE')
+            return `${ro.RONoSample}`;
+        else
+            return `${ro.RO_Number}`;
     }
-
+    
+    prView = (pr) => {
+        return `${pr.RONo}`
+    }
     toggle() {
         if (!this.isShowing)
             this.isShowing = true;
@@ -78,7 +126,8 @@ export class Item {
         this.readOnly = this.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        this.header=context.context.options.header;
+        this.header = context.context.options.header;
+        this.isMaster = this.header.roType == "RO MASTER";
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
@@ -87,12 +136,19 @@ export class Item {
             header: this.header,
             item: this.data
         };
-        this.header=context.context.options.header;
+        this.header = context.context.options.header;
+        if (this.data) {
+            this.unit = this.data.unit;
+        }
         if (this.data.roNo) {
             this.selectedRO = {
-                RO_Number: this.data.RONo || this.data.roNo
+                RO_Number: this.data.RONo || this.data.roNo,
+                RONoSample: this.data.RONo || this.data.roNo
             };
             this.uom = this.data.uom;
+            this.selectedPR = {
+                RONo: this.data.RONo || this.data.roNo
+            }
         }
         this.isShowing = false;
         if (this.data.details) {
@@ -100,11 +156,17 @@ export class Item {
                 this.isShowing = true;
             }
         }
+        // if(this.data.valas){
+        //     this.currency={
+        //         Code: this.data.valas
+        //     };
+        // }
     }
 
     selectedROChanged(newValue) {
         if (newValue) {
-            this.salesService.getCostCalculationById(newValue.Id)
+            if(this.data.roType=='RO JOB'){
+                this.salesService.getCostCalculationById(newValue.Id)
                 .then(result => {
                     this.salesService.getSalesContractById(result.SCGarmentId)
                         .then(sc => {
@@ -124,13 +186,63 @@ export class Item {
                             this.data.amount = sc.Amount;
                         })
                 });
+            }
+            else{
+                this.garmentProductionService.getSampleRequestById(newValue.Id)
+                    .then(async result => {
+                        this.data.roNo = result.RONoSample;
+                        this.data.article = result.SampleProducts.map(x => x.Style).join(',');
+                        this.data.buyerBrand = result.Buyer;
+                        var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
+                        this.data.unit = units.data[0];
+
+                        let uomResult = await this.coreService.getUom({ size: 1, keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
+                        this.data.uom = uomResult.data[0];
+                        this.uom = uomResult.data[0];
+                        this.data.valas = "USD";
+                        this.data.quantity = result.SampleProducts.reduce((acc, cur) => acc += cur.Quantity, 0);
+                        this.data.scNo = result.SampleRequestNo;
+                        //this.data.amount=sc.Amount;
+                        this.data.price = 0;
+                        this.data.priceRO = 0;
+                        this.data.comodity = result.Comodity;
+                        this.data.amount = 0;
+                    })
+            }
+            
+        }
+    }
+
+    selectedPRChanged(newValue) {
+        if (newValue) {
+            this.data.roNo = newValue.RONo;
+            this.data.article = newValue.Article;
+            this.data.buyerBrand = newValue.Buyer;
+            this.data.unit = newValue.Unit;
+            this.data.valas = "USD";
+            this.data.scNo = newValue.SCNo;
+            this.unit = this.data.unit;
         }
     }
 
     uomChanged(newValue) {
-        if(newValue) {
+        if (newValue) {
             this.data.uom = newValue;
             this.uom = newValue;
+        }
+    }
+
+    currency(newValue) {
+        this.data.valas = null;
+        if (newValue) {
+            this.data.valas = newValue.code || newValue.Code;
+        }
+    }
+
+    unitChanged(newValue) {
+        if (newValue) {
+            this.data.unit = newValue;
+            this.unit = newValue;
         }
     }
 
@@ -168,7 +280,7 @@ export class Item {
             this.data.subGrossWeight = gw;
             this.data.subNetWeight = nw;
             this.data.subNetNetWeight = nnw;
-            this.updateMeasurements();
+            //this.updateMeasurements();
         };
     }
 
@@ -260,7 +372,7 @@ export class Item {
             }
             return qty;
         }
-        
+
         // if (this.data.details) {
         //     for (var detail of this.data.details) {
         //         if (detail.cartonQuantity) {
@@ -280,58 +392,66 @@ export class Item {
     }
 
     get subGrossWeight() {
-      return this.sumSubTotal(0);
+        return this.sumSubTotal(0);
     }
 
     get subNetWeight() {
-      return this.sumSubTotal(1);
+        return this.sumSubTotal(1);
     }
 
     get subNetNetWeight() {
-      return this.sumSubTotal(2);
+        return this.sumSubTotal(2);
     }
 
     sumSubTotal(opt) {
-      let result = 0;
-      const newDetails = this.data.details.map(d => {
-        return {
-          carton1: d.carton1,
-          carton2: d.carton2,
-          cartonQuantity: d.cartonQuantity,
-          grossWeight: d.grossWeight,
-          netWeight: d.netWeight,
-          netNetWeight: d.netNetWeight,
-          index: d.index
-        };
-      }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
-      for (const detail of newDetails) {
-        const cartonExist = false;
-        const indexItem = this.context.context.options.header.items.indexOf(this.data);
-        if (indexItem > 0) {
-          for (let i = 0; i < indexItem; i++) {
-            const item = this.context.context.options.header.items[i];
-            for (const prevDetail of item.details) {
-              if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
-                cartonExist = true;
-                break;
-              }
+        let result = 0;
+        const newDetails = this.data.details.map(d => {
+            return {
+                carton1: d.carton1,
+                carton2: d.carton2,
+                cartonQuantity: d.cartonQuantity,
+                grossWeight: d.grossWeight,
+                netWeight: d.netWeight,
+                netNetWeight: d.netNetWeight,
+                index: d.index
+            };
+        }).filter((value, index, self) => self.findIndex(f => value.carton1 == f.carton1 && value.carton2 == f.carton2 && value.index == f.index) === index);
+        for (const detail of newDetails) {
+            const cartonExist = false;
+            const indexItem = this.context.context.options.header.items.indexOf(this.data);
+            if (indexItem > 0) {
+                for (let i = 0; i < indexItem; i++) {
+                    const item = this.context.context.options.header.items[i];
+                    for (const prevDetail of item.details) {
+                        if (detail.carton1 == prevDetail.carton1 && detail.carton2 == prevDetail.carton2 && detail.index == prevDetail.index) {
+                            cartonExist = true;
+                            break;
+                        }
+                    }
+                }
             }
-          }
+            if (!cartonExist) {
+                switch (opt) {
+                    case 0:
+                        result += detail.grossWeight * detail.cartonQuantity;
+                        break;
+                    case 1:
+                        result += detail.netWeight * detail.cartonQuantity;
+                        break;
+                    case 2:
+                        result += detail.netNetWeight * detail.cartonQuantity;
+                        break;
+                }
+            }
         }
-        if (!cartonExist) {
-          switch (opt) {
-            case 0:
-              result += detail.grossWeight * detail.cartonQuantity;
-              break;
-            case 1:
-              result += detail.netWeight * detail.cartonQuantity;
-              break;
-            case 2:
-              result += detail.netNetWeight * detail.cartonQuantity;
-              break;
-          }
+        return result;
+    }
+
+    roTypeChanged(e) {
+        let type = (e.detail) ? e.detail : "";
+        if (type) {
+            this.data.roType = type;
         }
-      }
-      return result;
+
     }
 }

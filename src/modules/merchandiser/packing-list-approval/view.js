@@ -7,6 +7,7 @@ import { Dialog } from "./template/dialog";
 @inject(Router, Service, CoreService, DialogService)
 export class View {
 
+    isEdit = false;
     constructor(router, service, coreService, dialogService) {
         this.router = router;
         this.service = service;
@@ -33,10 +34,10 @@ export class View {
         }
 
         if (this.data.items) {
-            for (const item of this.data.items) {
+            this.data.items.map((item)=>{
                 item.buyerAgent = this.data.buyerAgent;
                 item.section = this.data.section;
-            }
+            });
         }
     }
 

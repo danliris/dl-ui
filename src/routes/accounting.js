@@ -26,6 +26,19 @@ module.exports = [
     }
   },
   {
+    route: '/accounting/post-vb-transaction',
+    name: 'journal-transaction-vb',
+    moduleId: './modules/accounting/posting-vb-transactions/index',
+    nav: true,
+    title: 'Pengisian Debit Jurnal VB',
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: 'fa fa-clone'
+    }
+  },
+  {
     route: '/accounting/reports/journal-transaction-report',
     name: 'journal-transaction-report',
     moduleId: './modules/accounting/reports/journal-transaction-report/index',
@@ -355,44 +368,44 @@ module.exports = [
     }
   },
   {
-    route:'master-pembukuan',
-    name:'master-pembukuan',
+    route: 'master-pembukuan',
+    name: 'master-pembukuan',
     moduleId: './modules/garment-finance/master-pembukuan/index',
     nav: true,
     title: 'Master Pembukuan',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
-      permission: {"C9": 1},
+      subGroup: "accounting garment",
+      permission: { "C9": 1, "B1": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
   {
-    route:'accounting/memo-garment-puchasing',
-    name:'memo-garment-puchasing',
+    route: 'accounting/memo-garment-puchasing',
+    name: 'memo-garment-puchasing',
     moduleId: './modules/accounting/memo-garment-purchasing/index',
     nav: true,
     title: 'Memorial Pembelian Job Garment',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
-      permission: { "B1": 1, "C9": 1 },
+      subGroup: "accounting garment",
+      permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
   {
-    route:'accounting/reports/memo-garment-purchasing-report',
-    name:'memo-garment-puchasing-report',
+    route: 'accounting/reports/memo-garment-purchasing-report',
+    name: 'memo-garment-puchasing-report',
     moduleId: './modules/accounting/reports/memo-garment-purchasing-report/index',
     nav: true,
-    title: 'Laporan Memo Pembelian Job Garment',  
+    title: 'Laporan Memo Pembelian Job Garment',
     auth: true,
     settings: {
       group: "accounting",
-      subGroup:"accounting garment",
-      permission: { "B1": 1, "C9": 1 },
+      subGroup: "accounting garment",
+      permission: { "B1": 1, "C9": 1, "B12": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -406,7 +419,7 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
-      permission: { "C9": 1 },
+      permission: { "C9": 1, "B12": 1, "B1": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
@@ -420,8 +433,203 @@ module.exports = [
     settings: {
       group: "accounting",
       subGroup: "accounting garment",
+      permission: { "C9": 1, "B12": 1, "B1": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/purchasing-memo-detail-textile",
+    name: "purchasing-memo-detail-textile",
+    moduleId: "./modules/accounting/purchasing-memo-detail-textile/index",
+    nav: true,
+    title: "Rincian Memo Pembelian Textile",
+    auth: true,
+    settings: {
+      group: "accounting",
       permission: { "C9": 1 },
       iconClass: "fa fa-dashboard",
     }
-  }
+  },
+  {
+    route: "accounting/purchasing-memo-textile",
+    name: "purchasing-memo-textile",
+    moduleId: "./modules/accounting/purchasing-memo-textile/index",
+    nav: true,
+    title: "Memo Pembelian Textile",
+    auth: true,
+    settings: {
+      group: "accounting",
+      permission: { "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
+  {
+    route: "accounting/revise-create-date-unit-receipt-note",
+    name: "revise-create-date-unit-receipt-note",
+    moduleId: "./modules/accounting/revise-create-date-unit-receipt-note/index",
+    nav: true,
+    title: "Fitur Ubah Tanggal BUM",
+    auth: true,
+    settings: {
+      group: "accounting",
+      // permission: { "B1": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
+  {
+    route: "accounting/revise-date-urn-uen",
+    name: "revise-date-urn-uen",
+    moduleId: "./modules/accounting/revise-date-urn-uen/index",
+    nav: true,
+    title: "Fitur Ubah Tanggal BUK/BUM",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "fitur",
+      permission: { "B1": 1, "C9": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: '/garment-production/monitoring-sample-prepare-bookkeeping',
+    name: 'garment-sample-monitoring-sample-prepare-bookkeeping',
+    moduleId: './modules/garment-sample/report/monitoring-sample-prepare-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Prepare Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-cutting-bookkeeping',
+    name: 'garment-sample-monitoring-sample-cutting-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-cutting-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Cutting Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-sewing-bookkeeping',
+    name: 'garment-sample-monitoring-sample-sewing-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-sewing-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Sewing Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  }, 
+  {
+    route: '/accounting/sample-reports/monitoring-sample-finishing-bookkeeping',
+    name: 'garment-sample-monitoring-sample-finishing-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-finishing-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Finishing Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping',
+    name: 'garment-sample-monitoring-sample-expenditure-good-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-expenditure-good-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Pengiriman Barang Jadi Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping',
+    name: 'garment-sample-monitoring-sample-flow-by-size-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-flow-by-size-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Flow Per Size Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping',
+    name: 'garment-sample-monitoring-sample-stock-flow-bookkeeping',
+    moduleId: './modules/accounting/sample-reports/monitoring-sample-stock-flow-bookkeeping/index',
+    nav: true,
+    title: 'Monitoring Sample Persediaan Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/unit-receipt-note-recap',
+    name: 'unit-receipt-note-recap',
+    moduleId: './modules/accounting/sample-reports/unit-receipt-note-recap/index',
+    nav: true,
+    title: 'Laporan Rekap BUM Sample',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/unit-expenditure-note-recap',
+    name: 'unit-receipt-note-recap',
+    moduleId: './modules/accounting/sample-reports/unit-expenditure-note-recap/index',
+    nav: true,
+    title: 'Laporan Rekap BUK Sample',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/accounting/sample-reports/stock-report',
+    name: 'sample-stock-report',
+    moduleId: './modules/accounting/sample-reports/stock-report/index',
+    nav: true,
+    title: 'Laporan Stok Sample Pembukuan',
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "report sample",
+      permission: { "C9": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];

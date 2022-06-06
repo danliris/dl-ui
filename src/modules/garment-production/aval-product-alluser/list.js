@@ -28,7 +28,6 @@ export class List {
           return moment(value).format("DD MMM YYYY")
         }
     },
-    { field: "CreatedBy", title: "Staff" },
   ]
 
   loader = (info) => {
@@ -41,15 +40,17 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
-      filter:JSON.stringify(this.filter)
+      filter: JSON.stringify(this.filter)
     }
 
     return this.service.search(arg)
       .then(result => {
         this.totalQuantity=result.info.totalQty;
         var data = {};
-        data.total = result.info.total;
+        data.total = result.info.count;
         data.data = result.data;
+
+        console.log(result);
         //   data.data.forEach(s => {
         //     if(s.Items){
         //       s.Items.toString = function () {
@@ -73,7 +74,7 @@ export class List {
         //     _data.SupplierName = _data.supplier.Name;
         // }
         return {
-          total: result.info.total,
+          total: result.info.count,
           data: result.data
         }
       });

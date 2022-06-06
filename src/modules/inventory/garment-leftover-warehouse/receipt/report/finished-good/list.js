@@ -43,9 +43,16 @@ export class List {
         { field: "UnitFromCode", title: "Asal Barang", sortable: false, width: '5%' },
         { field: "ExpenditureGoodNo", title: "No Bon Pengeluaran Barang", sortable: false, width: '15%' },
          { field: "RONo", title: "RO", sortable: false, width: '5%' },
+        { field: "UnitComodityCode", title: "Kode Komoditi Unit", sortable: false, width: '10%' },
+        { field: "ComodityCode", title: "Kode Komoditi", sortable: false, width: '10%' },
         { field: "ComodityName", title: "Komoditi", sortable: false, width: '10%' },
         { field: "Quantity", title: "Quantity", sortable: false, width: '5%' },
         { field: "UomUnit", title: "Satuan", sortable: false, width: '3%'},
+        { field: "Price", title: "Harga", sortable: false, width: '3%'},
+        { field: "PoSerialNumbers", title: "No PO", sortable: false, width: '3%'},
+        { field: "CustomsNo", title: "Asal BC Masuk", sortable: false, width: '5%' },
+        { field: "CustomsType", title: "Tipe Beacukai", sortable: false, width: '5%' },
+        { field: "CustomsDate", title: "Tanggal Beacukai",sortable: false, width: '5%' },
 
     ];
 
@@ -87,6 +94,40 @@ export class List {
                 this.service.search(args)
                     .then(result => {
                         result.data.forEach(s=>{
+                            if(s.CustomsNo != null && s.CustomsType != null && s.CustomsDate != null) {
+                                s.CustomsNo.toString = function () {
+                                    var str = "<ul>";
+                                    for(var no of s.CustomsNo){
+                                        str += `<li>${no}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                                s.CustomsType.toString = function () {
+                                    var str = "<ul>";
+                                    for(var type of s.CustomsType){
+                                        str += `<li>${type}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                                s.CustomsDate.toString = function () {
+                                    var str = "<ul>";
+                                    for(var date of s.CustomsDate){
+                                        str += `<li>${moment(date).format("DD MMM YYYY")}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                                s.PoSerialNumbers.toString = function () {
+                                    var str = "<ul>";
+                                    for(var type of s.PoSerialNumbers){
+                                        str += `<li>${type}</li>`;
+                                    }
+                                    str += "</ul>";
+                                    return str;
+                                }
+                            }
                             if(s.index == 0){
                                 s.index = "";
                             }

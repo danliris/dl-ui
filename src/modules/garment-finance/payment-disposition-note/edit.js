@@ -28,7 +28,7 @@ export class Edit {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Selisih Total Yang Dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
+            columns: ['__check', 'No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Nomor Proforma/Invoice', 'Supplier', 'Kategori', 'PPN', 'Total Pembayaran','Total Yang dibayar','Selisih Total Yang Dibayar','Total Yang sudah dibayar', 'Mata Uang', ''],
         };
     }
 
@@ -99,37 +99,40 @@ export class Edit {
     }
 
     saveCallback(event) {
-        this.data.Items = this.Items.filter((item) => item.Select);
-        var dataPrep = this.data;
-        this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
-            .then(response => {
-                if (response == "ok") {
-                    this.service.update(this.data).then(result => {
-                        this.cancelCallback();
-                    }).catch(e => {
-                        this.error = e;
-                    })
-                }
-            });
+      this.data.Items = this.Items.filter((item) => item.Select);
+      var dataPrep = this.data;
+      console.log(this.data);
+
+      this.dialog.prompt("Apakah anda yakin akan menyimpan data?", "Simpan Data")
+          .then(response => {
+              if (response == "ok") {
+                this.service.update(dataPrep).then(result => {
+                  this.cancelCallback();
+              })
+              .catch(e => {
+                  this.error = e;
+                });
+              }
+          });
     }
 
     get grandTotal() {
-        let result = 0;
-        let viewResult=0;
-        if (this.Items && this.Items.length > 0) {
-            for (let detail of this.Items) {
-                if (detail.Select){
-                    result += detail.TotalPaidPayment;
-                    viewResult+=(detail.TotalPaidPayment);
-                }
-            }
-        }
-        this.data.Amount = result;
-        // if(this.IDR)
-        //     return viewResult
-        // else
-        //     return result;
-    }
+      let result = 0;
+      let viewResult = 0;
+      if (this.Items && this.Items.length > 0) {
+          for (let detail of this.Items) {
+              if (detail.Select) {
+                  result += detail.TotalPaidPayment;
+                  viewResult += (detail.TotalPaidPayment);
+              }
+          }
+      }
+      this.data.Amount = result;
+      if (this.IDR)
+          return viewResult
+      else
+          return result;
+  }
 
     onCheckAll(event) {
         for (var item of this.Items) {

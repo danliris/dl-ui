@@ -14,7 +14,7 @@ export class List {
         { field: "UENNo", title: "No Bon Pengeluaran Unit" },
         { field: "StorageFromName", title: "Gudang Asal" },
         {
-            field: "ReceiptDate", title: "Tgl Penerimaan Gudang", formatter: function (value, data, index) {
+            field: "StorageReceiveDate", title: "Tgl Penerimaan Gudang", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },

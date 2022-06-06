@@ -65,6 +65,11 @@ class SalesService extends RestService {
         var endpoint = `${costCalculationServiceUri}/dynamic`;
         return super.list(endpoint, info);
     }
+
+    getCostCalculationByRO(ro) {
+        var endpoint = `${costCalculationServiceUri}/by-ro/${ro}`;
+        return super.get(endpoint);
+    }
 }
 
 const sectionServiceUri = "master/garment-sections";

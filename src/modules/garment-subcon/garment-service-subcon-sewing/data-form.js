@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {
@@ -45,6 +46,15 @@ export class DataForm {
     ]
   }
 
+  get buyerLoader() {
+    return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+    var buyerName = buyer.Name || buyer.name;
+    var buyerCode = buyer.Code || buyer.code;
+    return `${buyerCode} - ${buyerName}`
+  }
+
   bind(context) {
     this.context = context;
     this.data = this.context.data;
@@ -62,34 +72,36 @@ export class DataForm {
       //       item.Unit = this.data.Unit;
       //   }
       // );
-      for(var item of this.data.Items){
-        var details=[];
-        for(var d of item.Details){
-          var detail={};
-          if(details.length==0){
-              detail.Quantity=d.Quantity;
-              detail.DesignColor=d.DesignColor;
-              detail.Uom=d.Uom;
-              detail.Unit=d.Unit;
-              details.push(detail);
+      for (var item of this.data.Items) {
+        var details = [];
+        for (var d of item.Details) {
+          var detail = {};
+          if (details.length == 0) {
+            detail.Quantity = d.Quantity;
+            detail.DesignColor = d.DesignColor;
+            detail.Uom = d.Uom;
+            detail.Unit = d.Unit;
+            detail.Remark = d.Remark;
+            details.push(detail);
           }
-          else{
-            var exist= details.find(a=>a.DesignColor==d.DesignColor && a.Unit.Id==d.Unit.Id);
-            if(!exist){
-                detail.Quantity=d.Quantity;
-                detail.DesignColor=d.DesignColor;
-                detail.Uom=d.Uom;
-                detail.Unit=d.Unit;
-                details.push(detail);
+          else {
+            var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id);
+            if (!exist) {
+              detail.Quantity = d.Quantity;
+              detail.DesignColor = d.DesignColor;
+              detail.Uom = d.Uom;
+              detail.Unit = d.Unit;
+              detail.Remark = d.Remark;
+              details.push(detail);
             }
-            else{
-                var idx= details.indexOf(exist);
-                exist.Quantity+=d.Quantity;
-                details[idx]=exist;
+            else {
+              var idx = details.indexOf(exist);
+              exist.Quantity += d.Quantity;
+              details[idx] = exist;
             }
-          }  
+          }
         }
-        item.Details=details;
+        item.Details = details;
       }
     }
   }
@@ -114,16 +126,17 @@ export class DataForm {
 
   get addItems() {
     return (event) => {
-        this.data.Items.push({
-          //  Unit:this.data.Unit
-        });
+      this.data.Items.push({
+        //  Unit:this.data.Unit
+        Buyer: this.data.Buyer
+      });
     };
   }
 
   get removeItems() {
-      return (event) => {
-          this.error = null;
-      };
+    return (event) => {
+      this.error = null;
+    };
   }
   // changeChecked() {
   //   if (this.data.Items) {
@@ -134,17 +147,26 @@ export class DataForm {
   //   }
   // }
 
-  get totalQuantity(){
-    var qty=0;
-    if(this.data.Items){
-        for(var item of this.data.Items){
-            if(item.Details){
-                for(var detail of item.Details){
-                    qty += detail.Quantity;
-                }
-            }
+  get totalQuantity() {
+    var qty = 0;
+    if (this.data.Items) {
+      for (var item of this.data.Items) {
+        if (item.Details) {
+          for (var detail of item.Details) {
+            qty += detail.Quantity;
+          }
         }
+      }
     }
     return qty;
+  }
+
+  get buyerLoader() {
+    return BuyerLoader;
+  }
+  buyerView = (buyer) => {
+    var buyerName = buyer.Name || buyer.name;
+    var buyerCode = buyer.Code || buyer.code;
+    return `${buyerCode} - ${buyerName}`
   }
 }

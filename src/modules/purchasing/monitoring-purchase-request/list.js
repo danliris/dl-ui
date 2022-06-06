@@ -7,6 +7,7 @@ var UnitLoader = require('../../../loader/unit-loader');
 var PRLoader = require('../../../loader/purchase-request-by-user-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
+var ProductLoader = require('../../../loader/product-purchasing-null-tags-loader');
 
 @inject(Service)
 
@@ -87,6 +88,7 @@ export class List {
         this.unit = null;
         this.category = null;
         this.budget = null;
+        this.dataProduct = null;
         this.poStatus = "";
         this.prStatus = "";
         this.dateTo = undefined;
@@ -102,7 +104,7 @@ export class List {
 
         if (info.sort)
             order[info.sort] = info.order;
-
+        console.log(this.dataProduct);
         let args = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -110,13 +112,14 @@ export class List {
             unitId: this.unit ? this.unit.Id : "",
             categoryId: this.category ? this.category._id : "",
             budgetId: this.budget ? this.budget._id : "",
+            productId: this.dataProduct ? this.dataProduct.Id: "",
             prStatus: this.prStatus,
             poStatus: this.poStatus,
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
         };
-
+        console.log(args);
         return this.flag ?
             (
                 this.service.search(args)
@@ -148,6 +151,7 @@ export class List {
             budgetId: this.budget ? this.budget._id : "",
             prStatus: this.prStatus,
             poStatus: this.poStatus,
+            productId: this.dataProduct ? this.dataProduct.Id: "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
@@ -176,6 +180,9 @@ export class List {
         return BudgetLoader;
     }
 
+    get productLoader() {
+        return ProductLoader;
+      }
     prView = (tr) => {
       return `${tr.no}`;
   }

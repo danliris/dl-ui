@@ -84,6 +84,8 @@ export class List {
                             driverName : data.driverName,
                             unitName : data.unitName,    
                             contaainerNo : data.containerNo,
+                            shippingSeal : data.shippingSeal,
+                            dlSeal : data.dlSeal,                            
                             pcsQuantity : data.pcsQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             setsQuantity : data.setsQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             packQuantity : data.packQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),

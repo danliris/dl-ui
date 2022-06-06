@@ -33,6 +33,8 @@ export class Create {
         var fileInput = document.getElementById("fileCsv");
         var source = this.data.from;
         var date = this.data.date;
+        // this.data.date = new Date().toLocaleDateString('en-US', {
+        //     month: '2-digit',day: '2-digit',year: 'numeric'});
         var fileList = fileInput.files;
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
@@ -61,7 +63,8 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode Barang, Nama Barang, Satuan, Mata Uang, Harga, Tags, Keterangan");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: nota,benang,type,lusi,pakan,lebar,jlusi,jpakan,alusi,apakan,sp,grade,jenis,piece,meter,barcode,tgl");
+                        this.upload();
                     }
                     else if (response.status == 201) {
                         console.log(response);
@@ -71,7 +74,8 @@ export class Create {
                     else if (response.status == 500)
                     {
                         //var message = response.message;
-                        alert("Nota Sudah Pernah di Input atau Ada Kesalahan Penyimpanan");
+                        alert("Nota Sudah Pernah di Input");
+                        this.upload();
                     }
 
                     console.log(response);

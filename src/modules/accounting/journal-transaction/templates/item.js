@@ -18,4 +18,8 @@ export class Item {
     get coaLoader() {
         return COALoader;
     }
+
+    coaTextView = ((coa) => {
+        return coa.Name ? coa.Code + " - " + coa.Name : coa.Code;
+    })
 }

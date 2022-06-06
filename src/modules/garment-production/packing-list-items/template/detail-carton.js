@@ -119,39 +119,36 @@ export class Detail {
 
   updateMeasurements() {
     let measurementCartons = [];
-    let measurementCartons2 = [];
-    for (const item of this.context.context.options.header.items) {
+    this.context.context.options.header.items.map((item) => {
+      //for (const item of this.context.context.options.header.items) {
       for (const detail of (item.details || [])) {
-        measurementCartons = [...item.details];
-        let measurement = measurementCartons.filter((value, index, self) => self.findIndex(f => value.index == f.index) === index).find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height);
-        if (measurement) {
-          measurementCartons2.push({
+        let measurement = measurementCartons.find(m => m.length == detail.length && m.width == detail.width && m.height == detail.height && m.carton1 == detail.carton1 && m.carton2 == detail.carton2 && m.index == detail.index);
+        if (!measurement) {
+          measurementCartons.push({
             carton1: detail.carton1,
             carton2: detail.carton2,
             length: detail.length,
             width: detail.width,
             height: detail.height,
             cartonsQuantity: detail.cartonQuantity,
-            index: detail.index
           });
         }
       }
-    }
+    });
 
     let measurements = [];
-    for (const measurementCarton of measurementCartons2.filter((value, index, self) => self.findIndex(f => value.index == f.index && value.carton1 == f.carton1 && value.carton2 == f.carton2) === index)) {
+    measurementCartons.map((measurementCarton) => {
       let measurement = measurements.find(m => m.length == measurementCarton.length && m.width == measurementCarton.width && m.height == measurementCarton.height);
       if (measurement) {
         measurement.cartonsQuantity += measurementCarton.cartonsQuantity;
       } else {
         measurements.push(Object.assign({}, measurementCarton));
       }
-    }
+    })
 
     this.context.context.options.header.measurements = this.context.context.options.header.measurements || [];
     this.context.context.options.header.measurements.splice(0);
-
-    for (const mt of measurements) {
+    measurements.map((mt) => {
       let measurement = (this.context.context.options.header.measurementsTemp || []).find(m => m.length == mt.length && m.width == mt.width && m.height == mt.height);
       if (measurement) {
         measurement.cartonsQuantity = mt.cartonsQuantity;
@@ -159,9 +156,10 @@ export class Detail {
       } else {
         this.context.context.options.header.measurements.push(mt);
       }
-    }
+    })
 
     this.context.context.options.header.measurements.forEach((m, i) => m.MeasurementIndex = i);
+
   }
 
   sumSubTotal(opt) {
@@ -217,10 +215,12 @@ export class Detail {
     this.context.context.options.header.grossWeight = 0;
 
     this.context.context.options.item.subGrossWeight = this.sumSubTotal(0);
-
-    for (const item of this.context.context.options.header.items) {
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
-    }
+    })
+    // for (const item of this.context.context.options.header.items) {
+
+    // }
   }
 
   netWeightChanged(newValue) {
@@ -233,9 +233,12 @@ export class Detail {
 
     this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
 
-    for (const item of this.context.context.options.header.items) {
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.nettWeight += item.subNetWeight || 0;
-    }
+    })
+    // for (const item of this.context.context.options.header.items) {
+
+    // }
   }
 
   netNetWeightChanged(newValue) {
@@ -247,10 +250,12 @@ export class Detail {
     this.context.context.options.header.netNetWeight = 0;
 
     this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
-
-    for (const item of this.context.context.options.header.items) {
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
-    }
+    });
+    // for (const item of this.context.context.options.header.items) {
+
+    // }
   }
 
   carton1Changed(newValue) {
@@ -282,11 +287,14 @@ export class Detail {
     this.context.context.options.item.subNetWeight = this.sumSubTotal(1);
     this.context.context.options.item.subNetNetWeight = this.sumSubTotal(2);
 
-    for (const item of this.context.context.options.header.items) {
+    this.context.context.options.header.items.map((item) => {
       this.context.context.options.header.grossWeight += item.subGrossWeight || 0;
       this.context.context.options.header.nettWeight += item.subNetWeight || 0;
       this.context.context.options.header.netNetWeight += item.subNetNetWeight || 0;
-    }
+    })
+    // for (const item of this.context.context.options.header.items) {
+
+    // }
   }
 
   indexChanged(newValue) {

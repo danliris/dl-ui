@@ -15,6 +15,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedType;
     @bindable selectedSalesNote;
+    @bindable manual;
 
     controlOptions = {
         label: {
@@ -101,9 +102,17 @@ export class DataForm {
                 };
             });
             this.Options.existingItems=this.existingItems;
-            this.selectedSalesNote = {
-                noteNo: this.data.LocalSalesNoteNo
-            };
+            if(this.data.LocalSalesNoteId){
+                this.selectedSalesNote = {
+                    noteNo: this.data.LocalSalesNoteNo,
+                    id:this.data.LocalSalesNoteId
+                };
+                this.manual=false;
+            }
+            else{
+                this.manual=true;
+            }
+            
 
         }
     }
@@ -141,6 +150,16 @@ export class DataForm {
         if (newValue) {
             this.data.LocalSalesNoteNo = newValue.noteNo;
             this.data.LocalSalesNoteId = newValue.id;
+        }
+    }
+
+    manualChanged(newValue){
+        if(!this.data.Id){
+            if(this.context.selectedSalesNote)
+                this.context.selectedSalesNote.editorValue = "";
+            this.selectedSalesNote=null;
+            this.data.LocalSalesNoteNo= "";
+            this.data.LocalSalesNoteId=0;
         }
     }
 

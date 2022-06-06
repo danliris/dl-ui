@@ -47,6 +47,19 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox
+                value.bind="data.IncomeTaxName"
+                read-only="true">
+            </au-textbox>
+        </td>
+        <td>
+            <require from="../../../../lib/number-format-value-converter.js"></require>
+            <au-numeric
+                value.bind="data.IncomeTaxRate | numberFormat: '0,000.0000'"
+                read-only="true">
+            </au-numeric>
+        </td>
+        <td>
             <require from="../../../../lib/number-format-value-converter.js"></require>
             <au-numeric
                 value.bind="data.IncomeTax | numberFormat: '0,000.0000'"

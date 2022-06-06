@@ -11,7 +11,7 @@ export class Item {
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
-
+    this.data.IsSave = true;
     this.isShowing = false;
     
     if (this.data.productionOrderId) {

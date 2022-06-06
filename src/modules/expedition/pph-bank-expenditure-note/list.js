@@ -63,6 +63,14 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (let data of result.data) {
+                    data.IncomeTaxName = data.IncomeTaxName.map((item => {
+                        return "- " + item.IncomeTaxName
+                    }));
+                    data.IncomeTaxName = data.IncomeTaxName.join("<br>");
+                    data.IncomeTaxRate = data.IncomeTaxRate.map((item => {
+                      return item.IncomeTaxRate
+                    }));
+                    data.IncomeTaxRate = data.IncomeTaxRate.join("<br>");
                     data.UnitPaymentOrderList = data.Items.map((item) => {
                         return "- " + item.UnitPaymentOrderNo;
                     });

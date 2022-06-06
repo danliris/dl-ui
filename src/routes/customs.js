@@ -94,4 +94,93 @@ module.exports = [
         },
 
     },
+
+     {
+        route: '/customs/beacukai_temp',
+        name: 'customs-beacukaitemp',
+        moduleId: './modules/customs-report/beacukai_temp/index',
+        nav: true,
+        title: 'Posting BC-23 dan BC-27',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"PG": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+
+    {
+        route: '/customs/realization-bom',
+        name: 'monitoring-realization-bom',
+        moduleId: './modules/customs/realization_bom/index',
+        nav: true,
+        title: 'Laporan Monitoring BOM (Bill of Material)',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+
+    {
+        route: '/customs/pemasukan-tc-kecil',
+        name: 'monitoring-pemasukan-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-tc-kecil',
+        name: 'monitoring-pengeluaran-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    
+    {
+        route: '/customs/pemasukan-sampah-sapuan',
+        name: 'monitoring-pemasukan-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-sampah-sapuan',
+        name: 'monitoring-pengeluaran-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+
 ]

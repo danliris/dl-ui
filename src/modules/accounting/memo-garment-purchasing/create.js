@@ -27,7 +27,19 @@ export class Create {
         this.error ={};        
     }
 
+    convertDate(Date) {
+      var date = Date;
+      var day = date.getDate();       // yields date
+      var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+      var year = date.getFullYear();  // yields year
+
+      // After this construct a string with the above results as below
+      var time = year + "/" + month + "/" + day;
+      return time;
+    }
+
     save(event) {
+        this.data.MemoDate = this.convertDate(this.data.MemoDate);
         console.log(this.data);
         this.service.create(this.data)
             .then(result => {

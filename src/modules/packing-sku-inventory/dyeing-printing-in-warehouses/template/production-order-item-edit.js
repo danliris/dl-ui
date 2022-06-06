@@ -12,6 +12,7 @@ export class ProductionOrderItem {
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
+        this.data.IsSave = true;
     }
 
     controlOptions = {

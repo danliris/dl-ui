@@ -2,7 +2,7 @@ import { bindable, inject } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Service } from '../service';
-const InternalNoteLoader = require('../../shared/disposition-note-loader');
+const InternalNoteLoader = require('../../shared/disposition-note-loader-verification');
 
 @inject(Service)
 export class Item {

@@ -6,6 +6,15 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
+    rowFormatter(data, index) {
+        if (data.isApproveShipping == true || data.isApproveFinance == true){
+            return { classes: "success" }
+        }else if(data.isRejectedFinance  == true || data.isRejectedShipping  == true){
+            return { classes: "danger" }
+        }
+        else
+            return {}
+    }
     context = ["detail","Cetak PDF"]
 
     columns = [
@@ -22,6 +31,7 @@ export class List {
             }, sortable: false
         },
         { field: "dispositionNo", title: "No Disposisi" },
+        { field: "status", title: "Status" },
     ];
 
     loader = (info) => {
@@ -42,6 +52,19 @@ export class List {
                     data.buyer = data.buyer || {};
                     data.buyerCode = `${data.buyer.code} - ${data.buyer.name}`;
                     data.dueDate = this.dueDate(data.date, data.tempo);
+                    data.status= "CREATED";
+                    if(data.isApproveShipping && !data.isApproveFinance){
+                        data.status="APPROVED SHIPPING";
+                    }
+                    else if(data.isApproveFinance){
+                        data.status="APPROVED FINANCE";
+                    }
+                    else if(data.isRejectedFinance){
+                        data.status="REJECTED FINANCE";
+                    }
+                    else if( data.isRejectedShipping){
+                        data.status="REJECTED SHIPPING";
+                    }
                 }
 
                 return {

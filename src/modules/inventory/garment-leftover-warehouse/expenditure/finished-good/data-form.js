@@ -14,6 +14,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedSalesNote;
+    @bindable manual;
 
     controlOptions = {
         label: {
@@ -48,13 +49,13 @@ export class DataForm {
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
 
-    expenditureToOptions=["JUAL LOKAL", "LAIN-LAIN"];
+    expenditureToOptions = ["JUAL LOKAL", "LAIN-LAIN"];
 
     get buyerLoader() {
         return BuyerLoader;
     }
 
-    
+
     buyerView = (buyer) => {
         return `${buyer.Code} - ${buyer.Name}`;
     }
@@ -71,19 +72,26 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             isEdit: this.context.isEdit,
-            checkedAll: this.context.isCreate == true ? false : true 
+            checkedAll: this.context.isCreate == true ? false : true
         }
-        if(this.data.Id){
+        if (this.data.Id) {
             this.existingItems = this.data.Items.map(i => {
                 return {
                     StockId: i.StockId,
                     Quantity: i.ExpenditureQuantity
                 };
             });
-            this.Options.existingItems=this.existingItems;
-            this.selectedSalesNote = {
-                noteNo: this.data.LocalSalesNoteNo
-            };
+            this.Options.existingItems = this.existingItems;
+            if(this.data.LocalSalesNoteId){
+                this.selectedSalesNote = {
+                    noteNo: this.data.LocalSalesNoteNo,
+                    id:this.data.LocalSalesNoteId
+                };
+                this.manual=false;
+            }
+            else{
+                this.manual=true;
+            }
 
         }
     }
@@ -98,7 +106,7 @@ export class DataForm {
         return (event) => {
             this.error = null;
             //this.Options.error = null;
-     };
+        };
     }
 
     selectedSalesNoteChanged(newValue) {
@@ -112,5 +120,13 @@ export class DataForm {
         }
     }
 
-
+    manualChanged(newValue){
+        if(!this.data.Id){
+            if(this.context.selectedSalesNote)
+                this.context.selectedSalesNote.editorValue = "";
+            this.selectedSalesNote=null;
+            this.data.LocalSalesNoteNo= "";
+            this.data.LocalSalesNoteId=0;
+        }
+    }
 }

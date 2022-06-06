@@ -35,6 +35,13 @@ export class Create {
     }
 
     saveCallback(event) {
+        console.log(this.data);
+        if(this.data.InvoiceId ==0)
+        { 
+            alert("Invoice belum dibuat bagian Shipping. Pilih Invoice lain");
+
+        }else
+        {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -48,5 +55,6 @@ export class Create {
                     alert("Missing Some Data");
                 }
             })
+        }
     }
 }

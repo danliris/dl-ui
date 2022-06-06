@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/currency-in-garment-currency-loader');
 const UnitLoader = require('../../../loader/unit-loader');
 
 @containerless()
@@ -124,7 +124,7 @@ export class DataForm {
                         // let dealQuantity = parseFloat(proddetail.dealQuantity.toString().replace(/,/g, ""));
                         let price = epoItem.DealQuantity * epoItem.Price;
                         if (epoItem.UseVat)
-                            price += price * 0.1;
+                            price += price * (epoItem.VatTax.Rate/100);
                         result += price;
                     }
                 }

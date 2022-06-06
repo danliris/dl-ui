@@ -10,24 +10,22 @@ export class Service extends RestService {
 
     search(info) {
         let endpoint = `${serviceUri}/flowstock`;
-        console.log(endpoint,info);
         return super.list(endpoint, info);
-       
+
     }
 
     xls(info) {
         var endpoint = this._getEndPoint(info);
-        console.log(endpoint, info);
         return super.getXls(endpoint);
     }
 
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/download-flow-stock`;
         var query = '';
-        
+
         if (info.dateFrom)
             if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;    
+            else query = `${query}&dateFrom=${info.dateFrom}`;
 
         if (info.dateTo) {
             if (query === '') query = `dateTo=${info.dateTo}`;

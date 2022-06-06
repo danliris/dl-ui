@@ -15,6 +15,7 @@
             if.bind="type == 'No BC Masuk'"
             options.bind="controlOptions" >
         </au-dropdown>
+
         <au-autocomplete 
         value.bind="BCNo"
         error.bind="error.Description"
@@ -23,14 +24,10 @@
         if.bind="type == 'No BC Masuk'"
         loader.bind="bcnoLoader"
         query.bind="filterQuery"
+        text.bind="garmentbeacukaiView"
         options.bind="controlOptions">
         </au-autocomplete >
-            <!--<au-textbox
-            value.bind="internNote" 
-                label="Nomor Nota Intern" 
-                options.bind="controlOptions"
-                placeholder="Cari Nomor Nota Intern"></au-textbox>-->
-
+<!-- 
                 <au-autocomplete
                 value.bind="rojob"
                 error.bind="error.Description"
@@ -40,8 +37,28 @@
                 loader.bind="rojobLoader"
                 query.bind="filterQuery"
                 options.bind="controlOptions">
-                </au-autocomplete>
+                </au-autocomplete> -->
 
+                <!-- <au-autocomplete
+                value.bind="rojob"
+                error.bind="error.Description"
+                read-only.bind="readOnly"
+                label="RO Job"
+                if.bind="type == 'RO Job'"
+                loader.bind="rojobLoader"
+                text.bind="garmnetrojobview"
+                options.bind="controlOptions"
+                >
+                </au-autocomplete> -->
+                <au-textbox
+                value.bind="rojob"
+                error.bind="error.Description"
+                read-only.bind="readOnly ||isEdit"
+                label="RO Job"
+                if.bind="type == 'RO Job'"
+                options.bind="controlOptions"
+                >
+                </au-textbox>
                 <au-autocomplete
                 value.bind="itemcode"
                 error.bind="error.Description"
@@ -142,14 +159,16 @@
                         <td>No BC</td>
                         <td>Tanggal BC</td>
                         <td>No Bon</td>
-                        <td>RO Job</td>
-                        <td>PO</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
+
+                        <td>PO</td>
+
                         <!-- <td>BUM</td> -->
                         <td>Qty Terima</td>
                         <td>Satuan</td>
                         <td>No BUK</td>
+                        <td>RO Job</td>
                         <td>Qty BUK</td>
                         <td>Sisa</td>
                         <td>Satuan</td>
@@ -195,36 +214,38 @@
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.BCNo}</td>
                         <td if.bind="IN.bcnospan" rowspan="${IN.bcnospan}">${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
                         <td if.bind="IN.bonspan" rowspan="${IN.bonspan}">${IN.BonNo}</td>
-                        <td if.bind="IN.rojobspan" rowspan="${IN.rojobspan}">${IN.ROJob}</td>
-                        <td if.bind="IN.pospan" rowspan="${IN.pospan}">${IN.PO}</td>
                         <td if.bind="IN.itemcodespan" rowspan="${IN.itemcodespan}">${IN.ItemCode}</td>
                         <td if.bind="IN.itemnamespan" rowspan="${IN.itemnamespan}">${IN.ItemName}</td>
-                        <td if.bind="IN.qtyreceiptspan" rowspan="${IN.qtyreceiptspan}">${IN.ReceiptQty}</td>
-                        <td if.bind="IN.satuanreceiptspan" rowspan="${IN.satuanreceiptspan}">${IN.SatuanReceipt}</td>
-                        <td if.bind="IN.nobukspan" rowspan="${IN.nobukspan}">${IN.BUK}</td>
+                        <td if.bind="IN.rojobspan" rowspan="${IN.rojobspan}">${IN.PO}</td>
+                         <td if.bind="IN.qtyreceiptspan" rowspan="${IN.qtyreceiptspan}">${IN.ReceiptQty}</td>
+                        <!--<td if.bind="IN.satuanreceiptspan" rowspan="${IN.satuanreceiptspan}">${IN.SatuanReceipt}</td>-->
+                        <td >${IN.SatuanReceipt}</td> 
+                         <td if.bind="IN.nobukspan" rowspan="${IN.nobukspan}">${IN.BUK}</td>
+                        <td if.bind="IN.rojobspan" rowspan="${IN.rojobspan}">${IN.ROJob}</td>
                         <td if.bind="IN.nobukspan" rowspan="${IN.nobukspan}">${IN.QtyBUK}</td>
                         <td if.bind="IN.sisaspan" rowspan="${IN.sisaspan}">${IN.Sisa}</td>
-                        <td if.bind="IN.satuanbukspan" rowspan="${IN.satuanbukspan}">${IN.SatuanBUK}</td>
-                        <td if.bind="IN.produksiQtyspan" rowspan="${IN.produksiQtyspan}">${IN.ProduksiQty}</td>
+                        <!-- <td if.bind="IN.satuanbukspan" rowspan="${IN.satuanbukspan}">${IN.SatuanBUK}</td> -->
+                        <td >${IN.SatuanBUK}</td>
+                       <td if.bind="IN.produksiQtyspan" rowspan="${IN.produksiQtyspan}">${IN.ProduksiQty}</td>
                         <td if.bind="IN.bjquantityspan" rowspan="${IN.bjquantityspan}">${IN.BJQty}</td>
-                        <td if.bind="IN.invoicespan" rowspan="${IN.invoicespan}">${IN.Invoice}</td>
+                         <td if.bind="IN.invoicespan" rowspan="${IN.invoicespan}">${IN.Invoice}</td>
                         <td if.bind="IN.pebnospan" rowspan="${IN.pebnospan}">${IN.PEB}</td>
                         <td if.bind="IN.pebdatespan" rowspan="${IN.pebdatespan}">${IN.PEBDate}</td>
                         <td if.bind="IN.eksporqtyspan" rowspan="${IN.eksporqtyspan}">${IN.EksporQty}</td>
-                        <td if.bind="IN.samppleqtyspan" rowspan="${IN.samppleqtyspan}">${IN.SampleQty}</td>
+                        <td if.bind="IN.samppleqtyspan" rowspan="${IN.samppleqtyspan}">${IN.SampleQty}</td> 
 
                         <!-- <td >${$index + 1}</td>
                         <td >${IN.BCType}</td>
                         <td >${IN.BCNo}</td>
-                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td>
+                        <td >${IN.BCDate | dateFormat:'D MMM YYYY'}</td> 
                         <td >${IN.BonNo}</td>
-                        <td >${IN.ROJob}</td>
-                        <td >${IN.PO}</td>
                         <td >${IN.ItemCode}</td>
-                        <td >${IN.ItemName}</td>
+                        <td >${IN.ItemName}</td> 
+                        <td >${IN.PO}</td>
                         <td >${IN.ReceiptQty}</td>
-                        <td >${IN.SatuanReceipt}</td>
+                        <td >${IN.SatuanReceipt}</td> 
                         <td >${IN.BUK}</td>
+                        <td >${IN.ROJob}</td>
                         <td >${IN.QtyBUK}</td>
                         <td >${IN.Sisa}</td>
                         <td >${IN.SatuanBUK}</td>
@@ -234,7 +255,7 @@
                         <td >${IN.PEB}</td>
                         <td >${IN.PEBDate}</td>
                         <td >${IN.EksporQty}</td>
-                        <td >${IN.SampleQty}</td> -->
+                        <td >${IN.SampleQty}</td>-->
                         
                         
                         

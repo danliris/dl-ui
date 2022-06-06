@@ -17,6 +17,7 @@ module.exports = function (keyword, filter) {
                             return item && item.toString().trim().length > 0;
                         }).join(" - ");
                 }
+                supplier.rate = supplier.rate? supplier.rate:0;
                 return supplier;
             })
         });

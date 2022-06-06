@@ -14,6 +14,11 @@ export class View {
         var id = params.id;
         this.data = await this.service.getById(id);
         this.selectedPackingList = this.data.invoiceNo;
+        var localSalesNote=await this.service.salesNoteGetById(this.data.localSalesNoteId);
+        if(localSalesNote.isApproveShipping){
+            this.editCallback=null;
+            this.deleteCallback=null;
+        }
     }
 
     cancelCallback(event) {

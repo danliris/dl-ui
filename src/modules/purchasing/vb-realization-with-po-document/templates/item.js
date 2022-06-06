@@ -14,7 +14,6 @@ export class Item {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
 
-
         this.filter.epoIds = this.options.epoIds;
         this.filter.division = this.options.division;
         this.filter.currencyCode = this.options.currencyCode;
@@ -42,11 +41,16 @@ export class Item {
     get total() {
         if (this.data.UnitPaymentOrder) {
             let result = this.data.UnitPaymentOrder.Amount;
+            // if (this.data.UnitPaymentOrder.UseVat)
+            //     result += this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.VatTax.Rate / 100);
 
-            if (this.data.UnitPaymentOrder.UseVat)
-                result += this.data.UnitPaymentOrder.Amount * 0.1;
+            // if (this.data.UnitPaymentOrder.UseIncomeTax && this.data.UnitPaymentOrder.IncomeTaxBy == "Supplier")
+            //     result -= this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.IncomeTax.Rate / 100);
 
-            if (this.data.UnitPaymentOrder.UseIncomeTax && this.data.UnitPaymentOrder.IncomeTaxBy == "Supplier")
+            if (this.data.UnitPaymentOrder.IsPayVat)
+                result += this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.VatTax.Rate / 100);
+
+            if (this.data.UnitPaymentOrder.IsPayTax && this.data.UnitPaymentOrder.IncomeTaxBy == "Supplier")
                 result -= this.data.UnitPaymentOrder.Amount * (this.data.UnitPaymentOrder.IncomeTax.Rate / 100);
 
             return result;

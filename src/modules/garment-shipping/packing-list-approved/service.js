@@ -32,6 +32,16 @@ class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getPdfWHById(id) {
+        var endpoint = `${serviceUri}/${id}/order-no-wh`;
+        return super.getPdf(endpoint);
+    }
+
+    getPdfWHSectionDById(id) {
+        var endpoint = `${serviceUri}/${id}//order-no-wh-section-d`;
+        return super.getPdf(endpoint);
+    }
+
     getExcelById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.getXls(endpoint);
@@ -44,6 +54,11 @@ class Service extends RestService {
 
     revise(data) {
         var endpoint = `${serviceUri}/revise-shipping/${data.id}`;
+        return super.put(endpoint, JSON.stringify(data.reason));
+    }
+
+    reviseToMD(data) {
+        var endpoint = `${serviceUri}/revise-to-md/${data.id}`;
         return super.put(endpoint, JSON.stringify(data.reason));
     }
 }

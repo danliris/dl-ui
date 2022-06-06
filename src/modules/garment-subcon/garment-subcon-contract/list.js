@@ -23,15 +23,21 @@ export class List {
       
       }
 
-    context = ["Rincian"];
+    context = ["Rincian", "Cetak Excel"];
     
     columns = [
         { field: "ContractNo", title: "No/Tgl Kontrak" },
         { field: "ContractType", title: "Jenis Kontrak" },
-        { field: "AgreementNo", title: "No/Tgl Persetujuan" },
+        { field: "AgreementDate", title: "Tgl Persetujuan", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY")
+            },
+        },
         { field: "SupplierName", title: "Penerima" },
+        { field: "BuyerName", title: "Buyer" },
+        { field: "Quantity", title: "Quantity" },
+        { field: "UomUnit", title: "Satuan" },
         { field: "JobType", title: "Jenis Pekerjaan", sortable: false },
-        { field: "BPJNo", title: "No/Tgl BPJ"},
+        //{ field: "BPJNo", title: "No/Tgl BPJ"},
         { field: "FinishedGoodType", title: "Jenis Barang Jadi"},
         {
             field: "DueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {
@@ -61,7 +67,8 @@ export class List {
             result.data.forEach(s => {
                 s.SupplierCode=s.Supplier.Code;
                 s.SupplierName=s.Supplier.Name;
-                
+                s.BuyerName=s.Buyer.Name;
+                s.UomUnit=s.Uom.Unit;
             });
             return {
             total: result.info.total,
@@ -76,6 +83,9 @@ export class List {
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: data.Id });
+                break;
+            case "Cetak Excel":
+                this.service.getExcelById(data.Id);
                 break;
         }
     }

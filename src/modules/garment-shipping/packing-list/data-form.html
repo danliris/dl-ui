@@ -34,7 +34,8 @@
         </div>
       </div>
       <br>
-
+      <button slot="actions" class="btn btn-primary" click.delegate="unpostCallback($event)"
+      if.one-way="hasUnpost">Unpost</button>
       <!-- DESC -->
       <div class="row" if.bind="activeTab==0">
         <div class="row">
@@ -89,7 +90,7 @@
                     label="Payment Term"
                     value.bind="data.paymentTerm"
                     error.bind="error.PaymentTerm"
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly"
                     items.bind="PaymentTermOptions"
                     change.delegate="paymentTermChanged()"
                     options.bind="controlOptions">
@@ -132,7 +133,7 @@
                     loader.bind="buyerLoader"
                     text.bind = "buyerView"
                     placeholder="cari buyer"
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly || isInvoice"
                     options.bind="controlOptions">
                 </au-autocomplete>
                 
@@ -176,11 +177,35 @@
                     options.bind="controlOptions">
                 </au-checkbox>
 
-                <au-textbox
+                <!--<au-textbox
                     label="Shipping Staff"
                     value.bind="data.shippingStaffName"
                     read-only.bind="true">
-                </au-textbox>
+                </au-textbox>-->
+
+                <au-autocomplete
+                    value.bind="data.shippingStaff"
+                    error.bind="error.ShippingStaff"
+                    label="Shipping Staff"
+                    loader.bind="shippingStaffLoader"
+                    text.bind = "shippingStaffView"
+                    placeholder="Cari Shipping Staff"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-multiline label="Keterangan" value.bind="data.sampleRemarkMd" error.bind="error.sampleRemarkMd"
+                read-only.bind="readOnly"  
+                options.bind="controlOptions">
+            </au-multiline>
+                <au-dropdown
+                    label="Jenis RO"
+                    value.bind="roType"
+                    read-only.bind="readOnly || isEdit"
+                    items.bind="roTypes"
+                    if.bind="data.packingListType=='RE EXPORT'"
+                    options.bind="controlOptions">
+                </au-dropdown>
             </div>
             <div class="form-group has-error">
                 <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
@@ -194,9 +219,22 @@
                     add.bind="addItems" 
                     remove.bind="removeItems"
                     options.bind="Options"
-                    show.bind="data.buyerAgent && data.section"
+                    show.bind="(data.buyerAgent || isEdit) && data.section"
+                    if.bind="roType!='RO MASTER'"
                     item-template="modules/garment-shipping/packing-list/template/detail-ro">
-                </au-collection>    
+                </au-collection>   
+                <au-collection 
+                    items.bind="data.items" 
+                    errors.bind="error.Items" 
+                    columns.bind="itemsColumnsROMaster"
+                    read-only.bind="readOnly" 
+                    add.bind="addItems" 
+                    remove.bind="removeItems"
+                    options.bind="Options"
+                    show.bind="(data.buyerAgent || isEdit) && data.section"
+                    if.bind="roType=='RO MASTER'"
+                    item-template="modules/garment-shipping/packing-list/template/detail-ro">
+                </au-collection>  
             </div>
             
         </div>
@@ -233,23 +271,26 @@
               </numeric>
             </div>
             <div class="col-sm-3">
-                <numeric
-                    label="TOTAL CARTONS"
-                    value.bind="totalCartons"
-                    error.bind="error.totalCartons"
+                 <au-textbox
+                    label="TOTAL QUANTITY"
+                    value.bind="totalQuantities"
+                    error.bind="error.totalQuantities"
                     read-only="true" 
-                    options.bind="controlOptions">
-                </numeric>
-            </div>
-        </div>
-        <div class="class row">
-            <div class="col-sm-12">
-                <au-textbox label="TOTAL QUANTITY" value.bind="totalQuantities" error.bind="error.totalQuantities" read-only="true"
                     options.bind="controlOptions">
                 </au-textbox>
             </div>
         </div>
-        <div class="row">
+        <div class="class row">
+                <numeric
+                    label="TOTAL" 
+                    value.bind="totalCartons"
+                    error.bind="error.totalCartons"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </numeric>
+        </div>
+        <div class="class row">
+            <div class="col-sm-12">
             <au-textbox
                 label="SAY"
                 value.bind="say"
@@ -261,8 +302,9 @@
                 read-only.bind="readOnly" 
                 options.bind="controlOptions">
             </au-textbox>
+            </div>
         </div>
-        <div class="row">
+        <div class="class row">
             <div class="col-md-12">
                 <au-textbox
                     label="Komoditi"

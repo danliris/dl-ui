@@ -40,10 +40,12 @@ export class List {
                 }
             }, width: '5%'
         },
+        { field: "UnitFrom.Code", title: "Unit Asal", sortable: false, width: '3%' },
         { field: "ExpenditureTo", title: "Tujuan", sortable: false, width: '5%' },
         { field: "ExpenditureDestinationDesc", title: "Keterangan Tujuan", sortable: false, width: '15%' },
-        { field: "UnitFrom.Code", title: "Unit Asal", sortable: false, width: '3%' },
         { field: "RONo", title: "RO", sortable: false, width: '5%' },
+        { field: "UnitComodityCode", title: "Kode Komoditi Unit", sortable: false, width: '10%' },
+        { field: "LeftoverComodityCode", title: "Kode Komoditi", sortable: false, width: '10%' },
         { field: "LeftoverComodityName", title: "Komoditi", sortable: false, width: '10%' },
         { field: "ExpenditureQuantity", title: "Quantity", sortable: false, width: '5%' },
         { field: "Uom", title: "Satuan", sortable: false, width: '3%'},

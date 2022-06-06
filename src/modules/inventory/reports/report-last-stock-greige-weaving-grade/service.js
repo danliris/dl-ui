@@ -11,13 +11,13 @@ export class Service extends RestService {
         super(http, aggregator, config, "inventory-azure");
     }
 
-    search(info) { 
+    search(info) {
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
 
         //return super.get(endpoint);
     }
-    
+
     generateExcel(info) {
         var endpoint = `${serviceUri}/download?dateTo=${info.dateTo}`;
         return super.getXls(endpoint);

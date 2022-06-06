@@ -133,7 +133,12 @@ export class List {
         var items = this.selectedItems.map(s => s.Id);
         this.service.posting(items)
             .then(result => {
-                alert("Data berhasil disimpan");
+                if (result != "") {
+                  alert("Data berhasil disimpan\n" + result + "telah di posting sebelumnya")
+                }
+                else {
+                  alert("Data berhasil disimpan");
+                }
                 this.error = {};
                 this.tableList.refresh();
                 this.selectedItems = [];

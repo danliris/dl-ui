@@ -17,6 +17,10 @@ export class View {
     var id = params.id;
     this.data = await this.service.getById(id);
 
+    if(this.data.VatTax){
+      this.data.useVat = true;
+    }
+
   }
 
   cancelCallback(event) {

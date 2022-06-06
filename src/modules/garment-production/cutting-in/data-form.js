@@ -165,7 +165,7 @@ export class DataForm {
                 this.data.Price=0;
             }
             
-            Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }) }))
+            Promise.resolve(this.service.getPreparing({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id }), size:50 }))
                 .then(result => {
                     this.data.Items = result.data
                         .map(data => {

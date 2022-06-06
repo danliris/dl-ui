@@ -7,7 +7,7 @@
                 <au-checkbox label="Import" value.bind="data.import" error.bind="error.import" read-only.bind="readOnly"></au-checkbox>
                 <au-checkbox label="Apakah kena PPN ?" value.bind="data.usevat" error.bind="error.usevat" read-only.bind="readOnly || isEdit"></au-checkbox>
                 <au-checkbox label="Apakah kena PPH ?" value.bind="data.usetax" error.bind="error.usetax" change.delegate="usetaxChanged($event)" read-only.bind="readOnly || isEdit"></au-checkbox>
-                <au-autocomplete 
+                <!--<au-autocomplete 
                     value.bind="data.IncomeTaxes" 
                     error.bind="error.incometax"
                     label="Pph" 
@@ -17,7 +17,7 @@
                     key=""
                     if.bind="data.usetax"
                     read-only.bind="readOnly || isEdit">
-                </au-autocomplete>
+                </au-autocomplete>-->
                 <fieldset>
                     <legend>Legal</legend>
                     <au-textbox label="NPWP" value.bind="data.NPWP" error.bind="error.NPWP" read-only.bind="readOnly"></au-textbox>

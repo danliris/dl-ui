@@ -73,7 +73,7 @@ export class Item {
                                     let price, quantity;
 
                                     // let upoDetail = item.unitReceiptNote.items.find((item => item.URNItemId === urnObj.))
-
+                                    
 
 
                                     // if (corrections && corrections.length !== 0) {
@@ -95,20 +95,20 @@ export class Item {
                                     // }
                                     // else {
 
-                                    let correctQuantity = detail.deliveredQuantity;
-                                    if (correctionState.IsHavingQuantityCorrection) {
-                                        correctQuantity = detail.QuantityCorrection || detail.deliveredQuantity;
-                                    }
-
-                                    let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(2));
-                                    if (correctionState.IsHavingPricePerUnitCorrection) {
-                                        correctPricePerUnit = detail.PricePerDealUnitCorrection ? Number((detail.PricePerDealUnitCorrection).toFixed(2)) : Number((detail.pricePerDealUnit).toFixed(2));
-                                    }
-
-                                    let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(2));
-                                    if (correctionState.IsHavingPriceTotalCorrection) {
-                                        correctPriceTotal = detail.PriceTotalCorrection ? Number((detail.PriceTotalCorrection).toFixed(2)) : Number((correctQuantity * correctPricePerUnit).toFixed(2));
-                                    }
+                                      let correctQuantity = detail.deliveredQuantity;
+                                      if (correctionState.IsHavingQuantityCorrection) {
+                                          correctQuantity = detail.QuantityCorrection;
+                                      }
+  
+                                      let correctPricePerUnit = Number((detail.pricePerDealUnit).toFixed(4));
+                                      if (correctionState.IsHavingPricePerUnitCorrection) {
+                                          correctPricePerUnit = Number((detail.PricePerDealUnitCorrection).toFixed(4));
+                                      }
+  
+                                      let correctPriceTotal = Number((correctQuantity * correctPricePerUnit).toFixed(4));
+                                      if (correctionState.IsHavingPriceTotalCorrection) {
+                                          correctPriceTotal = Number((detail.PriceTotalCorrection).toFixed(4));
+                                      }
 
                                     // if (detail.QuantityCorrection > 0)
                                     //     quantity = detail.QuantityCorrection;
@@ -144,13 +144,15 @@ export class Item {
 
                             // console.log(newV)
                             // console.log(totalPaid);
-                            let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
-                            let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
+                            let vat = newV.useVat ? Number((totalPaid * (newV.vatTax.rate/100)).toFixed(4)) : 0;
+                            let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(4)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
 
                             console.log(newV.useVat);
                             if (newV.useVat)
-                                totalPaid += vat
+                            {
+                                totalPaid += vat;
+                            }
 
                             // if (newV.incomeTaxBy && newV.incomeTaxBy.toUpperCase() == "SUPPLIER")
                             // totalPaid = Number((totalPaid + vat).toFixed(2))

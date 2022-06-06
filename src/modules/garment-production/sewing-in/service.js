@@ -15,7 +15,7 @@ class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/list-optimized`;
         return super.list(endpoint, info);
     }
 

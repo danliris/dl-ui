@@ -4,6 +4,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 
 const serviceUri = 'service-subcon-sewings';
 const serviceUriSewIn = 'sewing-ins';
+const serviceUriSewInByRo = 'sewing-ins/get-by-ro';
 const serviceUriPR = 'garment-purchase-requests';
 const comodityPriceserviceUri = 'comodity-prices';
 
@@ -29,6 +30,11 @@ class Service extends RestService {
 
   searchSewingIn(info) {
     var endpoint = `${serviceUriSewIn}`;
+    return super.list(endpoint, info);
+  }
+
+  searchSewingInByRo(info) {
+    var endpoint = `${serviceUriSewInByRo}`;
     return super.list(endpoint, info);
   }
 
@@ -60,6 +66,11 @@ class Service extends RestService {
   searchComplete(info) {
     var endpoint = `${serviceUri}/complete`;
     return super.list(endpoint, info);
+  }
+
+  getPdfById(id) {
+      var endpoint = `${serviceUri}/get-pdf/${id}`;
+      return super.getPdf(endpoint);
   }
 
 }

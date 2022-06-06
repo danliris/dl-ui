@@ -206,6 +206,18 @@
                     options.bind="controlOptions">
                 </au-checkbox>
 
+                <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     if.bind = "data.useVat"
+                     read-only.bind="(readOnly || isEdit)"
+                     options.bind="controlOptions">
+                </au-autocomplete>
+
                 <au-textbox 
                     label="No. Faktur Pajak (PPN)" 
                     value.bind="data.vatNo" 

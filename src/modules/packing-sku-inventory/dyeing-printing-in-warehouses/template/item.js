@@ -4,16 +4,22 @@ let ProductionOrderLoader = require("../../../../loader/production-order-azure-l
 // @inject(DataForm)
 export class Item {
   @bindable product;
+  itemOptions = {};
 
   activate(context) {
     this.context = context;
     this.data = context.data;
+    
     this.error = context.error;
     this.options = context.options;
     this.contextOptions = context.context.options;
+    this.type = this.contextOptions.type;
+  
 
     this.isShowing = false;
-
+    this.itemOptions = {
+      type : this.type
+    };
     if (this.data.productionOrderId) {
       this.selectedProductionOrder = {};
       this.selectedProductionOrder.Id = this.data.productionOrderId;
@@ -67,21 +73,38 @@ export class Item {
   }
 
   bind() {
-    this.itemColumns = [
-      "Material",
-      "Unit",
-      "Buyer",
-      "Warna",
-      "Motif",
-      "Grade",
-      "Satuan",
-      "Zona Asal",
-      "Qty Packing",
-      "Packing",
-      "Jenis",
-      "Panjang Per Packing",
-      "Qty Masuk",
-    ];
+      if(this.type == true){
+        this.itemColumns = [
+          "Material",
+          "Unit",
+          "Buyer",
+          "Warna",
+          "Motif",
+          "Grade",
+          "Satuan",
+          "Zona Asal",
+          "Qty Packing",
+          "Packing",
+          "Jenis",
+          "Qty Masuk",
+        ];
+      }else{
+        this.itemColumns = [
+          "Material",
+          "Unit",
+          "Buyer",
+          "Warna",
+          "Motif",
+          "Grade",
+          "Satuan",
+          "Zona Asal",
+          "Qty Packing",
+          "Packing",
+          "Jenis",
+          "Panjang Per Packing",
+          "Qty Masuk",
+        ];
+      }
   }
 
   changeCheckBox() {

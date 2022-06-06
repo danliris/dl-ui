@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
 var moment = require("moment");
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
 @inject(Service)
 export class DataForm {
@@ -121,6 +122,9 @@ export class DataForm {
             this.data.Currency = deliveryOrder.docurrency;
 
             this.data.UseVat = deliveryOrder.useVat;
+
+            this.data.Vat = deliveryOrder.vat;
+
             this.data.UseIncomeTax = deliveryOrder.useIncomeTax;
             this.data.IncomeTax = deliveryOrder.incomeTax;
             
@@ -197,4 +201,13 @@ export class DataForm {
     doView = (DO) => {
         return `${DO.doNo} - ${moment(DO.doDate).format("DD-MMM-YYYY")}` 
     }
+
+    vatTaxView = (vatTax) => {
+        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+      }
+
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
 }
+

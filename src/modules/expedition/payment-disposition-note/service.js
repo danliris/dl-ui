@@ -52,6 +52,11 @@ class Service extends RestService {
         return super.put(endpoint, data);
     }
 
+    searchAllByPosition(info) {
+      let endpoint = `${serviceUri}/get-expedition/by-position`;
+      return super.list(endpoint, info);
+  }
+
     // createCreditorAccount(creditorAccounts) {
     //     var config = Container.instance.get(Config);
     //     var endpoint = config.getEndpoint("finance");

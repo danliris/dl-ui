@@ -3,7 +3,8 @@
         <div class="col-sm-12">
 
             <au-input-form title.bind="title" with.bind="context">
-
+                <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+                
                 <au-textbox label="No Nota Penjualan" value.bind="data.noteNo" read-only="true"
                     options.bind="controlOptions" if.bind="readOnly || isEdit">
                 </au-textbox>
@@ -67,8 +68,19 @@
                 </au-textbox>
 
                 <au-checkbox label="Apakah kena PPN ?" value.bind="data.useVat" error.bind="error.useVat"
-                    read-only.bind="true" options.bind="controlOptions">
+                    read-only.bind="true"  change.delegate="selectedVatTaxChanged($event)" options.bind="controlOptions">
                 </au-checkbox>
+
+                <au-textbox 
+                     error.bind="error.vatRate"
+                     label="PPN"
+                     value.bind="data.vat.rate"
+                     placeholder="Vat Rate"
+                     key=""
+                     if.bind = "data.useVat"                     
+                     read-only.bind="true"
+                     options.bind="controlOptions">
+                </au-textbox>
 
                 <au-numeric label="Total Amount" value.to-view="total" error.bind="error.amount" read-only="true"
                     options.bind="controlOptions">
@@ -92,7 +104,7 @@
                     label="Sub Total">
                 </au-numeric>
                 <au-numeric value.to-view="ppn" read-only.bind="true" options.bind="controlOptions"
-                    label="PPN 10%">
+                    label="PPN">
                 </au-numeric>
                 <au-numeric value.to-view="total" read-only.bind="true" options.bind="controlOptions"
                     label="TOTAL">

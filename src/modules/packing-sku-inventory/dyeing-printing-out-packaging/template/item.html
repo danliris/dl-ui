@@ -82,7 +82,7 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <td show.bind = "!type">
             <au-numeric value.bind="saldoPerPackaging" format="0.00" read-only.bind="readOnly"
                 error.bind="error.SaldoPerPackaging" change.delegate="saldoPerPackagingChanged"
                 options.bind="controlOptions">

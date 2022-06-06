@@ -15,7 +15,7 @@
       </au-numeric>
     </td> -->
     <td>
-      <au-textbox value.bind="data.Construction" read-only.bind="true" error.bind="error.construction"
+      <au-textbox value.bind="data.ReferenceNo" read-only.bind="true" error.bind="error.ReferenceNo"
         options.bind="controlOptions">
       </au-textbox>
     </td>
@@ -125,7 +125,7 @@
       </button>
     </td>
   </tr>
-  <tr if.bind="isShowing">
+  <tr if.bind="isShowing || isEdit">
     <!-- <td show.bind="!readOnly"></td> -->
     <td colspan="14">
       <au-collection columns.bind="itemColumns" items.bind="data.ListItems" read-only.bind="readOnly"

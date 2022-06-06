@@ -7,6 +7,12 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox
+                value.bind="data.DesignColor"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
             <au-numeric 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"

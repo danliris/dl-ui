@@ -6,7 +6,7 @@ import numeral from 'numeral';
 import { Service } from './service';
 import PurchasingDispositionExpeditionService from '../shared/purchasing-disposition-expedition-service';
 import { PermissionHelper } from '../../../utils/permission-helper';
-import { VERIFICATION, CASHIER  } from '../shared/permission-constants';
+import { VERIFICATION, CASHIER } from '../shared/permission-constants';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 const DispositionLoader = require('../../../loader/purchase-dispositions-all-loader');
@@ -47,12 +47,12 @@ export class Create {
         showToggle: false,
     };
 
-    filterQuery={
-        "Position":"2"
+    filterQuery = {
+        "Position": "2"
     }
 
-    filterQueryVerified={
-        "Position":"4"
+    filterQueryVerified = {
+        "Position": "4"
     }
 
 
@@ -74,9 +74,9 @@ export class Create {
     @bindable supplier;
 
     async activate(params) {
-        params.role.position=parseInt(params.role.position);
-        params.role.hasPermission=true;
-        params.role.positionAutocomplete=parseInt(params.role.positionAutocomplete);
+        params.role.position = parseInt(params.role.position);
+        params.role.hasPermission = true;
+        params.role.positionAutocomplete = parseInt(params.role.positionAutocomplete);
         this.activeRole = params.role;
     }
 
@@ -100,11 +100,16 @@ export class Create {
         this.accessCount = 0;
 
         for (let i = this.roles.length - 1; i >= 0; i--) {
-            if (this.permissions.hasOwnProperty(this.roles[i].code)) {
-                this.roles[i].hasPermission = true;
-                this.accessCount++;
-                this.activeRole = this.roles[i];
+
+            for (let code of this.roles[i].code) {
+                if (this.permissions.hasOwnProperty(code)) {
+                    this.roles[i].hasPermission = true;
+                    this.accessCount++;
+                    this.activeRole = this.roles[i];
+                    this.changeRole(this.activeRole);
+                }
             }
+
         }
     }
 
@@ -122,17 +127,17 @@ export class Create {
             this.disposition = newValue;
         } else if (oldValue) {
             this.disposition == null;
-        }else{
+        } else {
             this.disposition == null;
         }
     }
 
-    supplierChanged(newValue, oldValue){
+    supplierChanged(newValue, oldValue) {
         if (newValue) {
             this.supplier = newValue;
         } else if (oldValue) {
             this.supplier == null;
-        }else{
+        } else {
             this.supplier == null;
         }
     }
@@ -158,31 +163,31 @@ export class Create {
 
         this.purchasingDispositionExpeditionService.search(arg)
             .then(result => {
-                var dispositions=[];
-                for(var data of result.data){
+                var dispositions = [];
+                for (var data of result.data) {
                     var config = Container.instance.get(Config);
                     var _endpoint = config.getEndpoint("purchasing-azure");
                     const resource = `purchasing-dispositions/${data.dispositionId}`;
-                    var disp=  _endpoint.find(resource);
-                        // .then(result => {
-                        //     var dispoData= result.data;
-                        //     return dispoData.CreatedBy;
-                        // });
-                     dispositions.push(disp);
+                    var disp = _endpoint.find(resource);
+                    // .then(result => {
+                    //     var dispoData= result.data;
+                    //     return dispoData.CreatedBy;
+                    // });
+                    dispositions.push(disp);
                 }
-                Promise.all(dispositions).then(dispo=>{
-                    var dataDisposition=[];
-                    for(var dataResult of dispo){
+                Promise.all(dispositions).then(dispo => {
+                    var dataDisposition = [];
+                    for (var dataResult of dispo) {
                         dataDisposition.push(dataResult.data);
                     }
-                    for(var data of result.data){
-                        var same= dataDisposition.find(a=>a.Id==data.dispositionId);
-                        if(same){
+                    for (var data of result.data) {
+                        var same = dataDisposition.find(a => a.Id == data.dispositionId);
+                        if (same) {
                             // data.totalPaid=same.DPP+same.VatValue;
                             // if(same.IncomeTaxBy=="Supplier"){
                             //     data.totalPaid=same.DPP+same.VatValue-same.IncomeTaxValue;
                             // }
-                            data.dispoCreatedby=same.CreatedBy;
+                            data.dispoCreatedby = same.CreatedBy;
                         }
                     }
                     this.selectedItems.splice(0, this.selectedItems.length);
@@ -190,7 +195,7 @@ export class Create {
                     this.documentData.push(...result.data)
                     this.documentTable.refresh();
                 })
-                
+
             });
     }
 
@@ -206,7 +211,7 @@ export class Create {
                 PurchasingDocumentExpedition: [],
             };
         */
-        
+
         let data = {
             Role: this.activeRole.key,
             PurchasingDispositionExpedition: [],
@@ -222,7 +227,7 @@ export class Create {
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {role:this.activeRole}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', { role: this.activeRole }, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;

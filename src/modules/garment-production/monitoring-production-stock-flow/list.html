@@ -9,7 +9,7 @@
     <h1 class="page-header">Monitoring Flow Persediaan</h1>
 
     <form class="form-horizontal">
-      <au-autocomplete 
+      <!-- <au-autocomplete 
             value.bind="unit" 
             label="Unit" 
             loader.bind="unitLoader"
@@ -17,15 +17,23 @@
             read-only.bind="false" 
             text.bind="unitView"
             options.bind="controlOptions">
-      </au-autocomplete>
+      </au-autocomplete> -->
+
+      <au-dropdown 
+        label="Unit" 
+        value.bind="UnitItem"
+        items.bind="UnitItems"
+        options.bind="controlOptions">
+      </au-dropdown>
       
-      <au-datepicker label="Tanggal Awal" value.bind="dateFrom"></au-datepicker>
-      <au-datepicker label="Tanggal Akhir" value.bind="dateTo"></au-datepicker>
+      <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+      <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
 
   <au-textbox 
   label="No RO"
   value.bind="ro"
   read-only.bind="readOnly"
+  options.bind="controlOptions"
 ></au-textbox>
       <div class="form-group">
           <label for="contact" class="col-sm-6 control-label"></label>

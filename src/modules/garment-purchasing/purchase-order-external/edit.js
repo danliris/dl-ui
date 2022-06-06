@@ -46,11 +46,15 @@ export class Edit {
             if(this.data.IsIncomeTax){
                 this.data.Supplier.usetax=true;
             }
-            
         }
 
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
+            this.data.IncomeTaxRate= this.data.IncomeTax.Rate;
+        }
+
+        if(this.data.Vat){
+            this.selectedVatTax=this.data.Vat;
         }
 
         var getUsedBudget = [];
@@ -98,10 +102,7 @@ export class Edit {
                         }
                     }
                 }
-                
-
             });
-        
     }
 
     cancel(event) {
@@ -109,6 +110,7 @@ export class Edit {
     }
 
     save(event) {
+        //this.data.Vat = this.selectedVatTax;
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

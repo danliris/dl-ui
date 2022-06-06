@@ -6,9 +6,20 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    context = ["Detail", "Cetak"]
+    context = ["Detail", "Cetak", "Cetak Kop", "Cetak Kop Sie D"]
+
+
+    dataTobeDelivered = []
 
     columns = [
+        {
+            field: "isSampleDelivered", title: "Sudah Dikirim", checkbox: true, sortable: false,
+            formatter: function (value, data, index) {
+                this.checkboxEnabled = !data.isSampleDelivered;
+                
+                return '';
+            }
+        },
         { field: "invoiceNo", title: "No Invoice" },
         { field: "SectionCode", title: "Seksi" },
         { field: "BuyerAgentName", title: "Buyer Agent" },
@@ -45,6 +56,7 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                console.log(result.data);
                 for (const data of result.data) {
                     data.SectionCode = data.section.code;
                     data.BuyerAgentName = data.buyerAgent.name;
@@ -71,10 +83,43 @@ export class List {
             case "Cetak":
                 this.service.getPdfById(data.id);
                 break;
+            case "Cetak Kop":
+                this.service.getPdfWHById(data.id);
+                break;                
+            case "Cetak Kop Sie D":
+                this.service.getPdfWHSectionDById(data.id);
+                break;                
         }
     }
 
     create() {
         this.router.navigateToRoute('create');
     }
+
+    rowFormatter(data, index) {
+        if (data.isShipping) {
+            return { classes: "success" }
+        } else {
+            return { classes: "danger" }
+        }
+    }
+
+    delivered() {
+        console.log(this.dataToBeDelivered);
+        const DataToBeDelivered = this.dataToBeDelivered;
+        if (DataToBeDelivered.length > 0) {
+            if (confirm(`Deliver ${DataToBeDelivered.length} data?`)) {
+                var ids = DataToBeDelivered.map(d => d.id);
+                this.service.deliveredSample(ids)
+                    .then(result => {
+                        this.table.refresh();
+                        this.dataToBeDelivered = [];
+                    }).catch(e => {
+                        this.error = e;
+                    })
+            }
+        }
+    }
+
+
 }

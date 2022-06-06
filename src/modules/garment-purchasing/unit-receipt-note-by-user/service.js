@@ -9,8 +9,11 @@ const serviceUri = 'garment-unit-receipt-notes';
 const UnitDOserviceUri = 'garment-unit-delivery-orders';
 const UENserviceUri = 'garment-unit-expenditure-notes';
 const CorrectionServiceUri='garment-correction-quantity-notes';
+const PRItemServiceUri = 'garment-purchase-requests/items';
+const PRServiceUri = 'garment-purchase-requests';
+const EPOServiceUri = 'garment-external-purchase-orders';
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "purchasing-azure");
@@ -71,8 +74,13 @@ export class Service extends RestService {
              });
      }
 
-     getUnitDOById(id) {
+    getUnitDOById(id) {
         var endpoint = `${UnitDOserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getUnitDOItemById(id) {
+        var endpoint = `${UnitDOserviceUri}/item/${id}`;
         return super.get(endpoint);
     }
 
@@ -95,4 +103,45 @@ export class Service extends RestService {
         var endpoint = `${CorrectionServiceUri}`;
         return super.list(endpoint, info);
     }
+
+    searchPR(info) {
+        var endpoint = `${PRItemServiceUri}`;
+        return super.list(endpoint, info);
+    }
+    getPRById(id){
+        var endpoint = `${PRServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    searchEPO(info) {
+        var endpoint = `${EPOServiceUri}/by-po-serial-number-loader`;
+        return super.list(endpoint, info);
+    }
 }
+
+const FabricServiceUri = 'garment/leftover-warehouse-expenditures/fabric';
+const AccServiceUri = 'garment/leftover-warehouse-expenditures/accessories';
+const stockServiceUri = 'garment/leftover-warehouse-stocks';
+
+class InventoryService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "inventory-azure");
+    }
+
+    getFabricById(id) {
+        var endpoint = `${FabricServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getAccById(id) {
+        var endpoint = `${AccServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getStockById(id){
+        var endpoint = `${stockServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, InventoryService }

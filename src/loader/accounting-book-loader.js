@@ -14,6 +14,7 @@ module.exports = function (keyword, filter) {
           Id: x.Id,
           Code: x.Code,
           Type: x.AccountingBookType,
+          AccountingBookType: x.AccountingBookType,
           Remarks: x.Remarks
         };
       });

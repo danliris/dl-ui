@@ -8,8 +8,11 @@ import { Config } from "aurelia-api";
 const serviceUri = 'garment-unit-receipt-notes';
 const UnitDOserviceUri = 'garment-unit-delivery-orders';
 const UENserviceUri = 'garment-unit-expenditure-notes';
+const CorrectionServiceUri='garment-correction-quantity-notes';
+const PRItemServiceUri = 'garment-purchase-requests/items';
+const PRServiceUri = 'garment-purchase-requests';
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "purchasing-azure");
@@ -22,6 +25,11 @@ export class Service extends RestService {
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getDOItemsById(id) {
+        var endpoint = `${serviceUri}/do-items/${id}`;
         return super.get(endpoint);
     }
 
@@ -84,4 +92,45 @@ export class Service extends RestService {
                 return result.data;
             });
     }
+
+    getCorrection(info){
+        var endpoint = `${CorrectionServiceUri}`;
+        return super.list(endpoint, info);
+    }
+
+    searchPR(info) {
+        var endpoint = `${PRItemServiceUri}`;
+        return super.list(endpoint, info);
+    }
+    getPRById(id){
+        var endpoint = `${PRServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
 }
+
+const FabricServiceUri = 'garment/leftover-warehouse-expenditures/fabric';
+const AccServiceUri = 'garment/leftover-warehouse-expenditures/accessories';
+const stockServiceUri = 'garment/leftover-warehouse-stocks';
+
+class InventoryService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "inventory-azure");
+    }
+
+    getFabricById(id) {
+        var endpoint = `${FabricServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getAccById(id) {
+        var endpoint = `${AccServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getStockById(id){
+        var endpoint = `${stockServiceUri}/${id}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, InventoryService }

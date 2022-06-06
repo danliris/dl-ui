@@ -54,6 +54,7 @@ export class List {
             align: 'right'
         },
         { field: "Currency", title: "Currency" },
+        { field: "PaymentMethod", title: "Tipe Pembayaran" },
     ]
 
     loader = (info) => {

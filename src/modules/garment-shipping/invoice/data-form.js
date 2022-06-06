@@ -217,6 +217,7 @@ export class DataForm {
             var TotalAmount = 0;
             var _consignee = "";
             var consignees = [];
+            console.log(packingItem);
             for (var item of packingItem.items) {
                 //console.log(item)
                 var _item = {};
@@ -224,7 +225,13 @@ export class DataForm {
                 _item.Section = this.data.section.code;
                 _item.roNo = item.roNo;
                 _item.scNo = item.scNo;
-                _item.price = item.priceFOB;
+                if(packingItem.invoiceType ==='DS' || packingItem.invoiceType ==='SM')
+                {
+                    _item.price = item.price; 
+                }else
+                {
+                     _item.price = item.priceFOB;
+                }
                 _item.priceRO = item.priceRO;
                 _item.quantity = item.quantity;
                 _item.cmtPrice=item.priceCMT;
@@ -272,7 +279,7 @@ export class DataForm {
             this.dataItems=this.data.items;
             this.data.totalAmount = TotalAmount;
 
-            this.data.consignee = consignees.join("\n");
+            this.data.consignee = packingItem.buyerAgent.name;//consignees.join("\n");
             this.percentageProcess(this.dataItems);
 
         }
@@ -309,8 +316,15 @@ export class DataForm {
             _item.Section = this.data.section.code;
             _item.roNo = item.roNo;
             _item.scNo = item.scNo;
-            _item.price = item.priceFOB;
+           
             _item.priceRO = item.priceRO;
+            if(packingItem.invoiceType ==='DS' || packingItem.invoiceType ==='SM')
+            {
+                _item.price = item.price; 
+            }else
+            {
+                 _item.price = item.priceFOB;
+            }
             _item.quantity = item.quantity;
             _item.cmtPrice = item.priceCMT;
             _item.comodity = {
@@ -509,6 +523,24 @@ export class DataForm {
         this.data.totalAmount = totalAmount;
         return totalAmount;
     }
+
+    get lessFabricCosts() {
+        var lessFabCost = 0;
+
+        if (this.data.items) {
+
+            for (var item of this.data.items) {
+
+                if (item.cmtPrice > 0) {
+                    lessFabCost += ((item.cmtPrice-item.price) * item.quantity);
+                }
+           }
+        }
+
+        this.lessFabCost = lessFabCost;
+        return lessFabCost;
+    }
+        
     get sectionLoader() {
         return SectionLoader;
     }
@@ -577,20 +609,55 @@ export class DataForm {
                         }
                     }
                 }
-                if (percents.length > 0) {
-                    for (var p of percents) {
-                        if (p.amount > 0 && totalamount > 0) {
-                            p.amountPercentage = p.amount / totalamount * 100;
+                if (percents.length > 0) 
+                {
+                    // for (var p of percents) 
+                    // {
+                    //     console.log(p);
+                    //     if (p.amount > 0 && totalamount > 0) 
+                    //     {
+                    //         p.amountPercentage = p.amount / totalamount * 100;
+                    //     }
+                    //     if (p.qty > 0 && totalqty > 0) 
+                    //     {
+                    //         p.quantityPercentage = p.qty / totalqty * 100;
+                    //     }
+                    //     this.data.garmentShippingInvoiceUnits.push(p)
+                    // }
+                    //Enhance Jason Sept 2021
+                    var tempArray = [];
+                    for (var i = 0; i < percents.length; i++) 
+                    {
+                        if (percents[i].amount > 0 && totalamount > 0) 
+                        {
+                            if(i == percents.length - 1)
+                            {
+                                var sumPercentage = tempArray.reduce((a,b) => a + b, 0);
+                                var lastPercentage = 100 - sumPercentage;
+                                percents[i].amountPercentage = parseFloat(lastPercentage.toFixed(2));
+                                tempArray.push(percents[i].amountPercentage);
+                            }
+                            else
+                            {
+                                var percentage = percents[i].amount / totalamount * 100;
+                                percents[i].amountPercentage = parseFloat(percentage.toFixed(2));
+                                tempArray.push(percents[i].amountPercentage);
+                            }
                         }
-                        if (p.qty > 0 && totalqty > 0) {
-                            p.quantityPercentage = p.qty / totalqty * 100;
+                        if (percents[i].qty > 0 && totalqty > 0) 
+                        {
+                            percents[i].quantityPercentage = percents[i].qty / totalqty * 100;
                         }
-                        this.data.garmentShippingInvoiceUnits.push(p)
+                        this.data.garmentShippingInvoiceUnits.push(percents[i]);
                     }
+                    //console.log("data-form1");
+                    //console.log(tempArray);
                 }
             }
         }
+        //console.log("data-form2");
         return this.data.garmentShippingInvoiceUnits
+        //console.log("data-form3");
     }
 
 

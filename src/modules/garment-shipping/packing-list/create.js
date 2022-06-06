@@ -29,6 +29,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        this.data.isShipping = true;
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat, No Invoice: " + result);

@@ -92,7 +92,7 @@ export class DataForm {
 
             this.data.ScrapDestinationId = newValue.Id;
             this.data.ScrapDestinationName = newValue.Name;
-            this.service.searchClassification({order: {"Name" : "asc"}})
+            this.service.searchClassification({size: 100,order: {"Name" : "asc"}})
             .then((cls) => {
                 for (var item of cls.data) {
                     this.data.Items.push({

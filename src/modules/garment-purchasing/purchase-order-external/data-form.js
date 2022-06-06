@@ -3,6 +3,7 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
 import moment from 'moment';
 
 @containerless()
@@ -15,10 +16,10 @@ export class DataForm {
     @bindable selectedSupplier;
     @bindable selectedCurrency;
     @bindable selectedIncomeTax;
+    @bindable selectedVatTax;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
     @bindable kurs = {};
-
 
     termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
     termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
@@ -38,8 +39,6 @@ export class DataForm {
         }
     }
 
-    
-
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
@@ -50,13 +49,11 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.isItem = false;
-        
-        if(!this.data.OrderDate){
-            this.data.OrderDate=new Date().toLocaleDateString();
+
+        if (!this.data.OrderDate) {
+            this.data.OrderDate = new Date().toLocaleDateString();
         }
 
-        
-        
         if (this.data.Category) {
             if (this.data.Category === "FABRIC") {
                 this.isFabric = true;
@@ -65,34 +62,46 @@ export class DataForm {
                 this.isFabric = false;
             }
         }
+
         else {
             this.isFabric = true;
         }
-        if(this.data.Items)
+
+        if (this.data.Items)
             if (this.data.Items.length > 0) {
                 this.isItem = true;
             }
 
         this.options.readOnly = this.readOnly;
+
         if (this.data.useVat) {
             this.options.isUseVat = true;
         }
-        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
+        
+        if (this.data.isIncomeTax) {
+            this.options.isIncomeTax = true;
+        }
+
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType === "FREE") {
             this.options.checkOverBudget = false;
         }
-        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType === "FREE") {
             this.options.checkOverBudget = false;
         }
-        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
+
+        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType === "EX MASTER FREE") {
             this.options.checkOverBudget = false;
         }
+
         else {
             this.options.checkOverBudget = true;
         }
+
         this.options.resetOverBudget = false;
 
-        if(this.data.Currency){
-            this.data.CurrencyRate=this.data.Currency.Rate;
+        if (this.data.Currency) {
+            this.data.CurrencyRate = this.data.Currency.Rate;
         }
         //var kurs = await this.service.getKurs(this.data.Currency.Code, new Date(this.data.OrderDate).toLocaleDateString());
         //this.kurs=kurs[0];
@@ -101,7 +110,7 @@ export class DataForm {
         } else {
             this.options.kurs = { Rate: 1 };
         }
-        
+
     }
 
     @computedFrom("data.Id")
@@ -136,7 +145,7 @@ export class DataForm {
     @computedFrom("data.SupplierId")
     get supplierIsStorage() {
         if (this.data.Supplier) {
-            if (this.data.Supplier.Name.toLowerCase()==="gudang")
+            if (this.data.Supplier.Name.toLowerCase() === "gudang")
                 return true
             else
                 return false
@@ -145,37 +154,63 @@ export class DataForm {
             return false
     }
 
-    selectedSupplierChanged(newValue) {
+    async selectedSupplierChanged(newValue) {
         var _selectedSupplier = newValue;
         if (_selectedSupplier.Id) {
             this.data.Supplier = _selectedSupplier;
-            this.data.Supplier.Import=_selectedSupplier.import;
-            this.data.Supplier.Code=_selectedSupplier.code;
-            this.data.Supplier.Name=_selectedSupplier.name;
-            this.data.Supplier.Id=_selectedSupplier.Id;
+            this.data.Supplier.Import = _selectedSupplier.import;
+            this.data.Supplier.Code = _selectedSupplier.code;
+            this.data.Supplier.Name = _selectedSupplier.name;
+            this.data.Supplier.Id = _selectedSupplier.Id;
             this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
             this.data.IsUseVat = _selectedSupplier.usevat;
+            this.data.Vat = {};
             this.data.IsIncomeTax = _selectedSupplier.usetax;
-            this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
-            this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
-            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate == undefined || _selectedSupplier.IncomeTaxes.rate== null? _selectedSupplier.IncomeTax.rate: 0;
-            this.data.IncomeTax.rate=this.data.IncomeTax.Rate;
+            // this.data.IncomeTax = _selectedSupplier.IncomeTaxes;
+            // this.data.IncomeTax.Name = _selectedSupplier.IncomeTaxes.name;
+            // this.data.IncomeTax.Rate = _selectedSupplier.IncomeTaxes.Rate ? _selectedSupplier.IncomeTaxes.Rate : _selectedSupplier.IncomeTaxes.rate ? _selectedSupplier.IncomeTaxes.rate : 0;
+            // this.data.IncomeTax.rate=this.data.IncomeTax.Rate;
+            
+            if(this.data.IsUseVat){
+
+                let info = {
+                    keyword:'',
+                    order: '{ "Rate" : "desc" }',
+                    size: 1,
+                };
+
+                var defaultVat = await this.service.getDefaultVat(info);
+                console.log(defaultVat);
+
+                if(defaultVat.length > 0){
+                    if(defaultVat[0]){
+                        if(defaultVat[0].Id){
+                            this.data.Vat = defaultVat[0];
+                            this.selectedVatTax = defaultVat[0];
+                        }
+                    }
+                }
+            } else{
+                this.data.Vat = {};
+                this.selectedVatTax = {};
+
+            }
         }
     }
 
     async selectedCurrencyChanged(newValue) {
-        this.data.Items=[];
+        this.data.Items = [];
         var _selectedCurrency = newValue;
         if (_selectedCurrency) {
             if (_selectedCurrency.Id) {
                 this.data.Currency = _selectedCurrency;
-                this.data.Currency.Rate=_selectedCurrency.rate?_selectedCurrency.rate:_selectedCurrency.Rate;
+                this.data.Currency.Rate = _selectedCurrency.rate ? _selectedCurrency.rate : _selectedCurrency.Rate;
                 var CurrencyRate = parseInt(this.data.Currency.Rate ? this.data.Currency.Rate : 1, 10);
-                this.data.Currency.Code=_selectedCurrency.Code? _selectedCurrency.Code:_selectedCurrency.code;
+                this.data.Currency.Code = _selectedCurrency.Code ? _selectedCurrency.Code : _selectedCurrency.code;
                 this.data.CurrencyRate = CurrencyRate;
                 //var today=new Date();
                 var kurs = await this.service.getKurs(this.data.Currency.Code, this.data.OrderDate);
-                this.kurs=kurs[0];
+                this.kurs = kurs[0];
                 if (Object.getOwnPropertyNames(this.kurs).length <= 0) {
                     alert(`Kurs untuk mata uang ${this.data.Currency.Code} belum ditambahkan.`);
                     this.selectedCurrency = null;
@@ -192,6 +227,17 @@ export class DataForm {
         else {
             this.data.Currency = null;
             this.data.CurrencyRate = 0;
+        }
+    }
+
+    selectedVatTaxChanged(newValue) {
+        console.log(newValue);
+        
+        var _selectedVatTax = newValue;
+        if (_selectedVatTax) {
+            this.data.Vat = _selectedVatTax;
+        } else {
+            this.data.Vat = {};
         }
     }
 
@@ -224,15 +270,15 @@ export class DataForm {
         if (selectedPayment) {
             this.data.PaymentMethod = selectedPayment;
         }
-        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
+        if (this.data.PaymentMethod === "CMT" && this.data.PaymentType === "FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
-        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+        else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType === "FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
-        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
+        else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType === "EX MASTER FREE") {
             this.options.checkOverBudget = false;
             this.resetIsOverBudget();
         }
@@ -253,6 +299,7 @@ export class DataForm {
             this.context.DetailsCollection.bind();
         }
     }
+    
     paymentTypeChanged(e) {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
@@ -261,15 +308,15 @@ export class DataForm {
                 this.data.PaymentDueDays = 0;
             }
 
-            if (this.data.PaymentMethod === "CMT" && this.data.PaymentType==="FREE") {
+            if (this.data.PaymentMethod === "CMT" && this.data.PaymentType === "FREE") {
                 this.options.checkOverBudget = false;
                 this.resetIsOverBudget();
             }
-            else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType==="FREE") {
+            else if (this.data.PaymentMethod === "FREE FROM BUYER" && this.data.PaymentType === "FREE") {
                 this.options.checkOverBudget = false;
                 this.resetIsOverBudget();
             }
-            else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType==="EX MASTER FREE") {
+            else if ((this.data.PaymentMethod === "FREE FROM BUYER" || this.data.PaymentMethod === "CMT") && this.data.PaymentType === "EX MASTER FREE") {
                 this.options.checkOverBudget = false;
                 this.resetIsOverBudget();
             }
@@ -282,15 +329,18 @@ export class DataForm {
     }
 
     selectedIncomeTaxChanged(newValue) {
+        console.log(newValue);       
         var _selectedIncomeTax = newValue;
         if (!_selectedIncomeTax) {
             this.data.IncomeTaxRate = 0;
             this.data.UseIncomeTax = false;
             this.data.IncomeTax = {};
-        } else if (_selectedIncomeTax.Id) {
+        } else if (_selectedIncomeTax.Id) {            
+            console.log(_selectedIncomeTax);
             this.data.IncomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
             this.data.UseIncomeTax = true;
             this.data.IncomeTax = _selectedIncomeTax;
+            this.data.IncomeTaxId = _selectedIncomeTax.Id;  
         }
     }
 
@@ -302,7 +352,7 @@ export class DataForm {
                 poItem.UseVat = false;
             }
         } else {
-            this.options.isUseVat = true;
+           this.options.isUseVat = true;
         }
     }
 
@@ -318,36 +368,45 @@ export class DataForm {
         return IncomeTaxLoader;
     }
 
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+
     supplierView = (supplier) => {
-        var code=supplier.code? supplier.code : supplier.Code;
-        var name=supplier.name? supplier.name : supplier.Name;
+        var code = supplier.code ? supplier.code : supplier.Code;
+        var name = supplier.name ? supplier.name : supplier.Name;
         return `${code} - ${name}`
     }
 
     currencyView = (currency) => {
-        var code=currency.code? currency.code : currency.Code;
+        var code = currency.code ? currency.code : currency.Code;
         return code;
     }
 
     incomeTaxView = (incomeTax) => {
-        var rate=incomeTax.rate? incomeTax.rate : incomeTax.Rate;
-        var name=incomeTax.name? incomeTax.name : incomeTax.Name;
+        var rate = incomeTax.rate ? incomeTax.rate : incomeTax.Rate;
+        var name = incomeTax.name ? incomeTax.name : incomeTax.Name;
         return `${name} - ${rate}`
     }
 
-    async search() {
-        var result = await this.service.searchByTags(this.keywords, this.data.Category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
+    }
 
-        var items=[];
-        var pr=[];
-        var index=0;
-        for(var data of result.data){
-            for(var item of data.Items){
-                if(pr.length==0){
-                   // item.RemainingBudget=pr[item.PRNo];
+    async search() {
+
+        var result = await this.service.searchByTags(this.keywords, this.data.Category, this.context.shipmentDateFrom, this.context.shipmentDateTo);
+        var items = [];
+        var pr = [];
+        var index = 0;
+        for (var data of result.data) {
+            for (var item of data.Items) {
+                if (pr.length == 0) {
+                    // item.RemainingBudget=pr[item.PRNo];
 
                     items.push({
-                        index:index++,
+                        index: index++,
                         PONo: data.PONo,
                         POId: data.Id,
                         PRNo: data.PRNo,
@@ -363,26 +422,26 @@ export class DataForm {
                         BudgetPrice: Number(item.BudgetPrice),
                         PriceBeforeTax: Number(item.BudgetPrice),
                         PricePerDealUnit: Number(item.BudgetPrice),
-                        budgetUsed: item.BudgetPrice*item.Quantity,
-                        remainingBudget:item.RemainingBudget,
+                        budgetUsed: item.BudgetPrice * item.Quantity,
+                        remainingBudget: item.RemainingBudget,
                         IsOverBudget: false,
-                        totalBudget: item.BudgetPrice*item.Quantity,
-                        RemainingBudget:item.RemainingBudget,
+                        totalBudget: item.BudgetPrice * item.Quantity,
+                        RemainingBudget: item.RemainingBudget,
                         Conversion: 1,
                         Remark: item.ProductRemark,
-                        Initial:parseFloat(item.RemainingBudget.toFixed(4))
+                        Initial: parseFloat(item.RemainingBudget.toFixed(4))
                     });
 
-                    pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-item.budgetUsed;
+                    pr[item.PRNo + item.PO_SerialNumber + item.Product.Id] = item.RemainingBudget - item.budgetUsed;
                 }
-                else{
-                    var dup=items.find(a=>a.PRNo==item.PRNo && item.Product.Id==a.Product.Id && a.PO_SerialNumber==item.PO_SerialNumber);
-                    if(dup){
-                        item.RemainingBudget=pr[item.PRNo+item.PO_SerialNumber+item.Product.Id];
-                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
+                else {
+                    var dup = items.find(a => a.PRNo == item.PRNo && item.Product.Id == a.Product.Id && a.PO_SerialNumber == item.PO_SerialNumber);
+                    if (dup) {
+                        item.RemainingBudget = pr[item.PRNo + item.PO_SerialNumber + item.Product.Id];
+                        pr[item.PRNo + item.PO_SerialNumber + item.Product.Id] = item.RemainingBudget - (item.BudgetPrice * item.Quantity);
                     }
-                    else{
-                        pr[item.PRNo+item.PO_SerialNumber+item.Product.Id]=item.RemainingBudget-(item.BudgetPrice*item.Quantity);
+                    else {
+                        pr[item.PRNo + item.PO_SerialNumber + item.Product.Id] = item.RemainingBudget - (item.BudgetPrice * item.Quantity);
                         //item.RemainingBudget=pr[item.PRNo];
                     }
 
@@ -402,13 +461,13 @@ export class DataForm {
                         BudgetPrice: Number(item.BudgetPrice),
                         PriceBeforeTax: Number(item.BudgetPrice),
                         PricePerDealUnit: Number(item.BudgetPrice),
-                        budgetUsed: item.BudgetPrice*item.Quantity,
-                        remainingBudget:item.RemainingBudget,
+                        budgetUsed: item.BudgetPrice * item.Quantity,
+                        remainingBudget: item.RemainingBudget,
                         IsOverBudget: false,
-                        totalBudget: item.BudgetPrice*item.Quantity,
+                        totalBudget: item.BudgetPrice * item.Quantity,
                         Conversion: 1,
                         Remark: item.ProductRemark,
-                        Initial:parseFloat(item.RemainingBudget.toFixed(4))
+                        Initial: parseFloat(item.RemainingBudget.toFixed(4))
                     });
                 }
 
@@ -416,11 +475,9 @@ export class DataForm {
 
         }
         items = [].concat.apply([], items);
-        this.data.Items=items;
+        this.data.Items = items;
         this.isItem = true;
     }
-
-
 
     items = {
         columns: [
@@ -439,100 +496,98 @@ export class DataForm {
             "Keterangan"],
         onRemove: function () {
             this.bind();
-            if(this.items){
-                
-                var pr=[];
-                var remaining=[];
-                var items=[];
-                for(var a of this.items){
-                    if(pr.length==0){
+            if (this.items) {
+
+                var pr = [];
+                var remaining = [];
+                var items = [];
+                for (var a of this.items) {
+                    if (pr.length == 0) {
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                        a.remainingBudget = a.Initial;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.Initial - parseFloat(a.budgetUsed.toFixed(4));
+                        a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                         //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                     }
-                    else{
-                        var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
-                        if(dup){
+                    else {
+                        var dup = pr.find(b => b.PRNo == a.PRNo && b.Product.Id == a.Product.Id && a.PO_SerialNumber == b.PO_SerialNumber);
+                        if (dup) {
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-parseFloat(a.budgetUsed.toFixed(4));
-                            a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                            a.remainingBudget = remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.remainingBudget - parseFloat(a.budgetUsed.toFixed(4));
+                            a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         }
-                        else{
+                        else {
                             pr.push(a);
                             //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                            a.remainingBudget=a.Initial;
-                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                            a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                            a.remainingBudget = a.Initial;
+                            remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.Initial - parseFloat(a.budgetUsed.toFixed(4));
+                            a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                         }
                     }
-                    if(a.RemainingBudget<0){
-                        a.IsOverBudget=true;
+                    if (a.RemainingBudget < 0) {
+                        a.IsOverBudget = true;
                     }
-                    else{
-                        a.IsOverBudget=false;
+                    else {
+                        a.IsOverBudget = false;
                     }
                 }
             }
         }
     };
-    
-    checkOverBudgetAll(){
-        if(this.data.Items){
-            
-            var pr=[];
-            var remaining=[];
-            var items=[];
-            for(var a of this.data.Items){
-                if(pr.length==0){
+
+    checkOverBudgetAll() {
+        if (this.data.Items) {
+
+            var pr = [];
+            var remaining = [];
+            var items = [];
+            for (var a of this.data.Items) {
+                if (pr.length == 0) {
                     pr.push(a);
                     //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                    a.remainingBudget=a.Initial;
-                    remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                    a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                    a.remainingBudget = a.Initial;
+                    remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.Initial - parseFloat(a.budgetUsed.toFixed(4));
+                    a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     //a.remainingBudget=remaining[a.PRNo + a.Product.Id]-a.budgetUsed;
                     //remaining[a.PRNo + a.Product.Id]=a.remainingBudget;
                 }
-                else{
-                    var dup=pr.find(b=> b.PRNo == a.PRNo && b.Product.Id==a.Product.Id && a.PO_SerialNumber==b.PO_SerialNumber);
-                    if(dup){
+                else {
+                    var dup = pr.find(b => b.PRNo == a.PRNo && b.Product.Id == a.Product.Id && a.PO_SerialNumber == b.PO_SerialNumber);
+                    if (dup) {
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.remainingBudget-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                        a.remainingBudget = remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber];
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.remainingBudget - parseFloat(a.budgetUsed.toFixed(4));
+                        a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     }
-                    else{
+                    else {
                         pr.push(a);
                         //a.budgetUsed=a.PricePerDealUnit*a.DealQuantity*this.kurs.Rate;
-                        a.remainingBudget=a.Initial;
-                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber]=a.Initial-parseFloat(a.budgetUsed.toFixed(4));
-                        a.RemainingBudget=parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
+                        a.remainingBudget = a.Initial;
+                        remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber] = a.Initial - parseFloat(a.budgetUsed.toFixed(4));
+                        a.RemainingBudget = parseFloat(remaining[a.PRNo + a.Product.Id + a.PO_SerialNumber].toFixed(4));
                     }
                 }
-                
+
                 if (a.UENItemId) {
                     a.RemainingBudget = parseFloat((a.BudgetFromUEN - parseFloat(a.budgetUsed.toFixed(4))).toFixed(4));
                 }
 
-                if(a.RemainingBudget<0){
-                    a.IsOverBudget=true;
+                if (a.RemainingBudget < 0) {
+                    a.IsOverBudget = true;
                 }
-                else{
-                    a.IsOverBudget=false;
+                else {
+                    a.IsOverBudget = false;
                 }
-                a.UsedBudget=parseFloat(a.budgetUsed.toFixed(4));
+                a.UsedBudget = parseFloat(a.budgetUsed.toFixed(4));
             }
         }
     }
 
-    itemsChanged(e){
+    itemsChanged(e) {
         this.checkOverBudgetAll();
     }
-
-    
 
 }

@@ -44,7 +44,7 @@ export class List {
     inventoryTypes = ["","LAMA","BARU"];
     units = ["", "DYEING", "PRINTING"];
     packingTypes = ["", "WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT"];
-    zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING"];
+    zoneList = ["INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI", "GUDANG AVAL", "SHIPPING", "STOCK OPNAME"];
     columns = [
         // {
         //     field: "date", title: "Tanggal", formatter: function (value, data, index) {
@@ -122,6 +122,37 @@ export class List {
         { field: "inventoryType", title: "Gudang"}
     ];
 
+    columns3 = [
+        // {
+        //     field: "date", title: "Tanggal", formatter: function (value, data, index) {
+        //         return moment(value).format("DD MMM YYYY");
+        //     }
+        // },
+        { field: "noSpp", title: "No. SPP" },
+        { field: "construction", title: "Material" },
+        { field: "unit", title: "Unit" },
+        { field: "motif", title: "Motif" },
+        { field: "buyer", title: "Buyer" },
+        { field: "color", title: "Warna" },
+        { field: "grade", title: "Grade" },
+        { field: "jenis", title: "Jenis" },
+        {
+            field: "stockOpname", title: "Stock Opname", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "storageBalance", title: "Saldo Gudang", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        },
+        {
+            field: "difference", title: "Selisih", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
+        }
+    ];
+
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
@@ -193,6 +224,11 @@ export class List {
         this.dialog = dialog;
         this.service = service;
         this.router = router;
+        this.sumStockOpname = 0;
+        this.sumStorageBalance = 0;
+        this.sumDifference = 0;
+        this.isEmpty = true;
+        this.data = [];
     }
 
     zonaChanged(n, o) {
@@ -230,11 +266,58 @@ export class List {
 
     }
 
-    search() {
-        if (this.dateReport) {
+    async search() {
+        if (this.dateReport && !this.isStockOpname) {
             this.listDataFlag = true;
             this.error = {};
             this.table.refresh();
+        } else if (this.dateReport && this.isStockOpname) {
+            this.listDataFlag = true;
+            this.error = {};
+            var arg = {
+              dateReport: moment(this.dateReport).format("YYYY-MM-DD"),
+              zona: this.zona,
+              unit: this.unit,       
+              packingType: this.packingType,
+              construction: this.construction ? this.construction.Code : null,
+              buyer: this.buyer ? this.buyer.Name : null,
+              productionOrderId: this.productionOrder ? this.productionOrder.Id : null,
+              inventoryType : this.inventoryType,
+          }
+  
+          this.data = await this.service.search(arg)
+              .then((result) => {
+                  var data = [];
+                  if (result.length == 0) this.isEmpty = true;
+                  else this.isEmpty = false;
+
+                  this.sumStockOpname = 0;
+                  this.sumStorageBalance = 0;
+                  this.sumDifference = 0;
+
+                  for (var item of result) {
+                    this.sumStockOpname += item.stockOpname;
+                    this.sumStorageBalance += item.storageBalance;
+                    this.sumDifference += item.difference;
+                    var newData = {
+                      NoSpp: item.noSpp,
+                      Material: item.construction,
+                      Unit: item.unit,
+                      Motif: item.motif,
+                      Buyer: item.buyer,
+                      Warna: item.color,
+                      Grade: item.grade,
+                      Jenis: item.jenis,
+                      StockOpname: item.stockOpname ? numeral(item.stockOpname).format("0.00") : 0,
+                      StorageBalance: item.storageBalance ? numeral(item.storageBalance).format("0.00") : 0,
+                      Difference: item.difference ? numeral(item.difference).format("0.00") : 0
+                    };
+
+                    data.push(newData);
+                  }
+
+                  return data;
+              });
         } else {
             this.error.dateReport = "Tanggal Harus Diisi";
         }
@@ -276,8 +359,13 @@ export class List {
         this.listDataFlag = false;
         this.dateReport = undefined;
         this.zona = "INSPECTION MATERIAL";
-        this.table.refresh();
+        //this.table.refresh();
         this.error = {};
+        this.sumStockOpname = 0;
+        this.sumStorageBalance = 0;
+        this.sumDifference = 0;
+        this.isEmpty = true;
+        this.data = [];
     }
     context = ["detail"]
     contextClickCallback(event) {
@@ -318,6 +406,10 @@ export class List {
 
     get isPackingType() {
         return this.zona && (this.zona == "GUDANG JADI" || this.zona == "SHIPPING");
+    }
+
+    get isStockOpname() {
+        return this.zona && this.zona == "STOCK OPNAME";
     }
 
     avalColumns = [
@@ -383,3 +475,8 @@ export class List {
     }
 }
 
+export class KeysValueConverter {
+  toView(obj) {
+    return Reflect.ownKeys(obj);
+  }
+}

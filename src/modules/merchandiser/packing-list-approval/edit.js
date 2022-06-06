@@ -30,14 +30,18 @@ export class Edit {
         }
 
         if (this.data.items) {
-            for (const item of this.data.items) {
-                item.buyerAgent = this.data.buyerAgent;
-                item.section = this.data.section;
-                // if (!item.priceFOB) {
-                //     item.priceFOB = item.priceRO;
-                // }
-                this.sumSubTotal(item);
-            }
+          this.data.items.map((item)=>{
+            item.buyerAgent = this.data.buyerAgent;
+            item.section = this.data.section;
+            
+          });
+            // for (const item of this.data.items) {
+                
+            //     // if (!item.priceFOB) {
+            //     //     item.priceFOB = item.priceRO;
+            //     // }
+            //     //this.sumSubTotal(item);
+            // }
         }
         
         if (new Date(this.data.truckingEstimationDate) <= new Date(1, 1, 1, 0, 0, 0, 0)) {
@@ -60,6 +64,7 @@ export class Edit {
     }
 
     sumSubTotal(item) {
+      console.log(item)
       item.subGrossWeight = 0;
       item.subNetWeight = 0;
       item.subNetNetWeight = 0;

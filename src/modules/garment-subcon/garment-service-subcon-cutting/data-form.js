@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+var BuyerLoader = require('../../../loader/garment-buyers-loader');
 
 @inject(Service, SalesService, CoreService)
 export class DataForm {
@@ -27,7 +28,7 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah"
     };
-    subconTypes=["BORDIR","PRINT","PLISKET"];
+    subconTypes=["BORDIR","PRINT","PLISKET","OTHERS"];
     controlOptions = {
         label: {
             length: 2
@@ -44,6 +45,15 @@ export class DataForm {
             "Komoditi",
             ""
         ]
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
     }
 
     // @computedFrom("data.Unit")
@@ -127,7 +137,8 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.Items.push({
-                Unit:this.data.Unit
+                Unit:this.data.Unit,
+                Buyer:this.data.Buyer
             });
         };
     }
@@ -161,5 +172,14 @@ export class DataForm {
             }
         }
         return qty;
+    }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
+    buyerView = (buyer) => {
+        var buyerName = buyer.Name || buyer.name;
+        var buyerCode = buyer.Code || buyer.code;
+        return `${buyerCode} - ${buyerName}`
     }
 }

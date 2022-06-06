@@ -3,7 +3,7 @@ import { Service } from './service';
 import moment from 'moment';
 const IncomeTaxLoader = require('../../../loader/vat-loader');
 const AccountBankLoader = require('../../../loader/account-banks-loader');
-const DivisionLoader = require('../../../loader/division-loader');
+const DivisionLoader = require('../../../loader/division-group-loader');
 
 @inject(Service)
 export class DataForm {
@@ -48,7 +48,7 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        this.columns = ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPH', 'PPN', 'Total Bayar (DPP + PPN)', 'Mata Uang', ''];
+        this.columns = ['No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'Pasal PPh', 'Rate PPh', 'PPh', 'PPN', 'Total Bayar (DPP + PPN)', 'Mata Uang', ''];
 
         if (!this.readOnly)
             this.columns.unshift('__check');
@@ -122,7 +122,7 @@ export class DataForm {
             let info = {
                 dateFrom: moment(this.data.dateFrom).format("MM/DD/YYYY"),
                 dateTo: moment(this.data.dateTo).format("MM/DD/YYYY"),
-                divisionCode: this.data.Division.Code,
+                divisionCodes: this.data.Division.DivisionCodes.join(),
                 // incomeTaxName: this.data.IncomeTax.name,
                 // incomeTaxRate: this.data.IncomeTax.rate,
                 currency: this.data.Bank.Currency.Code

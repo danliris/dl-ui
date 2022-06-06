@@ -82,15 +82,15 @@ export class DataForm {
     PackingTypeOptions = ["EXPORT", "RE EXPORT"];
     InvoiceTypeOptions = ["DL", "SM"];
     ShipmentModeOptions = ["Air", "Sea", "Courier", "Sea-Air"];
-    PaymentTermOptions = ["LC", "TT/OA"];
+    PaymentTermOptions = ["LC", "TT/OA", "NON COMMERCIAL"];
     countries =  ["", "AFGHANISTAN", "ALBANIA", "ALGERIA", "ANDORRA", "ANGOLA", "ANGUILLA", "ANTIGUA AND BARBUDA", "ARGENTINA", "ARMENIA", "ARUBA", "AUSTRALIA", "AUSTRIA", "AZERBAIJAN", "BAHAMAS", "BAHRAIN", "BANGLADESH", "BARBADOS", "BELARUS", "BELGIUM", "BELIZE", "BENIN", "BERMUDA", "BHUTAN", "BOLIVIA", "BOSNIA AND HERZEGOVINA", "BOTSWANA", "BRAZIL", "BRITISH VIRGIN ISLANDS", "BRUNEI", "BULGARIA", "BURKINA FASO", "BURUNDI", "CAMBODIA", "CAMEROON", "CANADA", "CAPE VERDE", "CAYMAN ISLANDS", "CHAD", "CHILE", "CHINA", "COLOMBIA", "CONGO", "COOK ISLANDS", "COSTA RICA", "COTE D IVOIRE", "CROATIA", "CRUISE SHIP", "CUBA", "CYPRUS", "CZECH REPUBLIC", "DENMARK", "DJIBOUTI", "DOMINICA", "DOMINICAN REPUBLIC", "ECUADOR", "EGYPT", "EL SALVADOR", "EQUATORIAL GUINEA", "ESTONIA", "ETHIOPIA", "FALKLAND ISLANDS", "FAROE ISLANDS", "FIJI", "FINLAND", "FRANCE", "FRENCH POLYNESIA", "FRENCH WEST INDIES", "GABON", "GAMBIA", "GEORGIA", "GERMANY", "GHANA", "GIBRALTAR", "GREECE", "GREENLAND", "GRENADA", "GUAM", "GUATEMALA", "GUERNSEY", "GUINEA", "GUINEA BISSAU", "GUYANA", "HAITI", "HONDURAS", "HONG KONG", "HUNGARY", "ICELAND", "INDIA", "INDONESIA", "IRAN", "IRAQ", "IRELAND", "ISLE OF MAN", "ISRAEL", "ITALY", "JAMAICA", "JAPAN", "JERSEY", "JORDAN", "KAZAKHSTAN", "KENYA", "KUWAIT", "KYRGYZ REPUBLIC", "LAOS", "LATVIA", "LEBANON", "LESOTHO", "LIBERIA", "LIBYA", "LIECHTENSTEIN", "LITHUANIA", "LUXEMBOURG", "MACAU", "MACEDONIA", "MADAGASCAR", "MALAWI", "MALAYSIA", "MALDIVES", "MALI", "MALTA", "MAURITANIA", "MAURITIUS", "MEXICO", "MOLDOVA", "MONACO", "MONGOLIA", "MONTENEGRO", "MONTSERRAT", "MOROCCO", "MOZAMBIQUE", "NAMIBIA", "NEPAL", "NETHERLANDS", "NETHERLANDS ANTILLES", "NEW CALEDONIA", "NEW ZEALAND", "NICARAGUA", "NIGER", "NIGERIA", "NORTH KOREA", "NORWAY", "OMAN", "PAKISTAN", "PALESTINE", "PANAMA", "PAPUA NEW GUINEA", "PARAGUAY", "PERU", "PHILIPPINES", "POLAND", "PORTUGAL", "PUERTO RICO", "QATAR", "REUNION", "ROMANIA", "RUSSIA", "RWANDA", "SAINT PIERRE AND MIQUELON", "SAMOA", "SAN MARINO", "SATELLITE", "SAUDI ARABIA", "SENEGAL", "SERBIA", "SEYCHELLES", "SIERRA LEONE", "SINGAPORE", "SLOVAKIA", "SLOVENIA", "SOUTH AFRICA", "SOUTH KOREA", "SPAIN", "SRI LANKA", "ST KITTS AND NEVIS", "ST LUCIA", "ST VINCENT", "ST. LUCIA", "SUDAN", "SURINAME", "SWAZILAND", "SWEDEN", "SWITZERLAND", "SYRIA", "TAIWAN", "TAJIKISTAN", "TANZANIA", "THAILAND", "TIMOR L'ESTE", "TOGO", "TONGA", "TRINIDAD AND TOBAGO", "TUNISIA", "TURKEY", "TURKMENISTAN", "TURKS AND CAICOS", "UGANDA", "UKRAINE", "UNITED ARAB EMIRATES", "UNITED KINGDOM", "UNITED STATES OF AMERICA", "URUGUAY", "UZBEKISTAN", "VENEZUELA", "VIETNAM", "VIRGIN ISLANDS (US)", "YEMEN", "ZAMBIA", "ZIMBABWE"];
 
-    get say() {
-        var number = this.data.totalCartons;
+    terbilang(numeric) {
+        var number = numeric;
 
-        const first = ['', 'ONE ', 'TWO ', 'THREE ', 'FOUR ', 'FIVE ', 'SIX ', 'SEVEN ', 'EIGHT ', 'NINE ', 'TEN ', 'ELEVEN ', 'TWELVE ', 'THIRTEEN ', 'FOURTEEN ', 'FIFTEEN ', 'SIXTEEN ', 'SEVENTEEN ', 'EIGHTEEN ', 'NINETEEN '];
-        const tens = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
-        const mad = ['', 'THOUSAND', 'MILLION', 'BILLION', 'TRILLION'];
+        const first = ['', 'one ', 'two ', 'three ', 'four ', 'five ', 'six ', 'seven ', 'eight ', 'nine ', 'ten ', 'eleven ', 'twelve ', 'thirteen ', 'fourteen ', 'fifteen ', 'sixteen ', 'seventeen ', 'eighteen ', 'nineteen '];
+        const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+        const mad = ['', 'thousand', 'million', 'billion', 'trillion'];
         let word = '';
 
         for (let i = 0; i < mad.length; i++) {
@@ -107,7 +107,7 @@ export class DataForm {
             if (Math.floor(tempNumber / (100 * Math.pow(1000, i))) !== 0)
                 word = first[Math.floor(tempNumber / (100 * Math.pow(1000, i)))] + 'hundred ' + word;
         }
-        return word.toUpperCase();
+        this.say= word.toUpperCase();
     }
 
     get lcLoader() {
@@ -136,11 +136,24 @@ export class DataForm {
             };
         }
 
+        this.totalCBM="";
+        var total = 0;
+        if (this.data.measurements) {
+            this.data.measurements.map((m)=>{
+                if (m.length && m.width && m.height && m.cartonsQuantity) {
+                    total += (m.length * m.width * m.height * m.cartonsQuantity / 1000000);
+                }
+            })
+            this.totalCBM=total.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+        }
+
         this.data.sayUnit = this.data.sayUnit || "CARTON";
 
         this.shippingMarkImageSrc = this.data.shippingMarkImageFile || this.noImage;
         this.sideMarkImageSrc = this.data.sideMarkImageFile || this.noImage;
         this.remarkImageSrc = this.data.remarkImageFile || this.noImage;
+        this.terbilang(this.data.totalCartons);
+        this.totalQty();
     }
 
     paymentTermChanged() {
@@ -156,17 +169,17 @@ export class DataForm {
         }
     }
 
-    get totalCBM() {
-        var total = 0;
-        if (this.data.measurements) {
-            for (var m of this.data.measurements) {
-                if (m.length && m.width && m.height && m.cartonsQuantity) {
-                    total += (m.length * m.width * m.height * m.cartonsQuantity / 1000000);
-                }
-            }
-        }
-        return total.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-    }
+    // get totalCBM() {
+    //     var total = 0;
+    //     if (this.data.measurements) {
+    //         for (var m of this.data.measurements) {
+    //             if (m.length && m.width && m.height && m.cartonsQuantity) {
+    //                 total += (m.length * m.width * m.height * m.cartonsQuantity / 1000000);
+    //             }
+    //         }
+    //     }
+    //     return total.toLocaleString('en-EN', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+    // }
 
     get totalCartons() {
       let result = 0;
@@ -207,7 +220,7 @@ export class DataForm {
       }
     }
 
-    get totalQuantities() {
+    totalQty() {
         let quantities = [];
         let result = [];
         let units = [];
@@ -215,17 +228,16 @@ export class DataForm {
             var no = 1;
             for (var item of this.data.items) {
                 let unit = "";
-                if(item.uom) {
+                if (item.uom) {
                     unit = item.uom.unit || item.uom.Unit;
                 }
                 // if (item.quantity && quantities.findIndex(c => c.roNo == item.roNo && c.unit == unit) < 0) {
-                    quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
-                    if(units.findIndex(u => u.unit == unit) < 0) {
-                        units.push({ unit: unit });
+                quantities.push({ no: no, roNo: item.roNo, unit: unit, quantityTotal: item.quantity });
+                if (units.findIndex(u => u.unit == unit) < 0) {
+                    units.push({ unit: unit });
                     // }
                 }
                 no++;
-                
             }
         }
         for (var u of units) {
@@ -237,6 +249,6 @@ export class DataForm {
             }
             result.push(countableQuantities + " " + u.unit);
         }
-        return result.join(" / ");
+        this.totalQuantities= result.join(" / ");
     }
 }

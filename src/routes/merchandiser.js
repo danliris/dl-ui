@@ -143,7 +143,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "transaksi",
-            permission: { "PGA": 1, "C7": 1, "B7": 1, "C9": 1 },
+            permission: { "PGA": 1, "C7": 1, "B7": 1, "C9": 1, "B1": 1 },
             iconClass: 'fa fa-calculator',
             byUser: false
         }
@@ -589,6 +589,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+     {
+        route: '/merchandiser/latest-available-budget-report',
+        name: 'latest-available-budget-report',
+        moduleId: './modules/merchandiser/report/latest-available-budget-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan Budget | >= 2022',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            permission: { "PGA": 1, "P": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: '/merchandiser/available-ro-garment-report',
         name: 'available-ro-garment-report',
@@ -603,6 +617,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },   
+     {
+        route: '/merchandiser/latest-available-ro-garment-report',
+        name: 'latest-available-ro-garment-report',
+        moduleId: './modules/merchandiser/report/latest-available-ro-garment-report/index',
+        nav: true,
+        title: 'Laporan Kesiapan RO | >= 2022',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            permission: { "PGA": 1, "P": 1, "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },  
     {
         route: '/merchandiser/garment-purchasing-quality-objective-report',
         name: 'garment-purchasing-quality-objective-report',

@@ -139,6 +139,20 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+        {
+        route: "garment-detail-currencies",
+        name: "garment-detail-currencies",
+        moduleId: "./modules/master/garment-detail-currency/index",
+        nav: true,
+        title: "Rate Mingguan - USD",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            permission: { "C9": 1, "SG": 1, "B12": 1 },
+        iconClass: "fa fa-dashboard",
+    },
+  },
     {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
@@ -206,7 +220,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "C9": 1, "SG": 1, "B1": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -396,7 +410,7 @@ module.exports = [
     {
         route: "garment-shipping/monitoring/shipment-garment",
         name: "garment-shipping/monitoring/shipment-garment",
-        moduleId: "modules/garment-shipping/monitoring/shipment-garment/index",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipment/index",
         nav: true,
         title: "Monitoring Shipment Garment",
         auth: true,
@@ -431,21 +445,35 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
     {
-        route: "garment-shipping/monitoring/omzet-by-buyer",
-        name: "garment-shipping/monitoring/omzet-by-buyer",
+        route: "garment-shipping/monitoring/omzet-by-buyer-agent",
+        name: "garment-shipping/monitoring/omzet-by-buyer-agent",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-buyer/index",
         nav: true,
-        title: "Report Omzet Garment Per Buyer / Bulan",
+        title: "Report Omzet Garment Per Buyer Agent / Bulan",
         auth: true,
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+        {
+        route: "garment-shipping/monitoring/omzet-by-buyer-brand",
+        name: "garment-shipping/monitoring/omzet-by-buyer-brand",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-brand/index",
+        nav: true,
+        title: "Report Omzet Garment Per Buyer Brand / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -459,7 +487,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -473,7 +501,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -487,7 +515,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
             iconClass: "fa fa-dashboard"
         }
     },      
@@ -669,7 +697,21 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    }, 
+    {
+        route: "garment-shipping/monitoring/omzet-local-sales-unpaid",
+        name: "garment-shipping/monitoring/omzet-local-sales-unpaid",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales-unpaid/index",
+        nav: true,
+        title: "Monitoring Omzet Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            permission: { "C9": 1, "SG": 1, "B1": 1 },
             iconClass: "fa fa-dashboard"
         }
     }, 
@@ -964,6 +1006,20 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/local-sales-note-approval",
+        name: "garment-shipping/local-sales-note-approval",
+        moduleId: "modules/garment-shipping/local-sales-note-approval/index",
+        nav: true,
+        title: "Approval Penjualan Lokal",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "approval",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }

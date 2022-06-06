@@ -51,17 +51,22 @@ export class List {
                     var datadetail=[];
                     var index=0;  
                     for(var _data of result.data){
-                        var ro =_data.RO;    
+                        var ro =_data.RO;
+                        console.log(_data)
 
-                        this.service.search2(ro)
-                            .then(result2 => {
-                                this.rowCount=[];
-                                var datas2=[];
-                                var index=0;  
-                                for(var _data2 of result2){
-                                datadetail.push(_data2);
-                                }
-                            })   
+                        for(var _data1 of _data.rincian){
+                            datadetail.push(_data1);
+                        }
+
+                        // this.service.search2(ro)
+                        //     .then(result2 => {
+                        //         this.rowCount=[];
+                        //         var datas2=[];
+                        //         var index=0;  
+                        //         for(var _data2 of result2){
+                        //         datadetail.push(_data2);
+                        //         }
+                        //     })   
                    
                         datas.push(_data);
                      

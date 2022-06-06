@@ -15,6 +15,8 @@ export class CartItem {
         this.contextOptions = context.context.options;
         this.dyeingPrintingAreaInputId = this.contextOptions.dyeingPrintingAreaInputId;
         this.isEdit = this.contextOptions.isEdit;
+        this.type = this.contextOptions.type;
+        console.log(this.type);
         this.isRetur = this.contextOptions.isRetur;
 
         if (this.isRetur) {

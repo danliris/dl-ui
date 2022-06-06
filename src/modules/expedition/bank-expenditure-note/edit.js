@@ -40,7 +40,7 @@ export class Edit {
         this.dialog = dialog;
 
         this.collection = {
-            columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
+            columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor BTU', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Jumlah yang telah dibayar', 'Jumlah dibayar ke Supplier', 'Selisih pembayaran', ''],
         };
     }
 
@@ -69,8 +69,8 @@ export class Edit {
 
         let newData = await this.service.searchAllByPosition(arg)
             .then((result) => {
-                let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash") : [];
-
+                let resultData = result.data && result.data.length > 0 ? result.data.filter((datum) => datum.PaymentMethod && datum.PaymentMethod.toLowerCase() != "cash" && datum.IsPosted == true) : [];
+                
                 return resultData;
             });
 
@@ -81,6 +81,7 @@ export class Edit {
         for (var a of this.data.Details) {
             a.SupplierName = this.data.Supplier.Name;
             a.Currency = this.data.Bank.Currency.Code;
+            a.PaymentDifference = a.TotalPaid - (a.AmountPaid + a.SupplierPayment);
         }
 
         this.IDR = false;
@@ -95,12 +96,12 @@ export class Edit {
 
         if (!this.IDR || this.sameCurrency) {
             this.collection = {
-                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', ''],
+                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor BTU', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Jumlah yang telah dibayar', 'Jumlah dibayar ke Supplier', 'Selisih pembayaran', ''],
             };
         }
         else {
             this.collection = {
-                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', ''],
+                columns: ['__check', 'No. SPB', 'Tanggal SPB', 'Tanggal Jatuh Tempo', 'Nomor BTU', 'Nomor Invoice', 'Supplier', 'Category', 'Divisi', 'PPN', 'PPh', 'Total Harga ((DPP + PPN) - PPh)', 'Mata Uang', 'Total Harga ((DPP + PPN) - PPh) (IDR)', 'Mata Uang', 'Jumlah yang telah dibayar', 'Jumlah dibayar ke Supplier', 'Selisih pembayaran', ''],
             };
         }
         this.collectionOptions = {
@@ -233,8 +234,8 @@ export class Edit {
         if (this.UPOResults && this.UPOResults.length > 0) {
             for (let detail of this.UPOResults) {
                 if (detail.Select) {
-                    result += detail.TotalPaid;
-                    viewResult += (detail.TotalPaid * this.data.CurrencyRate);
+                    result += detail.SupplierPayment;
+                    viewResult += (detail.SupplierPayment * this.data.CurrencyRate);
                 }
 
             }

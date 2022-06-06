@@ -12,9 +12,10 @@ export class ProductionOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
-    console.log(this.context);
+    //console.log(this.data);
+    this.data.productPackingCodeList = this.getProductPackingCodeList(this.data);
     this.error = context.error;
-
+    this.isShowing = false;
     //this.items = this.context.context.items;
     // console.log(this.error);
     this.options = context.options;
@@ -22,21 +23,26 @@ export class ProductionOrderItem {
     this.isEdit = this.contextOptions.isEdit;
     this.destinationArea = this.contextOptions.destinationArea;
     this.isTransit = this.destinationArea == "TRANSIT";
+    this.listOptions = {
+      isEdit: this.isEdit,
+      destinationArea: this.destinationArea
+    };
     if (this.data.deliveryOrderSalesId && this.data.deliveryOrderSalesNo) {
       this.selectedDeliveryOrderSales = {};
 
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
-      
+
     }
-    if (this.data.id == null){
+    if (this.data.id == null) {
       this.data.isremovable = true;
     }
-    if (this.data.packagingQty) {
+    //view detail
+    if (this.options.readOnly && this.isEdit || this.isEdit) {
       this.qtyPacking = this.data.packagingQty;
     }
-
+    //console.log(this.qtyPacking);
     // if (this.data.qty) {
     //   this.qty = this.data.qty;
     // }
@@ -44,6 +50,13 @@ export class ProductionOrderItem {
     if (this.data.quantity) {
       this.qty = this.data.quantity;
     }
+
+    this.data.qtyOut = this.qtyPacking * this.qty;
+    //console.log(this.data.qtyOut);
+
+    this.barcodeColumns = [
+      "Kode Packing"
+    ];
   }
 
   controlOptions = {
@@ -79,6 +92,7 @@ export class ProductionOrderItem {
     if (this.qtyPacking) {
       this.data.packagingQty = this.qtyPacking;
       this.data.balance = this.data.packagingQty * this.data.quantity;
+      this.data.qtyOut = this.data.packagingQty * this.data.quantity;
     }
   }
 
@@ -88,8 +102,63 @@ export class ProductionOrderItem {
       this.data.qty = this.qty;
       this.data.quantity = this.qty;
       this.data.balance = this.data.packagingQty * this.data.quantity;
+      this.data.qtyOut = this.data.packagingQty * this.data.quantity;
     }
+    console.log(this.qty);
   }
+
+  toggle() {
+    if (!this.isShowing) this.isShowing = true;
+    else this.isShowing = !this.isShowing;
+  }
+
+  getProductPackingCodeList(data) {
+
+    const productPackingCodeRemains = data.productPackingCodeRemains != null ? data.productPackingCodeRemains : data.productPackingCode;
+
+    if(productPackingCodeRemains !== null && productPackingCodeRemains !== ""){
+      return productPackingCodeRemains.split(',').map(d => {
+        return {
+          packingCode: d
+        }
+      });
+    }
+    return [];
+  }
+
+  someCallbackFunction() {
+    this.qtyPacking = this.data.productPackingCodeList.filter(d => d.IsSave).length;
+
+    //console.log(this.qtyPacking);
+  };
+
+  @bindable qtyPacking
+  qtyPackingChanged(newValue, olderValue) {
+        // if (this.dataForm.context.isCreate) {
+            console.log(newValue);
+            console.log(olderValue);
+        if (newValue != olderValue) {
+            this.data.qtyOut = this.qty * newValue;
+
+            //console.log(this.qtyPacking);
+
+            this.data.packagingQty = this.qtyPacking;
+
+            //console.log(this.data.packagingQty);
+
+          
+            // if (this.itemSPP && this.itemSPP.data && this.itemSPP.data.PackagingList) {
+
+            //     var sum = this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)
+            //         .reduce((a, b) => +a + +b.qtyOut, 0);
+            //     for (var item of this.itemSPP.data.PackagingList.filter(s => s.grade == this.data.grade)) {
+            //         item.balanceRemains = item.previousBalance - sum;
+
+            //     }
+            // }
+        }
+    }
+
   // copycallback(item){
   //   console.log(item);
   //   var itemIndex = this.items.indexOf(item);

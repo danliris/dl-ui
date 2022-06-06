@@ -21,15 +21,17 @@ export class View {
             };
            
             this.selectedContractType=this.data.ContractType;
+            this.selectedSubconCategory=this.data.SubconCategory;
         }
         this.getContractQty();
     }
 
     async getContractQty() {
         var subconContract = await this.service.readSubconContractById(this.data.SubconContractId);
-        if(this.data.ContractType=='SUBCON CUTTING'){
+        if(this.data.SubconCategory=='SUBCON SEWING' || this.data.ContractType=='SUBCON JASA' || this.data.ContractType=='SUBCON BAHAN BAKU'){
             this.service.searchComplete({filter: JSON.stringify({ ContractNo:this.data.ContractNo})})
             .then((contract)=>{
+                console.log(contract)
                 var usedQty= 0;
                 if(contract.data.length>0){
                     for(var subcon of contract.data){
@@ -59,13 +61,14 @@ export class View {
     }
 
     saveCallback(event) {
-        if(this.data.ContractType=="SUBCON BAHAN BAKU")
+        if(this.data.SubconCategory=="SUBCON CUTTING SEWING")
             this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
         else{
             this.data.UENId=0;
             //this.data.UsedQty=this.data.ContractQty;
             if(this.data.Items.length>0){
                 this.data.UsedQty=this.data.ContractQty-this.data.QtyUsed;
+                console.log(this.data.ContractQty,this.data.QtyUsed)
                 for(var item of this.data.Items){
                     item.Product={
                         Id:0

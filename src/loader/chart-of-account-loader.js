@@ -14,6 +14,7 @@ module.exports = function (keyword, filter) {
           Id: x.Id,
           Name: x.Name,
           No: x.Code,
+          Code: x.Code
         };
       });
     });
