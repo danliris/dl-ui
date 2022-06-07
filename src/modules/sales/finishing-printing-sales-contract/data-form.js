@@ -62,6 +62,7 @@ export class DataForm {
     this.selectedPointSystem = this.data.PointSystem || 10;
     this.selectedPaymentMethods = this.data.PaymentMethods || null;
     this.selectedDownPayments = this.data.DownPayments || null;
+    this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
 
@@ -259,7 +260,7 @@ export class DataForm {
   }
 
   buyerView(buyer) {
-    return buyer.Name ? `${buyer.Code} - ${buyer.Name} - ${buyer.Job}`  : '';
+    return buyer.Name ? `${buyer.Code} - ${buyer.Name} `  : '';
   }
 
   get comodityLoader() {
@@ -308,6 +309,10 @@ export class DataForm {
 
   get productTypeLoader() {
     return ProductTypeLoader;
+  }
+
+  productTypeView(productType) {
+    return productType.Name ;
   }
 
   bankView(bank) {

@@ -9,6 +9,7 @@ var ProductLoader = require('../../../loader/product-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -267,6 +268,9 @@ export class DataForm {
         }
     }
 
+    categoryPayment = ['', 'Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['', 'Pembayaran dengan DP','Tanpa DP'];
+
     get buyersLoader() {
         return BuyersLoader;
     }
@@ -313,4 +317,12 @@ export class DataForm {
     vatTaxView = (vatTax) => {
         return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(productType) {
+        return productType.Name ;
+      }
 } 
