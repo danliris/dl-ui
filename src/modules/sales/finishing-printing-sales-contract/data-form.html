@@ -408,11 +408,12 @@
         <au-autocomplete
         label="Jenis Produk"
         value.bind="data.ProductType"
-        error.bind="error.ProductType"
+        error.bind="error.ProductTypeId"
         read-only.bind="readOnly"
         loader.bind="productTypeLoader"
         key="Name"
         options.bind="controlOptions"
+        text.bind="productTypeView"
         placeholder="pilih Jenis Produk">
         </au-autocomplete>
 
