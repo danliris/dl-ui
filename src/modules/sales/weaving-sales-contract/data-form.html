@@ -157,6 +157,65 @@
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.Comission" error.bind="error.Comission" read-only.bind="(readOnly || isEdit)"
           if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-textbox>
 
+          <au-dropdown
+          label="Cara Pembayaran"
+          value.bind="data.PaymentMethods"
+          items.bind="categoryPayment"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox
+        label="Hari"
+        value.bind="data.Day"
+        error.bind="error.Day"
+        placeholder="Masukkan hari"
+        if.bind="data.PaymentMethods"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+        label="Down Payment (DP)"
+        value.bind="data.DownPayments"
+        items.bind="categoryDP"
+        read-only.bind="readOnly"
+        if.bind="data.PaymentMethods"
+        options.bind="controlOptions">
+      </au-dropdown>
+      
+      <au-numeric
+        label=" Down Payment (%)"
+        value.bind="data.PrecentageDP"
+        error.bind="error.PrecentageDP"
+        placeholder="Masukkan harga"
+        if.bind="data.DownPayments"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">>
+        </au-numeric>
+
+      <au-numeric
+      label="Pembayaran Down Payment"
+      value.bind="data.PriceDP"
+      error.bind="error.PriceDP"
+      placeholder="Masukkan harga"
+      if.bind="data.DownPayments"
+      read-only="true"
+      options.bind="controlOptions">
+      </au-numeric>
+
+      <au-autocomplete
+      label="Jenis Produk"
+      value.bind="data.ProductType"
+      error.bind="error.ProductTypeId"
+      read-only.bind="readOnly"
+      loader.bind="productTypeLoader"
+      key="Name"
+      options.bind="controlOptions"
+      text.bind="productTypeView"
+      placeholder="pilih Jenis Produk">
+      </au-autocomplete>
+
         <au-multiline label="Piece Length" placeholder="input Piece Length" value.bind="data.PieceLength" error.bind="error.PieceLength"
           read-only.bind="(readOnly || isEdit)"></au-multiline>
 

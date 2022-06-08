@@ -137,9 +137,6 @@
         <au-autocomplete label="Agent" placeholder="cari agent" value.bind="Agent" error.bind="error.Agent" read-only.bind="(readOnly || isEdit)"
           show.bind="Buyer.Type =='Ekspor'" loader.bind="buyersLoader" text.bind="getAgentText" key="Code" keypress.delegate="enterDelegate($event)"></au-autocomplete>
 
-        <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.Comission" error.bind="error.Comission" read-only.bind="(readOnly || isEdit)"
-          if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-textbox>
-
           <au-dropdown
           label="Cara Pembayaran"
           value.bind="data.PaymentMethods"
@@ -198,6 +195,11 @@
       text.bind="productTypeView"
       placeholder="pilih Jenis Produk">
       </au-autocomplete>
+
+        <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.Comission" error.bind="error.Comission" read-only.bind="(readOnly || isEdit)"
+          if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-textbox>
+
+          
 
       </div>
     </div>
