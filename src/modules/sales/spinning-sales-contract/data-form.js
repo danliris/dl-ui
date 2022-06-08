@@ -1,5 +1,5 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
-
+import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
+import { Service } from './service';
 var BuyersLoader = require('../../../loader/buyers-loader');
 var ComodityLoader = require('../../../loader/comodity-loader');
 var UomLoader = require('../../../loader/uom-loader');
@@ -7,18 +7,21 @@ var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var ProductLoader = require('../../../loader/product-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
-var AgentLoader = require('../../../loader/agent-loader')
+var AgentLoader = require('../../../loader/agent-loader');
+var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
+@inject(BindingEngine, Service, Element)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data;
     @bindable error;
 
     @bindable title;
-
+    @bindable isCreate;
     @bindable isEdit;
     @bindable isView;
-
+    @bindable selectedVatTax;
     @bindable Buyer;
     @bindable TermOfPayment;
     @bindable Comodity;
@@ -32,17 +35,20 @@ export class DataForm {
     tagsFilter = {};
     incomeTaxOptions = ['Tanpa PPn', 'Include PPn', 'Exclude PPn'];
 
-    constructor(bindingEngine, element) {
+    constructor(bindingEngine, service, element) {
         this.bindingEngine = bindingEngine;
         this.element = element;
-
-    }
+        this.service = service;
+      }
 
     bind(context) {
+
+        console.log(context);
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.isCreate = this.context.isCreate;
+        
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -56,6 +62,7 @@ export class DataForm {
             this.Comodity = this.data.Comodity;
             this.TermOfPayment = this.data.TermOfPayment;
             this.Quality = this.data.Quality;
+            this.selectedVatTax = this.data.VatTax || false;
 
             this.AccountBank =
                 {
@@ -67,6 +74,7 @@ export class DataForm {
                     BankName: this.data.AccountBank.BankName
                 };
         }
+        //this.selectedVatTax = this.data.VatTax || false;
 
         // this.termOfPayment={};
     }
@@ -196,6 +204,73 @@ export class DataForm {
         }
     }
 
+    selectedVatTaxChanged(newValue) {
+        var _selectedVatTax = newValue || {};
+        console.log(_selectedVatTax);
+        if (!_selectedVatTax) {
+         
+          this.data.VatTax = {};
+          
+        } else if (_selectedVatTax._id || _selectedVatTax.Id) {
+          //this.data.vatTaxRate = _selectedVatTax.rate ? _selectedVatTax.rate : 0;
+          //this.data.useVatTax = true;
+         
+          this.data.VatTax = _selectedVatTax;
+          //this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
+
+        
+        }
+    }
+
+    async useVatChanged(e) {
+        // this.data.items = [];
+        // this.data.vatNo = "";
+        // this.data.vatDate = null;
+        var selectedUseVat = e.srcElement.checked || false;
+        this.data.useVat = selectedUseVat;
+        console.log(this.isCreate);
+        if(this.isCreate){
+            if(this.data.useVat){
+        
+                let info = {
+                    keyword:'',
+                    order: '{ "Rate" : "desc" }',
+                    size: 1,
+                };
+    
+                var defaultVat = await this.service.getDefaultVat(info);
+                console.log(defaultVat);
+    
+                if(defaultVat.length > 0){
+                    if(defaultVat[0]){
+                        if(defaultVat[0].Id){
+                        // this.data.vatTax = defaultVat[0];
+                            
+                            
+                            this.selectedVatTax = defaultVat[0];
+                            console.log(this.selectedVatTax);
+                            //this.data.vatTax = this.selectedVatTax;
+                            this.data.vatTax= {
+                            _id : this.selectedVatTax.Id || this.selectedVatTax._id,
+                            rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
+                            } 
+    
+                            console.log(this.data.vatTax);
+                            //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
+                        }
+                    }
+                }
+            } else {
+                this.data.vatTax = {};
+
+
+            }
+        }
+    }
+
+    categoryPayment = ['', 'Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['', 'Pembayaran dengan DP','Tanpa DP'];
+
     get buyersLoader() {
         return BuyersLoader;
     }
@@ -235,4 +310,19 @@ export class DataForm {
     get agentLoader() {
         return AgentLoader;
     }
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+
+    vatTaxView = (vatTax) => {
+        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+    }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(productType) {
+        return productType.Name ;
+      }
 } 

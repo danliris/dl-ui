@@ -12,8 +12,12 @@ export class Create {
         this.service = service;
         this.data = {};
         this.error = {};
+        
     }
 
+    activate(params) {
+        this.isCreate = true;
+    }
 
     back() {
         this.router.navigateToRoute('list');
@@ -27,6 +31,7 @@ export class Create {
 
     save() {
         this.data.remainingQuantity = this.data.orderQuantity + (this.data.orderQuantity * this.data.shippingQuantityTolerance / 100);
+        console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

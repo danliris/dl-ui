@@ -69,6 +69,47 @@
         </au-autocomplete>
 
         <au-multiline label="Packing" placeholder="input packing" value.bind="data.Packing" error.bind="error.Packing" read-only.bind="(readOnly)"></au-multiline>
+        
+        <div class="row">
+          <div class="col-sm-4" style="padding-left:20%">
+
+            <textbox label="Kena PPN?" read-only="true"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+              <au-checkbox 
+                  
+                  value.bind="data.useVat" 
+                  error.bind="error.useVat" 
+                  read-only.bind="(readOnly || isEdit)"
+                  change.delegate="useVatChanged($event)"
+                  options.bind="controlOptions">
+              </au-checkbox>
+          </div>
+
+          <div class="col-sm-1">
+
+            <textbox label="PPN" read-only="true" if.bind = "data.useVat"></textbox>
+
+          </div>
+
+          <div class="col-sm-3">
+
+            <au-autocomplete value.bind="selectedVatTax"
+                error.bind="error.vatTax"
+                
+                loader.bind="vatTaxLoader"
+                text.bind="vatTaxView"
+                placeholder="cari PPN"
+                key=""
+                if.bind = "data.useVat"
+                
+                read-only.bind="(readOnly || isEdit)"
+                options.bind="controlOptions">
+            </au-autocomplete>
+          </div>
+        </div>
 
         <au-dropdown label="PPN" value.bind="data.IncomeTax" error.bind="error.IncomeTax" read-only.bind="(readOnly)" items.bind="incomeTaxOptions"
           keypress.delegate="enterDelegate($event)"></au-dropdown>
@@ -118,6 +159,65 @@
 
         <au-multiline label="Piece Length" placeholder="input Piece Length" value.bind="data.PieceLength" error.bind="error.PieceLength"
           read-only.bind="(readOnly || isEdit)"></au-multiline>
+
+          <au-dropdown
+          label="Cara Pembayaran"
+          value.bind="data.PaymentMethods"
+          items.bind="categoryPayment"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox
+        label="Hari"
+        value.bind="data.Day"
+        error.bind="error.Day"
+        placeholder="Masukkan hari"
+        if.bind="data.PaymentMethods"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+        label="Down Payment (DP)"
+        value.bind="data.DownPayments"
+        items.bind="categoryDP"
+        read-only.bind="readOnly"
+        if.bind="data.PaymentMethods"
+        options.bind="controlOptions">
+      </au-dropdown>
+      
+      <au-numeric
+        label=" Down Payment (%)"
+        value.bind="data.PrecentageDP"
+        error.bind="error.PrecentageDP"
+        placeholder="Masukkan harga"
+        if.bind="data.DownPayments"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">>
+        </au-numeric>
+
+      <au-numeric
+      label="Pembayaran Down Payment"
+      value.bind="data.PriceDP"
+      error.bind="error.PriceDP"
+      placeholder="Masukkan harga"
+      if.bind="data.DownPayments"
+      read-only="true"
+      options.bind="controlOptions">
+      </au-numeric>
+
+      <au-autocomplete
+      label="Jenis Produk"
+      value.bind="data.ProductType"
+      error.bind="error.ProductTypeId"
+      read-only.bind="readOnly"
+      loader.bind="productTypeLoader"
+      key="Name"
+      options.bind="controlOptions"
+      text.bind="productTypeView"
+      placeholder="pilih Jenis Produk">
+      </au-autocomplete>
 
       </div>
     </div>

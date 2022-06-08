@@ -196,6 +196,55 @@
           options.bind="controlOptions">
         </au-numeric>
 
+        <au-dropdown
+          label="Cara Pembayaran"
+          value.bind="data.PaymentMethods"
+          items.bind="categoryPayment"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox
+        label="Hari"
+        value.bind="data.Day"
+        error.bind="error.Day"
+        placeholder="Masukkan hari"
+        if.bind="data.PaymentMethods"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+        label="Down Payment (DP)"
+        value.bind="data.DownPayments"
+        items.bind="categoryDP"
+        read-only.bind="readOnly"
+        if.bind="data.PaymentMethods"
+        options.bind="controlOptions">
+      </au-dropdown>
+      
+      <au-numeric
+        label=" Down Payment (%)"
+        value.bind="data.PrecentageDP"
+        error.bind="error.PrecentageDP"
+        placeholder="Masukkan harga"
+        if.bind="data.DownPayments"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">>
+        </au-numeric>
+
+      <au-numeric
+      label="Pembayaran Down Payment"
+      value.bind="data.PriceDP"
+      error.bind="error.PriceDP"
+      placeholder="Masukkan harga"
+      if.bind="data.DownPayments"
+      read-only="true"
+      options.bind="controlOptions">
+      </au-numeric>
+
+        
+
       </div>
 
       <div class="col-md-6" style="padding:0">
@@ -235,7 +284,20 @@
           read-only.bind="readOnly">
         </checkbox>
 
-        <au-autocomplete
+        <au-autocomplete value.bind="selectedVatTax"
+                     error.bind="error.vatTax"
+                     label="PPN"
+                     loader.bind="vatTaxLoader"
+                     text.bind="vatTaxView"
+                     placeholder="cari vat"
+                     key=""
+                     if.bind = "selectedUseIncomeTax"
+                     
+                     read-only.bind="readOnly"
+                     options.bind="controlOptions">
+                </au-autocomplete>
+
+        <!-- <au-autocomplete
           label="Syarat Pembayaran"
           value.bind="data.TermOfPayment"
           error.bind="error.TermOfPaymentID"
@@ -245,7 +307,7 @@
           key="Name"
           options.bind="controlOptions"
           placeholder="pilih syarat pembayaran">
-        </au-autocomplete>
+        </au-autocomplete> -->
 
         <au-autocomplete
           label="Pembayaran ke Rekening"
@@ -343,6 +405,18 @@
           placeholder="input komisi">
         </au-textbox>
 
+        <au-autocomplete
+        label="Jenis Produk"
+        value.bind="data.ProductType"
+        error.bind="error.ProductTypeId"
+        read-only.bind="readOnly"
+        loader.bind="productTypeLoader"
+        key="Name"
+        options.bind="controlOptions"
+        text.bind="productTypeView"
+        placeholder="pilih Jenis Produk">
+        </au-autocomplete>
+
         <au-dropdown
           label="Point System"
           value.bind="selectedPointSystem"
@@ -359,7 +433,9 @@
           if.bind="isFourPointSystem"
           options.bind="controlOptions">
         </numeric>
-        
+
+       
+
       </div>
 
     </div>

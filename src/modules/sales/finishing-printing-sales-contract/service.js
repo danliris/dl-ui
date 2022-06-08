@@ -1,5 +1,8 @@
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 const serviceUri = 'sales/finishing-printing-sales-contracts';
+
 
 export class Service extends RestService {
 
@@ -35,6 +38,16 @@ export class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getDefaultVat(info){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("core");
+        var _serviceUri = `master/vat`;
+        return _endpoint.find(_serviceUri, info)
+        .then(result => {
+            return result.data;
+        })
     }
 
     // getSPPbySC(no, select) {
