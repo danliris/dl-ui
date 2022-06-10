@@ -85,6 +85,7 @@ export class DataForm {
             this.YarnMaterial = this.data.YarnMaterial;
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
+            this.selectedProductType = this.data.ProductType || null;
 
         }
         
@@ -134,6 +135,7 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
         }
     }
 
@@ -254,6 +256,15 @@ export class DataForm {
           //this.data.vatTax._id = _selectedVatTax.Id || _selectedVatTax._id;
 
         
+        }
+    }
+
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
         }
     }
 
