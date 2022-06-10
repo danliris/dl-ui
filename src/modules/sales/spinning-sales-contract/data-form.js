@@ -63,7 +63,7 @@ export class DataForm {
             this.TermOfPayment = this.data.TermOfPayment;
             this.Quality = this.data.Quality;
             this.selectedVatTax = this.data.VatTax || false;
-
+            this.selectedProductType = this.data.ProductType || null;
             this.AccountBank =
                 {
                     Id: this.data.AccountBank.Id,
@@ -126,6 +126,7 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
         }
     }
 
@@ -201,6 +202,15 @@ export class DataForm {
             this.Agent = {};
             this.data.Agent = {};
             this.data.Comission = "";
+        }
+    }
+
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
         }
     }
 
