@@ -1,7 +1,7 @@
 
 <template>
   
-    <h1 class="page-header">Monitoring Pengeluaran Aval Sampah Sapuan</h1>
+    <h1 class="page-header">Monitoring Pemasukan Aval Besar</h1>
     <form class="form-horizontal">
 
             <au-datepicker 
@@ -36,8 +36,9 @@
                 <tr>
                     <td>No</td>
                     <td>NOMOR BON MASUK</td>
-                    <td>TANGGAL PENGELUARAN</td>
-                    <td>KETERANGAN</td>
+                    <td>TANGGAL PEMASUKAN</td>
+                    <td>ASAL TERIMA</td>
+                    <td>KODE BARANG</td>
                     <td>QUANTITY</td>
                     <td>SATUAN</td>
                 </tr>
@@ -46,14 +47,15 @@
              
                 <tr repeat.for="item of data">
                     <td class="text-left">${$index + 1}</td>
-                    <td class="text-left">${item.TransactionNo}</td>
-                    <td class="text-left">${item.TransactionDate | dateFormat:'DD MMMM YYYY'}</td>
-                    <td class="text-left">${item.ScrapSourceName}</td>
+                    <td if.bind="item.bonspan" rowspan="${item.bonspan}">${item.BonNo}</td>
+                    <td if.bind="item.bonspan" rowspan="${item.bonspan}">${item.TransactionDate | dateFormat:'DD MMMM YYYY'}</td>
+                    <td if.bind="item.bonspan" rowspan="${item.bonspan}">${item.Keterangan}</td>
+                    <td class="text-left">${item.Product}</td>
                     <td class="text-right">${item.Quantity}</td>
                     <td if.bind="item.uomspan" rowspan="${item.uomspan}">${item.UomUnit}</td>
                 </tr>
                 <tr class="active">
-                    <td class="text-center" colspan="4"><strong>T O T A L </strong></td>
+                    <td class="text-center" colspan="5"><strong>T O T A L </strong></td>
                     <td class="text-right"><strong>${sumQty}</strong></td>        
                     <td class="text-right"><strong></strong></td>
                 </tr>
