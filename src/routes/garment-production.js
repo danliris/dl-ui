@@ -571,6 +571,67 @@ module.exports = [
         }
     },
     {
+        route: '/customs/pemasukan-tc-kecil',
+        name: 'monitoring-pemasukan-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-tc-kecil',
+        name: 'monitoring-pengeluaran-tc-kecil',
+        moduleId: './modules/customs/tc-kecil-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval TC Kecil',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    
+    {
+        route: '/customs/pemasukan-sampah-sapuan',
+        name: 'monitoring-pemasukan-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-sampah-sapuan',
+        name: 'monitoring-pengeluaran-sampah-sapuan',
+        moduleId: './modules/customs/sapuan-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Sampah Sapuan',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
         route: '/garment-production/adjustment-loading',
         name: 'garment-production-adjustment-loading',
         moduleId: './modules/garment-production/adjustment-loading/index',
