@@ -124,7 +124,6 @@ module.exports = [
         },
 
     },
-
     {
         route: '/customs/pemasukan-tc-kecil',
         name: 'monitoring-pemasukan-tc-kecil',
@@ -134,6 +133,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
             permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
@@ -148,6 +148,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
             permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
@@ -163,6 +164,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
+            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
             permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
@@ -177,10 +179,67 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
             permission: { "C9": 1,"B6": 1,"B1": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
     },
+    {
+        route: '/customs/pemasukan-aval-besar',
+        name: 'monitoring-pemasukan-aval-besar',
+        moduleId: './modules/customs/aval-besar-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval Besar',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
 
+    },
+    {
+        route: '/customs/pengeluaran-aval-besar',
+        name: 'monitoring-pengeluaran-aval-besar',
+        moduleId: './modules/customs/aval-besar-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Besar',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pemasukan-aval-komponen',
+        name: 'monitoring-pemasukan-aval-komponen',
+        moduleId: './modules/customs/aval-komponen-in/index',
+        nav: true,
+        title: 'Laporan Monitoring Pemasukan Aval Komponen',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/pengeluaran-aval-komponen',
+        name: 'monitoring-pengeluaran-aval-komponen',
+        moduleId: './modules/customs/aval-komponen-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Komponen',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    
 ]
