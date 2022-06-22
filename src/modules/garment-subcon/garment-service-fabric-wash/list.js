@@ -70,4 +70,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    downloadExcel(){
+        this.router.navigateToRoute('excel');
+    }
 }
