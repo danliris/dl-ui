@@ -136,8 +136,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal">
+                </au-numeric>
             </div>
-
         </div>
 
         <div class="row" if.bind="data.UsageReceiptItems.length > 0  && isEdit && !readOnly"
@@ -239,7 +245,13 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal">
+                </au-numeric>
             </div>
 
 
@@ -344,7 +356,13 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal">
+                </au-numeric>
             </div>
 
 
