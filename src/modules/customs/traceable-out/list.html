@@ -6,15 +6,12 @@
 
         <!-- <input  label="No BC Keluar" type="text" value.bind="BCNo" options.bind="controlOptions"> -->
 
-        <au-autocomplete 
+        <au-textbox 
         value.bind="BCNo"
-        error.bind="error.Description"
-        
         label="No Dokumen"
-        loader.bind="bcnoLoader"
-        query.bind="filterQuery"
+        placeholder="Masukan No Dokumen"
         options.bind="controlOptions">
-        </au-autocomplete >
+        </au-textbox >
         <!-- <au-autocomplete 
         value.bind="BCNo"
         error.bind="error.Description"
