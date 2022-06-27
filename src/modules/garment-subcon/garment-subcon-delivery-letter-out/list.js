@@ -74,4 +74,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+    
+    excel() {
+        this.router.navigateToRoute('excel');     
+    }
 }

@@ -241,5 +241,33 @@ module.exports = [
         },
 
     },
+    {
+        route: '/customs/pengeluaran-aval-komponen',
+        name: 'monitoring-pengeluaran-aval-komponen',
+        moduleId: './modules/customs/aval-komponen-out/index',
+        nav: true,
+        title: 'Laporan Monitoring Pengeluaran Aval Komponen',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+
+    {route: '/customs/motitoring_tracebleIn-BUM',
+        name: 'motitoring_tracebleIn-BUM',
+        moduleId: './modules/customs/motitoring_tracebleIn-BUM/index',
+        nav: true,
+        title: 'Monitoring Penggunaan BUM',
+        auth: true,
+        settings: {
+            group: "customs",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+    },
     
+  
 ]

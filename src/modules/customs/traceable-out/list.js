@@ -1,22 +1,31 @@
 
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
-
-
+import { Dialog } from './../../../au-components/dialog/dialog';
 var bcnoLoader = require('../../../loader/traceable-out-bc-loader');
 
 
-@inject(Service)
+@inject(Service,Dialog)
 export class List {
     info = { page: 1,size:25};
-    constructor(service) {
+    constructor(service,dialog) {
         this.service = service;
 
         this.flag = false;
-        
+        this.dialog = dialog;
         this.today = new Date();
         this.error = {};
     }
+
+    bind(context) {
+        // console.log(context);
+        this.context = context;
+        // this.isShowingMasuk = false;
+        // this.isShowingKeluar = false;
+        // this.hasBUM = false;
+        // this.hasBUK = false;
+    }
+
 
     attached() {
     }
@@ -35,10 +44,14 @@ export class List {
     
     
     searching() {
+        if(!this.BCNo){
+            console.log(this.BCNo)
+            alert("No Dokumen harus Diisi");
+        }else{
         let args = {
             // page: this.info.page,
             // size: this.info.size,
-            bcno : this.BCNo ? this.BCNo.BCNo : ""
+            bcno : this.BCNo 
             //dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             //dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
         }
@@ -52,10 +65,14 @@ export class List {
                     var index=0;  
                     for(var _data of result.data){
                         var ro =_data.RO;
-                        console.log(_data)
 
-                        for(var _data1 of _data.rincian){
+
+                        if (_data.rincian != null)
+                        {
+
+                            for(var _data1 of _data.rincian){
                             datadetail.push(_data1);
+                            }
                         }
 
                         // this.service.search2(ro)
@@ -76,6 +93,7 @@ export class List {
                      this.data2 = datadetail;
                     // console.log(this.data2);
                 })
+            }
 
         // this.service.search2(args)
         //         .then(result => {
@@ -103,6 +121,10 @@ export class List {
     
         ExportToExcel() {
             {
+                if(!this.BCNo){
+                    console.log(this.BCNo)
+                    alert("No Dokumen harus Diisi");
+                }else{
                 var args = {
                    bcno:  this.BCNo ? this.BCNo : ""
                    }
@@ -112,6 +134,7 @@ export class List {
                 .catch(e => {
                     alert(e.replace(e, "Error:",""));
                 });
+            }
             }
         }
 
