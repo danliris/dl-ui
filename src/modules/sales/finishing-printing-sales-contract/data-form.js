@@ -121,6 +121,9 @@ export class DataForm {
       this.data.Day = 0;
       this.data.PriceDP = 0;
       this.data.PrecentageDP = 0;
+      this.data.LatePayment = "";
+      this.data.LateReturn = "";
+      this.data.Claim = 0;
     }
   }
 
@@ -231,8 +234,8 @@ export class DataForm {
     }
   }
 
-  categoryPayment = ['', 'Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
-  categoryDP = ['', 'Pembayaran dengan DP','Tanpa DP'];
+  categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
 
   get detailHeader() {
     if (!this.data.UseIncomeTax) {

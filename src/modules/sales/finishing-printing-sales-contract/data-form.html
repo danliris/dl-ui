@@ -243,7 +243,32 @@
       options.bind="controlOptions">
       </au-numeric>
 
-        
+      <au-textbox
+        label="Denda Keterlambatan"
+        value.bind="data.LatePayment"
+        error.bind="error.LatePayment"
+        placeholder="input denda pembayaran"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+      </au-textbox>
+
+      <au-textbox
+        label="Pengembalian Barang"
+        value.bind="data.LateReturn"
+        error.bind="error.LateReturn"
+        placeholder="input pengembalian barang"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+      </au-textbox>
+
+      <au-textbox
+        label="Pemberitahuan Klaim"
+        value.bind="data.Claim"
+        error.bind="error.Claim"
+        placeholder="input claim"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+      </au-textbox>
 
       </div>
 
@@ -433,8 +458,6 @@
           if.bind="isFourPointSystem"
           options.bind="controlOptions">
         </numeric>
-
-       
 
       </div>
 
