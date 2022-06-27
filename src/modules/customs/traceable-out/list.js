@@ -66,8 +66,13 @@ export class List {
                     for(var _data of result.data){
                         var ro =_data.RO;
 
-                        for(var _data1 of _data.rincian){
+
+                        if (_data.rincian != null)
+                        {
+
+                            for(var _data1 of _data.rincian){
                             datadetail.push(_data1);
+                            }
                         }
 
                         // this.service.search2(ro)
