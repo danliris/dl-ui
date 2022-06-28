@@ -77,6 +77,32 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/get-pdf/${id}`;
         return super.getPdf(endpoint);
     }
+
+    generateExcel1(info) {
+        var endpoint = `${serviceUri}/garment-cutting-sewing/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+
+    generateExcel2(info) {
+        var endpoint = `${serviceUri}/garment-sewing/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+
+    generateExcel3(info) {
+        var endpoint = `${serviceUri}/raw-material/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+
+    generateExcel4(info) {
+        var endpoint = `${serviceUri}/service-component/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+
+    generateExcel5(info) {
+        var endpoint = `${serviceUri}/service-garment-wash/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+    
 }
 const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
