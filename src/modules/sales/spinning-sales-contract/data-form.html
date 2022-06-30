@@ -199,32 +199,89 @@
       placeholder="pilih Jenis Produk">
       </au-autocomplete>
 
-      <au-textbox
-        label="Denda Keterlambatan"
-        value.bind="data.LatePayment"
-        error.bind="error.LatePayment"
-        placeholder="input denda pembayaran"
-        read-only.bind="readOnly"
-        options.bind="controlOptions">
-      </au-textbox>
+      <div class="row">
 
-      <au-textbox
-        label="Pengembalian Barang"
-        value.bind="data.LateReturn"
-        error.bind="error.LateReturn"
-        placeholder="input pengembalian barang"
-        read-only.bind="readOnly"
-        options.bind="controlOptions">
-      </au-textbox>
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Denda Keterlambatan" read-only="true"></textbox>
+          
+        </div>
 
-      <au-textbox
-        label="Pemberitahuan Klaim"
-        value.bind="data.Claim"
-        error.bind="error.Claim"
-        placeholder="input claim"
-        read-only.bind="readOnly"
-        options.bind="controlOptions">
-      </au-textbox>
+        <div class="col-sm-6">
+          
+          <au-textbox
+            value.bind="data.LatePayment"
+            error.bind="error.LatePayment"
+            placeholder="input denda"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+          
+        </div>
+
+        <div class="col-sm-1">
+
+            <textbox label="%" read-only="true"></textbox>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Pengembalian Barang" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+
+          <au-textbox
+            value.bind="data.LateReturn"
+            error.bind="error.LateReturn"
+            placeholder="input pengembalian barang"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Pemberitahuan Klaim" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+          
+          <au-textbox
+            value.bind="data.Claim"
+            error.bind="error.Claim"
+            placeholder="input claim"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
 
       </div>
     </div>

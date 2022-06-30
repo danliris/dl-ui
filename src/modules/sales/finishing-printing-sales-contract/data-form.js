@@ -62,7 +62,7 @@ export class DataForm {
     this.selectedPointSystem = this.data.PointSystem || 10;
     this.selectedPaymentMethods = this.data.PaymentMethods || null;
     this.selectedDownPayments = this.data.DownPayments || null;
-    this.selectedProductType = this.data.ProductType || null;
+    // this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
 
@@ -115,7 +115,7 @@ export class DataForm {
       this.data.PointSystem = 10;
       this.data.PointLimit = 0;
       this.data.Details = [];
-      this.data.ProductType = null;
+      // this.data.ProductType = null;
       this.data.PaymentMethods = null;
       this.data.DownPayments = null;
       this.data.Day = 0;
@@ -310,13 +310,13 @@ export class DataForm {
     return VatTaxLoader;
   }
 
-  get productTypeLoader() {
-    return ProductTypeLoader;
-  }
+  // get productTypeLoader() {
+  //   return ProductTypeLoader;
+  // }
 
-  productTypeView(productType) {
-    return productType.Name ;
-  }
+  // productTypeView(productType) {
+  //   return productType.Name ;
+  // }
 
   bankView(bank) {
     return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
