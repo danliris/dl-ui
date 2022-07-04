@@ -117,7 +117,7 @@ export class List {
          { field: "urnUom", title: "Satuan", sortable: false },
          { field: "UnitName", title: "Nama Unit", sortable: false },
          { field: "INNo", title: "No Nota Intern", sortable: false },
-         { field: "TermPayment", title: "Term Pembayaran", sortable: false },
+        //  { field: "TermPayment", title: "Term Pembayaran", sortable: false },
     ];
 
     search() {
