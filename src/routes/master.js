@@ -820,6 +820,19 @@ module.exports = [
     },
   },
   {
+    route: "product-type",
+    name: "product-type",
+    moduleId: "./modules/master/product-type/index",
+    nav: true,
+    title: "Jenis Produk",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { "*": 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "line",
     name: "line",
     moduleId: "./modules/master/line/index",
