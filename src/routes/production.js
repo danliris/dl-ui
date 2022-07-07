@@ -549,6 +549,31 @@ module.exports = [
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },{
+        route: 'finishing-printing/reports/inspection-lot-color-report',
+        name: 'inspection-lot-color-report',
+        moduleId: './modules/production/finishing-printing/reports/inspection-lot-color-report/index',
+        nav: true,
+        title: 'Laporan Pemeriksaan Lot Warna',
+        auth: true,
+        settings: {
+            group: "production",
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'finishing-printing/reports/dyestuff-chemical-usage-receipt-report',
+        name: 'dyestuff-chemical-usage-receipt-report',
+        moduleId: './modules/production/finishing-printing/reports/dyestuff-chemical-usage-receipt-report/index',
+        nav:true,
+        title: 'Laporan Resep Pemakaian Dystuff & Chemical',
+        auth: true,
+        settings: {
+            group: "production",
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
     // {
     //     route: 'production/finishing-printing/cost-calculation',
