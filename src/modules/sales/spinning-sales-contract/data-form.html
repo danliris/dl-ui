@@ -140,6 +140,149 @@
         <au-textbox label="Komisi" placeholder="input komisi" value.bind="data.Comission" error.bind="error.Comission" read-only.bind="(readOnly || isEdit)"
           if.bind="Buyer.Type =='Ekspor'" keypress.delegate="enterDelegate($event)"></au-textbox>
 
+          <au-dropdown
+          label="Cara Pembayaran"
+          value.bind="data.PaymentMethods"
+          items.bind="categoryPayment"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox
+        label="Hari"
+        value.bind="data.Day"
+        error.bind="error.Day"
+        placeholder="Masukkan hari"
+        if.bind="data.PaymentMethods"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+        label="Down Payment (DP)"
+        value.bind="data.DownPayments"
+        items.bind="categoryDP"
+        read-only.bind="readOnly"
+        if.bind="data.PaymentMethods"
+        options.bind="controlOptions">
+      </au-dropdown>
+      
+      <au-numeric
+        label=" Down Payment (%)"
+        value.bind="data.PrecentageDP"
+        error.bind="error.PrecentageDP"
+        placeholder="Masukkan harga"
+        if.bind="data.DownPayments"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">>
+        </au-numeric>
+
+      <au-numeric
+      label="Pembayaran Down Payment"
+      value.bind="data.PriceDP"
+      error.bind="error.PriceDP"
+      placeholder="Masukkan harga"
+      if.bind="data.DownPayments"
+      read-only="true"
+      options.bind="controlOptions">
+      </au-numeric>
+
+      <au-autocomplete
+      label="Jenis Produk"
+      value.bind="data.ProductType"
+      error.bind="error.ProductTypeId"
+      read-only.bind="readOnly"
+      loader.bind="productTypeLoader"
+      key="Name"
+      options.bind="controlOptions"
+      text.bind="productTypeView"
+      placeholder="pilih Jenis Produk">
+      </au-autocomplete>
+
+      <div class="row">
+
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Denda Keterlambatan" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+          
+          <au-textbox
+            value.bind="data.LatePayment"
+            error.bind="error.LatePayment"
+            placeholder="input denda"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+          
+        </div>
+
+        <div class="col-sm-1">
+
+            <textbox label="%" read-only="true"></textbox>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Pengembalian Barang" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+
+          <au-textbox
+            value.bind="data.LateReturn"
+            error.bind="error.LateReturn"
+            placeholder="input pengembalian barang"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3" style="padding-left: 7%;">
+          
+          <textbox label="Pemberitahuan Klaim" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+          
+          <au-textbox
+            value.bind="data.Claim"
+            error.bind="error.Claim"
+            placeholder="input claim"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
+
       </div>
     </div>
 
