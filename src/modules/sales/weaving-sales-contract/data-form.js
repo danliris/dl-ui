@@ -11,6 +11,7 @@ var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
 
 @inject(BindingEngine, Service, Element)
@@ -84,6 +85,7 @@ export class DataForm {
             this.YarnMaterial = this.data.YarnMaterial;
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
+            this.selectedProductType = this.data.ProductType || null;
 
         }
         
@@ -133,6 +135,7 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
         }
     }
 
@@ -256,6 +259,15 @@ export class DataForm {
         }
     }
 
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
+        }
+    }
+
     async useVatChanged(e) {
         // this.data.items = [];
         // this.data.vatNo = "";
@@ -301,6 +313,9 @@ export class DataForm {
             }
         }
     }
+
+    categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
 
     get buyersLoader() {
         return BuyersLoader;
@@ -349,4 +364,12 @@ export class DataForm {
     vatTaxView = (vatTax) => {
         return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(productType) {
+        return productType.Name ;
+      }
 } 
