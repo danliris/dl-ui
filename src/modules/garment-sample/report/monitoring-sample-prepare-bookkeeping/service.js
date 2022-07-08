@@ -39,7 +39,7 @@ export class Service extends RestService {
     }
 
     generateExcel(info) {
-        var endpoint = `${serviceUri}/download?unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/download?type=${info.type}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         console.log(endpoint);
         var query = '';
         if (info.dateFrom && info.dateFrom !== "") {
@@ -53,6 +53,10 @@ export class Service extends RestService {
         if (info.unit && info.unit !== "") {
             if (query === '') query = `unit=${info.unit}`;
             else query = `${query}&unit=${info.unit}`;
+        }
+        if (info.type && info.type !== "") {
+            if (query === '') query = `type=${info.type}`;
+            else query = `${query}&type=${info.type}`;
         }
         if (query !== '')
         endpoint = `${serviceUri}/download?${query}`;

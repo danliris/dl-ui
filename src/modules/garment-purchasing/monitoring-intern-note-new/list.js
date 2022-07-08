@@ -136,8 +136,7 @@ export class List {
                     var index = 1;
                     for(var _data of result.data){
                     _data.priceTotal=_data.priceTotal.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    _data.paymentDate = moment(_data.paymentDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.paymentDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.paymentDate).format("DD MMM YYYY");
-                   
+                    _data.paymentDate = moment(_data.paymentDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.paymentDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.paymentDate).format("DD MMM YYYY");                   
                     _data.cnAmount=_data.cnAmount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                     _data.cnDate = moment(_data.cnDate).format("DD MMM YYYY")=="01 Jan 0001" || moment(_data.cnDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(_data.cnDate).format("DD MMM YYYY");
                     

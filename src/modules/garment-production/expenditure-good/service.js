@@ -4,6 +4,7 @@ const serviceUri = 'expenditure-goods';
 const comodityPriceserviceUri = 'comodity-prices';
 const finishedGoodServiceUri = 'finished-good-stocks';
 const serviceUriFinOut = 'finishing-outs';
+ 
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
