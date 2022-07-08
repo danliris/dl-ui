@@ -9,6 +9,7 @@ var ProductLoader = require('../../../loader/product-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -62,7 +63,7 @@ export class DataForm {
             this.TermOfPayment = this.data.TermOfPayment;
             this.Quality = this.data.Quality;
             this.selectedVatTax = this.data.VatTax || false;
-
+            this.selectedProductType = this.data.ProductType || null;
             this.AccountBank =
                 {
                     Id: this.data.AccountBank.Id,
@@ -125,6 +126,7 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
         }
     }
 
@@ -203,6 +205,15 @@ export class DataForm {
         }
     }
 
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
+        }
+    }
+
     selectedVatTaxChanged(newValue) {
         var _selectedVatTax = newValue || {};
         console.log(_selectedVatTax);
@@ -267,6 +278,9 @@ export class DataForm {
         }
     }
 
+    categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
+
     get buyersLoader() {
         return BuyersLoader;
     }
@@ -313,4 +327,12 @@ export class DataForm {
     vatTaxView = (vatTax) => {
         return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(productType) {
+        return productType.Name ;
+      }
 } 

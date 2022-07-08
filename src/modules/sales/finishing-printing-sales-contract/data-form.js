@@ -12,6 +12,7 @@ import UomLoader from "../../../loader/uom-loader";
 import QualityLoader from "../../../loader/quality-loader";
 import TermOfPaymentLoader from "../../../loader/term-of-payment-loader";
 import AccountBankLoader from "../../../loader/account-banks-loader";
+import ProductTypeLoader from "../../../loader/product-types-loader";
 
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
@@ -233,6 +234,9 @@ export class DataForm {
     }
   }
 
+  categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
+
   get detailHeader() {
     if (!this.data.UseIncomeTax) {
       return [{ header: "Warna" }, { header: "Harga" }, { header: "Mata Uang" }];
@@ -259,7 +263,7 @@ export class DataForm {
   }
 
   buyerView(buyer) {
-    return buyer.Name ? `${buyer.Code} - ${buyer.Name}` : '';
+    return buyer.Name ? `${buyer.Code} - ${buyer.Name} `  : '';
   }
 
   get comodityLoader() {
