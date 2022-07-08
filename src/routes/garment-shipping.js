@@ -445,7 +445,21 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/report/detail-omzet-by-unit",
+        name: "garment-shipping/report/detail-omzet-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-detail-omzet-by-unit/index",
+        nav: true,
+        title: "Report Omzet Garment Per Unit / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -753,10 +767,10 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },    
     {
         route: "garment-shipping/monitoring/garment-recap-omzet",
         name: "garment-shipping/monitoring/garment-recap-omzet",

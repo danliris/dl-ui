@@ -12,6 +12,7 @@ export class Item {
 
   detailColumns = [
     "Warna",
+    "Design Warna",
     "Unit",
     "Jumlah",
     "Satuan",
@@ -115,18 +116,20 @@ export class Item {
                     if (this.data.Details.length == 0) {
                       detail.Quantity = qty;
                       detail.SewingInQuantity = qty;
-                      detail.DesignColor = sewingInItem.Color;
+                      detail.Color = sewingInItem.Color;
+                      detail.DesignColor = sewingInItem.DesignColor;
                       detail.Uom = sewingInItem.Uom;
                       detail.Unit = sewingIn.Unit;
                       this.data.Details.push(detail);
                     }
                     else {
 
-                      var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.Color && a.Unit.Id == sewingIn.Unit.Id);
+                      var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.DesignColor && a.Unit.Id == sewingIn.Unit.Id && a.Color == sewingInItem.Color);
                       if (!exist) {
                         detail.Quantity = qty;
                         detail.SewingInQuantity = qty;
-                        detail.DesignColor = sewingInItem.Color;
+                        detail.Color = sewingInItem.Color;
+                        detail.DesignColor = sewingInItem.DesignColor;
                         detail.Uom = sewingInItem.Uom;
                         detail.Unit = sewingIn.Unit;
                         this.data.Details.push(detail);
