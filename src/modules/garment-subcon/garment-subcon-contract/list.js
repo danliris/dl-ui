@@ -6,10 +6,21 @@ var moment = require("moment");
 
 @inject(Router, Service,AuthService)
 export class List {
+
     constructor(router, service,authService) {
         this.service = service;
         this.router = router;
         this.authService=authService;
+    }
+
+    rowFormatter(data, index) {
+        if (data.BPJNo && data.SKEPNo){
+            return { classes: "success" }
+        }
+        else
+        {
+            return { classes: "danger" }
+        }
     }
 
     filter={};
