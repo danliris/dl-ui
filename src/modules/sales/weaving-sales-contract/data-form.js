@@ -85,8 +85,7 @@ export class DataForm {
             this.YarnMaterial = this.data.YarnMaterial;
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
-            this.selectedProductType = this.data.ProductType || null;
-
+            this.ProductType = this.data.ProductType || null;
         }
         
     }
@@ -369,7 +368,7 @@ export class DataForm {
         return ProductTypeLoader;
       }
     
-      productTypeView(productType) {
-        return productType.Name ;
+      productTypeView(ProductType) {
+        return ProductType.Name ;
       }
 } 
