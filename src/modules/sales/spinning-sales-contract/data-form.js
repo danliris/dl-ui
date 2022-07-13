@@ -332,7 +332,7 @@ export class DataForm {
         return ProductTypeLoader;
       }
     
-      productTypeView(productType) {
-        return productType.Name ;
+      productTypeView(ProductType) {
+        return ProductType.Name ;
       }
 } 
