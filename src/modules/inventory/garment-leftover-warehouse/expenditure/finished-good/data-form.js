@@ -1,6 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
+const UnitLoader = require('../../../../../loader/garment-unitsAndsample-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
 
@@ -14,6 +15,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedSalesNote;
+    @bindable selectedUnit;
     @bindable manual;
 
     controlOptions = {
@@ -49,12 +51,19 @@ export class DataForm {
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
 
-    expenditureToOptions = ["JUAL LOKAL", "LAIN-LAIN"];
+    expenditureToOptions = ["UNIT","JUAL LOKAL", "LAIN-LAIN"];
 
     get buyerLoader() {
         return BuyerLoader;
     }
 
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    unitView = (data) => {
+        return `${data.Code} - ${data.Name}`;
+    }
 
     buyerView = (buyer) => {
         return `${buyer.Code} - ${buyer.Name}`;
@@ -87,6 +96,10 @@ export class DataForm {
                     noteNo: this.data.LocalSalesNoteNo,
                     id:this.data.LocalSalesNoteId
                 };
+                this.selectedUnit = {
+                    Code: this.data.UnitExpenditure.Code,
+                    Name: this.data.UnitExpenditure.Name
+                };
                 this.manual=false;
             }
             else{
@@ -94,6 +107,20 @@ export class DataForm {
             }
 
         }
+    }
+
+    expenditureToOptionsChanged(){
+        this.context.selectedUnitViewModel.editorValue = "";
+        this.selectedUnit = null;
+        this.context.selectedBuyerViewModel.editorValue = "";
+        this.selectedBuyer = null;
+        this.data.remarkEtc = null;
+    }
+
+    selectedUnitChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.UnitExpenditure = newValue;
     }
 
     get addItems() {
