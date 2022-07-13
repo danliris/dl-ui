@@ -33,6 +33,7 @@ export class ProductionOrderItem {
       this.selectedDeliveryOrderSales.Id = this.data.deliveryOrderSalesId;
       this.selectedDeliveryOrderSales.DOSalesNo = this.data.deliveryOrderSalesNo;
       this.selectedDeliveryOrderSales.DestinationBuyerName = this.data.destinationBuyerName;
+      this.selectedDeliveryOrderSales.DOSalesType  = this.data.deliveryOrderSalesType;
 
     }
     if (this.data.id == null) {
@@ -77,6 +78,7 @@ export class ProductionOrderItem {
       this.data.deliveryOrderSalesId = this.selectedDeliveryOrderSales.Id;
       this.data.deliveryOrderSalesNo = this.selectedDeliveryOrderSales.DOSalesNo;
       this.data.destinationBuyerName = this.selectedDeliveryOrderSales.DestinationBuyerName;
+      this.data.deliveryOrderSalesType = this.selectedDeliveryOrderSales.DOSalesType;
       console.log(this.selectedDeliveryOrderSales);
     }
   }

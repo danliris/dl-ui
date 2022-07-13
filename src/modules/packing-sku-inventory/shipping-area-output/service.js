@@ -1,5 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'output-shipping';
+const serviceUri2 = 'output-shipping2222';
 const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 
@@ -23,6 +24,7 @@ export class Service extends RestService {
     }
 
     create(data) {
+        console.log(data);
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }

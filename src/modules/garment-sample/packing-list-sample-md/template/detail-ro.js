@@ -134,8 +134,8 @@ export class Item {
             this.uom = this.data.uom;
         }
         this.isShowing = false;
-        if (this.data.details) {
-            if (this.data.details.length > 0) {
+        if (this.data.details && !this.data.id) {
+            if (this.data.details.length > 0 ) {
                 this.isShowing = true;
             }
         }

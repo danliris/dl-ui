@@ -79,6 +79,28 @@
       label="Nomor DO" read-only.bind="true" error.bind="error.DeliveryOrder">
     </au-textbox>
 
+    <au-textbox show.bind="!isCreate" options.bind="controlOptions" value.bind="data.packingListNo"
+      label="Nomor Packing List" read-only.bind="true" error.bind="error.PackingListNo">
+    </au-textbox>
+
+    <au-dropdown  if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" label="Jenis Packing" value.bind="data.packingType" error.bind="error.Shift"
+      read-only.bind="readOnly || isEdit" items.bind="packingType"></au-dropdown>
+
+    <au-multiline
+      if.bind="!isAdj" 
+      show.bind="!isSales"
+      label="Keterangan"
+      value.bind="data.packingListRemark "
+      read-only.bind="readOnly"
+      rows.bind="8"
+      options.bind="controlOptions"
+      placeholder="Keterangan">
+    </au-multiline>
+
+    <au-dropdown  if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" label="Authorized" value.bind="data.packingListAuthorized" error.bind="error.packingListAuthorized"
+      read-only.bind="readOnly || isEdit" items.bind="authorizedItems"></au-dropdown>
+
+    
     <au-autocomplete if.bind="!isAdj" show.bind="isSales && destinationArea != 'PENJUALAN'" options.bind="controlOptions" value.bind="selectedFilterSPP"
       label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly"
       error.bind="error.ProductionOrder" loader.bind="filterSPPLoader" text.bind="sppTextFormatter">
