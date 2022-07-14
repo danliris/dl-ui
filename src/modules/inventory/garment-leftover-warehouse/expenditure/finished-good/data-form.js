@@ -96,10 +96,10 @@ export class DataForm {
                     noteNo: this.data.LocalSalesNoteNo,
                     id:this.data.LocalSalesNoteId
                 };
-                this.selectedUnit = {
-                    Code: this.data.UnitExpenditure.Code,
-                    Name: this.data.UnitExpenditure.Name
-                };
+                // this.selectedUnit = {
+                //     Code: this.data.UnitExpenditure.Code,
+                //     Name: this.data.UnitExpenditure.Name
+                // };
                 this.manual=false;
             }
             else{
