@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
 
-    context = ["detail packinglist", "print packinglist", "detail bon", "print bon"]
+    context = ["detail packinglist", "print packinglist", "print packinglistSales","detail bon", "print bon"]
 
     columns = [
         {
@@ -62,6 +62,9 @@ export class List {
                 break;
             case "print packinglist":
                 this.service.getPdfById(data.id, false);
+                break;
+            case "print packinglistSales":
+                this.service.getPdfPackingListSalesById(data.id);
                 break;
             case "detail bon":
                 this.router.navigateToRoute('view-bon', { id: data.id });

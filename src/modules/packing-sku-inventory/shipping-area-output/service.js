@@ -44,6 +44,11 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getPdfPackingListSalesById(id) {
+        var endpoint = `${serviceUri}/pdf/packinglist/${id}`;
+        return super.getPdf(endpoint);
+    }
+
     generateExcel(id) {
         var endpoint = `${serviceUri}/xls/${id}`;
         return super.getXls(endpoint);
