@@ -1,6 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service, PurchasingService } from "../service";
 
+var UnitLoader = require('../../../../loader/garment-units-loader');
+
 @inject(Service, PurchasingService)
 export class Item {
   @bindable selectedRO;
@@ -161,6 +163,14 @@ export class Item {
       }
       this.data.Details.splice(0);
     }
+  }
+
+  get unitLoader(){
+    return UnitLoader;
+    }
+  unitView = (unit) => {
+  
+    return `${unit.Code} - ${unit.Name}`
   }
 
   get roLoader() {
