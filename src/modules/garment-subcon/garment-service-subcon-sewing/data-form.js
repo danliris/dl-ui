@@ -40,6 +40,7 @@ export class DataForm {
     columns: [
       "RO",
       "Article",
+      "Area",
       "Buyer",
       "Komoditi",
       ""
@@ -82,6 +83,7 @@ export class DataForm {
             detail.Uom = d.Uom;
             detail.Unit = d.Unit;
             detail.Remark = d.Remark;
+            detail.Color = d.Color;
             details.push(detail);
           }
           else {
@@ -92,6 +94,7 @@ export class DataForm {
               detail.Uom = d.Uom;
               detail.Unit = d.Unit;
               detail.Remark = d.Remark;
+              detail.Color = d.Color;
               details.push(detail);
             }
             else {

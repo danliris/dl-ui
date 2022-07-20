@@ -24,6 +24,17 @@
     </td>
 
     <td class="bg-primary">
+      <au-autocomplete
+          value.bind="data.Unit"
+          error.bind="error.Unit"
+          loader.bind="unitLoader"
+          text.bind = "unitView"
+          placeholder="Cari Area"
+          read-only.bind="readOnly || isEdit"
+          options.bind="controlOptions">
+      </au-autocomplete>
+    </td>
+    <td class="bg-primary">
       <au-textbox 
         value.bind="data.BuyerView" 
         label="Buyer" read-only="true" 
