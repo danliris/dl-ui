@@ -61,9 +61,9 @@ export class DataForm {
         return UnitLoader;
     }
 
-    unitView = (data) => {
-        return `${data.Code} - ${data.Name}`;
-    }
+    // unitView = (data) => {
+    //     return `${data.Code} - ${data.Name}`;
+    // }
 
     buyerView = (buyer) => {
         return `${buyer.Code} - ${buyer.Name}`;
@@ -96,10 +96,10 @@ export class DataForm {
                     noteNo: this.data.LocalSalesNoteNo,
                     id:this.data.LocalSalesNoteId
                 };
-                this.selectedUnit = {
-                    Code: this.data.UnitExpenditure.Code,
-                    Name: this.data.UnitExpenditure.Name
-                };
+                // this.selectedUnit = {
+                //     Code: this.data.UnitExpenditure.Code,
+                //     Name: this.data.UnitExpenditure.Name
+                // };
                 this.manual=false;
             }
             else{
@@ -109,13 +109,13 @@ export class DataForm {
         }
     }
 
-    expenditureToOptionsChanged(){
-        this.context.selectedUnitViewModel.editorValue = "";
-        this.selectedUnit = null;
-        this.context.selectedBuyerViewModel.editorValue = "";
-        this.selectedBuyer = null;
-        this.data.remarkEtc = null;
-    }
+    // expenditureToOptionsChanged(){
+    //     this.context.selectedUnitViewModel.editorValue = "";
+    //     this.selectedUnit = null;
+    //     this.context.selectedBuyerViewModel.editorValue = "";
+    //     this.selectedBuyer = null;
+    //     this.data.remarkEtc = null;
+    // }
 
     selectedUnitChanged(newValue) {
         if (this.data.Id) return;
