@@ -22,6 +22,16 @@ export class List {
         { field: "type", title: "Jenis" },
     ];
 
+    rowFormatter(data, index) {
+        console.log(data);
+        console.log(data.updateBySales);
+        if (data.updateBySales) {
+            return { classes: "success" }
+        } else
+        return {}
+        
+    }
+
     loader = (info) => {
         var order = {};
         if (info.sort)
