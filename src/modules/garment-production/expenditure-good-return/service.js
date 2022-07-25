@@ -31,6 +31,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    getExpenditureGoodByNo(info) {
+        var endpoint = `${expenditureGoodServiceUri}/get-by-no`;
+        return super.list(endpoint, info);
+    }
+
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
@@ -83,6 +88,7 @@ class SalesService extends RestService {
 
 
 const serviceUriPR = 'garment-purchase-requests';
+const serviceUriURNDO = 'garment-unit-receipt-notes/by-do';
 class PurchasingService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "purchasing-azure");
@@ -90,6 +96,12 @@ class PurchasingService extends RestService {
 
     getGarmentPR(info) {
         var endpoint = `${serviceUriPR}`;
+        return super.list(endpoint, info);
+    }
+
+    getDOUrnBC(info) {
+        console.log(info);
+        var endpoint = `${serviceUriURNDO}`;
         return super.list(endpoint, info);
     }
 }

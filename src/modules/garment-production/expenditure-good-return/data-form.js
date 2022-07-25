@@ -12,6 +12,8 @@ export class DataForm {
     @bindable data = {};
     // @bindable error = {};
     @bindable selectedRO;
+    @bindable selectedEG;
+    @bindable selectedDO;
     @bindable itemOptions = {};
     @bindable selectedUnit;
 
@@ -21,7 +23,6 @@ export class DataForm {
         this.purchasingService=purchasingService;
     }
     
-
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -38,9 +39,7 @@ export class DataForm {
         }
     };
 
-
     itemsColumns = [""];
-
 
     async bind(context) {
         this.context = context;
@@ -91,6 +90,46 @@ export class DataForm {
         }
     }
 
+get EGLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
+            };
+            return this.service.getExpenditureGoodByNo(info)
+                .then((result) => {
+                    var roList=[];
+                        for(var a of result.data){
+                            if(roList.length==0){
+                                roList.push(a);
+                            }
+                            else{
+                                var dup= roList.find(d=>d.ExpenditureGoodNo==a.ExpenditureGoodNo);
+                                if(!dup){
+                                    roList.push(a);
+                                }
+                            }
+                        }
+                        return roList;
+                    
+                });
+        }
+    }
+
+get GDOLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+              filter: JSON.stringify({UnitId: this.data.Unit.Id})
+            };
+            return this.purchasingService.getDOUrnBC(info)
+                .then((result) => {
+                    console.log(result.data);
+                    return result.data;
+                });
+        }
+    }
+
     get unitLoader() {
         return UnitLoader;
     }
@@ -100,7 +139,7 @@ export class DataForm {
     }
 
     selectedUnitChanged(newValue){
-        this.selectedRO=null;
+        this.selectedEG=null;       
         this.data.RONo = null;
         this.data.Article = null;
         this.data.Comodity=null;
@@ -123,8 +162,34 @@ export class DataForm {
         }
     }
 
-    async selectedROChanged(newValue, oldValue){
-        this.data.RONo = null;
+   async selectedDOChanged(newValue, oldValue){
+        this.selectedDO = null;
+        this.data.DONo = null;
+        this.data.BCNo = null;
+        this.data.BCType = null;        
+        this.data.URNNo = null;
+        
+        if(newValue) 
+           {
+            this.data.DONo = newValue.DONo;            
+            this.data.BCNo = newValue.BeacukaiNo;            
+            this.data.BCType = newValue.CustomsType;
+            this.data.URNNo = newValue.URNNo;
+           }                
+        else
+           {
+            this.context.selectedDOViewModel.editorValue = "";
+            this.data.DONo = null;
+            this.data.BCNo = null;
+            this.data.BCType = null;        
+            this.data.URNNo = null;
+           }
+    }
+
+    async selectedEGChanged(newValue, oldValue){
+        this.data.ExpenditureNo = null;
+        this.data.Invoice = null;
+        this.data.RONo = null;        
         this.data.Article = null;
         this.data.Comodity=null;
         this.data.Buyer=null;
@@ -133,6 +198,8 @@ export class DataForm {
         this.data.Price=0;
         if(newValue) {
             this.context.error.Items = [];
+            this.data.ExpenditureNo = newValue.ExpenditureGoodNo;            
+            this.data.Invoice = newValue.Invoice;            
             this.data.RONo = newValue.RONo;
             this.data.Article = newValue.Article;
             this.data.Comodity= newValue.Comodity;
@@ -146,7 +213,7 @@ export class DataForm {
             else{
                 this.data.Price=0;
             }
-            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"}) }))
+            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ ExpenditureGoodNo: this.data.ExpenditureNo, UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"}) }))
                     .then(result => {
                         for(var exGood of result.data){
                             for(var exGoodItem of exGood.Items){
@@ -201,7 +268,9 @@ export class DataForm {
         
         
         else {
-            this.context.selectedROViewModel.editorValue = "";
+            this.context.selectedEGViewModel.editorValue = "";
+            this.data.ExpenditureNo = null;   
+            this.data.Invoice = null;                       
             this.data.RONo = null;
             this.data.Article = null;
             this.data.Comodity=null;
@@ -232,6 +301,15 @@ export class DataForm {
 
     ROView=(ro) => {
         return `${ro.RONo}`;
+    }
+
+    EGView=(eg) => {
+        return `${eg.ExpenditureGoodNo}`;
+    }
+
+    GDOView=(gdo) => {
+ //       return `${gdo.DONo} - ${gdo.URNNo}`;   
+        return `${gdo.DONo}`;          
     }
 
     get totalQuantity(){
