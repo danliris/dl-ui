@@ -86,6 +86,7 @@ export class DataForm {
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
             this.ProductType = this.data.ProductType || null;
+
         }
         
     }

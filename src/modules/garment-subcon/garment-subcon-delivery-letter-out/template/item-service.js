@@ -12,10 +12,21 @@ export class Item {
     @bindable selectedSubconCutting;
     @bindable selectedSubconShrinkage;
     @bindable selectedSubconFabric;
+    @bindable selectedRO;
+
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
     }
+
+    detailColumns = [
+        "Warna",
+        "Design Warna",
+        "Unit",
+        "Jumlah",
+        "Satuan",
+        "Keterangan",
+    ];
 
     async activate(context) {
         this.context = context;
@@ -26,7 +37,13 @@ export class Item {
         this.isEdit = context.context.options.isEdit;
         this.itemOptions=context.context.options;
         this.isSubconCutting=this.itemOptions.isSubconCutting;
+        this.isSubconSewing=this.itemOptions.isSubconSewing; 
         this.subconCategory=this.itemOptions.subconCategory;
+        if (this.data.Details) {
+            if (this.data.Details.length > 0) {
+                this.isShowing = true;
+            }
+        }
         if(this.data){
             if(this.isSubconCutting){
                 this.selectedSubconCutting={
@@ -40,7 +57,17 @@ export class Item {
                     this.data.subconType=subcon.SubconType;
                 }
             }
-            else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
+            // else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
+            //     this.selectedSubconSewing={
+            //         ServiceSubconSewingNo: this.data.SubconNo,
+            //         Id:this.data.SubconId
+            //     };
+            //     if(this.data.Id){
+            //         var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
+            //         this.data.date=subcon.ServiceSubconSewingDate;
+            //     }
+            // }
+            else if(this.isSubconSewing){
                 this.selectedSubconSewing={
                     ServiceSubconSewingNo: this.data.SubconNo,
                     Id:this.data.SubconId
@@ -48,6 +75,14 @@ export class Item {
                 if(this.data.Id){
                     var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
                     this.data.date=subcon.ServiceSubconSewingDate;
+                    this.data.Details=subcon.Items;
+                    for (var item of subcon.Items) {
+                        this.data.RONo = item.RONo;
+                        this.data.Article = item.Article;
+                        this.data.Comodity = item.Comodity.Code + " - " + item.Comodity.Name;
+                        this.data.Buyer = item.Buyer.Code + " - " + item.Buyer.Name;
+                        this.data.Details = item.Details;
+                    }
                 }
             }
             else if(this.subconCategory=="SUBCON BB SHRINKAGE/PANEL"){
@@ -70,8 +105,10 @@ export class Item {
                     this.data.date=subcon.ServiceSubconFabricWashDate;
                 }
             }
+
             
         }
+        this.isShowing = false;
         console.log(context);
     }
     
@@ -87,8 +124,9 @@ export class Item {
             if(this.isSubconCutting){
                 filter[`SubconNo == "${item.data.SubconNo}"`]=false;
             }
-            else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
+            else if(this.isSubconSewing){
                 filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
+                // filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
             }
             else if(this.subconCategory=="SUBCON BB SHRINKAGE/PANEL"){
                 filter[`ServiceSubconShrinkagePanelNo == "${item.data.SubconNo}"`]=false;
@@ -117,22 +155,56 @@ export class Item {
         return SubconShrinkageLoader;
     }
 
+    toggle() {
+        if (!this.isShowing)
+          this.isShowing = true;
+        else
+          this.isShowing = !this.isShowing;
+      }
+
+    selectedROChanged(newValue){
+        if(newValue){
+            this.data.RONo=newValue.RONo;
+        }
+        else{
+            this.data.RONo="";
+            this.data.SubconId=null;
+            this.data.SubconNo="";
+            this.selectedSubconSewing=null;
+            this.data.Details.splice(0);
+        }
+    }
+
     async selectedSubconSewingChanged(newValue){
         this.data.date=null;
         this.data.unit="";
         this.data.SubconId=null;
         this.data.SubconNo="";
         this.data.Quantity=0;
+        this.data.Article="";
+        this.data.RONo="";
+        this.data.Buyer="";
+        this.data.Comodity="";
+        
+        if (this.data.Details.length > 0){
+            this.data.Details.splice(0);
+        }
         if(newValue){
             this.data.SubconId=newValue.Id;
             this.data.SubconNo=newValue.ServiceSubconSewingNo;
             var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
             this.data.date=subcon.ServiceSubconSewingDate;
             //this.data.unit=subcon.Unit.Code;
+            this.data.Details = subcon.Items;
+            
             for(var item of subcon.Items){
+                this.data.Article = item.Article;
+                this.data.RONo = item.RONo;
+                this.data.Buyer = item.Buyer.Name;
+                this.data.Comodity = item.Comodity.Code + " - " + item.Comodity.Name;
+                this.data.Details = item.Details;
                 for(var detail of item.Details){
                     this.data.Quantity+=detail.Quantity;
-
                 }
             }
         }
