@@ -79,7 +79,7 @@
       label="Nomor DO" read-only.bind="true" error.bind="error.DeliveryOrder">
     </au-textbox>
 
-    <au-textbox show.bind="!isCreate" options.bind="controlOptions" value.bind="data.packingListNo"
+    <au-textbox if.bind="!isSales" show.bind="!isCreate" options.bind="controlOptions" value.bind="data.packingListNo"
       label="Nomor Packing List" read-only.bind="true" error.bind="error.PackingListNo">
     </au-textbox>
 
@@ -95,6 +95,24 @@
       rows.bind="8"
       options.bind="controlOptions"
       placeholder="Keterangan">
+    </au-multiline>
+
+    <au-textbox if.bind="isEdit" show.bind="!isSales" options.bind="controlOptions" value.bind="data.packingListLCNumber"
+    label="LC NUMBER" read-only.bind="readOnly" error.bind="error.packingListLCNumber">
+    </au-textbox>
+
+    <au-textbox if.bind="isEdit"  show.bind="!isSales" options.bind="controlOptions" value.bind="data.packingListIssuedBy"
+    label="Issued By" read-only.bind="readOnly" error.bind="error.packingListIssuedBy">
+    </au-textbox>
+    <au-multiline
+      if.bind="isEdit" 
+      show.bind="!isSales"
+      label="Description"
+      value.bind="data.packingListDescription"
+      read-only.bind="readOnly"
+      rows.bind="8"
+      options.bind="controlOptions"
+      placeholder="Description">
     </au-multiline>
 
     <au-dropdown  if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" label="Authorized" value.bind="data.packingListAuthorized" error.bind="error.packingListAuthorized"

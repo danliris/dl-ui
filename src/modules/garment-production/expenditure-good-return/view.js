@@ -14,8 +14,11 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        this.selectedRO={
-            RONo:this.data.RONo
+        this.selectedEG={
+            ExpenditureGoodNo:this.data.ExpenditureNo
+        };
+        this.selectedDO={
+            DONo:this.data.DONo
         };
         this.selectedUnit=this.data.Unit;
         this.data.BuyerView= this.data.Buyer.Code + ' - '+ this.data.Buyer.Name;

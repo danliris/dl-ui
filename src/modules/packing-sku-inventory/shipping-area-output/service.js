@@ -30,6 +30,7 @@ export class Service extends RestService {
     }
 
     update(data) {
+        console.log(data);
         var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
@@ -41,6 +42,11 @@ export class Service extends RestService {
 
     getPdfById(id, type) {
         var endpoint = `${serviceUri}/pdf/${id}/${type}`;
+        return super.getPdf(endpoint);
+    }
+
+    getPdfPackingListSalesById(id) {
+        var endpoint = `${serviceUri}/pdf/packinglist/${id}`;
         return super.getPdf(endpoint);
     }
 

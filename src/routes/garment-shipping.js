@@ -809,6 +809,20 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-year-unit",
+        name: "garment-shipping/monitoring/omzet-year-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-annual-unit/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
             permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
