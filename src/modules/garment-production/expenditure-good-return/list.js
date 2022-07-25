@@ -31,8 +31,11 @@ export class List {
         { field: "ReturNo", title: "No Retur" },
         { field: "UnitCode", title: "Unit Retur"},
         { field: "ReturType", title: "Tipe Retur"},
+        { field: "ExpenditureNo", title: "No Bon Keluar"},   
         { field: "RONo", title: "RO" },
         { field: "Article", title: "Artikel" },
+        { field: "DONo", title: "No Surat Jalan"},
+        { field: "URNNo", title: "No Bon Unit"}, 
         { field: "TotalQuantity", title: "Jumlah", sortable: false },
         { field: "Invoice", title: "Invoice", sortable: false },
         {
