@@ -278,6 +278,8 @@ export class DataForm {
       this.data.Section = newValue.SectionCode;
       const section = await this.serviceCore.getSection(newValue.SectionId);
       this.data.SectionName = section.Name;
+      this.data.ApprovalCC = section.ApprovalCC;
+      this.data.ApprovalRO = section.ApprovalRO;   
       this.data.Buyer = {
         Id: newValue.BuyerAgentId,
         Code: newValue.BuyerAgentCode,
@@ -293,6 +295,8 @@ export class DataForm {
       this.data.PreSCNo = null;
       this.data.Section = null;
       this.data.SectionName = null;
+      this.data.ApprovalCC = null;
+      this.data.ApprovalRO = null; 
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
     }
