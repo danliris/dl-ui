@@ -79,7 +79,7 @@ export class List {
     }
 
     get sectionVisibility() {
-        return this.type == 'Purchasing' || this.type == 'MD2';
+        return this.type == 'Purchasing' || this.type == 'MD2' || this.type == 'MD1';
     }
 
     constructor(router, service, authService) {
@@ -105,8 +105,11 @@ export class List {
             case "MD1":
                 filter = Object.assign({
                     IsValidatedMD1: false,
-                    SectionName: this.section.Name
+                    // SectionName: this.section.Name
                 }, this.defaultFilter);
+                if (this.section) {
+                    filter.SectionName = this.section.Name;
+                }
                 break;
             case "Purchasing":
                 filter = Object.assign({
@@ -146,7 +149,8 @@ export class List {
 
         switch (this.type) {
             case "MD1":
-                this.section = { Name: username };
+                //this.section = { Name: username };
+                this.section = null;                
                 break;
             case "Purchasing":
                 this.section = null;

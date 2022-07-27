@@ -165,6 +165,19 @@ module.exports = [
     },
   },
   {
+    route: 'garment-section',
+    name: 'garment-section',
+    moduleId: './modules/master/garment-section/index',
+    nav: true,
+    title: 'Master Seksi',
+    auth: true,
+    settings: {
+        group: "master",
+        permission: { "PGA": 1, "C9": 1 },
+        iconClass: 'fa fa-dashboard',
+     },
+  },
+  {
     route: "garment-buyers",
     name: "garment-buyers",
     moduleId: "./modules/master/garment-buyer/index",
