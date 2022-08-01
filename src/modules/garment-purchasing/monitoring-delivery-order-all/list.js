@@ -85,6 +85,7 @@ export class List {
          { field: "EPOcreatedBy", title: "Staff Pembelian (P/O)", sortable: false },
          { field: "BeacukaiNo", title: "No BC", sortable: false }, 
          { field: "BeacukaiType", title: "Tipe BC", sortable: false }, 
+         
          { field: "BCDate", title: "Tanggal BC", sortable: false, formatter: function (value, data, index) {
             if (moment(value).format("DD MMM YYYY")=="01 Jan 1970")
                 return "-"
