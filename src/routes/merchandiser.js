@@ -306,7 +306,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "approval",
-            permission: { "IE": 1, "PGA": 1, "C9": 1 },
+            permission: { "IE": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: 'sample'
         }
