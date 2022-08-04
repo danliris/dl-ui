@@ -3,6 +3,7 @@ import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
+const UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service, SalesService, CoreService)
 export class DataForm {
@@ -45,6 +46,14 @@ export class DataForm {
             "Komoditi",
             ""
         ]
+    }
+
+    UomPackingfilter={
+        'Unit=="ROLL" || Unit=="COLI" || UNIT=="IKAT" || UNIT=="CARTON"': "true",
+    };
+
+    get UomPackingLoader() {
+        return UomLoader;
     }
 
     get buyerLoader() {
