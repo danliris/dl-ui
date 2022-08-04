@@ -133,13 +133,23 @@
                     read-only.bind="readOnly || data.IsUsed"
                     options.bind="controlOptions2">
                 </au-datepicker>
+
+                <au-numeric
+                    error.bind="error.CIF"
+                    value.bind="data.CIF"
+                    label="Nilai CIF"
+                    format="0.00"
+                    read-only.bind="readOnly || data.IsUsed"
+                    options.bind="controlOptions2"
+                    if.bind="data.SubconCategory == 'SUBCON SEWING'">
+                </au-numeric>
             </div>
         </div>
         <div class="row">
             <au-collection
                 items.bind="data.Items"
                 errors.bind="error.Items"
-                columns.bind="columns"
+                columns.bind="data.SubconCategory == 'SUBCON CUTTING SEWING' ? itemsInfo.columnsCuttingSewing : itemsInfo.columnsSewing"
                 read-only.bind="readOnly"
                 remove.bind="removeItems"
                 add.bind="addItems"

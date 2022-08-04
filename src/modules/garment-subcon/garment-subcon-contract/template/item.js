@@ -21,7 +21,15 @@ export class Item {
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
         this.itemOptions = context.context.options;
+        this.isSubconCutting = this.itemOptions.isSubconCutting;
         if (this.data && this.data.Supplier) {
+            // if (this.isSubconCutting) {
+            //     this.selectedSupplier = {
+            //         Id: this.data.Supplier && this.data.Supplier.Id,
+            //         Code: this.data.Supplier && this.data.Supplier.Code,
+            //         Name: this.data.Supplier && this.data.Supplier.Name,
+            //     };
+            // }
         this.selectedSupplier = {
             Id: this.data.Supplier && this.data.Supplier.Id,
             Code: this.data.Supplier && this.data.Supplier.Code,
