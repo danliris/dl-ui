@@ -3,6 +3,7 @@ import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
+// var uomLoader = require('../../../loader/uom-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {
@@ -27,6 +28,7 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    UomOptions = ['COLI', 'IKAT', 'CARTON', 'ROLL'];
     controlOptions = {
         label: {
             length: 2
@@ -95,6 +97,14 @@ export class DataForm {
             // }
         }
     }
+
+    // get uomLoader() {
+    //     return uomLoader;
+    //   }
+    //   uomView = (uom) => {
+    //     var uomName = uom.Name || uom.name;
+    //     return `${uomName}`
+    //   }
 
     get addItems() {
         return (event) => {

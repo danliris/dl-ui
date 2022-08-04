@@ -4,9 +4,9 @@
         with.bind="context">
         <div slot="actions" class="btn-group">
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
-            <!--<button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>-->
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
 
         <au-textbox   
@@ -23,6 +23,24 @@
             placeholder="Nama Seksi" 
             value.bind="data.Name"
             error.bind="error.Name"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+        
+        <au-textbox   
+            label="Approval PR /CC Oleh"
+            placeholder="Approval PR /CC Oleh" 
+            value.bind="data.ApprovalCC"
+            error.bind="error.ApprovalCC"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox   
+            label="Approval RO Garment Oleh"
+            placeholder="Approval RO Garment Ole" 
+            value.bind="data.ApprovalRO"
+            error.bind="error.ApprovalRO"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>

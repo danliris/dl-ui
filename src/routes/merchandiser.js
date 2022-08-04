@@ -282,11 +282,11 @@ module.exports = [
         }
     },
     {
-        route: '/merchandiser/ro-validation-kabagmd',
-        name: 'ro-validation-kabagmd',
+        route: '/merchandiser/ro-validation-kasiemd',
+        name: 'ro-validation-kasiemd',
         moduleId: './modules/merchandiser/ro-validation/index',
         nav: true,
-        title: 'Validasi RO - Kabag Md',
+        title: 'Validasi RO - Kasie Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -306,7 +306,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "approval",
-            permission: { "IE": 1, "PGA": 1, "C9": 1 },
+            permission: { "IE": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: 'sample'
         }
