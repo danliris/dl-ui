@@ -39,6 +39,23 @@
         options.bind="controlOptions">
     </au-autocomplete>
 
+    <au-numeric
+            value.bind="data.QtyPacking"
+            error.bind="error.QtyPacking"
+            label="Jumlah Kemasan"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-dropdown 
+            label="Satuan Kemasan" 
+            value.bind="data.UomUnit" 
+            error.bind="error.UomUnit" 
+            read-only.bind="readOnly "
+            items.bind="UomOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
     <div class="form-group has-error">
       <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
       <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
