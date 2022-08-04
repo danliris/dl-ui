@@ -27,6 +27,7 @@ export class DataForm {
     editText: "Ubah"
   };
 
+  UomOptions = ['COLI', 'IKAT', 'CARTON', 'ROLL'];
   controlOptions = {
     label: {
       length: 3
