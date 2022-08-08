@@ -25,7 +25,7 @@ export class Service extends RestService {
     
     getXls(info) {
 
-        var endpoint = `${serviceUri}/download?unitId=${info.unitId}&supplierId=${info.supplierId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/download?unitId=${info.unitId}&supplierId=${info.supplierId}&noSPB=${info.noSPB}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }
