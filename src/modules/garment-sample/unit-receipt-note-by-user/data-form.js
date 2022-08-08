@@ -27,7 +27,7 @@ export class DataForm {
     @bindable category;
     @bindable uen;
 
-    typeOptions = ['PEMBELIAN','PROSES'];
+    typeOptions = ['PEMBELIAN','PROSES', 'GUDANG SISA'];
     categoryOptions = ['FABRIC', 'ACCESSORIES'];
 
     filterDR = {

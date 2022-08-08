@@ -79,7 +79,7 @@ export class List {
     }
 
     get sectionVisibility() {
-        return this.type == 'Purchasing' || this.type == 'MD2' || this.type == 'MD1';
+        return this.type == 'Purchasing' || this.type == 'MD2';
     }
 
     constructor(router, service, authService) {
