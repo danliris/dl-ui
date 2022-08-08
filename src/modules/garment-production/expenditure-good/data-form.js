@@ -316,20 +316,20 @@ export class DataForm {
             item.Description=this.selectedColor;
             item.Quantity=this.data.Quantity;
             item.RemainingQuantity-=this.selectedSize.Quantity;
-            if(this.data.Items){
-                var dup= this.data.Items.find(a=>a.SizeName===item.SizeName && a.Description===this.selectedColor);
-                if(dup){
-                    var idx= this.data.Items.indexOf(dup);
-                    dup.Quantity+=this.data.Quantity;
-                    this.data.Items[idx]=dup;
-                }
-                else{
-                    this.data.Items.push(item);
-                }
-            }
-            else{
+            // if(this.data.Items){
+            //     var dup= this.data.Items.find(a=>a.SizeName===item.SizeName && a.Description===this.selectedColor);
+            //     if(dup){
+            //         var idx= this.data.Items.indexOf(dup);
+            //         dup.Quantity+=this.data.Quantity;
+            //         this.data.Items[idx]=dup;
+            //     }
+            //     else{
+            //         this.data.Items.push(item);
+            //     }
+            // }
+            // else{
             this.data.Items.push(item);
-            }
+            // }
             this.selectedSize.RemainingQuantity-=this.data.Quantity;
             this.data.Quantity=0;
         }
