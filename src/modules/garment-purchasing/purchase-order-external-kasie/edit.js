@@ -51,6 +51,7 @@ export class Edit {
         
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
+            this.data.IncomteTaxRate= this.data.IncomeTax.Rate;
         }
 
         if(this.data.Vat){
