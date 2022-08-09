@@ -173,13 +173,26 @@
                      options.bind="controlOptions">
                 </au-checkbox>
                 
-                <au-textbox 
+                <!-- <au-textbox 
                     label="Pph" 
                     value.bind="data.IncomeTax.Name" 
                     read-only.bind="true"
                     if.bind="data.Supplier.usetax"
                     options.bind="controlOptions">
-                </au-textbox>
+                </au-textbox> -->
+
+                <au-autocomplete 
+                value.bind="selectedIncomeTax" 
+                error.bind="error.incomeTax"
+                label="Pph" 
+                loader.bind="incomeTaxLoader"
+                text.bind = "incomeTaxView"
+                placeholder="cari pph" 
+                key=""                    
+                read-only.bind="readOnly"
+                if.bind="data.Supplier.usetax"
+                options.bind="controlOptions">
+            </au-autocomplete>
         
                 <numeric 
                     label="Rate Pph" 
