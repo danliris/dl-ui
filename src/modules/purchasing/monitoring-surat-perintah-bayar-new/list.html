@@ -2,6 +2,14 @@
     <h1 class="page-header">Monitoring Surat Perintah Bayar </h1>
     <form class="form-horizontal">
     
+        <au-autocomplete 
+            value.bind="spb" 
+            label="No SPB" 
+            loader.bind="spbLoader"
+            placeholder="cari SPB" 
+            key="code"
+            options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-autocomplete 
             value.bind="unit" 
@@ -20,8 +28,6 @@
             key="code"
             options.bind="controlOptions">
         </au-autocomplete>
-
-    
 
         <au-datepicker
             value.bind="dateFrom"
