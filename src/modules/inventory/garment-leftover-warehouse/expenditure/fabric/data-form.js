@@ -31,6 +31,10 @@ export class DataForm {
         }
     };
 
+    queryUnit = {
+        Code: "SMP1"
+    };
+
     @computedFrom("readOnly")
     get items() {
         return {
