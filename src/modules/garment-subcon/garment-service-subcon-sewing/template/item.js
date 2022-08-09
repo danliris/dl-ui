@@ -126,7 +126,7 @@ export class Item {
                     }
                     else {
 
-                      var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.DesignColor && a.Unit.Id == sewingIn.Unit.Id && a.Color == sewingInItem.Color);
+                      var exist = this.data.Details.find(a => a.DesignColor == sewingInItem.DesignColor && a.Unit.Id == sewingIn.Unit.Id && a.Color == sewingInItem.Color && a.Color == sewingInItem.Color);
                       if (!exist) {
                         detail.Quantity = qty;
                         detail.SewingInQuantity = qty;

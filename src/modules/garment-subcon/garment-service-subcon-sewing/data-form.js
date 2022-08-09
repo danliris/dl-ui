@@ -88,7 +88,7 @@ export class DataForm {
             details.push(detail);
           }
           else {
-            var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id);
+            var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id && a.Color == d.Color);
             if (!exist) {
               detail.Quantity = d.Quantity;
               detail.DesignColor = d.DesignColor;
