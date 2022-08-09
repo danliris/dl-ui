@@ -29,11 +29,27 @@ export class DataForm {
         editText: "Ubah"
     };
 
-    columns= [
-        "Barang",
-        "Jumlah",
-        "Satuan"
-    ];
+    itemsInfo = {
+        columnsCuttingSewing: [
+            "Barang",
+            "Jumlah",
+            "Satuan",
+            "Nilai CIF"
+        ],
+    
+        columnsSewing: [
+            "Barang",
+            "Jumlah",
+            "Satuan",
+        ],
+
+    }
+
+    // columns= [
+    //     "Barang",
+    //     "Jumlah",
+    //     "Satuan"
+    // ];
 
     Uomfilter={
             'Unit=="MTR" || Unit=="PCS"': "true",
@@ -66,6 +82,7 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
+            isSubconCutting:this.data.SubconCategory == 'SUBCON CUTTING SEWING'? true:false,
           };
         this.isItems=false;
         this.selectedContractType=this.data.ContractType;
@@ -156,6 +173,8 @@ export class DataForm {
                 this.SubconCategoryTypeOptions=["SUBCON JASA GARMENT WASH","SUBCON JASA KOMPONEN"];
             }
         }
+
+        this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
         
     }
 
@@ -171,6 +190,7 @@ export class DataForm {
             else{
                 this.isItems=false;
             }
+            this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"? true:false;
         }
         
     }
