@@ -141,7 +141,7 @@
                     format="0.00"
                     read-only.bind="readOnly || data.IsUsed"
                     options.bind="controlOptions2"
-                    if.bind="data.SubconCategory == 'SUBCON SEWING'">
+                    if.bind="data.ContractType == 'SUBCON BAHAN BAKU' || data.ContractType == 'SUBCON JASA'">
                 </au-numeric>
             </div>
         </div>
@@ -149,7 +149,7 @@
             <au-collection
                 items.bind="data.Items"
                 errors.bind="error.Items"
-                columns.bind="data.SubconCategory == 'SUBCON CUTTING SEWING' ? itemsInfo.columnsCuttingSewing : itemsInfo.columnsSewing"
+                columns.bind="columns"
                 read-only.bind="readOnly"
                 remove.bind="removeItems"
                 add.bind="addItems"
