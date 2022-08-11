@@ -29,27 +29,28 @@ export class DataForm {
         editText: "Ubah"
     };
 
-    itemsInfo = {
-        columnsCuttingSewing: [
-            "Barang",
-            "Jumlah",
-            "Satuan",
-            "Nilai CIF"
-        ],
+    // itemsInfo = {
+    //     columnsCuttingSewing: [
+    //         "Barang",
+    //         "Jumlah",
+    //         "Satuan",
+    //         "Nilai CIF"
+    //     ],
     
-        columnsSewing: [
-            "Barang",
-            "Jumlah",
-            "Satuan",
-        ],
+    //     columnsSewing: [
+    //         "Barang",
+    //         "Jumlah",
+    //         "Satuan",
+    //     ],
 
-    }
+    // }
 
-    // columns= [
-    //     "Barang",
-    //     "Jumlah",
-    //     "Satuan"
-    // ];
+    columns= [
+        "Barang",
+        "Jumlah",
+        "Satuan",
+        "CIF"
+    ];
 
     Uomfilter={
             'Unit=="MTR" || Unit=="PCS"': "true",
@@ -82,7 +83,7 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
-            isSubconCutting:this.data.SubconCategory == 'SUBCON CUTTING SEWING'? true:false,
+            // isSubconCutting:this.data.SubconCategory == 'SUBCON CUTTING SEWING'? true:false,
           };
         this.isItems=false;
         this.selectedContractType=this.data.ContractType;
@@ -174,7 +175,7 @@ export class DataForm {
             }
         }
 
-        this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
+        // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
         
     }
 
@@ -190,7 +191,7 @@ export class DataForm {
             else{
                 this.isItems=false;
             }
-            this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"? true:false;
+            // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"? true:false;
         }
         
     }

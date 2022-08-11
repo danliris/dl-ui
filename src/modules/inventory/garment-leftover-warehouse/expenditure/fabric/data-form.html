@@ -20,6 +20,12 @@
             read-only.bind="readOnly || isEdit" options.bind="controlOptions"
             show.bind="data.ExpenditureDestination == 'UNIT'" view-model.ref="selectedUnitViewModel">
         </au-autocomplete>
+        
+        <au-autocomplete label="Unit Tujuan" value.bind="selectedUnit" loader.bind="unitLoader" text.bind="unitView" 
+            read-only.bind="readOnly || isEdit" error.bind="error.Unit" if.bind="data.ExpenditureDestination == 'SAMPLE'" 
+            placeholder="cari unit" options.bind="controlOptions" 
+            query.bind="queryUnit" view-model.ref="selectedUnitViewModel"   >
+        </au-autocomplete>
 
         <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="selectedBuyer" error.bind="error.Buyer"
             loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="readOnly || isEdit"
