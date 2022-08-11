@@ -78,6 +78,7 @@
                 options.bind="controlOptions">
             </au-numeric>
         </td>
+        
         <td class="col-sm-3 bg-primary" if.bind="isSubconSewing">
             <au-textbox
                 value.bind="data.RONo"
@@ -109,6 +110,22 @@
                 read-only="true"
                 read-only.bind="true" 
                 if.bind="data.Comodity"     
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-4 bg-primary">
+            <au-numeric
+                value.bind="data.QtyPacking"
+                error.bind="error.QtyPacking"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td class="col-sm-4 bg-primary" >
+            <au-textbox
+                value.bind="data.UomSatuanUnit"
+                error.bind="error.UomSatuanUnit"
+                read-only.bind="true"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
