@@ -39,7 +39,7 @@
                        <th class="text-center">NAMA BUYER</th>
                        <th class="text-center">I  T  E  M</th>
                        <th class="text-center">NO RO</th>
-                       <th class="text-center">STYLE ORD / ARTICLE NO</th>
+                       <!--<th class="text-center">STYLE ORD / ARTICLE NO</th>-->
                        <th class="text-center">QUANTITY</th>
                        <th class="text-center">SATUAN</th>                    
                        <th class="text-center">AMOUNT</th>
@@ -59,7 +59,7 @@
                            <td>${item.buyerAgentName}</td>
                            <td>${item.comodityName}</td>     
                            <td>${item.roNumber}</td>                                    
-                           <td>${item.articleStyle}</td>                       
+                           <!--<td>${item.articleStyle}</td>                       -->
                            <td align="right">
                                <strong>
                                <au-numeric value.bind="item.quantityInPCS" read-only="true"></au-numeric>
@@ -83,7 +83,7 @@
                         </tr>  
                     </template>    
                        <tr class="active">
-                           <td class="text-center" colspan="9"><strong>T O T A L . . . . . . :</strong></td>
+                           <td class="text-center" colspan="8"><strong>T O T A L . . . . . . :</strong></td>
                            <td class="text-right"><strong>${QtyTotal1}</strong></td>   
                            <td class="text-right"><strong>.</strong></td>    
                            <td class="text-right"><strong>${AmountTtlUSD}</strong></td>                                             
