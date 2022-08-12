@@ -75,7 +75,7 @@ export class List {
                              unitCode : data.unitCode,
                              buyerAgentName : data.buyerAgentName,
                              comodityName : data.comodityName,
-                             articleStyle : data.articleStyle,
+                            //  articleStyle : data.articleStyle,
                              roNumber : data.roNumber,
                              quantity : data.quantity.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                              uomUnit : data.uomUnit,
