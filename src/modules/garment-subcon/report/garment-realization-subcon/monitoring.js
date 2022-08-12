@@ -17,7 +17,6 @@ export class List {
     optionDate = "";
     dateFrom = null;
     dateTo = null;
-   
     // @bindable JnsInv;
    
     // OptionDate = ['','TGL INVOICE', 'TGL TRUCKING', 'TGL PEB'];
@@ -74,16 +73,27 @@ export class List {
                   this.contractNo = this.subconContract.ContractNo;
                   this.bpjNo = this.subconContract.BPJNo;
                   this.dueDate = moment(this.subconContract.DueDate).format("DD MMM YYYY");
+                  
+                  this.totalItemIN = 0;
+                  this.totalItemOUT = 0;
+                  this.totalSubconItem = 0;
+                  this.totalLeftoverItemOUT = 0;
+                  this.totalLeftoverItemIN = 0;
                   for (var item of this.data.IN){
  
                         dataIN.push(item);
+                        this.totalItemIN += item.quantityOut;
                   }
                   for (var item of this.data.Out){
  
                     dataOut.push(item);
+                    this.totalItemOUT += item.quantityOut;
+                    this.totalSubconItem = item.subconContractQuantity;
+                    this.TotalLeftoverItemOUT = this.totalSubconItem - this.totalItemOUT;
                   }
                   this.IN = dataIN;
                   this.Out = dataOut;
+                  this.totalLeftoverItemIN = this.totalItemOUT - this.totalItemIN;
              });   
         }   
     }
