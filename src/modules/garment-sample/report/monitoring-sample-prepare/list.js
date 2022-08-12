@@ -169,5 +169,4 @@ export class List {
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
     
-    
 }
