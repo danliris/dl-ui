@@ -73,7 +73,7 @@ export class UnitPaymentOrderItem {
           item.PriceTotal = (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('en-EN', { maximumFractionDigits:15 });
           item.PricePerDealUnitCorrection = item.pricePerDealUnit;
           item.PriceTotalCorrection = item.PriceTotal;
-          // item.QuantityCorrection= item.deliveredQuantity;
+          item.QuantityCorrection= item.deliveredQuantity;
           items.push(item);
         }
       }
