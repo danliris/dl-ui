@@ -98,7 +98,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "approval",
-            permission: { "PG": 1, "C9": 1 },
+            permission: { "KPG": 1, "C9": 1 },
             iconClass: 'fa fa-calculator',
             type: "Purchasing"
         }
@@ -188,7 +188,7 @@ module.exports = [
         settings: {
             group: "merchandiser",
             subGroup: "approval",
-            permission: { "PG": 1, "C7": 1, "C9": 1 },
+            permission: { "KPG": 1, "C7": 1, "C9": 1 },
             iconClass: 'fa fa-calculator'
         }
     },
