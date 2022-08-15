@@ -33,6 +33,16 @@
                 options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
+
+		<td class="col-sm-3 bg-primary">
+			<au-numeric 
+                error.bind="error.CIFItem" 
+                value.bind="data.CIFItem" 
+                format="0.00"
+				read-only.bind="readOnly"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
 		<td if.bind="!readOnly" class="col-sm-1">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
 		</td>
