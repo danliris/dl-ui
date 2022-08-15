@@ -106,7 +106,8 @@ export class DataForm {
 
     filterExpend = {
         IsUsed: false,
-        ExpenditureDestination: "UNIT"
+        // ExpenditureDestination: "UNIT"
+        ExpenditureDestination: "SAMPLE"
     };
 
     filterUEN = {
