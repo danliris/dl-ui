@@ -185,6 +185,8 @@ export class Item {
         this.data.RONo="";
         this.data.Buyer="";
         this.data.Comodity="";
+        this.data.QtyPacking=0;
+        this.data.UomSatuanUnit="";
         
         if (this.data.Details.length > 0){
             this.data.Details.splice(0);
@@ -196,7 +198,6 @@ export class Item {
             this.data.date=subcon.ServiceSubconSewingDate;
             //this.data.unit=subcon.Unit.Code;
             this.data.Details = subcon.Items;
-            
             for(var item of subcon.Items){
                 this.data.Article = item.Article;
                 this.data.RONo = item.RONo;
@@ -207,6 +208,8 @@ export class Item {
                     this.data.Quantity+=detail.Quantity;
                 }
             }
+            this.data.QtyPacking = subcon.QtyPacking;
+            this.data.UomSatuanUnit = subcon.UomUnit;
         }
     }
     async selectedSubconCuttingChanged(newValue){
@@ -215,6 +218,8 @@ export class Item {
         this.data.SubconId=null;
         this.data.SubconNo="";
         this.data.Quantity=0;
+        this.data.QtyPacking=0;
+        this.data.UomSatuanUnit="";
         if(newValue){
             this.data.SubconId=newValue.Id;
             this.data.SubconNo=newValue.SubconNo;
@@ -223,6 +228,8 @@ export class Item {
             this.data.date=subcon.SubconDate;
             this.data.unit=subcon.Unit.Code;
             this.data.subconType=subcon.SubconType;
+            this.data.QtyPacking = subcon.QtyPacking;
+            this.data.UomSatuanUnit = subcon.Uom.Unit; 
             for(var item of subcon.Items){
                 for(var detail of item.Details){
                     this.data.Quantity+=detail.Quantity;
@@ -238,16 +245,19 @@ export class Item {
         this.data.SubconId=null;
         this.data.SubconNo="";
         this.data.Quantity=0;
+        this.data.QtyPacking=0;
+        this.data.UomSatuanUnit="";
         if(newValue){
             this.data.SubconId=newValue.Id;
             this.data.SubconNo=newValue.ServiceSubconShrinkagePanelNo;
             var subcon = await this.service.readServiceSubconShrinkageById(this.data.SubconId);
             this.data.date=subcon.ServiceSubconShrinkagePanelDate;
+            this.data.QtyPacking=subcon.QtyPacking;
+            this.data.UomSatuanUnit=subcon.UomUnit;
             //this.data.unit=subcon.Unit.Code;
             for(var item of subcon.Items){
                 for(var detail of item.Details){
                     this.data.Quantity+=detail.Quantity;
-
                 }
             }
         }
@@ -258,16 +268,19 @@ export class Item {
         this.data.SubconId=null;
         this.data.SubconNo="";
         this.data.Quantity=0;
+        this.data.QtyPacking=0;
+        this.data.UomSatuanUnit="";
         if(newValue){
             this.data.SubconId=newValue.Id;
             this.data.SubconNo=newValue.ServiceSubconFabricWashNo;
             var subcon = await this.service.readServiceSubconFabricById(this.data.SubconId);
             this.data.date=subcon.ServiceSubconFabricWashDate;
+            this.data.QtyPacking=subcon.QtyPacking;
+            this.data.UomSatuanUnit=subcon.UomUnit;
             //this.data.unit=subcon.Unit.Code;
             for(var item of subcon.Items){
                 for(var detail of item.Details){
                     this.data.Quantity+=detail.Quantity;
-
                 }
             }
         }
