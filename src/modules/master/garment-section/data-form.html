@@ -28,8 +28,8 @@
         </au-textbox>
         
         <au-textbox   
-            label="Approval PR /CC Oleh"
-            placeholder="Approval PR /CC Oleh" 
+            label="Approval PR / CC Oleh"
+            placeholder="Approval PR / CC Oleh" 
             value.bind="data.ApprovalCC"
             error.bind="error.ApprovalCC"
             read-only.bind="readOnly"
@@ -38,9 +38,18 @@
 
         <au-textbox   
             label="Approval RO Garment Oleh"
-            placeholder="Approval RO Garment Ole" 
+            placeholder="Approval RO Garment Oleh" 
             value.bind="data.ApprovalRO"
             error.bind="error.ApprovalRO"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox   
+            label="Approval CC - Kadiv MD Oleh"
+            placeholder="Approval CC - Kadiv MD Oleh" 
+            value.bind="data.ApprovalKadiv"
+            error.bind="error.ApprovalKadiv"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>

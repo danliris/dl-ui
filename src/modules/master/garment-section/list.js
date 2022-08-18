@@ -10,7 +10,8 @@ export class List {
         { field: "Code", title: "Kode Seksi" },
         { field: "Name", title: "Nama Seksi" },
         { field: "ApprovalCC", title: "Approval PR / CC Oleh" },
-        { field: "ApprovalRO", title: "Approval RO Garment Oleh" }        
+        { field: "ApprovalRO", title: "Approval RO Garment Oleh" },
+        { field: "ApprovalKadiv", title: "Approval CC - Kadiv Oleh" }          
     ];
 
     loader = (info) => {
