@@ -84,7 +84,8 @@ export class List {
                     IsApprovedMD: true,
                     IsApprovedPurchasing: true,
                     IsApprovedIE: true,
-                    IsApprovedKadivMD: false
+                    IsApprovedKadivMD: false,
+                    ApprovalKadiv: username
                 };
                 break;
             default:

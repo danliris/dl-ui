@@ -123,6 +123,7 @@ export class List {
                     IsValidatedMD1: true,
                     IsValidatedPurchasing: true,
                     IsValidatedMD2: false,
+                    ApprovalKadiv: this.section.ApprovalKadiv
                 }, this.defaultFilter);
                 if (this.section) {
                     filter.SectionName = this.section.Name;
@@ -153,7 +154,7 @@ export class List {
                 this.section = null;
                 break;
             case "MD2":
-                this.section = null;
+                this.section = { ApprovalKadiv: username };
                 break;
         }
     }
