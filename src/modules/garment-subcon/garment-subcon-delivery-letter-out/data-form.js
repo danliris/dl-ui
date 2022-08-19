@@ -72,18 +72,24 @@ export class DataForm {
             "Asal Unit",
             "Jenis Subcon",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnBBPanel:[
             "No Subcon BB Shrinkage/Panel",
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnBBWash : [
             "No Subcon BB Fabric Wash/Print",
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnsServiceWash:[
             "No Subcon Jasa Garment Wash",
@@ -93,6 +99,8 @@ export class DataForm {
             "Article",
             "Buyer",
             "Komoditi",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ]
     }
 
