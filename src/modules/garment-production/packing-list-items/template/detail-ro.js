@@ -27,6 +27,13 @@ export class Item {
           "SCGarmentId!=null": true
         };
       }
+      else if (section.code === "A" || section.code === "F") {
+        filter = {
+          BuyerCode: this.data.BuyerCode,          
+          Section: "A" || "F",
+          "SCGarmentId!=null": true
+        };
+      }
       else {
         filter = {
           BuyerCode: this.data.BuyerCode,
