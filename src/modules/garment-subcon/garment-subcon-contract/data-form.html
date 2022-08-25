@@ -18,7 +18,7 @@
                     label="Jenis Kontrak" 
                     value.bind="selectedContractType" 
                     error.bind="error.ContractType" 
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     items.bind="ContractTypeOptions"
                     options.bind="controlOptions">
                 </au-dropdown>
@@ -27,7 +27,7 @@
                     label="Kategori Subcon" 
                     value.bind="selectedSubconCategory" 
                     error.bind="error.SubconCategory" 
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     if.bind="selectedContractType"
                     items.bind="SubconCategoryTypeOptions"
                     options.bind="controlOptions">
@@ -37,11 +37,11 @@
                     label="Tanggal Kontrak"
                     value.bind="data.ContractDate"
                     error.bind="error.ContractDate"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions">
                 </au-datepicker>
 
-                <au-autocomplete
+                <!-- <au-autocomplete
                     value.bind="data.Buyer"
                     error.bind="error.Buyer"
                     label="Buyer"
@@ -50,7 +50,7 @@
                     placeholder="Cari Buyer"
                     read-only.bind="readOnly || isEdit"
                     options.bind="controlOptions">
-                </au-autocomplete>
+                </au-autocomplete> -->
 
                 <au-autocomplete
                     value.bind="data.Supplier"
@@ -59,7 +59,7 @@
                     loader.bind="supplierLoader"
                     text.bind="supplierView"
                     placeholder="cari supplier"
-                    read-only.bind="readOnly || data.IsUsed || data.Id"
+                    read-only.bind="readOnly || data.IsUsed || data.Id || isEdit"
                     options.bind="controlOptions">
                 </au-autocomplete>
 
@@ -67,7 +67,7 @@
                     error.bind="error.JobType"
                     value.bind="JobType"
                     label="Jenis Pekerjaan"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions"
                     textstyle="upper-case">
                 </au-textbox>
@@ -76,9 +76,25 @@
                     error.bind="error.FinishedGoodType"
                     value.bind="FinishedGoodType"
                     label="Jenis Barang Jadi"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions">
                 </au-textbox>
+                <au-numeric
+                    error.bind="error.NettWeight"
+                    value.bind="data.NettWeight"
+                    label="NW per Satuan"
+                    format="0.00"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    options.bind="controlOptions2">
+                </au-numeric>
+                <au-numeric
+                    error.bind="error.GrossWeight"
+                    value.bind="data.GrossWeight"
+                    label="GW per Satuan"
+                    format="0.00"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    options.bind="controlOptions2">
+                </au-numeric>
             </div>
             <div class="col-sm-6">
                 <au-numeric
@@ -86,7 +102,7 @@
                     value.bind="data.Quantity"
                     label="Jumlah"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions2">
                 </au-numeric>
         
@@ -98,7 +114,7 @@
                     text="Unit" 
                     placeholder="Satuan" 
                     query.bind="Uomfilter"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions2">
                 </au-autocomplete>
         
@@ -139,7 +155,7 @@
                     value.bind="data.CIF"
                     label="Nilai CIF"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed"
+                    read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions2"
                     if.bind="data.ContractType == 'SUBCON BAHAN BAKU' || data.ContractType == 'SUBCON JASA'">
                 </au-numeric>
