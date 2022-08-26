@@ -26,6 +26,16 @@ export class List {
     @bindable typeBC
     Types = ["No BC Masuk"];
     TypeBC = ["","BC 2.6.2","BC 2.3","BC 4.0","BC 2.7"];
+
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
+    
     bind(context) {
         console.log(context);
         this.context = context;
