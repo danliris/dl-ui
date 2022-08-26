@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'subcon-contracts';
+const resource = 'subcon-customs-outs';
 
 module.exports = function (keyword, filter) {
 
