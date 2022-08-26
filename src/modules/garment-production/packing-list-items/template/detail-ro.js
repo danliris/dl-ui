@@ -30,7 +30,7 @@ export class Item {
       else if (section.code === "A" || section.code === "F") {
         filter = {
           BuyerCode: this.data.BuyerCode,          
-          Section: "A" || "F",
+          // Section: "A" || "F",
           "SCGarmentId!=null": true
         };
       }
