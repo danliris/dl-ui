@@ -16,6 +16,14 @@ export class List {
         this.today = new Date();
         this.error = {};
     }
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 4
+        }
+    };
 
     bind(context) {
         // console.log(context);

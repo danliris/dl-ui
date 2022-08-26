@@ -65,7 +65,7 @@
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
@@ -85,7 +85,7 @@
         <!--<hr/>
     </form>
 </template>-->
-         <div >
+         <!-- <div >
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
 
@@ -176,7 +176,7 @@
                 Tidak ada data ditemukan.
             </div>
         <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
-        <hr/>
+        <hr/> -->
     </form>
 </template> 
 <!-- <template>
