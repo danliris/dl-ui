@@ -94,7 +94,7 @@ export class DataForm {
   }
 
   async selectedSubconContractChanged(newValue) {
-    if(this.data.Items){
+    if(this.data.Items && !this.data.Id){
       this.data.Items.splice(0);
     }
     if (newValue) {
