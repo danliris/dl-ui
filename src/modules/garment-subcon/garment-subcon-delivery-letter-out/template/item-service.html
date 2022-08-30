@@ -132,11 +132,11 @@
         <td if.bind="!readOnly" class="col-sm-1">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
         </td>
-        <td class="col-sm-1" if.bind="isSubconSewing">
+        <!-- <td class="col-sm-1" if.bind="isSubconSewing">
             <div>
                 <button class="btn btn-info pull-right" if.bind= "data.Details" click.delegate="toggle()">i</button>
             </div>
-        </td>
+        </td> -->
     </tr>
     <tr if.bind="error.DetailsCount && isSubconSewing">
         <div class="form-group has-error" if.bind="error.DetailsCount">
