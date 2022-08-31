@@ -14,6 +14,20 @@ module.exports = [
     }
   },
   {
+    route: '/garment-subcon/subcon-contract/all',
+    name: 'subcon-contract-all',
+    moduleId: './modules/garment-subcon/garment-subcon-contract-all/index',
+    nav: true,
+    title: 'Subcon Contract All',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "kontrak",
+      permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: '/garment-subcon/service-subcon-cutting',
     name: 'service-subcon-cutting',
     moduleId: './modules/garment-subcon/garment-service-subcon-cutting/index',
