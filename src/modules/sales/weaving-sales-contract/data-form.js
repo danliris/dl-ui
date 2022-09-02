@@ -86,10 +86,24 @@ export class DataForm {
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
             this.ProductType = this.data.ProductType || null;
-
+            this.LatePayment = this.data.LatePayment;
+            this.precentageDP = this.data.precentageDP;
         }
         
+        if (this.data.LatePayment == null) {
+            this.data.LatePayment = 1;
+        }
+
+        if (this.data.LateReturn == null) {
+            this.data.LateReturn = 14;
+        }
+
+        if (this.data.Claim == null) {
+            this.data.Claim = 7;
+        }
     }
+
+    
 
     enterDelegate(event) {
         if (event.charCode === 13) {
@@ -136,6 +150,7 @@ export class DataForm {
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
             this.data.ProductType = {};
+            this.data.LatePayment = null;
         }
     }
 
@@ -315,7 +330,7 @@ export class DataForm {
     }
 
     categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
-  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
+    categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
 
     get buyersLoader() {
         return BuyersLoader;
