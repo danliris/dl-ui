@@ -6,6 +6,7 @@ var UomLoader = require('../../../loader/uom-loader');
 var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var ProductLoader = require('../../../loader/product-loader');
+var MaterialLoader = require('../../../loader/material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
@@ -24,6 +25,8 @@ export class DataForm {
     @bindable selectedVatTax;
     @bindable Buyer;
     @bindable TermOfPayment;
+    @bindable Material;
+    @bindable MaterialConstruction;
     @bindable Comodity;
     @bindable Quality;
     @bindable AccountBank;
@@ -40,6 +43,9 @@ export class DataForm {
         this.element = element;
         this.service = service;
       }
+      materialQuery = {
+        "Tags": "MATERIAL"
+    }
 
     bind(context) {
 
@@ -73,10 +79,21 @@ export class DataForm {
                     Currency: { Code: this.data.AccountBank.AccountCurrencyCode },
                     BankName: this.data.AccountBank.BankName
                 };
+            this.Material = this.data.Material;
+            this.MaterialConstruction = this.data.MaterialConstruction;
         }
-        //this.selectedVatTax = this.data.VatTax || false;
+                
+            if (this.data.LatePayment == null) {
+                this.data.LatePayment = 1;
+            }
 
-        // this.termOfPayment={};
+            if (this.data.LateReturn == null) {
+                this.data.LateReturn = 14;
+            }
+
+            if (this.data.Claim == null) {
+                this.data.Claim = 7;
+            }
     }
 
     enterDelegate(event) {
@@ -180,6 +197,24 @@ export class DataForm {
         } else {
             this.AccountBank = {};
             this.data.AccountBank = {};
+        }
+    }
+
+    MaterialChanged() {
+        if (this.Material) {
+            this.data.Material = this.Material;
+        } else {
+            this.Material = {};
+            this.data.Material = {};
+        }
+    }
+
+    MaterialConstructionChanged() {
+        if (this.MaterialConstruction) {
+            this.data.MaterialConstruction = this.MaterialConstruction;
+        } else {
+            this.MaterialConstruction = {};
+            this.data.MaterialConstruction = {};
         }
     }
 
@@ -315,6 +350,10 @@ export class DataForm {
 
     get termOfPaymentLoader() {
         return TermOfPaymentLoader;
+    }
+
+    termOfPaymentView = (termOfPayment) => {
+        return termOfPayment.Name;
     }
 
     get agentLoader() {
