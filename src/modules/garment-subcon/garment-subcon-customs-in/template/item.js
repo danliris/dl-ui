@@ -114,4 +114,17 @@ export class Item {
       this.data.Quantity = 0;
     }
   }
+  get addDetails() {
+    return (event) => {
+        this.data.Details.push({ });
+    };
+  }
+
+  get removeDetails() {
+    return (event) => {
+      this.error = null;
+    };
+  }
+
+  detailColumns=["No BC Keluar", ""]
 }
