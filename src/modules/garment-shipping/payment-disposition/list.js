@@ -16,7 +16,7 @@ export class List {
         { field: "EMKLName", title: "EMKL" },
         { field: "CourierName", title: "Kurir" },
         {
-            field: "paymentDate", title: "Tanggal Pembayaran", formatter: function (value, data, index) {
+            field: "paymentDate", title: "Tanggal Disposisi", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         }
