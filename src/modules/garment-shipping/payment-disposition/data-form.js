@@ -28,7 +28,7 @@ export class DataForm {
 
     paymentTypeOptions=["FORWARDER" ,"EMKL", "COURIER"];
     paidAtOptions=["SOC", "JKT"];
-    paymentMethodOptions=["CASH BEFORE DELIVERY","CASH AFTER DELIVERY"];
+    paymentMethodOptions=["CASH","CASH BEFORE DELIVERY","CASH AFTER DELIVERY"];
     paymentTermOptions=["LC","TT"];
     freightByOptions=["AIR","OCEAN"]
 
@@ -92,6 +92,11 @@ export class DataForm {
         { header: "Nominal"},
     ]
 
+    paymentsColumns=[
+        { header: "Tanggal Bayar"},
+        { header: "Keterangan"},
+        { header: "Nominal"},
+    ]
 
     get buyerLoader() {
         return BuyerLoader;
@@ -188,6 +193,18 @@ export class DataForm {
     }
 
     get removebills() {
+        return (event) => {
+            this.error = null;
+        };
+    }
+
+    get addpayments() {
+        return (event) => {
+            this.data.paymentDetails.push({});
+        };
+    }
+
+    get removepayments() {
         return (event) => {
             this.error = null;
         };
