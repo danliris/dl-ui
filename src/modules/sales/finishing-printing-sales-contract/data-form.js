@@ -54,6 +54,18 @@ export class DataForm {
       useIncomeTax: this.data.UseIncomeTax || false
     };
     this.isCreate = this.context.isCreate;
+    console.log(this.isCreate);
+    if(this.isCreate){
+      this.data.LatePayment = 1;
+      this.data.LateReturn = 14;
+      this.data.Claim = 7;
+    }else if( this.isCreate && this.isExport){
+      this.data.LatePayment = 1;
+      this.data.LateReturn = 14;
+      this.data.Claim = 7;
+
+    }
+    this.data.Day = 0;
     this.selectedBuyer = this.data.Buyer || null;
     this.selectedOrderType = this.data.OrderType || null;
     this.selectedAccountBank = this.data.AccountBank || null;
