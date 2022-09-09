@@ -20,8 +20,9 @@
             <thead align="center">
                 <tr>
                     <td rowspan="2" align="center">NO</td>
-                    <td rowspan="2">TANGGAL</td>
-                    <td rowspan="2">NO. INVOICE</td>
+                    <td rowspan="2">TGL NOTA</td>
+                    <td rowspan="2">TGL SP</td>                
+                    <td rowspan="2">NO. NOTA</td>
                     <td rowspan="2">NAMA BUYER</td>
                     <td rowspan="2">KODE BUYER</td>
                     <td rowspan="2">PENJUALAN + PPN</td>
@@ -52,6 +53,7 @@
                     <tr repeat.for="data of supplier.data">
                         <td class="text-center"> ${$index + 1}</td>
                         <td>${data.lsDate}</td>
+                        <td>${data.clDate}</td>                        
                         <td>${data.lsNo}</td>
                         <td>${data.buyerName}</td>
                         <td>${data.buyerCode}</td>
@@ -91,7 +93,7 @@
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="5"><strong>TOTAL PENJUALAN - RETUR - POTONGAN</strong></td>
+                        <td class="text-center" colspan="6"><strong>TOTAL PENJUALAN - RETUR - POTONGAN</strong></td>
                         <td class="text-right"><strong>${AmountTotal1}</strong></td>
                         <td class="text-right"><strong>${AmountTotal2}</strong></td>
                         <td class="text-right"><strong>${AmountTotal3}</strong></td>
