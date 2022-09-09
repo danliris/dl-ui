@@ -392,6 +392,26 @@
                 </au-collection>
             </div>
         </div>
+            <div class="row">
+            <div class="col-md-6">
+    
+                <p show.bind="data.paymentType=='FORWARDER'">Perincian Pembayaran :</p>
+                <div class="form-group has-error">
+                    <p if.bind="error.paymentDetailsCount" class="help-block text-center">${error.paymentDetailsCount}</p>
+                </div>
+                <au-collection 
+                    items.bind="data.paymentDetails" 
+                    errors.bind="error.payments" 
+                    columns.bind="paymentsColumns"
+                    read-only.bind="readOnly" 
+                    remove.bind="removepayments"
+                    add.bind="addpayments"
+                    options.bind="Options"
+                    show.bind="data.paymentType=='FORWARDER'"
+                    item-template="modules/garment-shipping/payment-disposition/template/payment">
+                </au-collection>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
 

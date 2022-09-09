@@ -185,6 +185,7 @@ export class List {
                             dataBySupplier[Supplier].push({                            
                             
                             lsDate : moment(data.lsDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.lsDate).format("DD MMM YYYY"),                      
+                            clDate : moment(data.clDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.clDate).format("DD MMM YYYY"),                                                 
                             lsNo : data.lsNo,
                             buyerCode : data.buyerCode,
                             buyerName : data.buyerName, 
