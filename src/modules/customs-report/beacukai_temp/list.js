@@ -70,14 +70,30 @@ export class List {
 
   reset() {
     this.data = null;
+    this.date = "";
     this.saveCallback.disabled = false;
     this.disabled = false;
     $(this.table).bootstrapTable('destroy');
 }
 
-  changeDate(newValue){
 
-   
+save(){
+  this.error = {};
+    if (!this.date || this.date == "Invalid Date")
+            this.error.date = "Tanggal Datang harus diisi";
+    
+            if (Object.getOwnPropertyNames(this.error).length === 0) {
+              // this.flag = true;
+              // this.info.page = 1;
+              // this.info.total=0;
+              this.changeDate();
+          }
+
+            
+}
+
+
+  changeDate(){
     var dataIds=[];
     this.data.forEach(s=>{
         if(s.isEdit){
