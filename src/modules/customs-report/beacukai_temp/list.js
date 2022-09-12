@@ -55,6 +55,7 @@ export class List {
     columns.push({ field: 'noAju', title: 'No Aju' });
     columns.push({ field: 'bcNo', title: 'No Daftar' });
     columns.push({ field: 'tglBCNO', title: 'Tgl BC No',formatter: value => moment(value).format("DD MMM YYYY") });
+    columns.push({ field: 'namaSupplier', title: 'Nama Supplier' });
 
     var bootstrapTableOptions = {
       columns: columns,
