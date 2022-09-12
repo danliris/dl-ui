@@ -9,12 +9,19 @@ export class Detail {
 		this.error = context.error;
 		this.isCreate = context.context.options.isCreate;
 		this.isEdit = context.context.options.isEdit;
+		this.readOnly = context.context.options.readOnly;
 		this.options = context.options;
 		if (!this.data.Uom) {
 			this.data.Uom = {};
 		}
 		if (this.data.Uom) {
 		this.data.Uom = this.data.Uom;
+		this.itemOptions = {
+				error: this.error,
+				isCreate: this.isCreate,
+				isEdit: this.isEdit,
+				readOnly: this.readOnly
+			};
 		}
 	}
 
