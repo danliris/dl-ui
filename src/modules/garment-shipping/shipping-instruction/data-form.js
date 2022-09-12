@@ -102,6 +102,7 @@ export class DataForm {
             .then(result=>{
                 var pl= result.data[0];
                 this.data.truckingDate=pl.truckingDate;
+                this.data.marks=pl.shippingMark;
                 // this.coreService.getBuyerById(this.data.buyerAgent.id)
                 // .then(buyer=>{
                 //     var city= buyer.City==null ? "": "\n" + buyer.City ;
