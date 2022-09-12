@@ -94,12 +94,6 @@ save(){
 
 
   changeDate(){
-
-    this.error = {};
-    if (!this.date || this.date == "Invalid Date")
-            this.error.date = "Tanggal Datang harus diisi";
-
-   
     var dataIds=[];
     this.data.forEach(s=>{
         if(s.isEdit){
