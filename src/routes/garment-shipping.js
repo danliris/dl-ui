@@ -42,6 +42,20 @@ module.exports = [
         }
     },
     {
+        route: "master/garment-ware-house",
+        name: "garment-ware-house",
+        moduleId: "modules/master/garment-ware-house/index",
+        nav: true,
+        title: "Pergudangan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "master/garment-forwarder",
         name: "garment-forwarder",
         moduleId: "modules/master/garment-forwarder/index",
