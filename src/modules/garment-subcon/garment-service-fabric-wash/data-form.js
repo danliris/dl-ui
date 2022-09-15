@@ -55,7 +55,7 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
-            isEdit: this.isEdit,
+            isEdit: this.context.isEdit,
 
         }
         if (this.data && this.data.Items) {
