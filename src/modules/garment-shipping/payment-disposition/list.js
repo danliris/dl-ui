@@ -9,11 +9,12 @@ export class List {
     context = ["detail","Cetak PDF"]
 
     columns = [
-        { field: "dispositionNo", title: "No LampiranDisposisi" },
+        { field: "dispositionNo", title: "No Lampiran Disposisi" },
         { field: "paymentType", title: "Jenis Pembayaran" },
         { field: "BuyerAgentName", title: "Buyer" },
         { field: "ForwarderName", title: "Forwarder" },
         { field: "EMKLName", title: "EMKL" },
+        { field: "WareHouseName", title: "Gudang" },        
         { field: "CourierName", title: "Kurir" },
         {
             field: "paymentDate", title: "Tanggal Disposisi", formatter: function (value, data, index) {
@@ -40,6 +41,7 @@ export class List {
                     data.ForwarderName = data.forwarder.name;
                     data.EMKLName = data.emkl.name;
                     data.CourierName=data.courier.name;
+                    data.WareHouseName=data.warehouse.name;                    
                     data.BuyerAgentName=data.buyerAgent.name;
                 }
                 return {

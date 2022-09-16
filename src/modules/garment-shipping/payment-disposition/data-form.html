@@ -183,7 +183,64 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
-                
+
+                <au-autocomplete 
+                    label="Gudang" 
+                    placeholder="Pilih Gudang" 
+                    value.bind="selectedWarehouse"
+                    error.bind="error.warehouse" 
+                    loader.bind="warehouseLoader" 
+                    text.bind="warehouseView"
+                    read-only.bind="readOnly" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-textbox 
+                    label="Alamat Gudang" 
+                    value.bind="data.address"
+                    error.bind="error.address" 
+                    read-only.bind="true" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="NPWP Gudang" 
+                    value.bind="data.npwp"
+                    error.bind="error.npwp" 
+                    read-only.bind="true" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="No Invoice Gudang" 
+                    value.bind="data.invoiceNumber"
+                    error.bind="error.invoiceNumber" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-datepicker 
+                    label="Tanggal Invoice Gudang" 
+                    value.bind="data.invoiceDate" 
+                    error.bind="error.invoiceDate"
+                    read-only.bind="readOnly" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-textbox 
+                    label="No Faktur Pajak Gudang" 
+                    value.bind="data.invoiceTaxNumber"
+                    error.bind="error.invoiceTaxNumber" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+               
                 <au-autocomplete 
                     label="Kurir" 
                     placeholder="Pilih kurir" 
