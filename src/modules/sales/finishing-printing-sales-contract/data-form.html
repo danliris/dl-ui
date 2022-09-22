@@ -192,34 +192,54 @@
           value.bind="data.Amount"
           error.bind="error.Amount"
           read-only.bind="readOnly"
-          if.bind="isExport"
           options.bind="controlOptions">
         </au-numeric>
 
-        <au-dropdown
+        <!-- <au-numeric
+          label="Amount"
+          value.bind="data.Amount"
+          error.bind="error.Amount"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          options.bind="controlOptions">
+        </au-numeric> -->
+
+        <!-- <au-dropdown
           label="Cara Pembayaran"
           value.bind="data.PaymentMethods"
           items.bind="categoryPayment"
           read-only.bind="readOnly"
           options.bind="controlOptions">
-        </au-dropdown>
+        </au-dropdown> -->
 
-        <au-textbox
+        <au-autocomplete
+          label="Cara Pembayaran"
+          value.bind="data.TermOfPayment"
+          error.bind="error.TermOfPaymentID"
+          read-only.bind="readOnly"
+          loader.bind="termOfPaymentLoader"
+          text="Name"
+          key="Name"
+          options.bind="controlOptions"
+          placeholder="pilih syarat pembayaran">
+        </au-autocomplete>
+
+        <!-- <au-textbox
         label="Hari"
         value.bind="data.Day"
         error.bind="error.Day"
         placeholder="Masukkan hari"
-        if.bind="data.PaymentMethods"
+        if.bind="data.TermOfPayment"
         read-only.bind="readOnly"
         options.bind="controlOptions">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-dropdown
         label="Down Payment (DP)"
         value.bind="data.DownPayments"
         items.bind="categoryDP"
         read-only.bind="readOnly"
-        if.bind="data.PaymentMethods"
+        if.bind="data.TermOfPayment"
         options.bind="controlOptions">
       </au-dropdown>
       
@@ -233,7 +253,7 @@
         options.bind="controlOptions">
         </au-numeric>
 
-      <au-numeric
+      <!-- <au-numeric
       label="Pembayaran Down Payment"
       value.bind="data.PriceDP"
       error.bind="error.PriceDP"
@@ -241,7 +261,7 @@
       if.bind="data.DownPayments"
       read-only="true"
       options.bind="controlOptions">
-      </au-numeric>
+      </au-numeric> -->
 
       <div class="row">
 
@@ -506,6 +526,15 @@
           read-only.bind="readOnly"
           options.bind="controlOptions">
         </au-dropdown>
+
+        <au-multiline
+        label="Keterangan"
+        value.bind="data.Description"
+        read-only.bind="readOnly"
+        rows.bind="8"
+        options.bind="controlOptions"
+        placeholder="input keterangan">
+      </au-multiline>
         
         <au-numeric
           label="Batas Point"
