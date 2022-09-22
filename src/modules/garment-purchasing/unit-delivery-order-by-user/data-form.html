@@ -57,7 +57,7 @@
                 </au-autocomplete>
                 
                 <au-autocomplete
-                    if.bind="isTransfer || isSTransfer"
+                    if.bind="isTransfer || isSTransfer || isSubcon"
                     disabled.bind="!data.UnitRequest"
                     label="Gudang yang meminta"
                     value.bind="storageRequest"
@@ -75,7 +75,7 @@
                     label="Unit yang mengirim"
                     value.bind = "unitSender"
                     error.bind="error.UnitSender"
-                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain || isSubcon"
+                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain"
                     loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"

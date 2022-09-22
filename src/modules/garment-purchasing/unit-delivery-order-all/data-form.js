@@ -196,13 +196,13 @@ export class DataForm {
         var selectedUnit = newValue;
         if (selectedUnit) {
             this.data.UnitRequest = selectedUnit;
-            if (this.isProses || this.isSample || this.isRemain || this.isSubcon) {
+            if (this.isProses || this.isSample || this.isRemain) {
                 this.unitSender = selectedUnit;
             }
         }
         else {
             this.data.UnitRequest = null;
-            if (this.isProses || this.isSample|| this.isRemain || this.isSubcon || this.isSTransfer) {
+            if (this.isProses || this.isSample|| this.isRemain || this.isSTransfer) {
                 this.unitSender = null;
             }
             this.context.unitRequestViewModel.editorValue = "";
