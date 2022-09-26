@@ -84,7 +84,7 @@
                     value.bind="data.NettWeight"
                     label="NW per Satuan"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2">
                 </au-numeric>
                 <au-numeric
@@ -92,7 +92,7 @@
                     value.bind="data.GrossWeight"
                     label="GW per Satuan"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2">
                 </au-numeric>
             </div>
@@ -102,7 +102,7 @@
                     value.bind="data.Quantity"
                     label="Jumlah"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2">
                 </au-numeric>
         
@@ -114,7 +114,7 @@
                     text="Unit" 
                     placeholder="Satuan" 
                     query.bind="Uomfilter"
-                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2">
                 </au-autocomplete>
         
@@ -155,7 +155,7 @@
                     value.bind="data.CIF"
                     label="Nilai CIF"
                     format="0.00"
-                    read-only.bind="readOnly || data.IsUsed || isEdit"
+                    read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2"
                     if.bind="data.ContractType == 'SUBCON BAHAN BAKU' || data.ContractType == 'SUBCON JASA'">
                 </au-numeric>
