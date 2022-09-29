@@ -492,7 +492,7 @@ export class List {
             this.error ={};
             if(Object.getOwnPropertyNames(this.error).length === 0){
                 if(!this.BCNo){
-                    console.log(this.BCNo)
+                    // console.log(this.BCNo)
                     alert("No Dokumen harus Diisi");
                 }else{
                 let args = {
@@ -504,9 +504,9 @@ export class List {
                 };
             
                 this.service.generateExcel(args)
-                .catch(e => {
-                    alert(e.replace(e, "Error:",""));
-                });
+                .catch((result) => {
+                    alert("Data Tidak Ditemukan.");
+                } )
             }
             }
         }
