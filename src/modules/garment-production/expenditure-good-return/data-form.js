@@ -1,9 +1,9 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service,SalesService,PurchasingService } from "./service";
+import { Service,SalesService,PurchasingService,CustomReportService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 
-@inject(Service,SalesService,PurchasingService)
+@inject(Service,SalesService,PurchasingService,CustomReportService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -16,11 +16,13 @@ export class DataForm {
     @bindable selectedDO;
     @bindable itemOptions = {};
     @bindable selectedUnit;
+    @bindable selectedBCNo;
 
-    constructor(service,salesService,purchasingService) {
+    constructor(service,salesService,purchasingService,customReportService) {
         this.service = service;
         this.salesService=salesService;
         this.purchasingService=purchasingService;
+        this.customReportService=customReportService;
     }
     
     formOptions = {
@@ -91,11 +93,14 @@ export class DataForm {
     }
 
 get EGLoader() {
+    // console.log(keyword);
         return (keyword) => {
             var info = {
               keyword: keyword,
               filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
             };
+            if (keyword.length >= 5)
+            {
             return this.service.getExpenditureGoodByNo(info)
                 .then((result) => {
                     var roList=[];
@@ -113,10 +118,13 @@ get EGLoader() {
                         return roList;
                     
                 });
-        }
+            }
+    
+    }
     }
 
 get GDOLoader() {
+        
         return (keyword) => {
             var info = {
               keyword: keyword,
@@ -128,6 +136,24 @@ get GDOLoader() {
                     return result.data;
                 });
         }
+    
+    }
+
+    get GBCNoLoader() {
+        return (keyword) => {
+            var info = {
+              keyword: keyword,
+            };
+            return this.customReportService.getBCNo(info)
+                .then((result) => {
+                    console.log(result.data);
+                    return result.data;
+                });
+        }
+    }
+
+    BCNoView=(bc) => {
+        return `${bc.BCNo}`;
     }
 
     get unitLoader() {
@@ -162,28 +188,44 @@ get GDOLoader() {
         }
     }
 
-   async selectedDOChanged(newValue, oldValue){
-        this.selectedDO = null;
-        this.data.DONo = null;
-        this.data.BCNo = null;
-        this.data.BCType = null;        
-        this.data.URNNo = null;
+//    async selectedDOChanged(newValue, oldValue){
+//         this.selectedDO = null;
+//         this.data.DONo = null;
+//         this.data.BCNo = null;
+//         this.data.BCType = null;        
+//         this.data.URNNo = null;
         
+//         if(newValue) 
+//            {
+//             this.data.DONo = newValue.DONo;            
+//             this.data.BCNo = newValue.BeacukaiNo;            
+//             this.data.BCType = newValue.CustomsType;
+//             this.data.URNNo = newValue.URNNo;
+//            }                
+//         else
+//            {
+//             this.context.selectedDOViewModel.editorValue = "";
+//             this.data.DONo = null;
+//             this.data.BCNo = null;
+//             this.data.BCType = null;        
+//             this.data.URNNo = null;
+//            }
+//     }
+
+    async selectedBCNoChanged(newValue, oldValue)
+    {
+        this.data.BCNo = null;
+        this.data.BCType = null;
         if(newValue) 
-           {
-            this.data.DONo = newValue.DONo;            
-            this.data.BCNo = newValue.BeacukaiNo;            
-            this.data.BCType = newValue.CustomsType;
-            this.data.URNNo = newValue.URNNo;
+           {         
+            this.data.BCNo = newValue.BCNo;            
+            this.data.BCType = newValue.JenisBC;
            }                
         else
            {
-            this.context.selectedDOViewModel.editorValue = "";
-            this.data.DONo = null;
             this.data.BCNo = null;
             this.data.BCType = null;        
-            this.data.URNNo = null;
-           }
+           }      
     }
 
     async selectedEGChanged(newValue, oldValue){

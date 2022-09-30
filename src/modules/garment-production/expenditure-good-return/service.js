@@ -106,4 +106,17 @@ class PurchasingService extends RestService {
     }
 }
 
-export { Service,SalesService,PurchasingService }
+const serviceUriBCNo = 'customs-reports/getTemp/byBCNo';
+class CustomReportService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "customs-report");
+    }
+
+    getBCNo(info) {
+        console.log(info);
+        var endpoint = `${serviceUriBCNo}`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service,SalesService,PurchasingService,CustomReportService }
