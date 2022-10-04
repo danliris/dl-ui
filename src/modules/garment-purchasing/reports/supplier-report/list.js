@@ -82,7 +82,7 @@ export class List {
                             quantity : data.Quantity,
                             uomUnit : data.UOMUnit,
                             smallQty : data.SmallQty,
-                            smallUom : data.SmallUOM, 
+                            smallUom : data.SmallUom, 
                             Amount : data.AmountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                         });
                         

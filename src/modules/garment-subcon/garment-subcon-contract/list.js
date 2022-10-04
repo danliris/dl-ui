@@ -6,10 +6,21 @@ var moment = require("moment");
 
 @inject(Router, Service,AuthService)
 export class List {
+
     constructor(router, service,authService) {
         this.service = service;
         this.router = router;
         this.authService=authService;
+    }
+
+    rowFormatter(data, index) {
+        if (data.BPJNo && data.SKEPNo){
+            return { classes: "success" }
+        }
+        else
+        {
+            return { classes: "danger" }
+        }
     }
 
     filter={};
@@ -32,7 +43,7 @@ export class List {
             },
         },
         { field: "SupplierName", title: "Penerima" },
-        { field: "BuyerName", title: "Buyer" },
+        // { field: "BuyerName", title: "Buyer" },
         { field: "Quantity", title: "Quantity" },
         { field: "UomUnit", title: "Satuan" },
         { field: "JobType", title: "Jenis Pekerjaan", sortable: false },
@@ -43,6 +54,7 @@ export class List {
               return moment(value).format("DD MMM YYYY")
             },
         },
+        { field: "CreatedBy", title: "Staff Pembelian" }
     ]
 
     loader = (info) => {
@@ -66,7 +78,7 @@ export class List {
             result.data.forEach(s => {
                 s.SupplierCode=s.Supplier.Code;
                 s.SupplierName=s.Supplier.Name;
-                s.BuyerName=s.Buyer.Name;
+                // s.BuyerName=s.Buyer.Name;
                 s.UomUnit=s.Uom.Unit;
             });
             return {

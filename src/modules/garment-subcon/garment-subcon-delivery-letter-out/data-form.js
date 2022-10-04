@@ -72,23 +72,35 @@ export class DataForm {
             "Asal Unit",
             "Jenis Subcon",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnBBPanel:[
             "No Subcon BB Shrinkage/Panel",
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnBBWash : [
             "No Subcon BB Fabric Wash/Print",
             "Tgl Subcon",
             //"Asal Unit",
             "Jumlah",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ],
         columnsServiceWash:[
             "No Subcon Jasa Garment Wash",
             "Tgl Subcon",
             "Jumlah",
+            "RONo",
+            "Article",
+            "Buyer",
+            "Komoditi",
+            "Jumlah Kemasan",
+            "Satuan Kemasan"
         ]
     }
 
@@ -130,6 +142,7 @@ export class DataForm {
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
             isSubconCutting:this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false,
+            isSubconSewing:this.data.SubconCategory=="SUBCON JASA GARMENT WASH"?true : false,
             subconCategory:this.data.SubconCategory
         }
 
@@ -146,6 +159,11 @@ export class DataForm {
                     PO_SerialNumber: this.data.PONo,
                     Id:this.data.EPOItemId
                 }
+            }
+            else if (this.isSubconSewing) {
+                this.data.SubconId=newValue.Id;
+                var subcon = await this.service.readServiceSubconSewingById(this.data.SubconId);
+                this.data.Details = subcon.Items;
             }
         }
     }
@@ -197,6 +215,7 @@ export class DataForm {
         }
         
         this.itemOptions.isSubconCutting=this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false;
+        this.itemOptions.isSubconSewing=this.data.SubconCategory=="SUBCON JASA GARMENT WASH"?true : false;
     }
 
     // selectedServiceTypeChanged(newValue){
@@ -405,6 +424,7 @@ export class DataForm {
             }
             this.itemOptions.subconCategory=this.data.SubconCategory
             this.itemOptions.isSubconCutting=this.data.SubconCategory=="SUBCON JASA KOMPONEN"?true : false;
+            this.itemOptions.isSubconSewing=this.data.SubconCategory=="SUBCON JASA GARMENT WASH"?true : false;
         }
         
     }

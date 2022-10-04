@@ -105,7 +105,8 @@ export class List {
             case "MD1":
                 filter = Object.assign({
                     IsValidatedMD1: false,
-                    SectionName: this.section.Name
+                    IsValidated: false,                    
+                    ApprovalPR: this.section.ApprovalCC
                 }, this.defaultFilter);
                 break;
             case "Purchasing":
@@ -122,6 +123,7 @@ export class List {
                     IsValidatedMD1: true,
                     IsValidatedPurchasing: true,
                     IsValidatedMD2: false,
+                    ApprovalKadiv: this.section.ApprovalKadiv
                 }, this.defaultFilter);
                 if (this.section) {
                     filter.SectionName = this.section.Name;
@@ -146,13 +148,13 @@ export class List {
 
         switch (this.type) {
             case "MD1":
-                this.section = { Name: username };
+                this.section = { ApprovalCC: username };
                 break;
             case "Purchasing":
                 this.section = null;
                 break;
             case "MD2":
-                this.section = null;
+                this.section = { ApprovalKadiv: username };
                 break;
         }
     }

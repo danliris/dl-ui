@@ -117,6 +117,59 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <tr>
+                        <td>Pengeluaran dan pemasukan barang tersebut diatas</td> 
+                    </tr>
+                    <tr>
+                        <td>Sesuai dengan BC. 261 dengan BC. 262</td>    
+                    </tr>
+                    <br><br>
+                    <au-textbox
+                        label="Izin Subcon (total barang subcon)"
+                        value.bind="totalSubconItem"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                    <au-textbox
+                        label="Realisasi Barang Keluar"
+                        value.bind="totalItemOUT"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                    <au-textbox
+                        label="Sisa Barang Belum Keluar"
+                        value.bind="TotalLeftoverItemOUT"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                </div>
+                <div class="col-sm-6">
+                    <tr>
+                        <td>Sesuai dengan BC.262</td>
+                    </tr>
+                    <br><br>
+                    <au-textbox
+                        label="Barang Keluar"
+                        value.bind="totalItemOUT"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                    <au-textbox
+                        label="Realisasi Barang Masuk"
+                        value.bind="totalItemIN"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                    <au-textbox
+                        label="Sisa Barang Belum Masuk"
+                        value.bind="totalLeftoverItemIN"
+                        read-only.bind="true"
+                        options.bind="controlOptions">
+                    </au-textbox>
+                </div>
+            </div>
         </div>
         
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">

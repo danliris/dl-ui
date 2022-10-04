@@ -1,7 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { GarmentPurchasingService } from "./service";
 
-const UnitLoader = require('../../../../../loader/garment-units-loader');
+// const UnitLoader = require('../../../../../loader/garment-units-loader');
+const UnitLoader = require('../../../../../loader/garment-unitsAndsample-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
 
@@ -28,6 +29,10 @@ export class DataForm {
         control: {
             length: 5
         }
+    };
+
+    queryUnit = {
+        Code: "SMP1"
     };
 
     @computedFrom("readOnly")

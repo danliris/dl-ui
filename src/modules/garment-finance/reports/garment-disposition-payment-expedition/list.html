@@ -12,6 +12,17 @@
                      text="DocumentNo">
     </au-autocomplete>
 
+    <au-autocomplete 
+                value.bind="info.purchaseOrderExternal" 
+                error.bind="error.purchaseOrderExternal"
+                label="Nomor PO Eksternal" 
+                loader.bind="poEksLoader"
+                text.bind="poEksLoaderView"
+                placeholder="Nomor PO Eksternal" 
+                read-only.bind="readOnly" 
+                options.bind="controlOptions">
+    </au-autocomplete>
+
     <au-autocomplete value.bind="info.supplier"
                      error.bind="error.supplier"
                      label="Supplier"

@@ -20,7 +20,7 @@ export class Item {
       this.data.UseVat && this.data.BLAWBNumber !== null
         ? this.data.PPnAmount
         : this.data.UseVat && this.data.BLAWBNumber == null
-        ? this.data.Amount * 0.1
+        ? this.data.Amount * (parseFloat(this.data.VatRate)/100)
         : 0;
     this.incomeTaxAmount =
       this.data.UseIncomeTax && this.data.BLAWBNumber !== null
@@ -48,7 +48,7 @@ export class Item {
         this.data.UseVat && this.data.BLAWBNumber !== null
           ? this.data.PPnAmount
           : this.data.UseVat && this.data.BLAWBNumber == null
-          ? this.data.Amount * 0.1
+          ? this.data.Amount * (parseFloat(this.data.VatRate)/100)
           : 0;
       return this.data.BLAWBNumber !== null
         ? Math.round(
@@ -72,11 +72,13 @@ export class Item {
         this.data.UseVat && this.data.BLAWBNumber !== null
           ? this.data.PPnAmount
           : this.data.UseVat && !this.data.BLAWBNumber == null
-          ? this.data.Amount * 0.1
+          ? this.data.Amount * (parseFloat(this.data.VatRate)/100)
           : 0;
       return (
         Math.round((this.data.Amount + vatAmount + Number.EPSILON) * 100) / 100
       );
+
+     
     }
   }
 }

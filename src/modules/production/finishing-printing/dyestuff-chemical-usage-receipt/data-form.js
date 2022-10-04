@@ -28,6 +28,15 @@ export class DataForm {
         },
     };
 
+    controlOptionsTotal = {
+        label: {
+            length: 6,
+        },
+        control: {
+            length: 6,
+        },
+    };
+
     sppQuery = {
         OrderTypeName: 'PRINTING'
     };

@@ -42,6 +42,20 @@ module.exports = [
         }
     },
     {
+        route: "master/garment-ware-house",
+        name: "garment-ware-house",
+        moduleId: "modules/master/garment-ware-house/index",
+        nav: true,
+        title: "Pergudangan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "master/garment-forwarder",
         name: "garment-forwarder",
         moduleId: "modules/master/garment-forwarder/index",
@@ -445,7 +459,21 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/report/detail-omzet-by-unit",
+        name: "garment-shipping/report/detail-omzet-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-detail-omzet-by-unit/index",
+        nav: true,
+        title: "Report Omzet Garment Per Unit / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -753,10 +781,10 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },
+    },    
     {
         route: "garment-shipping/monitoring/garment-recap-omzet",
         name: "garment-shipping/monitoring/garment-recap-omzet",
@@ -789,6 +817,20 @@ module.exports = [
         route: "garment-shipping/monitoring/omzet-year-unit",
         name: "garment-shipping/monitoring/omzet-year-unit",
         moduleId: "modules/garment-shipping/monitoring/omzet-year-unit/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-year-unit",
+        name: "garment-shipping/monitoring/omzet-year-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-annual-unit/index",
         nav: true,
         title: "Report Omzet Per Tahun Per Unit",
         auth: true,

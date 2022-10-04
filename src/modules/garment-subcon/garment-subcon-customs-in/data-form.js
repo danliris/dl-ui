@@ -68,6 +68,7 @@ export class DataForm {
       isView: this.context.isView,
       checkedAll: this.context.isCreate == true ? false : true,
       isEdit: this.isEdit,
+      SCId: this.data.SubconContractId
     };
 
     if (this.data && this.data.Id) {
@@ -85,18 +86,24 @@ export class DataForm {
   selectedSubconTypeChanged(newValue, oldValue) {
     if (newValue != this.data.SubconType) {
       this.data.SubconType = newValue;
-      this.selectedSubconContract = null;
+      //this.selectedSubconContract = null;
       this.selectedSupplier = null;
       this.dataSC = null;
-      this.data.SubconContractNo = null;
+      //this.data.SubconContractNo = null;
     }
   }
 
   async selectedSubconContractChanged(newValue) {
+    if(this.data.Items && !this.data.Id){
+      this.data.Items.splice(0);
+    }
     if (newValue) {
       this.data.Supplier = newValue.Supplier;
       this.data.SubconContractId = newValue.Id;
       this.data.SubconContractNo = newValue.ContractNo;
+      this.selectedSubconCategory = newValue.SubconCategory;
+      this.selectedSubconType = newValue.ContractType;
+      this.itemOptions.SCId=this.data.SubconContractId;
       this.selectedSupplier =
         newValue.Supplier.Code + " - " + newValue.Supplier.Name;
       //newValue.Quantity = newValue.Quantity;
@@ -118,7 +125,8 @@ export class DataForm {
     return (event) => {
       if (this.data.Supplier != null) {
         this.data.Items.push({
-          Supplier: this.data.Supplier
+          Supplier: this.data.Supplier,
+          SCId:this.data.SubconContractId
         });
       } else {
         alert("Supplier harus di isi");
@@ -140,10 +148,10 @@ export class DataForm {
   selectedSubconCategoryChanged(newValue) {
     if (newValue != this.data.SubconCategory) {
       this.data.SubconCategory = newValue;
-      this.selectedSubconContract = null;
+      //this.selectedSubconContract = null;
       this.selectedSupplier = null;
       this.dataSC = null;
-      this.data.SubconContractNo = null;
+      //this.data.SubconContractNo = null;
     } else {
       this.data.SubconCategory = null;
     }

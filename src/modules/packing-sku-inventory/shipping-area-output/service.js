@@ -1,5 +1,6 @@
 import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'output-shipping';
+const serviceUri2 = 'output-shipping2222';
 const ccServiceUri = 'sales/finishing-printing-cost-calculations';
 export class Service extends RestService {
 
@@ -23,11 +24,13 @@ export class Service extends RestService {
     }
 
     create(data) {
+        console.log(data);
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
     }
 
     update(data) {
+        console.log(data);
         var endpoint = `${serviceUri}/${data.id}`;
         return super.put(endpoint, data);
     }
@@ -39,6 +42,11 @@ export class Service extends RestService {
 
     getPdfById(id, type) {
         var endpoint = `${serviceUri}/pdf/${id}/${type}`;
+        return super.getPdf(endpoint);
+    }
+
+    getPdfPackingListSalesById(id) {
+        var endpoint = `${serviceUri}/pdf/packinglist/${id}`;
         return super.getPdf(endpoint);
     }
 

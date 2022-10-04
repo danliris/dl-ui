@@ -1,7 +1,7 @@
 <template>
     <require from="../../../../au-components/form/input/_input"></require>
        <require from="../../../../lib/number-format-value-converter"></require>
-       <h1 class="page-header">Report Rincian Omzet Garment Per Unit</h1>
+       <h1 class="page-header">Report Omzet Garment Per Unit</h1>
        <form class="form-horizontal">
            <au-autocomplete 
                label="Unit"
@@ -32,65 +32,64 @@
                <thead>
                    <tr>
                        <th class="text-center">NO</th>
+                       <th class="text-center">KONFEKSI</th>                       
                        <th class="text-center">INVOICE NO</th>
-                       <th class="text-center">KONFEKSI</th>
+                       <th class="text-center">TGL TRUCKING</th>
+                       <th class="text-center">TGL PEB</th>
                        <th class="text-center">NAMA BUYER</th>
                        <th class="text-center">I  T  E  M</th>
-                       <th class="text-center">STYLE ORD / ARTICLE NO</th>
-                       <th class="text-center">QUANTITY</th>
-                       <th class="text-center">SATUAN</th>
-                       <th class="text-center">QUANTITY IN PCS</th>
-                       <th class="text-center">AMOUNT</th>
-                       <th class="text-center">AMOUNT IDR</th>
                        <th class="text-center">NO RO</th>
-                       <th class="text-center">TGL TRUCKING</th>
-                       <!-- <th class="text-center">NO BON</th> -->
-                      
+                       <!--<th class="text-center">STYLE ORD / ARTICLE NO</th>-->
+                       <th class="text-center">QUANTITY</th>
+                       <th class="text-center">SATUAN</th>                    
+                       <th class="text-center">AMOUNT</th>
+                       <th class="text-center">MATA UANG</th>                       
+                       <th class="text-center">RATE</th>                       
+                       <th class="text-center">AMOUNT IDR</th>                      
                    </tr>
                </thead>
                    <tbody>
                         <template repeat.for="invoice of invoices">
                         <tr repeat.for="item of invoice.data">
                            <td class="text-center"> ${$index + 1}</td>  
-                           <td>${item.invoiceNo}</td>
                            <td>${item.unitCode}</td>                                    
+                           <td>${item.invoiceNo}</td>
+                           <td>${item.truckingDate}</td>               
+                           <td>${item.pebDate}</td>                                          
                            <td>${item.buyerAgentName}</td>
-                           <td>${item.comodityName}</td>                  
-                           <td>${item.articleStyle}</td>
-                           <td align="right">
-                               <strong>
-                               <au-numeric value.bind="item.quantity" read-only="true"></au-numeric>
-                               </strong>
-                           </td>
-                           <td>${item.uomUnit}</td>
+                           <td>${item.comodityName}</td>     
+                           <td>${item.roNumber}</td>                                    
+                           <!--<td>${item.articleStyle}</td>                       -->
                            <td align="right">
                                <strong>
                                <au-numeric value.bind="item.quantityInPCS" read-only="true"></au-numeric>
                                </strong>
                            </td>
+                           <td>${item.uomUnit}</td>                           
                            <td align="right">
                                <strong>
                                <au-numeric value.bind="item.amount" read-only="true"></au-numeric>
                                </strong>
-                           </td>                      
+                           </td>     
+                           <td>${item.currencyCode}</td>                           
+                           <td align="right">
+                               <au-numeric value.bind="item.rate" read-only="true"></au-numeric>
+                           </td>                                            
                            <td align="right">
                                <strong>
                                <au-numeric value.bind="item.amountIDR" read-only="true"></au-numeric>
                                </strong>
-                           </td>                        
-                           <td>${item.roNumber}</td>                                    
-                           <td>${item.truckingDate}</td>
-                           <!-- <td>${item.expenditureGoodNo}</td> -->
+                           </td>                                                 
                         </tr>  
                     </template>    
                        <tr class="active">
-                           <td class="text-center" colspan="7"><strong>T O T A L . . . . . . :</strong></td>
-                           <td class="text-right"><strong>${QtyTotal1}</strong></td>    
+                           <td class="text-center" colspan="8"><strong>T O T A L . . . . . . :</strong></td>
+                           <td class="text-right"><strong>${QtyTotal1}</strong></td>   
+                           <td class="text-right"><strong>.</strong></td>    
                            <td class="text-right"><strong>${AmountTtlUSD}</strong></td>                                             
+                           <td class="text-right"><strong>.</strong></td>    
+                           <td class="text-right"><strong>.</strong></td>                               
                            <td class="text-right"><strong>${AmountTtlIDR}</strong></td>                     
-                           <td class="text-right"><strong>.</strong></td>    
-                           <td class="text-right"><strong>.</strong></td>    
-                           <td class="text-right"><strong>.</strong></td>                                                        
                        </tr>              
                    </tbody>
                </table>           

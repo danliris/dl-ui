@@ -183,7 +183,64 @@
                     read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
-                
+
+                <au-autocomplete 
+                    label="Gudang" 
+                    placeholder="Pilih Gudang" 
+                    value.bind="selectedWarehouse"
+                    error.bind="error.warehouse" 
+                    loader.bind="warehouseLoader" 
+                    text.bind="warehouseView"
+                    read-only.bind="readOnly" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-textbox 
+                    label="Alamat Gudang" 
+                    value.bind="data.address"
+                    error.bind="error.address" 
+                    read-only.bind="true" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="NPWP Gudang" 
+                    value.bind="data.npwp"
+                    error.bind="error.npwp" 
+                    read-only.bind="true" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox 
+                    label="No Invoice Gudang" 
+                    value.bind="data.invoiceNumber"
+                    error.bind="error.invoiceNumber" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-datepicker 
+                    label="Tanggal Invoice Gudang" 
+                    value.bind="data.invoiceDate" 
+                    error.bind="error.invoiceDate"
+                    read-only.bind="readOnly" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-textbox 
+                    label="No Faktur Pajak Gudang" 
+                    value.bind="data.invoiceTaxNumber"
+                    error.bind="error.invoiceTaxNumber" 
+                    if.bind="data.paymentType=='PERGUDANGAN'"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptions">
+                </au-textbox>
+               
                 <au-autocomplete 
                     label="Kurir" 
                     placeholder="Pilih kurir" 
@@ -389,6 +446,26 @@
                     add.bind="addbills"
                     options.bind="Options"
                     item-template="modules/garment-shipping/payment-disposition/template/bill">
+                </au-collection>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-md-6">
+    
+                <p show.bind="data.paymentType=='FORWARDER'">Perincian Pembayaran :</p>
+                <div class="form-group has-error">
+                    <p if.bind="error.paymentDetailsCount" class="help-block text-center">${error.paymentDetailsCount}</p>
+                </div>
+                <au-collection 
+                    items.bind="data.paymentDetails" 
+                    errors.bind="error.payments" 
+                    columns.bind="paymentsColumns"
+                    read-only.bind="readOnly" 
+                    remove.bind="removepayments"
+                    add.bind="addpayments"
+                    options.bind="Options"
+                    show.bind="data.paymentType=='FORWARDER'"
+                    item-template="modules/garment-shipping/payment-disposition/template/payment">
                 </au-collection>
             </div>
         </div>

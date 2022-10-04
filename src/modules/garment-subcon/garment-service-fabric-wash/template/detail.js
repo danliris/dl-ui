@@ -10,6 +10,7 @@ export class Detail {
         
         this.itemOptions=context.context.options;
         this.isShowing = true;
+        console.log(this.itemOptions)
     }
 
     toggle() {

@@ -8,6 +8,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var PRLoader = require('../../../loader/purchase-request-by-user-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
+var SPBLoader = require('../../../loader/unit-payment-order-loader')
 
 @inject(Service)
 
@@ -91,6 +92,7 @@ export class List {
         this.pr=null;
         this.unit = null;
         this.supplier = null;
+        this.spb = null;
         this.category = null;
         this.budget = null;
         this.poStatus = "";
@@ -113,7 +115,8 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             supplierId: this.supplier ? this.supplier._id: "",
-             unitId: this.unit ? this.unit.Id : "",
+            noSPB: this.spb ? this.spb.no:"",
+            unitId: this.unit ? this.unit.Id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
@@ -145,7 +148,8 @@ export class List {
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             let args = {
             supplierId: this.supplier ? this.supplier._id: "",
-             unitId: this.unit ? this.unit.Id : "",
+            noSPB: this.spb ? this.spb.no:"",
+            unitId: this.unit ? this.unit.Id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
 
@@ -176,6 +180,10 @@ export class List {
     
     get budgetLoader() {
         return BudgetLoader;
+    }
+
+    get spbLoader() {
+        return SPBLoader;
     }
 
     prView = (tr) => {

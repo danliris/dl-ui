@@ -69,7 +69,7 @@ export class List {
                 this.filter = {
                     IsApprovedMD: false,
                     IsPosted: true,
-                    SectionName: username
+                    ApprovalCC: username
                 };
                 break;
             case "ie":
@@ -84,7 +84,8 @@ export class List {
                     IsApprovedMD: true,
                     IsApprovedPurchasing: true,
                     IsApprovedIE: true,
-                    IsApprovedKadivMD: false
+                    IsApprovedKadivMD: false,
+                    ApprovalKadiv: username
                 };
                 break;
             default:

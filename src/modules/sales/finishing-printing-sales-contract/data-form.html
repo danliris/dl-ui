@@ -192,9 +192,160 @@
           value.bind="data.Amount"
           error.bind="error.Amount"
           read-only.bind="readOnly"
-          if.bind="isExport"
           options.bind="controlOptions">
         </au-numeric>
+
+        <!-- <au-numeric
+          label="Amount"
+          value.bind="data.Amount"
+          error.bind="error.Amount"
+          read-only.bind="readOnly"
+          if.bind="isExport"
+          options.bind="controlOptions">
+        </au-numeric> -->
+
+        <!-- <au-dropdown
+          label="Cara Pembayaran"
+          value.bind="data.PaymentMethods"
+          items.bind="categoryPayment"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+        </au-dropdown> -->
+
+        <au-autocomplete
+          label="Cara Pembayaran"
+          value.bind="data.TermOfPayment"
+          error.bind="error.TermOfPaymentID"
+          read-only.bind="readOnly"
+          loader.bind="termOfPaymentLoader"
+          text="Name"
+          key="Name"
+          options.bind="controlOptions"
+          placeholder="pilih syarat pembayaran">
+        </au-autocomplete>
+
+        <!-- <au-textbox
+        label="Hari"
+        value.bind="data.Day"
+        error.bind="error.Day"
+        placeholder="Masukkan hari"
+        if.bind="data.TermOfPayment"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-textbox> -->
+
+        <au-dropdown
+        label="Down Payment (DP)"
+        value.bind="data.DownPayments"
+        items.bind="categoryDP"
+        read-only.bind="readOnly"
+        if.bind="data.TermOfPayment"
+        options.bind="controlOptions">
+      </au-dropdown>
+      
+      <au-numeric
+        label=" Down Payment (%)"
+        value.bind="data.PrecentageDP"
+        error.bind="error.PrecentageDP"
+        placeholder="Masukkan harga"
+        if.bind="data.DownPayments"
+        read-only.bind="readOnly"
+        options.bind="controlOptions">
+        </au-numeric>
+
+      <!-- <au-numeric
+      label="Pembayaran Down Payment"
+      value.bind="data.PriceDP"
+      error.bind="error.PriceDP"
+      placeholder="Masukkan harga"
+      if.bind="data.DownPayments"
+      read-only="true"
+      options.bind="controlOptions">
+      </au-numeric> -->
+
+      <div class="row">
+
+          <div class="col-sm-2" style="padding-left: 10%;">
+            
+            <textbox label="Denda Keterlambatan" read-only="true"></textbox>
+            
+          </div>
+
+          <div class="col-sm-6">
+            
+            <au-textbox
+              value.bind="data.LatePayment"
+              error.bind="error.LatePayment"
+              placeholder="input denda"
+              read-only.bind="readOnly"
+              options.bind="controlOptions">
+            </au-textbox>
+            
+          </div>
+
+          <div class="col-sm-1">
+
+              <textbox label="%" read-only="true"></textbox>
+
+          </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2" style="padding-left: 10%;">
+          
+          <textbox label="Pengembalian Barang" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+
+          <au-textbox
+            value.bind="data.LateReturn"
+            error.bind="error.LateReturn"
+            placeholder="input pengembalian barang"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-2" style="padding-left: 10%;">
+          
+          <textbox label="Pemberitahuan Klaim" read-only="true"></textbox>
+          
+        </div>
+
+        <div class="col-sm-6">
+          
+          <au-textbox
+            value.bind="data.Claim"
+            error.bind="error.Claim"
+            placeholder="input claim"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+          </au-textbox>
+
+        </div>
+
+        <div class="col-sm-1">
+
+          <textbox label="Hari" read-only="true"></textbox>
+
+        </div>
+          
+      </div>
 
       </div>
 
@@ -248,7 +399,7 @@
                      options.bind="controlOptions">
                 </au-autocomplete>
 
-        <au-autocomplete
+        <!-- <au-autocomplete
           label="Syarat Pembayaran"
           value.bind="data.TermOfPayment"
           error.bind="error.TermOfPaymentID"
@@ -258,7 +409,7 @@
           key="Name"
           options.bind="controlOptions"
           placeholder="pilih syarat pembayaran">
-        </au-autocomplete>
+        </au-autocomplete> -->
 
         <au-autocomplete
           label="Pembayaran ke Rekening"
@@ -356,6 +507,18 @@
           placeholder="input komisi">
         </au-textbox>
 
+        <!-- <au-autocomplete
+        label="Jenis Produk"
+        value.bind="data.ProductType"
+        error.bind="error.ProductTypeId"
+        read-only.bind="readOnly"
+        loader.bind="productTypeLoader"
+        key="Name"
+        options.bind="controlOptions"
+        text.bind="productTypeView"
+        placeholder="pilih Jenis Produk">
+        </au-autocomplete> -->
+
         <au-dropdown
           label="Point System"
           value.bind="selectedPointSystem"
@@ -363,6 +526,15 @@
           read-only.bind="readOnly"
           options.bind="controlOptions">
         </au-dropdown>
+
+        <au-multiline
+        label="Keterangan"
+        value.bind="data.Description"
+        read-only.bind="readOnly"
+        rows.bind="8"
+        options.bind="controlOptions"
+        placeholder="input keterangan">
+      </au-multiline>
         
         <au-numeric
           label="Batas Point"
@@ -372,7 +544,7 @@
           if.bind="isFourPointSystem"
           options.bind="controlOptions">
         </numeric>
-        
+
       </div>
 
     </div>

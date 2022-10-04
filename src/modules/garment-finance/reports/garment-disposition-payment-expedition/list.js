@@ -6,6 +6,7 @@ import { Service } from "./service";
 const SupplierLoader = require("../../../../loader/garment-supplier-loader");
 const AccountLoader = require("../../../../loader/account-loader");
 const DispositionLoader = require("../../shared/disposition-note-loader");
+const PurchaseOrderExternalLoader = require('../../../../loader/garment-purchase-order-external-loader');
 
 @inject(Service)
 export class List {
@@ -187,6 +188,14 @@ export class List {
       .then((response) => response.data)
   }
 
+  get poEksLoader(){
+      return PurchaseOrderExternalLoader;
+  }
+
+  poEksLoaderView = (purchaseOrderExternal) => {
+    return purchaseOrderExternal.EPONo;
+  };
+
   get supplierLoader() {
     return SupplierLoader;
   }
@@ -199,6 +208,7 @@ export class List {
 
     let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let epoId = this.info && this.info.purchaseOrderExternal ? this.info.purchaseOrderExternal.Id : 0;
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
@@ -206,7 +216,7 @@ export class List {
 
 
     let params = {
-      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
+      dispositionId, epoId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
 
@@ -230,6 +240,7 @@ export class List {
   excel() {
     let dispositionId = this.info && this.info.dispositionNote ? this.info.dispositionNote.Id : 0;
     let supplierId = this.info && this.info.supplier ? this.info.supplier.Id : 0;
+    let epoId = this.info && this.info.purchaseOrderExternal ? this.info.purchaseOrderExternal.Id : 0;
     let position = this.info && this.info.position ? this.info.position.Value : 0;
     let startDate = this.info.startDate && this.info.startDate != "Invalid Date" ? moment(this.info.startDate).format("YYYY-MM-DD") : null;
     let endDate = this.info.endDate && this.info.endDate != "Invalid Date" ? moment(this.info.endDate).format("YYYY-MM-DD") : null;
@@ -237,7 +248,7 @@ export class List {
 
 
     let params = {
-      dispositionId, supplierId, position, startDate, endDate, purchasingStaff
+      dispositionId, epoId, supplierId, position, startDate, endDate, purchasingStaff
     };
 
     this.service.getXls(params);
@@ -266,6 +277,7 @@ export class List {
   reset() {
     this.flag = false;
     this.info.supplier = undefined;
+    this.info.purchaseOrderExternal = undefined;
     this.info.position = this.positionOptions[0];
     this.info.dispositionNote = undefined;
     this.info.startDate = null;
