@@ -35,7 +35,7 @@
                 options.bind="controlOptions"
                 view-model.ref="selectedROViewModel">
             </au-autocomplete>-->
-
+            
             <au-autocomplete
                 value.bind="selectedEG"
                 error.bind="error.ExpenditureNo"
@@ -88,7 +88,7 @@
                 options.bind="controlOptions">
             </au-textbox>            
 
-            <au-autocomplete
+            <!-- <au-autocomplete
                 value.bind="selectedDO"
                 error.bind="error.DONo"
                 label="No Surat Jalan"
@@ -99,15 +99,27 @@
                 read-only.bind="readOnly || isEdit"
                 options.bind="controlOptions"
                 view-model.ref="selectedDOViewModel">
-            </au-autocomplete>
+            </au-autocomplete> -->
      
-            <au-textbox
+            <!-- <au-textbox
                 value.bind="data.BCNo"
                 error.bind="error.BCNo"
                 label="No Bea Cukai"
                 read-only="true"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox> -->
+
+             <au-autocomplete
+                value.bind="selectedBCNo"
+                error.bind="error.BCNo"
+                label="No Bea Cukai"
+                loader.bind="GBCNoLoader"
+                show.bind="data.Unit"     
+                text.bind="BCNoView"
+                placeholder="No Bea Cukai"
+                read-only.bind="readOnly || isEdit"
+                options.bind="controlOptions">
+            </au-autocomplete>
 
             <au-textbox
                 value.bind="data.BCType"
@@ -117,13 +129,13 @@
                 options.bind="controlOptions">
             </au-textbox>
 
-            <au-textbox
+            <!-- <au-textbox
                 value.bind="data.URNNo"
                 error.bind="error.URNNo"
                 label="No Bon Unit"
                 read-only="true"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox> -->
 
             <au-datepicker 
                 label="Tanggal Retur"
