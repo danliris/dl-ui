@@ -105,30 +105,30 @@ export class InternNoteItem {
 						var prices = detail.doQuantity * detail.pricePerDealUnit;
 						var dueDays = new Date(garmentInvoiceItem.deliveryOrder.doDate);
 						dueDays.setDate(dueDays.getDate() + detail.paymentDueDays);
-						var Details = {
-							ePOId: detail.ePOId,
-							ePONo: detail.ePONo,
-							poSerialNumber: detail.pOSerialNumber,
-							roNo: detail.roNo,
-							pricePerDealUnit: detail.pricePerDealUnit.toLocaleString('en-EN', { maximumFractionDigits: 4, minimumFractionDigits: 4 }),
-							priceTotal: prices.toLocaleString('en-EN', { maximumFractionDigits: 2, minimumFractionDigits: 2 }),
-							paymentDueDays: detail.paymentDueDays,
-							quantity: detail.doQuantity.toLocaleString('en-EN', { maximumFractionDigits: 2, minimumFractionDigits: 2 }),
-							invoiceDetailId: detail.Id,
-							paymentDueDate: new Date(dueDays),
-							deliveryOrder: {
-								Id: garmentInvoiceItem.deliveryOrder.Id,
-								doNo: garmentInvoiceItem.deliveryOrder.doNo,
-								doDate: garmentInvoiceItem.deliveryOrder.doDate,
-								paymentMethod: garmentInvoiceItem.deliveryOrder.paymentMethod,
-								paymentType: garmentInvoiceItem.deliveryOrder.paymentType,
-								items: garmentInvoiceItem.deliveryOrder.items
-							},
-							product: detail.product,
-							uomUnit: detail.uoms,
-							dODetailId: detail.dODetailId
-						};
-						this.details.push(Details);
+						// var Details = {
+						// 	ePOId: detail.ePOId,
+						// 	ePONo: detail.ePONo,
+						// 	poSerialNumber: detail.pOSerialNumber,
+						// 	roNo: detail.roNo,
+						// 	pricePerDealUnit: detail.pricePerDealUnit.toLocaleString('en-EN', { maximumFractionDigits: 4, minimumFractionDigits: 4 }),
+						// 	priceTotal: prices.toLocaleString('en-EN', { maximumFractionDigits: 2, minimumFractionDigits: 2 }),
+						// 	paymentDueDays: detail.paymentDueDays,
+						// 	quantity: detail.doQuantity.toLocaleString('en-EN', { maximumFractionDigits: 2, minimumFractionDigits: 2 }),
+						// 	invoiceDetailId: detail.Id,
+						// 	paymentDueDate: new Date(dueDays),
+						// 	deliveryOrder: {
+						// 		Id: garmentInvoiceItem.deliveryOrder.Id,
+						// 		doNo: garmentInvoiceItem.deliveryOrder.doNo,
+						// 		doDate: garmentInvoiceItem.deliveryOrder.doDate,
+						// 		paymentMethod: garmentInvoiceItem.deliveryOrder.paymentMethod,
+						// 		paymentType: garmentInvoiceItem.deliveryOrder.paymentType,
+						// 		items: garmentInvoiceItem.deliveryOrder.items
+						// 	},
+						// 	product: detail.product,
+						// 	uomUnit: detail.uoms,
+						// 	dODetailId: detail.dODetailId
+						// };
+						// this.details.push(Details);
 					}
 				}
 				this.data.details = this.details;
