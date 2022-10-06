@@ -5,7 +5,7 @@
                 value.bind="selectedSize"
                 error.bind="error.Size"
                 loader.bind="sizeLoader"
-                read-only.bind="readOnly"
+                read-only.bind="true"
                 placeholder="Size"
                 text="Size">
             </au-autocomplete>
@@ -28,7 +28,7 @@
             <au-textbox 
                 value.bind="data.Color"
                 error.bind="error.Color"
-                read-only.bind="readOnly">
+                read-only.bind="true">
             </au-textbox>
         </td>
         <td if.bind="!readOnly">
