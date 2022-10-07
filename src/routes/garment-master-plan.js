@@ -314,5 +314,19 @@ module.exports = [
             permission: { "B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/merchandiser/profit-garment-by-section-report',
+        name: 'profit-garment-by-section-report',
+        moduleId: './modules/merchandiser/report/profit-garment-by-section-report/index',
+        nav: true,
+        title: 'Laporan Profit Garment Per Seksi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            permission: { "B7": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]

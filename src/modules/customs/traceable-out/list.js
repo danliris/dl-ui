@@ -139,9 +139,12 @@ export class List {
                 
                 this.service.generateExcel(args)
                 
-                .catch(e => {
-                    alert(e.replace(e, "Error:",""));
-                });
+                // .catch(e => {
+                //     alert(e.replace(e, "Error:",""));
+                // });
+                .catch((result) => {
+                    alert("Data Tidak Ditemukan.");
+                } )
             }
             }
         }

@@ -75,13 +75,13 @@
             <au-datepicker
                 label="Pilih Tanggal"
                 value.bind="date"
-                error.bind="error"
+                error.bind="error.date"
                 options.bind="controlOptions"
                 if.bind="data"
             ></au-datepicker>
         </div>
         <div class ="col-sm-3" if.bind="data">
-            <button class="btn btn-info" click.delegate="changeDate()" options.bind="controlOptions">Simpan</button>
+            <button class="btn btn-info" click.delegate="save()" options.bind="controlOptions">Simpan</button>
             <button class="btn btn-default" click.delegate="reset()" options.bind="controlOptions">Reset</button>
         </div>
     </div>
