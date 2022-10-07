@@ -1,17 +1,18 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     hasCancel = true;
     hasEdit = false;
     hasDelete = false;
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
     isReceived = false;
 
@@ -49,8 +50,14 @@ export class View {
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data Surat Jalan')
+        .then(response => {
+            if (response.ok) {
+                this.service.delete(this.data).then(result => {
+                    alert("Data berhasil dihapus");
+                    this.cancel();
+                });
+            }
+        })
     }
 }
