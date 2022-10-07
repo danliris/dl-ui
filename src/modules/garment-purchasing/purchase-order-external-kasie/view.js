@@ -94,7 +94,7 @@ export class View {
     }
 
     edit(event) {
-        var r = confirm("Apakah Anda yakin akan Mengubah data ini?");
+        var r = confirm("Apakah Anda yakin akan mengubah data ini?");
         if (r == true) {
             this.router.navigateToRoute('edit', { id: this.data.Id });
         }
