@@ -1,25 +1,28 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service } from "./service";
+import { Service, CoreService } from "./service";
 
 const TransactionTypeLoader = require('../../../loader/garment-transaction-type-loader');
 const BuyerLoader = require('../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesContractLoader=require('../../../loader/garment-shipping-local-sales-contract-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+import AccountBankLoader from "../../../loader/account-banks-loader";
 
-@inject(Service)
+@inject(Service, CoreService)
 export class DataForm {
 
     @bindable readOnly = false;
     @bindable isEdit = false;
     @bindable title;
+    @bindable selectedAccountBank;
     @bindable selectedTransactionType;
     @bindable selectedSalesContract;
     @bindable selectedPaymentType;
     @bindable selectedVatTax;
     @bindable options = { useVat: false };
 
-    constructor(service) {
+    constructor(service, coreService) {
         this.service = service;
+        this.coreService = coreService;
     }
 
     controlOptions = {
@@ -29,6 +32,10 @@ export class DataForm {
         control: {
             length: 5
         }
+    };
+
+    bankFilter = {
+        DivisionName: "G"
     };
 
     filterSC={
@@ -79,6 +86,10 @@ export class DataForm {
         return data.NPWP || data.npwp;
     }
 
+    buyerNIKView = (data) => {
+        return data.NIK || data.nik;
+    }
+    
     buyerKaberView = (data) => {
         return data.KaberType || data.kaberType;
     }
@@ -88,7 +99,7 @@ export class DataForm {
     }
 
     vatTaxView = (vatTax) => {
-       console.log(vatTax);
+      // console.log(vatTax);
        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
 
@@ -102,7 +113,26 @@ export class DataForm {
             this.items.options.transactionTypeId = this.data.transactionType.id;
         }
         
-        if(this.data.id){
+        if(this.data.id){       
+           if(this.data.bank.id){
+                this.coreService.getBankAccountById(this.data.bank.id)
+                .then(result => {                    
+                   this.selectedAccountBank =
+                    {
+                        Id: this.data.bank.id,
+                        BankName: result.BankName,
+                        AccountNumber: result.AccountNumber,
+                        Currency: {
+                            Code: result.Currency.Code
+                        }
+                    };
+                    console.log(this.selectedAccountBank);
+                    this.data.bank = result.BankName;                   
+                 });
+             }
+            
+            this.data.bank.id = this.data.bank.id;          
+
             this.selectedSalesContract={
                 salesContractNo:this.data.salesContractNo,
                 id:this.data.localSalesContractId
@@ -113,7 +143,7 @@ export class DataForm {
             var sc = await this.service.getSCById(this.data.localSalesContractId);
             for(var item of this.data.items){
                 var scItem= sc.items.find(a=>a.id==item.localSalesContractItemId);
-                console.log(sc,item)
+                //console.log(sc,item)
                 if(scItem){
                     item.remQty=scItem.remainingQuantity+item.quantity;
                 }
@@ -205,7 +235,7 @@ export class DataForm {
     }
     
     selectedVatTaxChanged(newValue) {
-        console.log(newValue);
+        //console.log(newValue);
     
         var _selectedVatTax = newValue;
         if (_selectedVatTax) {
@@ -213,10 +243,18 @@ export class DataForm {
             id : _selectedVatTax.Id || _selectedVatTax.id,
             rate : _selectedVatTax.Rate || _selectedVatTax.rate
         } 
-        console.log(this.data.vat.rate);
+        //console.log(this.data.vat.rate);
         } else {
             this.data.vat = {};
         }
+    }
+
+    selectedAccountBankChanged(newValue, oldValue) {
+        if (newValue) {
+             this.data.bank = newValue;
+        
+             console.log(newValue);       
+        }        
     }
 
     get subtotal() {
@@ -247,6 +285,14 @@ export class DataForm {
                 total=this.data.subTotal;
         }
         return total;
+    }
+
+    get accountBankLoader() {
+        return AccountBankLoader;
+    }
+
+    accountBankView = (acc) => {
+        return `${acc.BankName} - ${acc.Currency.Code}`;
     }
 
 }
