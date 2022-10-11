@@ -27,6 +27,7 @@ export class List {
       },
     },
     { field: "Purpose", title: "Keperluan" },
+    { field: "RemarkRealization", title: "Ket" },
     { field: "CurrencyCode", title: "Mata Uang VB" },
     { field: "VBAmount", title: "Nominal VB" },
     { field: "CurrencyCode", title: "Mata Uang Realisasi" },
@@ -101,6 +102,7 @@ export class List {
       },
     },
     { field: "Purpose", title: "Keperluan" },
+    { field: "RemarkRealization", title: "Keterangan Realisasi" },
     { field: "CurrencyCode", title: "Mata Uang VB" },
     {
       field: "VBAmount",
