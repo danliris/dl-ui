@@ -46,11 +46,19 @@ export class View {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        var r = confirm("Apakah Anda yakin akan keluar?")
+        if (r == true) {
+            this.router.navigateToRoute('list');
+        }
+        // this.router.navigateToRoute('list');
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
+        var r = confirm("Apakah Anda yakin akan mengubah data ini?");
+        if (r == true) {
+            this.router.navigateToRoute('edit', { id: this.data.Id });
+        }
+        // this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {
@@ -64,12 +72,16 @@ export class View {
         this.data.items = itemTemp;
         this.items = this.items.slice(itemTemp.length);
 
-        this.service.delete(this.data).then(result => {
-            if (this.size < this.totalData) {
-                this.size += this.size;
-                this.delete(event);
-            }
-            this.cancel();
-        });
+        var r = confirm("Apakah Anda yakin akan menghapus data ini?")
+        if (r == true) {
+            this.service.delete(this.data).then(result => {
+                if (this.size < this.totalData) {
+                    this.size += this.size;
+                    this.delete(event);
+                }
+                this.cancel();
+            });
+        }
+       
     }
 }
