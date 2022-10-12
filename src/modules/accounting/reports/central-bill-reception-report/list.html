@@ -34,7 +34,7 @@
                 <thead align="center">
                     <tr>
                         <td align="center" rowspan="3">NO</td>
-                        <td colspan="31">P U S A T</td>
+                        <td colspan="35">P U S A T</td>
                          <td colspan="2">NOTA PEMBELIAN</td>
                          <td colspan="12">K O N F E K S I</td>
   
@@ -65,7 +65,8 @@
                         <td rowspan="2">NAMA BARANG</td>
                         <td rowspan="2">KETERANGAN BARANG</td>
                         
-                        <td colspan="4">SEBELUM KONVERSI</td>
+                        <!-- <td colspan="4">SEBELUM KONVERSI</td> -->
+                        <td colspan="8">SEBELUM KONVERSI</td>
                         <td colspan="3">SETELAH KONVERSI</td>
 
                         <td rowspan="2">NO NOTA INTERN</td>
@@ -83,7 +84,13 @@
                         <td>QUANTITY</td>
                         <td>SATUAN</td>
                         <td>HARGA</td>
-                        <td>JUMLAH HARGA</td>
+                        <!-- <td>JUMLAH HARGA</td> -->
+                        <td>PPN</td>
+                        <td>DPP</td>
+                        <td>DPP VALAS</td>
+                        <td>RATE</td>
+                        <td>MATA UANG</td>
+
                         <td>NILAI KONVERSI</td>
                         <td>QUANTITY</td>
                         <td>SATUAN</td>
@@ -126,7 +133,13 @@
                         <td align="right">${item.DOQuantity}</td>
                         <td>${item.UOMUnit}</td>
                         <td align="right">${item.PricePerDealUnit}</td>
+
+                       <td align="right">${item.PPN}</td>
                         <td align="right">${item.PriceTotal}</td>
+                        <td align="right">${item.DPPValas}</td>
+                        <td align="right">${item.Rate}</td>
+                        <td>${item.CurencyCode}</td>
+
                         <td align="right">${item.Conversion}</td>
                         <td align="right">${item.SmallQuantity}</td>
                         <td>${item.SmallUOMUnit}</td>

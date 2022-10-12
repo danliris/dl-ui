@@ -55,6 +55,10 @@ export class List {
                     item.URNConversion=item.URNConversion.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
                     item.URNSmallQuantity=item.URNSmallQuantity.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 
+                    item.PPN=item.PPN.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.DPPValas=item.DPPValas.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    item.Rate=item.Rate.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
                     datas.push(item);
                 }
                 this.data = datas;
