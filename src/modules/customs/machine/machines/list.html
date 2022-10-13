@@ -34,7 +34,20 @@
   <br>
   </br>
 
-  <div class="table-responsive">
+  <div id="machine-table">
+    <au-table view-model.ref="tableList"
+              data.bind="loader"
+              columns.bind="columns"
+              sortable="true"
+              page-size="25"
+              options.bind="tableOptions"
+              context.bind="context" 
+              context-click.delegate="contextClickCallback($event)"
+              selectable.bind="true">
+    </au-table>
+  </div>
+
+  <!-- <div class="table-responsive">
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center">
         <tr>
@@ -72,5 +85,5 @@
   </div>
   <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)"></pagination>
   <hr />
-  </au-input-form>
+  </au-input-form> -->
 </template>

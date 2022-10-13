@@ -1154,34 +1154,34 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         },
     },
-    {
-        route: '/customs/machine/in',
-        name: 'machine-in',
-        moduleId: './modules/customs/machine/in/index',
-        nav: true,
-        title: 'Transaksi Masuk (Mesin Baru)',
-        auth: true,
-        settings: {
-            group: "g-production",
-            subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
-            iconClass: 'fa fa-dashboard'
-        },
-    },
-    {
-        route: '/customs/machine/out',
-        name: 'machine-out',
-        moduleId: './modules/customs/machine/out/index',
-        nav: true,
-        title: 'Transaksi Keluar',
-        auth: true,
-        settings: {
-            group: "g-production",
-            subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
-            iconClass: 'fa fa-dashboard'
-        },
-    },
+    // {
+    //     route: '/customs/machine/in',
+    //     name: 'machine-in',
+    //     moduleId: './modules/customs/machine/in/index',
+    //     nav: true,
+    //     title: 'Transaksi Masuk (Mesin Baru)',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         subGroup: "machine",
+    //         permission: { "C9": 1,"B6": 1,"B1": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     },
+    // },
+    // {
+    //     route: '/customs/machine/out',
+    //     name: 'machine-out',
+    //     moduleId: './modules/customs/machine/out/index',
+    //     nav: true,
+    //     title: 'Transaksi Keluar',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         subGroup: "machine",
+    //         permission: { "C9": 1,"B6": 1,"B1": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     },
+    // },
     {
         route: '/customs/machine/machines',
         name: 'machines',

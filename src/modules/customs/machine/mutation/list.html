@@ -34,7 +34,26 @@
   <br>
   </br>
 
-  <div class="table-responsive">
+  <div id="mutation-table">
+    <au-table view-model.ref="tableList"
+              data.bind="loader"
+              columns.bind="columns"
+              sortable="true"
+              page-size="25"
+              options.bind="tableOptions"
+              context.bind="context" 
+              context-click.delegate="contextClickCallback($event)"
+              selectable.bind="true">
+      <div slot="toolbar"
+           class="btn-group">
+        <button class="btn btn-success"
+                click.delegate="transactionIn()">Buat Mutasi Masuk</button>
+        <button class="btn btn-primary"
+                click.delegate="transactionOut()">Buat Mutasi Keluar</button>
+      </div>
+    </au-table>
+  </div>
+  <!-- <div class="table-responsive">
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center">
         <tr>
@@ -71,6 +90,5 @@
     Tidak ada data.
   </div>
   <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)"></pagination>
-  <hr />
-  </au-input-form>
+  <hr /> -->
 </template>
