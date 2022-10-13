@@ -15,7 +15,18 @@ const BrandLoader = require('../../../../loader/machine-brand-loader');
 
 @inject(Router, Service)
 export class List {
-  context = ["ubah"];
+  context = ["Ubah Data"];
+  columns = [
+    { field: "Classification", title: "KLASIFIKASI" },
+    { field: "MachineBrand", title: "BRAND" },
+    { field: "MachineCategory", title: "KATEGORY" },
+    { field: "MachineType", title: "TIPE" },
+    { field: "IDNumber", title: "SERIAL" },
+    { field: "MachineQuantity", title: "JUMLAH" ,align: "right"},
+    { field: "UnitQuantity", title: "SATUAN" },
+    { field: "PurchaseYear", title: "TAHUN BELI" },
+    { field: "SupplierType", title: "SUPPLIER" },
+  ];
 
   //   columns = [
   //     { field: "Classification", title: "Classification" },
@@ -33,20 +44,54 @@ export class List {
     this.router = router;
   }
 
-  search() {
-    var args = {
+  
+  tableOptions = {
+    showColumns: false,
+    search: false,
+    showToggle: false,
+    sortable: false,
+  };
+
+  // search() {
+  //   var args = {
+  //     ctg: this.category ? this.category.CategoryName : "",
+  //     tipe: this.tipe ? this.tipe.MachineType : "",
+  //     serial: this.serial ? this.serial.IDNumber : ""
+  //   }
+  //   this.service.search(args)
+
+  //     .then(result => {
+  //       var index = 1;
+  //       this.data = result.data;
+
+  //     });
+
+  // }
+
+  loader = (info) => {
+    let params = {
       ctg: this.category ? this.category.CategoryName : "",
       tipe: this.tipe ? this.tipe.MachineType : "",
       serial: this.serial ? this.serial.IDNumber : ""
-    }
-    this.service.search(args)
+    };
 
-      .then(result => {
-        var index = 1;
-        this.data = result.data;
+    return this.flag ?
+      this.service.search(params).then((result) => {
 
-      });
+        return {
+          // total: 0,
+          data: result.data
+        };
+      }) :
+      {
+        data: []
+      };
+  }
 
+  search() {
+    this.error = {};
+    this.flag = true;
+    this.tableList.refresh();
   }
 
   get categoryLoader() {
@@ -82,13 +127,24 @@ export class List {
     return `${ser.IDNumber}`;
   }
 
-  ClickCallback(event) {
-    
-    var data = event;
-    this.router.navigateToRoute('edit', {
-      id: data.MachineID
-    });
+  // ClickCallback(event) {
 
+  //   var data = event;
+  //   this.router.navigateToRoute('edit', {
+  //     id: data.MachineID
+  //   });
+  // }
+
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "Ubah Data":
+        this.router.navigateToRoute('edit', {
+          id: data.MachineID
+        });
+        break;
+    }
   }
 
   reset() {
@@ -96,6 +152,8 @@ export class List {
     this.tipe = null;
     this.serial = null;
     this.data = [];
+    this.flag = false;
+    this.tableList.refresh();
     // this.newData = [];
   }
 

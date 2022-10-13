@@ -22,6 +22,16 @@ class Service extends RestService {
         return super.put(endpoint, data);
     }
 
+    createIN(data) {
+        var endpoint = `${serviceUri}/machinesmutation`;
+        return super.post(endpoint, data);
+    }
+
+    createOut(data) {
+        var endpoint = `${serviceUri}/machinesmutation/out`;
+        return super.post(endpoint, data);
+    }
+
 }
 
 export { Service }
