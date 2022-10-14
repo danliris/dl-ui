@@ -64,13 +64,17 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        if(confirm('Apakah anda ingin merubah data ini?') == true) {
+            this.router.navigateToRoute('edit', { id: this.data._id });
+        }
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        if(confirm('Apakah anda ingin merubah data ini?') == true) {
+            this.service.delete(this.data).then(result => {
+                this.cancel();
+            });   
+        }
     }
 
     cancelPO(e) {
