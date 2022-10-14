@@ -14,15 +14,15 @@
 				<au-numeric value.bind="data.garmentInvoice.totalAmount" read-only.bind="true" format="0.00" options.bind="controlOptions">
 				</au-numeric>
 			</div>
-			<div class="col-sm-1  pull-right">
+			<!-- <div class="col-sm-1  pull-right">
 				<button class="btn btn-info pull-right" if.bind="data.details" click.delegate="toggle()">i</button>
-			</div>
+			</div> -->
 		</td>
 		<td if.bind="!readOnly">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
 		</td>
 	</tr>
-	<tr show.bind="isShowing">
+	<!-- <tr show.bind="isShowing">
 		<td colspan="5">
 				<div if.bind="error.detailscount" class="form-group has-error"><span class="text-danger help-block">${error.detailscount}</span></div>
 				<div if.bind="error.incometax" class="form-group has-error"><span class="text-danger help-block">${error.incometax}</span></div>
@@ -40,5 +40,5 @@
 			item-template="modules/garment-purchasing/intern-note/template/invoice-note-item">
 			</au-collection>
 		</td>
-	</tr>
+	</tr> -->
 </template>
