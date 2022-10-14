@@ -33,11 +33,17 @@ export class View {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        var r = confirm("Apakah anda yakin akan keluar?")
+        if (r == true) {
+            this.router.navigateToRoute('list');
+        }
     }
 
     split(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
+        var r = confirm("Apakah Anda yakin akan pecah PO ini?")
+        if (r == true) {
+            this.router.navigateToRoute('edit', { id: this.data.Id });
+        }
     }
 
     delete(event) {

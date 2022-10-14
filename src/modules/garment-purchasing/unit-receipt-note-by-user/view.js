@@ -108,11 +108,17 @@ export class View {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        var r = confirm("Apakah anda yakin akan keluar?")
+        if (r == true) {
+            this.router.navigateToRoute('list');
+        }
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        var r = confirm("Apakah anda yakin akan mengubah data ini?")
+        if (r == true) {
+            this.router.navigateToRoute('edit', { id: this.data._id });
+        }
     }
 
     delete() {

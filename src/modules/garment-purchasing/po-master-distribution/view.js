@@ -51,7 +51,10 @@ export class View {
     }
 
     backToList() {
-        this.router.navigateToRoute('list');
+        var r = confirm("Apakah anda yakin akan keluar?")
+        if (r == true) {
+            this.router.navigateToRoute('list');
+        }
     }
 
     cancelCallback(event) {
@@ -59,7 +62,10 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
+        var r = confirm("Apakah anda yakin akan mengubah data ini?")
+        if (r == true) {
+            this.router.navigateToRoute('edit', { id: this.data.Id });
+        }
     }
 
     deleteCallback(event) {
