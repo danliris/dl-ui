@@ -1,8 +1,9 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     hasCancel = true;
     hasEdit = false;
@@ -10,9 +11,10 @@ export class View {
     hasUnpost = false;
     hasView = true;
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
@@ -70,13 +72,22 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        if(confirm('Apakah anda ingin merubah data ini?') == true)
+        {
+            this.router.navigateToRoute('edit', { id: this.data._id });
+        }
     }
 
     delete(event) {
-        this.service.delete(this.data).then(result => {
-            this.cancel();
-        });
+        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data PO Eksternal')
+        .then(response => {
+            if (response.ok) {
+                this.service.delete(this.data).then(result => {
+                    alert("Data berhasil dihapus");
+                    this.cancel();
+                });
+            }
+        })
     }
 
     cancelPO(e) {

@@ -48,9 +48,16 @@ export class Edit {
 
     save() {
         this.service.update(this.data).then(result => {
+            alert("Data berhasil diubah");
             this.cancel();
         }).catch(e => {
-            this.error = e;
+            if (e.statusCode == 500) {
+                alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+            } else if (e.statusCode == 400){
+                alert("Terdapat data yang tidak valid, mohon dicek kembali");
+            } else {
+                this.error = e;
+            }
         })
     }
 }
