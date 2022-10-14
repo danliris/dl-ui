@@ -20,7 +20,7 @@ export class DataForm {
     
  
 
-    BCType = ["", "BC 2.6.2","BC 2.6.1"];
+    BCType = ["", "BC 2.6.2","BC 2.6.1", "BC 2.7 IN", "BC 2.7 OUT"];
     constructor(service,bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
