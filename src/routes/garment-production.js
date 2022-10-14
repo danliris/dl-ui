@@ -1136,7 +1136,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission: { "C9": 1,"MCH": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -1150,7 +1150,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission: { "C9": 1,"MCH": 1  },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -1192,7 +1192,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission: { "C9": 1,"MCH": 1  },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -1206,7 +1206,7 @@ module.exports = [
         settings: {
             group: "g-production",
             subGroup: "machine",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission: { "C9": 1,"MCH": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
