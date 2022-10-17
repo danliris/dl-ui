@@ -341,6 +341,19 @@ module.exports = [
     },
   },
   {
+    route: "product-textiles",
+    name: "product-textiles",
+    moduleId: "./modules/master/product-textile/index",
+    nav: true,
+    title: "Barang Jadi Dyeing Printing",
+    auth: true,
+    settings: {
+      group: "master",
+      permission: { C5: 1, C9: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "products",
     name: "products",
     moduleId: "./modules/master/product/index",
