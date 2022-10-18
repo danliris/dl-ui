@@ -67,7 +67,8 @@ export class PurchasingDispositionItem {
         if(this.data.UseVat){
             this.vatValue=0;
             for(var detail of this.data.Details){
-                this.vatValue+=detail.PaidPrice*10/100;
+                // this.vatValue+=detail.PaidPrice*10/100;                
+                this.vatValue+=detail.PaidPrice*parseFloat(this.data.vatTax.rate)/100; 
             }
         }
         if(this.data.UseIncomeTax){
