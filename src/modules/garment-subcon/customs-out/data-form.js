@@ -1,4 +1,5 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
+import { data } from "jquery";
 import { Service } from "./service";
 
 var moment = require('moment');
@@ -83,7 +84,7 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isEdit: this.context.isEdit,
             isView: this.context.isView,
-            checkedAll: this.context.isCreate == true ? false : true
+            checkedAll: this.context.isCreate == true ? false : true,
         }
 
         if (this.data && this.data.Id) {
@@ -140,6 +141,7 @@ export class DataForm {
             newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
             this.data.RemainingQuantity = newValue.RemainingQuantity;
             this.dataSC = newValue;
+
         } else {
             this.data.SubconContractId = null;
             this.data.SubconContractNo = null;
@@ -150,6 +152,7 @@ export class DataForm {
             this.context.selectedContractViewModel.editorValue = "";
             this.selectedSubconCategory = null;
         }
+
     }
 
     get totalQuantity() {

@@ -18,6 +18,8 @@ export class Item {
             priceTotal: this.data.CuttingInQuantity,
             readOnly: this.readOnly
         };
+        console.log(this.itemOptions)
+
         this.isShowing = false;
         if(this.data.Details){
             if(this.data.Details.length>0){
