@@ -27,10 +27,10 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
-    deleteCallback(event) {
-        this.service.delete(this.data)
-            .then(result => {
-                this.cancelCallback(event);
-            });
-    }
+    // deleteCallback(event) {
+    //     this.service.delete(this.data)
+    //         .then(result => {
+    //             this.cancelCallback(event);
+    //         });
+    // }
 }
