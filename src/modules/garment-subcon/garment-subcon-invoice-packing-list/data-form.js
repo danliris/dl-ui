@@ -1,17 +1,18 @@
 import { bindable, inject, computedFrom, BindingEngine } from "aurelia-framework";
-import { Service } from "./service";
+import { items } from "../../garment-shipping/export-sales-do/template/item";
+import { Service, CoreService } from "./service";
 
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 const SupplierLoader = require('../../../loader/garment-supplier-loader');
 const ContractLoader = require('../../../loader/garment-subcon-contract-loader');
 const UomLoader = require("../../../loader/uom-loader");
 
-@inject(Service,BindingEngine)
+@inject(Service,BindingEngine,CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
     @bindable isEdit = false;
-    @bindable isView = false;
+    @bindable isView;
     @bindable title;
     @bindable data = {};
     @bindable selecteBCType;
@@ -21,10 +22,10 @@ export class DataForm {
  
 
     BCType = ["", "BC 2.6.2","BC 2.6.1", "BC 2.7 IN", "BC 2.7 OUT"];
-    constructor(service,bindingEngine) {
+    constructor(service,bindingEngine,CoreService) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-
+        this.CoreService = CoreService;
     }
 
     formOptions = {
@@ -71,6 +72,7 @@ export class DataForm {
         if(this.isEdit){
             this.data.ContractNo = this.selectedContract;
         }
+        console.log(this.data);
 
         console.log("edit",this.isEdit);
         console.log("editsss", this.data.ContractNo);
@@ -89,6 +91,13 @@ export class DataForm {
         this.selecteBCType=this.data.BCType;
         this.selectedContract = this.data.ContractNo;
         this.selectedSupplier = this.data.Supplier;
+        // this.data.Supplier.name = this.data.Supplier.Name;
+        // this.data.Supplier.address = this.data.Supplier.Address;
+        this.data.NettWeight = this.data.NettWeight;
+        this.data.GW = this.data.GW;
+        this.data.isEdit = this.isEdit;
+        console.log(this.data.NettWeight);
+        console.log(this.data.GW);
     }
 
     // @computedFrom("data.ContractNo")
@@ -138,16 +147,32 @@ export class DataForm {
         }
     }
 
-    selectedContractChanged(newValue){
+    async selectedContractChanged(newValue){
         var selectedContract = newValue;
-        if (newValue) {
+        console.log(newValue);
+        console.log(this.data.isEdit);
+        if (newValue && !this.data.isView && !this.data.isEdit) {
             this.data.ContractNo = selectedContract.ContractNo;
             this.data.CIF = newValue.CIF;
+            this.data.Quantity = newValue.Quantity;
+            //this.data.NettWeight = newValue.NettWeight;
+            this.data.NettWeight = newValue.NettWeight*this.data.Quantity;
+            this.data.GW = newValue.GrossWeight*this.data.Quantity;
+            var suppliers = await this.CoreService.GetGarmentSupplier({ size: 1, keyword: '', filter: JSON.stringify({ Code: newValue.Supplier.Code }) });
+            this.Supplier = suppliers.data[0];
+            this.data.Supplier = this.Supplier;
+            console.log(this.data.Supplier);
+            // if (!this.Supplier) {
+            //     var suppliers = await this.coreService.getGarmentSupplier({ size: 1, keyword: '', filter: JSON.stringify({ Code: newValue.Supplier.Code }) });
+            //     this.Supplier = suppliers.data[0];
+            //     this.data.Supplier = this.Supplier;
+            //     console.log(this.data.Supplier);
+            // }
+            
             // console.log(this.data.CIF)
             // if(this.data.Items){
             //     this.data.Items.splice(0);
             // }
-  
         }
     }
 

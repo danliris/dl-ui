@@ -41,3 +41,15 @@ class Service extends RestService {
 }
 
 export { Service }
+
+const SupplierServiceUri = 'master/garment-suppliers';
+export class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    GetGarmentSupplier(info) {
+        var endpoint = `${SupplierServiceUri}`;
+        return super.list(endpoint, info);
+    }
+}
