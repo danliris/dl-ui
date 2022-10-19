@@ -225,10 +225,12 @@ export class List {
             filter.category = this.category;
             filter.categoryname = this.categoryname;
         }
-        if (this.unit){
-          filter.unit = this.unit;
-          filter.unitname = this.unitname;
-        }
+        // if (this.unit){
+        //   filter.unit = this.unit;
+        //   filter.unitname = this.unitname;
+        // }
+        filter.unit = this.unit;
+        filter.unitname = this.unitname;
 
         if (this.dateFrom && this.dateFrom != 'Invalid Date') {
             filter.dateFrom = this.dateFrom;
