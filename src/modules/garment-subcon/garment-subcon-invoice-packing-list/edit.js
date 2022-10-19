@@ -19,6 +19,8 @@ export class View {
            
             this.selectedSupplier=this.data.Supplier;
             this.Supplier =this.data.Supplier;
+            this.data.isEdit= true;
+            this.data.NettWeight = this.data.NW;
             // console.log(this.selectedContract);
             // console.log("data",this.data);
             // this.Supplier.A = this.data.Supplier.Address;
