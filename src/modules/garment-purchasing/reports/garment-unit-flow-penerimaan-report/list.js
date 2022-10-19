@@ -64,6 +64,8 @@ export class List {
             }
         }
 
+        this.unit = "";
+        this.unitname = "";
         //console.log(this.unit);
         //console.log(this.uniname);
     }
