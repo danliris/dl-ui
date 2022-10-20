@@ -81,15 +81,12 @@ export class View {
     }
 
     delete(event) {
-        this.dialog.prompt('Apakah anda yakin akan menghapus data ini?', 'Hapus Data SPB')
-        .then(response => {
-            if (response.ok) {
-                Promise.all([this.service.delete(this.data), this.azureService.delete(this.data)])
-                    .then(result => {
-                        alert("Data berhasil dihapus");
-                        this.cancel();
-                    });
-            }
-        })
+        if(confirm('Apakah anda yakin akan menghapus data ini?', 'Hapus Data SPB')== true) {
+            Promise.all([this.service.delete(this.data), this.azureService.delete(this.data)])
+                .then(result => {
+                    alert("Data berhasil dihapus");
+                    this.cancel();
+                });
+        }
     }
 }
