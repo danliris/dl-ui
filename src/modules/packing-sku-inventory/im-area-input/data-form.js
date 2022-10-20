@@ -20,7 +20,7 @@ export class DataForm {
             length: 4,
         },
     };
-    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
+    itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Nama Barang", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIP", "AWAL", "LAB"]
     constructor(service) {
@@ -50,9 +50,9 @@ export class DataForm {
         this.saveCallback = this.context.saveCallback;
 
         if (this.isEdit && !this.readOnly) {
-            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima", ""];
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material",  "Nama Barang", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima", ""];
         } else {
-            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
+            this.itemColumns = ["No. SPP", "Qty Order", "No. Kereta", "Material",  "Nama Barang", "Unit", "Buyer", "Warna", "Motif", "Satuan", "Qty Terima"];
         }
     }
     addItemCallback = (e) => {

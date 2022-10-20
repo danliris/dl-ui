@@ -61,6 +61,10 @@ export class CartItem {
             this.selectedProductionOrder.YarnMaterial.Name = this.data.yarnMaterial.name;
 
             this.selectedProductionOrder.ProcessType.Unit = this.data.unit;
+            this.selectedProductionOrder.ProductTextile = {};
+            this.selectedProductionOrder.ProductTextile.Nama = this.data.productTextile.name;
+            this.selectedProductionOrder.ProductTextile.Id = this.productTextile.id;
+            this.selectedProductionOrder.ProductTextile.Code = this.productTextile.Code
         }
     }
 
@@ -118,6 +122,11 @@ export class CartItem {
             this.data.yarnMaterial = {};
             this.data.yarnMaterial.id = this.selectedProductionOrder.YarnMaterial.Id;
             this.data.yarnMaterial.name = this.selectedProductionOrder.YarnMaterial.Name;
+
+            this.data.productTextile = {};
+            this.data.productTextile.id = this.selectedProductionOrder.ProductTextile.Id;
+            this.data.productTextile.name = this.selectedProductionOrder.ProductTextile.Name;
+            this.data.productTextile.code = this.selectedProductionOrder.ProductTextile.Code;
 
             if (this.selectedProductionOrder.ProcessType.Unit) {
 
