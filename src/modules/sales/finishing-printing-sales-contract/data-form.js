@@ -75,6 +75,7 @@ export class DataForm {
     this.selectedPointSystem = this.data.PointSystem || 10;
     this.selectedPaymentMethods = this.data.PaymentMethods || null;
     this.selectedDownPayments = this.data.DownPayments || null;
+    this.productTextile = this.data.ProductTextile || null;
     // this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
