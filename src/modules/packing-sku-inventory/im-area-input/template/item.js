@@ -124,7 +124,7 @@ export class CartItem {
             this.data.yarnMaterial.name = this.selectedProductionOrder.YarnMaterial.Name;
 
             this.data.productTextile = {};
-            //this.data.productTextile.id = this.selectedProductionOrder.ProductTextile.Id;
+            this.data.productTextile.id = this.selectedProductionOrder.ProductTextile.Id;
             this.data.productTextile.name = this.selectedProductionOrder.ProductTextile.Name;
             this.data.productTextile.code = this.selectedProductionOrder.ProductTextile.Code;
             console.log(this.data.selectedProductionOrder);
