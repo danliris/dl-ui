@@ -1210,4 +1210,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         },
     },
+    {
+        route: '/customs/report-aval',
+        name: 'report-aval',
+        moduleId: './modules/garment-production/scrap-report/index',
+        nav: true,
+        title: 'Laporan Stock Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
 ];
