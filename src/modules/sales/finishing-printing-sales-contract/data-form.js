@@ -13,6 +13,7 @@ import QualityLoader from "../../../loader/quality-loader";
 import TermOfPaymentLoader from "../../../loader/term-of-payment-loader";
 import AccountBankLoader from "../../../loader/account-banks-loader";
 import ProductTypeLoader from "../../../loader/product-types-loader";
+import ProductTextileLoader from "../../../loader/product-textile-loader";
 
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
@@ -74,6 +75,7 @@ export class DataForm {
     this.selectedPointSystem = this.data.PointSystem || 10;
     this.selectedPaymentMethods = this.data.PaymentMethods || null;
     this.selectedDownPayments = this.data.DownPayments || null;
+    this.productTextile = this.data.ProductTextile || null;
     // this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
@@ -245,6 +247,17 @@ export class DataForm {
       this.isFourPointSystem = false
     }
   }
+  @bindable productTextile;
+  productTextileChanged(newValue, oldValue) {
+    var selectedProductTextile = newValue;
+    if (selectedProductTextile) {
+        this.data.ProductTextile = selectedProductTextile;
+        this.data.ProductTextileId = selectedProductTextile._id;
+    }
+    else {
+        this.data.ProductTextileId = undefined;
+    }
+}
 
   categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
   categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
@@ -322,6 +335,10 @@ export class DataForm {
     return VatTaxLoader;
   }
 
+  get productTextileLoader() {
+    return ProductTextileLoader;
+  }
+
   // get productTypeLoader() {
   //   return ProductTypeLoader;
   // }
@@ -337,6 +354,10 @@ export class DataForm {
   vatTaxView = (vatTax) => {
     return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
   }
+
+  productTxView = (productTx) => {
+    return `${productTx.Code} - ${productTx.Name}`;
+}
 
   controlOptions = {
     label: {

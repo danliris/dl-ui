@@ -86,6 +86,13 @@ export class DataForm {
       this.data.LampStandards = this.data.LampStandards || [];
       this.data.BeforeQuantity = this.data.OrderQuantity;
 
+      if(this.data.POType == "SALES"){
+        this.nameCheck=true;
+      }else{
+        this.nameCheck=false;
+      }
+      console.log(this.data.POType);
+
 
       if (this.data.FinishingPrintingSalesContract && this.data.FinishingPrintingSalesContract.Id) {
         this.SalesContract = await this.service.getSCbyId(this.data.FinishingPrintingSalesContract.Id);
@@ -183,6 +190,7 @@ export class DataForm {
       this.data.FinishingPrintingSalesContract = newVal;
       this.data.Buyer = this.data.FinishingPrintingSalesContract.Buyer;
       this.data.OrderType = this.data.FinishingPrintingSalesContract.OrderType;
+      this.data.ProductTextile = this.data.FinishingPrintingSalesContract.ProductTextile;
 
       this.data.Material = this.data.FinishingPrintingSalesContract.Material;
       this.Material = this.data.Material;
@@ -212,6 +220,12 @@ export class DataForm {
   }
 
   getBuyerText = (text) => {
+    var data = text.Code ? `${text.Code} - ${text.Name}` : "";
+    return data
+  }
+
+  getProductTextileText = (text) => {
+    console.log(text);
     var data = text.Code ? `${text.Code} - ${text.Name}` : "";
     return data
   }

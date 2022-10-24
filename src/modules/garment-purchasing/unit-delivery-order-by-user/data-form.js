@@ -30,9 +30,10 @@ export class DataForm {
     @bindable isRemain = false;
     @bindable isSubcon = false;
     @bindable isSTransfer = false;
+    @bindable isTransferSubcon = false;
     @bindable RONoJob;
 
-    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER','SISA', 'SUBCON','TRANSFER SAMPLE'];//, 'SAMPLE'
+    typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER','SISA', 'SUBCON', 'TRANSFER SUBCON','TRANSFER SAMPLE'];//, 'SAMPLE'
 
     controlOptions = {
         label: {
@@ -87,6 +88,7 @@ export class DataForm {
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
             this.isSTransfer = this.data.UnitDOType === "TRANSFER SAMPLE";
+            this.isTransferSubcon = this.data.UnitDOType === "TRANSFER SUBCON";
         }
     }
 
@@ -149,6 +151,7 @@ export class DataForm {
             this.isRemain = this.data.UnitDOType === "SISA";
             this.isSubcon = this.data.UnitDOType === "SUBCON";
             this.isSTransfer = this.data.UnitDOType === "TRANSFER SAMPLE";
+            this.isTransferSubcon = this.data.UnitDOType === "TRANSFER SUBCON";
 
             this.unitRequest = null;
             this.unitSender = null;
@@ -390,7 +393,7 @@ export class DataForm {
                     })
                 });
         }
-        else if(!this.isProses && !this.isTransfer && !this.isRemain && !this.isSample && !this.isSubcon&& !this.isSTransfer)
+        else if(!this.isProses && !this.isTransfer && !this.isRemain && !this.isSample && !this.isSubcon&& !this.isSTransfer && !this.isTransferSubcon)
         {
             var data = [];
             var rONoFilter = {};
