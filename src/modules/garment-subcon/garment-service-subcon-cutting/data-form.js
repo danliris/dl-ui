@@ -107,6 +107,9 @@ export class DataForm {
                     for(var s of d.Sizes){
                         var detail={};
                         if(Sizes.length==0){
+                            detail.Id=s.Id;
+                            detail.CuttingInDetailId = s.CuttingInDetailId;
+                            detail.CuttingInId = s.CuttingInId;
                             detail.Quantity=s.Quantity;
                             detail.Size=s.Size;
                             detail.Color=s.Color;
@@ -116,6 +119,9 @@ export class DataForm {
                         else{
                             var exist= Sizes.find(a=>a.Size.Id==s.Size.Id);
                             if(!exist){
+                                detail.Id=s.Id;
+                                detail.CuttingInDetailId = s.CuttingInDetailId;
+                                detail.CuttingInId = s.CuttingInId;
                                 detail.Quantity=s.Quantity;
                                 detail.Size=s.Size;
                                 detail.Color=s.Color;

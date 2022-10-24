@@ -21,9 +21,8 @@ export class Detail {
         this.error = context.error;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        if(this.data.Size){
-            this.selectedSize = this.data.Size;
-        }
+        this.selectedSize = this.data.Size;
+
         if(!this.data.Uom){
             this.data.Uom = {
                 Unit : 'PCS'
@@ -36,6 +35,7 @@ export class Detail {
             this.data.Size = newValue;
             let uomResult = await this.coreService.getUom({ size: 1,keyword: 'PCS', filter: JSON.stringify({ Unit: 'PCS' }) });
             this.data.Uom = uomResult.data[0];
+            console.log(this.data.Size)
         } else {
             this.data.Uom = [];
         }
