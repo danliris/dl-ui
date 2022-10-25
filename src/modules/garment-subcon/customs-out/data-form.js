@@ -110,45 +110,45 @@ export class DataForm {
     }
 
     async selectedContractChanged(newValue) {
-        if (this.data.Items && (!this.readOnly && !this.isEdit)) {
-            this.data.Items.splice(0);
-        }
-
-        if (newValue) {
-            this.data.SubconContractId = newValue.Id;
-            this.data.SubconContractNo = newValue.ContractNo;
-            this.data.Supplier = newValue.Supplier;
-            Promise.resolve(this.service.searchDeliveryLetterOut({ filter: JSON.stringify({ ContractNo: this.data.SubconContractNo, IsUsed: false }) }))
-                .then(result => {
-                    for (var dl of result.data) {
-                        var item = {};
-                        item.SubconDLOutNo = dl.DLNo;
-                        item.SubconDLOutId = dl.Id;
-                        item.Quantity = 0;
-                        for (var a of dl.Items) {
-                            item.Quantity += a.Quantity;
+        if (this.data.Items && (!this.readOnly && !this.isCreate)) {
+            
+            if (newValue) {
+                this.data.SubconContractId = newValue.Id;
+                this.data.SubconContractNo = newValue.ContractNo;
+                this.data.Supplier = newValue.Supplier;
+                Promise.resolve(this.service.searchDeliveryLetterOut({ filter: JSON.stringify({ ContractNo: this.data.SubconContractNo, IsUsed: false }) }))
+                    .then(result => {
+                        for (var dl of result.data) {
+                            var item = {};
+                            item.SubconDLOutNo = dl.DLNo;
+                            item.SubconDLOutId = dl.Id;
+                            item.Quantity = 0;
+                            for (var a of dl.Items) {
+                                item.Quantity += a.Quantity;
+                            }
+                            this.data.Items.push(item);
                         }
-                        this.data.Items.push(item);
-                    }
+                    });
+    
+                const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+                const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
+                    return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
                 });
-
-            const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
-            const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
-                return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
-            });
-            const dataJumlah = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
-            newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
-            this.data.RemainingQuantity = newValue.RemainingQuantity;
-            this.dataSC = newValue;
-        } else {
-            this.data.SubconContractId = null;
-            this.data.SubconContractNo = null;
-            this.data.Supplier = null;
-            if (this.data.Items) {
-                this.data.Items.splice(0);
+                const dataJumlah = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
+                newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
+                this.data.RemainingQuantity = newValue.RemainingQuantity;
+                this.dataSC = newValue;
+    
+            } else {
+                this.data.SubconContractId = null;
+                this.data.SubconContractNo = null;
+                this.data.Supplier = null;
+                if (this.data.Items) {
+                    this.data.Items.splice(0);
+                }
+                this.context.selectedContractViewModel.editorValue = "";
+                this.selectedSubconCategory = null;
             }
-            this.context.selectedContractViewModel.editorValue = "";
-            this.selectedSubconCategory = null;
         }
     }
 
