@@ -25,10 +25,10 @@ export class DataForm {
     };
     imQuery = { "DestinationArea": "TRANSIT" }
     shippingTypes = ["ZONA GUDANG", "RETUR BARANG"];
-    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+    itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
 
     
-    returItemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "Jenis Packing", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+    returItemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang","Unit", "Warna", "Motif", "Grade", "Jenis Packing", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
     shifts = ["PAGI", "SIANG"];
     areas = ["INSPECTION MATERIAL", "PROD", "TRANSIT", "PACK", "GUDANG JADI", "SHIPPING", "AWAL", "LAB"]
     constructor(service) {
@@ -94,12 +94,12 @@ export class DataForm {
         };
 
         if (this.isEdit && !this.readOnly) {
-            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan", ""];
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan", ""];
         } else {
             if(this.type == true){
-                this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];    
+                this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];    
             }else{
-            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+            this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
             }
         }
 
