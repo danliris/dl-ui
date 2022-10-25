@@ -15,7 +15,7 @@ export class DataForm {
     @bindable unitDeliveryOrder;
     @bindable expenditureType;
 
-    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON', 'SAMPLE','TRANSFER SAMPLE'];
+    expenditureTypeOptions = ['PROSES', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON','TRANSFER SUBCON', 'SAMPLE','TRANSFER SAMPLE'];
     controlOptions = {
         label: {
             align : "right",
@@ -54,6 +54,8 @@ export class DataForm {
             this.data.ExpenditureTo = "PROSES";
         }else if(this.data.ExpenditureType === "SUBCON"){
             this.data.ExpenditureTo = "SUBCON";
+        }else if(this.data.ExpenditureType === "TRANSFER SUBCON"){
+            this.data.ExpenditureTo = "TRANSFER SUBCON";
         }else if(this.data.ExpenditureType === "SISA"){
             this.data.ExpenditureTo = "GUDANG SISA";
             this.items.columns.push("Status Barang");
@@ -149,6 +151,8 @@ export class DataForm {
                 this.data.ExpenditureTo = "PROSES";
             }else if(this.data.ExpenditureType === "SUBCON"){
                 this.data.ExpenditureTo = "SUBCON";
+            }else if(this.data.ExpenditureType === "TRANSFER SUBCON"){
+                this.data.ExpenditureTo = "TRANSFER SUBCON";
             }else if(this.data.ExpenditureType === "SISA"){
                 this.data.ExpenditureTo = "GUDANG SISA";
                 this.items.columns.push("Status Barang");

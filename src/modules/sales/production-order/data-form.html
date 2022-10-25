@@ -92,6 +92,20 @@
               text="Name">
             </au-autocomplete>
           </div>
+
+          <div class="col-sm-10" style="padding-left:18%">
+            <au-autocomplete value.bind="data.ProductTextile" label="Nama Barang" error.bind="error.ProductTextile" read-only="true"
+               text.bind="getProductTextileText"
+               if.bind="nameCheck">
+            </au-autocomplete>
+          </div>
+
+          <!-- <div class="col-sm-10" style="padding-left:18%">
+            <au-autocomplete value.bind="data.ProductTextile" label="Nama Barang" error.bind="error.ProductTextile" read-only="true"
+               text.bind="getProductTextileText"
+               >
+            </au-autocomplete>
+          </div> -->
  
           <div class="col-sm-10" style="padding-left:18%">
             <au-autocomplete value.bind="data.YarnMaterial" label="Nomor Benang Material"
