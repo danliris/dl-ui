@@ -10,7 +10,7 @@ export class Item {
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        
+        this.readOnly = context.context.options.readOnly;
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
