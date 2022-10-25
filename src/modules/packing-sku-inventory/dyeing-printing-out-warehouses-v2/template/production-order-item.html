@@ -25,6 +25,11 @@
       </au-textbox>
     </td>
     <td>
+      <au-textbox value.bind="data.productTextile.name" read-only.bind="true" error.bind="error.Construction"
+        options.bind="controlOptions">
+      </au-textbox>
+    </td>
+    <td>
       <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit" options.bind="controlOptions">
       </au-textbox>
     </td>
@@ -102,10 +107,10 @@
         i
       </button>
     </td>
-    <td if.bind="!options.readOnly">
+    <!-- <td if.bind="!options.readOnly">
       <button class="btn btn-success pull-right" click.delegate="oncopy(data, $event)">+</button>
       <button if.bind="data.isremovable" class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
-    </td>
+    </td> -->
   </tr>
   <tr if.bind="isShowing">
     <!-- <td show.bind="!readOnly"></td> -->
