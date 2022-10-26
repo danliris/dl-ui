@@ -26,7 +26,7 @@ export class DataForm {
     "Aval Kain Kotor", "Aval Tali Kotor", "Aval Sambungan", "Aval Kain Head Cut", "Aval Solid",
     "Aval A (Lap Besar)", "Aval B (Lap Kecil)", "Aval Solid TR", "Aval Batik TW (karantina)"];
 
-  itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
+  itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Nama Barang", "Unit", "Buyer",
     "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
   shifts = ["PAGI", "SIANG"];
   detailOptions = {};
@@ -73,14 +73,14 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
 
     if (this.readOnly) {
-      this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
+      this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Nama Barang", "Unit", "Buyer",
         "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
     } else {
       if (this.isEdit) {
-        this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
+        this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Nama Barang", "Unit", "Buyer",
           "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN", ""];
       } else {
-        this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Unit", "Buyer",
+        this.itemColumns = ["No. Bon", "No. SPP", "Qty Order", "No. Kereta", "Material", "Nama Barang", "Unit", "Buyer",
           "Warna", "Motif", "Macam Barang", "Mesin", "Satuan", "Qty IN"];
       }
     }
