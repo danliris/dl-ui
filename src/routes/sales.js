@@ -1,95 +1,95 @@
 module.exports = [
-    {
-        route: 'sales/finishing-printing-pre-sales-contract',
-        name: 'finishing-printing-sales-pre-contract',
-        moduleId: './modules/sales/finishing-printing-pre-sales-contract/index',
-        nav: true,
-        title: 'Pre Sales Contract - Dyeing & Printing',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/finishing-printing-cost-calculation',
-        name: 'finishing-printing-cost-calculation',
-        moduleId: './modules/sales/finishing-printing-cost-calculation/index',
-        nav: true,
-        title: 'Cost Calculation - Dyeing & Printing',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/finishing-printing-cost-calculation-approval-ppic',
-        name: 'finishing-printing-cost-calculation-approval-ppic',
-        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
-        nav: true,
-        title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/finishing-printing-cost-calculation-approval-md',
-        name: 'finishing-printing-cost-calculation-approval-md',
-        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
-        nav: true,
-        title: 'Cost Calculation - Dyeing & Printing - Approval Md',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/sales/finishing-printing-cost-calculation-copy',
-        name: 'finishing-printing-cost-calculation-copy',
-        moduleId: './modules/sales/finishing-printing-cost-calculation/copy/index',
-        nav: true,
-        title: 'Copy Cost Calculation - Dyeing & Printing',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: '/sales/shin-finishing-printing-sales-contract-copy',
-        name: 'shin-finishing-printing-sales-contract-copy',
-        moduleId: './modules/sales/shin-finishing-printing-sales-contract/copy/index',
-        nav: true,
-        title: 'Copy Sales Contract - Dyeing & Printing',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { /*"A2": 1,*/ "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/shin-finishing-printing-sales-contract',
-        name: 'shin-finishing-printing-sales-contract',
-        moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
-        nav: true,
-        title: 'Sales Contract - Dyeing & Printing (New)',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { /*"A2": 1,*/ "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'sales/finishing-printing-pre-sales-contract',
+    //     name: 'finishing-printing-sales-pre-contract',
+    //     moduleId: './modules/sales/finishing-printing-pre-sales-contract/index',
+    //     nav: true,
+    //     title: 'Pre Sales Contract - Dyeing & Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/finishing-printing-cost-calculation',
+    //     name: 'finishing-printing-cost-calculation',
+    //     moduleId: './modules/sales/finishing-printing-cost-calculation/index',
+    //     nav: true,
+    //     title: 'Cost Calculation - Dyeing & Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/finishing-printing-cost-calculation-approval-ppic',
+    //     name: 'finishing-printing-cost-calculation-approval-ppic',
+    //     moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
+    //     nav: true,
+    //     title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/finishing-printing-cost-calculation-approval-md',
+    //     name: 'finishing-printing-cost-calculation-approval-md',
+    //     moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
+    //     nav: true,
+    //     title: 'Cost Calculation - Dyeing & Printing - Approval Md',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: '/sales/finishing-printing-cost-calculation-copy',
+    //     name: 'finishing-printing-cost-calculation-copy',
+    //     moduleId: './modules/sales/finishing-printing-cost-calculation/copy/index',
+    //     nav: true,
+    //     title: 'Copy Cost Calculation - Dyeing & Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: '/sales/shin-finishing-printing-sales-contract-copy',
+    //     name: 'shin-finishing-printing-sales-contract-copy',
+    //     moduleId: './modules/sales/shin-finishing-printing-sales-contract/copy/index',
+    //     nav: true,
+    //     title: 'Copy Sales Contract - Dyeing & Printing',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { /*"A2": 1,*/ "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/shin-finishing-printing-sales-contract',
+    //     name: 'shin-finishing-printing-sales-contract',
+    //     moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
+    //     nav: true,
+    //     title: 'Sales Contract - Dyeing & Printing (New)',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { /*"A2": 1,*/ "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     // {
     //     route: 'sales/reports/shin-finishing-printing-sales-contract-reports',
     //     name: 'shin-finishing-printing-sales-contract-report',
@@ -194,58 +194,58 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'sales/shin-production-order',
-        name: 'shin-production-order',
-        moduleId: './modules/sales/shin-production-order/index',
-        nav: true,
-        title: 'Surat Perintah Produksi (New)',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/shin-production-order-list-view',
-        name: 'shin-production-order-list-view',
-        moduleId: './modules/sales/shin-production-order-list-view/index',
-        nav: true,
-        title: 'Surat Perintah Produksi (New)',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/shin-production-order-approval-md',
-        name: 'shin-production-order-approval-md',
-        moduleId: './modules/sales/shin-production-order-approval-md/index',
-        nav: true,
-        title: 'Validasi Surat Perintah Produksi (New) - Kabag Md',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'sales/shin-production-order-approval-sample',
-        name: 'shin-production-order-approval-sample',
-        moduleId: './modules/sales/shin-production-order-approval-sample/index',
-        nav: true,
-        title: 'Validasi Surat Perintah Produksi (New) - Sample',
-        auth: true,
-        settings: {
-            group: "sales",
-            permission: { "A2": 1, "C9": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'sales/shin-production-order',
+    //     name: 'shin-production-order',
+    //     moduleId: './modules/sales/shin-production-order/index',
+    //     nav: true,
+    //     title: 'Surat Perintah Produksi (New)',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/shin-production-order-list-view',
+    //     name: 'shin-production-order-list-view',
+    //     moduleId: './modules/sales/shin-production-order-list-view/index',
+    //     nav: true,
+    //     title: 'Surat Perintah Produksi (New)',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/shin-production-order-approval-md',
+    //     name: 'shin-production-order-approval-md',
+    //     moduleId: './modules/sales/shin-production-order-approval-md/index',
+    //     nav: true,
+    //     title: 'Validasi Surat Perintah Produksi (New) - Kabag Md',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'sales/shin-production-order-approval-sample',
+    //     name: 'shin-production-order-approval-sample',
+    //     moduleId: './modules/sales/shin-production-order-approval-sample/index',
+    //     nav: true,
+    //     title: 'Validasi Surat Perintah Produksi (New) - Sample',
+    //     auth: true,
+    //     settings: {
+    //         group: "sales",
+    //         permission: { "A2": 1, "C9": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'sales/production-order',
         name: 'production-order',
