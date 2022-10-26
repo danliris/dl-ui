@@ -22,6 +22,7 @@ export class Item {
       this.itemColumns = [
         "Nomor DO",
         "Material",
+        "Nama Barang",
         "Unit",
         "Buyer",
         "Warna",
@@ -42,6 +43,7 @@ export class Item {
       this.itemColumns = [
         "Nomor DO",
         "Material",
+        "Nama Barang",
         "Unit",
         "Buyer",
         "Warna",
@@ -55,7 +57,7 @@ export class Item {
         "Panjang Per Packing",
         "Qty Keluar",
         "",
-        "",
+        //""
       ];
     }
 

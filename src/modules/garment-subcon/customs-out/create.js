@@ -15,6 +15,7 @@ export class Create {
     bind() {
         this.data = { Items: [] };
         this.error = {};
+        this.checkedAll = false;
     }
 
     determineActivationStrategy() {

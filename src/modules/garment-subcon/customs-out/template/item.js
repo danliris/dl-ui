@@ -10,7 +10,7 @@ export class Item {
         this.readOnly = context.options.readOnly;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        
+        this.readOnly = context.context.options.readOnly;
         this.itemOptions = {
             error: this.error,
             isCreate: this.isCreate,
@@ -18,6 +18,8 @@ export class Item {
             priceTotal: this.data.CuttingInQuantity,
             readOnly: this.readOnly
         };
+        console.log(this.itemOptions)
+
         this.isShowing = false;
         if(this.data.Details){
             if(this.data.Details.length>0){

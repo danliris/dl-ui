@@ -46,6 +46,7 @@ export class Create {
         },
         { field: "cartNo", title: "No. Kereta", sortable: false},
         { field: "construction", title: "Material", sortable: false},
+        { field: "productTextile.name", title: "Nama Barang", sortable: false},
         { field: "unit", title: "Unit", sortable: false},
         { field: "buyer", title: "Buyer", sortable: false},
         { field: "color", title: "Warna", sortable: false},
