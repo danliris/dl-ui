@@ -25,11 +25,15 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.productTextile.name" read-only.bind="true" error.bind="error.Unit"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-
 
         <td>
             <au-textbox value.bind="data.color" read-only.bind="true" error.bind="error.Color"
