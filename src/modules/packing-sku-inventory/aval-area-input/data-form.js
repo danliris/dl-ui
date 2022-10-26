@@ -32,7 +32,7 @@ export class DataForm {
         pagination: false
     }
     // itemColumns = ["No. SPP", "Buyer", "Unit", "Material", "Warna", "Motif", "Grade", "Satuan", "Saldo"];
-    itemColumns = ["No. SPP", "Qty Order","No. Kereta","Material", "Unit", "Buyer", "Warna", "Motif", "Macam Barang", "Satuan","Qty IN","Zona Awal","No. Mesin"];
+    itemColumns = ["No. SPP", "Qty Order","No. Kereta","Material", "Nama Barang","Unit", "Buyer", "Warna", "Motif", "Macam Barang", "Satuan","Qty IN","Zona Awal","No. Mesin"];
     
     groups = ["","A", "B"];
 
@@ -44,6 +44,7 @@ export class DataForm {
         { field: "qtyOrder", title: "Qty Order" },
         { field: "cartNo", title: "No. Kereta" },
         { field: "construction", title: "Material" },
+        { field: "productTextile.name", title: "Nama Barang" },
         { field: "unit", title: "Unit" },    
         { field: "buyer", title: "Buyer" },            
         { field: "color", title: "Warna" },
