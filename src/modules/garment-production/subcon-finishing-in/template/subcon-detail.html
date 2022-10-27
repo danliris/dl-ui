@@ -13,7 +13,8 @@
         </td>
         <td class="col-sm-2" if.bind="data.SubconType == 'CUTTING SEWING'">
             <au-autocomplete value.bind="selectedProductCS" error.bind="error.Size" loader.bind="productLoader"
-                read-only.bind="readOnly || data.IsFromSubconCutting" placeholder="Kode Barang" text="Code"
+                query.bind="filter"
+                read-only.bind="readOnly || data.IsFromSubconCutting" placeholder="Kode Barang" text="ProductCode"
                 view-model.ref="selectedProductCSViewModel">
             </au-autocomplete>
         </td>
@@ -22,8 +23,8 @@
             </au-textbox>
         </td>
         <td class="col-sm-2" if.bind="data.SubconType == 'CUTTING SEWING'">
-            <au-textbox value.bind="data.DesignColor" read-only.bind="readOnly">
-            </au-textbox>
+            <au-dropdown value.bind="selectedDC" read-only.bind="readOnly" items.bind="opDC">
+            </au-dropdown>
         </td>
         <td class="col-sm-1">
             <au-autocomplete value.bind="data.Size" error.bind="error.Size" loader.bind="sizeLoader"
