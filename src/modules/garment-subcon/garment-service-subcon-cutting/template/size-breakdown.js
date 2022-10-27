@@ -28,6 +28,7 @@ export class Detail {
                 Unit : 'PCS'
             };
         }
+        this.readOnly = context.context.options.readOnly;
     }
 
     async selectedSizeChanged(newValue) {

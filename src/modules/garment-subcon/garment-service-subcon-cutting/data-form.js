@@ -92,6 +92,7 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
+            readOnly: this.readOnly,
 
         }
 
