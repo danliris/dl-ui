@@ -1,5 +1,7 @@
 import { bindable, inject, computedFrom, BindingEngine } from "aurelia-framework";
+import { countBy, propertyOf } from "underscore";
 import { items } from "../../garment-shipping/export-sales-do/template/item";
+import { item } from "../../garment-shipping/payment-disposition-recap/template/item";
 import { Service, CoreService } from "./service";
 
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
@@ -43,6 +45,8 @@ export class DataForm {
         // "Keterangan Barang",
         // "Design Color",
         "Jumlah",
+        "Perhitungan NW",
+        "Perhitungan GW",
         // "Satuan",
         "Harga Satuan",
         "Harga Total",
@@ -93,10 +97,11 @@ export class DataForm {
         this.selectedSupplier = this.data.Supplier;
         // this.data.Supplier.name = this.data.Supplier.Name;
         // this.data.Supplier.address = this.data.Supplier.Address;
-        this.data.NettWeight = this.data.NettWeight;
+        // this.data.NettWeight = this.data.NettWeight;
+        this.data.NW = this.data.NW;
         this.data.GW = this.data.GW;
         this.data.isEdit = this.isEdit;
-        console.log(this.data.NettWeight);
+        console.log(this.data.NW);
         console.log(this.data.GW);
     }
 
@@ -150,24 +155,19 @@ export class DataForm {
     async selectedContractChanged(newValue){
         var selectedContract = newValue;
         console.log(newValue);
-        console.log(this.data.isEdit);
         if (newValue && !this.data.isView && !this.data.isEdit) {
             this.data.ContractNo = selectedContract.ContractNo;
             this.data.CIF = newValue.CIF;
-            this.data.Quantity = newValue.Quantity;
             //this.data.NettWeight = newValue.NettWeight;
-            this.data.NettWeight = newValue.NettWeight*this.data.Quantity;
-            this.data.GW = newValue.GrossWeight*this.data.Quantity;
+            // this.data.Quantity = newValue.Quantity;
+            // this.data.NettWeight = newValue.NettWeight*this.data.Quantity;
+            // this.data.GW = newValue.GrossWeight*this.data.Quantity;
+            // this.data.NettWeight = newValue.NettWeight;
+            this.data.NW = newValue.NettWeight;
+            this.data.GW = newValue.GrossWeight;
             var suppliers = await this.CoreService.GetGarmentSupplier({ size: 1, keyword: '', filter: JSON.stringify({ Code: newValue.Supplier.Code }) });
             this.Supplier = suppliers.data[0];
             this.data.Supplier = this.Supplier;
-            console.log(this.data.Supplier);
-            // if (!this.Supplier) {
-            //     var suppliers = await this.coreService.getGarmentSupplier({ size: 1, keyword: '', filter: JSON.stringify({ Code: newValue.Supplier.Code }) });
-            //     this.Supplier = suppliers.data[0];
-            //     this.data.Supplier = this.Supplier;
-            //     console.log(this.data.Supplier);
-            // }
             
             // console.log(this.data.CIF)
             // if(this.data.Items){
@@ -175,6 +175,8 @@ export class DataForm {
             // }
         }
     }
+
+    
 
     get addItems() {
         return (event) => {
