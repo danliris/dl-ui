@@ -36,6 +36,7 @@ export class List {
 		{ field: "SubconType", title: "Jenis Subcon" },
 		{ field: "SubconContractNo", title: "No Subcon Contract" },
 		{ field: "SupplierName", title: "Supplier" },
+		{ field: "BuyerStaff", title: "Staff Pembelian"}
 	]
 
 	loader = (info) => {
