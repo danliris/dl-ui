@@ -64,25 +64,25 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
-    if (this.data.Items) {
-      var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
-      if (otherUnit) {
-        this.cardContentUnit = otherUnit.Unit;
-      }
-    }
+    // if (this.data.Items) {
+    //   var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+    //   if (otherUnit) {
+    //     this.cardContentUnit = otherUnit.Unit;
+    //   }
+    // }
 
-    let tempCards = [];
-    this.data.Items.forEach((item, index) => {
-      tempCards.push(item);
-      if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-        this.cards.push(tempCards);
-        tempCards = [];
-      }
-    });
+    // let tempCards = [];
+    // this.data.Items.forEach((item, index) => {
+    //   tempCards.push(item);
+    //   if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+    //     this.cards.push(tempCards);
+    //     tempCards = [];
+    //   }
+    // });
 
-    if (tempCards.length > 0) {
-      this.cards.push(tempCards)
-    }
+    // if (tempCards.length > 0) {
+    //   this.cards.push(tempCards)
+    // }
 
   }
 
@@ -95,17 +95,17 @@ export class DataForm {
     return UnitVBNonPO;
   }
 
-  otherUnitSelected(event, data) {
-    this.cardContentUnit = null;
-    data.Unit = {};
-    data.Unit.VBDocumentLayoutOrder = 10;
-    // if (data.IsSelected) {
-    //   data.Unit.VBDocumentLayoutOrder = 10;
-    // } else {
-    //   data.Unit = {};
-    //   data.Unit.VBDocumentLayoutOrder = 10;
-    // }
-  }
+  // otherUnitSelected(event, data) {
+  //   this.cardContentUnit = null;
+  //   data.Unit = {};
+  //   data.Unit.VBDocumentLayoutOrder = 10;
+  //   // if (data.IsSelected) {
+  //   //   data.Unit.VBDocumentLayoutOrder = 10;
+  //   // } else {
+  //   //   data.Unit = {};
+  //   //   data.Unit.VBDocumentLayoutOrder = 10;
+  //   // }
+  // }
 
   unitView = (unit) => {
     return `${unit.Code} - ${unit.Name}`;
@@ -119,21 +119,28 @@ export class DataForm {
     return UnitLoader;
   }
 
-  @bindable cardContentUnit;
-  cardContentUnitChanged(n, o) {
-    var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+  // @bindable cardContentUnit;
+  // cardContentUnitChanged(n, o) {
+  //   var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
 
-    if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
-      otherUnit.Unit = this.cardContentUnit;
-      otherUnit.Unit.VBDocumentLayoutOrder = 10;
-    } else {
-      if (otherUnit) {
-        otherUnit.Unit = {};
-        otherUnit.Unit.VBDocumentLayoutOrder = 10;
-      }
+  //   if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
+  //     otherUnit.Unit = this.cardContentUnit;
+  //     otherUnit.Unit.VBDocumentLayoutOrder = 10;
+  //   } else {
+  //     if (otherUnit) {
+  //       otherUnit.Unit = {};
+  //       otherUnit.Unit.VBDocumentLayoutOrder = 10;
+  //     }
+  //   }
+  // }
 
-    }
+  itemColumns = [
+    "Unit",
+  ];
 
-
+  get addItems() {
+    return (event) => {
+        this.data.Items.push({ });
+    };
   }
 }
