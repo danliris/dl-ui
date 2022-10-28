@@ -18,25 +18,25 @@ export class Create {
     isVisible = false;
 
     async activate(params) {
-        let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
-        let unitCosts = unitCostsResponse.data;
+        // let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
+        // let unitCosts = unitCostsResponse.data;
         this.data.Date = new Date();
         this.data.Date.setHours(0, 0, 0, 0);
 
-        unitCosts.map((unit) => {
-            let item = {
-                Unit: unit
-            }
+        // unitCosts.map((unit) => {
+        //     let item = {
+        //         Unit: unit
+        //     }
 
-            this.data.Items.push(item);
-            if (unit.VBDocumentLayoutOrder === 9)
-                this.data.Items.push({
-                    Unit: {
-                        VBDocumentLayoutOrder: 10
-                    }
-                });
+        //     this.data.Items.push(item);
+        //     if (unit.VBDocumentLayoutOrder === 9)
+        //         this.data.Items.push({
+        //             Unit: {
+        //                 VBDocumentLayoutOrder: 10
+        //             }
+        //         });
 
-        })
+        // })
     }
 
     list() {
