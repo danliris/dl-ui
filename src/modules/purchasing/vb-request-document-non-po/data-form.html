@@ -77,12 +77,10 @@
                   read-only.bind="true"
                   value.bind="error.Item"
                   style="color: red;"></au-textbox>
-      <table show.bind="data.Currency">
+      <!-- <table show.bind="data.Currency">
         <tr repeat.for="cardContents of cards">
           <td repeat.for="cardContent of cardContents">
-            <!-- <card-content data.bind="cardContent">
-
-            </card-content> -->
+             
             <au-checkbox if.bind="cardContent.Unit.VBDocumentLayoutOrder != 10"
                          label.bind="cardContent.Unit.Name"
                          value.bind="cardContent.IsSelected"
@@ -114,7 +112,17 @@
             </au-autocomplete>
           </td>
         </tr>
-      </table>
+      </table> -->
+      <au-collection items.bind="data.Items"
+                     errors.bind="error.Items"
+                     columns.bind="itemColumns"
+                     add.bind="addItems"
+                     remove.bind="onremoveItems"
+                     read-only.bind="readOnly"
+                     options.bind="itemOptions"
+                     show.bind="data.Currency"
+                     item-template="modules/purchasing/vb-request-document-non-po/card-template/card-content">
+      </au-collection>
     </div>
 
   </au-input-form>
