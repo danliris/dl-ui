@@ -1,36 +1,26 @@
-import { inject, bindable, computedFrom, customElement } from 'aurelia-framework';
-import moment from 'moment';
+import { bindable, computedFrom, BindingSignaler, inject } from 'aurelia-framework';
 
-@customElement("card-content")
-@inject(Element)
-export class CardContentCustomElement {
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) items;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) errors;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) data;
-  // @bindable readOnly;
-  // formOptions = {
-  //   cancelText: "Kembali",
-  //   saveText: "Simpan",
-  //   deleteText: "Hapus",
-  //   editText: "Ubah",
-  // };
+const UnitLoader = require('../../../../loader/unit-loader');
 
-  // controlOptions = {
-  //   label: {
-  //     length: 4,
-  //   },
-  //   control: {
-  //     length: 4,
-  //   },
-  // };
+// @inject(BindingSignaler)
+export class Unit {
 
-  constructor(element) {
-    this.component = element;
-  }
+    constructor() {
+    }
 
-  bind() {
-  }
+    activate(context) {
+        this.data = context.data;
+        this.error = context.error;
+        this.options = context.context.options;
+        this.readOnly = context.options.readOnly;
+        this.data.IsSelected=true;
+    }
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+    }
 
-  activate(params) {
-  }
+    get unitLoader() {
+        return UnitLoader;
+    }
+  
 }
