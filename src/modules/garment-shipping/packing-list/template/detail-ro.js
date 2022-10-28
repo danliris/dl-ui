@@ -151,7 +151,7 @@ export class Item {
             }
         }
         this.isShowing = false;
-        if (this.data.details) {
+        if (this.data.details && !this.data.id) {
             if (this.data.details.length > 0) {
                 this.isShowing = true;
             }

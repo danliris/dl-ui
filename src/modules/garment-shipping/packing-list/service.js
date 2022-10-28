@@ -54,6 +54,11 @@ class Service extends RestService {
         return super.getPdf(endpoint);
     }    
     
+    getPdfWHSectionDById(id) {
+        var endpoint = `${serviceUri}/${id}/wh-section-d`;
+        return super.getPdf(endpoint);
+    }  
+    
     unpost(data) {
         console.log(data);
         var endpoint = `${serviceUri}/unpostDelivered/${data.id}`;

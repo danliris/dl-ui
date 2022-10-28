@@ -57,7 +57,8 @@ export class List {
         var info = {
             unit : this.unit ? this.unit.Id : "",
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            type :"bookkeeping"
       
         }
         this.service.generateExcel(info);
@@ -170,6 +171,18 @@ export class List {
         
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
-    
+    get sumNominal()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.remainQty * item.price;
+            } 
+        }
+        
+        return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
+    }
     
 }

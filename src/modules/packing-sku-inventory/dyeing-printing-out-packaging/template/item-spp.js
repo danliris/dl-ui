@@ -57,29 +57,29 @@ export class ItemSPP {
         if (this.isEdit) {
             if (this.readOnly) {
                 if (this.destinationArea == "TRANSIT") {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
                 } else {
                     if(this.type ==true){
-                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan",  "QTY Keluar", "Keterangan","Status"];    
+                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan",  "QTY Keluar", "Keterangan","Status"];    
                     }else{
-                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
+                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
                     }
                 }
 
             } else {
                 if (this.destinationArea == "TRANSIT") {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
                 } else {
-                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                    this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
                 }
 
             }
 
         } else {
             if (this.destinationArea == "TRANSIT") {
-                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Ket Transit", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
             } else {
-                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
+                this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Saldo", "Panjang Per Packing", "QTY Keluar", "Keterangan", ""];
             }
         }
 

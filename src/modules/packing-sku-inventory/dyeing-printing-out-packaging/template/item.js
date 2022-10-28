@@ -30,6 +30,7 @@ export class CartItem {
         this.packUnit = ["ROLL", "PIECE", "POTONGAN"];
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
+            console.log(this.selectedProductionOrder);
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
@@ -54,6 +55,7 @@ export class CartItem {
             this.selectedProductionOrder.PackagingType = this.data.packagingType;
             this.selectedProductionOrder.grade = this.data.grade;
             this.selectedProductionOrder.PackagingQty = this.data.packagingQTY;
+            //this.selectedProductionOrder.ProductTextile.Name = this.data.productTextile.name
             // this.selectedProductionOrder.qtyOut = this.data.qtyOut;
             if (this.data.packagingQTY) {
                 this.inputPackagingQTY = this.data.packagingQTY;
@@ -150,6 +152,7 @@ export class CartItem {
             // this.data.qtyOut = this.selectedProductionOrder.qtyOut;
             this.inputPackagingQTY = this.selectedProductionOrder.PackagingQty;
             this.data.packagingQTY = this.selectedProductionOrder.PackagingQty;
+            this.data.productTextile.name = this.selectedProductionOrder.productTextile.name ;
             // this.data.
             // this.data.bonNoInput = this.selectedProductionOrder.bonNo;
             if (this.selectedProductionOrder.productionOrderNo.charAt(0) === 'P') {

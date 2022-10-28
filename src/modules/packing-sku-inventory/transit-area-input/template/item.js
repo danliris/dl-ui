@@ -31,6 +31,9 @@ export class CartItem {
             this.selectedProductionOrder.DesignCode = this.data.motif;
             this.selectedProductionOrder.Uom = {};
             this.selectedProductionOrder.Uom.Unit = this.data.uomUnit;
+            // this.selectedProductionOrder.ProductTextile.Id= this.data.productTextile.id;
+            // this.selectedProductionOrder.ProductTextile.code= this.data.productTextile.code;
+            // this.selectedProductionOrder.ProductTextile.name= this.data.productTextile.name;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
@@ -71,6 +74,9 @@ export class CartItem {
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;
             this.data.motif = this.selectedProductionOrder.DesignCode;
             this.data.uomUnit = this.selectedProductionOrder.Uom.Unit;
+            this.data.productTextile.id = this.selectedProductionOrder.productTextile.Id;
+            this.data.productTextile.code = this.selectedProductionOrder.productTextile.Code;
+            this.data.productTextile.name = this.selectedProductionOrder.productTextile.Name;
             this.data.productionOrder.orderQuantity = this.selectedProductionOrder.OrderQuantity;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
