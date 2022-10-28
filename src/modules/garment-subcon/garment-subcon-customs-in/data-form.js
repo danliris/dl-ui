@@ -77,6 +77,7 @@ export class DataForm {
       this.selectedSubconContract = dataSubconContract;
       this.selectedSubconCategory = this.data.SubconCategory;
     }
+    // this.data.BuyerStaff = this.data.BuyerStaff;
   }
 
   get subconContractLoader() {
@@ -118,6 +119,9 @@ export class DataForm {
       if (newValue.Id != this.data.SubconContractId) {
         this.data.Items.splice(0);
       }
+      this.data.BuyerStaff = newValue.CreatedBy;
+      console.log(this.data.BuyerStaff);
+      console.log(newValue);
     }
   }
 
