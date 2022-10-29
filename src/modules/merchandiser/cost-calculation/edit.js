@@ -16,9 +16,20 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        console.log(this.data);
+
         if (this.data) {
             this.selectedPreSalesContract = {
                 SCNo: this.data.PreSCNo
+            }
+
+            this.selectedBookingOrder = {
+                BookingOrderId :this.data.BookingOrderId,
+                BookingOrderItemId : this.data.BookingOrderItemId,
+                BookingOrderNo : this.data.BookingOrderNo, 
+                ConfirmDate : this.data.ConfirmDate,
+                ConfirmQuantity : this.data.BOQuantity,
+                ComodityName : this.data.Comodity.Name,
             }
 
             const prMasterIds = this.data.CostCalculationGarment_Materials

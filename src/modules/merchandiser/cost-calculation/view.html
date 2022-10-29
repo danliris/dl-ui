@@ -65,6 +65,7 @@
         <div class="col-md-4">
           <au-textbox label="Size Range" options.bind="length4" value.bind="data.SizeRange" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Seksi" options.bind="length4" value.bind="data.Section" read-only.bind="readOnly"></au-textbox>
+          <au-textbox label="No Booking Order" options.bind="length4" value.bind="data.BookingOrderNo" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Komoditi" options.bind="length4" value.bind="data.Comodity.Name" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="Confirm Price" options.bind="length4" value.bind="data.ConfirmPrice" read-only.bind="readOnly"></au-textbox>          
         </div>
@@ -113,6 +114,10 @@
               <tr>
                 <td class="label-td">Delivery</td>
                 <td>${data.DeliveryDate | dateFormat:'YYYY-MM-DD'}</td>
+              </tr>
+              <tr>
+                <td class="label-td">Confirm Date</td>
+                <td>${data.ConfirmDate | dateFormat:'YYYY-MM-DD'}</td>
               </tr>
             </tbody>
           </table>

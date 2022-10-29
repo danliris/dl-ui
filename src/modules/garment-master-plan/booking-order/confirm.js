@@ -62,12 +62,12 @@ export class Confirm {
           }
 
         }
-        var total = total_item - this.data.OrderQuantity;
+        var total = total_item - (this.data.OrderQuantity * 1.05);
         if (total > 0)
-          warning_confirm.push('Total jumlah confirm lebih dari jumlah booking order\n');
+          warning_confirm.push('Total Jumlah Confirm lebih dari Jumlah Order (Max Allowance 5% dari Jumah Order)\n');
 
         if (warning.length > 0 && warning_confirm.length <= 0) {
-          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + 'Tetap Confirm?')) {
+          if (confirm('Tanggal Confirm <= 45 hari \n' + warning.toString().replace(/,/g, "") + 'Tetap Confirm ?')) {
             this.service.update(this.data)
               .then(result => {
                 alert("Data Confirmed");
