@@ -36,7 +36,7 @@
                 <au-autocomplete
                     label="Komoditi"
                     placeholder="Cari Komoditi"
-                    value.bind="data.Comodity"
+                    value.bind="selectedComodity"
                     text.bind="comodityView"
                     error.bind="error.Commodity"
                     query.bind="comodityQuery"
@@ -71,6 +71,18 @@
                     read-only="true"
                     options.bind="length4">
                 </au-textbox>
+                <!--query.bind="filter"-->
+                <au-autocomplete
+                    value.bind="selectedBookingOrder"
+                    error.bind="error.BookingOrder"                    
+                    label="No Booking Order"
+                    loader.bind="bookingOrderLoader" 
+                    query.bind="filter"
+                    text.bind="bookingOrderView"                                                         
+                    placeholder="No Booking Order"
+                    read-only.bind="readOnly || isEdit"
+                    options.bind="length4">
+                </au-autocomplete>
                 <au-numeric
                     label="Quantity"
                     format="0"
@@ -101,7 +113,25 @@
                     error.bind="error.DeliveryDate"
                     options.bind="length4">
                 </au-datepicker>
+                <!--query.bind="bookingOrderFilter"-->
+                <!--<au-autocomplete
+                    value.bind="selectedBookingOrder"
+                    error.bind="error.BookingOrder"                    
+                    label="No Booking Order"
+                    loader.bind="bookingOrderLoader" 
+                    text.bind="bookingOrderView"                                                         
+                    placeholder="No Booking Order"
+                    read-only.bind="readOnly || isEdit"
+                    options.bind="length4">
+                </au-autocomplete>-->
                 <au-datepicker
+                    label="Confirm Date"
+                    value.bind="data.ConfirmDate"
+                    error.bind="error.ConfirmDate"
+                    read-only="true"
+                    options.bind="length4">
+                </au-datepicker>
+                <!--<au-datepicker
                     label="Confirm Date"
                     value.bind="data.ConfirmDate"
                     error.bind="error.ConfirmDate"
@@ -109,7 +139,7 @@
                     key="Code"
                     text="Name"
                     loader.bind="sizeRangeLoader">
-                </au-datepicker>
+                </au-datepicker>-->
             </div>
             <div class="col-md-3">
                 <au-dropdown
