@@ -34,24 +34,6 @@
                 </au-textbox> -->
 
                 <au-autocomplete
-                    value.bind="selectedSupplier"
-                    error.bind="error.Supplier"
-                    label="Penerima"
-                    loader.bind="supplierLoader"
-                    text.bind="supplierView"
-                    placeholder="cari supplier"
-                    read-only.bind="readOnly || IsUsed || data.Id"
-                    options.bind="controlOptions">
-                </au-autocomplete>
-
-                <au-textbox
-                    value.bind="data.Supplier.Address || Supplier.address"
-                    label="Alamat Penerima"
-                    read-only.bind="true"
-                    options.bind="controlOptions">
-                </au-textbox>
-
-                <au-autocomplete
                     value.bind="selectedContract"
                     error.bind="error.ContractNo"
                     label="Surat Kontrak"
@@ -62,21 +44,46 @@
                     options.bind="controlOptions">
                 </au-autocomplete>
 
+                <!-- <au-autocomplete
+                    value.bind="selectedSupplier"
+                    error.bind="error.Supplier"
+                    label="Penerima"
+                    loader.bind="supplierLoader"
+                    text.bind="supplierView"
+                    placeholder="cari supplier"
+                    read-only.bind="readOnly || IsUsed || data.Id"
+                    options.bind="controlOptions">
+                </au-autocomplete> -->
+
                 <au-textbox
-                    value.bind="data.NW"
-                    label="Nilai  NW"
-                    placeholder="Input Nilai NW"
-                    read-only.bind="readOnly || data.IsUsed"
+                    value.bind="data.Supplier.name || Supplier.Name"
+                    label="Penerima"
+                    loader.bind = "supplierLoader"
+                    text.bind="supplierView"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
 
                 <au-textbox
-                    value.bind="data.GW"
-                    label="Nilai  GW"
-                    placeholder="Input Nilai GW"
-                    read-only.bind="readOnly || data.IsUsed"
+                    value.bind="data.Supplier.address || Supplier.Address"
+                    label="Alamat Penerima"
+                    read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
+
+                <au-numeric
+                    value.bind="data.NW"
+                    label="Nilai NW"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                <au-numeric
+                    value.bind="data.GW"
+                    label="Nilai GW"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-numeric>
 
                 <au-multiline
                     value.bind="data.Remark"
@@ -99,7 +106,8 @@
                 add.bind="addItems"
                 if.bind="isItems"
                 options.bind="itemOptions"
-                item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/item">
+                item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/item"
+                footer-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/invoice-packing-list">
             </au-collection>
         </div>
     </au-input-form>

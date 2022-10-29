@@ -1126,4 +1126,103 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/customs/machine/brand',
+        name: 'machine-brand',
+        moduleId: './modules/customs/machine/master-brand/index',
+        nav: true,
+        title: 'Master Brand',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "machine",
+            permission: { "C9": 1,"MCH": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    {
+        route: '/customs/machine/category',
+        name: 'machine-category',
+        moduleId: './modules/customs/machine/master-category/index',
+        nav: true,
+        title: 'Master Kategori',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "machine",
+            permission: { "C9": 1,"MCH": 1  },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    // {
+    //     route: '/customs/machine/in',
+    //     name: 'machine-in',
+    //     moduleId: './modules/customs/machine/in/index',
+    //     nav: true,
+    //     title: 'Transaksi Masuk (Mesin Baru)',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         subGroup: "machine",
+    //         permission: { "C9": 1,"B6": 1,"B1": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     },
+    // },
+    // {
+    //     route: '/customs/machine/out',
+    //     name: 'machine-out',
+    //     moduleId: './modules/customs/machine/out/index',
+    //     nav: true,
+    //     title: 'Transaksi Keluar',
+    //     auth: true,
+    //     settings: {
+    //         group: "g-production",
+    //         subGroup: "machine",
+    //         permission: { "C9": 1,"B6": 1,"B1": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     },
+    // },
+    {
+        route: '/customs/machine/machines',
+        name: 'machines',
+        moduleId: './modules/customs/machine/machines/index',
+        nav: true,
+        title: 'Mesin',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "machine",
+            permission: { "C9": 1,"MCH": 1  },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    {
+        route: '/customs/machine/mutation',
+        name: 'mutation',
+        moduleId: './modules/customs/machine/mutation/index',
+        nav: true,
+        title: 'Mutasi',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "machine",
+            permission: { "C9": 1,"MCH": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+    },
+    {
+        route: '/customs/report-aval',
+        name: 'report-aval',
+        moduleId: './modules/garment-production/scrap-report/index',
+        nav: true,
+        title: 'Laporan Stock Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
 ];

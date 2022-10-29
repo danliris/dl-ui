@@ -13,10 +13,21 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
-        if(this.data.IsUsed){
-            this.deleteCallback=null;
-            this.editCallback=null;
+        
+        if(this.data){
+            if(this.data.IsUsed){
+                this.deleteCallback=null;
+                this.editCallback=null;
+            }
+           
+            // this.data.NettWeight = this.data.NW;
+            this.data.NW = this.data.NW;
+            
+        
+             this.data.GW = this.data.GW;
+             this.data.isView = true;
         }
+        
     }
 
     cancelCallback(event) {
