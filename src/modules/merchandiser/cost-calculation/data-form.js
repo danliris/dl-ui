@@ -3,14 +3,12 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
 import { ServiceCore } from './service-core';
-import moment from 'moment';
+
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
 var PreSalesContractLoader = require('../../../loader/garment-pre-sales-contracts-loader');
-var BookingOrderLoader = require('../../../loader/garment-booking-order-by-no-for-ccg-loader');
-
 var SizeRangeLoader = require('../../../loader/size-range-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
@@ -140,15 +138,6 @@ export class DataForm {
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
-    this.selectedBookingOrder = {
-                BookingOrderId :this.data.BookingOrderId,
-                BookingOrderItemId : this.data.BookingOrderItemId,
-                BookingOrderNo : this.data.BookingOrderNo, 
-                ConfirmDate : this.data.ConfirmDate,
-                ConfirmQuantity : this.data.BOQuantity,
-                //ComodityName : this.data.Comodity.Name,
-            }
-    console.log(this.data);
     let promises = [];
 
     let wage;
@@ -237,24 +226,6 @@ export class DataForm {
     return PreSalesContractLoader;
   }
 
-  get bookingOrderLoader() {
-    return BookingOrderLoader;
-  }
-
-  bookingOrderView = (bookingorder) => {                          
-    return`${bookingorder.BookingOrderNo} - ${bookingorder.ComodityName} - ${bookingorder.ConfirmQuantity} - ${moment(bookingorder.ConfirmDate).format("DD MMM YYYY")}`
-  }
-
- get filter() {
-     var filter = {};
-     filter = {
-               BuyerCode: this.data.BuyerCode,
-               SectionCode: this.data.Section,
-               ComodityCode: this.data.ComodityCode,
-              };          
-     return filter;
-  }
- 
   get sizeRangeLoader() {
     return SizeRangeLoader;
   }
@@ -305,21 +276,16 @@ export class DataForm {
       this.data.PreSCId = newValue.Id;
       this.data.PreSCNo = newValue.SCNo;
       this.data.Section = newValue.SectionCode;
-      console.log(this.data.Section);
       const section = await this.serviceCore.getSection(newValue.SectionId);
       this.data.SectionName = section.Name;
       this.data.ApprovalCC = section.ApprovalCC;
       this.data.ApprovalRO = section.ApprovalRO;   
       this.data.ApprovalKadiv = section.ApprovalKadiv;
-      
       this.data.Buyer = {
         Id: newValue.BuyerAgentId,
         Code: newValue.BuyerAgentCode,
         Name: newValue.BuyerAgentName
       };
-      
-      this.data.BuyerCode = this.data.Buyer.Code;
-      console.log(this.data.BuyerCode);
       this.data.BuyerBrand = {
         Id: newValue.BuyerBrandId,
         Code: newValue.BuyerBrandCode,
@@ -353,47 +319,14 @@ export class DataForm {
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
-  //
- @bindable selectedBookingOrder;
-  async selectedBookingOrderChanged(newValue, oldValue) {
-    //console.log(newValue);
-    if (newValue)
-       {
-         this.data.BookingOrderId = newValue.BookingOrderId;
-         this.data.BookingOrderItemId = newValue.BookingOrderItemId;
-         this.data.BookingOrderNo = newValue.BookingOrderNo;   
-         this.data.BOQuantity = newValue.ConfirmQuantity;
-         this.data.ConfirmDate = newValue.ConfirmDate;   
-         //this.data.Commodity = newValue.ComodityName;
-
-         console.log(this.data.BookingOrderId);
-         console.log(this.data.BookingOrderItemId);      
-         console.log(this.data.BookingOrderNo);
-         console.log(this.data.BOQuantity);
-         console.log(this.data.ConfirmDate);     
-         //console.log(this.data.Commodity);   
-       } 
-       else 
-       {
-          this.data.BookingOrderId = this.data.BookingOrderId;
-          this.data.BookingOrderItemId = this.data.BookingOrderItemId;
-          this.data.BookingOrderNo = this.data.BookingOrderNo;      
-          this.data.BOQuantity = this.data.BOQuantity;
-          this.data.ConfirmDate = this.data.ConfirmDate;
-         // this.data.Commodity = this.data.Commodity;
-       }
-  }
-
-  @bindable selectedComodity;
+  @bindable selectedComodity = "";
   selectedComodityChanged(newVal) {
-    this.data.Comodity = newVal;    
+    this.data.Comodity = newVal;
     if (newVal) {
      this.data.ComodityId=newVal.Id;
      this.data.ComodityCode=newVal.Code;
      this.data.ComodityName=newVal.Name;
     }
-    console.log(this.data.ComodityCode);
-    //console.log(newVal);
   }
 
   @bindable selectedLeadTime = "";
