@@ -72,12 +72,11 @@
                 </au-textbox>
 
                 <au-numeric
-                    value.bind="data.NettWeight"
+                    value.bind="data.NW"
                     label="Nilai NW"
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-numeric>
-                
 
                 <au-numeric
                     value.bind="data.GW"
@@ -107,7 +106,8 @@
                 add.bind="addItems"
                 if.bind="isItems"
                 options.bind="itemOptions"
-                item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/item">
+                item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/item"
+                footer-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/invoice-packing-list">
             </au-collection>
         </div>
     </au-input-form>

@@ -20,16 +20,14 @@ export class View {
                 this.editCallback=null;
             }
            
-            this.data.NettWeight = this.data.NW;
+            // this.data.NettWeight = this.data.NW;
+            this.data.NW = this.data.NW;
             
         
              this.data.GW = this.data.GW;
              this.data.isView = true;
         }
         
-        console.log(this.data.NettWeight);
-        console.log(this.data.GW);
-        console.log(this.data);
     }
 
     cancelCallback(event) {

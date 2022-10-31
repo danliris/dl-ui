@@ -146,39 +146,39 @@ export class DataForm {
                 this.data.BLAWBNumber = null;
                 this.data.ContractPONumber = null;
                 this.data.Items.splice(0, this.data.Items.length);
-                this.data.UnitCosts = [];
+                this.data.UnitCosts.splice(0);
                 this.cards = [];
-                if (this.data.VBNonPOType == "Tanpa Nomor VB") {
-                    let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
-                    let unitCosts = unitCostsResponse.data;
+                // if (this.data.VBNonPOType == "Tanpa Nomor VB") {
+                //     let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
+                //     let unitCosts = unitCostsResponse.data;
 
-                    unitCosts.map((unit) => {
-                        let item = {
-                            Unit: unit,
-                        };
+                //     unitCosts.map((unit) => {
+                //         let item = {
+                //             Unit: unit,
+                //         };
 
-                        this.data.UnitCosts.push(item);
-                        if (unit.VBDocumentLayoutOrder === 9)
-                            this.data.UnitCosts.push({
-                                Unit: {
-                                    VBDocumentLayoutOrder: 10,
-                                },
-                            });
-                    });
-                }
+                //         this.data.UnitCosts.push(item);
+                //         if (unit.VBDocumentLayoutOrder === 9)
+                //             this.data.UnitCosts.push({
+                //                 Unit: {
+                //                     VBDocumentLayoutOrder: 10,
+                //                 },
+                //             });
+                //     });
+                // }
 
-                let tempCards = [];
-                this.data.UnitCosts.forEach((item, index) => {
-                    tempCards.push(item);
-                    if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                        this.cards.push(tempCards);
-                        tempCards = [];
-                    }
-                });
+                // let tempCards = [];
+                // this.data.UnitCosts.forEach((item, index) => {
+                //     tempCards.push(item);
+                //     if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+                //         this.cards.push(tempCards);
+                //         tempCards = [];
+                //     }
+                // });
 
-                if (tempCards.length > 0) {
-                    this.cards.push(tempCards);
-                }
+                // if (tempCards.length > 0) {
+                //     this.cards.push(tempCards);
+                // }
             }
         }
     }
@@ -212,34 +212,41 @@ export class DataForm {
             }
 
             if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
-                var dataVBRequest = await this.service.getVBDocumentById(
-                    this.data.VBDocument.Id
-                );
+                var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
+                dataVBRequest.Items.forEach((item, index) => {
+                    if(item.IsSelected){
+                        this.data.UnitCosts.push(item);
+                    }
+                });
+                // var dataVBRequest = await this.service.getVBDocumentById(
+                //     this.data.VBDocument.Id
+                // );
 
-                this.data.UnitCosts = dataVBRequest.Items;
+                // this.data.UnitCosts = dataVBRequest.Items;
             }
 
-            if (this.data.UnitCosts) {
-                var otherUnit = this.data.UnitCosts.find(
-                    (s) => s.Unit.VBDocumentLayoutOrder == 10
-                );
-                if (otherUnit) {
-                    this.cardContentUnit = otherUnit.Unit;
-                }
-            }
+            // if (this.data.UnitCosts) {
+            //     var otherUnit = this.data.UnitCosts.find(
+            //         (s) => s.Unit.VBDocumentLayoutOrder == 10
+            //     );
+            //     if (otherUnit) {
+            //         this.cardContentUnit = otherUnit.Unit;
+            //     }
+            // }
 
-            let tempCards = [];
-            this.data.UnitCosts.forEach((item, index) => {
-                tempCards.push(item);
-                if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                    this.cards.push(tempCards);
-                    tempCards = [];
-                }
-            });
+            // let tempCards = [];
+            // this.data.UnitCosts.forEach((item, index) => {
+            //     tempCards.push(item);
+            //     if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+            //         this.cards.push(tempCards);
+            //         tempCards = [];
+            //     }
+            // });
 
-            if (tempCards.length > 0) {
-                this.cards.push(tempCards);
-            }
+            // if (tempCards.length > 0) {
+            //     this.cards.push(tempCards);
+            // }
+            this.itemOptions.vbNonPOType=this.vbNonPOType;
         } else {
             this.data.VBDocument = null;
             this.unit = null;
@@ -329,7 +336,6 @@ export class DataForm {
     }
 
     get vbLoader() {
-        console.log(VbLoader);
         return VbLoader;
     }
 
@@ -343,5 +349,14 @@ export class DataForm {
 
     get currencyLoader() {
         return CurrencyLoader;
+    }
+    unitcolumns = [
+        "Unit", "Amount"
+    ];
+
+    get addUnitCosts() {
+        return (event) => {
+            this.data.UnitCosts.push({ Amount: 0,})
+        };
     }
 }
