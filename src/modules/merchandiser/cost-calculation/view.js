@@ -75,7 +75,6 @@ export class View {
 
     var id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data);
     if(this.data.ApprovalMD.IsApproved || this.data.SCGarmentId)
     {
       this.editCallback=null;
@@ -163,13 +162,6 @@ export class View {
 
     this.data.LeadTime = `${this.data.LeadTime} hari`
     this.data.ConfirmPrice=(this.data.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4}));
-
-    this.data.BookingOrderId =this.data.BookingOrderId;
-    this.data.BookingOrderItemId = this.data.BookingOrderItemId;
-    this.data.BookingOrderNo =this.data.BookingOrderNo;
-    this.data.ConfirmDate = this.data.ConfirmDate;
-    this.data.BOQuantity = this.data.BOQuantity;
-    //this.data.Comodity.Name = this.data.Comodity.Name;
     
     // Unpost tampil jika IsPosted = true dan ada approval yang false
     this.hasUnpost = this.data.IsPosted && !(this.data.ApprovalIE.IsApproved && this.data.ApprovalMD.IsApproved && this.data.ApprovalPPIC.IsApproved && this.data.ApprovalPurchasing.IsApproved);
