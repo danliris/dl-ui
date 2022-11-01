@@ -15,6 +15,13 @@
                     error.bind="error.name"
                     read-only.bind="readOnly"></au-textbox>
 
+        <au-dropdown
+                    label="Jenis Buyer"
+                    value.bind="data.BuyerType"
+                    error.bind="error.buyerType"
+                    read-only.bind="readOnly"
+                    items.bind="types"></au-dropdown>
+
         <au-autocomplete label="Satuan"
                          value.bind="UOM"
                          error.bind="error.uom"
