@@ -3,34 +3,34 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="col-lg-6">
+                    <au-autocomplete value.bind="selectedContract" error.bind="error.SubconContractId"
+                        label="No Subcon Contract" loader.bind="contractLoader" text="ContractNo"
+                        query.bind="contractFilter" placeholder="subcon contract" read-only.bind="readOnly|| isEdit"
+                        options.bind="controlOptions" view-model.ref="selectedContractViewModel">
+                    </au-autocomplete>
+
                     <au-dropdown label="Jenis Subcon" value.bind="selectedSubconType" error.bind="error.SubconType"
-                        read-only.bind="readOnly || isEdit" items.bind="subconTypeOptions"
+                        read-only.bind="readOnly || isEdit" items.bind="subconTypeOptions" show.bind="selectedContract"
                         options.bind="controlOptions">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON GARMENT'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
                         read-only.bind="readOnly || isEdit" items.bind="subconCategoryGarmentOptions"
-                        options.bind="controlOptions">
+                        options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON BAHAN BAKU'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
                         read-only.bind="readOnly || isEdit" items.bind="subconCategoryBBOptions"
-                        options.bind="controlOptions">
+                        options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON JASA'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
                         read-only.bind="readOnly || isEdit" items.bind="subconCategoryServiceOptions"
-                        options.bind="controlOptions">
+                        options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
-
-                    <au-autocomplete value.bind="selectedContract" error.bind="error.SubconContractId"
-                        label="No Subcon Contract" loader.bind="contractLoader" text="ContractNo"
-                        query.bind="contractFilter" placeholder="subcon contract" read-only.bind="readOnly|| isEdit"
-                        options.bind="controlOptions" view-model.ref="selectedContractViewModel">
-                    </au-autocomplete>
 
                     <au-textbox value.bind="data.CustomsOutNo" error.bind="error.CustomsOutNo" label="No BC Keluar"
                         read-only.bind="readOnly" options.bind="controlOptions">
