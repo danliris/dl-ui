@@ -47,6 +47,17 @@ export class DataForm {
     this.service = service;
   }
 
+  get filter() {
+    var filter = {};
+    filter = {
+              BuyerCode: this.data.BuyerCode,
+              
+             };          
+    return filter;
+  }
+
+
+
   bind(context) {
     this.context = context;
     this.data = context.data;
@@ -76,9 +87,13 @@ export class DataForm {
     this.selectedPaymentMethods = this.data.PaymentMethods || null;
     this.selectedDownPayments = this.data.DownPayments || null;
     this.productTextile = this.data.ProductTextile || null;
+    console.log(this.data.Buyer);
     // this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
+
+
+
 
   isExport = false;
   @bindable selectedBuyer;
@@ -96,6 +111,9 @@ export class DataForm {
         };
         this.isExport = false;
       }
+      this.data.BuyerType = newValue.Type;
+      //console.log(this.data.BuyerType);
+      console.log(newValue);
 
     } else {
       this.isExport = false;
@@ -139,6 +157,16 @@ export class DataForm {
       this.data.LateReturn = "";
       this.data.Claim = 0;
     }
+  }
+
+    get filter() {
+    var filter = {};
+    filter = {
+              BuyerType: this.data.BuyerType,
+              
+             };      
+    return filter;
+             
   }
 
   @bindable selectedUseIncomeTax = false;
