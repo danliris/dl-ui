@@ -31,8 +31,7 @@ export class DataForm {
   @bindable isCopy = false;
  
   leadTimeList = ["", "25 hari", "40 hari"];
-
-  
+ 
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -140,15 +139,23 @@ export class DataForm {
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
-    this.selectedBookingOrder = {
-                BookingOrderId :this.data.BookingOrderId,
-                BookingOrderItemId : this.data.BookingOrderItemId,
-                BookingOrderNo : this.data.BookingOrderNo, 
-                ConfirmDate : this.data.ConfirmDate,
-                ConfirmQuantity : this.data.BOQuantity,
-                //ComodityName : this.data.Comodity.Name,
-            }
-    console.log(this.data);
+    this.create = this.context.create; 
+    if (!this.create)
+      {
+          this.selectedBookingOrder = {
+               BookingOrderId :this.data.BookingOrderId,
+               BookingOrderItemId : this.data.BookingOrderItemId,
+               BookingOrderNo : this.data.BookingOrderNo, 
+               ConfirmDate : this.data.ConfirmDate,
+               ConfirmQuantity : this.data.BOQuantity,
+               //ComodityName : this.data.Comodity.Name,
+        }
+      }
+      else
+      {
+          this.selectedBookingOrder = null;
+      }
+    console.log(this.context);
     let promises = [];
 
     let wage;
@@ -335,6 +342,7 @@ export class DataForm {
       this.data.ApprovalKadiv = null;
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
+      this.selectedBookingOrder = null;      
     }
 
     if ((oldValue && newValue) || (oldValue && !newValue)) {
@@ -375,11 +383,11 @@ export class DataForm {
        } 
        else 
        {
-          this.data.BookingOrderId = this.data.BookingOrderId;
-          this.data.BookingOrderItemId = this.data.BookingOrderItemId;
-          this.data.BookingOrderNo = this.data.BookingOrderNo;      
-          this.data.BOQuantity = this.data.BOQuantity;
-          this.data.ConfirmDate = this.data.ConfirmDate;
+          this.data.BookingOrderId = 0;
+          this.data.BookingOrderItemId = 0;
+          this.data.BookingOrderNo = null;      
+          this.data.BOQuantity = 0;
+          this.data.ConfirmDate = null;
          // this.data.Commodity = this.data.Commodity;
        }
   }
@@ -391,6 +399,10 @@ export class DataForm {
      this.data.ComodityId=newVal.Id;
      this.data.ComodityCode=newVal.Code;
      this.data.ComodityName=newVal.Name;
+    }
+    else
+    {
+          this.selectedBookingOrder = null;
     }
     console.log(this.data.ComodityCode);
     //console.log(newVal);
