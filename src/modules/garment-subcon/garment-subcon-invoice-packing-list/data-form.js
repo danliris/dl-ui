@@ -158,6 +158,7 @@ export class DataForm {
         if (newValue && !this.data.isView && !this.data.isEdit) {
             this.data.ContractNo = selectedContract.ContractNo;
             this.data.CIF = newValue.CIF;
+            this.data.BuyerStaff = newValue.CreatedBy;
             //this.data.NettWeight = newValue.NettWeight;
             // this.data.Quantity = newValue.Quantity;
             // this.data.NettWeight = newValue.NettWeight*this.data.Quantity;
