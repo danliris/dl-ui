@@ -106,27 +106,36 @@ export class DataForm {
         }
 
         if (this.data.UnitCosts) {
-            var otherUnit = this.data.UnitCosts.find(
-                (s) => s.Unit.VBDocumentLayoutOrder == 10
-            );
-            if (otherUnit) {
-                this.cardContentUnit = otherUnit.Unit;
-            }
-        }
-
-        if (this.data.UnitCosts) {
-            let tempCards = [];
-            this.data.UnitCosts.forEach((item, index) => {
-                tempCards.push(item);
-                if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                    this.cards.push(tempCards);
-                    tempCards = [];
+            if (this.data.UnitCosts) {
+                var uCosts=[];
+                for(var item of this.data.UnitCosts){
+                    if(item.IsSelected){
+                        uCosts.push(item);
+                    }
                 }
-            });
-
-            if (tempCards.length > 0) {
-                this.cards.push(tempCards);
+                this.data.UnitCosts=uCosts;
             }
+        //     var otherUnit = this.data.UnitCosts.find(
+        //         (s) => s.Unit.VBDocumentLayoutOrder == 10
+        //     );
+        //     if (otherUnit) {
+        //         this.cardContentUnit = otherUnit.Unit;
+        //     }
+        // }
+
+        // if (this.data.UnitCosts) {
+        //     let tempCards = [];
+        //     this.data.UnitCosts.forEach((item, index) => {
+        //         tempCards.push(item);
+        //         if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+        //             this.cards.push(tempCards);
+        //             tempCards = [];
+        //         }
+        //     });
+
+        //     if (tempCards.length > 0) {
+        //         this.cards.push(tempCards);
+        //     }
         }
     }
 

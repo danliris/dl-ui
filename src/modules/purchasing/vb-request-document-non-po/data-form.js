@@ -64,6 +64,15 @@ export class DataForm {
     this.saveCallback = this.context.saveCallback;
     this.hasPosting = this.context.hasPosting;
 
+    if (this.data.Items) {
+      var uCosts=[];
+      for(var item of this.data.Items){
+          if(item.IsSelected){
+              uCosts.push(item);
+          }
+      }
+      this.data.Items=uCosts;
+    }
     // if (this.data.Items) {
     //   var otherUnit = this.data.Items.find(s => s.Unit.VBDocumentLayoutOrder == 10);
     //   if (otherUnit) {
