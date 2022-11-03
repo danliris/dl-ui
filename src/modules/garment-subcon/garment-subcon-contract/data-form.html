@@ -75,7 +75,7 @@
                 <au-textbox
                     error.bind="error.FinishedGoodType"
                     value.bind="FinishedGoodType"
-                    label="Jenis Barang Jadi"
+                    label="Jenis Barang"
                     read-only.bind="readOnly || data.IsUsed || isEdit"
                     options.bind="controlOptions">
                 </au-textbox>
@@ -83,15 +83,17 @@
                     error.bind="error.NettWeight"
                     value.bind="data.NettWeight"
                     label="NW per Satuan"
-                    format="0.00"
+                    format="0.0000"
                     read-only.bind="readOnly || data.IsUsed "
+                    if.bind="data.ContractType != 'SUBCON GARMENT'"
                     options.bind="controlOptions2">
                 </au-numeric>
                 <au-numeric
                     error.bind="error.GrossWeight"
                     value.bind="data.GrossWeight"
+                    if.bind="data.ContractType != 'SUBCON GARMENT'"
                     label="GW per Satuan"
-                    format="0.00"
+                    format="0.0000"
                     read-only.bind="readOnly || data.IsUsed "
                     options.bind="controlOptions2">
                 </au-numeric>
@@ -165,7 +167,7 @@
             <au-collection
                 items.bind="data.Items"
                 errors.bind="error.Items"
-                columns.bind="columns"
+                columns.bind="data.ContractType == 'SUBCON GARMENT' ? garmentColumns : columns"
                 read-only.bind="readOnly"
                 remove.bind="removeItems"
                 add.bind="addItems"
