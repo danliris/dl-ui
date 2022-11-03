@@ -33,6 +33,24 @@
                 options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
+		<td class="col-sm-3 bg-primary" if.bind="data.ContractType == 'SUBCON GARMENT'">
+			<au-numeric 
+                error.bind="error.NettWeight" 
+                value.bind="data.NettWeight" 
+                format="0.0000"
+				read-only.bind="readOnly"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
+		<td class="col-sm-3 bg-primary" if.bind="data.ContractType == 'SUBCON GARMENT'">
+			<au-numeric 
+                error.bind="error.GrossWeight" 
+                value.bind="data.GrossWeight" 
+                format="0.0000"
+				read-only.bind="readOnly"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
 
 		<td class="col-sm-3 bg-primary">
 			<au-numeric 

@@ -52,6 +52,15 @@ export class DataForm {
         "CIF"
     ];
 
+    garmentColumns= [
+        "Barang",
+        "Jumlah",
+        "Satuan",
+        "NW per Satuan",
+        "GW per Satuan",
+        "CIF"
+    ];
+
     Uomfilter={
             'Unit=="MTR" || Unit=="PCS" || Unit=="SETS"': "true",
         };
@@ -90,6 +99,11 @@ export class DataForm {
         this.selectedSubconCategory=this.data.SubconCategory;
         if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
             this.isItems=true;
+        }
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                item.ContractType=this.data.ContractType;
+            }
         }
     }
 
@@ -198,7 +212,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-          this.data.Items.push({});
+          this.data.Items.push({ContractType: this.data.ContractType});
         };
       }
     

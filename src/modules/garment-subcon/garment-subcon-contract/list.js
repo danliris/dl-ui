@@ -48,7 +48,7 @@ export class List {
         { field: "UomUnit", title: "Satuan" },
         { field: "JobType", title: "Jenis Pekerjaan", sortable: false },
         //{ field: "BPJNo", title: "No/Tgl BPJ"},
-        { field: "FinishedGoodType", title: "Jenis Barang Jadi"},
+        { field: "FinishedGoodType", title: "Jenis Barang"},
         {
             field: "DueDate", title: "Tgl Jatuh Tempo", formatter: function (value, data, index) {
               return moment(value).format("DD MMM YYYY")
