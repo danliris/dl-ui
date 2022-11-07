@@ -25,6 +25,7 @@ export class List {
 
     columns = [
         { field: "ServiceSubconFabricWashNo", title: "No Subcon Jasa Komponen" },
+        { field: "Items", title: "No BUK" },
         { field: "ServiceSubconFabricWashDate", title: "Tgl Subcon BB Fabric Wash / Print", formatter: value => moment(value).format("DD MMM YYYY") }
     ]
 
@@ -41,11 +42,33 @@ export class List {
             filter: JSON.stringify(this.filter)
         }
 
-        return this.service.search(arg)
+        return this.service.searchComplete(arg)
             .then(result => {
-
+                var data = {};
+				data.total = result.info.total;
+				data.data = result.data;
                 this.totalQuantity = result.info.totalQty;
+                result.data.forEach(s => {
+                    // var getUen = s.Items.map(d => {
+                    //     // var str = "<ul>"
+					// 	return `<ul><li>${d.UnitExpenditureNo}</li></ul>`;	
+                    //     // str += "</ul>";
+                    // })
+					// s.UnitExpenditureNo = getUen;	
+					// console.log(s.UnitExpenditureNo)
+                    s.Items.toString = function () {
+                        var str = "<ul>";
+                        for (var item of s.Items){
+                            if (item.UnitExpenditureNo != null)
+                            {
+                                str += `<li>${item.UnitExpenditureNo}</li>`
+                            }
+                        }
+                        str += "</ul>";
+                        return str;
+                    }
 
+				})
                 return {
                     total: result.info.total,
                     data: result.data,
