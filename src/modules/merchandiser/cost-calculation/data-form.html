@@ -84,6 +84,14 @@
                     options.bind="length4">
                 </au-autocomplete>
                 <au-numeric
+                    label="Remaining Confirm Quantity"
+                    format="0"
+                    value.bind="data.BOQuantity"
+                    error.bind="error.BOQuantity"
+                    read-only="true"
+                    options.bind="length4">
+                </au-numeric>
+                <au-numeric
                     label="Quantity"
                     format="0"
                     value.bind="quantity"
