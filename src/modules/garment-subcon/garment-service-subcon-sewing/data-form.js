@@ -27,7 +27,7 @@ export class DataForm {
     editText: "Ubah"
   };
 
-  UomOptions = ['COLI', 'IKAT', 'CARTON', 'ROLL'];
+  UomOptions = ['IKAT', 'COLI', 'CARTON', 'ROLL'];
   controlOptions = {
     label: {
       length: 3
@@ -79,6 +79,9 @@ export class DataForm {
         for (var d of item.Details) {
           var detail = {};
           if (details.length == 0) {
+            detail.Id=d.Id;
+            detail.ServiceSubconSewingId = d.ServiceSubconSewingId;
+            detail.SewingInId = d.SewingInId;
             detail.Quantity = d.Quantity;
             detail.DesignColor = d.DesignColor;
             detail.Uom = d.Uom;
@@ -90,6 +93,9 @@ export class DataForm {
           else {
             var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id && a.Color == d.Color);
             if (!exist) {
+              detail.Id=d.Id;
+              detail.ServiceSubconSewingId = d.ServiceSubconSewingId;
+              detail.SewingInId = d.SewingInId;
               detail.Quantity = d.Quantity;
               detail.DesignColor = d.DesignColor;
               detail.Uom = d.Uom;
