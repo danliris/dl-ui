@@ -35,7 +35,7 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    { field: "RONo", title :"RO"},
+    { field: "Items", title :"RO"},
     { field: "Buyer.Name", title: "Buyer" },
     { field: "TotalQty", title: "Total Qty" },
     { field: "Unit", title: "Satuan" }
@@ -63,7 +63,6 @@ export class List {
       .then(result => {
         var qty = 0;
         var data = {};
-        var RONo = {};
         data.total = result.info.total;
         data.data = result.data;
         result.data.map(s => {
@@ -72,15 +71,18 @@ export class List {
           });
           s.TotalQty = arrQty.reduce((acc, cur) => acc += cur, 0);
           s.Unit = "PCS";
-          var getRO = s.Items.map(d => {
-            return d.RONo;
-          })
-          s.RONo = getRO;
-          console.log(s.RONo)
+          s.Items.toString = function () {
+            var str = "<ul>";
+            for (var item of s.Items){
+              str += `<li>${item.RONo}</li>`
+            }
+            str += "</ul>";
+            return str;
+          }
+          qty += s.TotalQty
           // s.UnitCode = s.Unit.Code;
           // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
           // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
-          qty += s.TotalQty
         });
         
         
