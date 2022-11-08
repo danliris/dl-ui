@@ -59,6 +59,13 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
+  getProductionOrderOutputv2ById(productionOrderId) {
+    var endpoint = `${serviceUri}/output-production-orders-v2?productionOrderId=${productionOrderId}`;
+
+    return super.get(endpoint);
+}
+
+
   // update(data) {
   //   let endpoint = `${serviceUri}/${data.id}`;
   //   return super.put(endpoint, data);
