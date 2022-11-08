@@ -1,6 +1,8 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
+let FilterSPPLoader = require("../../../loader/pre-input-warehouse-spp-loader");
+
 @inject(Service)
 export class DataForm {
   @bindable title;
@@ -88,4 +90,30 @@ export class DataForm {
       this.data.warehousesProductionOrders || [];
     this.data.warehousesProductionOrders.push({});
   };
+
+  get filterSPPLoader() {
+    return FilterSPPLoader;
+  }
+  sppTextFormatter = (spp) => {
+    return `${spp.productionOrder.no}`
+  }
+
+  @bindable selectedFilterSPP;
+  async selectedFilterSPPChanged(n, o) {
+    // if (this.selectedFilterSPP) {
+
+      this.data.warehousesProductionOrders = await this.service.getProductionOrderOutputv2ById(this.selectedFilterSPP.productionOrder.id);
+
+      //this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput();
+
+    // } else {
+
+    //   this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2();
+
+    // }
+  }
+  removeItems() {
+    // this.itemOptions.PackagingList = this.data.PackagingList;
+    this.bind();
+  }
 }

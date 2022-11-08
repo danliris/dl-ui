@@ -27,6 +27,10 @@
                  error.bind="error.Group"
                  read-only.bind="readOnly"
                  items.bind="groups"></au-dropdown>
+    <au-autocomplete if.bind="!isAdj" options.bind="controlOptions" value.bind="selectedFilterSPP"
+                 label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly" loader.bind="filterSPPLoader"
+                 text.bind="sppTextFormatter">
+                </au-autocomplete>
     <textbox label="Nomor Bon"
              value.bind="data.bonNo"
              read-only.bind="true"
