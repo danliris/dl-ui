@@ -71,9 +71,9 @@ export class List {
       case "Rincian":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
-    //   case "Cetak PDF":
-    //     this.service.getPdfById(data.Id);
-    //     break;
+      case "Cetak PDF":
+        this.service.getPdfById(data.Id);
+        break;
 
     }
   }
