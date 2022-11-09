@@ -98,8 +98,6 @@ export class DataForm {
         if(!this.data.Id){
             this.data.ReprocessType=e;
             this.data.Items.splice(0);
-            console.log(this.isCreate)
         }
     }
-
 }
