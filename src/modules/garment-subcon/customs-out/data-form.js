@@ -115,6 +115,7 @@ export class DataForm {
             if (newValue) {
                 this.data.SubconContractId = newValue.Id;
                 this.data.SubconContractNo = newValue.ContractNo;
+                this.data.BuyerStaff = newValue.CreatedBy;
                 this.data.Supplier = newValue.Supplier;
                 Promise.resolve(this.service.searchDeliveryLetterOut({ filter: JSON.stringify({ ContractNo: this.data.SubconContractNo, IsUsed: false }) }))
                     .then(result => {
