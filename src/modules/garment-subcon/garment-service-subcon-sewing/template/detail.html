@@ -17,7 +17,7 @@
             </au-numeric>
         </td>
         <td>
-            <au-textbox value.bind="data.Uom.Unit" read-only.bind="true">
+            <au-textbox value.bind="data.Uom.Unit" read-only.bind="readOnly && !isEdit" loader.bind = "uomLoader" text.bind="uomView">
             </au-textbox>
         </td>
         <td>
