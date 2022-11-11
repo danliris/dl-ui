@@ -1,5 +1,5 @@
 import { computedFrom } from "aurelia-framework";
-const UomLoader = require('../../../../loader/uom-loader');
+var UomLoader = require('../../../../loader/uom-loader');
 
 export class Detail {
     activate(context) {
@@ -8,7 +8,7 @@ export class Detail {
         this.error = context.error;
         this.isCreate = context.context.options.isCreate;
         this.isEdit = context.context.options.isEdit;
-        
+        this.readOnly = context.context.options.readOnly;
         this.itemOptions=context.context.options;
 
         console.log(this.itemOptions);
@@ -18,7 +18,7 @@ export class Detail {
         return UomLoader;
     }
 
-	uomView = (Uom) => {
-        return `${Uom.Unit || Uom.unit}`
+	uomView = (uom) => {
+        return `${uom.Unit || uom.unit}`
     }
 }
