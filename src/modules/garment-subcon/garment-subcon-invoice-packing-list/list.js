@@ -48,6 +48,7 @@ export class List {
         
         { field: "ContractNo", title: "No Subcon Contract" },
         { field: "DLNos", title: "Nomor Surat Jalan Subcon", sortable: false, formatter: value => `${value.map(v => `&bullet; ${v}`).join("<br/>")}` },
+        { field: "BuyerStaff", title: "Staff Pembelian"},
     ]
 
     loader = (info) => {

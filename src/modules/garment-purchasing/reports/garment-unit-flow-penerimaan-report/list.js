@@ -62,10 +62,11 @@ export class List {
                 this.unit = "";
                 this.unitname = "";
             }
+        }else
+        {
+            this.unit = "";
+            this.unitname = "";
         }
-
-        this.unit = "";
-        this.unitname = "";
         //console.log(this.unit);
         //console.log(this.uniname);
     }
