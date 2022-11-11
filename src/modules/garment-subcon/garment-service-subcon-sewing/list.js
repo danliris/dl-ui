@@ -35,7 +35,7 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    { field: "Items", title :"RO"},
+    { field: "RONo", title :"RO"},
     { field: "Buyer.Name", title: "Buyer" },
     { field: "TotalQty", title: "Total Qty" },
     { field: "Unit", title: "Satuan" }
@@ -56,7 +56,7 @@ export class List {
       size: info.limit,
       keyword: info.search,
       order: order,
-      filter: JSON.stringify(this.filter)
+      select: ["ServiceSubconSewingNo", "ServiceSubconSewingDate", "RONo", "Buyer.Name", "TotalQty", "Unit"],
     }
 
     return this.service.searchComplete(arg)
@@ -71,14 +71,24 @@ export class List {
           });
           s.TotalQty = arrQty.reduce((acc, cur) => acc += cur, 0);
           s.Unit = "PCS";
-          s.Items.toString = function () {
-            var str = "<ul>";
-            for (var item of s.Items){
-              str += `<li>${item.RONo}</li>`
-            }
-            str += "</ul>";
-            return str;
-          }
+          // s.Items.toString = function () {
+          //   var str = "<ul>";
+          //   for (var item of s.Items){
+          //     str += `<li>${item.RONo}</li>`
+          //   }
+          //   str += "</ul>";
+          //   return str;
+          // }
+          var getRO = s.Items.map(x => {
+            return `<ul><li>${x.RONo}</li></ul>`;
+              // var str = "<ul>";
+              // for (var item of s.Items){
+              //   str += `<li>${item.RONo}</li>`
+              // }
+              // str += "</ul>";
+              // return str;
+          })
+          s.RONo = getRO;
           qty += s.TotalQty
           // s.UnitCode = s.Unit.Code;
           // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
