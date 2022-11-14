@@ -33,7 +33,7 @@ export class List {
         { field: "SubconContractNo", title: "No Subcon Contract" },
         { field: "SupplierName", title: "Supplier" },
         { field: "CustomsOutDate", title: "Tgl BC Keluar", formatter: value => moment(value).format("DD MMM YYYY") },
-        
+        { field: "BuyerStaff", title: "Staff Pembelian"},
     ]
 
     loader = (info) => {
