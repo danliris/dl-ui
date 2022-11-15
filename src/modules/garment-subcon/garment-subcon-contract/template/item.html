@@ -1,6 +1,6 @@
 <template>
 	<tr>
-		<td class="col-sm-5 bg-primary">
+		<td class="col-sm-2 bg-primary">
 			<au-autocomplete 
                 value.bind="data.Product" 
                 error.bind="error.Product"
@@ -12,7 +12,7 @@
 			</au-autocomplete>
 		</td>
 
-		<td class="col-sm-3 bg-primary">
+		<td class="col-sm-2 bg-primary">
 			<au-numeric 
                 error.bind="error.Quantity" 
                 value.bind="data.Quantity" 
@@ -22,7 +22,7 @@
 			</au-numeric>
 		</td>
 
-		<td class="col-sm-3 bg-primary">
+		<td class="col-sm-2 bg-primary">
 			<au-autocomplete 
                 value.bind="data.Uom" 
                 error.bind="error.Uom" 
@@ -33,8 +33,26 @@
                 options.bind="controlOptions">
 			</au-autocomplete>
 		</td>
+		<td class="col-sm-2 bg-primary" if.bind="data.ContractType == 'SUBCON GARMENT'">
+			<au-numeric 
+                error.bind="error.NettWeight" 
+                value.bind="data.NettWeight" 
+                format="0.0000"
+				read-only.bind="readOnly"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
+		<td class="col-sm-2 bg-primary" if.bind="data.ContractType == 'SUBCON GARMENT'">
+			<au-numeric 
+                error.bind="error.GrossWeight" 
+                value.bind="data.GrossWeight" 
+                format="0.0000"
+				read-only.bind="readOnly"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
 
-		<td class="col-sm-3 bg-primary">
+		<td class="col-sm-2 bg-primary">
 			<au-numeric 
                 error.bind="error.CIFItem" 
                 value.bind="data.CIFItem" 

@@ -1,4 +1,5 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
+import { data } from "jquery";
 import { Service } from "./service";
 
 var moment = require('moment');
@@ -83,7 +84,8 @@ export class DataForm {
             isCreate: this.context.isCreate,
             isEdit: this.context.isEdit,
             isView: this.context.isView,
-            checkedAll: this.context.isCreate == true ? false : true
+            checkedAll: this.context.isCreate == true ? false : true,
+            SCId: this.data.SubconContractId
         }
 
         if (this.data && this.data.Id) {
@@ -110,46 +112,70 @@ export class DataForm {
     }
 
     async selectedContractChanged(newValue) {
-        if (this.data.Items && (!this.readOnly && !this.isCreate)) {
+        // if (this.data.Items && (!this.readOnly && !this.isCreate)) {
             
-            if (newValue) {
-                this.data.SubconContractId = newValue.Id;
-                this.data.SubconContractNo = newValue.ContractNo;
-                this.data.BuyerStaff = newValue.CreatedBy;
-                this.data.Supplier = newValue.Supplier;
-                Promise.resolve(this.service.searchDeliveryLetterOut({ filter: JSON.stringify({ ContractNo: this.data.SubconContractNo, IsUsed: false }) }))
-                    .then(result => {
-                        for (var dl of result.data) {
-                            var item = {};
-                            item.SubconDLOutNo = dl.DLNo;
-                            item.SubconDLOutId = dl.Id;
-                            item.Quantity = 0;
-                            for (var a of dl.Items) {
-                                item.Quantity += a.Quantity;
-                            }
-                            this.data.Items.push(item);
-                        }
-                    });
+        //     if (newValue) {
+        //         this.data.SubconContractId = newValue.Id;
+        //         this.data.SubconContractNo = newValue.ContractNo;
+        //         this.data.BuyerStaff = newValue.CreatedBy;
+        //         this.data.Supplier = newValue.Supplier;
+        //         Promise.resolve(this.service.searchDeliveryLetterOut({ filter: JSON.stringify({ ContractNo: this.data.SubconContractNo, IsUsed: false }) }))
+        //             .then(result => {
+        //                 for (var dl of result.data) {
+        //                     var item = {};
+        //                     item.SubconDLOutNo = dl.DLNo;
+        //                     item.SubconDLOutId = dl.Id;
+        //                     item.Quantity = 0;
+        //                     for (var a of dl.Items) {
+        //                         item.Quantity += a.Quantity;
+        //                     }
+        //                     this.data.Items.push(item);
+        //                 }
+        //             });
     
-                const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
-                const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
-                    return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
-                });
-                const dataJumlah = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
-                newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
-                this.data.RemainingQuantity = newValue.RemainingQuantity;
-                this.dataSC = newValue;
-    
-            } else {
-                this.data.SubconContractId = null;
-                this.data.SubconContractNo = null;
-                this.data.Supplier = null;
-                if (this.data.Items) {
-                    this.data.Items.splice(0);
-                }
-                this.context.selectedContractViewModel.editorValue = "";
-                this.selectedSubconCategory = null;
+        //         const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+        //         const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
+        //             return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
+        //         });
+        //         const dataJumlah = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
+        //         newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
+        //         this.data.RemainingQuantity = newValue.RemainingQuantity;
+        //         this.dataSC = newValue;
+        //     } else {
+        //         this.data.SubconContractId = null;
+        //         this.data.SubconContractNo = null;
+        //         this.data.Supplier = null;
+        //         if (this.data.Items) {
+        //             this.data.Items.splice(0);
+        //         }
+        //         this.context.selectedContractViewModel.editorValue = "";
+        //         this.selectedSubconCategory = null;
+        //     }
+        //     console.log(newValue);
+        // }
+
+        if (this.data.Items && (!this.readOnly && !this.isCreate)) {
+            this.data.Items.splice(0);
+        }
+        if (newValue) {
+            this.data.SubconContractId = newValue.Id;
+            this.data.SubconContractNo = newValue.ContractNo;
+            this.data.BuyerStaff = newValue.CreatedBy;
+            this.data.Supplier = newValue.Supplier;
+            this.selectedSubconType = newValue.ContractType;
+            this.itemOptions.SCId = this.data.SubconContractId;
+            const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+            const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
+                 return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
+            });
+            const dataJumlah = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
+            newValue.RemainingQuantity = newValue.Quantity - dataJumlah;
+            this.data.RemainingQuantity = newValue.RemainingQuantity;
+            this.dataSC = newValue;
+            if (newValue.Id != this.data.SubconContractId) {
+                this.data.Items.splice(0);
             }
+            
         }
     }
 
