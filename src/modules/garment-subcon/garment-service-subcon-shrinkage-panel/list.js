@@ -30,7 +30,7 @@ export class List {
 
 	columns = [
 		{ field: "ServiceSubconShrinkagePanelNo", title: "No Subcon BB Shrinkage / Panel" },
-		{ field: "Items", title: "No BUK" },
+		{ field: "UnitExpenditureNo", title: "No BUK" },
 		{
 			field: "ServiceSubconShrinkagePanelDate", title: "Tgl Subcon BB Shrinkage / Panel", formatter: function (value, data, index) {
 				return moment(value).format("DD MMM YYYY")
@@ -58,22 +58,22 @@ export class List {
 				data.data = result.data;
 				this.totalQuantity = result.info.totalQty;
 				result.data.forEach(s => {
-					// var getUen = s.Items.map(d => {
-					// 	return d.UnitExpenditureNo	
-					// })
-					// s.UnitExpenditureNo = getUen;	
+					var getUen = s.Items.map(d => {
+						return `<ul><li>${d.UnitExpenditureNo}</li></ul>`	
+					})
+					s.UnitExpenditureNo = getUen;	
 					// console.log(s.UnitExpenditureNo)
-					s.Items.toString = function () {
-                        var str = "<ul>";
-                        for (var item of s.Items){
-                            if (item.UnitExpenditureNo != null)
-                            {
-                                str += `<li>${item.UnitExpenditureNo}</li>`
-                            }
-                        }
-                        str += "</ul>";
-                        return str;
-                    }
+					// s.Items.toString = function () {
+                    //     var str = "<ul>";
+                    //     for (var item of s.Items){
+                    //         if (item.UnitExpenditureNo != null)
+                    //         {
+                    //             str += `<li>${item.UnitExpenditureNo}</li>`
+                    //         }
+                    //     }
+                    //     str += "</ul>";
+                    //     return str;
+                    // }
 				})
 				
 				return {
