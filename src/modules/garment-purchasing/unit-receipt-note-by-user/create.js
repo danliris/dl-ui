@@ -19,7 +19,8 @@ export class Create {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        if (confirm(`Apakah Anda yakin akan kembali?`))
+            this.router.navigateToRoute('list');
     }
 
     determineActivationStrategy() {
