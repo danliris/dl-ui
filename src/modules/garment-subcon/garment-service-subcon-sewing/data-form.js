@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+var BuyerLoader = require('../../../loader/garment-buyer-brand-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {

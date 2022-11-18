@@ -1,29 +1,20 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class Create {
-    hasCancel = true;
-    hasSave = true;
-
+    isCreate = true;
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
-    activate(params) {
 
-    }
     bind() {
         this.data = { Items: [] };
         this.error = {};
-    }
-
-    cancel(event) {
-        if (confirm(`Apakah Anda yakin akan kembali?`)){
-            this.router.navigateToRoute('list');
-        }
     }
 
     determineActivationStrategy() {
@@ -33,18 +24,22 @@ export class Create {
         // return activationStrategy.invokeLifecycle;
     }
 
-    save(event) {
-        console.log(this.data)
+    cancelCallback(event) {
+        this.router.navigateToRoute('list');
+    }
+
+    saveCallback(event) {
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                if (e.statusCode === 500) {
-                    alert("Gagal menyimpan, silakan coba lagi!");
+                this.error = e;
+                if (typeof (this.error) == "string") {
+                    alert(this.error);
                 } else {
-                    this.error = e;
+                    alert("Missing Some Data");
                 }
             })
     }
