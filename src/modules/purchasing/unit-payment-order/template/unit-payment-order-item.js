@@ -84,6 +84,7 @@ export class UnitPaymentOrderItem {
         _id: newValue.doId || 0,
         no: newValue.doNo || null,
       };
+      this.data.unitReceiptNote.URNDate = newValue.date;
 
       this.error = {};
       this.isShowing = true;
