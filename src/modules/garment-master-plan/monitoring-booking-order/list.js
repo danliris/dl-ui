@@ -125,15 +125,17 @@ export class List {
             { field: 'DeliveryDate', title: 'Tanggal<br>Pengiriman(booking)' },
             { field: 'ComodityName', title: 'Komoditi' },
             { field: 'ConfirmQuantity', title: 'Jumlah<br>Confirm' },
+            { field: 'CCQuantity', title: 'Budget<br>Turun' },
+            { field: 'RemainingQuantity', title: 'Remaining<br>Qty Confirm' },            
             { field: 'DeliveryDateItems', title: 'Tanggal<br>Pengiriman(confirm)' },
             { field: 'ConfirmDate', title: 'Tanggal<br>Confirm' },
             { field: 'Remark', title: 'Keterangan' },
             { field: 'StatusConfirm', title: 'Status<br>Confirm' },
             { field: 'StatusBooking', title: 'Status<br>Booking Order' },
             { field: 'OrderLeft', title: 'Sisa Order<br>(Belum Confirm)' },
-            { field: 'DateDiff', title: 'Selisih Hari<br>(dari Tanggal Pengiriman)' },
+            // { field: 'DateDiff', title: 'Selisih Hari<br>(dari Tanggal Pengiriman)' },
             { field: 'NotConfirmedQuantity', title: 'Not Confirmed<br>Order (MINUS)' },
-            { field: 'SurplusQuantity', title: 'Over Confirm<br>(SURPLUS)' }
+            // { field: 'SurplusQuantity', title: 'Over Confirm<br>(SURPLUS)' }
         ];
 
         var bootstrapTableOptions = {
