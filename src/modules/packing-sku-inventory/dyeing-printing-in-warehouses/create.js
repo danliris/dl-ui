@@ -16,7 +16,7 @@ export class Create {
 
   async activate(params) {
     this.data = {};
-    this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput();
+    // this.data.warehousesProductionOrders = await this.service.getProductionOrderOutput();
     // debugger
   }
 

@@ -76,6 +76,7 @@ export class Item {
       if(this.type == true){
         this.itemColumns = [
           "Material",
+          "Nama Barag",
           "Unit",
           "Buyer",
           "Warna",
@@ -91,6 +92,7 @@ export class Item {
       }else{
         this.itemColumns = [
           "Material",
+          "Nama Barag",
           "Unit",
           "Buyer",
           "Warna",

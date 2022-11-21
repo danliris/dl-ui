@@ -106,6 +106,17 @@
           placeholder="pilih konstruksi finish">
         </au-autocomplete>
 
+        <au-autocomplete 
+            value.bind="productTextile"
+            label="Nama Barang" 
+            loader.bind="productTextileLoader"
+            text.bind="productTxView "
+            query.bind="filter"
+            read-only.bind="readOnly"
+            error.bind="error.ProductTextile"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-autocomplete
           label="Nomor Benang Material"
           value.bind="data.YarnMaterial"

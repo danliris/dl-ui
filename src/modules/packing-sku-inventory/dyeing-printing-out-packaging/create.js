@@ -96,6 +96,7 @@ export class Create {
                     itemSpp.hasPrintingProductPacking = item.hasPrintingProductPacking;
                     itemSpp.dateIn = item.dateIn;
                     itemSpp.materialOrigin = item.materialOrigin;
+                    itemSpp.productTextile =item.productTextile;
                     bodyRequest.packagingProductionOrders.push(itemSpp);
                 });
         });
