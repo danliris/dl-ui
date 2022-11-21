@@ -17,7 +17,9 @@ export class DataForm {
         deleteText: "Hapus",
         editText: "Ubah",
     }
+
     types = ["", "Internal", "Lokal", "Ekspor"];
+
 
     constructor(permissionHelper) {
         this.permissions = permissionHelper.getUserPermissions();

@@ -30,6 +30,14 @@
                          key="Unit"
                          text="Unit"></au-autocomplete>
 
+        <au-dropdown
+                         label="Jenis Buyer"
+                         value.bind="data.BuyerType"
+                         error.bind="error.buyerType"
+                         read-only.bind="readOnly"
+                         items.bind="types"
+                       ></au-dropdown>
+
         
 
         <au-multiline label="Keterangan"
