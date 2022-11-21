@@ -109,6 +109,8 @@ export class DataForm {
         newValue.Supplier.Code + " - " + newValue.Supplier.Name;
       //newValue.Quantity = newValue.Quantity;
       const dataCustomsIn = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+      const dataCustomsOut = await this.service.searchCompleteOut({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+      console.log(dataCustomsOut.info.totalQty);
       const dataJumlahCustomsIn = dataCustomsIn.data.map(x => {
         return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
       });
@@ -118,6 +120,9 @@ export class DataForm {
       this.dataSC = newValue;
       if (newValue.Id != this.data.SubconContractId) {
         this.data.Items.splice(0);
+      }
+      if( newValue.ContractType == "SUBCON JASA" || newValue.ContractType == "SUBCON BAHAN BAKU"){
+        this.dataSC.Quantity = dataCustomsOut.info.totalQty;
       }
       this.data.BuyerStaff = newValue.CreatedBy;
       console.log(this.data.BuyerStaff);
