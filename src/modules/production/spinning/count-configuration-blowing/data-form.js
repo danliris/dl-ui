@@ -10,6 +10,7 @@ const NumberFormat = "0,0.00";
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
+var CountLoader = require('../../../../loader/master-count-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -22,7 +23,7 @@ export class DataForm {
     @bindable title;
 
     @bindable yarnType;
-    @bindable count;
+    @bindable count = {};
     @bindable detailOptions;
     @bindable unit;
 
@@ -57,6 +58,7 @@ export class DataForm {
             length: 7
         }
     }
+
     mixDrawing = false;
     detailOptions = {};
     constructor(service, coreService) {
@@ -99,6 +101,10 @@ export class DataForm {
             this.yarnType = this.data.MaterialType;
         }
 
+        if (this.data.Count){
+            this.count.Count = this.data.Count;
+        }
+
         this.showItemRegular = true;
         this.mixDrawing = false;
     }
@@ -118,6 +124,12 @@ export class DataForm {
         }
     }
 
+    countChanged(n, o) {
+        if (this.count && this.count.Id) {
+            this.data.Count = this.count.Count;
+        }
+    }
+
     get yarnLoader() {
         return ProductLoader;
     }
@@ -128,6 +140,10 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countLoader(){
+        return CountLoader;
     }
 
     @computedFrom('data.Grain')
