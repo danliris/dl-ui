@@ -255,7 +255,7 @@ export class DataForm {
  get filter() {
      var filter = {};
      filter = {
-               BuyerCode: this.data.BuyerCode,
+               BuyerCode: this.data.BuyerBrandCode,
                SectionCode: this.data.Section,
                ComodityCode: this.data.ComodityCode,
               };          
@@ -332,6 +332,9 @@ export class DataForm {
         Code: newValue.BuyerBrandCode,
         Name: newValue.BuyerBrandName
       };
+
+      this.data.BuyerBrandCode = this.data.BuyerBrand.Code;
+      console.log(this.data.BuyerBrandCode);
     } else {
       this.data.PreSCId = 0;
       this.data.PreSCNo = null;
