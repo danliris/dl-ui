@@ -1,5 +1,6 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, observable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
+import numeral from 'numeral';
 import { debug } from 'util';
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
@@ -8,6 +9,7 @@ var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
+var CountLoader = require('../../../../loader/master-count-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -19,7 +21,7 @@ export class DataForm {
     @bindable error;
     @bindable title;
     @bindable yarnType;
-    @bindable count;
+    @bindable count = {};
     @bindable detailOptions;
     @bindable unit;
 
@@ -29,7 +31,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -81,7 +82,7 @@ export class DataForm {
         if (!this.data.Id) {
             this.data.Grain = 1;
             this.data.Ne = 1;
-            this.data.Eff = 1;
+            this.data.Eff = 100;
             this.data.RPM = 1;
             this.data.Standard = 1;
             this.data.TPI = 1;
@@ -92,8 +93,8 @@ export class DataForm {
             } else {
                 this.data.ConeWeight = 1;
             }
-
         }
+
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
             this.unit = this.data.UnitDepartment;
         }
@@ -101,14 +102,17 @@ export class DataForm {
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.yarnType = this.data.MaterialType;
         }
+
+        if (this.data.Count){
+            this.count.Count = this.data.Count;
+        }
+
         this.showItemRegular = true;
         this.mixDrawing = false;
     }
 
-    
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
    
-
     unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
@@ -123,6 +127,11 @@ export class DataForm {
         }
     }
 
+    countChanged(n, o) {
+        if (this.count && this.count.Id) {
+            this.data.Count = this.count.Count;
+        }
+    }
 
     get yarnLoader() {
         return ProductLoader;
@@ -134,5 +143,29 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countLoader(){
+        return CountLoader;
+    }
+
+    @computedFrom('data.RPM', 'data.Eff', 'data.Grain')
+    get CapacityPerShift() {
+        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100)) / (768 * 400 * (8.33/this.data.Grain));
+
+        this.data.CapacityPerShift = CapacityPerShift;
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay() {
+        let CapacityPerDay = 3 * this.data.CapacityPerShift;
+
+        this.data.CapacityPerDay = CapacityPerDay;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
     }
 } 
