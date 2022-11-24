@@ -8,15 +8,13 @@ export class List {
 
     context = ["detail"]
     columns = [
-        { field: "ProcessType", title: "Jenis Proses" },
         { field: "Count", title: "Count" },
-        { field: "UnitDepartment.Name", title: "Unit Name" },
+        { field: "Remark", title: "Remark" },
         {
             field: "CreatedDate", title: "Date", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "CreatedBy", title: "Created By" },
     ];
 
     loader = (info) => {
@@ -27,8 +25,7 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order,
-            filter: JSON.stringify({ "ProcessType": "Blowing" })
+            order: order
         }
 
         return this.service.search(arg)

@@ -1,7 +1,12 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, observable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
-
+import numeral from 'numeral';
 var moment = require('moment');
+
+numeral.defaultFormat("0,000.000000");
+
+const NumberFormat = "0,0.00";
+
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
@@ -15,6 +20,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error;
     @bindable title;
+
     @bindable yarnType;
     @bindable count;
     @bindable detailOptions;
@@ -26,7 +32,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -72,18 +77,18 @@ export class DataForm {
         if (!this.data.ProcessType) {
             this.data.ProcessType = this.processType;
         }
+
         if (!this.data.Id) {
             this.data.Grain = 1;
-            this.data.Ne = 1;
-            this.data.Eff = 1;
+            //this.data.Ne = 1;
+            this.data.Eff = 100;
             this.data.RPM = 1;
             this.data.Standard = 1;
+            this.data.LapWeight = 1; //new
             this.data.TPI = 1;
             this.data.TotalDraft = 1;
             this.data.Constant = 1;
-
             this.data.ConeWeight = 1;
-
         }
 
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
@@ -96,9 +101,7 @@ export class DataForm {
 
         this.showItemRegular = true;
         this.mixDrawing = false;
-
     }
-
 
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
 
@@ -115,7 +118,6 @@ export class DataForm {
         }
     }
 
-
     get yarnLoader() {
         return ProductLoader;
     }
@@ -126,5 +128,55 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    @computedFrom('data.Grain')
+    get Ne() {
+        let Ne = (8.33 / 437.5 / this.data.Grain);
+
+        this.data.Ne = Ne
+        Ne = numeral(Ne).format();
+
+        return Ne;
+    }
+
+    @computedFrom('data.RPM', 'data.Eff', 'data.Ne')
+    get CapacityPerShift() {
+        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 0.24 * 3.1428) / (768 * 400 * this.data.Ne);
+
+        this.data.CapacityPerShift = CapacityPerShift;
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay() {
+        let CapacityPerDay = 3 * this.data.CapacityPerShift;
+
+        this.data.CapacityPerDay = CapacityPerDay;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
+    }
+    
+    @computedFrom('data.CapacityBale')
+    get CapacityKG() {
+        let CapacityKG = this.data.CapacityBale * 181.44;
+
+        this.data.CapacityKG = CapacityKG;
+        CapacityKG = numeral(CapacityKG).format();
+
+        return CapacityKG;
+    }
+
+    @computedFrom('data.CapacityKG')
+    get CapacityKGPerHour() {
+        let CapacityKGPerHour = this.data.CapacityKG / 8;
+
+        this.data.CapacityKGPerHour = CapacityKGPerHour;
+        CapacityKGPerHour = numeral(CapacityKGPerHour).format();
+
+        return CapacityKGPerHour;
     }
 } 
