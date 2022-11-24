@@ -12,9 +12,14 @@
                 read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-textbox value.bind="data.Count" error.bind="error.Count" read-only.bind="readOnly" label="Count"
+            <!-- <au-textbox value.bind="data.Count" error.bind="error.Count" read-only.bind="readOnly" label="Count"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox> -->
+
+            <au-autocomplete label="Count" value.bind="count" error.bind="error.Count" 
+                loader.bind="countLoader" placeholder="Cari count" text="Count"
+                read-only.bind="readOnly" options.bind="controlOptions">
+            </au-autocomplete>
 
 
         </div>

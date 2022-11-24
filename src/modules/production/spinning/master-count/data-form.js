@@ -1,15 +1,11 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from './service';
 import { debug } from 'util';
 
-//var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
 var moment = require('moment');
-var MaterialTypeLoader = require('../../../../loader/material-types-loader');
-var UnitLoader = require('../../../../loader/unit-azure-loader');
-var ProductLoader = require('../../../../loader/product-azure-loader');
 
-@inject(Service, CoreService)
+@inject(Service)
 export class DataForm {
     @bindable isCreate = false;
     @bindable isEdit = false;
