@@ -167,7 +167,7 @@ export class DataForm {
 
     @computedFrom('data.RPM', 'data.Eff', 'data.Ne')
     get CapacityPerShift() {
-        let CapacityPerShift = (this.data.RPM * 0.705 * 3.1428 * 60 * 8 * (this.data.Eff/100) * 1.35) / (768 * this.data.Ne * 400);
+        let CapacityPerShift = (this.data.RPM * 0.705 * 3.1428 * 60 * 8 * this.data.Eff * 1.35) / (768 * this.data.Ne * 400);
 
         this.data.CapacityPerShift = CapacityPerShift;
         CapacityPerShift = numeral(CapacityPerShift).format();

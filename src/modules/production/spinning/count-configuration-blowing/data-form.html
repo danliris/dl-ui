@@ -25,17 +25,17 @@
         </div>
         <div class="col-lg-12" style="padding-left:184px">
             <div class="col-lg-2">
-                <au-numeric format="0,000.00000" label="OZ/YD" value.bind="data.Grain" error.bind="error.Grain"
+                <au-numeric format="0.00" label="OZ/YD" value.bind="data.Grain" error.bind="error.Grain"
                     read-only.bind="readOnly" options.bind="controlOptions2"></au-numeric>
             </div>
 
             <div class="col-lg-2">
-                <au-numeric format="0.00" label="RPM" value.bind="data.RPM" read-only.bind="readOnly"
+                <au-numeric format="0" label="RPM" value.bind="data.RPM" read-only.bind="readOnly"
                     error.bind="error.Rpm" options.bind="controlOptions2"></au-numeric>
             </div>
 
             <div class="col-lg-2">
-                <au-numeric format="0,000.00000" label="Ne" value.bind="Ne" read-only ="disabled"
+                <au-numeric format="0.0000" label="Ne" value.bind="Ne" read-only ="disabled"
                     error.bind="error.Ne" options.bind="controlOptions2"></au-numeric>
             </div>
             
@@ -58,12 +58,12 @@
             </div> -->
 
             <div show.bind="processType && data.ProcessType == 'Blowing'" class="col-lg-2">
-                <au-numeric format="0,000.00" label="BERAT LAP" value.bind="data.LapWeight" read-only.bind="readOnly"
+                <au-numeric format="0.000" label="BERAT LAP" value.bind="data.LapWeight" read-only.bind="readOnly"
                     error.bind="error.LapWeight" options.bind="controlOptions2"></au-numeric>
             </div>
 
             <div show.bind="processType && data.ProcessType == 'Blowing'" class="col-lg-2">
-                <au-numeric format="0.00" label="Efisiensi" value.bind="data.Eff" read-only.bind="readOnly"
+                <au-numeric format="0" label="Efisiensi" value.bind="data.Eff" read-only.bind="readOnly"
                     error.bind="error.Eff" options.bind="controlOptions2"></au-numeric>
             </div>
             
@@ -85,7 +85,7 @@
         </div>
         <div class="col-lg-12" style="padding-left:184px">
             <div show.bind="processType && data.ProcessType == 'Blowing'" class="col-lg-4">
-                <au-numeric format = "0,000.00" label="KAPASITAS/SHIFT (BALE)" value.bind="CapacityPerShift" read-only="disabled"
+                <au-numeric format = "0.00" label="KAPASITAS/SHIFT (BALE)" value.bind="CapacityPerShift" read-only="disabled"
                     error.bind="error.CapacityPerShift" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
@@ -106,7 +106,7 @@
 
         <div class="col-lg-12" style="padding-left:184px">
             <div show.bind="processType && data.ProcessType == 'Blowing'" class="col-lg-4">
-                <au-numeric format = "0,000.00" label="KAPASITAS/HARI" value.bind="CapacityPerDay" read-only="disabled"
+                <au-numeric format = "0.00" label="KAPASITAS/HARI" value.bind="CapacityPerDay" read-only="disabled"
                     error.bind="error.CapacityPerDay" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
