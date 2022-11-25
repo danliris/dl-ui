@@ -215,13 +215,6 @@ module.exports = [
         moduleId: './modules/garment-production/subcon-cutting-out-alluser/index',
         nav: true,
         title: 'Cutting-Out Subkon (Semua User)',
-
-        route: '/garment-production/aval-component',
-        name: 'garment-production-aval-component',
-        moduleId: './modules/garment-production/aval-component/index',
-        nav: true,
-        title: 'Aval Komponen',
-
         auth: true,
         settings: {
             group: "g-production",
