@@ -6,22 +6,21 @@ import moment from 'moment';
 @inject(Router, Service)
 export class List {
 
-    constructor(router, service) {
-        this.service = service;
-        this.router = router;
-    }
-
-    context = ["detail"];
+    context = ["detail"]
     columns = [
-        { field: "Count", title: "Count"},
-        { field: "Remark", title: "Keterangan"},
+        { field: "Count", title: "Count" },
+        { field: "Remark", title: "Remark" },
+        {
+            field: "CreatedDate", title: "Date", formatter: function (value, data, index) {
+                return moment(value).format("DD MMM YYYY");
+            }
+        },
     ];
 
     loader = (info) => {
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
-
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -32,12 +31,17 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 return {
-                    total: result.info.total,
+                    total: result.info.count,
                     data: result.data
                 }
             });
-    }   
-    
+    }
+
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
+    }
+
     create() {
         this.router.navigateToRoute('create');
     }

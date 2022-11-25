@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 var moment = require("moment");
 
 @inject(Router, Service)
@@ -29,6 +29,8 @@ export class Edit {
             this.cancelCallback();
         }).catch(e => {
             this.error = e;
+            alert("Missing Some Data");
         })
+        // }
     }
 }

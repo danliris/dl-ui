@@ -1,6 +1,9 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from './service';
 import { debug } from 'util';
+
+
+var moment = require('moment');
 
 @inject(Service)
 export class DataForm {
@@ -9,6 +12,9 @@ export class DataForm {
     @bindable isView = false;
     @bindable readOnly;
     @bindable data = {};
+    @bindable error;
+    @bindable count;
+    @bindable remark;
 
     formOptions = {
         cancelText: "Kembali",
@@ -19,10 +25,26 @@ export class DataForm {
 
     controlOptions = {
         label: {
-            length: 4
+            length: 2
         },
         control: {
             length: 5
+        }
+    }
+    controlOptions3 = {
+        label: {
+            length: 1
+        },
+        control: {
+            length: 5
+        }
+    }
+    controlOptions2 = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 7
         }
     }
 
@@ -30,9 +52,9 @@ export class DataForm {
         this.service = service;
     }
 
-    bind(context){
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
     }
-}
+} 
