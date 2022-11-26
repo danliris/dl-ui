@@ -53,6 +53,11 @@ class Service extends RestService {
         var endpoint = `${sewingOutUri}/dynamic`;
         return super.list(endpoint, info);
     }
+
+    generateExcel(info) {
+        var endpoint = `${serviceUri}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
 }
 
 class CoreService extends RestService {
