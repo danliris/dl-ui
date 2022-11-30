@@ -5,7 +5,7 @@ var moment = require("moment");
 
 @inject(Router, Service)
 export class Edit {
-    isEdit = true;
+    isEdit = false;
     constructor(router, service) {
         this.router = router;
         this.service = service;

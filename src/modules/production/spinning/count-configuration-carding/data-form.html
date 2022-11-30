@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-12" style="padding-left:184px">
             <div class="col-lg-2">
-                <au-numeric format="0,000.00000" label="Grain" value.bind="data.Grain" error.bind="error.Grain"
+                <au-numeric format="0.00" label="Grain" value.bind="data.Grain" error.bind="error.Grain"
                     read-only.bind="readOnly" options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
@@ -32,7 +32,7 @@
                     error.bind="error.Rpm" options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
-                <au-numeric format="0,000.00000" label="Ne" value.bind="Ne" read-only="disabled"
+                <au-numeric format="0.000" label="Ne" value.bind="Ne" read-only="disabled"
                     error.bind="error.Ne" options.bind="controlOptions2"></au-numeric>
             </div>
 
@@ -78,14 +78,14 @@
 
         <div class="col-lg-12" style="padding-left:184px">
             <div show.bind="processType && data.ProcessType == 'Carding'" class="col-lg-4">
-                <au-numeric format = "0,000.00" label="KAPASITAS/SHIFT (BALE)" value.bind="CapacityPerShift" read-only="disabled"
+                <au-numeric format = "0.00" label="KAPASITAS/SHIFT (BALE)" value.bind="CapacityPerShift" read-only="disabled"
                     error.bind="error.CapacityPerShift" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
 
         <div class="col-lg-12" style="padding-left:184px">
             <div show.bind="processType && data.ProcessType == 'Carding'" class="col-lg-4">
-                <au-numeric format = "0,000.00" label="KAPASITAS/HARI" value.bind="CapacityPerDay" read-only="disabled"
+                <au-numeric format = "0.00" label="KAPASITAS/HARI" value.bind="CapacityPerDay" read-only="disabled"
                     error.bind="error.CapacityPerDay" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
