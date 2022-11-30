@@ -299,11 +299,37 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-blowing-all-user',
+        name: 'count-configuration-blowing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-blowing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Blowing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-carding',
         name: 'count-configuration-carding',
         moduleId: './modules/production/spinning/count-configuration-carding/index',
         nav: true,
         title: 'Konfigurasi Count Carding',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-carding-all-user',
+        name: 'count-configuration-carding-all-user',
+        moduleId: './modules/production/spinning/count-configuration-carding-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Carding - All User',
         auth: true,
         settings: {
             group: "spinning",
@@ -330,6 +356,19 @@ module.exports = [
         moduleId: './modules/production/spinning/count-configuration-lapformer/index',
         nav: true,
         title: 'Konfigurasi Count Lap Former',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-lapformer-all-user',
+        name: 'count-configuration-lapformer-all-user',
+        moduleId: './modules/production/spinning/count-configuration-lapformer-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Lap Former - All User',
         auth: true,
         settings: {
             group: "spinning",
