@@ -7,7 +7,6 @@ import { RestService } from '../../../../utils/rest-service';
 const serviceUri = 'master-count';
 
 export class Service extends RestService {
-
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "spinning");
     }
@@ -19,7 +18,6 @@ export class Service extends RestService {
 
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
-
         return super.get(endpoint);
     }
 

@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
 import { debug } from 'util';
+import numeral from 'numeral';
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
@@ -83,6 +84,7 @@ export class DataForm {
             this.data.Ne = 1;
             this.data.Eff = 1;
             this.data.RPM = 1;
+            this.data.MD = 1;
             this.data.Standard = 1;
             this.data.TPI = 1;
             this.data.TotalDraft = 1;
@@ -105,6 +107,25 @@ export class DataForm {
 
     }
 
+    @computedFrom('data.Eff', 'data.RPM', 'data.MD')
+    get CapacityPerShift(){
+        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 2) / (768 * 400 * (50/this.data.MD));
+        this.data.CapacityPerShift = CapacityPerShift;
+
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay(){
+        let CapacityPerDay = this.data.CapacityPerShift * 3;
+        this.data.CapacityPerDay = CapacityPerDay;
+
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
+    }
     
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
     

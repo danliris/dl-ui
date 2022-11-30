@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
 import { debug } from 'util';
+import numeral from 'numeral';
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
@@ -85,6 +86,7 @@ export class DataForm {
             this.data.RPM = 1;
             this.data.Standard = 1;
             this.data.TPI = 1;
+            this.data.PD = 1;
             this.data.TotalDraft = 1;
             this.data.Constant = 1;
             if (this.data.ProcessType == 'Winder') {
@@ -116,7 +118,23 @@ export class DataForm {
         }
     }
 
-    
+    @computedFrom('data.Eff', 'data.RPM', 'data.PD')
+    get CapacityPerShift(){
+        let CapacityPerShift = (this.data.RPM * this.data.Eff * 60 * 8 * 2) / (768 * 400 * (50/this.data.PD));
+        this.data.CapacityPerShift = CapacityPerShift;
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay(){
+        let CapacityPerDay = (this.data.CapacityPerShift * 3);
+        this.data.CapacityPerDay = CapacityPerDay;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
+    }
 
     
     yarnTypeChanged(n, o) {
