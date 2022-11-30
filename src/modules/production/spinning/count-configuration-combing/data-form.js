@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
 import { debug } from 'util';
+import numeral from 'numeral';
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
@@ -101,7 +102,6 @@ export class DataForm {
         }
         this.showItemRegular = true;
         this.mixDrawing = false;
-
     }
 
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
@@ -120,6 +120,33 @@ export class DataForm {
         }
     }
 
+    // @computedFrom('data.Grain')
+    // get count_Ne(){
+    //     let count_Ne = 8.33 / 437.5 / this.data.Grain;
+    //     count_Ne = numeral(count_Ne).format();
+    //     this.data.count_Ne = numeral(count_Ne).value();
+
+    //     return count_Ne;
+    // }
+
+    @computedFrom('data.Eff', 'data.RPM', 'data.TotalDraft', 'data.Grain')
+    get CapacityPerShift(){
+        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 2 * 0.025 * 3.142 * (this.data.TotalDraft)) / (14 * 768 * 400 * (50.00000/this.data.Grain));
+        console.log(CapacityPerShift)
+        CapacityPerShift = numeral(CapacityPerShift).format();
+        this.data.CapacityPerShift = numeral(CapacityPerShift).value();        
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerDay')
+    get CapacityPerDay(){
+        let CapacityPerDay = this.data.CapacityPerShift * 3;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+        this.data.CapacityPerDay = numeral(CapacityPerDay).value();
+
+        return CapacityPerDay;
+    }
 
     get yarnLoader() {
         return ProductLoader;
