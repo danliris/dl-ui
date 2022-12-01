@@ -12,7 +12,7 @@ export class List {
         this.router = router;
         this.title = "Export Excel Konfigurasi Count";
     }
-    typeOptions=["Blowing","Carding", "Lap Former", "Combing", "Pre Drawing", "Mix Drawing", "Drawing", "Finish Drawing", "Flyer", "Ring Spinning", "Winder"];
+    typeOptions=["Blowing","Carding", "Lap Former", "Combing","Pre Drawing", "Mix Drawing", "Drawing", "Finish Drawing", "Flyer", "Ring Spinning", "Winder"];
     
     fillValues() {
         console.log(this.type)
