@@ -1,6 +1,13 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, observable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
 import { debug } from 'util';
+import numeral from 'numeral';
+import { NewItem } from '../../../purchasing/realization-vb-with-po/template/new-item';
+
+numeral.defaultFormat("0,000.000000");
+
+const NumberFormat = "0,0.00";
+
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
@@ -8,6 +15,7 @@ var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
+var CountLoader = require('../../../../loader/master-count-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -18,8 +26,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error;
     @bindable title;
+
     @bindable yarnType;
-    @bindable count;
+    @bindable count = {};
     @bindable detailOptions;
     @bindable unit;
 
@@ -29,7 +38,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -57,7 +65,6 @@ export class DataForm {
     }
     mixDrawing = false;
    
-
     detailOptions = {};
     constructor(service, coreService) {
         this.service = service;
@@ -82,6 +89,7 @@ export class DataForm {
             this.data.Ne = 1;
             this.data.Eff = 1;
             this.data.RPM = 1;
+            this.data.Spindle = 1;
             this.data.Standard = 1;
             this.data.TPI = 1;
             this.data.TotalDraft = 1;
@@ -99,6 +107,10 @@ export class DataForm {
 
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.yarnType = this.data.MaterialType;
+        }
+
+        if (this.data.Count){
+            this.count.Count = this.data.Count;
         }
         this.showItemRegular = true;
         this.mixDrawing = false;
@@ -118,6 +130,11 @@ export class DataForm {
         }
     }
 
+    countChanged(n, o) {
+        if (this.count && this.count.Id) {
+            this.data.Count = this.count.Count;
+        }
+    }
 
     get yarnLoader() {
         return ProductLoader;
@@ -129,5 +146,49 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countLoader(){
+        return CountLoader;
+    }
+
+    @computedFrom('data.Grain')
+    get Ne() {
+        let Ne = 250 / this.data.Grain;
+
+        this.data.Ne = Ne;
+        Ne = numeral(Ne).format();
+
+        return Ne;
+    }
+
+    @computedFrom('data.RPM', 'data.Eff', 'data.Spindle', 'data.TPI', 'data.Ne')
+    get CapacityPerShift() {
+        let CapacityPerShift = ((60 * 8 * this.data.RPM * (this.data.Eff/100) * this.data.Spindle) / (840 * 400 * 36 * this.data.TPI * this.data.Ne)).toFixed(2);
+
+        this.data.CapacityPerShift = CapacityPerShift;
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerKg() {
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift).toFixed(2);
+
+        this.data.CapacityPerKg = CapacityPerKg;
+        CapacityPerKg = numeral(CapacityPerKg).format();
+
+        return CapacityPerKg;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay() {
+        let CapacityPerDay = (3 * this.data.CapacityPerShift).toFixed(2);
+
+        this.data.CapacityPerDay = CapacityPerDay;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
     }
 } 
