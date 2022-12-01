@@ -7,7 +7,7 @@
                 query.bind="spinningFilter" options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-autocomplete label="Jenis Benang" value.bind="yarnType" error.bind="error.MaterialTypeId"
+            <au-autocomplete label="Jenis Proses" value.bind="yarnType" error.bind="error.MaterialTypeId"
                 loader.bind="materialTypeLoader" placeholder="Cari jenis benang" key="Id" text="Name"
                 read-only.bind="readOnly" options.bind="controlOptions">
             </au-autocomplete>
@@ -55,7 +55,7 @@
         <div class="col-lg-12" style="padding-left:184px">
 
             <div show.bind="processType && data.ProcessType == 'Lap Former'" class="col-lg-2">
-                <au-numeric format="0" label="Efisiensi" value.bind="data.Eff" read-only.bind="readOnly"
+                <au-numeric format="0.00" label="Efisiensi" value.bind="data.Eff" read-only.bind="readOnly"
                     error.bind="error.Eff" options.bind="controlOptions2"></au-numeric>
             </div>
 
@@ -86,6 +86,13 @@
             <div show.bind="processType && data.ProcessType == 'Lap Former'" class="col-lg-4">
                 <au-numeric format = "0.00" label="KAPASITAS/SHIFT (BALE)" value.bind="CapacityPerShift" read-only="disabled"
                     error.bind="error.CapacityPerShift" options.bind="controlOptions2"></au-numeric>
+            </div>
+        </div>
+
+        <div class="col-lg-12" style="padding-left:184px">
+            <div show.bind="processType && data.ProcessType == 'Lap Former'" class="col-lg-4">
+                <au-numeric format = "0.00" label="KAPASITAS/SHIFT (KG)" value.bind="CapacityPerKg" read-only="disabled"
+                    error.bind="error.CapacityPerKg" options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
 
