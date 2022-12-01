@@ -1,7 +1,11 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework'
+import { inject, bindable, observable, computedFrom } from 'aurelia-framework'
 import { Service, CoreService } from './service';
 import { debug } from 'util';
 import numeral from 'numeral';
+
+numeral.defaultFormat("0,000.000000");
+
+const NumberFormat = "0,0.00";
 
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
@@ -9,6 +13,7 @@ var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
+var CountLoader = require('../../../../loader/master-count-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -20,8 +25,9 @@ export class DataForm {
     @bindable error;
     @bindable mixItems = [];
     @bindable title;
+
     @bindable yarnType;
-    @bindable count;
+    @bindable count = {};
     @bindable detailOptions;
     @bindable unit;
 
@@ -31,7 +37,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -79,16 +84,11 @@ export class DataForm {
         if (!this.data.ProcessType) {
             this.data.ProcessType = this.processType;
         }
+        
         if (!this.data.Id) {
-            this.data.Grain = 1;
-            this.data.Ne = 1;
             this.data.Eff = 1;
             this.data.RPM = 1;
             this.data.MD = 1;
-            this.data.Standard = 1;
-            this.data.TPI = 1;
-            this.data.TotalDraft = 1;
-            this.data.Constant = 1;
             if (this.data.ProcessType == 'Winder') {
                 this.data.ConeWeight = 1.89;
             } else {
@@ -102,29 +102,11 @@ export class DataForm {
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.yarnType = this.data.MaterialType;
         }
+        if (this.data.Count){
+            this.count.Count = this.data.Count;
+        }
         this.showItemRegular = false;
         this.mixDrawing = true;
-
-    }
-
-    @computedFrom('data.Eff', 'data.RPM', 'data.MD')
-    get CapacityPerShift(){
-        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 2) / (768 * 400 * (50/this.data.MD));
-        this.data.CapacityPerShift = CapacityPerShift;
-
-        CapacityPerShift = numeral(CapacityPerShift).format();
-
-        return CapacityPerShift;
-    }
-
-    @computedFrom('data.CapacityPerShift')
-    get CapacityPerDay(){
-        let CapacityPerDay = this.data.CapacityPerShift * 3;
-        this.data.CapacityPerDay = CapacityPerDay;
-
-        CapacityPerDay = numeral(CapacityPerDay).format();
-
-        return CapacityPerDay;
     }
     
     spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
@@ -144,6 +126,41 @@ export class DataForm {
         }
     }
 
+    countChanged(n, o) {
+        if (this.count && this.count.Id) {
+            this.data.Count = this.count.Count;
+        }
+    }
+
+    @computedFrom('data.RPM', 'data.Eff', 'data.MD')
+    get CapacityPerShift() {
+        let CapacityPerShift = ((60 * 8 * this.data.RPM * (this.data.Eff/100) * 2)/(768 * 400 * (50/this.data.MD))).toFixed(2);
+
+        this.data.CapacityPerShift = CapacityPerShift;
+        CapacityPerShift = numeral(CapacityPerShift).format();
+
+        return CapacityPerShift;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerKg() {
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift).toFixed(2);
+
+        this.data.CapacityPerKg = CapacityPerKg;
+        CapacityPerKg = numeral(CapacityPerKg).format();
+
+        return CapacityPerKg;
+    }
+
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerDay() {
+        let CapacityPerDay = (3 * this.data.CapacityPerShift).toFixed(2);
+
+        this.data.CapacityPerDay = CapacityPerDay;
+        CapacityPerDay = numeral(CapacityPerDay).format();
+
+        return CapacityPerDay;
+    }
 
     get yarnLoader() {
         return ProductLoader;
@@ -155,5 +172,9 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countLoader(){
+        return CountLoader;
     }
 } 

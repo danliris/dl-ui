@@ -39,6 +39,19 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'production/spinning/spinning-quality',
+        name: 'spinning-quality',
+        moduleId: './modules/production/spinning/spinning-quality/index',
+        nav: true,
+        title: 'Master Standar Kualitas',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     // {
     //     route: 'production/spinning/yarn-output-production',
     //     name: 'yarn-output-production',
@@ -409,6 +422,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-predrawing',
+        name: 'count-configuration-predrawing',
+        moduleId: './modules/production/spinning/count-configuration-predrawing/index',
+        nav: true,
+        title: 'Konfigurasi Count Pre-Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-mixdrawing',
         name: 'count-configuration-mixdrawing',
         moduleId: './modules/production/spinning/count-configuration-mixdrawing/index',
@@ -427,7 +453,7 @@ module.exports = [
         name: 'count-configuration-drawingbreaker',
         moduleId: './modules/production/spinning/count-configuration-drawingbreaker/index',
         nav: true,
-        title: 'Konfigurasi Count Drawing Breaker',
+        title: 'Konfigurasi Count Drawing',
         auth: true,
         settings: {
             group: "spinning",
@@ -492,19 +518,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'production/spinning/spinning-quality',
-        name: 'spinning-quality',
-        moduleId: './modules/production/spinning/spinning-quality/index',
-        nav: true,
-        title: 'Master Standar Kualitas',
-        auth: true,
-        settings: {
-            group: "spinning",
-            // permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
-            permission: { "D28": 1},
-            iconClass: 'fa fa-dashboard'
-        }
     // },
     // {
     //     route: 'production/spinning/grain-calculation',
@@ -518,7 +531,7 @@ module.exports = [
     //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }
-    },
+    //},
     {
         route: 'production/spinning/count-configuration-excel',
         name: 'count-configuration-excel',

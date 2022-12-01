@@ -3,12 +3,15 @@ import { Service, CoreService } from './service';
 import { debug } from 'util';
 import numeral from 'numeral';
 
-//var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
+numeral.defaultFormat("0,000.000000");
+
+const NumberFormat = "0,0.00";
 
 var moment = require('moment');
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
+var CountLoader = require('../../../../loader/master-count-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -19,8 +22,9 @@ export class DataForm {
     @bindable data = {};
     @bindable error;
     @bindable title;
+
     @bindable yarnType;
-    @bindable count;
+    @bindable count = {};
     @bindable detailOptions;
     @bindable unit;
 
@@ -30,7 +34,6 @@ export class DataForm {
         editText: "Ubah",
         deleteText: "Hapus",
     };
-
 
     controlOptions = {
         label: {
@@ -80,13 +83,10 @@ export class DataForm {
         }
         if (!this.data.Id) {
             this.data.Grain = 1;
-            this.data.Ne = 1;
             this.data.Eff = 1;
             this.data.RPM = 1;
-            this.data.Standard = 1;
-            this.data.TPI = 1;
             this.data.TotalDraft = 1;
-            this.data.Constant = 1;
+
             if (this.data.ProcessType == 'Winder') {
                 this.data.ConeWeight = 1.89;
             } else {
@@ -100,6 +100,10 @@ export class DataForm {
         if (this.data.MaterialType && this.data.MaterialType.Id) {
             this.yarnType = this.data.MaterialType;
         }
+        if (this.data.Count){
+            this.count.Count = this.data.Count;
+        }
+
         this.showItemRegular = true;
         this.mixDrawing = false;
     }
@@ -120,30 +124,37 @@ export class DataForm {
         }
     }
 
-    // @computedFrom('data.Grain')
-    // get count_Ne(){
-    //     let count_Ne = 8.33 / 437.5 / this.data.Grain;
-    //     count_Ne = numeral(count_Ne).format();
-    //     this.data.count_Ne = numeral(count_Ne).value();
-
-    //     return count_Ne;
-    // }
+    countChanged(n, o) {
+        if (this.count && this.count.Id) {
+            this.data.Count = this.count.Count;
+        }
+    }
 
     @computedFrom('data.Eff', 'data.RPM', 'data.TotalDraft', 'data.Grain')
-    get CapacityPerShift(){
-        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 2 * 0.025 * 3.142 * (this.data.TotalDraft)) / (14 * 768 * 400 * (50.00000/this.data.Grain));
-        console.log(CapacityPerShift)
+    get CapacityPerShift() {
+
+        let CapacityPerShift = ((60 * 8 * this.data.RPM * this.data.TotalDraft * (this.data.Eff/100) * 2 * 0.025 * 3.1428)/(14 * 768 * 400 * (50/this.data.Grain))).toFixed(3);
+        this.data.CapacityPerShift = CapacityPerShift;
         CapacityPerShift = numeral(CapacityPerShift).format();
-        this.data.CapacityPerShift = numeral(CapacityPerShift).value();        
 
         return CapacityPerShift;
     }
 
-    @computedFrom('data.CapacityPerDay')
+    @computedFrom('data.CapacityPerShift')
+    get CapacityPerKg() {
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift).toFixed(2);
+        this.data.CapacityPerKg = CapacityPerKg;
+        CapacityPerKg = numeral(CapacityPerKg).format();
+
+        return CapacityPerKg;
+    }
+
+    @computedFrom('data.CapacityPerShift')
     get CapacityPerDay(){
-        let CapacityPerDay = this.data.CapacityPerShift * 3;
+
+        let CapacityPerDay = (this.data.CapacityPerShift * 3).toFixed(2);
+        this.data.CapacityPerDay = CapacityPerDay;
         CapacityPerDay = numeral(CapacityPerDay).format();
-        this.data.CapacityPerDay = numeral(CapacityPerDay).value();
 
         return CapacityPerDay;
     }
@@ -158,5 +169,9 @@ export class DataForm {
 
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get countLoader(){
+        return CountLoader;
     }
 } 

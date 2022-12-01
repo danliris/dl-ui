@@ -82,15 +82,9 @@ export class DataForm {
 
         if (!this.data.Id) {
             this.data.Grain = 1;
-            //this.data.Ne = 1;
             this.data.Eff = 100;
             this.data.RPM = 1;
-            this.data.Standard = 1;
             this.data.LapWeight = 1; //new
-            this.data.TPI = 1;
-            this.data.TotalDraft = 1;
-            this.data.Constant = 1;
-            this.data.ConeWeight = 1;
         }
 
         if (this.data.UnitDepartment && this.data.UnitDepartment.Id) {
@@ -148,7 +142,7 @@ export class DataForm {
 
     @computedFrom('data.Grain')
     get Ne() {
-        let Ne = (8.33 / 437.5 / this.data.Grain);
+        let Ne = (8.33 / 437.5 / this.data.Grain).toFixed(4);
 
         this.data.Ne = Ne
         Ne = numeral(Ne).format();
@@ -158,7 +152,7 @@ export class DataForm {
 
     @computedFrom('data.RPM', 'data.Eff', 'data.Ne')
     get CapacityPerShift() {
-        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100) * 0.24 * 3.1428) / (768 * 400 * this.data.Ne);
+        let CapacityPerShift = ((60 * 8 * this.data.RPM * (this.data.Eff/100) * 0.24 * 3.1428) / (768 * 400 * this.data.Ne)).toFixed(2);
 
         this.data.CapacityPerShift = CapacityPerShift;
         CapacityPerShift = numeral(CapacityPerShift).format();
@@ -167,32 +161,22 @@ export class DataForm {
     }
 
     @computedFrom('data.CapacityPerShift')
+    get CapacityPerKg() {
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift).toFixed(2);
+
+        this.data.CapacityPerKg = CapacityPerKg;
+        CapacityPerKg = numeral(CapacityPerKg).format();
+
+        return CapacityPerKg;
+    }
+
+    @computedFrom('data.CapacityPerShift')
     get CapacityPerDay() {
-        let CapacityPerDay = 3 * this.data.CapacityPerShift;
+        let CapacityPerDay = (3 * this.data.CapacityPerShift).toFixed(2);
 
         this.data.CapacityPerDay = CapacityPerDay;
         CapacityPerDay = numeral(CapacityPerDay).format();
 
         return CapacityPerDay;
-    }
-    
-    @computedFrom('data.CapacityBale')
-    get CapacityKG() {
-        let CapacityKG = this.data.CapacityBale * 181.44;
-
-        this.data.CapacityKG = CapacityKG;
-        CapacityKG = numeral(CapacityKG).format();
-
-        return CapacityKG;
-    }
-
-    @computedFrom('data.CapacityKG')
-    get CapacityKGPerHour() {
-        let CapacityKGPerHour = this.data.CapacityKG / 8;
-
-        this.data.CapacityKGPerHour = CapacityKGPerHour;
-        CapacityKGPerHour = numeral(CapacityKGPerHour).format();
-
-        return CapacityKGPerHour;
     }
 } 
