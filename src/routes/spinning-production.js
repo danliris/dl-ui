@@ -312,6 +312,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-blowing-all-user',
+        name: 'count-configuration-blowing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-blowing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Blowing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-carding',
         name: 'count-configuration-carding',
         moduleId: './modules/production/spinning/count-configuration-carding/index',
@@ -325,24 +338,11 @@ module.exports = [
         }
     },
     {
-        route: 'production/spinning/count-configuration-lapformer',
-        name: 'count-configuration-lapformer',
-        moduleId: './modules/production/spinning/count-configuration-lapformer/index',
+        route: 'production/spinning/count-configuration-carding-all-user',
+        name: 'count-configuration-carding-all-user',
+        moduleId: './modules/production/spinning/count-configuration-carding-all-user/index',
         nav: true,
-        title: 'Konfigurasi Count Lap Former',
-        auth: true,
-        settings: {
-            group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'production/spinning/count-configuration-combing',
-        name: 'count-configuration-combing',
-        moduleId: './modules/production/spinning/count-configuration-combing/index',
-        nav: true,
-        title: 'Konfigurasi Count Combing',
+        title: 'Konfigurasi Count Carding - All User',
         auth: true,
         settings: {
             group: "spinning",
@@ -364,11 +364,115 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-predrawing-all-user',
+        name: 'count-configuration-predrawing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-predrawing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Pre-Drawing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-lapformer',
+        name: 'count-configuration-lapformer',
+        moduleId: './modules/production/spinning/count-configuration-lapformer/index',
+        nav: true,
+        title: 'Konfigurasi Count Lap Former',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-lapformer-all-user',
+        name: 'count-configuration-lapformer-all-user',
+        moduleId: './modules/production/spinning/count-configuration-lapformer-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Lap Former - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-combing',
+        name: 'count-configuration-combing',
+        moduleId: './modules/production/spinning/count-configuration-combing/index',
+        nav: true,
+        title: 'Konfigurasi Count Combing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-combing-all-user',
+        name: 'count-configuration-combing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-combing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Combing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-predrawing',
+        name: 'count-configuration-predrawing',
+        moduleId: './modules/production/spinning/count-configuration-predrawing/index',
+        nav: true,
+        title: 'Konfigurasi Count Pre-Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-predrawing-all-user',
+        name: 'count-configuration-predrawing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-predrawing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Pre-Drawing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-mixdrawing',
         name: 'count-configuration-mixdrawing',
         moduleId: './modules/production/spinning/count-configuration-mixdrawing/index',
         nav: true,
         title: 'Konfigurasi Count Mix Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-mixdrawing-all-user',
+        name: 'count-configuration-mixdrawing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-mixdrawing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Mix Drawing - All User',
         auth: true,
         settings: {
             group: "spinning",
@@ -390,11 +494,37 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-drawingbreaker-all-user',
+        name: 'count-configuration-drawingbreaker-all-user',
+        moduleId: './modules/production/spinning/count-configuration-drawingbreaker-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Drawing - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-finishdrawing',
         name: 'count-configuration-finishdrawing',
         moduleId: './modules/production/spinning/count-configuration-finishdrawing/index',
         nav: true,
         title: 'Konfigurasi Count Finish Drawing',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-finishdrawing-all-user',
+        name: 'count-configuration-finishdrawing-all-user',
+        moduleId: './modules/production/spinning/count-configuration-finishdrawing-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Finish Drawing - All User',
         auth: true,
         settings: {
             group: "spinning",
@@ -416,6 +546,19 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-flyer-all-user',
+        name: 'count-configuration-flyer-all-user',
+        moduleId: './modules/production/spinning/count-configuration-flyer-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Flyer - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-ringspinning',
         name: 'count-configuration-ringspinning',
         moduleId: './modules/production/spinning/count-configuration-ringspinning/index',
@@ -429,11 +572,37 @@ module.exports = [
         }
     },
     {
+        route: 'production/spinning/count-configuration-ringspinning-all-user',
+        name: 'count-configuration-ringspinning-all-user',
+        moduleId: './modules/production/spinning/count-configuration-ringspinning-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Ring Spinning - All User',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'production/spinning/count-configuration-winder',
         name: 'count-configuration-winder',
         moduleId: './modules/production/spinning/count-configuration-winder/index',
         nav: true,
         title: 'Konfigurasi Count Winder',
+        auth: true,
+        settings: {
+            group: "spinning",
+            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'production/spinning/count-configuration-winder-all-user',
+        name: 'count-configuration-winder-all-user',
+        moduleId: './modules/production/spinning/count-configuration-winder-all-user/index',
+        nav: true,
+        title: 'Konfigurasi Count Winder - All User',
         auth: true,
         settings: {
             group: "spinning",
