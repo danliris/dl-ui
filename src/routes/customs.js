@@ -8,7 +8,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T1":1},
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -21,7 +22,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1  },
+            // permission: { "C9": 1,"B6": 1,"B1": 1  },
+            permission :{"T2":1},
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -34,7 +36,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1  },
+            // permission: { "C9": 1,"B6": 1,"B1": 1  },
+            permission :{"T3":1},
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -47,7 +50,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T4":1},
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -61,7 +65,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T5":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -76,7 +81,8 @@ module.exports = [
         auth : true,
         settings : {
             group : "customs",
-            permission : {"C9": 1,"B6": 1,"B1": 1},
+            // permission : {"C9": 1,"B6": 1,"B1": 1},
+            permission :{"T6":1},
             iconClass : 'fa fa-dashboard'
         }
     },
@@ -89,7 +95,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T7":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -104,7 +111,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"PG": 1,"B1": 1 },
+            // permission: { "C9": 1,"PG": 1,"B1": 1 },
+            permission :{"T8":1},
             iconClass: 'fa fa-dashboard'
         }
 
@@ -119,7 +127,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T9":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -133,8 +142,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T10":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -148,8 +158,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T11":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -164,8 +175,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T12":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -179,8 +191,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission: { "C9": 1,"B6": 1,"B1": 1 },
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: { "C9": 1,"B6": 1,"B1": 1 },
+            permission :{"T13":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -194,7 +207,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission :{"T14":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -208,7 +222,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission :{"T15":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -222,7 +237,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission :{"T16":1},
             iconClass: 'fa fa-dashboard'
         },
 
@@ -236,27 +252,14 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission :{"T17":1},
             iconClass: 'fa fa-dashboard'
         },
 
     },
     {
-        route: '/customs/pengeluaran-aval-komponen',
-        name: 'monitoring-pengeluaran-aval-komponen',
-        moduleId: './modules/customs/aval-komponen-out/index',
-        nav: true,
-        title: 'Laporan Monitoring Pengeluaran Aval Komponen',
-        auth: true,
-        settings: {
-            group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            iconClass: 'fa fa-dashboard'
-        },
-
-    },
-
-    {route: '/customs/motitoring_tracebleIn-BUM',
+        route: '/customs/motitoring_tracebleIn-BUM',
         name: 'motitoring_tracebleIn-BUM',
         moduleId: './modules/customs/motitoring_tracebleIn-BUM/index',
         nav: true,
@@ -264,10 +267,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "customs",
-            permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission :{"T18":1},
             iconClass: 'fa fa-dashboard'
         },
     },
-    
-  
 ]

@@ -61,7 +61,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C1": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -74,7 +75,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C2": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -87,7 +89,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C3": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -127,7 +130,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C4": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -140,7 +144,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C5": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -153,7 +158,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C6": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -166,7 +172,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C7": 1},
             iconClass: 'fa fa-dashboard'
         }
 
@@ -180,7 +187,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C8": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -193,7 +201,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C9": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -206,7 +215,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C10": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -219,7 +229,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C11": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -232,7 +243,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C12": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -245,7 +257,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C13": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -258,7 +271,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C14": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -271,7 +285,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C15": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -284,7 +299,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C16": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -297,7 +313,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C17": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -349,7 +366,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C18": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -362,7 +380,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C19": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -375,7 +394,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C20": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -388,7 +408,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C21": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -402,7 +423,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C22": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -416,7 +438,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C23": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -429,7 +452,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C24": 1},
             iconClass: "fa fa-dashboard"
         }
     },
@@ -442,7 +466,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C25": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -455,7 +480,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C26": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -481,7 +507,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C27": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -494,7 +521,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C28": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -507,7 +535,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            // permission: { "C9": 1 },
+            permission: { "C29": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -520,7 +549,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-             permission: { "C9": 1 },
+            //  permission: { "C9": 1 },
+            permission: { "C30": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -533,7 +563,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            // permission: { "C9": 1 },
+            permission: { "C31": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -546,7 +577,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1 },
+            // permission: { "C9": 1 },
+            permission: { "C32": 1},
             iconClass: 'fa fa-dashboard'
         }
     },{
@@ -571,7 +603,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            permission: { "C9": 1, "F1": 1, "F2": 1 },
+            // permission: { "C9": 1, "F1": 1, "F2": 1 },
+            permission: { "C33": 1},
             iconClass: 'fa fa-dashboard'
         }
     }

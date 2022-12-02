@@ -2,9 +2,9 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service'; 
 
-const serviceUri = "accounts";
+const serviceUri = "roles";
  
-export class Service extends RestService {
+class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "auth");
@@ -21,6 +21,7 @@ export class Service extends RestService {
   }
 
   create(data) {
+    // console.log(data);
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
@@ -40,11 +41,22 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  updatePass(data) {
-    console.log("data",data)
-    var endpoint = `${serviceUri}/changePass`;
-    return super.put(endpoint, data);
-  }
-
 
 }
+
+
+const serviceUriMenu = 'master/menus';
+
+class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    searchMenu(info) {
+        var endpoint = `${serviceUriMenu}`;
+        return super.list(endpoint, info);
+    }
+
+};
+
+export { Service, CoreService }
