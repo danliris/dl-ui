@@ -50,6 +50,11 @@
                     <td>Tujuan</td>
                     <td>No. Bukti</td>
                     <td>Tanggal</td>
+                    <td>Warna</td>
+                    <td>Rak</td>
+                    <td>Box</td>
+                    <td>Level</td>
+                    <td>Area</td>
                     <td>Jumlah</td>
                     <td>Satuan</td>
                 </tr>
@@ -70,12 +75,17 @@
                     <td>${IN.UnitDestination}</td>
                     <td>${IN.UENNo}</td>
                     <td>${IN.ExpenditureDate | dateFormat:'DD MMMM YYYY' }</td>
+                    <td>${IN.Colour}</td>
+                    <td>${IN.Rack}</td>
+                    <td>${IN.Box}</td>
+                    <td>${IN.Level}</td>
+                    <td>${IN.Area}</td>
                     <td>${IN.Quantity}</td>
                     <td>${IN.UomUnit}</td>
                     <!--<td>${SJ['Satuan Barang']}</td>-->
                 </tr>
                 <tr class="active">
-                    <td class="text-center" colspan="13"><strong>T O T A L  . . . . . . . . . . . . . . .</strong></td>
+                    <td class="text-center" colspan="18"><strong>T O T A L  . . . . . . . . . . . . . . .</strong></td>
                     <td class="text-right"><strong>${AmountTotal1}</strong></td>
                     <td></td>
                 </tr>

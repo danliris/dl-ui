@@ -1,0 +1,54 @@
+<template>
+	<tr>
+
+		<td>
+			<au-textbox 
+                value.bind="data.Colour" 
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+		<td>
+			<au-numeric 
+                value.bind="data.Quantity" 
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
+		<td>
+			<au-dropdown 
+                value.bind="data.Rack" 
+				items.bind = "rackOptions"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-dropdown>
+		</td>
+		<td>
+			<au-dropdown 
+                value.bind="data.Level" 
+				items.bind = "levelOptions"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-dropdown>
+		</td>
+		 <td>
+			<au-dropdown 
+                value.bind="data.Box" 
+				items.bind = "boxOptions"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-dropdown>
+		</td>
+		<td>
+			<au-dropdown 
+                value.bind="data.Area" 
+				items.bind = "areaOptions"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-dropdown>
+		</td>
+		<td if.bind="!readOnly" class="col-sm-1">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+		</td>
+	</tr>
+</template>
