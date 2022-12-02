@@ -7,6 +7,13 @@ module.exports = [
         title: 'login'
     },
     {
+        route: 'changepass',
+        name: 'changepass',
+        moduleId: './changepass',
+        nav: false,
+        title: 'ChangePass'
+    },
+    {
         route: 'samples',
         name: 'samples',
         moduleId: './samples/index',

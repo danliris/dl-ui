@@ -8,7 +8,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S1":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -21,7 +22,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S2":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -34,7 +36,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S3":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -47,7 +50,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S4":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -60,7 +64,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S5":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -73,7 +78,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S6":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -87,7 +93,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S7":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -100,7 +107,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S8":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -113,7 +121,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S9":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -126,7 +135,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S10":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -139,7 +149,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S11":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -152,7 +163,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S12":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -165,7 +177,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S13":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -192,7 +205,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S14":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -205,7 +219,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S15":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -218,7 +233,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S16":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -273,7 +289,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S17":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -286,7 +303,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S18":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -299,7 +317,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S19":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -312,7 +331,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S20":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -325,7 +345,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S21":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -338,7 +359,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S22":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -351,7 +373,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S23":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -377,7 +400,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S24":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -390,7 +414,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S25":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -403,7 +428,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S26":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -416,7 +442,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S27":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -429,7 +456,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"S28":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -455,7 +483,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S29":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -468,7 +497,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S30":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -481,7 +511,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S31":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -494,7 +525,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S32":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -507,7 +539,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S33":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -520,7 +553,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S34":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -533,7 +567,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S35":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -546,7 +581,8 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
-      permission: { "C9": 1, "F1": 1, "F2": 1 },
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S36":1},
       iconClass: 'fa fa-dashboard'
     }
   }
