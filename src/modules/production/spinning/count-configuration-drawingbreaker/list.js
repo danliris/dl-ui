@@ -28,7 +28,7 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            filter: JSON.stringify({ "ProcessType": "Drawing Breaker" })
+            filter: JSON.stringify({ "ProcessType": "Drawing" })
         }
 
         return this.service.search(arg)
