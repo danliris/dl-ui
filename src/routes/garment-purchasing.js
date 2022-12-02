@@ -1100,5 +1100,19 @@ module.exports = [
             permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/garment-do-items',
+        name: 'garment-do-items',
+        moduleId: './modules/garment-purchasing/garment-do-items/index',
+        nav: true,
+        title: 'Inventory Racking',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "fitur",
+            permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]

@@ -74,6 +74,7 @@ export class DataForm {
         }
         
         if(this.data.Items)
+        console.log("items",this.data.Items);
             if (this.data.Items.length > 0) {
                 this.isItem = true;
             }
@@ -269,6 +270,12 @@ export class DataForm {
                     Items.IsSave = Items.Quantity > 0;
                     Items.IsDisabled = !(Items.Quantity > 0);
 
+                    Items.Rack = item.Rack;
+                    Items.Level = item.Level;
+                    Items.Box = item.Box;
+                    Items.Colour = item.Colour;
+                    Items.Area = item.Area;
+
                     this.data.Items.push(Items);
                 }
             }
@@ -298,6 +305,23 @@ export class DataForm {
             "Design / Color",
             "Jumlah Keluar",
             "Satuan",
-            "Tipe Fabric"],
+            "Tipe Fabric",],
+    };
+
+    itemsFabric = {
+        columns: [
+            "Kode Buyer",
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "Design / Color",
+            "Jumlah Keluar",
+            "Satuan",
+            "Tipe Fabric",
+            "Warna",
+            "Rak",
+            "Box",
+            "Level",
+            "Area",],
     };
 }

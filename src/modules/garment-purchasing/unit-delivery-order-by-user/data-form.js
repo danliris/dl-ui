@@ -55,7 +55,7 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        // console.log(this.data);
+        console.log(this.data);
         this.error = this.context.error;
 
         this.options = {
@@ -73,7 +73,28 @@ export class DataForm {
                 "Jumlah DO Awal",
                 "Jumlah DO",
                 "Satuan",
-                "Tipe Fabric"
+                "Tipe Fabric",
+                // "Warna",
+                // "Rak",
+                // "Box",
+                // "Level",
+                // "Area",
+            ];
+
+            this.itemsFabric.columns =  [
+                "Kode Barang",
+                "Nama Barang",
+                "Keterangan Barang",
+                "RO Asal",
+                "Jumlah DO Awal",
+                "Jumlah DO",
+                "Satuan",
+                "Tipe Fabric",
+                "Warna",
+                "Rak",
+                "Box",
+                "Level",
+                "Area",
             ];
         }
         
@@ -136,6 +157,7 @@ export class DataForm {
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.RONo = this.data.RONo;
             rONoFilter.StorageId = this.data.Storage._id;
+            rONoFilter.StorageName = this.data.Storage.name;
         }
         return rONoFilter;
     }
@@ -338,6 +360,8 @@ export class DataForm {
         // this.data.Items = this.dataItems;
         this.data.Items = [];
         this.dataItems = [];
+        // var fInput = false;
+        // var isFabric = false;
 
         if(this.isTransfer){
             var filter= JSON.stringify({RONo:this.RONoJob});
@@ -385,10 +409,34 @@ export class DataForm {
                                 Items.Quantity = Items.DefaultDOQuantity;
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
+                                
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+
+                                // if(item.Colour == null || item.Colour.trim() === '')
+                                // {
+                                //     fInput = true;
+                                // }
+                                // if(item.ProductName == 'FABRIC')
+                                // {
+                                //     isFabric = true;
+                                // }
                 
                                 this.dataItems.push(Items);
                             }
                         }
+                        
+                        // if(fInput && isFabric)
+                        // {
+                        //     alert("Data Racking Belum Lengkap.");
+                        //     this.data.Items = [];
+                        // }else{
+                        //     this.data.Items = this.dataItems;
+                        // }
+
                         this.data.Items = this.dataItems;
                     })
                 });
@@ -442,10 +490,33 @@ export class DataForm {
                                 Items.Quantity = Items.DefaultDOQuantity;
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
-                
+
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+
+                                // if(item.Colour == null || item.Colour.trim() === '')
+                                // {
+                                //     fInput = true;
+                                // }
+                                // if(item.ProductName == 'FABRIC')
+                                // {
+                                //     isFabric = true;
+                                // }
+
                                 this.dataItems.push(Items);
                             }
                         }
+                        
+                        // if(fInput && isFabric)
+                        // {
+                        //     alert("Data Racking Belum Lengkap.");
+                        //     this.data.Items = [];
+                        // }else{
+                        //     this.data.Items = this.dataItems;
+                        // }
                         this.data.Items = this.dataItems;
                     })
             });
@@ -467,6 +538,7 @@ export class DataForm {
                     this.data.Article = ro[0].Article;
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
                     .then(result=>{
+
                         if(result.data.length>0){
                             for(var item of result.data){ 
                                 
@@ -494,10 +566,33 @@ export class DataForm {
                                 Items.Quantity = Items.DefaultDOQuantity;
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
-                
+
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+
+                                // if(item.Colour == null || item.Colour.trim() === '')
+                                // {
+                                //     fInput = true;
+                                // }
+                                // if(item.ProductName == 'FABRIC')
+                                // {
+                                //     isFabric = true;
+                                // }
+                                
                                 this.dataItems.push(Items);
                             }
                         }
+
+                        // if(fInput && isFabric)
+                        // {
+                        //     alert("Data Racking Belum Lengkap.");
+                        //     this.data.Items = [];
+                        // }else{
+                        //     this.data.Items = this.dataItems;
+                        // }
                         this.data.Items = this.dataItems;
                     })
                 }); 
@@ -676,6 +771,12 @@ export class DataForm {
                         this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
                         this.newProduct.IsSave = this.newProduct.Quantity > 0;
                         this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
+
+                        this.newProduct.Rack = selectedROHeader.Rack;
+                        this.newProduct.Level = selectedROHeader.Level;
+                        this.newProduct.Box = selectedROHeader.Box;
+                        this.newProduct.Colour = selectedROHeader.Colour;
+                        this.newProduct.Area = selectedROHeader.Area;
                     });
             
         }
@@ -692,7 +793,7 @@ export class DataForm {
     }
 
     roNoView = (rono) => {
-        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity}`;
+        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity} - ${rono.Colour}`;
     }
 
     unitRequestView = (unitRequest) => {
@@ -727,9 +828,32 @@ export class DataForm {
             "RO Asal",
             "Jumlah DO Awal",
             "Satuan",
-            "Tipe Fabric"
+            "Tipe Fabric",
+            // "Warna",
+            // "Rak",
+            // "Box",
+            // "Level",
+            // "Area",
         ],
     };
+
+    itemsFabric = {
+        columns: [
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "RO Asal",
+            "Jumlah DO Awal",
+            "Satuan",
+            "Tipe Fabric",
+            "Warna",
+            "Rak",
+            "Box",
+            "Level",
+            "Area",
+        ],
+    };
+
 
     // get roLoader() {
     //     return (keyword) => {

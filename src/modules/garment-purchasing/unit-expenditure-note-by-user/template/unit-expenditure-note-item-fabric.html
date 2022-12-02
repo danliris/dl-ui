@@ -2,69 +2,62 @@
     <tr>
         <td>
             <au-checkbox 
-                value.bind="data.IsSave" 
-                disabled.bind="readOnly"
+                value.bind="data.IsSave"
+                disabled.bind="readOnly || isExternal"
                 change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
         <td>
-            <au-textbox
-                value.bind="data.ProductCode"
-                read-only.bind="true">
+            <au-textbox value.bind="data.BuyerCode" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
-            <au-textbox
-                value.bind="data.ProductName"
-                read-only.bind="true">
+            <au-textbox value.bind="data.ProductCode" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
-            <au-textbox
-                value.bind="data.POSerialNumber"
-                read-only.bind="true">
+            <au-textbox value.bind="data.ProductName" read-only.bind="true">
             </au-textbox>
         </td>
         <td>
             <au-textbox 
-                value.bind="data.RONo"
-                read-only.bind="true" 
-                options.bind="controlOptions">
+                value.bind="data.ProductRemark"
+                read-only.bind="true" >
             </au-textbox>
         </td>
-        <td if.bind="isDefaultDOAppear">
-            <au-numeric 
-                value.bind="data.DefaultDOQuantity"
-                read-only="true"
-                options.bind="controlOptions">
-            </au-numeric>                    
+        <td>
+            <au-textbox 
+                value.bind="data.DesignColor"
+                read-only.bind="true" >
+            </au-textbox>                    
         </td>
         <td>
             <au-numeric 
                 value.bind="data.Quantity"
-                error.bind = "error.Quantity"
-                read-only.bind="readOnly" 
-                options.bind="controlOptions"
-                change.delegate="data.DefaultDOQuantity = $event.target.value">
-            </au-numeric>                    
+                read-only.bind="options.readOnly || isExternal"
+                error.bind="error.Quantity">
+            </au-numeric>
         </td>
         <td>
             <au-textbox 
                 value.bind="data.UomUnit"
-                read-only.bind="true"
-                options.bind="controlOptions">
-            </au-textbox>
+                read-only.bind="true" >
+            </au-textbox>                    
         </td>
         <td>
             <au-dropdown 
                 value.bind="data.FabricType" 
-                error.bind="error.FabricType"
-                read-only.bind="readOnly"
-                items.bind = "fabricOptions"
-                options.bind="controlOptions">
+                read-only.bind="true">
             </au-dropdown>
         </td>
-        <!-- <td>
+        <td if.bind="ExpenditureType == 'SISA'">
+            <au-dropdown 
+                value.bind="data.ItemStatus" 
+                items.bind="itemStatusOptions"
+                read-only.bind="readOnly">
+            </au-dropdown>
+        </td>
+        <td>
             <au-textbox 
                 value.bind="data.Colour"
                 read-only.bind="true"
@@ -98,7 +91,6 @@
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-textbox>
-        </td> -->
-
+        </td>
     </tr>
 </template>

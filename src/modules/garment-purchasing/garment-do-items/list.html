@@ -1,0 +1,48 @@
+<template>
+  <h1 class="page-header">Inventory Racking</h1>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+
+        <au-textbox value.bind="code" label="Kode Barang" placeholder="Masukan Kode Barang">
+        </au-textbox>
+
+        <au-textbox value.bind="po" label="Nomor PO" placeholder="Masukan Nomor PO">
+        </au-textbox>
+
+        <au-dropdown label="Unit" value.bind="UnitItem" items.bind="UnitItems" options.bind="controlOptions">
+        </au-dropdown>
+
+
+
+        <div class="form-group">
+          <label for="contact" class="col-sm-6 control-label"></label>
+          <div class="col-sm-3">
+            <button click.delegate="search()" class='btn btn-success'>Cari</button>
+            <button click.delegate="reset()" class='btn btn-danger'>Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br>
+  </br>
+
+  <div id="mutation-table">
+    <au-table 
+    view-model.ref="tableList" 
+    data.bind="loader" 
+    columns.bind="columns" 
+    sortable="true" page-size="25"
+    options.bind="tableOptions"
+    context.bind="context" 
+    context-click.delegate="contextClickCallback($event)"
+    selectable.bind="true">
+      
+    <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="ExportToExcel()">Cetak Excel</button>
+      </div>
+    </au-table>
+  </div>
+</template>
