@@ -105,6 +105,8 @@ export class DataForm {
             this.cust = [];
             this.gdash = [];
             this.dashdp = [];
+            this.itinv = [];
+            
             
             this.data.permissions.menu = result.data;
 
@@ -380,6 +382,18 @@ export class DataForm {
                         this.dashdp.push(data);
                     }
                 }
+                else if(data.Menu === 'IT-INVENTORY')
+                {
+                    //this.dashdp.push(data);
+                    if(selectedCode.includes(data.Code) === true )
+                    {
+                        data.isEdit = true;
+                        this.itinv.push(data);
+                    }else
+                    {
+                        this.itinv.push(data);
+                    }
+                }
             }
 
             // this.auth = auth;
@@ -422,12 +436,35 @@ export class DataForm {
             this.fillTableCust();
             this.fillTableGDas();
             this.fillTableDash();
+            this.fillTableInvt();
             
            
 
           });
     
       }
+
+      fillTableItInve() {
+        //PREPARING
+        let columns = [];
+        columns.push({ field: 'Menu', title: 'Menu' ,width:200});
+        columns.push({ field: 'SubMenu', title: 'SubMenu' ,width:200});
+        columns.push({ field: 'isEdit', title: '',checkbox: true, sortable: false,width:20 });
+        columns.push({ field: 'MenuName', title: 'MenuName' });
+        // columns.push({ field: 'permission', value:1 });
+  
+        var bootstrapTableOptions = {
+          columns: columns,
+          data: this.itinv,
+          fixedColumns: false,
+          fixedNumber: 1
+        };
+        //bootstrapTableOptions.height = 150;
+  
+        $(this.tableItInv).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
+  
+        // console.log(bootstrapTableOptions);
+    }
 
       fillTableAuth() {
         //PREPARING
