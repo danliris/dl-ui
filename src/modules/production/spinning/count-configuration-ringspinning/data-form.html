@@ -27,27 +27,31 @@
 
         </div>
         <div class="col-lg-12" style="padding-left:184px">
+
+            <div class="col-lg-2">
+                <au-numeric format="0" label="Spindle" value.bind="data.Spindle" read-only.bind="readOnly" error.bind="error.Spindle"
+                    options.bind="controlOptions2"></au-numeric>
+            </div>
             <div class="col-lg-2">
                 <au-numeric format="0" label="Ne" value.bind="data.Ne" read-only.bind="readOnly"
                     error.bind="error.Ne" options.bind="controlOptions2"></au-numeric>
             </div>
             <div class="col-lg-2">
-                <au-numeric format="0.00" label="Eff" value.bind="data.Eff" read-only.bind="readOnly" error.bind="error.Eff"
-                    options.bind="controlOptions2"></au-numeric>
-            </div>
-            <div class="col-lg-2">
-                <au-numeric format="0" label="Spindle" value.bind="data.Spindle" read-only.bind="readOnly" error.bind="error.Spindle"
-                    options.bind="controlOptions2"></au-numeric>
-            </div>
-        </div>
-        <div class="col-lg-12" style="padding-left:184px">
-            <div class="col-lg-2">
                 <au-numeric format="0" label="RPM" value.bind="data.RPM" read-only.bind="readOnly" error.bind="error.RPM"
                     options.bind="controlOptions2"></au-numeric>
             </div>
+            
+        </div>
+        <div class="col-lg-12" style="padding-left:184px">
+            
             <div class="col-lg-2">
                 <au-numeric format="0.00" label="TPI" value.bind="data.TPI" read-only.bind="readOnly"
                     error.bind="error.TPI" options.bind="controlOptions2"></au-numeric>
+            </div>
+
+            <div class="col-lg-2">
+                <au-numeric format="0.00" label="Eff" value.bind="data.Eff" read-only.bind="readOnly" error.bind="error.Eff"
+                    options.bind="controlOptions2"></au-numeric>
             </div>
         </div>
 
