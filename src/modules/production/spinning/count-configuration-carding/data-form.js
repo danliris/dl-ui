@@ -157,7 +157,7 @@ export class DataForm {
 
     @computedFrom('data.Grain')
     get Ne() {
-        let Ne =  (50 / this.data.Grain).toFixed(3);
+        let Ne =  (50 / this.data.Grain);
 
         this.data.Ne = Ne
         Ne = numeral(Ne).format();
@@ -177,7 +177,7 @@ export class DataForm {
 
     @computedFrom('data.RPM', 'data.Eff', 'data.Ne')
     get CapacityPerShift() {
-        let CapacityPerShift = (this.data.RPM * 8 / 181.44).toFixed(2);
+        let CapacityPerShift = (this.data.RPM * 8 / 181.44);
 
         this.data.CapacityPerShift = CapacityPerShift;
         CapacityPerShift = numeral(CapacityPerShift).format();
@@ -187,7 +187,7 @@ export class DataForm {
 
     @computedFrom('data.CapacityPerShift')
     get CapacityPerKg() {
-        let CapacityPerKg = (181.44 * this.data.CapacityPerShift).toFixed(2);
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift);
 
         this.data.CapacityPerKg = CapacityPerKg;
         CapacityPerKg = numeral(CapacityPerKg).format();
@@ -197,7 +197,7 @@ export class DataForm {
 
     @computedFrom('data.CapacityPerShift')
     get CapacityPerDay() {
-        let CapacityPerDay = (3 * this.data.CapacityPerShift).toFixed(2);
+        let CapacityPerDay = (3 * this.data.CapacityPerShift);
 
         this.data.CapacityPerDay = CapacityPerDay;
         CapacityPerDay = numeral(CapacityPerDay).format();
