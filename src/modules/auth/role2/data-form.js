@@ -436,7 +436,7 @@ export class DataForm {
             this.fillTableCust();
             this.fillTableGDas();
             this.fillTableDash();
-            this.fillTableInvt();
+            this.fillTableItInve();
             
            
 
