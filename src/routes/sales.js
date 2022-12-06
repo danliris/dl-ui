@@ -330,7 +330,7 @@ module.exports = [
         settings: {
             group: "sales",
             // permission: { "A2": 1, "C9": 1 },
-            permission :{"F3":1},
+            permission :{"F23":1},
             iconClass: 'fa fa-dashboard'
         }
     },
