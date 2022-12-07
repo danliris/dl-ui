@@ -6,6 +6,7 @@ import { debug } from 'util';
 //var lotConfigurationLoader = require('../../../../loader/lot-configuration-loader');
 
 var moment = require('moment');
+numeral.defaultFormat("0,000.000000");
 var MaterialTypeLoader = require('../../../../loader/spinning-material-types-loader');
 var UnitLoader = require('../../../../loader/unit-loader');
 var ProductLoader = require('../../../../loader/product-loader');
@@ -151,7 +152,7 @@ export class DataForm {
 
     @computedFrom('data.RPM', 'data.Eff', 'data.Grain')
     get CapacityPerShift() {
-        let CapacityPerShift = (60 * 8 * this.data.RPM * (this.data.Eff/100)) / (768 * 400 * (8.33/this.data.Grain));
+        let CapacityPerShift = ((60 * 8 * this.data.RPM * (this.data.Eff/100)) / (768 * 400 * (8.33/this.data.Grain)));
 
         this.data.CapacityPerShift = CapacityPerShift;
         CapacityPerShift = numeral(CapacityPerShift).format();
@@ -160,8 +161,18 @@ export class DataForm {
     }
 
     @computedFrom('data.CapacityPerShift')
+    get CapacityPerKg() {
+        let CapacityPerKg = (181.44 * this.data.CapacityPerShift);
+
+        this.data.CapacityPerKg = CapacityPerKg;
+        CapacityPerKg = numeral(CapacityPerKg).format();
+
+        return CapacityPerKg;
+    }
+
+    @computedFrom('data.CapacityPerShift')
     get CapacityPerDay() {
-        let CapacityPerDay = 3 * this.data.CapacityPerShift;
+        let CapacityPerDay = (3 * this.data.CapacityPerShift);
 
         this.data.CapacityPerDay = CapacityPerDay;
         CapacityPerDay = numeral(CapacityPerDay).format();
