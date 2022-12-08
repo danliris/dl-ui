@@ -22,23 +22,23 @@ export class View {
     }
 
 
-    deleteCallback(event) {
-        this.service.delete(this.data)
-            .then(result => {
-                alert(`delete data success`);
-                this.cancelCallback();
-            })
-            .catch(err => {
-                if (typeof (err) == "string") {
-                    alert(err);
-                } else {
-                    alert("Missing Some Data");
-                }
-            });
-    }
+    // deleteCallback(event) {
+    //     this.service.delete(this.data)
+    //         .then(result => {
+    //             alert(`delete data success`);
+    //             this.cancelCallback();
+    //         })
+    //         .catch(err => {
+    //             if (typeof (err) == "string") {
+    //                 alert(err);
+    //             } else {
+    //                 alert("Missing Some Data");
+    //             }
+    //         });
+    // }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data.Id });
+    // }
 
 }
