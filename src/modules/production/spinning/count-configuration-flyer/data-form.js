@@ -116,6 +116,8 @@ export class DataForm {
         this.mixDrawing = false;
     }
 
+    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+
     unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {
             this.data.UnitDepartmentId = this.unit.Id;
