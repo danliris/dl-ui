@@ -171,6 +171,7 @@ export class CartItem {
             this.data.yarnMaterial.id = this.selectedProductionOrder.YarnMaterial.Id;
             this.data.yarnMaterial.name = this.selectedProductionOrder.YarnMaterial.Name;
 
+            this.data.productTextile = {};
             this.data.productTextile.name = this.selectedProductionOrder.ProductTextile.Name;
 
             if (this.selectedProductionOrder.ProcessType.Unit) {
