@@ -401,6 +401,21 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+
+  {
+    route: "products-textile",
+    name: "products-textile",
+    moduleId: "./modules/master/product-textile/index",
+    nav: true,
+    title: "Barang Jadi Dyeing Printing",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { C5: 1, C9: 1 },
+      permission :{"B56":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
   {
     route: "products/non-purchasing",
     name: "products/non-purchasing",
