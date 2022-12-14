@@ -2,7 +2,7 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'scrap-transactions';
 const uomServiceUri = 'master/uoms';
-const serviceClassUri = 'scrap-classifications';
+const serviceClassUri = 'scrap-classifications/non-kompomen';
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "garment-production");
