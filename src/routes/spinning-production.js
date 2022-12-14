@@ -367,33 +367,6 @@ module.exports = [
         }
     },
     {
-        route: 'production/spinning/count-configuration-predrawing',
-        name: 'count-configuration-predrawing',
-        moduleId: './modules/production/spinning/count-configuration-predrawing/index',
-        nav: true,
-        title: 'Konfigurasi Count Pre-Drawing',
-        auth: true,
-        settings: {
-            group: "spinning",
-            // permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
-            permission: { "D19": 1},
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
-        route: 'production/spinning/count-configuration-predrawing-all-user',
-        name: 'count-configuration-predrawing-all-user',
-        moduleId: './modules/production/spinning/count-configuration-predrawing-all-user/index',
-        nav: true,
-        title: 'Konfigurasi Count Pre-Drawing - All User',
-        auth: true,
-        settings: {
-            group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-    {
         route: 'production/spinning/count-configuration-lapformer',
         name: 'count-configuration-lapformer',
         moduleId: './modules/production/spinning/count-configuration-lapformer/index',
@@ -456,7 +429,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            // permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D19": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -473,6 +447,32 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'production/spinning/count-configuration-predrawing',
+    //     name: 'count-configuration-predrawing',
+    //     moduleId: './modules/production/spinning/count-configuration-predrawing/index',
+    //     nav: true,
+    //     title: 'Konfigurasi Count Pre-Drawing',
+    //     auth: true,
+    //     settings: {
+    //         group: "spinning",
+    //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
+    // {
+    //     route: 'production/spinning/count-configuration-predrawing-all-user',
+    //     name: 'count-configuration-predrawing-all-user',
+    //     moduleId: './modules/production/spinning/count-configuration-predrawing-all-user/index',
+    //     nav: true,
+    //     title: 'Konfigurasi Count Pre-Drawing - All User',
+    //     auth: true,
+    //     settings: {
+    //         group: "spinning",
+    //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     // {
     //     route: 'production/spinning/count-configuration-predrawing',
     //     name: 'count-configuration-predrawing',
