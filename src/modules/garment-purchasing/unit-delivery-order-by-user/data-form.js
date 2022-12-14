@@ -208,8 +208,11 @@ export class DataForm {
             return this.service.searchMoreDOItems(info)
                 .then((result) => {
                     console.log(result)
-                    let itemIds = this.data.Items.map(i => i.URNItemId);
-                    return result.data.filter(data => data && itemIds.indexOf(data.URNItemId) < 0);
+                    let itemIds = this.data.Items.map(i => i.DOItemsId);
+                    let colorLIst = this.data.Items.map(i => i.Colour);
+                    // console.log('urn',itemIds);
+                    return result.data.filter(data => data && (itemIds.indexOf(data.URNItemId) < 0 && colorLIst.indexOf(data.Colour) <0 ));
+                    // return result.data;
                 });
         }
     }
