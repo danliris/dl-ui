@@ -335,7 +335,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: {"D30": 1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -362,7 +363,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D31": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -389,7 +391,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D32" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -416,7 +419,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D33": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -443,7 +447,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D34": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -522,7 +527,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D35": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -549,7 +555,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D36": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -576,7 +583,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D37": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -603,7 +611,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D38": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -630,7 +639,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D39": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -658,6 +668,7 @@ module.exports = [
         settings: {
             group: "spinning",
             permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D40": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -684,7 +695,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission: { "D41": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
