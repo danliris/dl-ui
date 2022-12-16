@@ -109,7 +109,11 @@ export class DataForm {
         this.mixDrawing = true;
     }
     
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    // spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    get spinningFilter(){
+        var filter = { 'Code.Contains("S1") || Code.Contains("S2")': 'true' };
+        return filter;
+    }
     
     unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {
