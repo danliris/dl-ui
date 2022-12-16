@@ -22,23 +22,24 @@ module.exports = [
         auth: true,
         settings: {
             group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            //permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+            permission : { "D29" : 1},
             iconClass: 'fa fa-dashboard'
         }
     },
-    {
-        route: 'production/spinning/master-count',
-        name: 'master-count',
-        moduleId: './modules/production/spinning/master-count/index',
-        nav: true,
-        title: 'Master Count',
-        auth: true,
-        settings: {
-            group: "spinning",
-            permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
+    // {
+    //     route: 'production/spinning/master-count',
+    //     name: 'master-count',
+    //     moduleId: './modules/production/spinning/master-count/index',
+    //     nav: true,
+    //     title: 'Master Count',
+    //     auth: true,
+    //     settings: {
+    //         group: "spinning",
+    //         permission: { "C9": 1, "S1": 1, "S2": 1, "S3": 1, "S4": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     // {
     //     route: 'production/spinning/spinning-quality',
     //     name: 'spinning-quality',
