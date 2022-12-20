@@ -103,7 +103,7 @@ export class DataForm {
         this.mixDrawing = false;
     }
 
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
 
     unitChanged(newValue, oldValue) {
         if (this.unit && this.unit.Id) {

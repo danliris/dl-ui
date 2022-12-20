@@ -167,7 +167,7 @@ export class DataForm {
             { header: "Komposisi(%)", value: "composition" },
         ],
     };
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
     mixDrawingColumns = {
         columns: [
             "Jenis Material",

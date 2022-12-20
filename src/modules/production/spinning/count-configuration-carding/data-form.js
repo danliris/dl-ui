@@ -116,7 +116,7 @@ export class DataForm {
     }
 
     
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
     
 
     unitChanged(newValue, oldValue) {
