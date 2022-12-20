@@ -74,7 +74,7 @@ export class DataForm {
     };
 
     items = [];
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
     constructor(service, coreService) {
         this.service = service;
         this.coreService = coreService;
