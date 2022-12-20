@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
 
     context = ["Rincian"]
-
+    options = {};
     columns = [
 
         { field: "UnitDONo", title: "No. Delivery Order" },
@@ -67,6 +67,10 @@ export class List {
             default:
                 return true;
         }
+    }
+
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
     }
 
     create() {
