@@ -79,7 +79,7 @@ export class DataForm {
     };
 
     items = [];
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
     machineSpinningFilter = {};
     totalOutput = 0;
     totalOutputNett = 0;
