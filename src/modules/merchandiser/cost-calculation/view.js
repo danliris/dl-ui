@@ -169,6 +169,10 @@ export class View {
     this.data.BookingOrderNo =this.data.BookingOrderNo;
     this.data.ConfirmDate = this.data.ConfirmDate;
     this.data.BOQuantity = this.data.BOQuantity;
+
+    this.data.MarketingName =this.data.MarketingName;
+    this.data.ResponsibleName = this.data.ResponsibleName;
+
     //this.data.Comodity.Name = this.data.Comodity.Name;
     
     // Unpost tampil jika IsPosted = true dan ada approval yang false

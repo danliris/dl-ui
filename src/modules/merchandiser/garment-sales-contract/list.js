@@ -8,6 +8,7 @@ import moment from 'moment';
 @inject(Router, Service, AuthService)
 export class List {
     context = ["Rincian", "Cetak PDF"];
+    options = {};
     columns = [
         { field: "SalesContractNo", title: "No Sales Contract" },
         { field: "CreatedUtc", title: "Tanggal", formatter: function (value, data, index) {
@@ -99,6 +100,10 @@ export class List {
     //             return true;
     //     }
     // }
+
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
+    }
 
     create() {
         this.router.navigateToRoute('create');

@@ -8,7 +8,7 @@ import { activationStrategy } from 'aurelia-router';
 export class List {
   dataToBePosted = [];
   context = ["Rincian", "Cetak PDF"]
-
+  options = {};
   columns = [
     {
       field: "isPosting", title: "Post", checkbox: true, sortable: false,
@@ -133,6 +133,10 @@ export class List {
           })
       }
     }
+  }
+
+  attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
   }
 
   create() {
