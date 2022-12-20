@@ -816,7 +816,8 @@ export class DataForm {
         if (this.newProduct && this.newProduct.ProductId) {
             this.data.Items.push(this.newProduct);
             this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
-            this.context.ItemsCollection.bind();
+            if(this.context.ItemsCollection)
+                this.context.ItemsCollection.bind();
             this.newProduct = {};
             this.RONoHeader = null;
         }
