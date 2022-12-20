@@ -61,7 +61,7 @@ export class DataForm {
         }
     }
     itemColumns = ["Nomor Mesin", "Merk Mesin", "Input", "UOM"];
-    spinningFilter = { "DivisionName.toUpper()": "SPINNING" };
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
     shiftOptions = ["", "Shift I: 06.00 – 14.00", "Shift II: 14.00 – 22.00", "Shift III: 22:00 – 06.00"]
     items = [];
     constructor(service, coreService) {
