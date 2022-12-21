@@ -39,7 +39,7 @@ export class DataForm {
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-        
+
     }
 
     unitView = (unit) => {
@@ -51,12 +51,12 @@ export class DataForm {
     }
 
     @computedFrom("data.Unit")
-    get filter(){
-        var filter={};
-        if(this.data.Unit){
-            filter={
+    get filter() {
+        var filter = {};
+        if (this.data.Unit) {
+            filter = {
                 UnitId: this.data.Unit.Id,
-                "GarmentPreparingItem.Any(RemainingQuantity>0)":true
+                "GarmentPreparingItem.Any(RemainingQuantity>0)": true
             }
         }
         return filter;
@@ -69,54 +69,77 @@ export class DataForm {
         this.error = this.context.error;
         this.options.isCreate = this.context.isCreate;
         this.options.isView = this.context.isView;
-        if(this.options.isView){
+        if (this.options.isView) {
             this.roNo = this.data.RONo;
         }
     }
 
-    selectedUnitChanged(newValue){
+    selectedUnitChanged(newValue) {
         this.data.RONo = null;
         this.data.Article = null;
-        this.data.Unit=null;
-        if(newValue){
-            this.data.Unit=newValue;
+        this.data.Unit = null;
+        if (newValue) {
+            this.data.Unit = newValue;
         }
-        else{
+        else {
             this.data.RONo = null;
             this.data.Article = null;
-            this.data.Unit=null;
+            this.data.Unit = null;
         }
     }
 
-    async roNoChanged(newValue){
+    async roNoChanged(newValue) {
         var selectedPreparing = newValue;
-        if(selectedPreparing && this.options.isCreate){
+        if (selectedPreparing && this.options.isCreate) {
             this.data.Items.splice(0);
             this.data.RONo = selectedPreparing.RONo;
             this.data.Article = selectedPreparing.Article;
-            var filterPreparing = {"RONo": selectedPreparing.RONo, "UnitId": this.data.Unit.Id,"GarmentPreparingItem.Any(RemainingQuantity>0)":true}
-            var info = {filter : JSON.stringify(filterPreparing), size: 2147483647}
-            var dataForItem = await this.service.getPreparing(info);
-            for(var dataHeader of dataForItem.data){
-                for(var item of dataHeader.Items){
-                    if(item.RemainingQuantity>0){
-                        var items = {
-                            PreparingDate: dataHeader.ProcessDate,
-                            PreparingId : dataHeader.Id,
-                            PreparingItemId : item.Id,
-                            Product : item.Product,
-                            DesignColor : item.DesignColor,
-                            Quantity : item.RemainingQuantity,
-                            Uom : item.Uom,
-                            IsSave : false,
-                            BasicPrice: item.BasicPrice,
-                            PreparingQuantity: item.RemainingQuantity,
-                        };
-                        this.data.Items.push(items); 
-                    }
-                }
+            // var filterPreparing = {"RONo": selectedPreparing.RONo, "UnitId": this.data.Unit.Id,"GarmentPreparingItem.Any(RemainingQuantity>0)":true}
+            // var info = {filter : JSON.stringify(filterPreparing), size: 2147483647}
+            var info = { unit: this.data.Unit.Id, ro: selectedPreparing.RONo }
+            // var dataForItem = await this.service.getPreparing(info);
+            var dataForItem = await this.service.getPreparingWithBC(info);
+            // for (var dataHeader of dataForItem.data) {
+            //     for (var item of dataHeader.Items) {
+            //         if (item.RemainingQuantity > 0) {
+            //             var items = {
+            //                 PreparingDate: dataHeader.ProcessDate,
+            //                 PreparingId: dataHeader.Id,
+            //                 PreparingItemId: item.Id,
+            //                 Product: item.Product,
+            //                 DesignColor: item.DesignColor,
+            //                 Quantity: item.RemainingQuantity,
+            //                 Uom: item.Uom,
+            //                 IsSave: false,
+            //                 BasicPrice: item.BasicPrice,
+            //                 PreparingQuantity: item.RemainingQuantity,
+            //             };
+            //             this.data.Items.push(items);
+            //         }
+            //     }
+            // }
+
+            for (var datas of dataForItem.data.getForLoaderAval_BCDtos) {
+                var items = {
+                    PreparingDate: datas.ProcessDate,
+                    PreparingId: datas.preparingId,
+                    PreparingItemId: datas.preparingItemId,
+                    Product: datas.Product,
+                    DesignColor: datas.DesignColor,
+                    Quantity: datas.RemainingQuantity,
+                    Uom: datas.Uom,
+                    IsSave: false,
+                    BasicPrice: datas.BasicPrice,
+                    PreparingQuantity: datas.RemainingQuantity,
+                    BCNo: datas.bcno,
+                    BCDate: datas.bcdate,
+                    POSerialNumber: datas.poSerialNumber,
+                    BCType: datas.bctype
+
+                };
+                this.data.Items.push(items);
             }
-        } else if(!selectedPreparing && this.options.isCreate){
+        } else if (!selectedPreparing && this.options.isCreate) {
             this.data.RONo = null;
             this.data.Article = null;
             this.data.AvalDate = null;
@@ -128,6 +151,10 @@ export class DataForm {
         columns: [
             "Kode Barang",
             "Keterangan",
+            "Nomor PO",
+            "Nomor BC",
+            "Tanggal BC",
+            "Tipe BC",
             "Jumlah",
             "Satuan",
         ]
@@ -141,11 +168,11 @@ export class DataForm {
         return ROLoader;
     }
 
-    get totalQuantity(){
-        var qty=0;
-        if(this.data.Items){
-            for(var item of this.data.Items){
-                if(item.IsSave)
+    get totalQuantity() {
+        var qty = 0;
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                if (item.IsSave)
                     qty += item.Quantity;
             }
         }
