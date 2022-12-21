@@ -36,8 +36,14 @@ export class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getPreparing(info) { 
+    getPreparing(info) {
         var _preparingUri = 'preparings';
+        var endpoint = `${_preparingUri}`;
+        return super.list(endpoint, info);
+    }
+
+    getPreparingWithBC(info) {
+        var _preparingUri = 'preparings/with-bc';
         var endpoint = `${_preparingUri}`;
         return super.list(endpoint, info);
     }
