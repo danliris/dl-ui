@@ -24,7 +24,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.isEdit= true;
+        this.data.isEdit = true;
+
     }
 
     cancel(event) {
@@ -36,18 +37,17 @@ export class Edit {
 
         this.data.Items.forEach(x => {
             itemQtySUm += x.Quantity;
-            
+
         });
-        if(this.data.RemainingQuantity !== itemQtySUm)
-        {
+        if (this.data.RemainingQuantity !== itemQtySUm) {
             alert("Jumlah Quantity Item harus sama dengan Quantity Sebelumnya")
-        }else{
-        this.service.update(this.data).then(result => {
-            alert("Data berhasil diubah");
-            
-        }).catch(e => {
-            this.error = e;
-        })
+        } else {
+            this.service.update(this.data).then(result => {
+                alert("Data berhasil diubah");
+
+            }).catch(e => {
+                this.error = e;
+            })
         }
     }
 }

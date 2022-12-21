@@ -1,5 +1,5 @@
 import {
-  inject,bindable
+  inject, bindable
 } from 'aurelia-framework';
 import {
   Service
@@ -8,6 +8,7 @@ import {
   Router
 } from 'aurelia-router';
 import moment from 'moment';
+// import { any } from 'bluebird';
 // const CategoryLoader = require('../../../../loader/machine-category-loader');
 // const MachineLoader = require('../../../../loader/machine-custom-loader');
 // const MachineTypeLoader = require('../../../../loader/machine-custom-type-loader');
@@ -15,15 +16,15 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-  context = ["Update Racking","Kartu Stelling"];
+  context = ["Update Racking", "Kartu Stelling"];
 
   columns = [
     { field: "ProductCode", title: "Kode Barang" },
     { field: "POSerialNumber", title: "Nomor PO" },
     { field: "RO", title: "Nomor RO" },
     { field: "UnitName", title: "Nama Unit" },
-    { field: "ProductName", title: "Nama Barang"},
-    { field: "RemainingQuantity", title: "Quantity",align: "right" },
+    { field: "ProductName", title: "Nama Barang" },
+    { field: "RemainingQuantity", title: "Quantity", align: "right" },
     { field: "SmallUomUnit", title: "Satuan" },
     { field: "Colour", title: "Warna" },
     { field: "Rack", title: "Rak" },
@@ -33,14 +34,14 @@ export class List {
   ];
 
   @bindable UnitItem;
-  UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
+  UnitItems = ['', 'KONFEKSI 2A', 'KONFEKSI 2B', 'KONFEKSI 2C', 'KONFEKSI 1A', 'KONFEKSI 1B']
 
   constructor(router, service) {
     this.service = service;
     this.router = router;
   }
 
-  
+
 
   tableOptions = {
     showColumns: false,
@@ -51,19 +52,19 @@ export class List {
 
   loader = (info) => {
     let params = {
-          po: this.po ? this.po : "",
-          unitcode : this.unit ? this.unit : "",
-          productcode : this.code ? this.code : "",
-        };
+      po: this.po ? this.po : "",
+      unitcode: this.unit ? this.unit : "",
+      productcode: this.code ? this.code : "",
+    };
 
-        return this.flag
-        ? this.service.search(params).then((result) => {
-  
-          return {
-            data: result.data
-          };
-        })
-        : { data: [] };
+    return this.flag
+      ? this.service.search(params).then((result) => {
+
+        return {
+          data: result.data
+        };
+      })
+      : { data: [] };
   }
 
   search() {
@@ -75,50 +76,56 @@ export class List {
   contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
-    switch (arg.name) {
-        case "Update Racking":
-            this.router.navigateToRoute('edit', { id: data.Id });
-            break;
-         case "Kartu Stelling":
-            this.router.navigateToRoute('stelling',{id: data.Id});
-            break;
-    }
-}
 
-UnitItemChanged(newvalue){
-        
-  if (newvalue) {
+    switch (arg.name) {
+      case "Update Racking":
+        if (data.RemainingQuantity > 0) {
+          this.router.navigateToRoute('edit', { id: data.Id });
+        }
+        else {
+          alert("Maaf, Quantity 0 hanya bisa melihat Kartu Stelling");
+        }
+        break;
+      case "Kartu Stelling":
+        this.router.navigateToRoute('stelling', { id: data.Id });
+        break;
+    }
+  }
+
+  UnitItemChanged(newvalue) {
+
+    if (newvalue) {
       if (newvalue === "KONFEKSI 2A") {
-          this.unit = "C2A";
+        this.unit = "C2A";
       }
-      else if (newvalue === "KONFEKSI 2B") { 
-          this.unit = "C2B";
+      else if (newvalue === "KONFEKSI 2B") {
+        this.unit = "C2B";
       }
       else if (newvalue === "KONFEKSI 2C") {
-          this.unit = "C2C"; 
-      }else if(newvalue === "KONFEKSI 1A"){
-          this.unit = "C1A";
-      }else if(newvalue === "KONFEKSI 1B"){
-          this.unit = "C1B";
-      }else{
-          this.unit = "";
-          this.unitname = "";
+        this.unit = "C2C";
+      } else if (newvalue === "KONFEKSI 1A") {
+        this.unit = "C1A";
+      } else if (newvalue === "KONFEKSI 1B") {
+        this.unit = "C1B";
+      } else {
+        this.unit = "";
+        this.unitname = "";
       }
-  }else{
+    } else {
       this.unit = "";
       this.unitname = "";
+    }
   }
-}
 
-ExportToExcel() {
-  let args = {            
-    po: this.po ? this.po : "",
-    unitcode : this.unit ? this.unit : "",
-    productcode : this.code ? this.code : "",
-  };
-  
-  this.service.generateExcel(args);
-}
+  ExportToExcel() {
+    let args = {
+      po: this.po ? this.po : "",
+      unitcode: this.unit ? this.unit : "",
+      productcode: this.code ? this.code : "",
+    };
+
+    this.service.generateExcel(args);
+  }
 
   reset() {
     this.po = null;
