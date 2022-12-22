@@ -182,6 +182,7 @@ export class Item {
                       .then(psc => {
                         this.data.roNo = result.RO_Number;
                         this.data.article = result.Article;
+                        this.data.marketingName = result.MarketingName;      
                         this.data.buyerAgent = result.Buyer;
                         this.data.buyerBrand = result.BuyerBrand;
                         this.data.sectionName = result.SectionName;
