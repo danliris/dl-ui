@@ -21,6 +21,31 @@
             </au-textbox>
         </td>
         <td class="bg-primary">
+            <au-textbox 
+                value.bind="data.POSerialNumber"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-textbox 
+                value.bind="data.BCNo"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-datepicker 
+                value.bind="data.BCDate"
+                read-only.bind="true"
+                >
+            </au-datepicker>
+        </td>
+        <td class="bg-primary">
+            <au-textbox 
+                value.bind="data.BCType"
+                read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
             <au-numeric
                 value.bind="data.Quantity"
                 read-only.bind="true">
