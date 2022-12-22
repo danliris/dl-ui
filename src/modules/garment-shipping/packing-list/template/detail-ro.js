@@ -172,6 +172,7 @@ export class Item {
                         .then(sc => {
                             this.data.roNo = result.RO_Number;
                             this.data.article = result.Article;
+                            this.data.marketingName = result.MarketingName;      
                             this.data.buyerBrand = result.BuyerBrand;
                             this.data.unit = result.Unit;
                             this.data.uom = result.UOM;
