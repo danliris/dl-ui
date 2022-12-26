@@ -66,19 +66,37 @@ export class ro {
             this.data.RONo = newValue.RONo;
             Promise.resolve(this.garmentProductionService.getPreparingWithBC({ ro: newValue.RONo }))
                 .then(result => {
-                    for (var items of result.data.getForLoaderAval_BCDtos) {
-                        {
-                            var item = {};
-                            item.Product = items.Product;
-                            item.ProductRemark = items.DesignColor;
-                            item.Uom = "KG";
-                            item.BCNo = items.bcno;
-                            item.BCDate = items.bcdate;
-                            item.BCType = items.bctype;
-                            this.data.Article = items.article;
-                            this.data.FabricItems.push(item);
-                        }
+                    var data = result.data.getForLoaderAval_BCDtos;
 
+                    for (var items of data) {
+                        {
+                            if (this.data.FabricItems.length === 0) {
+                                var item = {};
+                                item.Product = items.Product;
+                                item.ProductRemark = items.DesignColor;
+                                item.Uom = "KG";
+                                item.BCNo = items.bcno;
+                                item.BCDate = items.bcdate;
+                                item.BCType = items.bctype;
+                                this.data.Article = items.article;
+
+                                this.data.FabricItems.push(item);
+                            } else {
+                                var dup = this.data.FabricItems.find(d => d.BCNo == items.bcno && d.ProductRemark == items.DesignColor && d.Product.Code == items.Product.Code);
+                                if (!dup) {
+                                    var item = {};
+                                    item.Product = items.Product;
+                                    item.ProductRemark = items.DesignColor;
+                                    item.Uom = "KG";
+                                    item.BCNo = items.bcno;
+                                    item.BCDate = items.bcdate;
+                                    item.BCType = items.bctype;
+                                    this.data.Article = items.article;
+
+                                    this.data.FabricItems.push(item);
+                                }
+                            }
+                        }
                     }
 
                 });
