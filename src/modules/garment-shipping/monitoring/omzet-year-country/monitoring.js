@@ -29,6 +29,7 @@ export class Monitoring {
         { field: "country", title: "N E G A R A", sortable: false },
         { field: "pcsQuantity", title: "QTY - PCS", halign: "center", align: "right", sortable: false },
         { field: "setsQuantity", title: "QTY - SETS", halign: "center", align: "right", sortable: false },
+        { field: "packsQuantity", title: "QTY - PACKS", halign: "center", align: "right", sortable: false },        
         { field: "amount", title: "AMOUNT", halign: "center", align: "right", sortable: false, footerFormatter: () => this.total.amount },
         { field: "percentage", title: "%", halign: "center", align: "right", sortable: false, footerFormatter: () => this.total.percentage },
     ]
