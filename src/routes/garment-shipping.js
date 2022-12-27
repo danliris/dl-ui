@@ -520,6 +520,20 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/omzet-by-marketing",
+        name: "garment-shipping/monitoring/omzet-by-marketing",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-marketing/index",
+        nav: true,
+        title: "Report Omzet Garment Per Marketing / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/omzet-by-country",
         name: "garment-shipping/monitoring/omzet-by-country",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-country/index",
@@ -855,6 +869,20 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/monitoring/omzet-year-marketing",
+        name: "garment-shipping/monitoring/omzet-year-marketing",
+        moduleId: "modules/garment-shipping/monitoring/omzet-year-marketing/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Marketing",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },   
     {
         route: "garment-shipping/monitoring/omzet-year-country",
         name: "garment-shipping/monitoring/omzet-year-country",
