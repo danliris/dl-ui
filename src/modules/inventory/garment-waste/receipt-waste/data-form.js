@@ -32,6 +32,7 @@ export class DataForm {
 
     itemsColumns = [
         { header: "Nomor RO", value: "RONo" },
+        { header: "", value: "" },
         { header: "Artikel", value: "" },
     ]
     sourceName = "CUTTING CENTRAL";

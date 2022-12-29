@@ -1,10 +1,23 @@
 <template>
     <tr>
         <td>
-            <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" loader.bind="roLoader"
+            <!-- <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" 
+            loader.bind="roLoader"
                 read-only.bind="readOnly||isEdit" placeholder="Nomor RO" text="RONo">
-            </au-autocomplete>
+            </au-autocomplete> -->
+
+            <au-textbox value.bind="data.RONo" error.bind="error.RONo" read-only.bind="readOnly||isEdit"
+                placeholder="Nomor RO" text="RONo">
+            </au-textbox>
         </td>
+        <td>
+
+            <button class="btn btn-success" click.delegate="searchRONo()" disabled.bind="readOnly||isEdit">Cari</button>
+        </td>
+        <!-- </div> -->
+        <!-- <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
+            <button class="btn btn-success" click.delegate="searchRONo()"  if.bind="isTransfer" disabled.bind="!data.RONo">Cari</button>
+        </div> -->
         <td>
             <au-autocomplete value.bind="data.Article" error.bind="error.Article" read-only.bind="true"
                 placeholder="Article" text="Article">

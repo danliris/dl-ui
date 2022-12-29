@@ -35,6 +35,52 @@ export class ro {
         }
     }
 
+    async searchRONo() {
+        console.log(this.data.RONo)
+        this.data.FabricItems.splice(0);
+        if (this.data.RONo != "") {
+            // this.data.RONo = newValue.RONo;
+            Promise.resolve(this.garmentProductionService.getPreparingWithBC({ ro: this.data.RONo }))
+                .then(result => {
+                    var data = result.data.getForLoaderAval_BCDtos;
+
+                    for (var items of data) {
+                        {
+                            if (this.data.FabricItems.length === 0) {
+                                var item = {};
+                                item.Product = items.Product;
+                                item.ProductRemark = items.DesignColor;
+                                item.Uom = "KG";
+                                item.BCNo = items.bcno;
+                                item.BCDate = items.bcdate;
+                                item.BCType = items.bctype;
+                                this.data.Article = items.article;
+
+                                this.data.FabricItems.push(item);
+                            } else {
+                                var dup = this.data.FabricItems.find(d => d.BCNo == items.bcno && d.ProductRemark == items.DesignColor && d.Product.Code == items.Product.Code);
+                                if (!dup) {
+                                    var item = {};
+                                    item.Product = items.Product;
+                                    item.ProductRemark = items.DesignColor;
+                                    item.Uom = "KG";
+                                    item.BCNo = items.bcno;
+                                    item.BCDate = items.bcdate;
+                                    item.BCType = items.bctype;
+                                    this.data.Article = items.article;
+
+                                    this.data.FabricItems.push(item);
+                                }
+                            }
+                        }
+                    }
+
+                });
+        } else {
+            this.data.FabricItems.splice(0);
+        }
+    }
+
     constructor(garmentProductionService) {
         this.garmentProductionService = garmentProductionService;
     }
