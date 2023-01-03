@@ -50,6 +50,10 @@ export class List {
         this.router.navigateToRoute('create');
     }
 
+    excel() {
+        this.router.navigateToRoute('excel');
+    }
+
     contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
