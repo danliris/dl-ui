@@ -35,11 +35,14 @@ export class Edit {
     save(event) {
         var itemQtySUm = 0;
 
+
+
         this.data.Items.forEach(x => {
             itemQtySUm += x.Quantity;
 
         });
-        if (this.data.RemainingQuantity !== itemQtySUm) {
+
+        if (parseFloat(this.data.RemainingQuantity) != parseFloat(itemQtySUm).toFixed(2)) {
             alert("Jumlah Quantity Item harus sama dengan Quantity Sebelumnya")
         } else {
             this.service.update(this.data).then(result => {
