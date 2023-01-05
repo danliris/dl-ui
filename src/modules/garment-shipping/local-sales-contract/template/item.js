@@ -1,6 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 const ProductLoader = require('../../../../loader/garment-leftover-warehouse-product-loader');
 const UomLoader = require('../../../../loader/uom-loader');
+var LeftoverComodityLoader = require('../../../../loader/garment-leftover-comodity-loader');
 import { Service } from '../service';
 
 @inject(Service)
@@ -14,6 +15,8 @@ export class Item {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
+        this.buyerType =  this.context.context.options.buyerType;
+        console.log(this.context.context.options);
     }
 
     get productLoader() {
@@ -30,6 +33,10 @@ export class Item {
         };
     }
 
+    get leftoverComodityLoader() {
+        return LeftoverComodityLoader;
+    }
+
     productView = (data) => {
         return `${data.Code || data.code} - ${data.Name || data.name}`;
     }
@@ -43,4 +50,15 @@ export class Item {
 
         return this.data.amount;
     }
+
+    comoView = (comodity) => {
+
+        console.log(comodity);
+        if (comodity.name == undefined)
+        return `${comodity.Code} - ${comodity.Name}`
+        else
+        return `${comodity.code} - ${comodity.name}`
+      }
+
+    
 }

@@ -13,6 +13,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedTransactionType;
     @bindable selectedVatTax;
+    @bindable selectedBuyer;
 
     controlOptions = {
         label: {
@@ -26,10 +27,12 @@ export class DataForm {
     items = {
         columns: [
             "Kode - Nama Barang",
+            "Komoditi",
             "Quantity",
             "Satuan",
             "Harga",
-            "Total"
+            "Total",
+            "Keterangan"
         ],
         onAdd: function () {
             this.data.items.push({});
@@ -138,6 +141,7 @@ export class DataForm {
 
     selectedTransactionTypeChanged(newValue, oldValue) {
         if (newValue) {
+            console.log(newValue);
             this.data.transactionType = newValue;
             this.items.options.transactionTypeId = newValue.Id;
 
@@ -149,4 +153,6 @@ export class DataForm {
             this.data.items.splice(0);
         }
     }
+
+   
 }

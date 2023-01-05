@@ -39,6 +39,15 @@
             </au-numeric>
         </td>
 
+        <td class="col-sm-2">
+            <au-textbox value.bind="data.remark"
+                        read-only.bind="true"
+                        error.bind="error.remark"
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        
+
         <!-- <td class="col-sm-1" if.bind="!readOnly">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td> -->
