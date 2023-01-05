@@ -52,7 +52,8 @@ export class DataForm {
             "Jumlah Kemasan ",
             "Satuan Kemasan",
             "Harga",
-            "Total"
+            "Total",
+            "Keterangan"
         ],
         onAdd: function () {
             this.data.items.push({});
@@ -210,6 +211,7 @@ export class DataForm {
                             item.quantity=a.remainingQuantity;
                             item.uom=a.uom;
                             item.price=a.price;
+                            item.remark = a.remark;
                             item.remQty=a.remainingQuantity;
                             this.data.items.push(item);
                         }
