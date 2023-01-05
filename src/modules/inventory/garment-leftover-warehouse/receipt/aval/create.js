@@ -3,6 +3,7 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { activationStrategy } from 'aurelia-router';
 
+
 @inject(Router, Service)
 export class Create {
     isCreate = true;

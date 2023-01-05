@@ -1,7 +1,7 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -37,16 +37,20 @@ export class Create {
         //this.data.AvalDate = this.data.AvalDate ? moment(this.data.AvalDate).format("DD MMM YYYY") : null;
         let objData = {};
         let data = Object.assign(objData, this.data)
-        data.Items = data.Items.filter(x => x.IsSave==true);
-        data.PreparingDate=null;
-        for(var item of data.Items){
-            if(data.PreparingDate==null || data.PreparingDate<item.PreparingDate)
-                data.PreparingDate=item.PreparingDate;
+        data.Items = data.Items.filter(x => x.IsSave == true);
+        data.PreparingDate = null;
+        for (var item of data.Items) {
+            if (data.PreparingDate == null || data.PreparingDate < item.PreparingDate)
+                data.PreparingDate = item.PreparingDate;
+            if (item.BCDate == null) {
+                item.BCDate = new Date("1970-01-01")
+            }
+
         }
         this.service.create(data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
                 this.error = e;
