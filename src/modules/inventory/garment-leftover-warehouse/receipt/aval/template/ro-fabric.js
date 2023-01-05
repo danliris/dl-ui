@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { GarmentProductionService } from '../service';
+import moment from 'moment';
 
 @inject(GarmentProductionService)
 export class ro {
@@ -85,7 +86,7 @@ export class ro {
                                 item.Quantity = avalProductItem.Quantity;
                                 item.Uom = avalProductItem.Uom;
                                 item.BCNo = avalProductItem.BCNo;
-                                item.BCDate = avalProductItem.BCDate;
+                                item.BCDate = moment(avalProductItem.BCDate).format() == moment(new Date(null)).subtract(7, 'h').format() ? null : avalProductItem.BCDate;
                                 item.POSerialNumber = avalProductItem.POSerialNumber;
                                 item.BCType = avalProductItem.BCType;
                                 this.data.FabricItems.push(item);
