@@ -29,6 +29,7 @@ export class Monitoring {
         { field: "buyer", title: "B U Y E R", sortable: false },
         { field: "pcsQuantity", title: "QTY - PCS", halign: "center", align: "right", sortable: false, formatter: (value) => numeral(value).format("0,000.00") },
         { field: "setsQuantity", title: "QTY - SETS", halign: "center", align: "right", sortable: false, formatter: (value) => numeral(value).format("0,000.00") },
+        { field: "packsQuantity", title: "QTY - PACKS", halign: "center", align: "right", sortable: false, formatter: (value) => numeral(value).format("0,000.00") },     
         { field: "amount", title: "AMOUNT", halign: "center", align: "right", sortable: false, footerFormatter: () => this.total.amount, formatter: (value) => numeral(value).format("0,000.00") },
         { field: "percentage", title: "%", halign: "center", align: "right", sortable: false, footerFormatter: () => this.total.percentage },
     ]

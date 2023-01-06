@@ -71,6 +71,17 @@
                     read-only="true"
                     options.bind="length4">
                 </au-textbox>
+                <au-autocomplete 
+                    label="Marketing Garment"
+                    value.bind="selectedGarmentMarketing"
+                    error.bind="error.GarmentMarketing"
+                    loader.bind="garmentMarketingLoader"
+                    text.bind="garmentMarketingView"                     
+                    placeholder="Cari Marketing Garment"
+                    read-only.bind="readOnly"
+                    options.bind="length4">
+                </au-autocomplete>
+
                 <au-autocomplete
                     value.bind="selectedBookingOrder"
                     error.bind="error.BookingOrder"                    
