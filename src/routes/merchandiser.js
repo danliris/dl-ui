@@ -77,7 +77,7 @@ module.exports = [
             iconClass: 'fa fa-calculator',
             byUser: false
         }
-    },
+    },   
     {
         route: '/merchandiser/approve-pr-master/kabag-md',
         name: 'approve-purchase-request-master',
@@ -156,6 +156,22 @@ module.exports = [
             permission: {"L6":1},
             iconClass: 'fa fa-calculator',
             byUser: false
+        }
+    },
+    {
+        route: '/merchandiser/cost-calculation-approval/mkt',
+        name: 'cost-calculation-approval-mkt',
+        moduleId: './modules/merchandiser/cost-calculation-approval/index',
+        nav: true,
+        title: 'Cost Calculation Approval - Marketing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "approval",
+            // permission: { "PGA": 1, "C7": 1, "C9": 1 },
+            permission: {"L57":1},
+            iconClass: 'fa fa-calculator',
+            type: "mkt"
         }
     },
     {
@@ -479,6 +495,21 @@ module.exports = [
         }
     },
     {
+        route: '/merchandiser/garment-cost-calculation-by-marketing-report',
+        name: 'garment-cost-calculation-by-marketing-report',
+        moduleId: './modules/merchandiser/report/cost-calculation-garment-by-marketing-report/index',
+        nav: true,
+        title: 'Display Cost Calculation Garment Per Marketing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            // permission: {  "PGA": 1, "C7": 1, "C9": 1 },
+            permission: {"L58":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/merchandiser/garment-cost-calculation-by-buyer-report',
         name: 'garment-cost-calculation-by-buyer-report',
         moduleId: './modules/merchandiser/report/cost-calculation-garment-by-buyer-report/index',
@@ -700,6 +731,21 @@ module.exports = [
             subGroup: "monitoring",
             // permission: { "PGA": 1, "C9": 1 },
             permission: {"L27":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/merchandiser/profit-garment-by-marketing-report',
+        name: 'profit-garment-by-marketing-report',
+        moduleId: './modules/merchandiser/report/profit-garment-by-marketing-report/index',
+        nav: true,
+        title: 'Laporan Profit Garment Per Marketing',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            // permission: { "PGA": 1, "C9": 1 },
+            permission: {"L59":1},
             iconClass: 'fa fa-dashboard'
         }
     },

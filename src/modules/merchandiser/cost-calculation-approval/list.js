@@ -65,8 +65,14 @@ export class List {
         }
 
         switch (type) {
+            case "mkt":
+                this.filter = {
+                    IsPosted: true,
+                };
+                break;
             case "md":
                 this.filter = {
+                    IsApprovedMkt: true,
                     IsApprovedMD: false,
                     IsPosted: true,
                     ApprovalCC: username
@@ -74,6 +80,7 @@ export class List {
                 break;
             case "ie":
                 this.filter = {
+                    IsApprovedMkt: true,                    
                     IsApprovedMD: true,
                     IsApprovedIE: false
                 };
@@ -81,6 +88,7 @@ export class List {
             case "kadivmd":
                 this.filter = {
                     "CostCalculationGarment_Materials.All(IsPosted == false)": true,
+                    IsApprovedMkt: true,                    
                     IsApprovedMD: true,
                     IsApprovedPurchasing: true,
                     IsApprovedIE: true,

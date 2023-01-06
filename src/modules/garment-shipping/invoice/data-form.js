@@ -223,6 +223,7 @@ export class DataForm {
                 var _item = {};
                 _item.BuyerCode = this.data.buyerAgent.code;
                 _item.Section = this.data.section.code;
+                _item.marketingName = item.marketingName;    
                 _item.roNo = item.roNo;
                 _item.scNo = item.scNo;
                 if(packingItem.invoiceType ==='DS' || packingItem.invoiceType ==='SM')
@@ -316,7 +317,7 @@ export class DataForm {
             _item.Section = this.data.section.code;
             _item.roNo = item.roNo;
             _item.scNo = item.scNo;
-           
+            _item.marketingName = item.marketingName; 
             _item.priceRO = item.priceRO;
             if(packingItem.invoiceType ==='DS' || packingItem.invoiceType ==='SM')
             {
@@ -377,6 +378,7 @@ export class DataForm {
                 _item.desc2 = dataInvoiceLama.desc2;
                 _item.desc3 = dataInvoiceLama.desc3;
                 _item.desc4 = dataInvoiceLama.desc4;
+                _item.marketingName = dataInvoiceLama.marketingName;
             }
             consignee += item.buyerBrand.name;
             if (consignees.length > 0) {

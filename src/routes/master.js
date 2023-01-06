@@ -188,6 +188,20 @@ module.exports = [
      },
   },
   {
+    route: "master/garment-marketing",
+    name: "garment-marketing",
+    moduleId: "modules/master/garment-marketing/index",
+    nav: true,
+    title: "Marketing Garment",
+    auth: true,
+    settings: {
+        group: "master",
+        // permission: { "PGA": 1, "C9": 1 },
+        permission :{"B58":1},
+        iconClass: "fa fa-dashboard"
+       }
+  },
+  {
     route: "garment-buyers",
     name: "garment-buyers",
     moduleId: "./modules/master/garment-buyer/index",
