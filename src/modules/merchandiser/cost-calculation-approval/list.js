@@ -68,6 +68,7 @@ export class List {
             case "mkt":
                 this.filter = {
                     IsPosted: true,
+                    MarketingName: username
                 };
                 break;
             case "md":
