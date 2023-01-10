@@ -24,6 +24,8 @@ export class excel {
         showColumns: false
     }
 
+    spinningFilter = { "(Code == \"S1\" || Code == \"S2\")": true };
+
     columns = [
         [
             {field: "index", title: "No" , sortable: false},
