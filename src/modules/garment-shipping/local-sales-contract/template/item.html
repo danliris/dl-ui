@@ -3,19 +3,19 @@
         <td class="col-sm-3">
             <au-autocomplete value.bind="data.product" error.bind="error.product" loader.bind="productLoader"
                 read-only.bind="readOnly" placeholder="Kode - Nama Barang" text.bind="productView"
-                query.bind="productFilter">
+                query.bind="productFilter" if.bind =!data.comodity>
             </au-autocomplete>
         </td>
         <td width="20%">
 
             <au-autocomplete 
             value.bind="data.comodity" 
-            error.bind="error.Comodity" 
+            error.bind="error.comodity" 
             text.bind = "comoView"
             read-only.bind="options.readOnly" 
             loader.bind="leftoverComodityLoader"
-            options.bind="controlOption" 
-            if.bind = !isBuyerType
+            options.bind="controlOption"
+            if.bind = "!data.product"
             >
             </au-autocomplete>
         </td>
