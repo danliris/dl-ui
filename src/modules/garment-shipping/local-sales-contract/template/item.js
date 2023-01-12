@@ -16,7 +16,6 @@ export class Item {
         this.error = context.error;
         this.options = context.options;
         this.buyerType =  this.context.context.options.buyerType;
-        console.log(this.context.context.options);
     }
 
     get productLoader() {
@@ -38,7 +37,13 @@ export class Item {
     }
 
     productView = (data) => {
-        return `${data.Code || data.code} - ${data.Name || data.name}`;
+        if(data.Name === null || data.name ===null){
+
+            return `-`;
+        }else{
+            return `${data.Code || data.code} - ${data.Name || data.name}`;
+        }
+        
     }
 
     uomView = (data) => {
@@ -53,11 +58,14 @@ export class Item {
 
     comoView = (comodity) => {
 
-        console.log(comodity);
-        if (comodity.name == undefined)
-        return `${comodity.Code} - ${comodity.Name}`
-        else
-        return `${comodity.code} - ${comodity.name}`
+            if (comodity.name === undefined)
+            return `${comodity.Code} - ${comodity.Name}`
+            else if(comodity.name === null)
+            return `-`
+            else
+            return `${comodity.code} - ${comodity.name}`
+       
+
       }
 
     

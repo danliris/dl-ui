@@ -36,6 +36,7 @@ export class DataForm {
         ],
         onAdd: function () {
             this.data.items.push({});
+            
         }.bind(this),
         options: {
             transactionTypeId: 0
@@ -71,7 +72,7 @@ export class DataForm {
     }
 
     vatTaxView = (vatTax) => {
-       console.log(vatTax);
+       
        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
 
@@ -90,12 +91,12 @@ export class DataForm {
         if(!this.data.sellerNPWP || this.data.sellerNPWP==""){
             this.data.sellerNPWP="01.139.907.8-532.000";
         }
-
+        
         this.selectedVatTax = this.data.vat || false;       
     }
 
     selectedVatTaxChanged(newValue) {
-        console.log(newValue);
+        
     
         var _selectedVatTax = newValue;
         if (_selectedVatTax) {
@@ -103,7 +104,7 @@ export class DataForm {
             id : _selectedVatTax.Id || _selectedVatTax.id,
             rate : _selectedVatTax.Rate || _selectedVatTax.rate
         } 
-        console.log(this.data.vat.rate);
+       
         } else {
             this.data.vat = {};
         }
@@ -118,8 +119,6 @@ export class DataForm {
     @computedFrom('data.vat.rate','data.subTotal')
     get ppn() {
         var ppn=0;    
-        console.log(this.data.subTotal);
-        console.log(this.data.isUseVat);
         if(this.data.subTotal && this.data.isUseVat){
            ppn=this.data.subTotal*(this.data.vat.rate/100);
         }
@@ -141,7 +140,6 @@ export class DataForm {
 
     selectedTransactionTypeChanged(newValue, oldValue) {
         if (newValue) {
-            console.log(newValue);
             this.data.transactionType = newValue;
             this.items.options.transactionTypeId = newValue.Id;
 
