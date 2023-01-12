@@ -20,6 +20,9 @@ export class View {
                     this.editCallback=null;
                     break;
                 }
+                if(item.comodity.name == null){
+                    item.comodity.name == "-";
+                }
             }
             
         }
