@@ -76,7 +76,7 @@ export class List {
                     IsApprovedMkt: true,
                     IsApprovedMD: false,
                     IsPosted: true,
-                    ApprovalCC: username
+                    ResponsibleName: username
                 };
                 break;
             case "ie":
