@@ -169,7 +169,7 @@ module.exports = [
             group: "merchandiser",
             subGroup: "approval",
             // permission: { "PGA": 1, "C7": 1, "C9": 1 },
-            permission: {"L57":1},
+            // permission: {"L57":1},
             iconClass: 'fa fa-calculator',
             type: "mkt"
         }
@@ -655,7 +655,7 @@ module.exports = [
             group: "merchandiser",
             subGroup: "monitoring",
             // permission: { "PGA": 1, "P": 1, "C9": 1 },
-            permission: {"L22":1},
+            // permission: {"L22":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -664,7 +664,7 @@ module.exports = [
         name: 'latest-available-budget-report',
         moduleId: './modules/merchandiser/report/latest-available-budget-report/index',
         nav: true,
-        title: 'Laporan Kesiapan Budget | >= 2022',
+        title: 'Laporan Kesiapan Budget',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -685,7 +685,7 @@ module.exports = [
             group: "merchandiser",
             subGroup: "monitoring",
             // permission: { "PGA": 1, "P": 1, "C9": 1 },
-            permission: {"L24":1},
+            // permission: {"L24":1},
             iconClass: 'fa fa-dashboard'
         }
     },   
@@ -694,7 +694,7 @@ module.exports = [
         name: 'latest-available-ro-garment-report',
         moduleId: './modules/merchandiser/report/latest-available-ro-garment-report/index',
         nav: true,
-        title: 'Laporan Kesiapan RO | >= 2022',
+        title: 'Laporan Kesiapan RO',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -892,7 +892,7 @@ module.exports = [
         name: 'packing-list-draft-approval',
         moduleId: './modules/merchandiser/packing-list-draft-approval/index',
         nav: true,
-        title: 'Approval Draft Packing List - Md',
+        title: 'Approval Draft Packing List - Marketing',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -907,7 +907,7 @@ module.exports = [
         name: 'packing-list-approval',
         moduleId: './modules/merchandiser/packing-list-approval/index',
         nav: true,
-        title: 'Approval Packing List - Md',
+        title: 'Approval Packing List - Marketing',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -922,7 +922,7 @@ module.exports = [
         name: 'packing-list',
         moduleId: './modules/merchandiser/packing-list/index',
         nav: true,
-        title: 'Approved Packing List - Md',
+        title: 'Approved Packing List - Marketing',
         auth: true,
         settings: {
             group: "merchandiser",
