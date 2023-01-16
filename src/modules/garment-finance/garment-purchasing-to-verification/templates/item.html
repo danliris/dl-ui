@@ -4,7 +4,9 @@
             <au-autocomplete value.bind="data.InternalNote"
                              error.bind="error.InternalNote"
                              loader.one-time="internalNoteLoader"
-                             text="DocumentNo">
+                             query.bind="checkExist"
+                             text="DocumentNo"
+                             placeholder="cari nomor nota internal">
             </au-autocomplete>
         </td>
         <td>
