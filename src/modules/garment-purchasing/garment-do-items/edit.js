@@ -47,7 +47,7 @@ export class Edit {
         } else {
             this.service.update(this.data).then(result => {
                 alert("Data berhasil diubah");
-
+                this.router.navigateToRoute('list');
             }).catch(e => {
                 this.error = e;
             })
