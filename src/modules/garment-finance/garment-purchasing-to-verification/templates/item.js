@@ -13,9 +13,29 @@ export class Item {
     }
 
     activate(context) {
+        this.context = context;
         this.data = context.data;
         this.error = context.error;
+
+        this.checkExist = {
+
+        }
+
+        for(var item of this.context.context.items){
+
+            if (Object.keys(item.data).length) {
+                let documentNoData = item.data.InternalNote.DocumentNo;
+                if (!(documentNoData == undefined)) {
+                    this.checkExist[`${documentNoData}`]=false;
+                }
+            }
+
+        }
+        
+        this.context.checkExist = this.checkExist;
+        
     }
+
 
     toggle() {
         this.isShowing = !this.isShowing;
@@ -28,4 +48,5 @@ export class Item {
     get internalNoteLoader() {
         return InternalNoteLoader;
     }
+
 }
