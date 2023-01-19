@@ -5,8 +5,9 @@
                              error.bind="error.InternalNote"
                              loader.one-time="internalNoteLoader"
                              query.bind="checkExist"
-                             text="DocumentNo"
-                             placeholder="cari nomor nota internal">
+                             read-only.bind="isEdit"
+                             text="DocumentNo" >
+
             </au-autocomplete>
         </td>
         <td>
