@@ -5,7 +5,7 @@
                 value.bind="product" 
                 error.bind="error.product" 
                 loader.one-time="productLoader" 
-                text="Name" placeholder="cari serat"
+                text.bind="productView" placeholder="cari serat"
                 key="Id" read-only.bind="readOnly"  
                 options.bind="controlOptions">
         </au-autocomplete>
