@@ -1,4 +1,4 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, inject, computedFrom } from 'aurelia-framework';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Service } from '../service';
@@ -21,19 +21,19 @@ export class Item {
 
         }
 
-        for(var item of this.context.context.items){
+        for (var item of this.context.context.items) {
 
-            if (Object.keys(item.data).length) {
+            if (Object.keys(item.data).length && item.data.InternalNote != null) {
                 let documentNoData = item.data.InternalNote.DocumentNo;
                 if (!(documentNoData == undefined)) {
-                    this.checkExist[`${documentNoData}`]=false;
+                    this.checkExist[`${documentNoData}`] = false;
                 }
             }
 
         }
-        
+
         this.context.checkExist = this.checkExist;
-        
+
     }
 
 
@@ -43,6 +43,13 @@ export class Item {
 
     onRemove() {
         this.bind();
+    }
+
+    @computedFrom("data.InternalNote.DocumentNo")
+    get isEdit() {
+        if (this.data.InternalNote != undefined) {
+            return (this.data.InternalNote.DocumentNo || '').toString() != '';
+        }
     }
 
     get internalNoteLoader() {
