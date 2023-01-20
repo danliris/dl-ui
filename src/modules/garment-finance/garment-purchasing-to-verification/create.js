@@ -53,9 +53,19 @@ export class Create {
             };
         */
 
-        console.log(this.data);
+        let filledData = this.data.Items.filter(function (item) {
+            return item.InternalNote.DocumentNo != undefined;
+        });
 
-        this.dialog.show(CreateSubmit)
+        var valueArr = filledData.map(function (item) { return item.InternalNote.DocumentNo });
+
+        var isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item, idx + 1) !== -1
+        });
+        
+
+        if (!isDuplicate) {
+            this.dialog.show(CreateSubmit)
             .then((response) => {
                 console.log(response)
                 if (!response.wasCancelled) {
@@ -63,7 +73,7 @@ export class Create {
                         this.service.createVerification(this.data)
                             .then(result => {
                                 alert("Data berhasil dibuat");
-                                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                                this.router.navigateToRoute('list');
                             })
                             .catch(e => {
                                 this.error = e;
@@ -72,7 +82,7 @@ export class Create {
                         this.service.createAccounting(this.data)
                             .then(result => {
                                 alert("Data berhasil dibuat");
-                                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                                this.router.navigateToRoute('list');
                             })
                             .catch(e => {
                                 this.error = e;
@@ -80,6 +90,12 @@ export class Create {
                     }
                 }
             })
+        } else {
+            alert("Terdapat No. Nota Intern yang Sama");
+        }
+
+
+        
 
         // this.service.create(this.data)
         //     .then(result => {
