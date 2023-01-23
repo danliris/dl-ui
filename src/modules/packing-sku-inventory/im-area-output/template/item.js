@@ -29,7 +29,7 @@ export class CartItem {
             this.remarks = ["Acc Buyer", "Keputusan Prod", "Perbaikan", "Colet"];
             // this.data.status = "NOT OK";
             this.remarksGrade = [
-                "A", "B", "C", "BS", "Aval 1"
+                "A", "B", "C", "BS", "A1", "B1", "Aval 1"
             ];
             this.isTransit = true;
             this.isAval = false;
@@ -64,7 +64,7 @@ export class CartItem {
             this.remarks = [
             ];
             this.remarksGrade = [
-                "A", "B", "C", "BS", "Aval 1"
+                "A", "B", "C", "BS", "A1", "B1", "Aval 1"
             ];
             // this.data.status = "OK";
             this.isTransit = false;
