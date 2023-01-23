@@ -75,7 +75,7 @@ export class List {
             case "Hapus":
                 this.service.sendToPurchasing(data)
                     .then(result => {
-                        alert("Data berhasil dibuat");
+                        alert("Data berhasil dihapus");
                         this.tableList.refresh();
                     })
                     .catch(e => {
