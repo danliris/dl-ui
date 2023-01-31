@@ -94,7 +94,7 @@ export class List {
             case "Cetak Excel Invoice W/ Kop": 
                 this.service.getWHXlsById(data.id, "fob"); 
                 break;
-            case "Cetak Excel Invoice CMT W/ kop": 
+            case "Cetak Excel Invoice CMT W/ Kop": 
                 this.service.getWHXlsById(data.id, "cmt"); 
                 break;                                              
         }
