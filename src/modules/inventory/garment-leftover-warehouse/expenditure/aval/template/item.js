@@ -14,7 +14,7 @@ export class items {
         return UnitLoader;
     }
 
-    
+
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`;
     }
@@ -22,7 +22,7 @@ export class items {
     get avalLoader() {
         return ReceiptAvalLoader;
     }
-    
+
     avalView = (aval) => {
         return `${aval.AvalReceiptNo}`
     }
@@ -30,17 +30,17 @@ export class items {
 
     @computedFrom("data.Unit")
     get filterFabric() {
-        var filter={
-            AvalType:this.data.type,
+        var filter = {
+            AvalType: this.data.type,
             UnitFromId: (this.data.Unit || {}).Id || 0,
-            IsUsed:false
+            IsUsed: false
         };
-        for(var item of this.context.context.items){
-            filter[`AvalReceiptNo == "${item.data.AvalReceiptNo}"`]=false;
+        for (var item of this.context.context.items) {
+            filter[`AvalReceiptNo == "${item.data.AvalReceiptNo}"`] = false;
         }
         return filter;
     }
-    
+
     constructor(service) {
         this.service = service;
     }
@@ -55,42 +55,43 @@ export class items {
         this.isEdit = context.context.options.isEdit;
         //this.isFabric=this.data.type==="AVAL FABRIC";
 
-        if(this.data){
+        if (this.data) {
             this.selectedUnit = this.data.Unit;
-            this.selectedAval = {AvalReceiptNo : this.data.AvalReceiptNo || "" };
+            this.selectedAval = { AvalReceiptNo: this.data.AvalReceiptNo || "" };
         }
-        
-        this.uom="KG";
+
+        this.uom = "KG";
     }
 
-    selectedAvalChanged(newValue){
-        this.data.AvalReceiptId=0;
-        this.data.AvalReceiptNo="";
-        this.data.Quantity=0;
-        this.data.ActualQuantity=0;
-        if(newValue){
-            this.data.AvalReceiptId=newValue.Id;
-            this.data.AvalReceiptNo=newValue.AvalReceiptNo;
-            this.data.Quantity=newValue.TotalAval;
-            this.data.ActualQuantity=newValue.TotalAval;
+    selectedAvalChanged(newValue) {
+        this.data.AvalReceiptId = 0;
+        this.data.AvalReceiptNo = "";
+        this.data.Quantity = 0;
+        this.data.ActualQuantity = 0;
+        if (newValue) {
+            this.data.AvalReceiptId = newValue.Id;
+            this.data.AvalReceiptNo = newValue.AvalReceiptNo;
+            this.data.Quantity = newValue.TotalAval;
+            this.data.ActualQuantity = newValue.TotalAval;
+            this.data.Uom = newValue.Items[0].Uom;
         }
     }
 
-    selectedUnitChanged(newValue){
-        this.data.AvalReceiptId=0;
-        this.data.AvalReceiptNo="";
-        this.selectedAval=null;
-        this.data.Quantity=0;
-        this.data.ActualQuantity=0;
-        if(newValue)
-            this.data.Unit=newValue;
-        else{
-            this.data.Unit=null;
-            this.selectedAval=null;
-            this.data.AvalReceiptId=0;
-            this.data.AvalReceiptNo="";
-            this.data.Quantity=0;
-            this.data.ActualQuantity=0;
+    selectedUnitChanged(newValue) {
+        this.data.AvalReceiptId = 0;
+        this.data.AvalReceiptNo = "";
+        this.selectedAval = null;
+        this.data.Quantity = 0;
+        this.data.ActualQuantity = 0;
+        if (newValue)
+            this.data.Unit = newValue;
+        else {
+            this.data.Unit = null;
+            this.selectedAval = null;
+            this.data.AvalReceiptId = 0;
+            this.data.AvalReceiptNo = "";
+            this.data.Quantity = 0;
+            this.data.ActualQuantity = 0;
         }
     }
 }
