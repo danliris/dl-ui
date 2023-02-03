@@ -149,7 +149,7 @@ module.exports = [
         name: 'daily-monitoring-event',
         moduleId: './modules/production/finishing-printing/daily-monitoring-event/index',
         nav: true,
-        title: 'Monitoring Event Harian',
+        title: 'Monitoring Event',
         auth: true,
         settings: {
             group: "production",
