@@ -12,7 +12,6 @@ export class DataForm {
     @bindable isSelected = false;
     @bindable infoArea2;
     areaOptions2 = [];
-    yearOptions = [];
     
     isSelected = false;
     formOptions = {
@@ -22,22 +21,6 @@ export class DataForm {
         editText: "Ubah",
     };
 
-
-    
-    monthOptions = [
-        { text: "Januari", value: 1 },
-        { text: "Februari", value: 2 },
-        { text: "Maret", value: 3 },
-        { text: "April", value: 4 },
-        { text: "Mei", value: 5 },
-        { text: "Juni", value: 6 },
-        { text: "Juli", value: 7 },
-        { text: "Agustus", value: 8 },
-        { text: "September", value: 9 },
-        { text: "Oktober", value: 10 },
-        { text: "November", value: 11 },
-        { text: "Desember", value: 12 },
-    ];
     controlOptions = {
         label: {
             length: 4,
@@ -49,12 +32,6 @@ export class DataForm {
 
     constructor(service) {
         this.service = service;
-        let yearList = []
-
-        for (var i = 2021; i <= new Date().getFullYear() + 9; i++) {
-            yearList.push({ text:i, value:i });
-        }
-        this.yearOptions = yearList
 
     }
 
@@ -76,8 +53,6 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
         this.infoArea2 = "";
-        this.info.month = this.monthOptions[new Date().getMonth()];
-
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;

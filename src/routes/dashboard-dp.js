@@ -1,7 +1,7 @@
 module.exports = [
     {
         route: "/dashboard-dp/main",
-        name: "Dashboard DP - Unggah File",
+        name: "Daily Operation Mesin - Unggah File",
         moduleId: "./modules/dashboard-dp/main/index",
         nav: true,
         title: "Unggah File",
