@@ -23,10 +23,10 @@
         <au-dropdown label="Mesin" value.bind="infoArea2" items.bind="areaOptions2" key="value" text="text" options.bind="controlOptions">
         </au-dropdown>
 
-        <!-- <div class="row" show.bind="showMonth"> -->
+        <div class="row" show.bind="showMonth">
             <au-dropdown label="Periode" value.bind="info.month" key="value" text="text" items.bind="monthOptions" options.bind="controlOptions">
             </au-dropdown>
-        <!-- </div> -->
+        </div>
         <au-dropdown  label="Tahun"  value.bind="info.year" key="value" text="text" items.bind="yearOptions" options.bind="controlOptions">
         </au-dropdown>
         <div class="${error.file ? 'has-error':''}">

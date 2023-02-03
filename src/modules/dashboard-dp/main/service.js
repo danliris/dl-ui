@@ -4,6 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 
 const getFilePeriode = "GetFilePeriode";
 const getArea = "GetArea";
+const getAreaBaru = "GetAreaBaru";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
@@ -17,6 +18,11 @@ export class Service extends RestService {
 
   getArea() {
     var endpoint = `${getArea}`;
+    return super.get(endpoint);
+  }
+
+  getAreaBaru() {
+    var endpoint = `${getAreaBaru}`;
     return super.get(endpoint);
   }
 }

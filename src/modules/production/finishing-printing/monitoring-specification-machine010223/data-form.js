@@ -9,8 +9,6 @@ var ProductionOrderLoader = require('../../../../loader/production-order-loader'
 
 @inject(Service)
 export class DataForm {
-    @bindable infoArea;
-    @bindable infoArea2;
 
     @bindable readOnly = false;
     @bindable data = {};
@@ -29,55 +27,16 @@ export class DataForm {
         }
     };
 
-    yearOptions = [];
-    areaOptions = [];
-
-    areaOptions2 = [];
-    monthOptions = [
-        { text: "Januari", value: 1 },
-        { text: "Februari", value: 2 },
-        { text: "Maret", value: 3 },
-        { text: "April", value: 4 },
-        { text: "Mei", value: 5 },
-        { text: "Juni", value: 6 },
-        { text: "Juli", value: 7 },
-        { text: "Agustus", value: 8 },
-        { text: "September", value: 9 },
-        { text: "Oktober", value: 10 },
-        { text: "November", value: 11 },
-        { text: "Desember", value: 12 },
-    ];
-    areaOptionsHard = [
-        { text: "DIGITAL PRINT", value: 1 },
-        { text: "DYEING", value: 2 },
-        { text: "FINISHING", value: 3 },
-        { text: "PRETREATMENT", value: 4 },
-        { text: "PRINTING", value: 5 },
-            ];
-
- 
+    divisionFilter = { "UnitDivisionName": "FINISHING & PRINTING" };
 
     bind(context) {
         this.context = context;
-        this.infoArea = "";
-        this.infoArea2 = "";
-        this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.info.month = this.monthOptions[new Date().getMonth()];
-        this.info.year = new Date().getFullYear();
-        this.infoAreaHard="";
     }
 
     constructor(service) {
         this.service = service;
-        this.showMonth = true;
-
-        let yearList = []
-        for (var i = 2021; i <= new Date().getFullYear() + 9; i++) {
-            yearList.push({ text:i, value:i });
-        }
-        this.yearOptions = yearList
     }
 
     @computedFrom("data.Id")
@@ -108,22 +67,6 @@ export class DataForm {
     //         console.log("remove");
     //     }.bind(this)
     // };
-    areaOptions2
-    async bind(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.service.getAreaBaru().then(result => {
-            let areaList2 = [];
-            if (result !== null){ 
-                result.map(x => {
-                    areaList2.push({ text: x.name, value: x.id});
-                });
-                this.areaOptions2 = areaList2;
-                this.infoArea2 = areaList2[0];
-            }
-        });
-    }
-
 
     async MachineChanged(newValue) {
         this.resetErrors();
