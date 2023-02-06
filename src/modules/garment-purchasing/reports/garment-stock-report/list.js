@@ -12,7 +12,7 @@ export class List {
         this.today = new Date();
     }
 
-    info = { page: 1,size:50};
+    info = { page: 1, size: 50 };
 
     controlOptions = {
         label: {
@@ -25,38 +25,38 @@ export class List {
 
     @bindable UnitItem;
     @bindable KtgrItem;
-    
-    KategoriItems= ['','BAHAN BAKU','BAHAN EMBALANCE','BAHAN PENDUKUNG']
-    UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
 
-    search(){
-            this.info.page = 1;
-            this.info.total=0;
-            this.searching();        
+    KategoriItems = ['', 'BAHAN BAKU', 'BAHAN EMBALANCE', 'BAHAN PENDUKUNG']
+    UnitItems = ['', 'KONFEKSI 2A', 'KONFEKSI 2B', 'KONFEKSI 2C', 'KONFEKSI 1A', 'KONFEKSI 1B', 'SAMPLE']
+
+    search() {
+        this.info.page = 1;
+        this.info.total = 0;
+        this.searching();
     }
     activate() {
-       
+
     }
     tableData = []
     searching() {
         var args = {
             page: this.info.page,
             size: this.info.size,
-            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-            unitcode : this.unit ? this.unit : "",
-            category : this.category ? this.category : "",
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            unitcode: this.unit ? this.unit : "",
+            category: this.category ? this.category : "",
             //suppliertype : this.Tipe
         };
         this.service.search(args)
-            .then(result=>{
-                this.data=[];
+            .then(result => {
+                this.data = [];
                 // this.AmountTotal1 = 0;
                 // this.AmountTotal2 = 0;
                 // this.AmountTotal3 = 0;
                 // this.AmountTotal4 = 0;
                 // this.AmountTotal5 = 0;
-                for(var _data of result.data){
+                for (var _data of result.data) {
                     // console.log(_data)
 
                     // this.AmountTotal1 += _data.BeginningBalanceQty;
@@ -90,7 +90,7 @@ export class List {
                     //     _data.ReceiptPurchasePrice = _data.ReceiptPurchasePrice + _data.ReceiptKon2DPrice
                     // }
                     this.data.push(_data);
-                    
+
                 }
                 // this.AmountTotal1 = this.AmountTotal1.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 // this.AmountTotal2 = this.AmountTotal2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -98,28 +98,28 @@ export class List {
                 // this.AmountTotal4 = this.AmountTotal4.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                 // this.AmountTotal5 = this.AmountTotal5.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                 console.log(this.data)
-                this.info.total=result.info.total
+                this.info.total = result.info.total
             })
     }
 
     reset() {
-        this.dateFrom= "",
-        this.dateTo="",
-        this.KtgrItem="",
-        this.UnitItem=""
-        
+        this.dateFrom = "",
+            this.dateTo = "",
+            this.KtgrItem = "",
+            this.UnitItem = ""
+
     }
 
     ExportToExcel() {
-        let args = {            
-            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-            unitcode : this.unit ? this.unit : "",
-            unitname : this.unitname ? this.unitname : "",
-            category : this.category ? this.category : "",
-            categoryname : this.categoryname ? this.categoryname : ""
+        let args = {
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            unitcode: this.unit ? this.unit : "",
+            unitname: this.unitname ? this.unitname : "",
+            category: this.category ? this.category : "",
+            categoryname: this.categoryname ? this.categoryname : ""
         };
-        
+
         this.service.generateExcel(args);
     }
 
@@ -133,55 +133,59 @@ export class List {
         }
     }
 
-    UnitItemChanged(newvalue){
-        
+    UnitItemChanged(newvalue) {
+
         if (newvalue) {
             console.log(newvalue)
             if (newvalue === "KONFEKSI 2A") {
                 this.unit = "C2A";
                 this.unitname = "KONFEKSI 2A";
             }
-            else if (newvalue === "KONFEKSI 2B") { 
+            else if (newvalue === "KONFEKSI 2B") {
                 this.unit = "C2B";
                 this.unitname = "KONFEKSI 2B";
             }
             else if (newvalue === "KONFEKSI 2C") {
-                this.unit = "C2C"; 
+                this.unit = "C2C";
                 this.unitname = "KONFEKSI 2C";
-            }else if(newvalue === "KONFEKSI 1A"){
+            } else if (newvalue === "KONFEKSI 1A") {
                 this.unit = "C1A";
                 this.unitname = "KONFEKSI 1A";
-            }else if(newvalue === "KONFEKSI 1B"){
+            } else if (newvalue === "KONFEKSI 1B") {
                 this.unit = "C1B";
                 this.unitname = "KONFEKSI 1B";
-            }else{
+            } else if (newvalue === "SAMPLE") {
+                this.unit = "SMP1";
+                this.unitname = "SAMPLE";
+
+            } else {
                 this.unit = "";
                 this.unitname = "";
             }
-        }else{
+        } else {
             this.unit = "";
             this.unitname = "";
         }
     }
 
-    KtgrItemChanged(newvalue){
+    KtgrItemChanged(newvalue) {
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
                 this.categoryname = "BAHAN BAKU";
             }
-            else if (newvalue === "BAHAN PENDUKUNG") { 
-                this.category = "BP"; 
+            else if (newvalue === "BAHAN PENDUKUNG") {
+                this.category = "BP";
                 this.categoryname = "BAHAN PENDUKUNG";
             }
             else if (newvalue === "BAHAN EMBALANCE") {
-                this.category = "BE"; 
+                this.category = "BE";
                 this.categoryname = "BAHAN EMBALANCE";
-            }else{
+            } else {
                 this.category = "";
                 this.categoryname = "";
             }
-        }else{
+        } else {
             this.unit = "";
             this.unitname = "";
         }
@@ -192,5 +196,5 @@ export class List {
         this.info.page = page;
         this.searching();
     }
-    
+
 }
