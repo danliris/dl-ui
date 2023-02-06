@@ -10,10 +10,7 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable isSelected = false;
-    @bindable infoArea2;
-    areaOptions2 = [];
-    yearOptions = [];
-    
+
     isSelected = false;
     formOptions = {
         cancelText: "Kembali",
@@ -22,22 +19,6 @@ export class DataForm {
         editText: "Ubah",
     };
 
-
-    
-    monthOptions = [
-        { text: "Januari", value: 1 },
-        { text: "Februari", value: 2 },
-        { text: "Maret", value: 3 },
-        { text: "April", value: 4 },
-        { text: "Mei", value: 5 },
-        { text: "Juni", value: 6 },
-        { text: "Juli", value: 7 },
-        { text: "Agustus", value: 8 },
-        { text: "September", value: 9 },
-        { text: "Oktober", value: 10 },
-        { text: "November", value: 11 },
-        { text: "Desember", value: 12 },
-    ];
     controlOptions = {
         label: {
             length: 4,
@@ -49,22 +30,44 @@ export class DataForm {
 
     constructor(service) {
         this.service = service;
+        this.showMonth = true;
         let yearList = []
-
+       
         for (var i = 2021; i <= new Date().getFullYear() + 9; i++) {
             yearList.push({ text:i, value:i });
         }
         this.yearOptions = yearList
-
+   
     }
 
-
-
+    
     detailOptions = {};
     areaOptions = ["", "Area Pre Treatment", "Area Dyeing", "Area Printing", "Area Finishing", "Area QC"];
     shiftOptions = ['', 'Shift I: 06.00 – 14.00', 'Shift II: 14.00 – 22.00', 'Shift III: 22:00 – 06.00'];
     groupOptions = ['', 'A', 'B', 'C'];
 
+    areaOptionsHard = [
+        { text: "DIGITAL PRINT", value: 1 },
+        { text: "DYEING", value: 2 },
+        { text: "FINISHING", value: 3 },
+        { text: "PRETREATMENT", value: 4 },
+        { text: "PRINTING", value: 5 },
+            ];
+
+    monthOptions = [
+       { text: "Januari", value: 1 },
+       { text: "Februari", value: 2 },
+       { text: "Maret", value: 3 },
+       { text: "April", value: 4 },
+       { text: "Mei", value: 5 },
+       { text: "Juni", value: 6 },
+       { text: "Juli", value: 7 },
+       { text: "Agustus", value: 8 },
+       { text: "September", value: 9 },
+       { text: "Oktober", value: 10 },
+       { text: "November", value: 11 },
+       { text: "Desember", value: 12 },
+            ];
 
     @computedFrom("data.Id")
     get isEdit() {
@@ -75,8 +78,8 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.infoArea2 = "";
-        this.info.month = this.monthOptions[new Date().getMonth()];
+        this.infoAreaHard="";
+       
 
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
@@ -103,24 +106,6 @@ export class DataForm {
             this.detailOptions.processArea = this.data.ProcessArea;
         }
     }
-
-
-    areaOptions2
-    async bind(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.service.getAreaBaru().then(result => {
-            let areaList2 = [];
-            if (result !== null){ 
-                result.map(x => {
-                    areaList2.push({ text: x.name, value: x.id});
-                });
-                this.areaOptions2 = areaList2;
-                this.infoArea2 = areaList2[0];
-            }
-        });
-    }
-
 
     get machineLoader() {
         return MachineLoader;

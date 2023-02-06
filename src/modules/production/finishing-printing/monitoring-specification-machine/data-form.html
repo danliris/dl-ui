@@ -1,7 +1,9 @@
 <template>
+    <require from="../../../../lib/number-format-value-converter"></require>
+
     <h1 class="page-header">Monitoring Spesifikasi Mesin</h1>
-    <form class="form-horizontal">
-    <!-- <au-input-form title.bind="title" with.bind="context">
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+        <!-- <au-input-form title.bind="title" with.bind="context">
         <button slot="actions" class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
         <button slot="actions" class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
         <button slot="actions" class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
@@ -35,8 +37,10 @@
 
     <au-dropdown label="Area" value.bind="infoAreaHard" items.bind="areaOptionsHard" key="value" text="text" options.bind="controlOptions">
     </au-dropdown>
-    <au-dropdown label="Mesin" value.bind="infoArea2" items.bind="areaOptions2" key="value" text="text" options.bind="controlOptions">
-    </au-dropdown>
+    <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="machine" loader.bind="machineLoader" placeholder="Cari machine"
+                key="Code" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
+            </au-autocomplete>
+    
     <div class="row" show.bind="showMonth">
         <au-dropdown label="Periode" value.bind="info.month" key="value" text="text" items.bind="monthOptions" options.bind="controlOptions">
         </au-dropdown>
@@ -50,5 +54,6 @@
             <span class="help-block">${error.file}</span>
         </div>
     </div>
-</form>
+</au-input-form>
+
 </template>
