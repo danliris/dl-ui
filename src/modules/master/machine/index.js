@@ -1,3 +1,4 @@
+console.log("masuk ke index.js");
 export class Index {
     configureRouter(config, router) {
         config.map([

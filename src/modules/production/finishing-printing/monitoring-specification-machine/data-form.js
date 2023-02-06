@@ -4,13 +4,13 @@ import { Service } from './service';
 
 
 
-var MachineLoader = require('../../../../loader/dyeing-printing-machines-loader');
+var MachineLoader = require('../../../../loader/machines-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
 
 @inject(Service)
 export class DataForm {
     @bindable infoArea;
-    @bindable infoArea2;
+    // @bindable infoArea2;
 
     @bindable readOnly = false;
     @bindable data = {};
@@ -32,7 +32,7 @@ export class DataForm {
     yearOptions = [];
     areaOptions = [];
 
-    areaOptions2 = [];
+    // areaOptions2 = [];
     monthOptions = [
         { text: "Januari", value: 1 },
         { text: "Februari", value: 2 },
@@ -60,12 +60,12 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.infoArea = "";
-        this.infoArea2 = "";
+        // this.infoArea2 = "";
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        this.info.month = this.monthOptions[new Date().getMonth()];
-        this.info.year = new Date().getFullYear();
+        // this.info.month = this.monthOptions[new Date().getMonth()];
+        // this.info.year = new Date().getFullYear();
         this.infoAreaHard="";
     }
 
@@ -108,21 +108,21 @@ export class DataForm {
     //         console.log("remove");
     //     }.bind(this)
     // };
-    areaOptions2
-    async bind(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.service.getAreaBaru().then(result => {
-            let areaList2 = [];
-            if (result !== null){ 
-                result.map(x => {
-                    areaList2.push({ text: x.name, value: x.id});
-                });
-                this.areaOptions2 = areaList2;
-                this.infoArea2 = areaList2[0];
-            }
-        });
-    }
+    // areaOptions2
+    // async bind(context) {
+    //     this.data = context.data;
+    //     this.error = context.error;
+    //     this.service.getAreaBaru().then(result => {
+    //         let areaList2 = [];
+    //         if (result !== null){ 
+    //             result.map(x => {
+    //                 areaList2.push({ text: x.name, value: x.id});
+    //             });
+    //             this.areaOptions2 = areaList2;
+    //             this.infoArea2 = areaList2[0];
+    //         }
+    //     });
+    // }
 
 
     async MachineChanged(newValue) {

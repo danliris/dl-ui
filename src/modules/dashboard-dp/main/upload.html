@@ -7,8 +7,11 @@
         </au-dropdown>
        <!--  <au-dropdown label="Mesin" value.bind="infoArea" items.bind="areaOptions" key="value" text="text" options.bind="controlOptions">
         </au-dropdown>-->
-        <au-dropdown label="Mesin" value.bind="infoArea2" items.bind="areaOptions2" key="value" text="text" options.bind="controlOptions">
-        </au-dropdown>
+        <!-- <au-dropdown label="Mesin" value.bind="infoArea2" items.bind="areaOptions2" key="value" text="text" options.bind="controlOptions">
+        </au-dropdown> -->
+        <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="Machine" loader.bind="machineLoader" placeholder="Cari machine"
+        key="Code" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
+    </au-autocomplete>
         <div class="row" show.bind="showMonth">
             <au-dropdown label="Periode" value.bind="info.month" key="value" text="text" items.bind="monthOptions" options.bind="controlOptions">
             </au-dropdown>
