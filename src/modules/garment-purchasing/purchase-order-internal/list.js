@@ -26,6 +26,7 @@ export class List {
         { field: "Items.ProductName", title: "Nama Barang" },
         { field: "Items.Quantity", title: "Jumlah", formatter: function (value) { return value.toFixed(2) } },
         { field: "Items.UomUnit", title: "Satuan" },
+        { field: "Items.BudgetPrice", title: "Harga" , formatter: function (value) { return value.toFixed(2) }},
 
         { field: "CreatedBy", title: "Staff Pembelian" },
         {
@@ -55,6 +56,7 @@ export class List {
                     _data.Items.ProductName = _data.Items[0].Product.Name;
                     _data.Items.Quantity = _data.Items[0].Quantity;
                     _data.Items.UomUnit = _data.Items[0].Uom.Unit;
+                    _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
                 }
                 return {
                     total: result.info.total,
