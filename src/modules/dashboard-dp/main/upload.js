@@ -2,11 +2,13 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
+var MachineLoader = require("../../../loader/machines-loader");
+
 console.log('masuk upload.js');
 @inject(Router, Service)
 export class Create {
     @bindable infoArea;
-    @bindable infoArea2;
+    // @bindable infoArea2;
     
     @bindable error = {};
 
@@ -18,14 +20,14 @@ export class Create {
           length: 4,
         },
     };
-
+    Machine = null;
     yearOptions = [];
 
     yearLabel = null;
 
     areaOptions = [];
 
-    areaOptions2 = [];
+    // areaOptions2 = [];
 
     disabled = false;
 
@@ -69,7 +71,7 @@ export class Create {
     async bind(context) {
         this.context = context;
         this.infoArea = "";
-        this.infoArea2 = "";
+        // this.infoArea2 = "";
         this.info.month = this.monthOptions[new Date().getMonth()];
         this.info.year = new Date().getFullYear();
         this.infoAreaHard="";
@@ -94,21 +96,21 @@ export class Create {
         
     }
 
-    areaOptions2
-    async bind(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.service.getAreaBaru().then(result => {
-            let areaList2 = [];
-            if (result !== null){ 
-                result.map(x => {
-                    areaList2.push({ text: x.name, value: x.id});
-                });
-                this.areaOptions2 = areaList2;
-                this.infoArea2 = areaList2[0];
-            }
-        });
-    }
+    // areaOptions2
+    // async bind(context) {
+    //     this.data = context.data;
+    //     this.error = context.error;
+    //     this.service.getAreaBaru().then(result => {
+    //         let areaList2 = [];
+    //         if (result !== null){ 
+    //             result.map(x => {
+    //                 areaList2.push({ text: x.name, value: x.id});
+    //             });
+    //             this.areaOptions2 = areaList2;
+    //             this.infoArea2 = areaList2[0];
+    //         }
+    //     });
+    // }
 
     list() {
         this.router.navigateToRoute('list');
@@ -124,6 +126,11 @@ export class Create {
         }
     }
 
+
+    get machineLoader() {
+        return MachineLoader;
+    }
+    
     cancelCallback(event) {
       this.list();
     }
