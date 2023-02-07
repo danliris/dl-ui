@@ -23,14 +23,14 @@ export class Edit {
                 SCNo: this.data.PreSCNo
             }
 
-            this.selectedBookingOrder = {
-                BookingOrderId :this.data.BookingOrderId,
-                BookingOrderItemId : this.data.BookingOrderItemId,
-                BookingOrderNo : this.data.BookingOrderNo, 
-                ConfirmDate : this.data.ConfirmDate,
-                ConfirmQuantity : this.data.BOQuantity,
-                ComodityName : this.data.Comodity.Name,
-            }
+            // this.selectedBookingOrder = {
+            //     BookingOrderId :this.data.BookingOrderId,
+            //     BookingOrderItemId : this.data.BookingOrderItemId,
+            //     BookingOrderNo : this.data.BookingOrderNo, 
+            //     ConfirmDate : this.data.ConfirmDate,
+            //     ConfirmQuantity : this.data.BOQuantity,
+            //     ComodityName : this.data.Commodity,
+            // }
 
             const prMasterIds = this.data.CostCalculationGarment_Materials
                 .filter((m, i) => m.PRMasterId > 0 && this.data.CostCalculationGarment_Materials.findIndex(d => d.PRMasterId === m.PRMasterId) === i)
