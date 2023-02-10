@@ -2,8 +2,6 @@ import { inject, bindable} from "aurelia-framework";
 import { Router } from 'aurelia-router';
 import { Service } from "./service";
 
-var TrackLoader = require("../../../loader/track-loader");
-
 
 
 @inject(Router, Service)
@@ -11,7 +9,7 @@ export class DataForm {
   @bindable data = {};
     @bindable error = {};
     @bindable item;
-    @bindable barcode;
+    @bindable barcode
 
     item;
     barcode;
@@ -40,7 +38,7 @@ export class DataForm {
   //destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
 
   
-  types = [ "STOCK OPNAME", "ADJ OUT"];
+  types = [ "STOCK OPNAME"];
 
 
   
@@ -85,66 +83,24 @@ export class DataForm {
   // }
 
   async attached() {
-    console.log(this.data.dyeingPrintingStockOpnameMutationItems);
-    if (this.data.dyeingPrintingStockOpnameMutationItems != undefined) {
-        this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
+    console.log(this.data.items);
+    if (this.data.items != undefined) {
+        this.makeTotal(this.data.items);
     } else {
         this.sumTotalQty = 2;
         this.sumLength = 0;
     }
   }
 
-  // async barcodeChoose(e) {
+  async barcodeChoose(e) {
 
-  //   var itemData = e.target.value;
+    var itemData = e.target.value;
 
-  //   console.log(itemData);
+    console.log(itemData);
 
-  //   if(itemData && itemData.length >= 13) {
-  //       let args = {
-  //         itemData : e.target.value,
-  //       };
-  //       console.log(args);
-
-  //     var temp = await this.service.getByCode(args);
-  //     console.log(temp);
-      
-  //     if(temp != undefined) {
-  //       if(Object.getOwnPropertyNames(temp).length > 0) {
-  //         var temp1 = temp[0];
-  //         temp1.sendquantity = 1;
-  //         console.log(this.data);
-  //         console.log(temp1);
-  //         var data = this.data.DyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
-  //         console.log(data);
-  //         if(!data) {
-  //           this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
-            
-  //         } else {
-  //           data.sendquantity++;
-  //           this.qtyChange(data.productPackingCode, data.sendquantity);
-
-  //         }
-  //         this.makeTotal(this.data.DyeingPrintingStockOpnameMutationItems);
-  //       }
-  //     }
-
-  //     this.barcode = "";
-  //   }
-
-  // }
-
-  
-
-  async barcodeManual() {
-
-    var newValue = this.barcode;
-
-    console.log(newValue);
-
-    
+    if(itemData && itemData.length >= 13) {
         let args = {
-          itemData : newValue.toString().trim(),
+          itemData : e.target.value,
         };
         console.log(args);
 
@@ -157,105 +113,71 @@ export class DataForm {
           temp1.sendquantity = 1;
           console.log(this.data);
           console.log(temp1);
-          var data = this.data.dyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
+          var data = this.data.items.find((x) => x.productPackingCode === temp1.productPackingCode);
           console.log(data);
           if(!data) {
-            this.data.dyeingPrintingStockOpnameMutationItems.push(temp1);
-            //this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
+            this.data.items.push(temp1);
             
           } else {
             data.sendquantity++;
             this.qtyChange(data.productPackingCode, data.sendquantity);
 
           }
-          this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
+          this.makeTotal(this.data.items);
         }
       }
 
       this.barcode = "";
-    
-
-  }
-
-    async qtyChange(code, qty, length) {
-      var barcode = code;
-      var quantity = qty;
-      var packingLength = 0;
-      //this.price = 0;
-      console.log(quantity);
-      if (quantity != undefined) {
-          // var fgTemp = await this.service.getByCode(code);
-          // var fg = fgTemp[0];
-          // this.price = fg.domesticSale;
-          // var newItem = {};
-          console.log(this.data.dyeingPrintingStockOpnameMutationItems);
-          var _data = this.data.dyeingPrintingStockOpnameMutationItems.find((item) => item.productPackingCode === barcode);
-
-
-          if (_data) {
-              this.packingLength = parseInt(_data.sendquantity) * this.packingLength
-              _data.packingLength = parseFloat(this.packingLength);
-          }
-      }
-      this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
     }
 
-  makeTotal(items) {
-      this.sumTotalQty = 0;
-      this.sumLength = 0;
-
-      console.log(items);
-      if (Object.getOwnPropertyNames(items).length > 0) {
-          for (var i = 0; i < items.length; i++) {
-              // console.log(items[i].item.domesticCOGS);
-              this.sumTotalQty += parseInt(items[i].sendquantity);
-              console.log(this.sumTotalQty);
-              this.sumLength += (parseInt(items[i].sendquantity) * items[i].packagingLength);
-          }
-      } 
   }
 
-  removeItem(item) {
-    var itemIndex = this.data.dyeingPrintingStockOpnameMutationItems.indexOf(item);
+  async qtyChange(code, qty, length) {
+    var barcode = code;
+    var quantity = qty;
+    var packingLength = 0;
+    //this.price = 0;
+    console.log(quantity);
+    if (quantity != undefined) {
+        // var fgTemp = await this.service.getByCode(code);
+        // var fg = fgTemp[0];
+        // this.price = fg.domesticSale;
+        // var newItem = {};
+        console.log(this.data.items);
+        var _data = this.data.items.find((item) => item.productPackingCode === barcode);
 
-    console.log(this.data);
-    this.data.dyeingPrintingStockOpnameMutationItems.splice(itemIndex, 1);
-    // if(this.error)
-    //   this.error.items.splice(itemIndex, 1);
-    this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
-  }
 
-  get trackLoader(){
-    return TrackLoader;
-  }
-
-  trackView = (track) => {
-    console.log(track);
-    if(track.Type === undefined){
-
-      return `${track.type} - ${track.name}` ; 
-    }else{
-
-      return `${track.Type} - ${track.Name}`;
+        if (_data) {
+            this.packingLength = parseInt(_data.sendquantity) * this.packingLength
+            _data.packingLength = parseFloat(this.packingLength);
+        }
     }
-    
-  }
+    this.makeTotal(this.data.items);
+}
 
-  // @bindable selectedTrack;
-  //   selectedTrackChanged(newValue) {
-  //       console.log(newValue);
-  //       console.log(this.selectedTrack);
-  //       if (this.selectedTrack) {
-  //           this.data.items = {};
-  //           this.data.items.trackId = newValue.Id;
-  //           this.data.items.trackType = newValue.Type;
-  //           this.data.items.trackName = newValue.Name;
+makeTotal(items) {
+    this.sumTotalQty = 0;
+    this.sumLength = 0;
 
-            
-  //       }
-        // else {
-        //     this.data.productionOrder = {};
-        // }
-    //}
+    console.log(items);
+    if (Object.getOwnPropertyNames(items).length > 0) {
+        for (var i = 0; i < items.length; i++) {
+            // console.log(items[i].item.domesticCOGS);
+            this.sumTotalQty += parseInt(items[i].sendquantity);
+            console.log(this.sumTotalQty);
+            this.sumLength += (parseInt(items[i].sendquantity) * items[i].packagingLength);
+        }
+    } 
+}
+
+removeItem(item) {
+  var itemIndex = this.data.items.indexOf(item);
+
+  console.log(this.data);
+  this.data.items.splice(itemIndex, 1);
+  // if(this.error)
+  //   this.error.items.splice(itemIndex, 1);
+  this.makeTotal(this.data.items);
+}
 
 }

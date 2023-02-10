@@ -9,41 +9,21 @@
     <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
       read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
 
-    <!-- <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
+    <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
       read-only.bind="readOnly || isEdit" label="Tanggal">
-    </au-datepicker> -->
-
-    <!-- <p class="col-md-1">Barcode</p>
-    <input type="text" 
-      focus.bind="hasFocus" 
-      value.bind="barcode" 
-      class="col-md-3" 
-      aria-placeholder="Barcode" 
-      input.delegate="barcodeChoose($event)">
-    </input> -->
+    </au-datepicker>
 
     <p class="col-md-1">Barcode</p>
     <input type="text" 
       focus.bind="hasFocus" 
       value.bind="barcode" 
       class="col-md-3" 
-      aria-placeholder="Barcode" >
+      aria-placeholder="Barcode" 
+      input.delegate="barcodeChoose($event)">
     </input>
-    <!-- <au-textbox
-            label="Barcode"
-            type="text" 
-            focus.bind="hasFocus" 
-            value.bind="barcode"
-            placeholder="cari Barcode" 
-            
-            options.bind="controlOptions">
-        </au-textbox> -->
-
-    
     <numeric label="Total Packing:" read-only.bind="true" value.bind="sumTotalQty" class="col-md-5"></numeric>
     <numeric label="Total Panjang:" read-only.bind="true" value.bind="sumLength" class="col-md-3"></numeric>
-    <p class="col-md-1"></p>
-    <button class="btn btn-success" click.delegate="barcodeManual()">Cari</button>
+
     <div class="form-group" if.bind="error.itemscount">
       <center>
         <p if.bind="error.itemscount" class="help-block text-center">${error.itemscount}</p>
@@ -65,7 +45,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr repeat.for="item of data.dyeingPrintingStockOpnameMutationItems">
+        <tr repeat.for="item of data.items">
           <td>${$index+1}</td>
           <td>${item.productPackingCode}</td>
           <td>${item.productionOrderNo}</td>
@@ -79,34 +59,20 @@
             </div>
           </td> -->
           <td>
-            <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
+            <div class="form-group ${error.items[$index].sendquantity?'has-error':''}">
               <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
                 max.bind="item.quantity" min="0"
                 change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
-              <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
+              <span class="help-block">${error.items[$index].quantity}</span>
             </div>
           </td>
           <td>
             <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
           </td>
-          <!-- <td>
+          <td>
             <div class="form-group ${error.items[$index].track?'has-error':''}">
               <input class="form-control" type="text" name="track" value.bind="item.track" />
               <span class="help-block">${error.items[$index].track}</span>
-            </div>
-          </td> -->
-
-          <td>
-            <div class="form-group ${error.Items[$index].Track?'has-error':''}">
-              <au-autocomplete value.bind="item.track"
-                             error.bind="error.track"
-                             loader.bind="trackLoader"
-                             read-only.bind="readOnly"
-                             placeholder="Jalur/Rak"
-                             text.bind="trackView"
-                             >
-            </au-autocomplete>
-              <span class="help-block">${error.Items[$index].Track}</span>
             </div>
           </td>
 

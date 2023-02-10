@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = "stock-opname-mutation";
+const serviceUri = "stock-opname-warehouse";
 const uomServiceUri = 'master/uoms';
 
  class Service extends RestService {
