@@ -154,9 +154,14 @@ export class Create {
             this.error = e;
         } else {
             formData.append("file", fileList[0]);
-            formData.append("area", this.infoArea.value);
+            //formData.append("area", this.infoArea.value);
+            formData.append("area", this. infoAreaHard.value);
+           
+            formData.append("idMesin", this.Machine.Id);
+           // formData.append("namaMesin", this.Machine.Name);
             formData.append("periode", this.info.month.value + "/" + this.info.year.value);
-            formData.append("areaName", this.infoArea.text);
+            //formData.append("areaName", this.infoArea.text);
+            formData.append("areaName", this.infoAreaHard.text);
             formData.append("monthName", this.info.month.text);
  
             var endpoint = 'UploadExcel';
