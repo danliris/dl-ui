@@ -574,8 +574,8 @@ module.exports = [
     }
   },
   {
-    route: 'packing-sku-inventory/dyeing-printing-stock-opname',
-    name: 'dyeing-printing-stock-opname',
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-mutation',
+    name: 'dyeing-printing-stock-opname-mutation',
     moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-mutation/index',
     nav: true,
     title: 'Stock Opname Mutasi',
@@ -584,6 +584,7 @@ module.exports = [
       group: "ps-inventory",
       subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
 
       iconClass: 'fa fa-dashboard'
     }
