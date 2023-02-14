@@ -568,8 +568,7 @@ module.exports = [
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
 
       subGroup: "stok",
-      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
-
+      //permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       iconClass: 'fa fa-dashboard'
     }
   },

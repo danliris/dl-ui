@@ -2,6 +2,8 @@ import { inject, bindable} from "aurelia-framework";
 import { Router } from 'aurelia-router';
 import { Service } from "./service";
 
+var TrackLoader = require("../../../loader/track-loader");
+
 
 
 @inject(Router, Service)
@@ -9,7 +11,7 @@ export class DataForm {
   @bindable data = {};
     @bindable error = {};
     @bindable item;
-    @bindable barcode
+    @bindable barcode;
 
     item;
     barcode;
@@ -132,52 +134,78 @@ export class DataForm {
 
   }
 
-  async qtyChange(code, qty, length) {
-    var barcode = code;
-    var quantity = qty;
-    var packingLength = 0;
-    //this.price = 0;
-    console.log(quantity);
-    if (quantity != undefined) {
-        // var fgTemp = await this.service.getByCode(code);
-        // var fg = fgTemp[0];
-        // this.price = fg.domesticSale;
-        // var newItem = {};
-        console.log(this.data.items);
-        var _data = this.data.items.find((item) => item.productPackingCode === barcode);
+    async qtyChange(code, qty, length) {
+      var barcode = code;
+      var quantity = qty;
+      var packingLength = 0;
+      //this.price = 0;
+      console.log(quantity);
+      if (quantity != undefined) {
+          // var fgTemp = await this.service.getByCode(code);
+          // var fg = fgTemp[0];
+          // this.price = fg.domesticSale;
+          // var newItem = {};
+          console.log(this.data.items);
+          var _data = this.data.items.find((item) => item.productPackingCode === barcode);
 
 
-        if (_data) {
-            this.packingLength = parseInt(_data.sendquantity) * this.packingLength
-            _data.packingLength = parseFloat(this.packingLength);
-        }
+          if (_data) {
+              this.packingLength = parseInt(_data.sendquantity) * this.packingLength
+              _data.packingLength = parseFloat(this.packingLength);
+          }
+      }
+      this.makeTotal(this.data.items);
     }
+
+  makeTotal(items) {
+      this.sumTotalQty = 0;
+      this.sumLength = 0;
+
+      console.log(items);
+      if (Object.getOwnPropertyNames(items).length > 0) {
+          for (var i = 0; i < items.length; i++) {
+              // console.log(items[i].item.domesticCOGS);
+              this.sumTotalQty += parseInt(items[i].sendquantity);
+              console.log(this.sumTotalQty);
+              this.sumLength += (parseInt(items[i].sendquantity) * items[i].packagingLength);
+          }
+      } 
+  }
+
+  removeItem(item) {
+    var itemIndex = this.data.items.indexOf(item);
+
+    console.log(this.data);
+    this.data.items.splice(itemIndex, 1);
+    // if(this.error)
+    //   this.error.items.splice(itemIndex, 1);
     this.makeTotal(this.data.items);
-}
+  }
 
-makeTotal(items) {
-    this.sumTotalQty = 0;
-    this.sumLength = 0;
+  get trackLoader(){
+    return TrackLoader;
+  }
 
-    console.log(items);
-    if (Object.getOwnPropertyNames(items).length > 0) {
-        for (var i = 0; i < items.length; i++) {
-            // console.log(items[i].item.domesticCOGS);
-            this.sumTotalQty += parseInt(items[i].sendquantity);
-            console.log(this.sumTotalQty);
-            this.sumLength += (parseInt(items[i].sendquantity) * items[i].packagingLength);
-        }
-    } 
-}
+  trackView = (track) => {
+    console.log(track);
+    return `${track.Type} - ${track.Name}`
+  }
 
-removeItem(item) {
-  var itemIndex = this.data.items.indexOf(item);
+  // @bindable selectedTrack;
+  //   selectedTrackChanged(newValue) {
+  //       console.log(newValue);
+  //       console.log(this.selectedTrack);
+  //       if (this.selectedTrack) {
+  //           this.data.items = {};
+  //           this.data.items.trackId = newValue.Id;
+  //           this.data.items.trackType = newValue.Type;
+  //           this.data.items.trackName = newValue.Name;
 
-  console.log(this.data);
-  this.data.items.splice(itemIndex, 1);
-  // if(this.error)
-  //   this.error.items.splice(itemIndex, 1);
-  this.makeTotal(this.data.items);
-}
+            
+  //       }
+        // else {
+        //     this.data.productionOrder = {};
+        // }
+    //}
 
 }

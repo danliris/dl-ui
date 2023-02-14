@@ -63,16 +63,30 @@
               <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
                 max.bind="item.quantity" min="0"
                 change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
-              <span class="help-block">${error.items[$index].quantity}</span>
+              <span class="help-block">${error.items[$index].sendquantity}</span>
             </div>
           </td>
           <td>
             <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
           </td>
-          <td>
+          <!-- <td>
             <div class="form-group ${error.items[$index].track?'has-error':''}">
               <input class="form-control" type="text" name="track" value.bind="item.track" />
               <span class="help-block">${error.items[$index].track}</span>
+            </div>
+          </td> -->
+
+          <td>
+            <div class="form-group ${error.items[$index].track?'has-error':''}">
+              <au-autocomplete value.bind="item.track"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind="readOnly"
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView"
+                             >
+            </au-autocomplete>
+              <span class="help-block">${error.items[$index].track} ${console.log(error.items)}</span>
             </div>
           </td>
 
