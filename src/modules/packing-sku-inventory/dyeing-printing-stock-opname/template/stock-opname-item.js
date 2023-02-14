@@ -16,6 +16,7 @@ export class StockItem {
         ];
         this.context = context;
         this.data = context.data;
+        console.log(this.data);
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
@@ -39,6 +40,13 @@ export class StockItem {
             this.selectedGrade = {};
             this.selectedGrade.code = this.data.grade;
             this.selectedGrade.type = this.data.grade;
+        }
+
+        if(this.data.trackId){
+            this.selectedTrack = {};
+            this.selectedTrack.Id = this.data.trackId;
+            this.selectedTrack.Type = this.data.trackType;
+            this.selectedTrack.Name = this.data.trackName;
         }
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
