@@ -77,9 +77,9 @@ export class DataForm {
     };
 
     if (this.readOnly) {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     } else {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     }
 
     if (this.data.type == "STOCK OPNAME") {

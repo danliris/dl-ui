@@ -3,6 +3,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
 var GradeLoader = require('../../../../loader/packing-sku-inventory-grade-loader');
 var UomLoader = require('../../../../loader/uom-loader');
+var TrackLoader = require("../../../../loader/track-loader");
 export class StockItem {
     @bindable product;
 
@@ -149,6 +150,15 @@ export class StockItem {
         return uom.Unit
     }
 
+    get trackLoader(){
+        return TrackLoader;
+    }
+
+    trackView = (track) => {
+        console.log(track);
+        return `${track.Type} - ${track.Name}`
+    }
+
     @bindable selectedUom;
     selectedUomChanged(newValue) {
 
@@ -220,5 +230,22 @@ export class StockItem {
         else {
             this.data.productionOrder = {};
         }
+    }
+
+
+    @bindable selectedTrack;
+    selectedTrackChanged(newValue) {
+        console.log(newValue);
+        if (this.selectedTrack ) {
+            //this.data.productionOrder = {};
+            this.data.trackId = newValue.Id;
+            this.data.trackType = newValue.Type;
+            this.data.trackName = newValue.Name;
+
+            
+        }
+        // else {
+        //     this.data.productionOrder = {};
+        // }
     }
 }
