@@ -164,13 +164,7 @@ export class StockItem {
 
     trackView = (track) => {
         console.log(track);
-        if(track.Type === undefined){
-
-            return `${track.type} - ${track.name}` ; 
-          }else{
-      
-            return `${track.Type} - ${track.Name}`;
-          }
+        return `${track.Type} - ${track.Name}`
     }
 
     @bindable selectedUom;

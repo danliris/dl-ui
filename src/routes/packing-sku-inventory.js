@@ -505,8 +505,8 @@ module.exports = [
     }
   },
   {
-    route: 'packing-sku-inventory/dyeing-printing-stock-opname',
-    name: 'dyeing-printing-stock-opname',
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-mutation',
+    name: 'dyeing-printing-stock-opname-mutation',
     moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-mutation/index',
     nav: true,
     title: 'Stock Opname Mutasi',

@@ -27,16 +27,12 @@ export class Create {
         this.service.create(this.data)
         .then(result => {
             alert("Data berhasil dibuat");
-            this.list();
+            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
         })
         .catch(e => {
             if (e.statusCode == 500) {
                 alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
             } else {
-                if(e.track != null){
-                    alert("Jalur / Rak Sudah Ada")
-                }
-                console.log(e.track);
                 this.error = e;
             }
         })
