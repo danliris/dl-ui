@@ -138,12 +138,22 @@
             </au-textbox>
         </td>
         <td>
+
+            <au-autocomplete value.bind="selectedTrack"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind="readOnly"
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView">
+            </au-autocomplete>
+        </td>
+        <!-- <td>
             <au-textbox value.bind="data.documentNo"
                         read-only.bind="readOnly"
                         error.bind="error.documentNo"
                         options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td if.bind="!options.readOnly">
             <button class="btn btn-danger pull-right"
                     click.delegate="onremove(data, $event)">-</button>
