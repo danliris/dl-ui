@@ -200,7 +200,7 @@ export class DataForm {
                         EndDate: endDate,
                         Month: startDate.getMonth() + 1,
                         MonthName: this.getMonthName(startDate.getMonth()),
-                        Efficiency : 0,
+                        Efficiency: 0,
                         Operator: 0,
                         WorkingHours: 0,
                         AhTotal: 0,
@@ -209,19 +209,19 @@ export class DataForm {
                         RemainingEH: 0,
                     })
                 }
-            // } else {
-            //     var efficiency = this.data.items[0].efficiency;
-            //     var operator = this.data.items[0].operator;
-            //     var workingHours = this.data.items[0].workingHours;
+                // } else {
+                //     var efficiency = this.data.items[0].efficiency;
+                //     var operator = this.data.items[0].operator;
+                //     var workingHours = this.data.items[0].workingHours;
 
-            //     for (var i = 1; i < this.data.items.length; i++) {
-            //         if(this.data.items[i].efficiency == 0 && efficiency != 0)
-            //             this.data.items[i].efficiency = efficiency;
-            //         if (this.data.items[i].operator == 0 && operator != 0)
-            //             this.data.items[i].operator = operator;
-            //         if (this.data.items[i].workingHours == 0 && workingHours != 0)
-            //             this.data.items[i].workingHours = workingHours;
-            //     }
+                //     for (var i = 1; i < this.data.items.length; i++) {
+                //         if(this.data.items[i].efficiency == 0 && efficiency != 0)
+                //             this.data.items[i].efficiency = efficiency;
+                //         if (this.data.items[i].operator == 0 && operator != 0)
+                //             this.data.items[i].operator = operator;
+                //         if (this.data.items[i].workingHours == 0 && workingHours != 0)
+                //             this.data.items[i].workingHours = workingHours;
+                //     }
             }
         } else {
             this.yearSelected = 0;
@@ -259,14 +259,17 @@ export class DataForm {
     }
 
     onitemchange(event) {
+
+        var path=event.composedPath ? event.composedPath() : event.path;
+    
         var tdPath = 4; // td index in $event.path
         var trPath = 5; // tr index in $event.path
-        var column = event.path[tdPath].cellIndex; // index start from 0
+        var column = path[tdPath].cellIndex; // index start from 0
+
         var columnName = this.itemColumns[column].value;
-        var row = event.path[trPath].rowIndex; // start from 1
+        var row = path[trPath].rowIndex; // start from 1
 
         for (var i = row; i < this.data.Items.length; i++) {
-             
             // if (this.data.items[i].usedEH == 0)
             if (columnName == "Operator") {
                 this.data.Items[i][columnName] = parseFloat((Number(event.target.value)).toFixed());
