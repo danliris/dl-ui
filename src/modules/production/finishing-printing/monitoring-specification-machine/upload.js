@@ -2,7 +2,9 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
-var MachineLoader = require("../../../loader/machines-loader");
+//var MachineLoader = require("../../../loader/machines-loader");
+var MachineLoader = require('../../../../loader/machines-loader');
+
 
 console.log('masuk upload.js');
 @inject(Router, Service)
