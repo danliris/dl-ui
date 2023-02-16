@@ -433,12 +433,7 @@ export class DataForm {
          this.data.BookingOrderNo = newValue.BookingOrderNo;   
          this.data.BOQuantity = newValue.ConfirmQuantity;
          this.data.ConfirmDate = newValue.ConfirmDate;  
-          
-         console.log(this.data.BookingOrderId);
-         console.log(this.data.BookingOrderItemId);      
-         console.log(this.data.BookingOrderNo);
-         console.log(this.data.BOQuantity);
-         console.log(this.data.ConfirmDate);     
+             
        } 
        else 
        {
