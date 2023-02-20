@@ -412,7 +412,7 @@ module.exports = [
         settings: {
             group: "sales",
             // permission: { "A2": 1, "C9": 1 },
-            permission :{"F34":1},
+            permission :{"*":1},
             iconClass: 'fa fa-dashboard'
         }
     },
