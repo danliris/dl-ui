@@ -17,7 +17,7 @@ export class Item {
     get UENFilter() {
         var UENFilter = {};
         return UENFilter = {
-            ExpenditureType: "SUBCON"
+            "(ExpenditureType == \"SUBCON\" || ExpenditureType == \"TRANSFER SUBCON\")": true
         };
     }
 
@@ -76,7 +76,7 @@ export class Item {
         return async (keyword) => {
 			var info = {
 				keyword: keyword,
-				filter: JSON.stringify({ ExpenditureType: "SUBCON" })
+				filter: JSON.stringify({"(ExpenditureType == \"SUBCON\" || ExpenditureType == \"TRANSFER SUBCON\")": true })
 			};
 
 			let dataSubconShrinkage = await this.service.searchComplete({});
