@@ -1,6 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import * as _ from 'underscore';
 
 @inject(Router, Service)
 export class View {
@@ -9,21 +10,30 @@ export class View {
     this.service = service;
   }
 
+  canEdit = true;
   async activate(params) {
-    var Id = params.Id;
-    this.data = await this.service.getById(Id);
-    if (this.data.AccountingUnitId !== 0) {
-      this.accountingUnit = await this.service.getAccountingUnit(
-        this.data.AccountingUnitId
-      );
-    }
+    
+    var id = params.id;
+
+
+    this.data = await this.service.getById(id);
+   
+   this.canEdit = true
+    
   }
 
   list() {
     this.router.navigateToRoute("list");
   }
 
-  cancelCallback(event) {
-    this.list();
+  edit(data) {
+    this.router.navigateToRoute('edit', { id: this.data.id });
+  }
+
+  delete() {
+    this.service.delete(this.data)
+      .then(result => {
+        this.list();
+      });
   }
 }

@@ -8,7 +8,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -21,7 +26,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -34,7 +44,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -47,7 +62,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -60,7 +80,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -73,7 +98,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+  
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -87,7 +117,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -100,7 +135,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -113,7 +153,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -126,7 +171,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -139,7 +189,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -152,7 +207,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -165,7 +225,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "IM",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -192,7 +257,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "IM",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -205,7 +275,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "transit",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -218,7 +293,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "transit",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -273,7 +353,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "packing",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -286,7 +371,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "packing",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -299,7 +389,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "gudang jadi",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -312,7 +407,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "gudang jadi",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -325,7 +425,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "aval",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -338,7 +443,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "aval",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -351,7 +461,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "aval",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -377,7 +492,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "shipping",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -390,7 +510,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "shipping",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -403,7 +528,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -412,11 +542,16 @@ module.exports = [
     name: 'dyeing-printing-stock-opname-document',
     moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-document/index',
     nav: true,
-    title: 'Stock Opname Dyeing/Printing (Barcode)',
+    title: 'Stock Opname Sudah Di Scan (Barcode)',
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -429,7 +564,27 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
+      subGroup: "stok",
+      //permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-mutation',
+    name: 'dyeing-printing-stock-opname-mutation',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-mutation/index',
+    nav: true,
+    title: 'Stock Opname Mutasi',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -455,7 +610,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -468,7 +628,11 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+ 
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -481,7 +645,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -494,7 +663,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -507,7 +681,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -520,7 +699,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -533,7 +717,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -546,7 +735,12 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+
       permission: { "C9": 1, "F1": 1, "F2": 1 },
+
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+
       iconClass: 'fa fa-dashboard'
     }
   }

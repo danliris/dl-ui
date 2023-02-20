@@ -7,11 +7,7 @@
     <h1 class="page-header">Laporan Monitoring Daily Operational setiap Mesin</h1>
     <form class="form-horizontal">
         <!-- <kanban-auto-suggest label="Nomor Order/Kereta" value.bind="kanban"></kanban-auto-suggest> -->
-        <au-dropdown label="Area" value.bind="infoAreaHard" items.bind="areaOptionsHard" key="value" text="text" options.bind="controlOptions">
-        </au-dropdown>
-        <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="Machine" loader.bind="machineLoader" placeholder="Cari machine"
-        key="Code" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
-        </au-autocomplete>
+        
         <au-autocomplete value.bind="Kanban" error.bind="error.Kanban" label="Nomor Order/Kereta" loader.bind="kanbanLoader" placeholder="Cari nomor Order/Kereta"
             read-only.bind="(readOnly)" options.bind="auInputOptions">
         </au-autocomplete>
