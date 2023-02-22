@@ -40,7 +40,7 @@ export class DataForm {
   //destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
 
   
-  types = [ "STOCK OPNAME"];
+  types = [ "STOCK OPNAME", "ADJ OUT"];
 
 
   
@@ -85,24 +85,66 @@ export class DataForm {
   // }
 
   async attached() {
-    console.log(this.data.items);
-    if (this.data.items != undefined) {
-        this.makeTotal(this.data.items);
+    console.log(this.data.dyeingPrintingStockOpnameMutationItems);
+    if (this.data.dyeingPrintingStockOpnameMutationItems != undefined) {
+        this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
     } else {
         this.sumTotalQty = 2;
         this.sumLength = 0;
     }
   }
 
-  async barcodeChoose(e) {
+  // async barcodeChoose(e) {
 
-    var itemData = e.target.value;
+  //   var itemData = e.target.value;
 
-    console.log(itemData);
+  //   console.log(itemData);
 
-    if(itemData && itemData.length >= 13) {
+  //   if(itemData && itemData.length >= 13) {
+  //       let args = {
+  //         itemData : e.target.value,
+  //       };
+  //       console.log(args);
+
+  //     var temp = await this.service.getByCode(args);
+  //     console.log(temp);
+      
+  //     if(temp != undefined) {
+  //       if(Object.getOwnPropertyNames(temp).length > 0) {
+  //         var temp1 = temp[0];
+  //         temp1.sendquantity = 1;
+  //         console.log(this.data);
+  //         console.log(temp1);
+  //         var data = this.data.DyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
+  //         console.log(data);
+  //         if(!data) {
+  //           this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
+            
+  //         } else {
+  //           data.sendquantity++;
+  //           this.qtyChange(data.productPackingCode, data.sendquantity);
+
+  //         }
+  //         this.makeTotal(this.data.DyeingPrintingStockOpnameMutationItems);
+  //       }
+  //     }
+
+  //     this.barcode = "";
+  //   }
+
+  // }
+
+  
+
+  async barcodeManual() {
+
+    var newValue = this.barcode;
+
+    console.log(newValue);
+
+    
         let args = {
-          itemData : e.target.value,
+          itemData : newValue.toString().trim(),
         };
         console.log(args);
 
@@ -115,22 +157,23 @@ export class DataForm {
           temp1.sendquantity = 1;
           console.log(this.data);
           console.log(temp1);
-          var data = this.data.items.find((x) => x.productPackingCode === temp1.productPackingCode);
+          var data = this.data.dyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
           console.log(data);
           if(!data) {
-            this.data.items.push(temp1);
+            this.data.dyeingPrintingStockOpnameMutationItems.push(temp1);
+            //this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
             
           } else {
             data.sendquantity++;
             this.qtyChange(data.productPackingCode, data.sendquantity);
 
           }
-          this.makeTotal(this.data.items);
+          this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
         }
       }
 
       this.barcode = "";
-    }
+    
 
   }
 
@@ -145,8 +188,8 @@ export class DataForm {
           // var fg = fgTemp[0];
           // this.price = fg.domesticSale;
           // var newItem = {};
-          console.log(this.data.items);
-          var _data = this.data.items.find((item) => item.productPackingCode === barcode);
+          console.log(this.data.dyeingPrintingStockOpnameMutationItems);
+          var _data = this.data.dyeingPrintingStockOpnameMutationItems.find((item) => item.productPackingCode === barcode);
 
 
           if (_data) {
@@ -154,7 +197,7 @@ export class DataForm {
               _data.packingLength = parseFloat(this.packingLength);
           }
       }
-      this.makeTotal(this.data.items);
+      this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
     }
 
   makeTotal(items) {
@@ -173,13 +216,13 @@ export class DataForm {
   }
 
   removeItem(item) {
-    var itemIndex = this.data.items.indexOf(item);
+    var itemIndex = this.data.dyeingPrintingStockOpnameMutationItems.indexOf(item);
 
     console.log(this.data);
-    this.data.items.splice(itemIndex, 1);
+    this.data.dyeingPrintingStockOpnameMutationItems.splice(itemIndex, 1);
     // if(this.error)
     //   this.error.items.splice(itemIndex, 1);
-    this.makeTotal(this.data.items);
+    this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
   }
 
   get trackLoader(){
