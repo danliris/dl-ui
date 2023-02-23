@@ -31,6 +31,6 @@ jobs:
       with:
         app-name: 'dl-ui-uat-migration'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A7E03B83D419455092888FD41FAC31C1 }}
+        publish-profile: ${{ secrets.DL_UI_UAT_MIGRATION }}
         package: ./dist
 
