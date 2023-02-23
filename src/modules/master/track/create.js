@@ -33,6 +33,10 @@ export class Create {
             if (e.statusCode == 500) {
                 alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
             } else {
+                if(e.track != null){
+                    alert("Jalur / Rak Sudah Ada")
+                }
+                console.log(e.track);
                 this.error = e;
             }
         })
