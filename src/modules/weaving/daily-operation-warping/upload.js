@@ -85,9 +85,7 @@ export class Create {
             this.error = e;
          
         } else {
-            //formData.append("sourceId", source._id);
-            //formData.append("destinationId", destination._id);
-            //formData.append("date", date);
+            
             formData.append("fileUpload", fileList[0]);
 
             var endpoint = `weaving/daily-operations-warping/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
@@ -104,11 +102,6 @@ export class Create {
                     this.service.publish(promise);
                     if ( result.status == 500) {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
-                        // this.service._downloadFile(getRequest);
-                        // this.service.publish(getRequest);
-                        // console.log(result);
-                        // alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
-                        // this.list();
                         result.json()
                         .then(result => {
                             alert(result.message + " Inputan Data harus benar");
@@ -119,8 +112,8 @@ export class Create {
                     }
                     else{
                         alert("Data Berhasil Diupload");
-                        //this.list();
-
+                        document.getElementById("fileCsv").value = "";
+            
                     }
                     return Promise.resolve(result);
                 });

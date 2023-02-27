@@ -31,22 +31,43 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getReportPdf(month, year) {
-    var endpoint = `${serviceUri}/get-warping-production-report`;
+  generateExcel(info) {
+    
+    var endpoint = `${serviceUri}/get-warping-production-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
+           
     var query = '';
 
-    if (month) {
-      if (query === '') query = `month=${(month)}`;
-      else query = `${query}&month=${(month)}`;
-    }
-    if (year) {
-      if (query === '') query = `year=${(year)}`;
-      else query = `${query}&year=${(year)}`;
-    }
-
-    if (query !== '') {
-      endpoint = `${serviceUri}/get-warping-production-report?${query}`; 
-    }
-    return super.getPdf(endpoint);
+        if (info.fromDate && info.fromDate !== "") {
+            if (query === '') query = `fromDate=${info.fromDate}`;
+            else query = `${query}&fromDate=${info.dateFrom}`;
+        }
+        if (info.toDate && info.toDate !== "") {
+            if (query === '') query = `toDate=${info.toDate}`;
+            else query = `${query}&toDate=${info.toDate}`;
+        }
+        if (info.shift && info.shift !== "") {
+            if (query === '') query = `shift=${info.shift}`;
+            else query = `${query}&shift=${info.shift}`;
+        }
+        if (info.mcNo && info.mcNo !== "") {
+          if (query === '') query = `mcNo=${info.mcNo}`;
+          else query = `${query}&mcNo=${info.mcNo}`;
+      }
+      if (info.sp && info.sp !== "") {
+        if (query === '') query = `sp=${info.sp}`;
+        else query = `${query}&sp=${info.sp}`;
+      }
+      if (info.threadNo && info.threadNo !== "") {
+        if (query === '') query = `threadNo=${info.threadNo}`;
+        else query = `${query}&threadNo=${info.threadNo}`;
+      }
+      if (info.code && info.code !== "") {
+        if (query === '') query = `code=${info.code}`;
+        else query = `${query}&code=${info.code}`;
+      }
+        if (query !== '')
+        endpoint = `${serviceUri}/get-warping-production-report/download?${query}`;
+    
+    return super.getXls(endpoint);
   }
 }
