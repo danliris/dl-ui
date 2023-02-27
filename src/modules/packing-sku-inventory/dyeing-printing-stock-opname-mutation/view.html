@@ -1,18 +1,65 @@
 <template>
-    <style>
-        multiline {
-            white-space: pre;
-        }
-    </style>
-    <h1 class="page-header">Stock Opname Gudang Barang Jadi Dyeing/Printing</h1>
-    <require from="./data-form"></require>
-    <block>
-        <data-form data.bind="data" error.bind="error" read-only="true"></data-form>
+    <div class="display-wrapper">
+        <h3>Detail</h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="bonNo" class="col-sm-2 control-label">Nomor Bon</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.bonNo}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-2 control-label">Type</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.type}</p>
+                </div>
+            </div>
+            
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Barcode</th>
+                    <th>Nama Barang</th>
+                    <th>Grade</th>
+                    <th>Qty Keluar</th>
+                    <th>Panjang Satuan</th>
+                    <th>Jalur/Rak</th>
+                    <th>Total Keluar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data.dyeingPrintingStockOpnameMutationItems">
+                    <td>${$index+1}</td>
+                    <td>${item.productPackingCode}</td>
+                    <td>${item.productionOrder.no}</td>
+                    <td>${item.grade}</td>
+                    <td>
+                        <numeric label="" read-only.bind="true" value.bind="item.packagingQty" class="col-md-1"></numeric>
+                    </td>
+                    <td>
+                        <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
+                    </td>
+                    <td>${item.track.type} - ${item.track.name} </td>
+                    <td>
+                        <numeric label="" read-only.bind="true" value.bind="item.packagingQty * item.packagingLength" class="col-md-1"></numeric>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+            Tidak ada data.
+        </div> -->
         <hr/>
         <div class="btn-group pull-right">
+            <!-- <a click.delegate="print()" class='btn btn-success btn-sm'>Print</a> -->
             <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
-            <a if.bind="canEdit" click.delegate="edit(data)" class='btn btn-primary btn-sm'>Ubah</a>
-            <a if.bind="canEdit" click.delegate="delete()" class='btn btn-danger btn-sm'>Hapus</a>
         </div>
-    </block>
+    </div>
+    <!-- <div class="print-wrapper struk">
+        <div innerHTML.bind="printStruk | sanitizeHTML"></div>
+        <div style="page-break-after:always;"></div>
+</div> -->
+
 </template>

@@ -1,0 +1,117 @@
+<template>
+    <h1 class="page-header">Monitoring DO Penjualan Dyeing Printing</h1>
+    <form class="form-horizontal">
+        <au-autocomplete
+            value.bind="selectedDOSalesNo"
+            label="No. DO"
+            loader.bind="doSalesLoader"
+            placeholder="Cari no DO"
+            text="DOSalesNo"
+            options.bind="controlOptions">
+        </au-autocomplete> 
+        <au-autocomplete
+            value.bind="selectedPONo"
+            label="No. SPP"
+            loader.bind="poLoader"
+            placeholder="Cari no SPP"
+            text="OrderNo"
+            options.bind="controlOptions">
+        </au-autocomplete>  
+        <au-autocomplete
+            value.bind="selectedBuyer"
+            label="Nama Buyer"
+            loader.bind="buyerLoader"
+            placeholder="Cari buyer"
+            text="Name"
+            options.bind="controlOptions">
+        </au-autocomplete>  
+        <au-textbox
+            value.bind="salesName"
+            label="Nama Sales"
+            placeholder="input nama sales"
+            options.bind="controlOptions">
+        </au-textbox>      
+        <au-datepicker
+            value.bind="selectedDateStart"
+            label="Tgl Awal"
+            options.bind="controlOptions">
+        </au-datepicker>
+        <au-datepicker
+            value.bind="selectedDateEnd"
+            label="Tgl Akhir"
+            options.bind="controlOptions">
+        </au-datepicker>    
+        <div class="form-group">
+            <div class.bind="'col-sm-'+controlOptions.label.length"></div>
+            <div class.bind="'col-sm-'+controlOptions.control.length">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="clear()" class='btn btn-danger'>Bersihkan</button>
+            </div>
+        </div>
+
+        <button click.delegate="xls()" class='btn btn-primary'>Cetak</button>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><label>No</label></th>
+                        <th><label>No DO</label></th>
+                        <th><label>Tanggal DO</label></th>
+                        <th><label>Type DO</label></th>
+                        <th><label>Nama Buyer</label></th>
+                        <th><label>No SPP</label></th>
+                        <th><label>Nama Sales</label></th>
+                        <th><label>Qty Order</label></th>
+                        <th><label>Qty Terkirim</label></th>
+                        <th><label>Stok</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--No data to display-->
+                    <tr if.bind="!tableData || tableData.length < 1">
+                        <td colspan="12">
+                            <div class="alert alert-info"> Tidak ada data untuk ditampilkan. </div>
+                        </td>
+                    </tr>
+
+                    <!--Data to display-->
+                    <template repeat.for="i of tableData.length">
+                        <tr>
+                            <td align="center">
+                                <au-textbox value.bind="i+1" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].DOSalesNo" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-datepicker value.bind="tableData[i].Date" read-only="true"></au-datepicker>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].BuyerType" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].BuyerName" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].ProductionOrderNo" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].SalesName" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].OrderQuantity" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].PackingQty" read-only="true"></au-textbox>
+                            </td>
+                            <td align="center">
+                                <au-textbox value.bind="tableData[i].StockQty" read-only="true"></au-textbox>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+</template>
