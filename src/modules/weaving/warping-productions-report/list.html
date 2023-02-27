@@ -6,7 +6,7 @@
         }
     </style>
 
-    <h1 class="page-header">Monitoring Prepare</h1>
+    <h1 class="page-header">Laporan Produksi Warping Per Operator</h1>
 
     <form class="form-horizontal">
    
@@ -55,20 +55,15 @@
             <tr repeat.for="item of data">
               <td>${$index + 1}</td>
               <td class="text-center">${item.MCNo}</td>
-              <td class="text-center">${item.ThreadCut}</td>
+              <td class="text-right">${item.ThreadCut}</td>
               <td class="text-right">${item.Length}</td>
           </tr>
-<!-- 
+
             <tr class="active">
-                <td class="text-center" colspan="6"><strong>T O T A L </strong></td>
-                <td class="text-right"><strong>${sumStock}</strong></td>        
-                <td class="text-right"><strong>${sumReceipt}</strong></td>
-                <td class="text-right"><strong>${sumMainFabricExpenditure}</strong></td>
-                <td class="text-right"><strong>${sumNonMainFabricExpenditure}</strong></td>
-                <td class="text-right"><strong>${sumExpenditure}</strong></td>
-                <td class="text-right"><strong>${sumAval}</strong></td>
-                <td class="text-right"><strong>${sumRemainQty}</strong></td>
-            </tr> -->
+                <td class="text-center" colspan="2"><strong> GRAND TOTAL </strong></td>
+                <td class="text-right"><strong>${sumThreadCut}</strong></td>   
+                <td class="text-right"><strong>${sumLength}</strong></td>   
+            </tr> 
         </tbody>
     </table>
 </div>
