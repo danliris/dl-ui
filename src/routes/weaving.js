@@ -326,24 +326,7 @@ module.exports = [{
     name: "daily-operation-warping",
     moduleId: "./modules/weaving/daily-operation-warping/index",
     nav: true,
-    title: "Operasional Mesin Harian Warping",
-    auth: true,
-    settings: {
-      group: "weaving",
-      permission: {
-        W1: 1,
-        W2: 1,
-        "*": 1
-      },
-      iconClass: "fa fa-dashboard"
-    }
-  },
-  {
-    route: "weaving/daily-operation-warping-report",
-    name: "daily-operation-warping",
-    moduleId: "./modules/weaving/daily-operation-warping-report/index",
-    nav: true,
-    title: "Laporan Operasional Mesin Harian Warping",
+    title: "Daily Operation Mesin Warping",
     auth: true,
     settings: {
       group: "weaving",
@@ -361,6 +344,23 @@ module.exports = [{
     moduleId: "./modules/weaving/warping-productions-report/index",
     nav: true,
     title: "Laporan Produksi Warping Per Operator",
+    auth: true,
+    settings: {
+      group: "weaving",
+      permission: {
+        W1: 1,
+        W2: 1,
+        "*": 1
+      },
+      iconClass: "fa fa-dashboard"
+    }
+  },
+  {
+    route: "weaving/daily-operation-warping-report",
+    name: "daily-operation-warping",
+    moduleId: "./modules/weaving/daily-operation-warping-report/index",
+    nav: true,
+    title: "Laporan Operasional Mesin Harian Warping",
     auth: true,
     settings: {
       group: "weaving",
