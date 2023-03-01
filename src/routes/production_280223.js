@@ -7,7 +7,7 @@ module.exports = [
         title: 'Quality Hasil Produksi Spinning',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -21,7 +21,7 @@ module.exports = [
         title: 'Laporan Quality Hasil Produksi Spinning',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -34,7 +34,7 @@ module.exports = [
         title: 'Output Hasil Produksi Spinning',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -47,7 +47,7 @@ module.exports = [
         title: 'Monitoring Output Hasil Produksi Spinning',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -60,7 +60,7 @@ module.exports = [
         title: 'Monitoring Operasional Harian',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -73,7 +73,7 @@ module.exports = [
         title: 'Laporan Monitoring Operasional Harian',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -86,7 +86,7 @@ module.exports = [
         title: 'Laporan Daily Operation',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -99,7 +99,7 @@ module.exports = [
         title: 'Monitoring Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -112,7 +112,7 @@ module.exports = [
         title: 'Report Monitoring Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -126,7 +126,7 @@ module.exports = [
         title: 'Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -139,7 +139,7 @@ module.exports = [
         title: 'Laporan Monitoring Spesifikasi Mesin',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -152,7 +152,7 @@ module.exports = [
         title: 'Monitoring Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -165,7 +165,7 @@ module.exports = [
         title: 'Laporan Monitoring Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -179,7 +179,7 @@ module.exports = [
         title: 'Kanban',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -192,7 +192,7 @@ module.exports = [
         title: 'Kanban Pengganti Bad Output',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -205,7 +205,7 @@ module.exports = [
         title: 'Kanban Visualization Area',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -218,7 +218,7 @@ module.exports = [
         title: 'Kanban Visualization Machine',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -231,7 +231,7 @@ module.exports = [
         title: 'Monitoring Kanban',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -244,7 +244,7 @@ module.exports = [
         title: 'Pencatatan Pemeriksaan Kain',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -257,7 +257,7 @@ module.exports = [
         title: 'Laporan Pemeriksaan Kain',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -270,7 +270,7 @@ module.exports = [
         title: 'Penyerahan Produksi',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -283,7 +283,7 @@ module.exports = [
         title: 'Laporan Penyerahan Produksi',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -296,7 +296,7 @@ module.exports = [
         title: 'Laporan Penyerahan QC ke Gudang',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -309,7 +309,7 @@ module.exports = [
         title: 'Pencatatan Pemeriksaan Lot Warna',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -322,7 +322,7 @@ module.exports = [
         title: 'Laporan Pemeriksaan Lot Warna',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -335,7 +335,7 @@ module.exports = [
     //     title: 'Monitoring Good / Bad Output per Mesin',
     //     auth: true,
     //     settings: {
-    //         group: "dyeing-printing",
+    //         group: "production",
     //         permission: { "C9": 1, "F1": 1, "F2": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }
@@ -348,7 +348,7 @@ module.exports = [
         title: 'Monitoring monthly operation machine',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -361,7 +361,7 @@ module.exports = [
         title: 'Laporan Output Mesin per Hari',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -374,7 +374,7 @@ module.exports = [
         title: 'Laporan Order Belum Diproduksi Mesin',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -387,7 +387,7 @@ module.exports = [
         title: 'Laporan Status Order',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -401,7 +401,7 @@ module.exports = [
         title: 'Bon Hasil Re-grading',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -415,7 +415,7 @@ module.exports = [
         title: 'Laporan Bon Hasil Re-grading',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -428,7 +428,7 @@ module.exports = [
         title: "Surat Permintaan Barang",
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
@@ -441,7 +441,7 @@ module.exports = [
         title: 'Laporan Surat Permintaan Barang',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -454,7 +454,7 @@ module.exports = [
         title: 'Biaya Upah Tenaga Kerja Langsung',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -467,7 +467,7 @@ module.exports = [
         title: 'Resep Warna',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             // permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -480,7 +480,7 @@ module.exports = [
         title: 'Strike Off',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -493,7 +493,7 @@ module.exports = [
         title: 'Resep Pemakaian Dyestuff & Chemical',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -506,7 +506,7 @@ module.exports = [
         title: 'Master Losses Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -519,7 +519,7 @@ module.exports = [
         title: 'Master Pelaksana Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
              permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -532,7 +532,7 @@ module.exports = [
         title: 'Master Kategori Losses Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -545,7 +545,7 @@ module.exports = [
         title: 'Master Keterangan Loss Event',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -557,7 +557,7 @@ module.exports = [
         title: 'Laporan Pemeriksaan Lot Warna',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -570,7 +570,7 @@ module.exports = [
         title: 'Laporan Resep Pemakaian Dystuff & Chemical',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -583,7 +583,7 @@ module.exports = [
         title: 'Daily Operation Mesin',
         auth: true,
         settings: {
-            group: "dyeing-printing",
+            group: "production",
             permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -600,7 +600,7 @@ module.exports = [
     //     title: 'Cost Calculation Dyeing Printing',
     //     auth: true,
     //     settings: {
-    //         group: "dyeing-printing",
+    //         group: "production",
     //         permission: { "C9": 1, "F1": 1, "F2": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }
@@ -613,7 +613,7 @@ module.exports = [
     //     title: 'Biaya Operational',
     //     auth: true,
     //     settings: {
-    //         group: "dyeing-printing",
+    //         group: "production",
     //         permission: { "C9": 1, "F1": 1, "F2": 1 },
     //         iconClass: 'fa fa-dashboard'
     //     }

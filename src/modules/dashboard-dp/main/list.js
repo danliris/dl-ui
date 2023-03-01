@@ -7,6 +7,7 @@ import moment from "moment";
 export class List {
   columns = [
     { field: "name", title: "Area" },
+    { field: "namaMesin", title: "Mesin" },
     { field: "month", title: "Bulan" },
     { field: "year", title: "Tahun" },
     { field: "updatedAt", title: "Tanggal Update", formatter: function (value, data, index) {
