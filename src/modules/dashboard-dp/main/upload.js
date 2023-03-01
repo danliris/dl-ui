@@ -2,10 +2,14 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
+var MachineLoader = require("../../../loader/machines-loader");
 
+console.log('masuk upload.js');
 @inject(Router, Service)
 export class Create {
     @bindable infoArea;
+    // @bindable infoArea2;
+    
     @bindable error = {};
 
     controlOptions = {
@@ -13,15 +17,17 @@ export class Create {
           length: 4,
         },
         control: {
-          length: 4,
+          length: 6,
         },
     };
-
+    Machine = null;
     yearOptions = [];
 
     yearLabel = null;
 
     areaOptions = [];
+
+    // areaOptions2 = [];
 
     disabled = false;
 
@@ -40,6 +46,14 @@ export class Create {
         { text: "Desember", value: 12 },
     ];
 
+    areaOptionsHard = [
+        { text: "DIGITAL PRINT", value: 1 },
+        { text: "DYEING", value: 2 },
+        { text: "FINISHING", value: 3 },
+        { text: "PRETREATMENT", value: 4 },
+        { text: "PRINTING", value: 5 },
+            ];
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -57,24 +71,46 @@ export class Create {
     async bind(context) {
         this.context = context;
         this.infoArea = "";
+        // this.infoArea2 = "";
         this.info.month = this.monthOptions[new Date().getMonth()];
         this.info.year = new Date().getFullYear();
+        this.infoAreaHard="";
     }
-
+    areaOptions
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
-        this.service.getArea().then(result => {
+        this.service.getArea().then(result1 => {
             let areaList = [];
-            if (result !== null){ 
-                result.map(x => {
+            if (result1 !== null){ 
+                result1.map(x => {
                     areaList.push({ text: x.name, value: x.id});
+                
+                    console.log(areaList);
                 });
+                
                 this.areaOptions = areaList;
                 this.infoArea = areaList[0];
             }
         });
+        
     }
+
+    // areaOptions2
+    // async bind(context) {
+    //     this.data = context.data;
+    //     this.error = context.error;
+    //     this.service.getAreaBaru().then(result => {
+    //         let areaList2 = [];
+    //         if (result !== null){ 
+    //             result.map(x => {
+    //                 areaList2.push({ text: x.name, value: x.id});
+    //             });
+    //             this.areaOptions2 = areaList2;
+    //             this.infoArea2 = areaList2[0];
+    //         }
+    //     });
+    // }
 
     list() {
         this.router.navigateToRoute('list');
@@ -90,26 +126,45 @@ export class Create {
         }
     }
 
+
+    get machineLoader() {
+        return MachineLoader;
+    }
+    
+ 
+   
+
     cancelCallback(event) {
       this.list();
     }
 
     saveCallback(event) {
-
+        console.log('masuk saveCallback');
         this.disabled = true;
 
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
+        console.log('fileInput : '+fileInput);
+        // if(!fileInput.endsWith('.xlsx')&&!fileInput.endsWith('.xls')){
+        //     alert("Silahkan Pilih File Excel");
+        //     return false;
+        // }
         var fileList = fileInput.files;
+        console.log('fileList : '+fileList);
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
         } else {
             formData.append("file", fileList[0]);
-            formData.append("area", this.infoArea.value);
+            //formData.append("area", this.infoArea.value);
+            formData.append("area", this. infoAreaHard.value);
+           
+            formData.append("idMesin", this.Machine.Id);
+           // formData.append("namaMesin", this.Machine.Name);
             formData.append("periode", this.info.month.value + "/" + this.info.year.value);
-            formData.append("areaName", this.infoArea.text);
+            //formData.append("areaName", this.infoArea.text);
+            formData.append("areaName", this.infoAreaHard.text);
             formData.append("monthName", this.info.month.text);
  
             var endpoint = 'UploadExcel';

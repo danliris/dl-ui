@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service'; 
-
+console.log("masuk ke service.js");
 const serviceUri = "master/machine";
  
 export class Service extends RestService {

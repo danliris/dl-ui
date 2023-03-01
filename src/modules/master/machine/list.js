@@ -1,9 +1,10 @@
 import {inject} from 'aurelia-framework';
 import {Service} from "./service";
 import {Router} from 'aurelia-router';
-
+console.log("masuk ke list.js");
 @inject(Router, Service)
 export class List {
+  
     context = ["detail"];
     columns = [
     { field: "Name", title: "Nama" },
@@ -14,6 +15,7 @@ export class List {
   ];
 
   loader = (info) => {
+    console.log("masuk ke loader");
     var order = {};
     if (info.sort)
       order[info.sort] = info.order;
@@ -27,7 +29,9 @@ export class List {
     }
 
     return this.service.search(arg)
+    
       .then(result => {
+        console.log("masuk ke search");
         return {
           total: result.info.total,
           data: result.data
@@ -53,5 +57,6 @@ export class List {
 
     create() {
         this.router.navigateToRoute('create');
+        console.log("masuk ke create");
     }
 }
