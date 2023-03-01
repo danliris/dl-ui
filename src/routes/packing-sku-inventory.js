@@ -470,7 +470,7 @@ module.exports = [
       group: "ps-inventory",
       subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
-      permission :{"*":1},
+      permission :{"S37":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -500,8 +500,7 @@ module.exports = [
       group: "ps-inventory",
       subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
-      //permission :{"S28":1},
-      permission :{"*":1},
+      permission :{"S28":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -517,7 +516,7 @@ module.exports = [
       subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       //permission :{"S28":1},
-      permission : {"*" : 1},
+      permission : {"S38" : 1},
       iconClass: 'fa fa-dashboard'
     }
   },
