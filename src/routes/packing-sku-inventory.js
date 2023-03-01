@@ -538,6 +538,21 @@ module.exports = [
     }
   },
   {
+    route: 'packing-sku-inventory/report-dyeing-printing-stock-so',
+    name: 'report-dyeing-printing-stock-so',
+    moduleId: './modules/packing-sku-inventory/report-dyeing-printing-stock-SO/index',
+    nav: true,
+    title: 'Laporan Stock Dyeing Printing (SO)',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"*":1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
     route: 'packing-sku-inventory/dyeing-printing-stock-opname-document',
     name: 'dyeing-printing-stock-opname-document',
     moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-document/index',

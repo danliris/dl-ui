@@ -1,7 +1,7 @@
 export class Index {
     configureRouter(config, router) {
         config.map([
-            { route: ['', 'list'], moduleId: './list', name: 'list', nav: true, title: 'Laporan Rekap BUK Sample' },
+            { route: ['', 'list'], moduleId: './list', name: 'list', nav: false, title: 'List: Laporan Stock Dyeing Printing' },
         ]);
 
         this.router = router;

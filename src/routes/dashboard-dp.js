@@ -7,7 +7,7 @@ module.exports = [
         title: "Unggah File",
         auth: true,
         settings: {
-          group: "dashboard-dp",
+          group: "daily-operation-mesin",
           permission: { C9: 1, B1: 1, B12: 1 },
           iconClass: "fa fa-dashboard",
         },
