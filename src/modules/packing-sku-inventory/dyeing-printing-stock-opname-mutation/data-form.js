@@ -231,7 +231,14 @@ export class DataForm {
 
   trackView = (track) => {
     console.log(track);
-    return `${track.Type} - ${track.Name}`
+    if(track.Type === undefined){
+
+      return `${track.type} - ${track.name}` ; 
+    }else{
+
+      return `${track.Type} - ${track.Name}`;
+    }
+    
   }
 
   // @bindable selectedTrack;
