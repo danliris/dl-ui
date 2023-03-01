@@ -978,17 +978,5 @@ module.exports = [
     },
   },
 
-  {
-    route: "track",
-    name: "track",
-    moduleId: "./modules/master/track/index",
-    nav: true,
-    title: "Jalur / Rak",
-    auth: true,
-    settings: {
-      group: "master",
-      permission: { "*": 1 },
-      iconClass: "fa fa-dashboard",
-    },
-  },
+  
 ];
