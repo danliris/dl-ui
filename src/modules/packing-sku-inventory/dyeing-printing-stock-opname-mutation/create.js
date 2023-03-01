@@ -5,17 +5,15 @@ import { activationStrategy } from "aurelia-router";
 
 @inject(Router, Service)
 export class Create {
-  isCreate = true;
 
   constructor(router, service) {
     this.router = router;
     this.service = service;
-    this.data = {};
+    this.data = { dyeingPrintingStockOpnameMutationItems: [] };
     this.error = {};
   }
 
   async activate(params) {
-    this.data = {};
    
   }
 
@@ -33,32 +31,31 @@ export class Create {
     let errorIndex = 0;
     this.error = {};
 
-    if (
-      this.data.date === null ||
-      this.data.date === undefined ||
-      this.data.date === ""
-    ) {
-      this.error.Date = "Tanggal Harus Diisi!";
-      errorIndex++;
-    } else {
-      this.error.Date = "";
-    }
+    // if (
+    //   this.data.date === null ||
+    //   this.data.date === undefined ||
+    //   this.data.date === ""
+    // ) {
+    //   this.error.Date = "Tanggal Harus Diisi!";
+    //   errorIndex++;
+    // } else {
+    //   this.error.Date = "";
+    // }
 
  
     if (errorIndex === 0) {
       
-     
+     console.log(this.data);
 
       this.service
         .create(this.data)
         .then((result) => {
           alert("Data berhasil dibuat");
-          this.back();
-          // this.router.navigateToRoute(
-          //   "create",
-          //   {},
-          //   { replace: false, trigger: true }
-          // );
+          this.router.navigateToRoute(
+            "create",
+            {},
+            { replace: true, trigger: true }
+          );
         })
         .catch((e) => {
           if (e.statusCode == 500) {
@@ -66,7 +63,10 @@ export class Create {
           } else {
             
             this.error = e;
-            console.log(this.error);
+
+            alert("Mohon Cek Data Kembali");
+            
+            //console.log(this.error.Items[0].SendQuantity);
           }
         });
     }

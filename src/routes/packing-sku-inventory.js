@@ -8,6 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S1":1},
       iconClass: 'fa fa-dashboard'
@@ -22,6 +23,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S2":1},
       iconClass: 'fa fa-dashboard'
@@ -36,6 +38,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S3":1},
       iconClass: 'fa fa-dashboard'
@@ -50,6 +53,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S4":1},
       iconClass: 'fa fa-dashboard'
@@ -64,6 +68,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S5":1},
       iconClass: 'fa fa-dashboard'
@@ -78,6 +83,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S6":1},
       iconClass: 'fa fa-dashboard'
@@ -93,6 +99,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S7":1},
       iconClass: 'fa fa-dashboard'
@@ -107,6 +114,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S8":1},
       iconClass: 'fa fa-dashboard'
@@ -121,6 +129,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S9":1},
       iconClass: 'fa fa-dashboard'
@@ -135,6 +144,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S10":1},
       iconClass: 'fa fa-dashboard'
@@ -149,6 +159,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S11":1},
       iconClass: 'fa fa-dashboard'
@@ -163,6 +174,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S12":1},
       iconClass: 'fa fa-dashboard'
@@ -177,6 +189,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "IM",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S13":1},
       iconClass: 'fa fa-dashboard'
@@ -205,6 +218,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "IM",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S14":1},
       iconClass: 'fa fa-dashboard'
@@ -219,6 +233,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "transit",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S15":1},
       iconClass: 'fa fa-dashboard'
@@ -233,6 +248,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "transit",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S16":1},
       iconClass: 'fa fa-dashboard'
@@ -289,6 +305,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "packing",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S17":1},
       iconClass: 'fa fa-dashboard'
@@ -303,6 +320,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "packing",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S18":1},
       iconClass: 'fa fa-dashboard'
@@ -317,6 +335,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "gudang jadi",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S19":1},
       iconClass: 'fa fa-dashboard'
@@ -331,6 +350,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "gudang jadi",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S20":1},
       iconClass: 'fa fa-dashboard'
@@ -345,6 +365,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "aval",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S21":1},
       iconClass: 'fa fa-dashboard'
@@ -359,6 +380,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "aval",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S22":1},
       iconClass: 'fa fa-dashboard'
@@ -373,6 +395,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "aval",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S23":1},
       iconClass: 'fa fa-dashboard'
@@ -400,6 +423,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "shipping",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S24":1},
       iconClass: 'fa fa-dashboard'
@@ -414,6 +438,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "shipping",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S25":1},
       iconClass: 'fa fa-dashboard'
@@ -428,8 +453,24 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S26":1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'packing-sku-inventory/report-dyeing-printing-stock-so',
+    name: 'report-dyeing-printing-stock-so',
+    moduleId: './modules/packing-sku-inventory/report-dyeing-printing-stock-SO/index',
+    nav: true,
+    title: 'Laporan Stock Dyeing Printing (SO)',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      permission :{"*":1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -438,10 +479,11 @@ module.exports = [
     name: 'dyeing-printing-stock-opname-document',
     moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-document/index',
     nav: true,
-    title: 'Stock Opname Dyeing/Printing (Barcode)',
+    title: 'Stock Opname Sudah Di Scan (Barcode)',
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       permission :{"S27":1},
       iconClass: 'fa fa-dashboard'
@@ -456,8 +498,26 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "stok",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
-      permission :{"S28":1},
+      //permission :{"S28":1},
+      permission :{"*":1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-mutation',
+    name: 'dyeing-printing-stock-opname-mutation',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-mutation/index',
+    nav: true,
+    title: 'Stock Opname Mutasi',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "stok",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"*" : 1},
       iconClass: 'fa fa-dashboard'
     }
   },
@@ -483,6 +543,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S29":1},
       iconClass: 'fa fa-dashboard'
@@ -497,6 +558,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S30":1},
       iconClass: 'fa fa-dashboard'
@@ -511,6 +573,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S31":1},
       iconClass: 'fa fa-dashboard'
@@ -525,6 +588,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S32":1},
       iconClass: 'fa fa-dashboard'
@@ -539,6 +603,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S33":1},
       iconClass: 'fa fa-dashboard'
@@ -553,6 +618,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S34":1},
       iconClass: 'fa fa-dashboard'
@@ -567,6 +633,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S35":1},
       iconClass: 'fa fa-dashboard'
@@ -581,6 +648,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "ps-inventory",
+      subGroup: "master",
       // permission: { "C9": 1, "F1": 1, "F2": 1 },
       permission :{"S36":1},
       iconClass: 'fa fa-dashboard'
