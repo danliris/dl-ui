@@ -24,7 +24,7 @@ export class List {
     this.router = router;
   }
 
-  context = ["detail"];
+ // context = ["detail"];
 
   columns = [{
       field: "MCNo",
@@ -74,17 +74,17 @@ export class List {
     });
   }
 
-  contextCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("update", {
-          Id: data.Id
-        });
-        break;
-    }
-  }
+  // contextCallback(event) {
+  //   var arg = event.detail;
+  //   var data = arg.data;
+  //   switch (arg.name) {
+  //     case "detail":
+  //       this.router.navigateToRoute("update", {
+  //         Id: data.Id
+  //       });
+  //       break;
+  //   }
+  // }
 
   // create() {
   //   this.router.navigateToRoute("create");
