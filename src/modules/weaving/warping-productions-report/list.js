@@ -15,13 +15,15 @@ export class List {
         this.context = context;
     }
     shiftOptions = [
+      { text: "", value: 0 },
       { text: "I", value: 1 },
       { text: "II", value: 2 },
       { text: "III", value: 3 } 
   ];
     MCNOOptions = [
-    { text: "WP 1", value: 3 },
-    { text: "WP 2", value: 3 },
+    { text: "", value: 0 },
+    { text: "WP 1", value: 1 },
+    { text: "WP 2", value: 2 },
     { text: "WP 3", value: 3 } 
   ];
   
