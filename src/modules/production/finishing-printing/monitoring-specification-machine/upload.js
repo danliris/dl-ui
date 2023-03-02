@@ -9,7 +9,7 @@ var MachineLoader = require('../../../../loader/machines-loader');
 console.log('masuk upload.js');
 @inject(Router, Service)
 export class Create {
-    @bindable infoArea;
+   // @bindable infoArea;
     // @bindable infoArea2;
     
     @bindable error = {};
@@ -27,7 +27,7 @@ export class Create {
 
     yearLabel = null;
 
-    areaOptions = [];
+    //areaOptions = [];
 
     // areaOptions2 = [];
 
@@ -72,31 +72,31 @@ export class Create {
     
     async bind(context) {
         this.context = context;
-        this.infoArea = "";
+        //this.infoArea = "";
         // this.infoArea2 = "";
         this.info.month = this.monthOptions[new Date().getMonth()];
         this.info.year = new Date().getFullYear();
         this.infoAreaHard="";
     }
-    areaOptions
-    async activate(context) {
-        this.data = context.data;
-        this.error = context.error;
-        this.service.getArea().then(result1 => {
-            let areaList = [];
-            if (result1 !== null){ 
-                result1.map(x => {
-                    areaList.push({ text: x.name, value: x.id});
+    // areaOptions
+    // async activate(context) {
+    //     this.data = context.data;
+    //     this.error = context.error;
+    //     this.service.getArea().then(result1 => {
+    //         let areaList = [];
+    //         if (result1 !== null){ 
+    //             result1.map(x => {
+    //                 areaList.push({ text: x.name, value: x.id});
                 
-                    console.log(areaList);
-                });
+    //                 console.log(areaList);
+    //             });
                 
-                this.areaOptions = areaList;
-                this.infoArea = areaList[0];
-            }
-        });
+    //             this.areaOptions = areaList;
+    //             this.infoArea = areaList[0];
+    //         }
+    //     });
         
-    }
+    // }
 
     // areaOptions2
     // async bind(context) {
