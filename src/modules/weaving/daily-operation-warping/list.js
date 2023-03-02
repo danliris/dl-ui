@@ -24,30 +24,26 @@ export class List {
     this.router = router;
   }
 
-  context = ["detail"];
+ // context = ["detail"];
 
   columns = [{
-      field: "MachineDate",
-      title: "Tanggal"
+      field: "MCNo",
+      title: "MC No"
     }, {
-      field: "MachineTime",
-      title: "Jam"
+      field: "Name",
+      title: "Nama"
     },
     {
-      field: "OrderProductionNumber",
-      title: "No. SOP"
+      field: "Group",
+      title: "Group"
     },
     {
-      field: "ConstructionNumber",
-      title: "No. Konstruksi"
+      field: "YearPeriode",
+      title: "Tahun"
     },
     {
-      field: "WeavingUnit",
-      title: "Unit Weaving"
-    },
-    {
-      field: "OperationStatus",
-      title: "Status"
+      field: "CreatedDate",
+      title: "Tanggal Update"
     }
   ];
 
@@ -64,12 +60,7 @@ export class List {
 
     return this.service.search(arg).then(result => {
       if (result.data && result.data.length > 0) {
-        for (var datum of result.data) {
-          if (datum.DateTimeOperation) {
-            datum.MachineDate = moment(datum.DateTimeOperation).format('DD/MM/YYYY');
-            datum.MachineTime = moment(datum.DateTimeOperation).format('LT');
-          }
-        }
+        console.log(result);
         return {
           total: result.info.total,
           data: result.data
@@ -83,19 +74,22 @@ export class List {
     });
   }
 
-  contextCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("update", {
-          Id: data.Id
-        });
-        break;
-    }
-  }
+  // contextCallback(event) {
+  //   var arg = event.detail;
+  //   var data = arg.data;
+  //   switch (arg.name) {
+  //     case "detail":
+  //       this.router.navigateToRoute("update", {
+  //         Id: data.Id
+  //       });
+  //       break;
+  //   }
+  // }
 
-  create() {
-    this.router.navigateToRoute("create");
+  // create() {
+  //   this.router.navigateToRoute("create");
+  // }
+  upload() {
+    this.router.navigateToRoute("upload");
   }
 }
