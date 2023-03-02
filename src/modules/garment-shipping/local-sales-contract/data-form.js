@@ -13,6 +13,7 @@ export class DataForm {
     @bindable title;
     @bindable selectedTransactionType;
     @bindable selectedVatTax;
+    @bindable selectedBuyer;
 
     controlOptions = {
         label: {
@@ -26,13 +27,16 @@ export class DataForm {
     items = {
         columns: [
             "Kode - Nama Barang",
+            "Komoditi",
             "Quantity",
             "Satuan",
             "Harga",
-            "Total"
+            "Total",
+            "Keterangan"
         ],
         onAdd: function () {
             this.data.items.push({});
+            
         }.bind(this),
         options: {
             transactionTypeId: 0
@@ -68,7 +72,7 @@ export class DataForm {
     }
 
     vatTaxView = (vatTax) => {
-       console.log(vatTax);
+       
        return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
 
@@ -87,12 +91,12 @@ export class DataForm {
         if(!this.data.sellerNPWP || this.data.sellerNPWP==""){
             this.data.sellerNPWP="01.139.907.8-532.000";
         }
-
+        
         this.selectedVatTax = this.data.vat || false;       
     }
 
     selectedVatTaxChanged(newValue) {
-        console.log(newValue);
+        
     
         var _selectedVatTax = newValue;
         if (_selectedVatTax) {
@@ -100,7 +104,7 @@ export class DataForm {
             id : _selectedVatTax.Id || _selectedVatTax.id,
             rate : _selectedVatTax.Rate || _selectedVatTax.rate
         } 
-        console.log(this.data.vat.rate);
+       
         } else {
             this.data.vat = {};
         }
@@ -115,8 +119,6 @@ export class DataForm {
     @computedFrom('data.vat.rate','data.subTotal')
     get ppn() {
         var ppn=0;    
-        console.log(this.data.subTotal);
-        console.log(this.data.isUseVat);
         if(this.data.subTotal && this.data.isUseVat){
            ppn=this.data.subTotal*(this.data.vat.rate/100);
         }
@@ -149,4 +151,6 @@ export class DataForm {
             this.data.items.splice(0);
         }
     }
+
+   
 }

@@ -43,6 +43,8 @@ export class CartItem {
             this.selectedProductionOrder.DesignCode = this.data.motif;
             this.selectedProductionOrder.Uom = {};
             this.selectedProductionOrder.Uom.Unit = this.data.uomUnit;
+            this.selectedProductionOrder.ProductTextile ={};
+            this.selectedProductionOrder.ProductTextile.Name = this.data.name;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {
@@ -83,6 +85,7 @@ export class CartItem {
             this.data.color = this.selectedProductionOrder.Details[0].ColorRequest;
             this.data.motif = this.selectedProductionOrder.DesignCode;
             this.data.uomUnit = this.selectedProductionOrder.Uom.Unit;
+            this.data.productTextile.name = this.selectedProductionOrder.ProductTextile.Name;
             if (this.selectedProductionOrder.OrderNo.charAt(0) === 'P') {
                 this.data.unit = "PRINTING"
             } else {

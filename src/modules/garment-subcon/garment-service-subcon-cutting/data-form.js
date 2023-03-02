@@ -3,6 +3,7 @@ import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
+const UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service, SalesService, CoreService)
 export class DataForm {
@@ -47,6 +48,14 @@ export class DataForm {
         ]
     }
 
+    UomPackingfilter={
+        'Unit=="ROLL" || Unit=="COLI" || UNIT=="IKAT" || UNIT=="CARTON"': "true",
+    };
+
+    get UomPackingLoader() {
+        return UomLoader;
+    }
+
     get buyerLoader() {
         return BuyerLoader;
     }
@@ -83,6 +92,7 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
+            readOnly: this.readOnly,
 
         }
 
@@ -98,6 +108,9 @@ export class DataForm {
                     for(var s of d.Sizes){
                         var detail={};
                         if(Sizes.length==0){
+                            detail.Id=s.Id;
+                            detail.CuttingInDetailId = s.CuttingInDetailId;
+                            detail.CuttingInId = s.CuttingInId;
                             detail.Quantity=s.Quantity;
                             detail.Size=s.Size;
                             detail.Color=s.Color;
@@ -107,6 +120,9 @@ export class DataForm {
                         else{
                             var exist= Sizes.find(a=>a.Size.Id==s.Size.Id);
                             if(!exist){
+                                detail.Id=s.Id;
+                                detail.CuttingInDetailId = s.CuttingInDetailId;
+                                detail.CuttingInId = s.CuttingInId;
                                 detail.Quantity=s.Quantity;
                                 detail.Size=s.Size;
                                 detail.Color=s.Color;

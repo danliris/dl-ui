@@ -35,7 +35,7 @@
     </au-textbox> -->
 
     <div show.bind="vbNonPOType">
-      <au-autocomplete show.bind="isVB || vbDocument || context.isEdit"
+      <au-autocomplete show.bind="isVB || vbDocument "
                        value.bind="vbDocument"
                        error.bind="error.VBDocument"
                        label="No VB"
@@ -124,20 +124,42 @@
                   style="color: red">
       </au-textbox>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-5"
              style="padding-left: 3.5%">
           <au-textbox label="Beban Unit :"
                       read-only.bind="true"> </au-textbox>
         </div>
-      </div>
+      </div> -->
 
       <au-textbox read-only.bind="true"
                   show.bind="error.UnitCost"
                   value.bind="error.UnitCost"
                   style="color: red">
       </au-textbox>
-      <table>
+
+      <au-collection items.bind="data.UnitCosts"
+                     errors.bind="error.UnitCosts"
+                     columns.bind="unitcolumns"
+                     add.bind="addUnitCosts"
+                     remove.bind="onremoveUnitCosts"
+                     read-only.bind="readOnly"
+                     options.bind="itemOptions"
+                     title="Beban Unit :"
+                     if.bind="vbNonPOType != 'Dengan Nomor VB'"
+                     item-template="modules/purchasing/realization-vb-non-po/templates/unit">
+      </au-collection>
+      <au-collection items.bind="data.UnitCosts"
+                     errors.bind="error.UnitCosts"
+                     columns.bind="unitcolumns"
+                     read-only.bind="readOnly"
+                     options.bind="itemOptions"
+                     title="Beban Unit :"
+                     if.bind="vbNonPOType == 'Dengan Nomor VB'"
+                     item-template="modules/purchasing/realization-vb-non-po/templates/unit">
+      </au-collection>
+      
+      <!-- <table>
         <tr class="row"
             repeat.for="cardContents of cards">
           <td class="col-md-2"
@@ -195,7 +217,7 @@
             </div>
           </td>
         </tr>
-      </table>
+      </table> -->
     </div>
 
     <div slot="actions"

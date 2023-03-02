@@ -7,6 +7,8 @@ const ServiceSubconCuttingUri='service-subcon-cuttings';
 const ServiceSubconSewingUri='service-subcon-sewings';
 const ServiceSubconFabricUri = 'service-subcon-fabric-washes';
 const ServiceSubconShrinkageUri = 'service-subcon-shrinkage-panels';
+const serviceUriSewIn = 'sewing-ins';
+const serviceUriSewInByRo = 'sewing-ins/get-by-ro';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -102,11 +104,21 @@ class Service extends RestService {
         var endpoint = `${serviceUri}/service-garment-wash/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
-    
+
+    searchItem(info) {
+        var endpoint = `${serviceUri}/item`;
+        return super.list(endpoint, info);
+    }
+    searchSewingIn(info) {
+        var endpoint = `${serviceUriSewIn}`;
+        return super.list(endpoint, info);
+    }
 }
 const garmentEPOServiceUri = 'garment-external-purchase-orders/by-ro';
 const unitDeliveryOrderUri = 'garment-unit-delivery-orders';
 const garmentUENServiceUri = 'garment-unit-expenditure-notes';
+const serviceUriPR = 'garment-purchase-requests';
+
 class PurchasingService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "purchasing-azure");
@@ -124,6 +136,10 @@ class PurchasingService extends RestService {
         var endpoint = `${garmentUENServiceUri}/${id}`;
         return super.get(endpoint);
     }
+    getGarmentPR(info) {
+        var endpoint = `${serviceUriPR}`;
+        return super.list(endpoint, info);
+    } 
     
 }
 const uomServiceUri = 'master/uoms';

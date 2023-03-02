@@ -1,10 +1,12 @@
 import { inject, computedFrom } from 'aurelia-framework';
 import { AuthService } from "aurelia-authentication";
+import { Router } from "aurelia-router";
 
-@inject(AuthService)
+@inject(AuthService,Router)
 export class NavBar {
-    constructor(authService) {
+    constructor(authService,router) {
         this.authService = authService;
+        this.router = router;
     }
 
     @computedFrom('authService.authenticated')
@@ -24,5 +26,11 @@ export class NavBar {
 
     logout() {
         this.authService.logout("#/login");
+    }
+
+    changePass(event) {
+        this.router.navigateToRoute("changepass",{
+            Username: event,
+        });
     }
 }

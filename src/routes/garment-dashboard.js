@@ -8,7 +8,8 @@ module.exports = [
         auth: true,
         settings: {
           group: "g-dashboard",
-          permission: { C9: 1, B1: 1, B12: 1 },
+          // permission: { C9: 1, B1: 1, B12: 1 },
+          permission :{"U1":1},
           iconClass: "fa fa-dashboard",
         },
     },

@@ -1,10 +1,13 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, CoreService } from "./service";
+import { BindingSignaler } from 'aurelia-templating-resources';
+
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 const PlLoader = require('../../../loader/garment-shipping-invoice-loader');
+const LocalSalesLoader = require('../../../loader/garment-local-sales-note');
 
-@inject(Service, CoreService)
+@inject(Service, CoreService,BindingSignaler)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isEdit = false;
@@ -20,9 +23,11 @@ export class DataForm {
     @bindable selectedColor;
     @bindable selectedInvoice;
     @bindable manual;
+    @bindable selectedExpenditureType;
 
-    constructor(service, coreService) {
+    constructor(service, coreService, bindingSignaler) {
         this.service = service;
+        this.signaler = bindingSignaler;
         this.coreService = coreService;
     }
     expenditureTypes = ["EXPORT", "SISA", "ARSIP MD", "ARSIP SAMPLE", "PENGIRIMAN LOKAL", "EXPORT (NON COMMERCIAL SAMPLE)"];
@@ -119,6 +124,10 @@ export class DataForm {
 
     get plLoader() {
         return PlLoader;
+    }
+
+    get localSalesLoader(){
+        return LocalSalesLoader;
     }
 
     get sewingOutLoader() {
@@ -247,7 +256,6 @@ export class DataForm {
 
                         }
                     }
-                    console.log(this.size)
                     this.sizes.sort((a, b) => a.SizeName.localeCompare(b.SizeName));
                 });
         }
@@ -288,7 +296,22 @@ export class DataForm {
         return qty;
     }
     selectedSizeChanged(e) {
-        console.log(e);
+        // this.selectedSize.RemainingQuantity=this.selectedSize.StockQuantity;
+        // if(this.data.Items){
+        //     for(var item of this.data.Items){
+        //         var dup= this.sizes.find(a=>a.SizeName==item.SizeName);
+        //         if(dup){
+        //             this.selectedSize.RemainingQuantity-=item.Quantity;
+        //         }
+        //     }
+        // }
+    }
+
+    selectedExpenditureTypeChanged(o,n) {
+        this.data.ExpenditureType = o;
+        this.selectedInvoice = null;
+        this.data.Invoice = "";
+        this.data.PackingListId = 0;
         // this.selectedSize.RemainingQuantity=this.selectedSize.StockQuantity;
         // if(this.data.Items){
         //     for(var item of this.data.Items){
@@ -345,8 +368,22 @@ export class DataForm {
         };
     }
 
+    // selectedInvoiceChanged(newValue) {
+    //     if (newValue) {
+    //         this.data.Invoice = newValue.invoiceNo;
+    //         this.data.PackingListId = newValue.id;
+    //     }
+    //     else {
+    //         this.data.Invoice = "";
+    //         this.data.PackingListId = 0;
+    //     }
+    // }
+
     selectedInvoiceChanged(newValue) {
-        if (newValue) {
+        if (newValue && this.selectedExpenditureType== "PENGIRIMAN LOKAL") {
+            this.data.Invoice = newValue.noteNo;
+            this.data.PackingListId = 0;
+        } else if(newValue && this.selectedExpenditureType != "PENGIRIMAN LOKAL"){
             this.data.Invoice = newValue.invoiceNo;
             this.data.PackingListId = newValue.id;
         }
@@ -355,6 +392,21 @@ export class DataForm {
             this.data.PackingListId = 0;
         }
     }
+
+    // selectedInvoiceChanged(newValue) {
+    //     console.log(newValue);
+    //     if (newValue && this.selectedExpenditureType== "PENGIRIMAN LOKAL") {
+    //         this.data.Invoice = newValue.noteNo;
+    //         this.data.PackingListId = 0;
+    //     } else if(newValue && this.selectedExpenditureType != "PENGIRIMAN LOKAL"){
+    //         this.data.Invoice = newValue.invoiceNo;
+    //         this.data.PackingListId = newValue.id;
+    //     }
+    //     else {
+    //         this.data.Invoice = "";
+    //         this.data.PackingListId = 0;
+    //     }
+    // }
     manualChanged(newValue) {
         if (!this.readOnly) {
             if (this.context.selectedInvoiceViewModel)
@@ -365,4 +417,9 @@ export class DataForm {
         }
 
     }
+
+    get isExpenditureType() {
+        return this.data.ExpenditureType && (this.data.ExpenditureType == "PENGIRIMAN LOKAL");
+    }
+
 }

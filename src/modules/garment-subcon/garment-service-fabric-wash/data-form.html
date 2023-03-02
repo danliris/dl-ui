@@ -21,6 +21,41 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
+
+        <au-numeric
+            value.bind="data.QtyPacking"
+            error.bind="error.QtyPacking"
+            label="Jumlah Kemasan"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-dropdown 
+            label="Satuan Kemasan" 
+            value.bind="data.UomUnit" 
+            error.bind="error.UomUnit" 
+            read-only.bind="readOnly "
+            items.bind="UomOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-numeric
+            error.bind="error.NettWeight"
+            value.bind="data.NettWeight"
+            label="NW"
+            format="0.00"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            error.bind="error.GrossWeight"
+            value.bind="data.GrossWeight"
+            label="GW"
+            format="0.00"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-numeric>
         
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>

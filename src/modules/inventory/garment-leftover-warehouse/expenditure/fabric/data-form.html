@@ -21,15 +21,21 @@
             show.bind="data.ExpenditureDestination == 'UNIT'" view-model.ref="selectedUnitViewModel">
         </au-autocomplete>
 
+        <au-autocomplete label="Unit Tujuan" value.bind="selectedUnit" loader.bind="unitLoader" text.bind="unitView"
+            read-only.bind="readOnly || isEdit" error.bind="error.Unit"
+            if.bind="data.ExpenditureDestination == 'SAMPLE'" placeholder="cari unit" options.bind="controlOptions"
+            query.bind="queryUnit" view-model.ref="selectedUnitViewModel">
+        </au-autocomplete>
+
         <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="selectedBuyer" error.bind="error.Buyer"
             loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="readOnly || isEdit"
-            options.bind="controlOptions" show.bind="data.ExpenditureDestination == 'JUAL LOKAL'"
+            options.bind="controlOptions" show.bind="data.ExpenditureDestination == 'JUAL LOKAL'|| 'EXPORT'"
             view-model.ref="selectedBuyerViewModel">
         </au-autocomplete>
 
         <au-checkbox label="Manual?" value.bind="manual" change.delegate="manualChanged($event)" if.bind="!readOnly"
             read-only.bind="readOnly" options.bind="controlOptions"
-            show.bind="data.ExpenditureDestination == 'JUAL LOKAL' && isCreate">
+            show.bind="data.ExpenditureDestination == 'JUAL LOKAL' || 'EXPORT' && isCreate">
         </au-checkbox>
 
         <au-textbox value.bind="data.LocalSalesNoteNo" error.bind="error.LocalSalesNoteNo"
@@ -42,6 +48,18 @@
             text="noteNo" if.bind="data.ExpenditureDestination == 'JUAL LOKAL' && !manual"
             read-only.bind="readOnly || isEdit" options.bind="controlOptions">
         </au-autocomplete>
+
+        <au-autocomplete label="No Nota Penjualan Export" placeholder="Pilih Nota Penjualan Export"
+            error.bind="error.LocalSalesNoteNo" loader.bind="eksportSalesNoteLoader" value.bind="selectedSalesNote"
+            if.bind="data.ExpenditureDestination == 'EXPORT' && !manual" text="noteNo"
+            read-only.bind="readOnly || isEdit" options.bind="controlOptions"
+            view-model.ref="selectedSalesNoteViewModel2">
+        </au-autocomplete>
+
+        <au-textbox label="No Nota Penjualan Export" value.bind="data.LocalSalesNoteNo"
+            error.bind="error.LocalSalesNoteNo" read-only.bind="readOnly || isEdit" options.bind="controlOptions"
+            if.bind="data.ExpenditureDestination == 'EXPORT' && manual ">
+        </au-textbox>
 
         <au-textbox label="Keterangan Lain-lain" placeholder="Masukkan Keterangan" value.bind="data.EtcRemark"
             error.bind="error.EtcRemark" read-only.bind="readOnly || isEdit" options.bind="controlOptions"

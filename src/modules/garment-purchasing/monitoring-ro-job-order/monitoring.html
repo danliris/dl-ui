@@ -25,6 +25,7 @@
                         <td>PO Serial Number</td>
                         <td>Kode Barang</td>
                         <td>Nama Barang</td>
+                        <td>Keterangan Barang</td>                        
                         <td>Budget Quantity</td>
                         <td>Satuan Beli</td>
                         <td>Status</td>
@@ -43,6 +44,7 @@
                             <td rowspan.bind="data.Items.length || 1">${data.POSerialNumber}</td>
                             <td rowspan.bind="data.Items.length || 1">${data.ProductCode}</td>
                             <td rowspan.bind="data.Items.length || 1">${data.ProductName}</td>
+                            <td rowspan.bind="data.Items.length || 1">${data.Description}</td>                            
                             <td rowspan.bind="data.Items.length || 1" align="center">${data.BudgetQuantity}</td>
                             <td rowspan.bind="data.Items.length || 1" align="center">${data.UomPriceUnit}</td>
                             <td rowspan.bind="data.Items.length || 1">${data.Status}</td>

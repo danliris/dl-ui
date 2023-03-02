@@ -100,6 +100,9 @@ export class View {
         const type = parentInstruction.config.settings.type;
 
         switch (type) {
+            // case "mkt":
+            //     this.type = "Mkt";
+            //     break;
             case "md":
                 this.type = "MD";
                 break;

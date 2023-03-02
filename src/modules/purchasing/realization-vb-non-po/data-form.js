@@ -90,27 +90,34 @@ export class DataForm {
         if (this.data.Unit) {
             this.unit = this.data.Unit;
         }
-
+        
         if (this.data.UnitCosts) {
-            var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
-            if (otherUnit) {
-                this.cardContentUnit = otherUnit.Unit;
-            }
-        }
-
-        if (this.data.UnitCosts) {
-            let tempCards = [];
-            this.data.UnitCosts.forEach((item, index) => {
-                tempCards.push(item);
-                if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                    this.cards.push(tempCards);
-                    tempCards = [];
+            var uCosts=[];
+            for(var item of this.data.UnitCosts){
+                if(item.IsSelected){
+                    uCosts.push(item);
                 }
-            });
-
-            if (tempCards.length > 0) {
-                this.cards.push(tempCards)
             }
+            this.data.UnitCosts=uCosts;
+        //     var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+        //     if (otherUnit) {
+        //         this.cardContentUnit = otherUnit.Unit;
+        //     }
+        // }
+
+        // if (this.data.UnitCosts) {
+        //     let tempCards = [];
+        //     this.data.UnitCosts.forEach((item, index) => {
+        //         tempCards.push(item);
+        //         if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+        //             this.cards.push(tempCards);
+        //             tempCards = [];
+        //         }
+        //     });
+
+        //     if (tempCards.length > 0) {
+        //         this.cards.push(tempCards)
+        //     }
         }
 
     }
@@ -128,40 +135,40 @@ export class DataForm {
                 this.unit = null;
                 this.currency = null;
                 this.data.Items.splice(0, this.data.Items.length);
-                this.data.UnitCosts = [];
+                this.data.UnitCosts.splice(0);
                 this.cards = [];
-                if (this.data.VBNonPOType == "Tanpa Nomor VB") {
-                    let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
-                    let unitCosts = unitCostsResponse.data;
+                // if (this.data.VBNonPOType == "Tanpa Nomor VB") {
+                //     let unitCostsResponse = await this.coreService.getWithVBLayoutOrder();
+                //     let unitCosts = unitCostsResponse.data;
 
-                    unitCosts.map((unit) => {
-                        let item = {
-                            Unit: unit
-                        }
+                //     unitCosts.map((unit) => {
+                //         let item = {
+                //             Unit: unit
+                //         }
 
-                        this.data.UnitCosts.push(item);
-                        if (unit.VBDocumentLayoutOrder === 9)
-                            this.data.UnitCosts.push({
-                                Unit: {
-                                    VBDocumentLayoutOrder: 10
-                                }
-                            });
+                //         this.data.UnitCosts.push(item);
+                //         if (unit.VBDocumentLayoutOrder === 9)
+                //             this.data.UnitCosts.push({
+                //                 Unit: {
+                //                     VBDocumentLayoutOrder: 10
+                //                 }
+                //             });
 
-                    });
-                }
+                //     });
+                // }
 
-                let tempCards = [];
-                this.data.UnitCosts.forEach((item, index) => {
-                    tempCards.push(item);
-                    if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                        this.cards.push(tempCards);
-                        tempCards = [];
-                    }
-                });
+                // let tempCards = [];
+                // this.data.UnitCosts.forEach((item, index) => {
+                //     tempCards.push(item);
+                //     if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+                //         this.cards.push(tempCards);
+                //         tempCards = [];
+                //     }
+                // });
 
-                if (tempCards.length > 0) {
-                    this.cards.push(tempCards)
-                }
+                // if (tempCards.length > 0) {
+                //     this.cards.push(tempCards)
+                // }
 
             }
         }
@@ -197,31 +204,35 @@ export class DataForm {
 
             if (!this.isEdit && this.vbNonPOType == "Dengan Nomor VB") {
                 var dataVBRequest = await this.service.getVBDocumentById(this.data.VBDocument.Id);
-
-                this.data.UnitCosts = dataVBRequest.Items;
+                dataVBRequest.Items.forEach((item, index) => {
+                    if(item.IsSelected){
+                        this.data.UnitCosts.push(item);
+                    }
+                });
+                //this.data.UnitCosts = dataVBRequest.Items.find(a=>a.IsSelected);
             }
 
 
-            if (this.data.UnitCosts) {
-                var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
-                if (otherUnit) {
-                    this.cardContentUnit = otherUnit.Unit;
-                }
-            }
+            // if (this.data.UnitCosts) {
+            //     var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+            //     if (otherUnit) {
+            //         this.cardContentUnit = otherUnit.Unit;
+            //     }
+            // }
 
-            let tempCards = [];
-            this.data.UnitCosts.forEach((item, index) => {
-                tempCards.push(item);
-                if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
-                    this.cards.push(tempCards);
-                    tempCards = [];
-                }
-            });
+            // let tempCards = [];
+            // this.data.UnitCosts.forEach((item, index) => {
+            //     tempCards.push(item);
+            //     if (item.Unit.VBDocumentLayoutOrder % 5 == 0) {
+            //         this.cards.push(tempCards);
+            //         tempCards = [];
+            //     }
+            // });
 
-            if (tempCards.length > 0) {
-                this.cards.push(tempCards)
-            }
-
+            // if (tempCards.length > 0) {
+            //     this.cards.push(tempCards)
+            // }
+            this.itemOptions.vbNonPOType=this.vbNonPOType;
         } else {
             this.data.VBDocument = null;
             this.unit = null;
@@ -250,35 +261,39 @@ export class DataForm {
         }
     }
 
-    otherUnitSelected(event, data) {
-        this.cardContentUnit = null;
-        data.Amount = 0;
-        data.Unit = {};
-        data.Unit.VBDocumentLayoutOrder = 10;
-    }
+    // otherUnitSelected(event, data) {
+    //     this.cardContentUnit = null;
+    //     data.Amount = 0;
+    //     data.Unit = {};
+    //     data.Unit.VBDocumentLayoutOrder = 10;
+    // }
 
     resetAmount(event, data) {
         data.Amount = 0;
     }
 
-    @bindable cardContentUnit;
-    cardContentUnitChanged(n, o) {
-        var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
+    // @bindable cardContentUnit;
+    // cardContentUnitChanged(n, o) {
+    //     var otherUnit = this.data.UnitCosts.find(s => s.Unit.VBDocumentLayoutOrder == 10);
 
-        if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
-            otherUnit.Unit = this.cardContentUnit;
-            otherUnit.Unit.VBDocumentLayoutOrder = 10;
-        } else {
-            if (otherUnit) {
-                otherUnit.Amount = 0;
-                otherUnit.Unit = {};
-                otherUnit.Unit.VBDocumentLayoutOrder = 10;
-            }
+    //     if (this.cardContentUnit && otherUnit && otherUnit.IsSelected) {
+    //         otherUnit.Unit = this.cardContentUnit;
+    //         otherUnit.Unit.VBDocumentLayoutOrder = 10;
+    //     } else {
+    //         if (otherUnit) {
+    //             otherUnit.Amount = 0;
+    //             otherUnit.Unit = {};
+    //             otherUnit.Unit.VBDocumentLayoutOrder = 10;
+    //         }
 
-        }
-    }
+    //     }
+    // }
     columns = [
         "Tanggal", "Keterangan", "Jumlah", "Kena PPN", "PPh", "Total"
+    ];
+
+    unitcolumns = [
+        "Unit", "Amount"
     ];
 
     get addItems() {
@@ -287,6 +302,12 @@ export class DataForm {
                 Amount: 0,
                 Total: 0
             })
+        };
+    }
+
+    get addUnitCosts() {
+        return (event) => {
+            this.data.UnitCosts.push({ Amount: 0,})
         };
     }
 

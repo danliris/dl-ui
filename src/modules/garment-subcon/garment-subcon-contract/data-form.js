@@ -1,7 +1,7 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+// var BuyerLoader = require('../../../loader/garment-buyers-loader');
 const SupplierLoader = require('../../../loader/garment-supplier-loader');
 const UomLoader = require("../../../loader/uom-loader");
 
@@ -29,14 +29,40 @@ export class DataForm {
         editText: "Ubah"
     };
 
+    // itemsInfo = {
+    //     columnsCuttingSewing: [
+    //         "Barang",
+    //         "Jumlah",
+    //         "Satuan",
+    //         "Nilai CIF"
+    //     ],
+    
+    //     columnsSewing: [
+    //         "Barang",
+    //         "Jumlah",
+    //         "Satuan",
+    //     ],
+
+    // }
+
     columns= [
         "Barang",
         "Jumlah",
-        "Satuan"
+        "Satuan",
+        "CIF"
+    ];
+
+    garmentColumns= [
+        "Barang",
+        "Jumlah",
+        "Satuan",
+        "NW per Satuan",
+        "GW per Satuan",
+        "CIF"
     ];
 
     Uomfilter={
-            'Unit=="MTR" || Unit=="PCS"': "true",
+            'Unit=="MTR" || Unit=="PCS" || Unit=="SETS"': "true",
         };
 
     controlOptions = {
@@ -66,6 +92,7 @@ export class DataForm {
             isView: this.context.isView,
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
+            // isSubconCutting:this.data.SubconCategory == 'SUBCON CUTTING SEWING'? true:false,
           };
         this.isItems=false;
         this.selectedContractType=this.data.ContractType;
@@ -73,20 +100,25 @@ export class DataForm {
         if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
             this.isItems=true;
         }
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                item.ContractType=this.data.ContractType;
+            }
+        }
     }
 
     get uomLoader() {
         return UomLoader;
     }
 
-    get buyerLoader() {
-        return BuyerLoader;
-    }
-    buyerView = (buyer) => {
-        var buyerName = buyer.Name || buyer.name;
-        var buyerCode = buyer.Code || buyer.code;
-        return `${buyerCode} - ${buyerName}`
-    }
+    // get buyerLoader() {
+    //     return BuyerLoader;
+    // }
+    // buyerView = (buyer) => {
+    //     var buyerName = buyer.Name || buyer.name;
+    //     var buyerCode = buyer.Code || buyer.code;
+    //     return `${buyerCode} - ${buyerName}`
+    // }
 
     supplierView = (supplier) => {
         var code= supplier.code || supplier.Code;
@@ -156,6 +188,8 @@ export class DataForm {
                 this.SubconCategoryTypeOptions=["SUBCON JASA GARMENT WASH","SUBCON JASA KOMPONEN"];
             }
         }
+
+        // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
         
     }
 
@@ -171,13 +205,14 @@ export class DataForm {
             else{
                 this.isItems=false;
             }
+            // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"? true:false;
         }
         
     }
 
     get addItems() {
         return (event) => {
-          this.data.Items.push({});
+          this.data.Items.push({ContractType: this.data.ContractType});
         };
       }
     

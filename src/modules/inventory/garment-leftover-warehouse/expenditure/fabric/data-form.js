@@ -1,9 +1,11 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { GarmentPurchasingService } from "./service";
 
-const UnitLoader = require('../../../../../loader/garment-units-loader');
+// const UnitLoader = require('../../../../../loader/garment-units-loader');
+const UnitLoader = require('../../../../../loader/garment-unitsAndsample-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
+const ExportSalesNoteLoader = require('../../../../../loader/garment-shipping-export-sales-note-loader');
 
 @inject(GarmentPurchasingService)
 export class DataForm {
@@ -28,6 +30,10 @@ export class DataForm {
         control: {
             length: 5
         }
+    };
+
+    queryUnit = {
+        Code: "SMP1"
     };
 
     @computedFrom("readOnly")
@@ -59,7 +65,8 @@ export class DataForm {
         "UNIT",
         "JUAL LOKAL",
         "SAMPLE",
-        "LAIN-LAIN"
+        "LAIN-LAIN",
+        "EXPORT"
     ];
 
     get unitLoader() {
@@ -82,6 +89,9 @@ export class DataForm {
         return SalesNoteLoader;
     }
 
+    get eksportSalesNoteLoader() {
+        return ExportSalesNoteLoader;
+    }
 
     bind(context) {
         this.context = context;

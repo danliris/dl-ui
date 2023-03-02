@@ -6,15 +6,12 @@
 
         <!-- <input  label="No BC Keluar" type="text" value.bind="BCNo" options.bind="controlOptions"> -->
 
-        <au-autocomplete 
+        <au-textbox 
         value.bind="BCNo"
-        error.bind="error.Description"
-        
         label="No Dokumen"
-        loader.bind="bcnoLoader"
-        query.bind="filterQuery"
+        placeholder="Masukan No Dokumen"
         options.bind="controlOptions">
-        </au-autocomplete >
+        </au-textbox >
         <!-- <au-autocomplete 
         value.bind="BCNo"
         error.bind="error.Description"
@@ -68,7 +65,7 @@
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="searching()" class='btn btn-primary'>Cari Data</button>
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
@@ -88,7 +85,7 @@
         <!--<hr/>
     </form>
 </template>-->
-         <div >
+        <div >
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
         </div>
 

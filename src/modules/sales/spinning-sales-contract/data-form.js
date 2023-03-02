@@ -6,9 +6,11 @@ var UomLoader = require('../../../loader/uom-loader');
 var QualityLoader = require('../../../loader/quality-loader');
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var ProductLoader = require('../../../loader/product-loader');
+var MaterialLoader = require('../../../loader/material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
 @inject(BindingEngine, Service, Element)
 export class DataForm {
@@ -23,6 +25,8 @@ export class DataForm {
     @bindable selectedVatTax;
     @bindable Buyer;
     @bindable TermOfPayment;
+    @bindable Material;
+    @bindable MaterialConstruction;
     @bindable Comodity;
     @bindable Quality;
     @bindable AccountBank;
@@ -39,6 +43,9 @@ export class DataForm {
         this.element = element;
         this.service = service;
       }
+      materialQuery = {
+        "Tags": "MATERIAL"
+    }
 
     bind(context) {
 
@@ -53,7 +60,8 @@ export class DataForm {
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
 
-        this.data.UomUnit="BALL"
+        this.data.UomUnit="Bale";
+        this.data.Day = 0;
 
         if (this.data.Id) {
             this.Buyer = this.data.Buyer;
@@ -62,7 +70,7 @@ export class DataForm {
             this.TermOfPayment = this.data.TermOfPayment;
             this.Quality = this.data.Quality;
             this.selectedVatTax = this.data.VatTax || false;
-
+            this.selectedProductType = this.data.ProductType || null;
             this.AccountBank =
                 {
                     Id: this.data.AccountBank.Id,
@@ -72,10 +80,21 @@ export class DataForm {
                     Currency: { Code: this.data.AccountBank.AccountCurrencyCode },
                     BankName: this.data.AccountBank.BankName
                 };
+            this.Material = this.data.Material;
+            this.MaterialConstruction = this.data.MaterialConstruction;
         }
-        //this.selectedVatTax = this.data.VatTax || false;
+                
+            if (this.data.LatePayment == null) {
+                this.data.LatePayment = 1;
+            }
 
-        // this.termOfPayment={};
+            if (this.data.LateReturn == null) {
+                this.data.LateReturn = 14;
+            }
+
+            if (this.data.Claim == null) {
+                this.data.Claim = 7;
+            }
     }
 
     enterDelegate(event) {
@@ -125,6 +144,7 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
         }
     }
 
@@ -181,6 +201,24 @@ export class DataForm {
         }
     }
 
+    MaterialChanged() {
+        if (this.Material) {
+            this.data.Material = this.Material;
+        } else {
+            this.Material = {};
+            this.data.Material = {};
+        }
+    }
+
+    MaterialConstructionChanged() {
+        if (this.MaterialConstruction) {
+            this.data.MaterialConstruction = this.MaterialConstruction;
+        } else {
+            this.MaterialConstruction = {};
+            this.data.MaterialConstruction = {};
+        }
+    }
+
 
     getAccount = (text) => {
         var data = text.Code ? `${text.AccountName}-${text.BankName}-${text.AccountNumber}-${text.Currency.Code}` : "";
@@ -200,6 +238,15 @@ export class DataForm {
             this.Agent = {};
             this.data.Agent = {};
             this.data.Comission = "";
+        }
+    }
+
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
         }
     }
 
@@ -267,6 +314,9 @@ export class DataForm {
         }
     }
 
+    categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
+
     get buyersLoader() {
         return BuyersLoader;
     }
@@ -303,6 +353,10 @@ export class DataForm {
         return TermOfPaymentLoader;
     }
 
+    termOfPaymentView = (termOfPayment) => {
+        return termOfPayment.Name;
+    }
+
     get agentLoader() {
         return AgentLoader;
     }
@@ -313,4 +367,12 @@ export class DataForm {
     vatTaxView = (vatTax) => {
         return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(ProductType) {
+        return ProductType.Name ;
+      }
 } 

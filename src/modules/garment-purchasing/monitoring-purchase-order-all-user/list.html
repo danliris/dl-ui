@@ -89,9 +89,9 @@
         <div>
             <a click.delegate="exportToXls()" class='btn btn-primary'>Cetak Excel</a>
         </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="poReport">
-                <thead align="center">
+        
+            <!-- <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center" style="position: absolute;">
                     <tr>
                         <td rowspan="3">NO</td>
                         <td colspan="2">PURCHASE REQUEST</td>
@@ -102,7 +102,7 @@
                         <td rowspan="3">ARTIKEL</td>
                         <td colspan="2">B U Y E R</td>
                         <td rowspan="3">SHIPMENT GMT</td>
-                        <td colspan="7">PO EXTERN</td>
+                        <td colspan="9">PO EXTERN</td>
                         <td colspan="3">SUPPLIER</td>
                         <td rowspan="3">STATUS</td>
                         <td rowspan="3">KODE BARANG</td>
@@ -141,8 +141,8 @@
                         <td rowspan="2">KENA PPN</td>
                         <td rowspan="2">KENA PPH</td>
                         <td rowspan="2">PPH</td>
-                        <!-- <td rowspan="2">TERM PEMBAYARAN</td>
-                        <td rowspan="2">TIPE PEMBAYARAN</td> -->
+                        <td rowspan="2">TERM PEMBAYARAN</td>
+                        <td rowspan="2">TIPE PEMBAYARAN</td>
                         <td rowspan="2">TEMPO</td>
 
                         <td rowspan="2">KODE</td>
@@ -219,12 +219,14 @@
                         <td>${item.useVat}</td>
                         <td>${item.useIncomeTax}</td>
                         <td>${item.incomeTaxRate}</td>
-                        <!-- <td>${item.paymentMethod}</td>
-                        <td>${item.paymentType}</td> -->
+                        <td>${item.paymentMethod}</td>
+                        <td>${item.paymentType}</td>
                         <td>${item.paymentDueDays}</td>
+
                         <td>${item.supplierCode}</td>
                         <td>${item.supplierName}</td>
                         <td>${item.SupplierImport}</td>
+
                         <td>${item.status}</td>
                         <td>${item.productCode}</td>
                         <td>${item.productName}</td>
@@ -249,6 +251,7 @@
                       
                                    
                         <td>${item.ipoDate}</td>
+
                         <td>${item.doNo}</td>
                         <td>${item.doDate}</td>
                         <td>${item.arrivalDate}</td>
@@ -256,12 +259,15 @@
                         <td>${item.doUomUnit}</td>
                         <td>${item.Bon}</td>
                         <td>${item.BonSmall}</td>
+
                         <td>${item.bcNo}</td>
                         <td>${item.bcDate}</td>
+
                         <td>${item.receiptNo}</td>
                         <td>${item.receiptDate}</td>
                         <td align="right">${item.receiptQty}</td>
                         <td>${item.receiptUomUnit}</td>
+                        
                         <td>${item.invoiceNo}</td>
                         <td>${item.invoiceDate}</td>
                         <td>${item.vatNo}</td>
@@ -287,8 +293,9 @@
                         
                     </tr>
                 </tbody>
-            </table>
-        </div>
+            </table> -->
+             <table ref="table" class="table table-bordered table-fixed table-hover table-condensed" border="1" id="myTable" ></table>
+            
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>

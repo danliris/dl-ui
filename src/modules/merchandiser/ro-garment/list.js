@@ -8,6 +8,7 @@ import { AuthService } from "aurelia-authentication";
 export class List {
     dataToBePosted = [];
     context = ["Rincian", "Cetak PDF"];
+    options = {};
     columns = [
         {
             field: "isPosting", title: "Post", checkbox: true, sortable: false,
@@ -123,6 +124,10 @@ export class List {
             default:
                 return true;
         }
+    }
+
+    attached() {
+        this.options.height = $(window).height() - $('nav.navbar').height() - $('h1.page-header').height();
     }
 
     create() {

@@ -120,11 +120,15 @@ export class DataForm {
 
             const section = await this.coreService.getGarmentSection(newValue.SectionId);
             this.data.SectionName = section.Name;
+            this.data.ApprovalPR = section.ApprovalCC; 
+            this.data.ApprovalKadiv = section.ApprovalKadiv;
         } else {
             this.data.SCId = 0;
             this.data.SCNo = null;
             this.data.Buyer = null;
             this.data.SectionName = null;
+            this.data.ApprovalPR = null;
+            this.data.ApprovalKadiv = null;
         }
     }
 

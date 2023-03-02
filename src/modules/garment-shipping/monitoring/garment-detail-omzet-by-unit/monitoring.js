@@ -81,9 +81,11 @@ export class List {
                              uomUnit : data.uomUnit,
                              quantityInPCS : data.quantityInPCS.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                              amount : data.amount.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                             currencyCode : data.currencyCode,
+                             rate : data.rate.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                              amountIDR : data.amountIDR.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                              truckingDate : moment(data.truckingDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.truckingDate).format("DD MMM YYYY"),                  
-                             roNumber : data.roNumber,
+                             pebDate : moment(data.pebDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(data.pebDate).format("DD MMM YYYY"),                                                                  
                              expenditureGoodNo : data.expenditureGoodNo,  
 
                          });

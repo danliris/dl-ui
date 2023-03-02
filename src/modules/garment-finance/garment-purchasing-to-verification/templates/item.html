@@ -4,7 +4,10 @@
             <au-autocomplete value.bind="data.InternalNote"
                              error.bind="error.InternalNote"
                              loader.one-time="internalNoteLoader"
-                             text="DocumentNo">
+                             query.bind="checkExist"
+                             read-only.bind="isEdit"
+                             text="DocumentNo" >
+
             </au-autocomplete>
         </td>
         <td>

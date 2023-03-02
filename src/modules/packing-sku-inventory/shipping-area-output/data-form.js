@@ -29,6 +29,7 @@ export class DataForm {
     "No. SPP",
     "Buyer",
     "Material",
+    "Nama Barang",
     "Unit",
     "Warna",
     "Motif",
@@ -43,6 +44,9 @@ export class DataForm {
     "Bon Penjualan"
   ];
   shifts = ["PAGI", "SIANG"];
+  packingType = ["CARTON/BALE","LOOSE PACKING"];
+  
+  authorizedItems = ["ADRIYANA DAMAYANTI", "WAHYU PAMUNGKAS"]
   detailOptions = {};
   types = ["OUT", "ADJ"];
   destinationAreas = ["PENJUALAN", "BUYER", "INSPECTION MATERIAL", "TRANSIT", "PACKING", "GUDANG JADI"];
@@ -128,6 +132,7 @@ export class DataForm {
             "No. SPP",
             "Buyer",
             "Material",
+            "Nama Barang",
             "Unit",
             "Warna",
             "Motif",
@@ -148,6 +153,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -166,6 +172,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -191,6 +198,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -211,6 +219,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -234,6 +243,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -253,6 +263,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -284,6 +295,7 @@ export class DataForm {
             "No. SPP",
             "Buyer",
             "Material",
+            "Nama Barang",
             "Unit",
             "Warna",
             "Motif",
@@ -303,6 +315,7 @@ export class DataForm {
             "No. SPP",
             "Buyer",
             "Material",
+            "Nama Barang",
             "Unit",
             "Warna",
             "Motif",
@@ -325,6 +338,7 @@ export class DataForm {
             "No. SPP",
             "Buyer",
             "Material",
+            "Nama Barang",
             "Unit",
             "Warna",
             "Motif",
@@ -345,6 +359,7 @@ export class DataForm {
             "No. SPP",
             "Buyer",
             "Material",
+            "Nama Barang",
             "Unit",
             "Warna",
             "Motif",
@@ -371,9 +386,9 @@ export class DataForm {
       destinationArea: this.destinationArea
     };
     if (this.readOnly) {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Nama Barang", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
     } else {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Nama Barang", "Unit", "Buyer", "Warna", "Motif", "Grade 1", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "Saldo", "QTY Total", "No Dokumen"];
     }
     if (this.data.type == "OUT") {
       if (this.data.shippingProductionOrders) {
@@ -459,6 +474,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -479,6 +495,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -497,6 +514,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -521,6 +539,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -541,6 +560,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -563,6 +583,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -582,6 +603,7 @@ export class DataForm {
                 "No. SPP",
                 "Buyer",
                 "Material",
+                "Nama Barang",
                 "Unit",
                 "Warna",
                 "Motif",
@@ -622,6 +644,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -642,6 +665,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -655,6 +679,9 @@ export class DataForm {
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
+              "Bale",
+              "Net",
+              "Gross"
             ];
           }
           
@@ -664,6 +691,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -677,6 +705,9 @@ export class DataForm {
               "Qty Keluar",
               "Berat (KG)",
               "SJ",
+              "Bale",
+              "Net",
+              "Gross",
               ""
             ];
           } else {
@@ -684,6 +715,7 @@ export class DataForm {
               "No. SPP",
               "Buyer",
               "Material",
+              "Nama Barang",
               "Unit",
               "Warna",
               "Motif",
@@ -696,7 +728,10 @@ export class DataForm {
               "Panjang Packing",
               "Qty Keluar",
               "Berat (KG)",
-              "SJ",
+              "SJ/Invoice",
+              "Bale",
+            "Net",
+            "Gross"
             ];
           }
         }

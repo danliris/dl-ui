@@ -1,8 +1,10 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 
+const UnitLoader = require('../../../../../loader/garment-unitsAndsample-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
+const ExportSalesNoteLoader = require('../../../../../loader/garment-shipping-export-sales-note-loader');
 
 @inject(Service)
 export class DataForm {
@@ -14,6 +16,7 @@ export class DataForm {
     @bindable readOnly = false;
     @bindable title;
     @bindable selectedSalesNote;
+    @bindable selectedUnit;
     @bindable manual;
 
     controlOptions = {
@@ -49,12 +52,19 @@ export class DataForm {
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
 
-    expenditureToOptions = ["JUAL LOKAL", "LAIN-LAIN"];
+    expenditureToOptions = ["UNIT", "JUAL LOKAL", "LAIN-LAIN", "EXPORT"];
 
     get buyerLoader() {
         return BuyerLoader;
     }
 
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    // unitView = (data) => {
+    //     return `${data.Code} - ${data.Name}`;
+    // }
 
     buyerView = (buyer) => {
         return `${buyer.Code} - ${buyer.Name}`;
@@ -62,6 +72,9 @@ export class DataForm {
 
     get localSalesNoteLoader() {
         return SalesNoteLoader;
+    }
+    get eksportSalesNoteLoader() {
+        return ExportSalesNoteLoader;
     }
 
     bind(context) {
@@ -82,18 +95,36 @@ export class DataForm {
                 };
             });
             this.Options.existingItems = this.existingItems;
-            if(this.data.LocalSalesNoteId){
+            if (this.data.LocalSalesNoteId) {
                 this.selectedSalesNote = {
                     noteNo: this.data.LocalSalesNoteNo,
-                    id:this.data.LocalSalesNoteId
+                    id: this.data.LocalSalesNoteId
                 };
-                this.manual=false;
+                // this.selectedUnit = {
+                //     Code: this.data.UnitExpenditure.Code,
+                //     Name: this.data.UnitExpenditure.Name
+                // };
+                this.manual = false;
             }
-            else{
-                this.manual=true;
+            else {
+                this.manual = true;
             }
 
         }
+    }
+
+    // expenditureToOptionsChanged(){
+    //     this.context.selectedUnitViewModel.editorValue = "";
+    //     this.selectedUnit = null;
+    //     this.context.selectedBuyerViewModel.editorValue = "";
+    //     this.selectedBuyer = null;
+    //     this.data.remarkEtc = null;
+    // }
+
+    selectedUnitChanged(newValue) {
+        if (this.data.Id) return;
+
+        this.data.UnitExpenditure = newValue;
     }
 
     get addItems() {
@@ -120,13 +151,13 @@ export class DataForm {
         }
     }
 
-    manualChanged(newValue){
-        if(!this.data.Id){
-            if(this.context.selectedSalesNote)
+    manualChanged(newValue) {
+        if (!this.data.Id) {
+            if (this.context.selectedSalesNote)
                 this.context.selectedSalesNote.editorValue = "";
-            this.selectedSalesNote=null;
-            this.data.LocalSalesNoteNo= "";
-            this.data.LocalSalesNoteId=0;
+            this.selectedSalesNote = null;
+            this.data.LocalSalesNoteNo = "";
+            this.data.LocalSalesNoteId = 0;
         }
     }
 }

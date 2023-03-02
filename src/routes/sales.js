@@ -8,7 +8,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F1":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -21,7 +22,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F2":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -34,7 +36,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F3":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -47,7 +50,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F4":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -60,7 +64,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F5":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -73,7 +78,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { /*"A2": 1,*/ "C9": 1 },
+            // permission: { /*"A2": 1,*/ "C9": 1 },
+            permission :{"F6":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -86,7 +92,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { /*"A2": 1,*/ "C9": 1 },
+            // permission: { /*"A2": 1,*/ "C9": 1 },
+            permission :{"F7":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -112,7 +119,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F8":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,7 +133,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F9":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +147,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F10":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +161,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F11":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -164,7 +175,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F12":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -177,7 +189,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F13":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -190,7 +203,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F14":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -203,7 +217,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F15":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -212,11 +227,12 @@ module.exports = [
         name: 'shin-production-order-list-view',
         moduleId: './modules/sales/shin-production-order-list-view/index',
         nav: true,
-        title: 'Surat Perintah Produksi (New)',
+        title: 'Surat Perintah Produksi (New) All User',
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F16":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -229,7 +245,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F17":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -242,7 +259,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F18":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -255,7 +273,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F19":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -264,11 +283,12 @@ module.exports = [
         name: 'production-order-list-view',
         moduleId: './modules/sales/production-order-list-view/index',
         nav: true,
-        title: 'Surat Perintah Produksi',
+        title: 'Surat Perintah Produksi All User',
         auth: true,
         settings: {
             group: "sales",
-            permission: { "F1": 1, "F2": 1, "C9": 1 },
+            // permission: { "F1": 1, "F2": 1, "C9": 1 },
+            permission :{"F20":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -281,7 +301,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F21":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -294,7 +315,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F22":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -307,7 +329,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F23":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -320,7 +343,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F24":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -333,7 +357,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F25":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -346,7 +371,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F26":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -359,7 +385,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F27":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -372,7 +399,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F28":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -385,7 +413,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            // permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            permission :{"F29":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -398,7 +427,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F30":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/reports/do-sales-dp-monitoring',
+        name: 'do-sales-dp-monitoring',
+        moduleId: './modules/sales/reports/do-sales-dp-monitoring/index',
+        nav: true,
+        title: 'Monitoring DO Penjualan Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F34":1},
             iconClass: 'fa fa-dashboard'
         }
     },

@@ -304,9 +304,21 @@
             errors.bind="error.Items"
             read-only.bind="readOnly || isEdit"
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item"
-            if.bind="deliveryReturn"
-            show.bind="isProcess">
+            if.bind="deliveryReturn && data.Storage.name !=  'GUDANG BAHAN BAKU'"
+            show.bind="isProcess && data.Storage.name !=  'GUDANG BAHAN BAKU'">
         </au-collection>
+
+          <au-collection 
+            items.bind="data.DRItems" 
+            columns.bind="deliveryReturnItemFabric.columns"
+            remove.bind="deliveryReturnItemFabric.onRemove"
+            errors.bind="error.Items"
+            read-only.bind="readOnly || isEdit"
+            item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item-fabric"
+            if.bind="deliveryReturn && data.Storage.name ==  'GUDANG BAHAN BAKU'"
+            show.bind="isProcess && data.Storage.name ==  'GUDANG BAHAN BAKU'">
+        </au-collection>
+
 
         <au-collection 
             items.bind="data.Items" 

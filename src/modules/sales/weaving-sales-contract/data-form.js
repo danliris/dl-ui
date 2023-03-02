@@ -11,6 +11,7 @@ var YarnMaterialLoader = require('../../../loader/yarn-material-loader');
 var TermOfPaymentLoader = require('../../../loader/term-of-payment-loader');
 var AgentLoader = require('../../../loader/agent-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var ProductTypeLoader = require ('../../../loader/product-types-loader');
 
 
 @inject(BindingEngine, Service, Element)
@@ -84,10 +85,25 @@ export class DataForm {
             this.YarnMaterial = this.data.YarnMaterial;
             this.MaterialConstruction = this.data.MaterialConstruction;
             this.selectedVatTax = this.data.VatTax || false;
-
+            this.ProductType = this.data.ProductType || null;
+            this.LatePayment = this.data.LatePayment;
+            this.precentageDP = this.data.precentageDP;
         }
         
+        if (this.data.LatePayment == null) {
+            this.data.LatePayment = 1;
+        }
+
+        if (this.data.LateReturn == null) {
+            this.data.LateReturn = 14;
+        }
+
+        if (this.data.Claim == null) {
+            this.data.Claim = 7;
+        }
     }
+
+    
 
     enterDelegate(event) {
         if (event.charCode === 13) {
@@ -133,6 +149,8 @@ export class DataForm {
             this.data.TermOfShipment = "";
             this.data.Remark = "";
             this.data.ShipmentDescription = "";
+            this.data.ProductType = {};
+            this.data.LatePayment = null;
         }
     }
 
@@ -256,6 +274,15 @@ export class DataForm {
         }
     }
 
+    ProductTypeChanged() {
+        if (this.ProductType) {
+            this.data.ProductType = this.ProductType;
+        } else {
+            this.ProductType = {};
+            this.data.ProductType = {};
+        }
+    }
+
     async useVatChanged(e) {
         // this.data.items = [];
         // this.data.vatNo = "";
@@ -301,6 +328,9 @@ export class DataForm {
             }
         }
     }
+
+    categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+    categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
 
     get buyersLoader() {
         return BuyersLoader;
@@ -349,4 +379,12 @@ export class DataForm {
     vatTaxView = (vatTax) => {
         return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
     }
+
+    get productTypeLoader() {
+        return ProductTypeLoader;
+      }
+    
+      productTypeView(ProductType) {
+        return ProductType.Name ;
+      }
 } 

@@ -26,7 +26,7 @@
 
                 <au-dropdown
                     label="Tipe Pengeluaran"
-                    value.bind="data.ExpenditureType"
+                    value.bind="selectedExpenditureType"
                     error.bind="error.ExpenditureType"
                     read-only.bind="readOnly || isEdit"
                     items.bind="expenditureTypes"
@@ -101,6 +101,22 @@
                     text="invoiceNo"
                     placeholder="cari no invoice"
                     read-only.bind="readOnly"
+                    if.bind="!isExpenditureType" 
+                    
+                    options.bind="controlOptions"
+                   
+                    view-model.ref="selectedInvoiceViewModel">
+                </au-autocomplete>
+
+                <au-autocomplete
+                    value.bind="selectedInvoice"
+                    error.bind="error.Invoice"
+                    label="Nota Penjualan (Lokal)"
+                    loader.bind="localSalesLoader"
+                    text="noteNo"
+                    placeholder="cari nota penjualan lokal"
+                    read-only.bind="readOnly"
+                    if.bind="isExpenditureType"  
                     
                     options.bind="controlOptions"
                    

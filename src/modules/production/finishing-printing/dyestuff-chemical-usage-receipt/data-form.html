@@ -2,6 +2,7 @@
     <style>
         /*Setting the table width is important!*/
         #detailTable {
+            width: 100% ;
             display: block;
             overflow-x: auto;
             white-space: nowrap;
@@ -80,6 +81,11 @@
                     options.bind="controlOptions">
                 </au-textbox>
 
+                <au-numeric label="Total Screen" format="0.00" value.bind="data.TotalScreen"
+                    if.bind="data.UsageReceiptItems.length > 0"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-numeric>
+
             </div>
             <div class="col-md-6">
                 <au-autocomplete placeholder="Masukan Kode Strike Off" value.bind="selectedStrikeOff" label="Motif"
@@ -136,11 +142,17 @@
                         </tr>
                     </tbody>
                 </table>
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal">
+                </au-numeric>
             </div>
-
         </div>
 
-        <div class="row" if.bind="data.UsageReceiptItems.length > 0  && isEdit && !readOnly"
+        <div class="row" if.bind="data.UsageReceiptItems.length > 0 && isEdit && !readOnly"
             repeat.for="color of data.UsageReceiptItems">
 
             <div class="col-md-12">
@@ -158,19 +170,19 @@
                             <th rowspan="2">
                                 Dyestuff & Chemicals
                             </th>
-                            <th>
+                            <th width="20%">
                                 Resep
                             </th>
-                            <th>
+                            <th width="20%">
                                 Adjs 1
                             </th>
-                            <th>
+                            <th width="20%">
                                 Adjs 2
                             </th>
-                            <th>
+                            <th width="20%">
                                 Adjs 3
                             </th>
-                            <th>
+                            <th width="20%">
                                 Adjs 4
                             </th>
                             <th rowspan="2">
@@ -239,13 +251,19 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal"
+                    width ="10">
+                </au-numeric>
             </div>
-
-
+            
         </div>
 
-        <div class="row" if.bind="data.UsageReceiptItems.length > 0  && isEdit && readOnly"
+        <div class="row" if.bind="data.UsageReceiptItems.length > 0 && isEdit && readOnly"
             repeat.for="color of data.UsageReceiptItems">
 
             <div class="col-md-12">
@@ -344,7 +362,14 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <au-numeric 
+                    label="Total Realisasi Pembuatan Pasta" 
+                    format="0.00" 
+                    value.bind="color.TotalRealizationQty"
+                    read-only.bind="readOnly" 
+                    options.bind="controlOptionsTotal"
+                    >
+                </au-numeric>
             </div>
 
 

@@ -12,6 +12,8 @@ import UomLoader from "../../../loader/uom-loader";
 import QualityLoader from "../../../loader/quality-loader";
 import TermOfPaymentLoader from "../../../loader/term-of-payment-loader";
 import AccountBankLoader from "../../../loader/account-banks-loader";
+import ProductTypeLoader from "../../../loader/product-types-loader";
+import ProductTextileLoader from "../../../loader/product-textile-loader";
 
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
 
@@ -45,6 +47,17 @@ export class DataForm {
     this.service = service;
   }
 
+  get filter() {
+    var filter = {};
+    filter = {
+              BuyerCode: this.data.BuyerCode,
+              
+             };          
+    return filter;
+  }
+
+
+
   bind(context) {
     this.context = context;
     this.data = context.data;
@@ -53,14 +66,34 @@ export class DataForm {
       useIncomeTax: this.data.UseIncomeTax || false
     };
     this.isCreate = this.context.isCreate;
+    console.log(this.isCreate);
+    if(this.isCreate){
+      this.data.LatePayment = 1;
+      this.data.LateReturn = 14;
+      this.data.Claim = 7;
+    }else if( this.isCreate && this.isExport){
+      this.data.LatePayment = 1;
+      this.data.LateReturn = 14;
+      this.data.Claim = 7;
+
+    }
+    this.data.Day = 0;
     this.selectedBuyer = this.data.Buyer || null;
     this.selectedOrderType = this.data.OrderType || null;
     this.selectedAccountBank = this.data.AccountBank || null;
     this.selectedUseIncomeTax = this.data.UseIncomeTax || false;
     this.selectedVatTax = this.data.VatTax || false;
     this.selectedPointSystem = this.data.PointSystem || 10;
+    this.selectedPaymentMethods = this.data.PaymentMethods || null;
+    this.selectedDownPayments = this.data.DownPayments || null;
+    this.productTextile = this.data.ProductTextile || null;
+    console.log(this.data.Buyer);
+    // this.selectedProductType = this.data.ProductType || null;
     console.log(context);
   }
+
+
+
 
   isExport = false;
   @bindable selectedBuyer;
@@ -78,6 +111,9 @@ export class DataForm {
         };
         this.isExport = false;
       }
+      this.data.BuyerType = newValue.Type;
+      //console.log(this.data.BuyerType);
+      console.log(newValue);
 
     } else {
       this.isExport = false;
@@ -111,7 +147,26 @@ export class DataForm {
       this.data.PointSystem = 10;
       this.data.PointLimit = 0;
       this.data.Details = [];
+      // this.data.ProductType = null;
+      this.data.PaymentMethods = null;
+      this.data.DownPayments = null;
+      this.data.Day = 0;
+      this.data.PriceDP = 0;
+      this.data.PrecentageDP = 0;
+      this.data.LatePayment = "";
+      this.data.LateReturn = "";
+      this.data.Claim = 0;
     }
+  }
+
+    get filter() {
+    var filter = {};
+    filter = {
+              BuyerType: this.data.BuyerType,
+              
+             };      
+    return filter;
+             
   }
 
   @bindable selectedUseIncomeTax = false;
@@ -220,6 +275,20 @@ export class DataForm {
       this.isFourPointSystem = false
     }
   }
+  @bindable productTextile;
+  productTextileChanged(newValue, oldValue) {
+    var selectedProductTextile = newValue;
+    if (selectedProductTextile) {
+        this.data.ProductTextile = selectedProductTextile;
+        this.data.ProductTextileId = selectedProductTextile._id;
+    }
+    else {
+        this.data.ProductTextileId = undefined;
+    }
+}
+
+  categoryPayment = ['Tunai sebelum dikirim ', 'Tunai berjangka', 'Tunai dalam tempo'];
+  categoryDP = ['Pembayaran dengan DP','Tanpa DP'];
 
   get detailHeader() {
     if (!this.data.UseIncomeTax) {
@@ -247,7 +316,7 @@ export class DataForm {
   }
 
   buyerView(buyer) {
-    return buyer.Name ? `${buyer.Code} - ${buyer.Name}` : '';
+    return buyer.Name ? `${buyer.Code} - ${buyer.Name} `  : '';
   }
 
   get comodityLoader() {
@@ -294,6 +363,18 @@ export class DataForm {
     return VatTaxLoader;
   }
 
+  get productTextileLoader() {
+    return ProductTextileLoader;
+  }
+
+  // get productTypeLoader() {
+  //   return ProductTypeLoader;
+  // }
+
+  // productTypeView(productType) {
+  //   return productType.Name ;
+  // }
+
   bankView(bank) {
     return bank.AccountName ? `${bank.AccountName} - ${bank.BankName} - ${bank.AccountNumber} - ${bank.Currency.Code}` : '';
   }
@@ -301,6 +382,10 @@ export class DataForm {
   vatTaxView = (vatTax) => {
     return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
   }
+
+  productTxView = (productTx) => {
+    return `${productTx.Code} - ${productTx.Name}`;
+}
 
   controlOptions = {
     label: {

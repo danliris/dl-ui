@@ -60,14 +60,156 @@ export class List {
                 var resultTotal=0;
                 //this.info.total=result.info.total; 
                 this.data = result.data.Result;
+                var index=1;
                 for(var item of this.data)
                 {
                     this.resultTotal= item.Total;
-                   
+                    item.index=index;
+                    index++;
                     item.totalBudget =  numeral(item.prBudgetPrice * item.poDefaultQty).format("0,000.00");
                 }
-         this.info.total= this.resultTotal;
+                this.info.total= this.resultTotal;
+                
+                this.fillTable();
             })
+    }
+
+    fillTable() {
+        let columns = [
+            [
+                { field:'index', rowspan:'2', title:'NO', },
+
+                { colspan:2, title:'PURCHASE REQUEST', },
+
+                { field:'unitName', rowspan:'2', title:'UNIT', },
+                { field:'poSerialNumber', rowspan:'2', title:'NO REF PO',},
+                { field:'useInternalPO', rowspan:'2', title:'DIBUAT<br/>PO INTERNAL' },
+                { field:'ro', rowspan:'2', title:'NO RO'},
+                { field:'article', rowspan:'2', title:'ARTIKEL'},
+
+                { title:'BUYER',colspan:2 },
+
+                { field:'shipmentDate', rowspan:2, title:'SHIPMENT'},
+
+                { colspan:9, title:'PO EXTERN'},
+
+                { colspan:3, title:'SUPPLIER' },
+
+                { field:'status', rowspan:2, title:'STATUS' },
+                { field:'productCode', rowspan:2, title:'KODE BARANG',},
+                { field:'productName', rowspan:2, title:'NAMA BARANG' },
+                { field:'consts', rowspan:2, title:'CONST' },
+                { field:'yarn', rowspan:2, title:'YARN'  },
+                { field:'width', rowspan:2, title:'WIDTH'  },
+                { field:'composition', rowspan:2, title:'COMPOSITION' },
+                { field:'prProductRemark', rowspan:2, title:'KETERANGAN BARANG(PR)'},
+                { field:'poProductRemark', rowspan:2, title:'KETERANGAN BARANG(POEKS)'},
+                
+                { colspan:2, title:'JUMLAH' },
+
+                { field:'poDealUomUnit', rowspan:2, title:'SATUAN' },
+
+                { colspan:7, title:'HARGA' },
+
+                { field:'ipoDate', rowspan:2, title:'TANGGAL TERIMA PO INTERN' },
+                
+                { colspan:7, title:'SURAT JALAN' },
+
+                { colspan:2, title:'BEA CUKAI' },
+
+                { colspan:4, title:'BON PENERIMAAN' },
+
+                { colspan:10, title:'I N V O I C E' },
+
+                { colspan:4, title:'NOTA INTERN' },
+
+                { colspan:4, title:'CATATAN KOREKSI' },
+
+                { field:'username', rowspan:'2', title:'STAFF PEMBELIAN'},
+            
+            ],
+            [
+                { field: 'prNo',  title: 'NOMOR' },
+                { field: 'prDate',  title: 'TANGGAL' },
+
+                { field: 'buyerCode',  title: 'KODE' },
+                { field: 'buyerName',  title: 'NAMA' },
+
+                { field: 'poextNo',  title: 'NOMOR' },
+                { field: 'poExtDate',  title: 'TANGGAL' },
+                { field: 'deliveryDate',  title: 'TARGET DATANG' },
+                { field: 'useVat',  title: 'KENA PPN' },
+                { field: 'useIncomeTax',  title: 'KENA PPH' },
+                { field: 'incomeTaxRate',  title: 'PPH' },
+                { field: 'paymentMethod',  title: 'TERM PEMBAYARAN' },
+                { field: 'paymentType',  title: 'TIPE PEMBAYARAN' },
+                { field: 'paymentDueDays',  title: 'TEMPO' },
+
+                { field: 'supplierCode',  title: 'KODE' },
+                { field: 'supplierName',  title: 'NAMA' },
+                { field: 'SupplierImport',  title: 'JENIS SUPPLIER' },
+                
+                { field: 'poDefaultQty',  title: 'BUDGET' },
+                { field: 'poDealQty',  title: 'BELI' },
+                   
+                { field: 'prBudgetPrice',  title: 'BUDGET' },
+                { field: 'poPricePerDealUnit',  title: 'BELI' },
+                { field: 'totalNominalPO',  title: 'TOTAL BELI' },
+                { field: 'totalBudget',  title: 'TOTAL BUDGET' },
+                { field: 'poCurrencyCode',  title: 'MT UANG' },
+                { field: 'poCurrencyRate',  title: 'KURS' },
+                { field: 'totalNominalRp',  title: 'TOTAL RP' },
+
+                { field: 'doNo',  title: 'NOMOR' },
+                { field: 'doDate',  title: 'TANGGAL' },
+                { field: 'arrivalDate',  title: 'DATANG BARANG' },
+                { field: 'doQty',  title: 'QTY DATANG' },
+                { field: 'doUomUnit',  title: 'SATUAN' },
+                { field: 'Bon',  title: 'NO. BON' },
+                { field: 'BonSmall',  title: 'NO. BON KECIL' },
+
+                { field: 'bcNo',  title: 'NOMOR' },
+                { field: 'bcDate',  title: 'TANGGAL' },
+
+                { field: 'receiptNo',  title: 'NOMOR' },
+                { field: 'receiptDate',  title: 'TANGGAL' },
+                { field: 'receiptQty',  title: 'QTY' },
+                { field: 'receiptUomUnit',  title: 'SATUAN' },
+
+                { field: 'invoiceNo',  title: 'NOMOR' },
+                { field: 'invoiceDate',  title: 'TANGGAL' },
+                { field: 'vatNo',  title: 'NO PPN' },
+                { field: 'vatDate',  title: 'TANGGAL PPN' },
+                { field: 'vatValue',  title: 'NILAI PPN' },
+                { field: 'incomeTaxType',  title: 'JENIS PPH' },
+                { field: 'incomeTaxtRate',  title: 'RATE PPH' },
+                { field: 'incomeTaxNo',  title: 'NO PPH' },
+                { field: 'incomeTaxDate',  title: 'TANGGAL PPH' },
+                { field: 'incomeTaxtValue',  title: 'NILAI PPH' },
+                
+                { field: 'internNo',  title: 'NOMOR' },
+                { field: 'internDate',  title: 'TANGGAL' },
+                { field: 'internTotal',  title: 'NILAI' },
+                { field: 'maturityDate',  title: 'JATUH TEMPO' },
+            
+                { field: 'correctionNoteNo',  title: 'NOMOR' },
+                { field: 'correctionDate',  title: 'TANGGAL' },
+                { field: 'valueCorrection',  title: 'NILAI' },
+                { field: 'correctionRemark',  title: 'KETERANGAN' },
+            ]
+        ];
+    
+        var bootstrapTableOptions = {
+            undefinedText: '',
+            columns: columns,
+            data: this.data,
+            rowStyle:this.rowFormatter
+        };
+        bootstrapTableOptions.width=$(window).width() - $('.sidebar').width()- 200;
+        bootstrapTableOptions.height = $(window).height() - $('.navbar').height() - $('.navbar').height() - 25;
+        $(this.table).bootstrapTable('destroy').bootstrapTable(bootstrapTableOptions);
+
+
     }
 
     reset() {

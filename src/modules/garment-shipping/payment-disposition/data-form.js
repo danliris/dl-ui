@@ -8,6 +8,7 @@ const EMKLLoader = require('../../../loader/garment-emkl-loader');
 const ForwarderLoader = require('../../../loader/garment-forwarder-loader');
 const IncomeTaxLoader = require('../../../loader/income-tax-loader');
 const CourierLoader = require('../../../loader/garment-courier-loader');
+const WarehouseLoader = require('../../../loader/garment-ware-house-loader');
 
 @inject(Service)
 export class DataForm {
@@ -23,13 +24,14 @@ export class DataForm {
     @bindable isFreightCharged;
     @bindable invoiceDetails;
     @bindable selectedForwarder;
-    @bindable selectedEMKL;
+    @bindable selectedEMKL;    
     @bindable selectedCourier;
-
-    paymentTypeOptions=["FORWARDER" ,"EMKL", "COURIER"];
+    @bindable selectedWarehouse;
+    
+    paymentTypeOptions=["FORWARDER" ,"EMKL", "COURIER", "PERGUDANGAN"];
     paidAtOptions=["SOC", "JKT"];
     paymentMethodOptions=["CASH BEFORE DELIVERY","CASH AFTER DELIVERY"];
-    paymentTermOptions=["LC","TT"];
+    paymentTermOptions=["CASH","LC","TT"];
     freightByOptions=["AIR","OCEAN"]
 
     controlOptions = {
@@ -92,6 +94,11 @@ export class DataForm {
         { header: "Nominal"},
     ]
 
+    paymentsColumns=[
+        { header: "Tanggal Bayar"},
+        { header: "Keterangan"},
+        { header: "Nominal"},
+    ]
 
     get buyerLoader() {
         return BuyerLoader;
@@ -99,6 +106,10 @@ export class DataForm {
 
     get emklLoader(){
         return EMKLLoader;
+    }
+
+    get warehouseLoader(){
+        return WarehouseLoader;
     }
 
     get forwarderLoader(){
@@ -151,6 +162,12 @@ export class DataForm {
             this.selectedCourier.Address=this.data.address;
             this.selectedCourier.NPWP=this.data.npwp;
         }
+        if(this.data.warehouse){
+            this.data.wareHouseId=this.data.warehouse.id;
+            this.selectedWarehouse=this.data.warehouse;
+            this.selectedWarehouse.Address=this.data.address;
+            this.selectedWarehouse.NPWP=this.data.npwp;
+        }
         this.isFreightCharged=this.data.isFreightCharged;
     }
 
@@ -167,6 +184,11 @@ export class DataForm {
     }
 
     emklView= (data) => {
+        var name= data.Name || data.name;
+        return `${name}`;
+    }
+
+    warehouseView= (data) => {
         var name= data.Name || data.name;
         return `${name}`;
     }
@@ -188,6 +210,18 @@ export class DataForm {
     }
 
     get removebills() {
+        return (event) => {
+            this.error = null;
+        };
+    }
+
+    get addpayments() {
+        return (event) => {
+            this.data.paymentDetails.push({});
+        };
+    }
+
+    get removepayments() {
         return (event) => {
             this.error = null;
         };
@@ -262,8 +296,9 @@ export class DataForm {
     selectedPaymentTypeChanged(newValue){
         if(this.data.paymentType != newValue){
             this.data.emkl=null;
-            this.data.forwarder=null;
+            this.data.forwarder=null;            
             this.data.courier=null;
+            this.data.warehouse=null;            
             this.data.invoiceNumber="";
             this.data.paymentType =newValue;
         }
@@ -354,6 +389,25 @@ export class DataForm {
         else{
             this.data.emkl=null;
             this.data.emklId=0;
+            this.data.address="";
+            this.data.npwp="";
+        }
+    }
+
+    selectedWarehouseChanged(newValue){
+        if(newValue && newValue.Id!=this.data.wareHouseId){
+            this.data.warehouse={
+                id:newValue.Id || newValue.id,
+                code:newValue.Code || newValue.code,
+                name: newValue.Name || newValue.name
+            };
+            this.data.wareHouseId=this.data.warehouse.Id;
+            this.data.address=newValue.Address;
+            this.data.npwp=newValue.NPWP;            
+        }
+        else{
+            this.data.warehouse=null;
+            this.data.warehouselId=0;
             this.data.address="";
             this.data.npwp="";
         }

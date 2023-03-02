@@ -75,13 +75,18 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        if(confirm('Apakah anda ingin merubah data ini?') == true) {
+            this.router.navigateToRoute('edit', { id: this.data._id });
+        }
     }
 
     delete(event) {
-        Promise.all([this.service.delete(this.data), this.azureService.delete(this.data)])
-            .then(result => {
-                this.cancel();
-            });
+        if(confirm('Apakah anda yakin akan menghapus data ini?', 'Hapus Data SPB')== true) {
+            Promise.all([this.service.delete(this.data), this.azureService.delete(this.data)])
+                .then(result => {
+                    alert("Data berhasil dihapus");
+                    this.cancel();
+                });
+        }
     }
 }

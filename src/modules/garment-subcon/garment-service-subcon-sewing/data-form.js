@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+var BuyerLoader = require('../../../loader/garment-buyer-brand-loader');
 
 @inject(Service, PurchasingService)
 export class DataForm {
@@ -27,6 +27,7 @@ export class DataForm {
     editText: "Ubah"
   };
 
+  UomOptions = ['IKAT', 'COLI', 'CARTON', 'ROLL'];
   controlOptions = {
     label: {
       length: 3
@@ -40,6 +41,7 @@ export class DataForm {
     columns: [
       "RO",
       "Article",
+      "Area",
       "Buyer",
       "Komoditi",
       ""
@@ -77,21 +79,29 @@ export class DataForm {
         for (var d of item.Details) {
           var detail = {};
           if (details.length == 0) {
+            detail.Id=d.Id;
+            detail.ServiceSubconSewingId = d.ServiceSubconSewingId;
+            detail.SewingInId = d.SewingInId;
             detail.Quantity = d.Quantity;
             detail.DesignColor = d.DesignColor;
             detail.Uom = d.Uom;
             detail.Unit = d.Unit;
             detail.Remark = d.Remark;
+            detail.Color = d.Color;
             details.push(detail);
           }
           else {
-            var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id);
+            var exist = details.find(a => a.DesignColor == d.DesignColor && a.Unit.Id == d.Unit.Id && a.Color == d.Color);
             if (!exist) {
+              detail.Id=d.Id;
+              detail.ServiceSubconSewingId = d.ServiceSubconSewingId;
+              detail.SewingInId = d.SewingInId;
               detail.Quantity = d.Quantity;
               detail.DesignColor = d.DesignColor;
               detail.Uom = d.Uom;
               detail.Unit = d.Unit;
               detail.Remark = d.Remark;
+              detail.Color = d.Color;
               details.push(detail);
             }
             else {

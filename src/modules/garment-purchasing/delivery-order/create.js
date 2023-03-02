@@ -25,7 +25,8 @@ export class Create {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        if (confirm(`Apakah Anda yakin akan kembali?`))
+            this.router.navigateToRoute('list');
     }
 
     determineActivationStrategy() {
@@ -46,7 +47,16 @@ export class Create {
             this.data.isPayIncomeTax = this.data.items[0].isPayIncomeTax;
             this.data.incomeTax = this.data.items[0].incomeTax;
         }
-        this.service.create(this.data)
+        let filledData = this.data.items.filter(function (item) {
+            return item.purchaseOrderExternal.no != undefined;
+        });
+        var valueArr = filledData.map(function (item) { return item.purchaseOrderExternal.no });
+
+        var isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item, idx + 1) !== -1
+        });
+        if(!isDuplicate){
+            this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
@@ -54,5 +64,10 @@ export class Create {
             .catch(e => {
                 this.error = e;
             })
+        }
+        else{
+            alert("Terdapat No. PO yang Sama");
+        }
+        
     }
 }

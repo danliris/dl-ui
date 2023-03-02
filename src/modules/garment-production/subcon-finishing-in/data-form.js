@@ -101,7 +101,7 @@ export class DataForm {
             { header: "Warna", value: "Color" }
         ],
         onAdd: function () {
-            this.data.Items.push({ IsSave: true, Comodity: this.data.Comodity, Uom: this.uom, SubconType: this.data.SubconType });
+            this.data.Items.push({ IsSave: true, Comodity: this.data.Comodity, Uom: this.uom, SubconType: this.data.SubconType, RONo: this.data.RONo });
         }.bind(this),
         options: {
             checkedAll: true,
@@ -249,7 +249,7 @@ export class DataForm {
 
             const subconCuttingInfo = {
                 filter: JSON.stringify({ RONo: newValue }),
-                size:100
+                size:300
             };
 
             const costCalculationInfo = {

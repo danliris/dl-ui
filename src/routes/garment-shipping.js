@@ -1,4 +1,4 @@
-module.exports = [         
+module.exports = [
     {
         route: "master/garment-shipping-staff",
         name: "garment-shipping-staff",
@@ -9,7 +9,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P1": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -23,7 +24,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -37,7 +39,23 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P3": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "master/garment-ware-house",
+        name: "garment-ware-house",
+        moduleId: "modules/master/garment-ware-house/index",
+        nav: true,
+        title: "Pergudangan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P4": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -51,7 +69,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P5": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -65,7 +84,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P6": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -79,7 +99,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P7": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -93,7 +114,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P8": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -107,22 +129,24 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P9": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
     {
         route: "garment-leftover-warehouse-buyer",
         name: "garment-leftover-warehouse-buyer",
-        moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",        
+        moduleId: "modules/inventory/garment-leftover-warehouse/master/garment-leftover-warehouse-buyer/index",
         nav: true,
         title: "Buyer Gudang Sisa Garment",
         auth: true,
         settings: {
-          group: "g-shipping",
-          subGroup: "master",
-          permission: { "C9": 1, "SG": 1 },
-          iconClass: "fa fa-dashboard",
+            group: "g-shipping",
+            subGroup: "master",
+            //   permission: { "C9": 1, "SG": 1 },
+            permission: { "P10": 1 },
+            iconClass: "fa fa-dashboard",
         },
     },
     {
@@ -135,11 +159,12 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P11": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
-        {
+    {
         route: "garment-detail-currencies",
         name: "garment-detail-currencies",
         moduleId: "./modules/master/garment-detail-currency/index",
@@ -149,10 +174,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "master",
-            permission: { "C9": 1, "SG": 1, "B12": 1 },
-        iconClass: "fa fa-dashboard",
+            // permission: { "C9": 1, "SG": 1, "B12": 1 },
+            permission: { "P12": 1 },
+            iconClass: "fa fa-dashboard",
+        },
     },
-  },
     {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
@@ -163,7 +189,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P13": 1 },
             iconClass: 'fa fa-calculator',
             byUser: false
         }
@@ -178,7 +205,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P14": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -192,10 +220,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "FP": 1, "SG": 1 },
+            // permission: { "C9": 1, "FP": 1, "SG": 1 },
+            permission: { "P29": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },  
+    },
     {
         route: "garment-shipping/invoice",
         name: "garment-shipping/invoice",
@@ -206,7 +235,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P15": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -220,7 +250,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1, "B1": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "B1": 1, "PGA": 1 },
+            permission: { "P16": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -234,7 +265,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1 },
+            // permission: { "C9": 1 },
+            permission: { "P30": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -248,12 +280,13 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P31": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
 
-    
+
     {
         route: "garment-shipping/cover-letter",
         name: "garment-shipping/cover-letter",
@@ -264,7 +297,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P17": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -278,7 +312,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P32": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -292,7 +327,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P18": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -306,10 +342,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P33": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }, 
+    },
     {
         route: "garment-shipping/export-sales-do",
         name: "garment-shipping/export-sales-do",
@@ -320,7 +357,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P19": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -334,7 +372,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P20": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -348,7 +387,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P34": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -362,7 +402,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P21": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -376,7 +417,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P22": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -390,7 +432,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P35": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -406,7 +449,7 @@ module.exports = [
             // permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },    
+    },
     {
         route: "garment-shipping/monitoring/shipment-garment",
         name: "garment-shipping/monitoring/shipment-garment",
@@ -417,7 +460,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P36": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -431,7 +475,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P37": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -445,7 +490,22 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/report/detail-omzet-by-unit",
+        name: "garment-shipping/report/detail-omzet-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-detail-omzet-by-unit/index",
+        nav: true,
+        title: "Report Omzet Garment Per Unit / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P47": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -459,11 +519,12 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P48": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
-        {
+    {
         route: "garment-shipping/monitoring/omzet-by-buyer-brand",
         name: "garment-shipping/monitoring/omzet-by-buyer-brand",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-brand/index",
@@ -473,7 +534,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P49": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -487,7 +549,23 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P50": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-by-marketing",
+        name: "garment-shipping/monitoring/omzet-by-marketing",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-monthly-by-marketing/index",
+        nav: true,
+        title: "Report Omzet Garment Per Marketing / Bulan",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P73": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -501,7 +579,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P51": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -515,10 +594,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            // permission: { "C9": 1, "SG": 1, "PGA": 1 },
+            permission: { "P52": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },      
+    },
     {
         route: "garment-shipping/credit-note",
         name: "garment-shipping/credit-note",
@@ -529,7 +609,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P23": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -543,7 +624,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P38": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -557,11 +639,12 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P24": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
-     {
+    {
         route: "garment-shipping/monitoring/debit-note",
         name: "garment-shipping/monitoring/debit-note",
         moduleId: "modules/garment-shipping/monitoring/garment-debit-note/index",
@@ -571,10 +654,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P39": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },   
+    },
     {
         route: "garment-shipping/local-sales-contract",
         name: "garment-shipping/local-sales-contract",
@@ -585,7 +669,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P61": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -599,7 +684,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P62": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -613,7 +699,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P63": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -627,10 +714,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P64": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },  
+    },
     {
         route: "garment-shipping/local-price-correction-note",
         name: "garment-shipping/local-price-correction-note",
@@ -641,7 +729,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P65": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -655,7 +744,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P66": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -669,7 +759,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P67": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -683,7 +774,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P40": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -697,24 +789,26 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1, "B1": 1 },
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P41": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }, 
+    },
     {
         route: "garment-shipping/monitoring/omzet-local-sales-unpaid",
         name: "garment-shipping/monitoring/omzet-local-sales-unpaid",
         moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales-unpaid/index",
         nav: true,
-        title: "Monitoring Omzet Penjualan Lokal",
+        title: "Monitoring Omzet Penjualan Lokal | Tidak Dibayar",
         auth: true,
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1, "B1": 1 },
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P42": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }, 
+    },
     {
         route: "garment-shipping/monitoring/local-sales-book",
         name: "garment-shipping/monitoring/local-sales-book",
@@ -725,10 +819,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P53": 1 },
             iconClass: "fa fa-dashboard"
         }
-    }, 
+    },
     {
         route: "garment-shipping/report/detail-omzet-by-unit",
         name: "garment-shipping/report/detail-omzet-by-unit",
@@ -739,7 +834,7 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -753,10 +848,11 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P54": 1 },
             iconClass: "fa fa-dashboard"
         }
-    },    
+    },
     {
         route: "garment-shipping/monitoring/omzet-year-buyer",
         name: "garment-shipping/monitoring/omzet-year-buyer",
@@ -767,7 +863,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P55": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -781,7 +878,22 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-year-unit",
+        name: "garment-shipping/monitoring/omzet-year-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-annual-unit/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P56": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -795,7 +907,23 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P57": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-year-marketing",
+        name: "garment-shipping/monitoring/omzet-year-marketing",
+        moduleId: "modules/garment-shipping/monitoring/omzet-year-marketing/index",
+        nav: true,
+        title: "Report Omzet Per Tahun Per Marketing",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P74": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -809,7 +937,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P58": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -823,7 +952,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P59": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -838,7 +968,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "laporan",
-            permission: { "A3":1, "B1:":1, "B12":1,  "C9": 1, "C11": 1, "SG": 1 },
+            // permission: { "A3":1, "B1:":1, "B12":1,  "C9": 1, "C11": 1, "SG": 1 },
+            permission: { "P60": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -852,7 +983,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P25": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -866,7 +998,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P43": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -880,7 +1013,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P44": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -894,7 +1028,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "approval",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P68": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -908,7 +1043,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "approval",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P69": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -922,7 +1058,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "approval",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P70": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -936,7 +1073,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "approval",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P71": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -950,7 +1088,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P26": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -964,7 +1103,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P45": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -978,7 +1118,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P27": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -992,7 +1133,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "monitoring",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P46": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -1006,7 +1148,8 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "transaksi",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P28": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -1020,7 +1163,68 @@ module.exports = [
         settings: {
             group: "g-shipping",
             subGroup: "approval",
-            permission: { "C9": 1, "SG": 1 },
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P72": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/export-sales-contract",
+        name: "garment-shipping/export-sales-contract",
+        moduleId: "modules/garment-shipping/sales-export/export-sales-contract/index",
+        nav: true,
+        title: "Sales Contract (Export)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "penjualan sisa (export)",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P75": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/export-sales-note",
+        name: "garment-shipping/export-sales-note",
+        moduleId: "modules/garment-shipping/sales-export/export-sales-note/index",
+        nav: true,
+        title: "Nota Penjualan (Export)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "penjualan sisa (export)",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P76": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/sales-export/export-sales-do",
+        name: "garment-shipping/sales-export/export-sales-do",
+        moduleId: "modules/garment-shipping/sales-export/export-sales-do/index",
+        nav: true,
+        title: "DO Penjualan (Export)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "penjualan sisa (export)",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P77": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/export-cover-letter",
+        name: "garment-shipping/export-cover-letter",
+        moduleId: "modules/garment-shipping/sales-export/export-cover-letter/index",
+        nav: true,
+        title: "Surat Pengantar (Export)",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "penjualan sisa (export)",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P78": 1 },
             iconClass: "fa fa-dashboard"
         }
     },

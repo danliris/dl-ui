@@ -57,7 +57,7 @@
                 </au-autocomplete>
                 
                 <au-autocomplete
-                    if.bind="isTransfer || isSTransfer"
+                    if.bind="isTransfer || isSTransfer || isSubcon || isTransferSubcon"
                     disabled.bind="!data.UnitRequest"
                     label="Gudang yang meminta"
                     value.bind="storageRequest"
@@ -75,7 +75,7 @@
                     label="Unit yang mengirim"
                     value.bind = "unitSender"
                     error.bind="error.UnitSender"
-                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain || isSubcon"
+                    read-only.bind="readOnly || isEdit || isProses || isSample || isRemain"
                     loader.bind="unitSenderLoader"
                     text.bind = "unitSenderView"
                     placeholder = "Cari Unit"
@@ -122,7 +122,7 @@
                             value.bind="RONo" 
                             read-only.bind="readOnly || isEdit"
                             placeholder = "Cari Nomor RO"
-                            if.bind="!isProses && !isTransfer && !isRemain && !isSample && !isSubcon && !isSTransfer"
+                            if.bind="!isProses && !isTransfer && !isRemain && !isSample && !isSubcon && !isSTransfer && !isTransferSubcon"
                             >
                         </au-textbox>
 
@@ -143,7 +143,7 @@
                             value.bind="RONo" 
                             read-only.bind="readOnly || isEdit"
                             placeholder = "Cari Nomor RO"
-                            if.bind="isProses || isRemain || isSample || isSubcon || isSTransfer">
+                            if.bind="isProses || isRemain || isSample || isSubcon || isSTransfer || isTransferSubcon">
                         </au-textbox>
                     </div>
                     <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
@@ -210,7 +210,7 @@
                     query.bind = "filterRONoAddProductByUnit"
                     options.bind="controlOptions"
                     view-model.ref="RONoHeaderViewModel"
-                    if.bind="isTransfer|| isProses || isSample || isRemain || isSubcon || isSTransfer"
+                    if.bind="isTransfer|| isProses || isSample || isRemain || isSubcon || isSTransfer || isTransferSubcon"
                     >
                 </au-autocomplete>
 
@@ -271,10 +271,24 @@
             columns.bind="items.columns"
             options.bind="options"
             read-only.bind="readOnly" 
-            show.bind="data.Items && data.Items.length > 0"
+            if.bind="data.Items && data.Items.length > 0 && data.Storage.name != 'GUDANG BAHAN BAKU'"
             view-model.ref="ItemsCollection"
             header-template="modules/garment-purchasing/unit-delivery-order-by-user/template/unit-delivery-order-header"
-            item-template="modules/garment-purchasing/unit-delivery-order-by-user/template/unit-delivery-order-item">
+            item-template="modules/garment-purchasing/unit-delivery-order-by-user/template/unit-delivery-order-item"
+            >
+        </au-collection>
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items"
+            columns.bind="itemsFabric.columns"
+            options.bind="options"
+            read-only.bind="readOnly" 
+            if.bind="data.Items && data.Items.length > 0 && data.Storage.name == 'GUDANG BAHAN BAKU'"
+            view-model.ref="ItemsCollection"
+            header-template="modules/garment-purchasing/unit-delivery-order-by-user/template/unit-delivery-order-header"
+            item-template="modules/garment-purchasing/unit-delivery-order-by-user/template/unit-delivery-order-item-fabric"
+            >
         </au-collection>
   </au-input-form>
 </template>

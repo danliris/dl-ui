@@ -3,16 +3,19 @@ import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurel
 import { ServiceEffeciency } from './service-efficiency';
 import { RateService } from './service-rate';
 import { ServiceCore } from './service-core';
-
+import moment from 'moment';
 
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
 var PreSalesContractLoader = require('../../../loader/garment-pre-sales-contracts-loader');
+var BookingOrderLoader = require('../../../loader/garment-booking-order-by-no-for-ccg-loader');
+var GarmentMarketingLoader = require('../../../loader/garment-marketings-loader');
 var SizeRangeLoader = require('../../../loader/size-range-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
 var UOMLoader = require('../../../loader/uom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
+
 @inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, ServiceCore)
 export class DataForm {
   @bindable title;
@@ -27,10 +30,9 @@ export class DataForm {
   @bindable error = {};
   @bindable SelectedRounding;
   @bindable isCopy = false;
- 
-  leadTimeList = ["", "25 hari", "40 hari"];
-
   
+  leadTimeList = ["", "25 hari", "40 hari"];
+ 
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -138,6 +140,37 @@ export class DataForm {
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
     this.data.OTL2 = this.data.OTL2 ? this.data.OTL2 : Object.assign({}, this.defaultRate);
     this.data.ConfirmPrice =this.data.ConfirmPrice ? this.data.ConfirmPrice .toLocaleString('en-EN', { minimumFractionDigits: 4}):0 ;
+    this.create = this.context.create; 
+    if (!this.create)
+      {
+          this.selectedBookingOrder = {
+               BookingOrderId :this.data.BookingOrderId,
+               BookingOrderItemId : this.data.BookingOrderItemId,
+               BookingOrderNo : this.data.BookingOrderNo, 
+               ConfirmDate : this.data.ConfirmDate,
+               ConfirmQuantity : this.data.BOQuantity,
+               ComodityName : this.data.Comodity.Name,
+        }
+        this.selectedGarmentMarketing = {
+               Name :this.data.MarketingName,
+               ResponsibleName : this.data.ResponsibleName,            
+        }
+        //console.log(this.selectedBookingOrder);
+
+        this.selectedComodity = {
+               Id : this.data.Comodity.Id,
+               Code : this.data.Comodity.Code,
+               Name : this.data.Comodity.Name, 
+        }
+ 
+      }
+      else
+      {
+          this.selectedBookingOrder = null;
+          this.selectedGarmentMarketing = null;
+          this.selectedComodity = null;
+      }
+    
     let promises = [];
 
     let wage;
@@ -223,9 +256,69 @@ export class DataForm {
   }
 
   get preSalesContractLoader() {
-    return PreSalesContractLoader;
+      return PreSalesContractLoader;
   }
 
+  get garmentMarketingLoader() { 
+      return GarmentMarketingLoader;
+  }
+
+ @bindable selectedGarmentMarketing;
+ async selectedGarmentMarketingChanged(newValue, oldValue) {
+    if (newValue) {
+        this.data.MarketingName = newValue.Name;
+        this.data.ResponsibleName = newValue.ResponsibleName;
+        
+        console.log(newValue);
+       }
+    else
+       {
+          this.selectedBookingOrder = null;
+          this.selectedGarmentMarketing = null;
+       }
+    
+  }
+
+  
+  @bindable selectedComodity;
+  async selectedComodityChanged(newVal, oldValue) {
+    this.data.Comodity = newVal;    
+    if (newVal) {
+     this.data.ComodityID=newVal.Id;
+     this.data.ComodityCode=newVal.Code;
+     this.data.Commodity=newVal.Name;
+    }
+    else
+    {
+          this.selectedComodity = null;
+          this.selectedBookingOrder = null;
+    }
+    console.log(this.data.ComodityCode);    
+  }
+
+  garmentMarketingView = (garmentmarketing) => {                          
+    return`${garmentmarketing.Name} - ${garmentmarketing.ResponsibleName}`
+  }
+
+  get bookingOrderLoader() {
+    return BookingOrderLoader;
+  }
+
+  bookingOrderView = (bookingorder) => {   
+    console.log(bookingorder);                       
+    return`${bookingorder.BookingOrderNo} | ${bookingorder.ComodityName} | ${bookingorder.Remark} | ${bookingorder.ConfirmQuantity} | ${moment(bookingorder.ConfirmDate).format("DD MMM YYYY")}`
+  }
+
+ get filter() {
+     var filter = {};
+     filter = {
+               BuyerCode: this.data.BuyerBrandCode,
+               SectionCode: this.data.Section,
+               ComodityCode: this.data.ComodityCode,
+              };          
+     return filter;
+  }
+ 
   get sizeRangeLoader() {
     return SizeRangeLoader;
   }
@@ -276,25 +369,41 @@ export class DataForm {
       this.data.PreSCId = newValue.Id;
       this.data.PreSCNo = newValue.SCNo;
       this.data.Section = newValue.SectionCode;
+      console.log(this.data.Section);
       const section = await this.serviceCore.getSection(newValue.SectionId);
       this.data.SectionName = section.Name;
+      this.data.ApprovalCC = section.ApprovalCC;
+      this.data.ApprovalRO = section.ApprovalRO;   
+      this.data.ApprovalKadiv = section.ApprovalKadiv;
+      
       this.data.Buyer = {
         Id: newValue.BuyerAgentId,
         Code: newValue.BuyerAgentCode,
         Name: newValue.BuyerAgentName
       };
+      
+      this.data.BuyerCode = this.data.Buyer.Code;
+      console.log(this.data.BuyerCode);
       this.data.BuyerBrand = {
         Id: newValue.BuyerBrandId,
         Code: newValue.BuyerBrandCode,
         Name: newValue.BuyerBrandName
       };
+
+      this.data.BuyerBrandCode = this.data.BuyerBrand.Code;
+      console.log(this.data.BuyerBrandCode);
+
     } else {
       this.data.PreSCId = 0;
       this.data.PreSCNo = null;
       this.data.Section = null;
       this.data.SectionName = null;
+      this.data.ApprovalCC = null;
+      this.data.ApprovalRO = null; 
+      this.data.ApprovalKadiv = null;
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
+      this.selectedBookingOrder = null;      
     }
 
     if ((oldValue && newValue) || (oldValue && !newValue)) {
@@ -313,14 +422,27 @@ export class DataForm {
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
   }
 
-  @bindable selectedComodity = "";
-  selectedComodityChanged(newVal) {
-    this.data.Comodity = newVal;
-    if (newVal) {
-     this.data.ComodityId=newVal.Id;
-     this.data.ComodityCode=newVal.Code;
-     this.data.ComodityName=newVal.Name;
-    }
+  //
+ @bindable selectedBookingOrder;
+  async selectedBookingOrderChanged(newValue, oldValue) {
+    //console.log(newValue);
+    if (newValue)
+       {
+         this.data.BookingOrderId = newValue.BookingOrderId;
+         this.data.BookingOrderItemId = newValue.BookingOrderItemId;
+         this.data.BookingOrderNo = newValue.BookingOrderNo;   
+         this.data.BOQuantity = newValue.ConfirmQuantity;
+         this.data.ConfirmDate = newValue.ConfirmDate;  
+             
+       } 
+       else 
+       {
+          this.data.BookingOrderId = 0;
+          this.data.BookingOrderItemId = 0;
+          this.data.BookingOrderNo = null;      
+          this.data.BOQuantity = 0;
+          this.data.ConfirmDate = null;
+       }
   }
 
   @bindable selectedLeadTime = "";

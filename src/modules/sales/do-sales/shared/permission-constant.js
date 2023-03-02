@@ -3,7 +3,8 @@ export const SPINNING = {
   label: 'DO Spinning',
   position: 3,
   positionAutocomplete: 2,
-  code: 'A2',
+  // code: 'A2',
+  code: 'F31',
 };
 
 export const WEAVING = {
@@ -11,7 +12,8 @@ export const WEAVING = {
   label: 'DO Weaving',
   position: 7,
   positionAutocomplete: 4,
-  code: 'A2',
+  // code: 'A2',
+  code: 'F32',
 };
 
 export const DYEINGPRINTING = {
@@ -19,5 +21,6 @@ export const DYEINGPRINTING = {
   label: 'DO Dyeing/Printing',
   position: 8,
   positionAutocomplete: 5,
-  code: 'A2',
+  // code: 'A2',
+  code: 'F33',
 };

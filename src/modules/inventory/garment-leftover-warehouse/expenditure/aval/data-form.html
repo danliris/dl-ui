@@ -36,6 +36,18 @@
         </au-dropdown>
 
         <au-autocomplete 
+        label="Unit Tujuan" 
+        placeholder="Pilih Unit" 
+        value.bind="selectedUnit"
+        error.bind="error.ExpenditureTo"
+        loader.bind="unitLoader" 
+        read-only.bind="readOnly || isEdit" 
+        options.bind="controlOptions"
+        if.bind="data.ExpenditureTo == 'UNIT'" 
+        view-model.ref="selectedUnitViewModel">
+    </au-autocomplete>
+
+        <au-autocomplete 
             label="Buyer" 
             placeholder="Pilih Buyer" 
             value.bind="data.Buyer"

@@ -23,7 +23,7 @@
                 options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-autocomplete
+            <!--<au-autocomplete
                 value.bind="selectedRO"
                 error.bind="error.RONo"
                 label="No RO"
@@ -34,7 +34,36 @@
                 read-only.bind="readOnly || isEdit"
                 options.bind="controlOptions"
                 view-model.ref="selectedROViewModel">
+            </au-autocomplete>-->
+            
+            <au-autocomplete
+                value.bind="selectedEG"
+                error.bind="error.ExpenditureNo"
+                label="No Bon Keluar"
+                loader.bind="EGLoader"
+                show.bind="data.Unit"
+                text.bind="EGView"
+                placeholder="Nomor Bon Keluar"
+                read-only.bind="readOnly || isEdit"
+                options.bind="controlOptions"
+                view-model.ref="selectedEGViewModel">
             </au-autocomplete>
+
+            <au-textbox
+                value.bind="data.Invoice"
+                error.bind="error.Invoice"
+                label="No Invoice"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox>
+
+            <au-textbox
+                value.bind="data.RONo"
+                error.bind="error.RONo"
+                label="Nomor RO"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox>
 
             <au-textbox
                 value.bind="data.Article"
@@ -57,15 +86,56 @@
                 label="Komoditi"
                 read-only="true"
                 options.bind="controlOptions">
-            </au-textbox>
+            </au-textbox>            
+
+            <!-- <au-autocomplete
+                value.bind="selectedDO"
+                error.bind="error.DONo"
+                label="No Surat Jalan"
+                loader.bind="GDOLoader"
+                show.bind="data.Unit"     
+                text.bind="GDOView"
+                placeholder="No Surat Jalan"
+                read-only.bind="readOnly || isEdit"
+                options.bind="controlOptions"
+                view-model.ref="selectedDOViewModel">
+            </au-autocomplete> -->
+     
+            <!-- <au-textbox
+                value.bind="data.BCNo"
+                error.bind="error.BCNo"
+                label="No Bea Cukai"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox> -->
+
+             <au-autocomplete
+                value.bind="selectedBCNo"
+                error.bind="error.BCNo"
+                label="No Bea Cukai"
+                loader.bind="GBCNoLoader"
+                show.bind="data.Unit"     
+                text.bind="BCNoView"
+                placeholder="No Bea Cukai"
+                read-only.bind="readOnly || isEdit"
+                options.bind="controlOptions">
+            </au-autocomplete>
 
             <au-textbox
-                value.bind="data.Invoice"
-                error.bind="error.Invoice"
-                label="Invoice"
-                read-only.bind="readOnly"
+                value.bind="data.BCType"
+                error.bind="error.BCType"
+                label="Tipe Bea Cukai"
+                read-only="true"
                 options.bind="controlOptions">
             </au-textbox>
+
+            <!-- <au-textbox
+                value.bind="data.URNNo"
+                error.bind="error.URNNo"
+                label="No Bon Unit"
+                read-only="true"
+                options.bind="controlOptions">
+            </au-textbox> -->
 
             <au-datepicker 
                 label="Tanggal Retur"
@@ -96,7 +166,7 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/expenditure-good-return/template/item"
             header-template="modules/garment-production/expenditure-good-return/template/item-header"
-            if.bind="selectedRO && isCreate">
+            if.bind="selectedEG && isCreate">
         </au-collection>
 
         <au-collection
@@ -107,7 +177,7 @@
             options.bind="itemOptions"
             item-template="modules/garment-production/expenditure-good-return/template/item"
             header-template="modules/garment-production/expenditure-good-return/template/item-header"
-            if.bind="selectedRO && !isCreate">
+            if.bind="selectedEG && !isCreate">
         </au-collection>
 
         <p if.bind="data.Items"><b>Jumlah Total Retur Barang Jadi : ${totalQuantity} PCS</b></p>

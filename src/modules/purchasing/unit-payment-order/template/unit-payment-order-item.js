@@ -71,9 +71,9 @@ export class UnitPaymentOrderItem {
           
           item.EPONo=item.epoNo;
           item.PriceTotal = (item.pricePerDealUnit * item.deliveredQuantity).toLocaleString('en-EN', { maximumFractionDigits:15 });
-          // item.PricePerDealUnitCorrection = item.pricePerDealUnit;
-          // item.PriceTotalCorrection = item.PriceTotal;
-          // item.QuantityCorrection= item.deliveredQuantity;
+          item.PricePerDealUnitCorrection = item.pricePerDealUnit;
+          item.PriceTotalCorrection = item.PriceTotal;
+          item.QuantityCorrection= item.deliveredQuantity;
           items.push(item);
         }
       }
@@ -84,6 +84,7 @@ export class UnitPaymentOrderItem {
         _id: newValue.doId || 0,
         no: newValue.doNo || null,
       };
+      this.data.unitReceiptNote.URNDate = newValue.date;
 
       this.error = {};
       this.isShowing = true;

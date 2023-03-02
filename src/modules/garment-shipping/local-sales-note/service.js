@@ -45,4 +45,16 @@ class Service extends RestService {
     }
 }
 
-export { Service }
+const coreserviceUri = "master/account-banks";
+class CoreService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "core");
+    }
+
+    getBankAccountById(id) {
+        var endpoint = `${coreserviceUri}/${id}`;
+        return super.get(endpoint);
+    }    
+}
+
+export { Service, CoreService }

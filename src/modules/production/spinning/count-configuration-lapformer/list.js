@@ -16,6 +16,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "Created By", title: "CreatedBy" },
     ];
 
     loader = (info) => {

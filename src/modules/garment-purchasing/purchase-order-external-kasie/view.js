@@ -49,6 +49,7 @@ export class View {
 
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
+            this.data.IncomeTaxRate= this.data.IncomeTax.Rate;
         }
 
         if(this.data.Vat){
@@ -85,11 +86,19 @@ export class View {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        var r = confirm("Apakah Anda yakin akan keluar?")
+        if (r == true) {
+            this.router.navigateToRoute('list');
+        }
+        // this.router.navigateToRoute('list');
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
+        var r = confirm("Apakah Anda yakin akan mengubah data ini?");
+        if (r == true) {
+            this.router.navigateToRoute('edit', { id: this.data.Id });
+        }
+        // this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

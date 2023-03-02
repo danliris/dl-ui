@@ -33,7 +33,8 @@ export class List {
         { field: "SubconCategory", title: "Kategori Subcon" },
         { field: "ContractNo", title: "No Subcon Contract" },
         { field: "DLDate", title: "Tgl SJ", formatter: value => moment(value).format("DD MMM YYYY") },
-        { field: "UENNo", title: "No Bon Pengeluaran Unit" },
+        // { field: "UENNo", title: "No Bon Pengeluaran Unit" },
+        { field: "CreatedBy", title: "Staff Pembelian"}
     ]
 
     loader = (info) => {
@@ -74,7 +75,7 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
-
+    
     excel() {
         this.router.navigateToRoute('excel');     
     }

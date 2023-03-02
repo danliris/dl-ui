@@ -25,11 +25,15 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.productTextile.name" read-only.bind="true" error.bind="error.Unit"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
             <au-textbox value.bind="data.unit" read-only.bind="true" error.bind="error.Unit"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-
 
         <td>
             <au-textbox value.bind="data.color" read-only.bind="true" error.bind="error.Color"
@@ -98,6 +102,21 @@
             <au-textbox value.bind="data.deliveryNote" read-only.bind="readOnly" error.bind="error.DeliveryNote"
                 options.bind="controlOptions">
             </au-textbox>
+        </td>
+        <td show.bind="!isSales">
+            <au-textbox value.bind="data.packingListBaleNo" read-only.bind="readOnly" error.bind="error.PackingListBaleNo"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td show.bind="!isSales">
+            <au-numeric value.bind="data.packingListNet" format="0.00"  read-only.bind="readOnly" error.bind="error.PackingListNet"
+                options.bind="controlOptions">
+            </au-numeric>
+        </td>
+        <td show.bind="!isSales">
+            <au-numeric value.bind="data.packingListGross" format="0.00"  read-only.bind="readOnly" error.bind="error.PackingListGross"
+                options.bind="controlOptions">
+            </au-numeric>
         </td>
         <td if.bind="!options.readOnly && isEdit">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
