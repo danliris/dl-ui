@@ -34,9 +34,9 @@ export class List {
             sp: this.info.sp ? this.info.sp: "",
             code: this.info.code ? this.info.code: "",
             threadNo : this.info.threadNo ? this.info.threadNo: "",
-            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : "",
-            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") : ""
-        }
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+             }
         
         this.service.getReportData(info)
             .then(result => {
@@ -78,16 +78,20 @@ export class List {
       sp: this.info.sp ? this.info.sp: "",
       code: this.info.code ? this.info.code: "",
       threadNo : this.info.threadNo ? this.info.threadNo: "",
-      fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : "",
-      toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") : "" 
-        }
+      fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+      toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+    }
         this.service.generateExcel(info);
     }
 
   
     reset() {
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.unit = null;
+        this.fromDate = null;
+        this.toDate = null;
+        this.info.shift = null;
+        this.info.mcNo = null;
+        this.info.sp = null;
+        this.info.threadNo= null;
+        this.info.code= null;
     }
 }
