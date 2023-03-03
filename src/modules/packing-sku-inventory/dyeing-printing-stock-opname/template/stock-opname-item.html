@@ -57,7 +57,7 @@
                         options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
+        <!-- <td>
 
             <au-autocomplete value.bind="selectedGrade"
                              error.bind="error.Grade"
@@ -66,6 +66,17 @@
                              read-only.bind="readOnly"
                              options.bind="controlOptions">
             </au-autocomplete>
+        </td> -->
+
+        <td>
+            <au-dropdown value.bind="data.grade" items.bind="grade" read-only.bind="readOnly"
+                error.bind="error.Grade" options.bind="controlOptions">
+            </au-dropdown>
+        </td>
+        <td>
+            <au-dropdown value.bind="data.packagingType" items.bind="packType" read-only.bind="readOnly"
+                error.bind="error.PackagingType" options.bind="controlOptions">
+            </au-dropdown>
         </td>
         <td>
             <au-numeric value.bind="data.packagingQty"
@@ -75,7 +86,7 @@
                         options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td>
+        <!-- <td>
 
             <au-autocomplete value.bind="selectedUom"
                              error.bind="error.PackagingUnit"
@@ -84,6 +95,12 @@
                              placeholder="Satuan Pack"
                              text.bind="uomView">
             </au-autocomplete>
+        </td> -->
+        
+        <td>
+            <au-dropdown value.bind="data.packagingUnit" items.bind="packUnit" read-only.bind="readOnly"
+                error.bind="error.PackagingUnit" options.bind="controlOptions">
+            </au-dropdown>
         </td>
         <td>
             <au-textbox value.bind="data.uomUnit"
@@ -100,14 +117,14 @@
                         options.bind="controlOptions">
             </au-numeric>
         </td>
-        <td show.bind="!readOnly">
+        <!-- <td show.bind="!readOnly">
             <au-numeric value.bind="data.balanceRemains"
                         format="0.00"
                         read-only.bind="true"
                         error.bind="error.BalanceRemains"
                         options.bind="controlOptions">
             </au-numeric>
-        </td>
+        </td> -->
         <td>
             <au-numeric value.bind="balance"
                         read-only.bind="true"
@@ -121,12 +138,22 @@
             </au-textbox>
         </td>
         <td>
+
+            <au-autocomplete value.bind="selectedTrack"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind="readOnly"
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView">
+            </au-autocomplete>
+        </td>
+        <!-- <td>
             <au-textbox value.bind="data.documentNo"
                         read-only.bind="readOnly"
                         error.bind="error.documentNo"
                         options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td if.bind="!options.readOnly">
             <button class="btn btn-danger pull-right"
                     click.delegate="onremove(data, $event)">-</button>

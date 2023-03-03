@@ -53,11 +53,12 @@ export class Create {
         .create(this.data)
         .then((result) => {
           alert("Data berhasil dibuat");
-          this.router.navigateToRoute(
-            "create",
-            {},
-            { replace: true, trigger: true }
-          );
+          this.back();
+          // this.router.navigateToRoute(
+          //   "create",
+          //   {},
+          //   { replace: false, trigger: true }
+          // );
         })
         .catch((e) => {
           if (e.statusCode == 500) {

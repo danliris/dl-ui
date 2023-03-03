@@ -15,12 +15,12 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/warpingMachine`;
     return super.list(endpoint, info);
   }
 
   getById(Id) {
-    var endpoint = `${serviceUri}/${Id}`;
+    var endpoint = `${serviceUri}/warpingMachine/${Id}`;
     return super.get(endpoint);
   }
 
