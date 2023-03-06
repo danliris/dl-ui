@@ -1,6 +1,8 @@
 import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
 const serviceUri = "stock-opname-warehouse";
 const uomServiceUri = 'master/uoms';
@@ -42,6 +44,18 @@ const uomServiceUri = 'master/uoms';
         var endpoint = `${serviceUri}/${data.id}`;
         return super.delete(endpoint, data);
     }
+
+    searchMonitoring(info) {
+        var endpoint = `${serviceUri}/monitoring-so`;
+        return super.list(endpoint, info);
+    }
+
+    generateExcel(info) {
+        var endpoint = `${serviceUri}/monitoring-so-xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&productionOrderId=${info.productionOrderId}&track=${info.track}`;       
+        return super.getXls(endpoint);
+    }
+
+    
 
 
 }
