@@ -3,7 +3,8 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var moment = require('moment');
 var ComodityLoader = require('../../../loader/garment-master-plan-comodity-loader');
-var BuyerLoader = require('../../../loader/garment-buyers-loader')
+//var BuyerLoader = require('../../../loader/garment-buyers-loader')
+var BuyerLoader = require('../../../loader/garment-buyer-brands-loader');
 
 @containerless()
 @inject(Service, BindingSignaler, BindingEngine)
@@ -88,4 +89,8 @@ export class DataForm {
     get buyerLoader() {
         return BuyerLoader;
     }
+
+    filterbuyer = {
+       "Code!=BuyerName": true
+    };
 }
