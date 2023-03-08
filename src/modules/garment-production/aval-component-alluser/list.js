@@ -124,6 +124,30 @@ export class List {
     this.tableList.refresh();
   }
 
+  ExportToExcel() {
+    this.error ={};
+    if (!this.dateTo || this.dateTo == "Invalid Date")
+    this.error.dateTo = "Tanggal Akhir harus diisi";
+
+  if (!this.dateFrom || this.dateFrom == "Invalid Date")
+    this.error.dateFrom = "Tanggal Awal harus diisi";
+
+    if(Object.getOwnPropertyNames(this.error).length === 0){
+        let args = {
+            // page: parseInt(info.offset / info.limit, 10) + 1,
+            // size: info.limit,
+            // order: order,
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+        };
+    
+        this.service.generateExcel(args)
+        .catch((result) => {
+            alert("Data Tidak Ditemukan.");
+        } )
+    }
+}
+
   contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
@@ -135,6 +159,7 @@ export class List {
         break;
     }
   }
+
 
   create() {
     this.router.navigateToRoute('create');

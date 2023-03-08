@@ -223,6 +223,12 @@ export class DataForm {
                         Uom : uom,
                         UnitDOItemId : itemUnitDO.Id,
                         UENItemId : item.Id,
+
+                        Rack : itemUnitDO.Rack,
+                        Level : itemUnitDO.Level,
+                        Box : itemUnitDO.Box,
+                        Colour : itemUnitDO.Colour,
+                        Area : itemUnitDO.Area,
                     }
 
                     if (item.ProductName == "FABRIC") {
@@ -282,6 +288,22 @@ export class DataForm {
             "RO Asal",
             "Jumlah",
             "Satuan",
+        ]
+    }
+
+    itemsInfoFabric = {
+        columns: [
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "RO Asal",
+            "Jumlah",
+            "Satuan",
+            "Warna",
+            "Rak",
+            "Box",
+            "Level",
+            "Area",
         ]
     }
 }

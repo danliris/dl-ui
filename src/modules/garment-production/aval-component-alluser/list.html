@@ -38,7 +38,11 @@
     context.bind="context" 
     context-click.delegate="contextClickCallback($event)"
     selectable.bind="true">
-
+    <div slot="toolbar"
+    class="btn-group">
+ <button class="btn btn-success"
+         click.delegate="ExportToExcel()">Cetak Excel</button>
+</div>
     </au-table>
   </div>
 </template>

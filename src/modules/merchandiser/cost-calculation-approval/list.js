@@ -65,15 +65,23 @@ export class List {
         }
 
         switch (type) {
+            // case "mkt":
+            //     this.filter = {
+            //         IsPosted: true,
+            //         MarketingName: username
+            //     };
+            //     break;
             case "md":
                 this.filter = {
+                    // IsApprovedMkt: true,
                     IsApprovedMD: false,
                     IsPosted: true,
-                    ApprovalCC: username
+                    ResponsibleName: username
                 };
                 break;
             case "ie":
                 this.filter = {
+                    // IsApprovedMkt: true,                    
                     IsApprovedMD: true,
                     IsApprovedIE: false
                 };
@@ -81,6 +89,7 @@ export class List {
             case "kadivmd":
                 this.filter = {
                     "CostCalculationGarment_Materials.All(IsPosted == false)": true,
+                    // IsApprovedMkt: true,                    
                     IsApprovedMD: true,
                     IsApprovedPurchasing: true,
                     IsApprovedIE: true,

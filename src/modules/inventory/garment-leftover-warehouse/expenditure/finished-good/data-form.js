@@ -4,6 +4,7 @@ import { Service } from "./service";
 const UnitLoader = require('../../../../../loader/garment-unitsAndsample-loader');
 const BuyerLoader = require('../../../../../loader/garment-leftover-warehouse-buyer-loader');
 const SalesNoteLoader = require('../../../../../loader/garment-shipping-local-sales-note-loader');
+const ExportSalesNoteLoader = require('../../../../../loader/garment-shipping-export-sales-note-loader');
 
 @inject(Service)
 export class DataForm {
@@ -51,7 +52,7 @@ export class DataForm {
         { header: "Jumlah Keluar", value: "ExpenditureQuantity" },
     ]
 
-    expenditureToOptions = ["UNIT","JUAL LOKAL", "LAIN-LAIN"];
+    expenditureToOptions = ["UNIT", "JUAL LOKAL", "LAIN-LAIN", "EXPORT"];
 
     get buyerLoader() {
         return BuyerLoader;
@@ -72,6 +73,9 @@ export class DataForm {
     get localSalesNoteLoader() {
         return SalesNoteLoader;
     }
+    get eksportSalesNoteLoader() {
+        return ExportSalesNoteLoader;
+    }
 
     bind(context) {
         this.context = context;
@@ -91,19 +95,19 @@ export class DataForm {
                 };
             });
             this.Options.existingItems = this.existingItems;
-            if(this.data.LocalSalesNoteId){
+            if (this.data.LocalSalesNoteId) {
                 this.selectedSalesNote = {
                     noteNo: this.data.LocalSalesNoteNo,
-                    id:this.data.LocalSalesNoteId
+                    id: this.data.LocalSalesNoteId
                 };
                 // this.selectedUnit = {
                 //     Code: this.data.UnitExpenditure.Code,
                 //     Name: this.data.UnitExpenditure.Name
                 // };
-                this.manual=false;
+                this.manual = false;
             }
-            else{
-                this.manual=true;
+            else {
+                this.manual = true;
             }
 
         }
@@ -147,13 +151,13 @@ export class DataForm {
         }
     }
 
-    manualChanged(newValue){
-        if(!this.data.Id){
-            if(this.context.selectedSalesNote)
+    manualChanged(newValue) {
+        if (!this.data.Id) {
+            if (this.context.selectedSalesNote)
                 this.context.selectedSalesNote.editorValue = "";
-            this.selectedSalesNote=null;
-            this.data.LocalSalesNoteNo= "";
-            this.data.LocalSalesNoteId=0;
+            this.selectedSalesNote = null;
+            this.data.LocalSalesNoteNo = "";
+            this.data.LocalSalesNoteId = 0;
         }
     }
 }

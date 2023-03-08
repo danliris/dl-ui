@@ -3,6 +3,10 @@ export class Item {
     fabricColumns = [
         { header: "Kode Barang" },
         { header: "Keterangan" },
+        { header: "Nomor PO" },
+        { header: "Nomor BC" },
+        { header: "Tanggal BC" },
+        { header: "Tipe BC" },
         { header: "Jumlah Aval" },
         { header: "Satuan" },
     ]
@@ -35,8 +39,8 @@ export class Item {
         // }
     }
 
-      changeCheckBox() {
+    changeCheckBox() {
         this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
-      }
+    }
 
 }

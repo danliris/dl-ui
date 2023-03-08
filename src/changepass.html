@@ -1,0 +1,32 @@
+<template>
+    <div class="container login">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-default panel-login">
+            <div class="panel-body">
+              <h2 class="form-title">Ubah Kata Sandi</h2>
+              <form>
+                <div class="form-group">
+                  <label for="" class="control-label">Kata Sandi Baru</label>
+                  <input type="text" class="form-control" placeholder="Kata Sandi Baru" value.bind="password1" required autofocus />
+                </div>
+                <div class="form-group">
+                  <label for="" class="control-label">Konfirmasi Kata Sandi Baru</label>
+                  <input type="text" class="form-control" placeholder="Konfirmasi Kata Sandi Baru" value.bind="password2" required />
+                </div>
+                <!-- <div class="form-group">
+                  <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+                </div> -->
+                <button type="submit" class="btn btn-success btn-lg btn-block" click.delegate="save()" disabled.bind="disabledButton">Simpan</button>
+                <!-- <div class="form-group has-error" show.bind="error">
+                  <label>You have entered an invalid username or password</label>
+                </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>

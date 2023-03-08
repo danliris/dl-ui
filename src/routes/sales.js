@@ -1,95 +1,102 @@
 module.exports = [
-    // {
-    //     route: 'sales/finishing-printing-pre-sales-contract',
-    //     name: 'finishing-printing-sales-pre-contract',
-    //     moduleId: './modules/sales/finishing-printing-pre-sales-contract/index',
-    //     nav: true,
-    //     title: 'Pre Sales Contract - Dyeing & Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/finishing-printing-cost-calculation',
-    //     name: 'finishing-printing-cost-calculation',
-    //     moduleId: './modules/sales/finishing-printing-cost-calculation/index',
-    //     nav: true,
-    //     title: 'Cost Calculation - Dyeing & Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/finishing-printing-cost-calculation-approval-ppic',
-    //     name: 'finishing-printing-cost-calculation-approval-ppic',
-    //     moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
-    //     nav: true,
-    //     title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/finishing-printing-cost-calculation-approval-md',
-    //     name: 'finishing-printing-cost-calculation-approval-md',
-    //     moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
-    //     nav: true,
-    //     title: 'Cost Calculation - Dyeing & Printing - Approval Md',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: '/sales/finishing-printing-cost-calculation-copy',
-    //     name: 'finishing-printing-cost-calculation-copy',
-    //     moduleId: './modules/sales/finishing-printing-cost-calculation/copy/index',
-    //     nav: true,
-    //     title: 'Copy Cost Calculation - Dyeing & Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: '/sales/shin-finishing-printing-sales-contract-copy',
-    //     name: 'shin-finishing-printing-sales-contract-copy',
-    //     moduleId: './modules/sales/shin-finishing-printing-sales-contract/copy/index',
-    //     nav: true,
-    //     title: 'Copy Sales Contract - Dyeing & Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { /*"A2": 1,*/ "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/shin-finishing-printing-sales-contract',
-    //     name: 'shin-finishing-printing-sales-contract',
-    //     moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
-    //     nav: true,
-    //     title: 'Sales Contract - Dyeing & Printing (New)',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { /*"A2": 1,*/ "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+    {
+        route: 'sales/finishing-printing-pre-sales-contract',
+        name: 'finishing-printing-sales-pre-contract',
+        moduleId: './modules/sales/finishing-printing-pre-sales-contract/index',
+        nav: true,
+        title: 'Pre Sales Contract - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F1":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation',
+        name: 'finishing-printing-cost-calculation',
+        moduleId: './modules/sales/finishing-printing-cost-calculation/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F2":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-ppic',
+        name: 'finishing-printing-cost-calculation-approval-ppic',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-ppic/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval PPIC',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F3":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/finishing-printing-cost-calculation-approval-md',
+        name: 'finishing-printing-cost-calculation-approval-md',
+        moduleId: './modules/sales/finishing-printing-cost-calculation-approval-md/index',
+        nav: true,
+        title: 'Cost Calculation - Dyeing & Printing - Approval Md',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F4":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/sales/finishing-printing-cost-calculation-copy',
+        name: 'finishing-printing-cost-calculation-copy',
+        moduleId: './modules/sales/finishing-printing-cost-calculation/copy/index',
+        nav: true,
+        title: 'Copy Cost Calculation - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F5":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/sales/shin-finishing-printing-sales-contract-copy',
+        name: 'shin-finishing-printing-sales-contract-copy',
+        moduleId: './modules/sales/shin-finishing-printing-sales-contract/copy/index',
+        nav: true,
+        title: 'Copy Sales Contract - Dyeing & Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { /*"A2": 1,*/ "C9": 1 },
+            permission :{"F6":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-finishing-printing-sales-contract',
+        name: 'shin-finishing-printing-sales-contract',
+        moduleId: './modules/sales/shin-finishing-printing-sales-contract/index',
+        nav: true,
+        title: 'Sales Contract - Dyeing & Printing (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { /*"A2": 1,*/ "C9": 1 },
+            permission :{"F7":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     // {
     //     route: 'sales/reports/shin-finishing-printing-sales-contract-reports',
     //     name: 'shin-finishing-printing-sales-contract-report',
@@ -112,7 +119,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F8":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -125,7 +133,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F9":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -138,7 +147,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F10":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -151,7 +161,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F11":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -164,7 +175,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F12":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -177,7 +189,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F13":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -190,62 +203,67 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F14":1},
             iconClass: 'fa fa-dashboard'
         }
     },
-    // {
-    //     route: 'sales/shin-production-order',
-    //     name: 'shin-production-order',
-    //     moduleId: './modules/sales/shin-production-order/index',
-    //     nav: true,
-    //     title: 'Surat Perintah Produksi (New)',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/shin-production-order-list-view',
-    //     name: 'shin-production-order-list-view',
-    //     moduleId: './modules/sales/shin-production-order-list-view/index',
-    //     nav: true,
-    //     title: 'Surat Perintah Produksi (New)',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/shin-production-order-approval-md',
-    //     name: 'shin-production-order-approval-md',
-    //     moduleId: './modules/sales/shin-production-order-approval-md/index',
-    //     nav: true,
-    //     title: 'Validasi Surat Perintah Produksi (New) - Kabag Md',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
-    // {
-    //     route: 'sales/shin-production-order-approval-sample',
-    //     name: 'shin-production-order-approval-sample',
-    //     moduleId: './modules/sales/shin-production-order-approval-sample/index',
-    //     nav: true,
-    //     title: 'Validasi Surat Perintah Produksi (New) - Sample',
-    //     auth: true,
-    //     settings: {
-    //         group: "sales",
-    //         permission: { "A2": 1, "C9": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // },
+    {
+        route: 'sales/shin-production-order',
+        name: 'shin-production-order',
+        moduleId: './modules/sales/shin-production-order/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New)',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F15":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-list-view',
+        name: 'shin-production-order-list-view',
+        moduleId: './modules/sales/shin-production-order-list-view/index',
+        nav: true,
+        title: 'Surat Perintah Produksi (New) All User',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F16":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-approval-md',
+        name: 'shin-production-order-approval-md',
+        moduleId: './modules/sales/shin-production-order-approval-md/index',
+        nav: true,
+        title: 'Validasi Surat Perintah Produksi (New) - Kabag Md',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F17":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/shin-production-order-approval-sample',
+        name: 'shin-production-order-approval-sample',
+        moduleId: './modules/sales/shin-production-order-approval-sample/index',
+        nav: true,
+        title: 'Validasi Surat Perintah Produksi (New) - Sample',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F18":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
     {
         route: 'sales/production-order',
         name: 'production-order',
@@ -255,7 +273,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F19":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -264,11 +283,12 @@ module.exports = [
         name: 'production-order-list-view',
         moduleId: './modules/sales/production-order-list-view/index',
         nav: true,
-        title: 'Surat Perintah Produksi',
+        title: 'Surat Perintah Produksi All User',
         auth: true,
         settings: {
             group: "sales",
-            permission: { "F1": 1, "F2": 1, "C9": 1 },
+            // permission: { "F1": 1, "F2": 1, "C9": 1 },
+            permission :{"F20":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -281,7 +301,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F21":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -294,7 +315,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F22":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -307,7 +329,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F23":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -320,7 +343,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F24":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -333,7 +357,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F25":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -346,7 +371,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F26":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -359,7 +385,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F27":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -372,7 +399,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F28":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -385,7 +413,8 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            // permission: { "A2": 1, "C9": 1, "PGA": 1, "PA": 1, "PM": 1, "PE": 1 },
+            permission :{"F29":1},
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -398,7 +427,22 @@ module.exports = [
         auth: true,
         settings: {
             group: "sales",
-            permission: { "A2": 1, "C9": 1 },
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F30":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'sales/reports/do-sales-dp-monitoring',
+        name: 'do-sales-dp-monitoring',
+        moduleId: './modules/sales/reports/do-sales-dp-monitoring/index',
+        nav: true,
+        title: 'Monitoring DO Penjualan Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"F34":1},
             iconClass: 'fa fa-dashboard'
         }
     },

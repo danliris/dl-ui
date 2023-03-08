@@ -131,6 +131,7 @@ export class Copy {
             "SCGarmentId",
             "ApprovalIE",
             "ApprovalMD",
+            "ApprovalMkt",            
             "ApprovalPPIC",
             "ApprovalPurchasing",
             "ApprovalKadivMD",

@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { GarmentProductionService } from '../service';
+import moment from 'moment';
 
 @inject(GarmentProductionService)
 export class ro {
@@ -7,33 +8,33 @@ export class ro {
 
     get roLoader() {
         return (keyword) => {
-            var filter={
-                UnitId: this.data.UnitId, "GarmentAvalProductItem.Any(IsReceived==false)":true
+            var filter = {
+                UnitId: this.data.UnitId, "GarmentAvalProductItem.Any(IsReceived==false)": true
             }
-            for(var item of this.context.context.items){
-                filter[`RONo == "${item.data.RONo}"`]=false;
+            for (var item of this.context.context.items) {
+                filter[`RONo == "${item.data.RONo}"`] = false;
             }
             var info = {
-              keyword: keyword,
-              filter: JSON.stringify(filter)
+                keyword: keyword,
+                filter: JSON.stringify(filter)
             };
             return this.garmentProductionService.getAvalProduct(info)
                 .then((result) => {
-                    var roList=[];
-                        for(var a of result.data){
-                            if(roList.length==0){
+                    var roList = [];
+                    for (var a of result.data) {
+                        if (roList.length == 0) {
+                            roList.push(a);
+                        }
+                        else {
+                            var dup = roList.find(d => d.RONo == a.RONo);
+                            if (!dup) {
                                 roList.push(a);
                             }
-                            else{
-                                var dup= roList.find(d=>d.RONo==a.RONo);
-                                if(!dup){
-                                    roList.push(a);
-                                }
-                            }
-                            
                         }
-                        return roList;
-                    
+
+                    }
+                    return roList;
+
                 });
         }
     }
@@ -52,9 +53,9 @@ export class ro {
         this.data = context.data;
         this.error = context.error;
         this.options = context.options;
-        if(this.data.RONo){
+        if (this.data.RONo) {
             this.selectedRO = {
-                RONo:this.data.RONo
+                RONo: this.data.RONo
             };
         }
         this.readOnly = this.options.readOnly;
@@ -64,46 +65,54 @@ export class ro {
             error: this.error,
             isCreate: this.isCreate,
             readOnly: this.readOnly,
-            isEdit:this.isEdit,
+            isEdit: this.isEdit,
         };
     }
 
     async selectedROChanged(newValue) {
         this.data.FabricItems.splice(0);
         if (newValue) {
-            this.data.RONo=newValue.RONo;
-            Promise.resolve(this.garmentProductionService.getAvalProduct({ filter: JSON.stringify({RONo:this.data.RONo,UnitId: this.data.UnitId, "GarmentAvalProductItem.Any(IsReceived==false)":true})}))
-            .then(result => {
-                for(var avalProduct of result.data){
-                    for(var avalProductItem of avalProduct.Items){
-                        if(avalProductItem.IsReceived==false){
-                            var item={};
-                            item.GarmentAvalProductId=avalProduct.Id;
-                            item.GarmentAvalProductItemId=avalProductItem.Id;
-                            item.Product=avalProductItem.Product;
-                            item.ProductRemark=avalProductItem.DesignColor;
-                            item.Quantity=avalProductItem.Quantity;
-                            item.Uom=avalProductItem.Uom;
-                            this.data.FabricItems.push(item);
+            this.data.RONo = newValue.RONo;
+            Promise.resolve(this.garmentProductionService.getAvalProduct({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitId, "GarmentAvalProductItem.Any(IsReceived==false)": true }) }))
+                .then(result => {
+                    for (var avalProduct of result.data) {
+                        for (var avalProductItem of avalProduct.Items) {
+                            if (avalProductItem.IsReceived == false) {
+                                var item = {};
+                                item.GarmentAvalProductId = avalProduct.Id;
+                                item.GarmentAvalProductItemId = avalProductItem.Id;
+                                item.Product = avalProductItem.Product;
+                                item.ProductRemark = avalProductItem.DesignColor;
+                                item.Quantity = avalProductItem.Quantity;
+                                item.Uom = avalProductItem.Uom;
+                                item.BCNo = avalProductItem.BCNo;
+                                item.BCDate = moment(avalProductItem.BCDate).format() == moment(new Date(null)).subtract(7, 'h').format() ? null : avalProductItem.BCDate;
+                                item.POSerialNumber = avalProductItem.POSerialNumber;
+                                item.BCType = avalProductItem.BCType;
+                                this.data.FabricItems.push(item);
+                            }
                         }
                     }
-                }
-                
-            });
+
+                });
         } else {
             this.data.FabricItems.splice(0);
         }
     }
-    
+
 
     sizeView = (size) => {
         return `${size.Size}`;
     }
 
     fabricColumns = [
-        "Kode Barang" ,
-        "Keterangan" ,
-        "Jumlah Aval" ,
-        "Satuan" ,
+        "Kode Barang",
+        "Keterangan",
+        "Nomor PO",
+        "Nomor BC",
+        "Tanggal BC",
+        "Tipe BC",
+        "Jumlah Aval",
+        "Satuan",
     ]
 }

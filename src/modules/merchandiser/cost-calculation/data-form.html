@@ -38,12 +38,12 @@
                     placeholder="Cari Komoditi"
                     value.bind="selectedComodity"
                     text.bind="comodityView"
-                    error.bind="error.Commodity"
+                    error.bind="error.Comodity"
                     query.bind="comodityQuery"
                     loader.one-time="comodityLoader"
-                    options.bind="length4"
-                    keypress.delegate="enterDelegate($event)">
+                    options.bind="length4">
                 </au-autocomplete>
+<!--keypress.delegate="enterDelegate($event)"-->
                 <au-multiline
                     placeholder="Deskripsi Komoditi"
                     label="Deskripsi Komoditi"

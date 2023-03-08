@@ -1,6 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+//var BuyerLoader = require('../../../loader/garment-buyers-loader');
+
+var BuyerLoader = require('../../../loader/garment-buyer-brands-loader');
 var SectionLoader = require('../../../loader/garment-sections-loader');
 
 @containerless()
@@ -81,6 +83,10 @@ export class DataForm {
     get buyerLoader() {
         return BuyerLoader;
     }
+
+    filterbuyer = {
+             "Code!=BuyerName": true
+             };
 
     get sectionLoader() {
         return SectionLoader;

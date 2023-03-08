@@ -70,7 +70,23 @@ export class DataForm {
                 "Jumlah DO Awal",
                 "Jumlah DO",
                 "Satuan",
-                "Tipe Fabric"
+                "Tipe Fabric",
+            ];
+
+            this.itemsFabric.columns =  [
+                "Kode Barang",
+                "Nama Barang",
+                "Keterangan Barang",
+                "RO Asal",
+                "Jumlah DO Awal",
+                "Jumlah DO",
+                "Satuan",
+                "Tipe Fabric",
+                "Warna",
+                "Rak",
+                "Box",
+                "Level",
+                "Area",
             ];
         }
         
@@ -506,7 +522,24 @@ export class DataForm {
             "RO Asal",
             "Jumlah DO Awal",
             "Satuan",
-            "Tipe Fabric"
+            "Tipe Fabric",
+        ],
+    };
+
+    itemsFabric = {
+        columns: [
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "RO Asal",
+            "Jumlah DO Awal",
+            "Satuan",
+            "Tipe Fabric",
+            "Warna",
+            "Rak",
+            "Box",
+            "Level",
+            "Area",
         ],
     };
 

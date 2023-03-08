@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'subcon-customs-ins';
+const serviceOutUri = 'subcon-customs-outs';
 const serviceDoUri = 'garment-delivery-orders';
 const subconContractUri = 'subcon-contracts';
 
@@ -42,6 +43,11 @@ class Service extends RestService {
 	getSubconContractByID(id) {
 		var endpoint = `${subconContractUri}/${id}`;
 		return super.get(endpoint);
+	}
+
+	searchCompleteOut(info) {
+		var endpoint = `${serviceOutUri}/complete`;
+		return super.list(endpoint, info);
 	}
 }
 

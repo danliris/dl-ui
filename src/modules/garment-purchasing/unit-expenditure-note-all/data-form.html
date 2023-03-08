@@ -120,7 +120,7 @@
             columns.bind="items.columns"
             options.bind="options"
             read-only.bind="readOnly" 
-            show.bind="isItem && !isExternal"
+            show.bind="isItem && !isExternal && data.Storage.name != 'GUDANG BAHAN BAKU'"
             header-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-header"
             item-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item">
         </au-collection>
@@ -135,5 +135,16 @@
             header-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-external-header"
             item-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item">
         </au-collection>
+
+        <au-collection 
+        items.bind="data.Items" 
+        errors.bind="error.Items"
+        columns.bind="itemsFabric.columns"
+        options.bind="options"
+        read-only.bind="readOnly" 
+        show.bind="isItem && !isExternal && data.Storage.name == 'GUDANG BAHAN BAKU'"
+        header-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-header"
+        item-template="modules/garment-purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-fabric">
+    </au-collection>
   </au-input-form>
 </template>
