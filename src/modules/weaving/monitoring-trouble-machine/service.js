@@ -12,7 +12,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/treeLoses`;
     return super.list(endpoint, info);
   }
 
