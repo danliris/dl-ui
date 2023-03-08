@@ -28,7 +28,9 @@ export class Index {
         name: "create",
         nav: false,
         title: "Create: Trouble Mesin"
-      }
+      },
+      { route: 'upload', moduleId: './upload', name: 'upload', nav: false, title: 'Upload:Troube Mesin' }
+
     ]);
   }
 }
