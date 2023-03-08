@@ -9,9 +9,7 @@ export class List {
     { field: "Code", title: "Kode Barang" },
     { field: "Name", title: "Nama Barang" },
     { field: "UomUnit", title: "Satuan Default" },
-
-    { field: "BuyerType", title: "Jenis Buyer" },
-
+    { field: "BuyerType", title : "Jenis"},
     
   ];
 

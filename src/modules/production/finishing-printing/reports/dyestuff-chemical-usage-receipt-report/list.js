@@ -78,8 +78,8 @@ export class List {
             order: order,
             productionOrderNo: this.productionOrder ? this.productionOrder.OrderNo : "",
             strikeOffCode: this.strikeOff ? this.strikeOff.Code : "",
-            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : undefined,
-            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : undefined
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : ""
         };
 
         return this.flag ?
@@ -99,8 +99,8 @@ export class List {
         {
             productionOrderNo: this.productionOrder ? this.productionOrder.OrderNo : "",
             strikeOffCode: this.strikeOff ? this.strikeOff.Code : "",
-            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : undefined,
-            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : undefined
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("MM/DD/YYYY") : "",
+            dateTo: this.dateTo ? moment(this.dateTo).format("MM/DD/YYYY") : ""
         };
         this.service.generateExcel(args);
     }

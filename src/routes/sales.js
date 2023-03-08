@@ -446,4 +446,18 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: 'sales/reports/do-sales-dp-monitoring',
+        name: 'do-sales-dp-monitoring',
+        moduleId: './modules/sales/reports/do-sales-dp-monitoring/index',
+        nav: true,
+        title: 'Monitoring DO Penjualan Dyeing Printing',
+        auth: true,
+        settings: {
+            group: "sales",
+            // permission: { "A2": 1, "C9": 1 },
+            permission :{"*":1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];

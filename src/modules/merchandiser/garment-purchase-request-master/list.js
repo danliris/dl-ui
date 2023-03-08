@@ -8,7 +8,7 @@ import { activationStrategy } from 'aurelia-router';
 export class List {
   dataToBePosted = [];
   context = ["Rincian", "Cetak PDF"]
-  options = {}; 
+  options = {};
   columns = [
     {
       field: "isPosting", title: "Post", checkbox: true, sortable: false,

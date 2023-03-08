@@ -57,7 +57,9 @@
                     <td align="center" rowspan="2">Bank Name</td>
                     <td align="center" rowspan="2">Payment Term</td>
                     <td align="center" rowspan="2">Amount</td>
-                    <td align="center" rowspan="2"">Amount To Be Paid</td>
+                    <td align="center" rowspan="2">Amount To Be Paid</td>
+                    <td align="center" rowspan="2">Paid Amount</td>                
+                    <td align="center" rowspan="2">Balance Amount</td>
                     <td align="center" rowspan="2">No L/C</td>
                     <td align="center" rowspan="2">No SR</td>
                     <td align="center" rowspan="2">Tgl SR</td>  
@@ -88,6 +90,8 @@
                         <td>${data.paymentTerm}</td>
                         <td class="text-right"><strong>${data.amount}</strong></td>
                         <td class="text-right"><strong>${data.toBePaid}</strong></td>
+                        <td class="text-right"><strong>${data.paidAmount}</strong></td>                    
+                        <td class="text-right"><strong>${data.balanceAmount}</strong></td>                    
                         <td>${data.lcNo}</td>
                         <td>${data.srNo}</td>
                         <td>${data.srDate}</td>
@@ -108,7 +112,7 @@
                         <td class="text-right" colspan="2"><strong>${buyer.subTotal1}</strong></td>
                         <td class="text-center" colspan="2"><strong>AMOUNT TO BE PAID :</strong></td>
                         <td class="text-right" colspan="2"><strong>${buyer.subTotal2}</strong></td>
-                        <td class="text-center" colspan="2"><strong>PAID AMOUNT :</strong></td>
+                        <td class="text-center" colspan="3"><strong>PAID AMOUNT :</strong></td>
                         <td class="text-right" colspan="2"><strong>${buyer.subTotal3}</strong></td>
                         <td class="text-center" colspan="3"><strong>OUTSTANDING AMOUNT :</strong></td>
                         <td class="text-right" colspan="2"><strong>${buyer.subTotal4}</strong></td>                     

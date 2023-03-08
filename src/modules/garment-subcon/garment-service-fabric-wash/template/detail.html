@@ -9,7 +9,7 @@
             </au-textbox>
         </td>
         <td style="background-color:#a7a0a0">
-            <au-textbox value.bind="data.Product.Remark" read-only.bind="true">
+            <au-textbox value.bind="data.Product.Remark" read-only.bind="readOnly">
             </au-textbox>
         </td>
         <td style="background-color:#a7a0a0">
@@ -20,7 +20,7 @@
             <au-textbox 
                 value.bind="data.Quantity"
                 error.bind = "error.Quantity"
-                read-only.bind="true">
+                read-only.bind="readOnly">
             </au-textbox>                    
         </td>
         <td style="background-color:#a7a0a0">

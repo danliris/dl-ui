@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <au-textbox value.bind="data.Color" read-only.bind="true">
+            <au-textbox value.bind="data.Color" read-only.bind="readOnly || isEdit">
             </au-textbox>
         </td>
         <td>
@@ -13,7 +13,7 @@
             </au-textbox>
         </td>
         <td>
-            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly" format="0">
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly && !isEdit" format="0">
             </au-numeric>
         </td>
         <td>

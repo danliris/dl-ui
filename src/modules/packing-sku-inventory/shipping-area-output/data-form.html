@@ -116,7 +116,7 @@
     </au-multiline>
 
     <au-dropdown  if.bind="!isAdj" show.bind="!isSales" options.bind="controlOptions" label="Authorized" value.bind="data.packingListAuthorized" error.bind="error.packingListAuthorized"
-      read-only.bind="readOnly || isEdit" items.bind="authorizedItems"></au-dropdown>
+      read-only.bind="readOnly" items.bind="authorizedItems"></au-dropdown>
 
     
     <au-autocomplete if.bind="!isAdj" show.bind="isSales && destinationArea != 'PENJUALAN'" options.bind="controlOptions" value.bind="selectedFilterSPP"

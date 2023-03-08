@@ -29,13 +29,13 @@ export class Item {
             if (this.header.invoiceType != "SM") {
                 filter = {
                     BuyerCode: this.data.BuyerCodeFilter,
-                    //Section: this.data.SectionFilter,
+                    Section: this.data.SectionFilter,
                     "SCGarmentId!=null": true
                 };
             }
             else {
                 filter = {
-                    //Section: this.data.SectionFilter,
+                    Section: this.data.SectionFilter,
                     "SCGarmentId!=null": true
                 };
             }
@@ -151,7 +151,7 @@ export class Item {
             }
         }
         this.isShowing = false;
-        if (this.data.details) {
+        if (this.data.details && !this.data.id) {
             if (this.data.details.length > 0) {
                 this.isShowing = true;
             }
@@ -172,7 +172,7 @@ export class Item {
                         .then(sc => {
                             this.data.roNo = result.RO_Number;
                             this.data.article = result.Article;
-                            this.data.marketingName = result.MarketingName;
+                            this.data.marketingName = result.MarketingName;      
                             this.data.buyerBrand = result.BuyerBrand;
                             this.data.unit = result.Unit;
                             this.data.uom = result.UOM;

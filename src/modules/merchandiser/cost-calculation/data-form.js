@@ -149,28 +149,20 @@ export class DataForm {
                BookingOrderNo : this.data.BookingOrderNo, 
                ConfirmDate : this.data.ConfirmDate,
                ConfirmQuantity : this.data.BOQuantity,
-               ComodityName : this.data.Comodity.Name,
+               //ComodityName : this.data.Comodity.Name,
         }
+
         this.selectedGarmentMarketing = {
                Name :this.data.MarketingName,
                ResponsibleName : this.data.ResponsibleName,            
         }
-        //console.log(this.selectedBookingOrder);
-
-        this.selectedComodity = {
-               Id : this.data.Comodity.Id,
-               Code : this.data.Comodity.Code,
-               Name : this.data.Comodity.Name, 
-        }
- 
       }
       else
       {
           this.selectedBookingOrder = null;
           this.selectedGarmentMarketing = null;
-          this.selectedComodity = null;
       }
-    
+    console.log(this.context);
     let promises = [];
 
     let wage;
@@ -279,23 +271,6 @@ export class DataForm {
     
   }
 
-  
-  @bindable selectedComodity;
-  async selectedComodityChanged(newVal, oldValue) {
-    this.data.Comodity = newVal;    
-    if (newVal) {
-     this.data.ComodityID=newVal.Id;
-     this.data.ComodityCode=newVal.Code;
-     this.data.Commodity=newVal.Name;
-    }
-    else
-    {
-          this.selectedComodity = null;
-          this.selectedBookingOrder = null;
-    }
-    console.log(this.data.ComodityCode);    
-  }
-
   garmentMarketingView = (garmentmarketing) => {                          
     return`${garmentmarketing.Name} - ${garmentmarketing.ResponsibleName}`
   }
@@ -304,9 +279,8 @@ export class DataForm {
     return BookingOrderLoader;
   }
 
-  bookingOrderView = (bookingorder) => {   
-    console.log(bookingorder);                       
-    return`${bookingorder.BookingOrderNo} | ${bookingorder.ComodityName} | ${bookingorder.Remark} | ${bookingorder.ConfirmQuantity} | ${moment(bookingorder.ConfirmDate).format("DD MMM YYYY")}`
+  bookingOrderView = (bookingorder) => {                          
+    return`${bookingorder.BookingOrderNo} - ${bookingorder.ComodityName} - ${bookingorder.ConfirmQuantity} - ${moment(bookingorder.ConfirmDate).format("DD MMM YYYY")}`
   }
 
  get filter() {
@@ -432,8 +406,15 @@ export class DataForm {
          this.data.BookingOrderItemId = newValue.BookingOrderItemId;
          this.data.BookingOrderNo = newValue.BookingOrderNo;   
          this.data.BOQuantity = newValue.ConfirmQuantity;
-         this.data.ConfirmDate = newValue.ConfirmDate;  
-             
+         this.data.ConfirmDate = newValue.ConfirmDate;   
+         //this.data.Commodity = newValue.ComodityName;
+
+         console.log(this.data.BookingOrderId);
+         console.log(this.data.BookingOrderItemId);      
+         console.log(this.data.BookingOrderNo);
+         console.log(this.data.BOQuantity);
+         console.log(this.data.ConfirmDate);     
+         //console.log(this.data.Commodity);   
        } 
        else 
        {
@@ -442,7 +423,24 @@ export class DataForm {
           this.data.BookingOrderNo = null;      
           this.data.BOQuantity = 0;
           this.data.ConfirmDate = null;
+         // this.data.Commodity = this.data.Commodity;
        }
+  }
+
+  @bindable selectedComodity;
+  selectedComodityChanged(newVal) {
+    this.data.Comodity = newVal;    
+    if (newVal) {
+     this.data.ComodityId=newVal.Id;
+     this.data.ComodityCode=newVal.Code;
+     this.data.ComodityName=newVal.Name;
+    }
+    else
+    {
+          this.selectedBookingOrder = null;
+    }
+    console.log(this.data.ComodityCode);
+    //console.log(newVal);
   }
 
   @bindable selectedLeadTime = "";

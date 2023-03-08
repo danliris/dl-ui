@@ -61,7 +61,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C1": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -74,7 +74,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C2": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -87,7 +87,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C3": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -127,7 +127,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C4": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -140,7 +140,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C5": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -153,7 +153,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C6": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -166,7 +166,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C7": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -180,7 +180,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C8": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -193,7 +193,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C9": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -206,7 +206,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C10": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -219,7 +219,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C11": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -232,7 +232,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C12": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -245,7 +245,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C13": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -258,7 +258,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C14": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -271,7 +271,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C15": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -284,7 +284,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C16": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -297,7 +297,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C17": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -349,7 +349,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C18": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -362,7 +362,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C19": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -375,7 +375,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C20": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -388,7 +388,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C21": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -402,7 +402,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C22": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -416,7 +416,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C23": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -429,7 +429,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C24": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
@@ -442,7 +442,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C25": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -455,7 +455,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C26": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -481,7 +481,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C27": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -494,7 +494,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C28": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -507,7 +507,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C29": 1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -520,7 +520,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C30": 1},
+             permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -533,7 +533,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C31": 1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -546,7 +546,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C32": 1},
+            permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },{
@@ -584,7 +584,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dyeing-printing",
-            permission: { "C33": 1},
+            permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: 'fa fa-dashboard'
         }
     }

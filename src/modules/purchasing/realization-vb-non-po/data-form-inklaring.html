@@ -105,6 +105,14 @@
       >
       </au-numeric>
 
+      <au-textbox
+          label="Invoice"
+          value.bind="data.InvoiceNo"
+          error.bind="error.InvoiceNo"
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-textbox>
+
       <au-multiline label="Keterangan"
                     value.bind="data.Remark"
                     read-only.bind="readOnly"
