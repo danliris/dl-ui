@@ -2,40 +2,45 @@ import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../utils/rest-service';
 
 const uriGRC = 'GetDataExcelNew';
+const uriDownload = 'downloadExcel';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "dyeing");
     }
     
-   
-    // search(info) {
-    //     var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
-    //     return super.get(endpoint); 
-    // }
-
     search(info) {
         console.log("masuk fungsi search service.js");
         var endpoint = `${uriGRC}`;
         return super.list(endpoint, info);
     }
-    
 
-    // xls(info) {
-    //     console.log(info)
-    //     let endpoint = `${uriGRC}/download?${buildQueryString(info)}`;
-    //     return super.getXls(endpoint);
-    // }
+    generateExcel(info) {
+        var endpoint = `${uriDownload}`;
+        var query = '';
+        if (info.area) {
+            if (query === '') query = `area=${info.area}`;
+            else query = `${query}&area=${info.area}`;
+        }
+        if (info.idmesin) {
+            if (query === '') query = `idmesin=${info.idmesin}`;
+            else query = `${query}&idmesin=${info.idmesin}`;
+        }
+        if (info.shift) {
+            if (query === '') query = `shift=${info.shift}`;
+            else query = `${query}&shift=${info.shift}`;
+        }
+        if (info.startdate) {
+            if (query === '') query = `startdate=${info.startdate}`;
+            else query = `${query}&startdate=${info.startdate}`;
+        }
+        if (info.finishdate) {
+            if (query === '') query = `finishdate=${info.finishdate}`;
+            else query = `${query}&finishdate=${info.finishdate}`;
+        }
+        if (query !== '')
+            endpoint = `${uriDownload}?${query}`;
+        var filename= "Monitoring Operational Harian " + info.area;
+        return super.getXls_AF(endpoint,"", filename);
+    }
 }
-
-// const UnitServiceUri = '../master/units';
-// export class CoreService extends RestService {
-//     constructor(http, aggregator, config, endpoint) {
-//         super(http, aggregator, config, "core");
-//     }
-
-//     getSampleUnit(info) {
-//         var endpoint = `${UnitServiceUri}`;
-//         return super.list(endpoint, info);
-//     }
-// }

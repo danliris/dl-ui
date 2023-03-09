@@ -6,10 +6,22 @@
     </style>
     <h1 class="page-header">Laporan Monitoring Operational Harian</h1>
     <form class="form-horizontal">
-        <au-dropdown label="Area" value.bind="infoAreaHard" items.bind="areaOptionsHard" key="value" text="text" options.bind="controlOptions" >
+        <au-dropdown 
+            label="Area" 
+            value.bind="infoAreaHard" 
+            items.bind="areaOptionsHard" 
+            key="value" text="text" 
+            options.bind="controlOptions" >
         </au-dropdown>  
-        <au-autocomplete value.bind="Machine" error.bind="error.Machine" label="Machine" loader.bind="machineLoader" placeholder="SEMUA MESIN"
-        key="Code" text="Name" read-only.bind="(readOnly)" options.bind="auInputOptions">
+        <au-autocomplete 
+            value.bind="Machine" 
+            error.bind="error.Machine" 
+            label="Machine" 
+            loader.bind="machineLoader" 
+            placeholder="SEMUA MESIN"
+            key="Code" text="Name" 
+            read-only.bind="(readOnly)" 
+            options.bind="auInputOptions">
         </au-autocomplete>
 
         <au-datepicker 
@@ -21,7 +33,12 @@
             value.bind="dateTo">
         </au-datepicker>
 
-        <au-dropdown label="Shift" value.bind="infoShift" items.bind="shiftOptionsHard" key="value" text="text" options.bind="controlOptions" >
+        <au-dropdown 
+            label="Shift" 
+            value.bind="infoShift" 
+            items.bind="shiftOptionsHard" 
+            key="value" text="text" 
+            options.bind="controlOptions" >
         </au-dropdown>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -30,64 +47,19 @@
                 <button click.delegate="reset()" class='btn btn-success'>Reset</button>
             </div>
         </div>
+
         <div class="btn-group">
             <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
         </div>
-        <!-- <div id="dailyReport"> -->
-    <au-table
-    view-model.ref="Table"
-    data.bind="loader"
-    columns.bind="columns"
-    
-    page-size="25"
-    options.bind="tableOptions">  
-    <!-- context.bind="context">  -->
-    <!-- sortable.bind="true" -->
-    
-    
-  </au-table>
-        <!-- </div> -->
-    </form>
-    <!-- <br> -->
- 
-    <!-- <div class="table-responsive">  
-        <table class="table table-bordered table-hover" border="1" id="doReport">
-            <thead align="center">
-                <tr>
-                    <td>No</td>
-                    <td>AreaHTML</td>
-                    <td>Mesin</td>
-                    <td>Tanggal</td>
-                    <td>Shift</td>
-                    <td>Group</td>
-                    <td>Panjang_IN</td>
-                    <td>Panjang_OUT_BQ</td>
-                    <td>Panjang_OUT_BS</td>
-                  
-                </tr>
-            </thead>
-            <tbody>
-                <tr repeat.for="IN of data">
-                    <td>${$index + 1}</td>
-                    <td>${IN.area}</td>
-                    <td>${IN.mesin}</td>
-                    <td>${IN.tanggal}</td>
-                    <td>${IN.shift}</td>
-                    <td>${IN.grup}</td>
-                    <td>${IN.panjang_in }</td>
-                    <td>${IN.panjang_out_bq}</td>
-                    <td>${IN.panjang_out_bs}</td>
-                   
-                </tr>
-            
-            </tbody>
-        </table>
-    </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Tidak Ada Data Yang Ditemukan.
-        </div> -->
 
-    <!-- </form> -->
+        <au-table
+            view-model.ref="Table"
+            data.bind="loader"
+            columns.bind="columns"
+            options.bind="tableOptions">  
+        </au-table>
+        
+    </form>
     
     
 </template>
