@@ -148,6 +148,17 @@ export class RestService {
     return this._downloadFile(getRequest);
   }
 
+  getXls_AF(endpoint, header, filename) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+
+    return this._downloadFile_AF(getRequest, filename);
+  }
+
   getPdf(endpoint, header) {
     var request = {
       method: 'GET',
@@ -193,6 +204,37 @@ export class RestService {
             .then(blob => {
               var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
               filename = filename.replace(/"/g, '');
+              var fileSaver = require('file-saver');
+              fileSaver.saveAs(blob, filename);
+              this.publish(request);
+              resolve(true);
+            })
+            .catch(e => reject(e));
+        })
+      });
+  }
+
+  _downloadFile_AF(request, filename) {
+    return request
+      .then(response => {
+        if (response.status == 200)
+          return Promise.resolve(response);
+        else {
+          return response.json()
+            .then(result => {
+              this.publish(request);
+              if (typeof result.error === 'string' || result.error instanceof String) {
+                return Promise.reject(new Error(result.error));
+              } else {
+                return Promise.reject(result.error);
+              }
+            });
+        }
+      })
+      .then(response => {
+        return new Promise((resolve, reject) => {
+          response.blob()
+            .then(blob => {
               var fileSaver = require('file-saver');
               fileSaver.saveAs(blob, filename);
               this.publish(request);
