@@ -22,15 +22,10 @@ export class List {
         search: false,
         showToggle: false,
         showColumns: false,
-       // pagination: false
+        pagination: false
     }
 
- 
-
-   
-
     areaOptionsHard = [
-        { text: "SEMUA AREA", value: 0 },
         { text: "DIGITAL PRINT", value: 1 },
         { text: "DYEING", value: 2 },
         { text: "FINISHING", value: 3 },
@@ -45,17 +40,19 @@ export class List {
             ];
 
     columns = [
-                    
-                    { field: "name", title: "AreaJS", valign: "top" },
-                    { field: "namaMesin", title: "Mesin", valign: "top" },
-                    { field: "createdAt", title: "Tanggal",  valign: "top" },
-                    { field: "shift", title: "Shift",  valign: "top" },
-                    { field: "grup", title: "Group", valign: "top" },
-                    { field: "panjang_in", title: "Panjang_IN", valign: "top" },
-                    { field: "panjang_out_bq", title: "Panjang_OUT_BQ", valign: "top" },
-                    { field: "panjang_out_bs", title: "Panjang_OUT_BS", valign: "top" },
-               
-            ];
+            { field: "area", title: "AreaJS", valign: "top" },
+            { field: "mesin", title: "Mesin", valign: "top" },
+            { field: "tgl", title: "Tanggal",  valign: "top", 
+                    formatter: function (value, data, index) {
+                        return moment(value).format("DD MMM YYYY"); 
+                    } 
+            },
+            { field: "shift", title: "Shift",  valign: "top" },
+            { field: "grup", title: "Group", valign: "top" },
+            { field: "qtyin", title: "Panjang_IN", valign: "top" },
+            { field: "pjgoutbq", title: "Panjang_OUT_BQ", valign: "top" },
+            { field: "pjgoutbs", title: "Panjang_OUT_BS", valign: "top" },
+    ];
 
     
 
@@ -67,39 +64,19 @@ export class List {
       
     }
 
-    // searching() {
-    //     this.service.getReport(this.dateFrom, this.dateTo, this.machine, this.kanban)
-    //         .then(result => {
-    //             this.data = result;
-    //             for (var daily of this.data) {
-    //                 daily.timeInput = daily.dateInput ? moment(daily.timeInput).format('HH:mm') : '-';
-    //                 daily.timeOutput = daily.timeOutput ? moment(daily.timeOutput).format('HH:mm') : '-';
-    //             }
-    //         })
-    // }
-
     rowFormatter(data, index) {
-        // if (index === 12) {
-        //     return { classes: "weight" }
-        // } else {
-        //     return {};
-        // }
         return {};
     }
 
     search() {
-       this.error = {};
-       console.log("masuk fungsi search");
-         if (Object.getOwnPropertyNames(this.error).length === 0) {
+        this.error = {};
+        if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
-            console.log("diatas Table.refresh");
             this.Table.refresh();
-            console.log("dibawah Table.refresh");
-             }
         }
+    }
 
     loader = (info) => {
-        console.log("masuk fungsi loader");
         var order = {};
         if (info.sort)
             order[info.sort] = info.order;
@@ -110,113 +87,41 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order,
-            //idMesin:this.Machine.Id,
+            area: this.infoAreaHard.text,
+            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
+            shift: this.infoShift.text,
+            idmesin:this.Machine ? this.Machine.Id : 0,
           };
-        console.log("ini args : "+ args);
-        //console.log("idMesin : "+ idMesin);
-       // console.log("this.Machine.Id : "+ this.Machine.Id);
+        console.log(args);
         return this.flag ?
             (
-                this.service.search(args)
-                    .then(result => {
-                        console.log("masuk this.service.search ");
-
-                        var index=0;
-                        for(var data of result.data){
-                            index++;
-                            data.index=index;
-                           
-                        }
-                        return {
-                            total: result.total,
-                            data: result.data
-                        };
-                    })
+            this.service.search(args)
+                .then(result => {
+                    var index=0;
+                    for(var data of result.data){
+                        index++;
+                        data.index=index;
+                        
+                    }
+                    return {
+                        total: result.total,
+                        data: result.data
+                    };
+                })
             ) : { total: 0, data: [] };
        
-        // return this.service.search(arg).then((result) => {
-        //   var resultPromise = [];
-        //   if (result && result.data && result.data.length > 0) {
-        //     resultPromise = result.data;
-        //   }
-        //   return Promise.all(resultPromise).then((newResult) => {
-        //     return {
-        //       total: result.info.total,
-        //       data: newResult,
-        //     };
-        //   });
-        // });
       }
 
-    // search() {
-    //     let args = {
-    //         // infoAreaHard:"PRINTING",
-    //         // Machine:"5",//mesin ichinose
-    //         // dateFrom:"2023-01-01",
-    //         // dateTo:"2023-01-31",
-    //         // infoShift:"PAGI",
-           
-    //       }
-    //       this.service.search().then(result => {
-    //         var resultPromise = [];
-    //         if (result && result.data && result.data.length > 0) {
-    //           resultPromise = result.data;
-    //         }
-    //         return Promise.all(resultPromise).then((newResult) => {
-    //           return {
-    //             total: result.info.total,
-    //             data: newResult,
-    //           };
-    //         });
-    //     })
-    // }
-
-    // searching() {
-    //     this.listDataFlag = true;
-        
-    //     this.dailyTable.refresh();
-    // }
-
-    // exportToExcel() {
-    //     this.fillValues();
-    //     this.service.generateExcel(this.info);
-    // }
-
-    // kanbanChanged(e){
-    //     var selectedKanban = e.detail;
-    //     if(selectedKanban){
-    //         this.kanbanId = selectedKanban._id;
-    //         if(selectedKanban.instruction){
-    //             var steps = [];
-    //             for(var step of selectedKanban.instruction.steps){
-    //                 steps.push(step.process);
-    //             }
-    //             this.filterMachine = {
-    //                 "step.process" : { "$in" : steps }
-    //             };
-    //         }
-    //     }
-    // }
-
-    // reset() {
-    //     this.listDataFlag = false;
-    //     this.dateFrom = null;
-    //     this.dateTo = null;
-    //     this.Machine = null;
-    //     this.Kanban = null;
-    //     this.filterKanban = null;
-    //     this.kanbanId = null;
-    //     this.error = '';
-    // }
-
     ExportToExcel() {
-        //    var htmltable= document.getElementById('myTable');
-        //    var html = htmltable.outerHTML;
-        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-        var dateFrom = this.dateFrom?  moment(this.dateFrom).format("DD MMM YYYY HH:mm")  :null
-        var dateTo = this.dateTo?  moment(this.dateTo).format("DD MMM YYYY HH:mm")  :null
-        
-        this.service.generateExcel(dateFrom, dateTo, this.Machine, this.Kanban);
+        var args = {
+            area: this.infoAreaHard.text,
+            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
+            shift: this.infoShift.text,
+            idmesin:this.Machine ? this.Machine.Id : 0,
+          };
+        this.service.generateExcel(args);
     }
 
     get machineLoader() {
@@ -226,5 +131,4 @@ export class List {
     get kanbanLoader() {
         return KanbanLoader;
     }
-
 }
