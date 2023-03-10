@@ -32,10 +32,24 @@ export class DataForm {
     get contractFilter() {
         var current = new Date();
         var maxDate = moment(current).format("YYYY-MM-DD");
+
         var filter = {
-            SubconCategory: this.data.SubconCategory,
+            //SubconCategory: this.data.SubconCategory,
             IsUsed: true
         };
+
+        // var filter ={};
+        // if (this.data.SubconCategory == ''){
+
+        //      filter = {
+        //         //SubconCategory: this.data.SubconCategory == '' ? null : this.data.SubconCategory,
+        //         IsUsed: true
+        //     };
+        // }else{
+            
+
+        // }
+        
         filter[`DueDate >= ${JSON.stringify(maxDate)} `] = true;
         return filter;
     }
@@ -87,27 +101,29 @@ export class DataForm {
             checkedAll: this.context.isCreate == true ? false : true,
             SCId: this.data.SubconContractId
         }
-
+        
         if (this.data && this.data.Id) {
             this.selectedSubconType = this.data.SubconType;
             var dataSubconContract = await this.service.getSubconContractByID(this.data.SubconContractId);
             this.selectedContract = dataSubconContract;
             this.selectedSubconCategory = this.data.SubconCategory;
         }
+        console.log(this.data.SubconCategory);
+        console.log(this.data.SubconType);
     }
 
     selectedSubconTypeChanged(newValue) {
-        if (!this.data.Id) {
-            this.data.SubconContractId = null;
-            this.data.SubconContractNo = null;
-            this.data.SubconCategory = null;
-            this.data.Supplier = null;
-            if (this.data.Items) {
-                this.data.Items.splice(0);
-            }
-            this.context.selectedContractViewModel.editorValue = "";
-            this.selectedSubconCategory = null;
-        }
+        // if (!this.data.Id) {
+        //     this.data.SubconContractId = null;
+        //     this.data.SubconContractNo = null;
+        //     this.data.SubconCategory = null;
+        //     this.data.Supplier = null;
+        //     if (this.data.Items) {
+        //         this.data.Items.splice(0);
+        //     }
+        //     this.context.selectedContractViewModel.editorValue = "";
+        //     this.selectedSubconCategory = null;
+        // }
         this.data.SubconType = newValue;
     }
 
@@ -163,7 +179,9 @@ export class DataForm {
             this.data.BuyerStaff = newValue.CreatedBy;
             this.data.Supplier = newValue.Supplier;
             this.selectedSubconType = newValue.ContractType;
+            this.selectedSubconCategory = newValue.SubconCategory;
             this.itemOptions.SCId = this.data.SubconContractId;
+            //const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
             const dataCustomsOut = await this.service.searchComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
             const dataJumlahCustomsOut = dataCustomsOut.data.map(x => {
                  return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
@@ -194,13 +212,13 @@ export class DataForm {
 
     selectedSubconCategoryChanged(newValue, oldValue) {
         if (!this.data.Id) {
-            this.data.SubconContractId = null;
-            this.data.SubconContractNo = null;
-            this.data.Supplier = null;
+            // this.data.SubconContractId = null;
+            // this.data.SubconContractNo = null;
+            // this.data.Supplier = null;
             if (this.data.Items) {
                 this.data.Items.splice(0);
             }
-            this.context.selectedContractViewModel.editorValue = "";
+           // this.context.selectedContractViewModel.editorValue = "";
         }
         this.data.SubconCategory = newValue;
     }
