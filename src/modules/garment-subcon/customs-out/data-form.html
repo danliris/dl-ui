@@ -10,25 +10,29 @@
                     </au-autocomplete>
 
                     <au-dropdown label="Jenis Subcon" value.bind="selectedSubconType" error.bind="error.SubconType"
-                        read-only.bind="readOnly || isEdit" items.bind="subconTypeOptions" show.bind="selectedContract"
+                        read-only.bind="true" items.bind="subconTypeOptions" show.bind="selectedContract"
                         options.bind="controlOptions">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON GARMENT'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="readOnly || isEdit" items.bind="subconCategoryGarmentOptions"
+                        read-only.bind="true" items.bind="subconCategoryGarmentOptions"
                         options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
+                    <!-- <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.SubconCategory"
+                        label="Kategori Subcon">
+                    </au-textbox> -->
+
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON BAHAN BAKU'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="readOnly || isEdit" items.bind="subconCategoryBBOptions"
+                        read-only.bind="true" items.bind="subconCategoryBBOptions"
                         options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON JASA'"
                         value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="readOnly || isEdit" items.bind="subconCategoryServiceOptions"
+                        read-only.bind="true" items.bind="subconCategoryServiceOptions"
                         options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
@@ -55,7 +59,7 @@
 
                 </div>
                 <div class="col-lg-6" if.bind="data.SubconContractNo">
-                    <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.ContractNo"
+                    <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.SubconCategory"
                         label="Kontrak No">
                     </au-textbox>
 
