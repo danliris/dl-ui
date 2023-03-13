@@ -16,6 +16,13 @@ export class List {
         this.router = router;
         this.today = new Date();
         this.flag = false;
+
+        let yearList = []
+
+        for (var i = 2021; i <= new Date().getFullYear() + 9; i++) {
+            yearList.push({ text:i, value:i });
+        }
+        this.yearOptions = yearList
     }
 
     tableOptions = {
@@ -31,13 +38,22 @@ export class List {
         { text: "FINISHING", value: 3 },
         { text: "PRETREATMENT", value: 4 },
         { text: "PRINTING", value: 5 },
-            ];
-    shiftOptionsHard = [
-        { text: "SEMUA SHIFT", value: 0 },
-        { text: "PAGI", value: 1 },
-        { text: "SIANG", value: 2 },
-        { text: "MALAM", value: 3 },
-            ];
+    ];
+
+    monthOptions = [
+        { text: "Januari", value: 1 },
+        { text: "Februari", value: 2 },
+        { text: "Maret", value: 3 },
+        { text: "April", value: 4 },
+        { text: "Mei", value: 5 },
+        { text: "Juni", value: 6 },
+        { text: "Juli", value: 7 },
+        { text: "Agustus", value: 8 },
+        { text: "September", value: 9 },
+        { text: "Oktober", value: 10 },
+        { text: "November", value: 11 },
+        { text: "Desember", value: 12 },
+    ];
 
     columns = [
             { field: "index", title: "No", valign: "top" },
@@ -48,16 +64,12 @@ export class List {
                         return moment(value).format("DD MMM YYYY"); 
                     } 
             },
-            { field: "shift", title: "Shift",  valign: "top" },
-            { field: "grup", title: "Group", valign: "top" },
-            { field: "kasubsie", title: "Kasubsie", valign: "top" },
-            { field: "keterangan", title: "Keterangan", valign: "top" },
-            { field: "grup", title: "No Order", valign: "top" },
-            { field: "speed", title: "Kecepatan", valign: "top" },
+            { field: "periode", title: "Periode",  valign: "top" },
             { field: "qtyin", title: "Panjang_IN", valign: "top" },
             { field: "pjgoutbq", title: "Panjang_OUT_BQ", valign: "top" },
             { field: "pjgoutbs", title: "Panjang_OUT_BS", valign: "top" },
-            { field: "durasi", title: "Durasi (Menit)", valign: "top" },
+            { field: "totalOutput", title: "Total Output", valign: "top" },
+            { field: "monthlycapacity", title: "Kapasitas Mesin", valign: "top" },
     ];
 
     
@@ -67,7 +79,8 @@ export class List {
         this.data = context.data;
         this.infoAreaHard="";
         this.infoShift="";
-      
+        this.month = this.monthOptions[new Date().getMonth()];
+        this.year = new Date().getFullYear();
     }
 
     rowFormatter(data, index) {
@@ -87,16 +100,15 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
     
-      
+        console.log(this.month)
         var args = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
             order: order,
             area: this.infoAreaHard.text,
-            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            shift: this.infoShift.text,
+            month: this.month.value,
+            year: this.year.value,
             idmesin:this.Machine ? this.Machine.Id : 0,
           };
         return this.flag ?
@@ -107,7 +119,7 @@ export class List {
                     for(var data of result.data){
                         index++;
                         data.index=index;
-                        data.durasi= parseInt(data.durasi * 1440 % 60);
+                        data.totalOutput= data.pjgoutbq+data.pjgoutbs;
                     }
                     return {
                         total: result.total,
@@ -120,9 +132,8 @@ export class List {
     ExportToExcel() {
         var args = {
             area: this.infoAreaHard.text,
-            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            shift: this.infoShift.text,
+            month: this.month.value,
+            year: this.year.value,
             idmesin:this.Machine ? this.Machine.Id : 0,
           };
         this.service.generateExcel(args);
