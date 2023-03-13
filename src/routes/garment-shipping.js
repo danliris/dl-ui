@@ -1228,4 +1228,19 @@ module.exports = [
             iconClass: "fa fa-dashboard"
         }
     },
+    {
+        route: "garment-shipping/monitoring/buyer-recievables",
+        name: "garment-shipping/monitoring/buyer-recievables",
+        moduleId: "modules/garment-shipping/monitoring/garment-buyer-receivables/index",
+        nav: true,
+        title: "Monitoring Saldo Piutang Buyer",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P79": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
 ]
