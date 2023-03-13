@@ -1,8 +1,8 @@
 import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../utils/rest-service';
 
-const uriGRC = 'GetDataExcelNew';
-const uriDownload = 'downloadExcel';
+const uriGRC = 'GetEventMonitoringReport';
+const uriDownload = 'GetDownloadMonitoringEvent';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, api) {
@@ -10,7 +10,6 @@ export class Service extends RestService {
     }
     
     search(info) {
-        console.log("masuk fungsi search service.js");
         var endpoint = `${uriGRC}`;
         return super.list(endpoint, info);
     }
@@ -40,7 +39,7 @@ export class Service extends RestService {
         }
         if (query !== '')
             endpoint = `${uriDownload}?${query}`;
-        var filename= "Monitoring Operational Harian " + info.area;
+        var filename= "Monitoring Event " + info.area;
         return super.getXls_AF(endpoint,"", filename);
     }
 }
