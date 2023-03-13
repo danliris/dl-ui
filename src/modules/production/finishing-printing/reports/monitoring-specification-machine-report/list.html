@@ -61,8 +61,10 @@
         </au-table> -->
 
     
-
-        <au-table if.bind="!areaPretreatment && !areaPretreatmentBruckner && !areaPretreatmentCBR" 
+        <!-- SEMUA AREA
+        <au-table if.bind="!areaPretreatment 
+        && !areaPretreatmentBruckner 
+        && !areaPretreatmentCBR" 
         view-model.ref="Table" 
         data.bind="loader" 
         columns.bind="columns" 
@@ -70,10 +72,15 @@
         <div slot="toolbar" class="btn-group">
         <button class="btn btn-primary" click.delegate="ExportToExcel()">Download not</button>
         </div>
-        </au-table>
+        </au-table> -->
 
         <!-- area pretreatment -->
-        <au-table if.bind="areaPretreatment && !areaPretreatmentBruckner && !areaPretreatmentCBR " 
+        <au-table if.bind="areaPretreatment 
+        && !areaPretreatmentBruckner 
+        && !areaPretreatmentCBR 
+        && !areaPretreatmentCMR
+        && !areaPretreatmentOsthoff
+        && !areaPretreatmentWD2" 
         view-model.ref="Table" 
         data.bind="loader" 
         columns.bind="columnsPretreatment" 
@@ -84,7 +91,8 @@
         </au-table>
 
         <!-- area pretreatment & mesin bruckner -->
-        <au-table if.bind="areaPretreatment && areaPretreatmentBruckner" 
+        <au-table if.bind="areaPretreatment 
+        && areaPretreatmentBruckner" 
         view-model.ref="Table" 
         data.bind="loader" 
         columns.bind="columnsPretreatmentBruckner" 
@@ -95,7 +103,8 @@
         </au-table>
 
         <!-- area pretreatment & mesin cbr -->
-        <au-table if.bind="areaPretreatment && areaPretreatmentCBR" 
+        <au-table if.bind="areaPretreatment 
+        && areaPretreatmentCBR" 
         view-model.ref="Table" 
         data.bind="loader" 
         columns.bind="columnsPretreatmentCBR" 
@@ -105,6 +114,83 @@
         </div>
         </au-table>
 
+        <!-- area pretreatment & mesin cmr -->
+        <au-table if.bind="areaPretreatment 
+        && areaPretreatmentCMR" 
+        view-model.ref="Table" 
+        data.bind="loader" 
+        columns.bind="columnsPretreatmentCMR" 
+        options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+        <button class="btn btn-primary" click.delegate="ExportToExcel()">Download CMR</button>
+        </div>
+        </au-table>
+
+        <!-- area pretreatment & mesin osthoff -->
+        <au-table if.bind="areaPretreatment 
+        && areaPretreatmentOsthoff" 
+        view-model.ref="Table" 
+        data.bind="loader" 
+        columns.bind="columnsPretreatmentOsthoff" 
+        options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+        <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Osthoff</button>
+        </div>
+        </au-table>
+
+         <!-- area pretreatment & mesin WD2 -->
+         <au-table if.bind="areaPretreatment 
+         && areaPretreatmentWD2" 
+         view-model.ref="Table" 
+         data.bind="loader" 
+         columns.bind="columnsPretreatmentWD2" 
+         options.bind="tableOptions">
+         <div slot="toolbar" class="btn-group">
+         <button class="btn btn-primary" click.delegate="ExportToExcel()">Download WD 2</button>
+         </div>
+         </au-table>
+
+
+
+
+
+
+         <!-- area dyeing -->
+        <au-table if.bind="areaDyeing
+        && !areaDyeingMonfort 
+        && !areaDyeingPS4" 
+        view-model.ref="Table" 
+        data.bind="loader" 
+        columns.bind="columnsDyeing" 
+        options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+        <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Dyeing</button>
+        </div>
+        </au-table>
+
+        <!-- area pretreatment & mesin Monfort -->
+        <au-table if.bind="areaDyeing 
+          && areaDyeingMonfort " 
+          view-model.ref="Table" 
+          data.bind="loader" 
+          columns.bind="columnsDyeingMonfort" 
+          options.bind="tableOptions">
+          <div slot="toolbar" class="btn-group">
+          <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Monfort</button>
+          </div>
+        </au-table>
+
+        <!-- area pretreatment & mesin Monfort -->
+        <au-table if.bind="areaDyeing 
+          && areaDyeingPS4 " 
+          view-model.ref="Table" 
+          data.bind="loader" 
+          columns.bind="columnsDyeingPS4" 
+          options.bind="tableOptions">
+          <div slot="toolbar" class="btn-group">
+          <button class="btn btn-primary" click.delegate="ExportToExcel()">Download PS4</button>
+          </div>
+        </au-table>
         
    
 </form>
