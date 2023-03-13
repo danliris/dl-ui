@@ -2,46 +2,46 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/monitoring-specification-machine/report';
-
+const uriGRC = 'GetDataMonSpecMachine';
+const uriDownload = 'downloadExcelMonSpecMachine';
 export class Service extends RestService {
 
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production-azure");
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "dyeing");
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        console.log("masuk fungsi search service.js");
+        var endpoint = `${uriGRC}`;
         return super.list(endpoint, info);
     }
 
     generateExcel(info) {
-        var endpoint = this._getEndPoint(info);
-        return super.getXls(endpoint);
-    }
-
-    _getEndPoint(info) {
-        var endpoint = `${serviceUri}/download`;
+        var endpoint = `${uriDownload}`;
         var query = '';
-        if (info.machineId) {
-            if (query === '') query = `machineId=${info.machineId}`;
-            else query = `${query}&machineId=${info.machineId}`;
+        if (info.area) {
+            if (query === '') query = `area=${info.area}`;
+            else query = `${query}&area=${info.area}`;
         }
-        if (info.productionOrderNo) {
-            if (query === '') query = `productionOrderNo=${info.productionOrderNo}`;
-            else query = `${query}&productionOrderNo=${info.productionOrderNo}`;
+        if (info.idmesin) {
+            if (query === '') query = `idmesin=${info.idmesin}`;
+            else query = `${query}&idmesin=${info.idmesin}`;
         }
-        if (info.dateFrom) {
-            if (query === '') query = `dateFrom=${info.dateFrom}`;
-            else query = `${query}&dateFrom=${info.dateFrom}`;
+        if (info.shift) {
+            if (query === '') query = `shift=${info.shift}`;
+            else query = `${query}&shift=${info.shift}`;
         }
-        if (info.dateTo) {
-            if (query === '') query = `dateTo=${info.dateTo}`;
-            else query = `${query}&dateTo=${info.dateTo}`;
+        if (info.startdate) {
+            if (query === '') query = `startdate=${info.startdate}`;
+            else query = `${query}&startdate=${info.startdate}`;
+        }
+        if (info.finishdate) {
+            if (query === '') query = `finishdate=${info.finishdate}`;
+            else query = `${query}&finishdate=${info.finishdate}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}/download?${query}`;
-
-        return endpoint;
+            endpoint = `${uriDownload}?${query}`;
+        var filename= "Monitoring Operational Harian " + info.area;
+        return super.getXls_AF(endpoint,"", filename);
     }
 }
