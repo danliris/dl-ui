@@ -40,7 +40,8 @@ export class List {
             ];
 
     columns = [
-            { field: "area", title: "AreaJS", valign: "top" },
+            { field: "index", title: "No", valign: "top" },
+            { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
                     formatter: function (value, data, index) {
@@ -93,7 +94,6 @@ export class List {
             shift: this.infoShift.text,
             idmesin:this.Machine ? this.Machine.Id : 0,
           };
-        console.log(args);
         return this.flag ?
             (
             this.service.search(args)
