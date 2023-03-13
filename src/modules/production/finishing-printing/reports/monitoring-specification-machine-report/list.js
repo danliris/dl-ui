@@ -59,8 +59,33 @@ export class List {
                 return this.Machine && this.Machine.Id == 33;
                 //this.Machine ? this.Machine.Id : 0,
             }
+
+            get areaPretreatmentCMR() {
+                return this.Machine && this.Machine.Id == 40;
+              
+            }
+
+            get areaPretreatmentOsthoff() {
+                return this.Machine && this.Machine.Id == 41;
+              
+            }
            
-           
+            get areaPretreatmentWD2() {
+                return this.Machine && this.Machine.Id == 7;
+              
+            }
+            get areaDyeing() {
+                return  this.infoAreaHard.text == "DYEING" ;
+        
+            }
+            get areaDyeingMonfort() {
+                return this.Machine && this.Machine.Id == 8;
+            }
+            get areaDyeingPS4() {
+                return this.Machine && this.Machine.Id == 10;
+            }
+
+
 
             columns = [
             { title: "Area", valign: "top" },
@@ -78,7 +103,7 @@ export class List {
             ];
 
             columnsPretreatment = [
-                { field: "area", title: "Areaprebruck", valign: "top" },
+                { field: "area", title: "Areapre", valign: "top" },
                 { field: "mesin", title: "Mesin", valign: "top" },
                 { field: "tgl", title: "Tanggal",  valign: "top", 
                         formatter: function (value, data, index) {
@@ -108,7 +133,7 @@ export class List {
                 ];
 
             columnsPretreatmentCBR = [
-                    { field: "area", title: "Areaprebruck", valign: "top" },
+                    { field: "area", title: "AreapreCBR", valign: "top" },
                     { field: "mesin", title: "Mesin", valign: "top" },
                     { field: "tgl", title: "Tanggal",  valign: "top", 
                             formatter: function (value, data, index) {
@@ -116,12 +141,12 @@ export class List {
                             } 
                     },
                     { field: "noorder", title: "No.Order", valign: "top" },
-                    { field: "noorder", title: "No.kereta", valign: "top" },
-                    { field: "noorder", title: "Speed L-Box 1", valign: "top" },
-                    { field: "noorder", title: "Temp. washer 1", valign: "top" },
-                    { field: "noorder", title: "Temp. washer 2", valign: "top" },
-                    { field: "noorder", title: "Temp. washer 3", valign: "top" },
-                    { field: "noorder", title: "Temp. washer 4", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed L-Box 1", valign: "top" },
+                    { field: "tempwasher1", title: "Temp. washer 1", valign: "top" },
+                    { field: "tempwasher2", title: "Temp. washer 2", valign: "top" },
+                    { field: "tempwasher3", title: "Temp. washer 3", valign: "top" },
+                    { field: "tempwasher4", title: "Temp. washer 4", valign: "top" },
                     { field: "noorder", title: "Tek. Press FM 1", valign: "top" },
                     { field: "noorder", title: "Tek. Press Sat. 1", valign: "top" },
                     { field: "noorder", title: "Temp. Chamber Air 1", valign: "top" },
@@ -132,8 +157,8 @@ export class List {
                     { field: "noorder", title: "Temp. Polystream 2", valign: "top" },
                     { field: "noorder", title: "Pompa chemical", valign: "top" },
                     { field: "noorder", title: "Pompa Sirkulasi", valign: "top" },
-                    { field: "noorder", title: "Titrasi NaOH L BOX 1", valign: "top" },
-                    { field: "noorder", title: "Titrasi NaOH L BOX 2", valign: "top" },
+                    { field: "naoh1", title: "Titrasi NaOH L BOX 1", valign: "top" },
+                    { field: "naoh2", title: "Titrasi NaOH L BOX 2", valign: "top" },
                     { field: "noorder", title: "Speed L-Box 2", valign: "top" },
                     { field: "noorder", title: "Tek. Press FM 2", valign: "top" },
                     { field: "noorder", title: "Tek. Press Sat. 2", valign: "top" },
@@ -146,6 +171,135 @@ export class List {
                     { field: "noorder", title: "Titrasi H2O2", valign: "top" },
                 ];
 
+            columnsPretreatmentCMR = [
+                    { field: "area", title: "AreapreCMR", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed", valign: "top" },
+                    { field: "pressatair", title: "Tek. Sat. Air", valign: "top" },
+                    { field: "pressat1naoh", title: "Tek. Sat.1 NaOH", valign: "top" },
+                    { field: "pressat2naoh", title: "Tek. Sat.2 NaOH", valign: "top" },
+                    { field: "naoh", title: "NaOH Saturator", valign: "top" },
+                    { field: "tempsat1naoh", title: "Temp. NaOH Sat. 1", valign: "top" },
+                    { field: "tempsat2naoh", title: "Temp. NaOH Sat. 2", valign: "top" },
+                    { field: "shower1", title: "Clip Shower 1", valign: "top" },
+                    { field: "shower2", title: "Clip Shower 2", valign: "top" },
+                    { field: "shower3", title: "Clip Shower 3", valign: "top" },
+                    { field: "shower4", title: "Clip Shower 4", valign: "top" },
+                    { field: "lebarstenter", title: "Lebar Tenter", valign: "top" },
+                    { field: "temppolystream1", title: "Temp. Polystream 1", valign: "top" },
+                    { field: "temppolystream2", title: "Temp. Polystream 2", valign: "top" },
+                    { field: "temppolystream3", title: "Temp. Polystream 3", valign: "top" },
+                    { field: "temppolystream4", title: "Temp. Polystream 4", valign: "top" },
+                    { field: "fillerkiri", title: "Feeler Kiri", valign: "top" },
+                    { field: "fillerkanan", title: "Feeler Kanan", valign: "top" },
+                    { field: "keeperstick", title: "Keeper Stick", valign: "top" },
+                    
+                ];
+
+            columnsPretreatmentOsthoff = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed", valign: "top" },
+                    { field: "pressburner", title: "Pressure Burner", valign: "top" },
+                    { field: "titikapi", title: "Titik Api", valign: "top" },
+                    { field: "pressaturator", title: "Pressure Saturator", valign: "top" },
+                    { field: "temperatur", title: "Temp. saturator", valign: "top" },
+                    
+                    
+                ];
+
+            columnsPretreatmentWD2 = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed", valign: "top" },
+                    { field: "pressatair", title: "Temperatur washer 1", valign: "top" },
+                    { field: "pressat1naoh", title: "Temperatur washer 2", valign: "top" },
+                    { field: "pressat2naoh", title: "Temperatur washer 3", valign: "top" },
+                    { field: "naoh", title: "Temperatur washer 4", valign: "top" },
+                    { field: "naoh", title: "pH larutan asam", valign: "top" },
+                    
+                    
+                ];
+
+            columnsDyeing = [
+                    { field: "area", title: "AreaDyeing", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                   
+                ];  
+
+            columnsDyeingMonfort = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed", valign: "top" },
+                    { field: "pressatair", title: "Tek. Mangle L", valign: "top" },
+                    { field: "pressat1naoh", title: "Tek. Mangle C", valign: "top" },
+                    { field: "pressat2naoh", title: "Tek. Mangle R", valign: "top" },
+                    { field: "naoh", title: "Temp. Chamber 1", valign: "top" },
+                    { field: "naoh", title: "Temp. Chamber 2", valign: "top" },
+                    { field: "naoh", title: "Temp. Thermosol 1", valign: "top" },
+                    { field: "naoh", title: "Temp. Thermosol 2", valign: "top" },
+                    { field: "naoh", title: "Exhaust fan dryer", valign: "top" },
+                    { field: "naoh", title: "Exhaust fan Thermosol", valign: "top" },
+                    { field: "naoh", title: "Sirkulasi Chamber", valign: "top" },
+                    { field: "naoh", title: "Sirkulasi Thermosol", valign: "top" },
+                ];
+            columnsDyeingPS4 = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "speed", title: "Speed", valign: "top" },
+                    { field: "pressatair", title: "Tek. Mangle L", valign: "top" },
+                    { field: "pressat1naoh", title: "Tek. Mangle R", valign: "top" },
+                    { field: "pressat2naoh", title: "Temp. Chamber", valign: "top" },
+                    { field: "naoh", title: "Temp. Washer 1", valign: "top" },
+                    { field: "naoh", title: "Temp. Washer 2", valign: "top" },
+                    { field: "naoh", title: "Temp. Washer 3", valign: "top" },
+                    { field: "naoh", title: "Temp. Polystream 1", valign: "top" },
+                    { field: "naoh", title: "Temp. Polystream 2", valign: "top" },
+                    { field: "naoh", title: "Temp. Polystream 3", valign: "top" },
+                    { field: "naoh", title: "Temp. Washer", valign: "top" },
+                    { field: "naoh", title: "Tek. Dryer 1", valign: "top" },
+                    { field: "naoh", title: "Tek. Dryer 2", valign: "top" },
+                ];
             
 
             rowFormatter(data, index) {
