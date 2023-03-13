@@ -27,7 +27,12 @@ export class Index {
           name: 'edit',
           nav: false,
           title: 'Edit: Stop Opname Gudang Barang Jadi - Dyeing & Printing'
-        }
+        },
+        { route: 'excel', 
+        moduleId: './excel', 
+        name: 'excel', 
+        nav: false, 
+        title: 'Monitoring : Mutasi Stock Opname' }
         
       ]);
   
