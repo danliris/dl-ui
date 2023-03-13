@@ -8,14 +8,17 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "EstimatedNumber", title: "No Estimasi Produksi" },
     {
-      field: "DateEstimated",
-      title: "Tanggal Estimasi Produksi",
-      formatter: function(value, data, index) {
-        moment.locale("id");
-        return moment(new Date(value)).format("DD MMMM YYYY");
-      }
+      field: "Month",
+      title: "Bulan"
+    },
+    {
+      field: "YearPeriode",
+      title: "Tahun"
+    },
+    {
+      field: "CreatedDate",
+      title: "Tanggal Update"
     }
   ];
 
@@ -53,7 +56,7 @@ export class List {
     }
   }
 
-  create() {
-    this.router.navigateToRoute("create");
+  upload() {
+    this.router.navigateToRoute("upload");
   }
 }

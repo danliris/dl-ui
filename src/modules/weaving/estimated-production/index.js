@@ -28,6 +28,13 @@ export class Index {
           name: "edit",
           nav: false,
           title: "Edit: Estimasi Produksi"
+        },
+        {
+          route: "upload",
+          moduleId: "./upload",
+          name: "upload",
+          nav: false,
+          title: "Upload: Estimasi Produksi"
         }
       ]);
   
