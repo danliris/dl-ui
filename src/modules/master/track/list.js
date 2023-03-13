@@ -8,6 +8,7 @@ export class List {
     columns = [
     { field: "Type", title: "Tipe" },
     { field: "Name", title: "Nama" },
+    { field: "Box", title: "Box"}
     
   ];
 
