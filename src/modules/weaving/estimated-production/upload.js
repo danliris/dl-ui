@@ -88,7 +88,7 @@ export class Create {
             
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = `weaving/daily-operations-warping/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
+            var endpoint = `weaving/estimation-productions/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
             var request = {
                 method: 'POST',
                 headers: {

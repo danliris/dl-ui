@@ -16,7 +16,7 @@ export class Index {
           title: "Create: Estimasi Produksi"
         },
         {
-          route: "view/:Id",
+          route: "view",
           moduleId: "./view",
           name: "view",
           nav: false,

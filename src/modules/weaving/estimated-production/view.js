@@ -15,10 +15,15 @@ export class View {
   }
 
   async activate(params) {
-    var Id = params.Id;
-    // var dataResult;
-    this.data = await this.service
-      .getById(Id);
+    var arg = {
+       month: params.month,
+       yearPeriode: params.yearPeriode
+    };
+    console.log(params)
+    var result= await  this.service.getFilter(arg);
+    this.data = result.data;
+    console.log(this.data);
+    
   }
 
   //Dipanggil ketika tombol "Kembali" ditekan
@@ -32,14 +37,14 @@ export class View {
   }
 
   //Tombol "Ubah", routing ke 'edit'
-  editCallback(event) {
-    this.router.navigateToRoute("edit", { Id: this.data.Id });
-  }
+  // editCallback(event) {
+  //   this.router.navigateToRoute("edit", { Id: this.data.Id });
+  // }
 
   //Tombol "Hapus", hapus this.data, redirect ke list
-  deleteCallback(event) {
-    this.service.delete(this.data).then(result => {
-      this.list();
-    });
-  }
+  // deleteCallback(event) {
+  //   this.service.delete(this.data).then(result => {
+  //     this.list();
+  //   });
+  // }
 }
