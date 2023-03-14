@@ -107,7 +107,7 @@ export class List {
                     for(var data of result.data){
                         index++;
                         data.index=index;
-                        data.durasi= parseInt(data.durasi * 1440 % 60);
+                        data.durasi= parseInt(data.durasi * 1440);
                     }
                     return {
                         total: result.total,
