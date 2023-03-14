@@ -356,7 +356,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/daily-operation-machine',
         name: 'daily-operation-machine',
-        moduleId: './modules/production/finishing-printing/reports/daily-operation-machine/index',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-machine-etl/index',
         nav: true,
         title: 'Laporan Output Mesin per Hari',
         auth: true,
