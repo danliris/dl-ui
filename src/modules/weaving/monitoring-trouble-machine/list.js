@@ -60,6 +60,13 @@ export class List {
   //       break;
   //   }
   // }
+  tableOptions = {
+    showColumns: false,
+    search: false,
+    showToggle: false,
+    sortable: false,
+    pagination: true,
+  };
 
   upload() {
     this.router.navigateToRoute("upload");
