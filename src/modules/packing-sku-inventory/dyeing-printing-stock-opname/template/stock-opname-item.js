@@ -31,7 +31,7 @@ export class StockItem {
             this.selectedUom.Unit = this.data.packagingUnit;
         }
 
-
+        this.selectedTrack = this.data.track;
         if (this.data.gradeProduct) {
             this.selectedGrade = {};
             this.selectedGrade.type = this.data.gradeProduct.type;
@@ -164,7 +164,13 @@ export class StockItem {
 
     trackView = (track) => {
         console.log(track);
-        return `${track.Type} - ${track.Name}`
+        if(track.Type === undefined){
+
+            return `${track.type} - ${track.name}` ; 
+          }else{
+      
+            return `${track.Type} - ${track.Name}`;
+          }
     }
 
     @bindable selectedUom;

@@ -1,0 +1,65 @@
+<template>
+    <style>
+        #dailyReport td {
+            white-space: pre;
+        }
+    </style>
+    <h1 class="page-header">Monitoring Monthly Operation Machine</h1>
+    <form class="form-horizontal">
+        <au-dropdown 
+            label="Area" 
+            value.bind="infoAreaHard" 
+            items.bind="areaOptionsHard" 
+            key="value" text="text" 
+            options.bind="controlOptions" >
+        </au-dropdown>  
+        <au-autocomplete 
+            value.bind="Machine" 
+            error.bind="error.Machine" 
+            label="Machine" 
+            loader.bind="machineLoader" 
+            placeholder="SEMUA MESIN"
+            key="Code" text="Name" 
+            read-only.bind="(readOnly)" 
+            options.bind="auInputOptions">
+        </au-autocomplete>
+
+        <au-dropdown 
+            label="Periode" 
+            value.bind="month" 
+            key="value" text="text" 
+            items.bind="monthOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown  
+            label="Tahun"  
+            value.bind="year" 
+            key="value" text="text" 
+            items.bind="yearOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+
+        <au-table
+            view-model.ref="Table"
+            data.bind="loader"
+            columns.bind="columns"
+            options.bind="tableOptions">  
+        </au-table>
+        
+    </form>
+    
+    
+</template>
