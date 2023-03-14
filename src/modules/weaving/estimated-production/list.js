@@ -9,15 +9,15 @@ export class List {
 
   columns = [
     {
-      field: "Month",
+      field: "month",
       title: "Bulan"
     },
     {
-      field: "YearPeriode",
+      field: "yearPeriode",
       title: "Tahun"
     },
     {
-      field: "CreatedDate",
+      field: "createdDate",
       title: "Tanggal Update"
     }
   ];
@@ -34,10 +34,12 @@ export class List {
     };
 
     return this.service.searchEstimatedProductions(arg).then(result => {
+      console.log(result.data);
       return {
         total: result.info.total,
         data: result.data
       };
+     
     });
   };
 
@@ -51,7 +53,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { Id: data.Id });
+        this.router.navigateToRoute("view", { month: data.month, yearPeriode : data.yearPeriode });
         break;
     }
   }
