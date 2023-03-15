@@ -160,7 +160,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/monitoring-event-report',
         name: 'daily-monitoring-event-report',
-        moduleId: './modules/production/finishing-printing/reports/daily-monitoring-event-report/index',
+        moduleId: './modules/production/finishing-printing/reports/monitoring-event-report-etl/index',
         nav: true,
         title: 'Laporan Monitoring Event',
         auth: true,
@@ -343,7 +343,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/monitoring-montly-operation-machine',
         name: 'monitoring-montly-operation-machine',
-        moduleId: './modules/production/finishing-printing/reports/monitoring-montly-operation-machine/index',
+        moduleId: './modules/production/finishing-printing/reports/monitoring-monthly-operation-etl/index',
         nav: true,
         title: 'Monitoring monthly operation machine',
         auth: true,
@@ -356,7 +356,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/daily-operation-machine',
         name: 'daily-operation-machine',
-        moduleId: './modules/production/finishing-printing/reports/daily-operation-machine/index',
+        moduleId: './modules/production/finishing-printing/reports/daily-operation-machine-etl/index',
         nav: true,
         title: 'Laporan Output Mesin per Hari',
         auth: true,
@@ -588,36 +588,6 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     }
-
-
-
-
-    // {
-    //     route: 'production/finishing-printing/cost-calculation',
-    //     name: 'cost-calculation',
-    //     moduleId: './modules/production/finishing-printing/cost-calculation/index',
-    //     nav: true,
-    //     title: 'Cost Calculation Dyeing Printing',
-    //     auth: true,
-    //     settings: {
-    //         group: "dyeing-printing",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // }
-    // {
-    //     route: 'production/finishing-printing/operational-cost',
-    //     name: 'operational-cost',
-    //     moduleId: './modules/production/finishing-printing/operational-cost/index',
-    //     nav: true,
-    //     title: 'Biaya Operational',
-    //     auth: true,
-    //     settings: {
-    //         group: "dyeing-printing",
-    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
-    //         iconClass: 'fa fa-dashboard'
-    //     }
-    // }
 ]
 
 

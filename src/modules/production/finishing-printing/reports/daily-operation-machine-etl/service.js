@@ -1,8 +1,8 @@
 import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../utils/rest-service';
 
-const uriGRC = 'GetDataExcelNew';
-const uriDownload = 'downloadExcel';
+const uriGRC = 'GetMonitoringDailyOutput';
+const uriDownload = 'GetDownloadMonitoringDailyOutput';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, api) {
@@ -10,7 +10,6 @@ export class Service extends RestService {
     }
     
     search(info) {
-        console.log("masuk fungsi search service.js");
         var endpoint = `${uriGRC}`;
         return super.list(endpoint, info);
     }
@@ -26,10 +25,6 @@ export class Service extends RestService {
             if (query === '') query = `idmesin=${info.idmesin}`;
             else query = `${query}&idmesin=${info.idmesin}`;
         }
-        if (info.shift) {
-            if (query === '') query = `shift=${info.shift}`;
-            else query = `${query}&shift=${info.shift}`;
-        }
         if (info.startdate) {
             if (query === '') query = `startdate=${info.startdate}`;
             else query = `${query}&startdate=${info.startdate}`;
@@ -40,7 +35,7 @@ export class Service extends RestService {
         }
         if (query !== '')
             endpoint = `${uriDownload}?${query}`;
-        var filename= "Monitoring Operational Harian " + info.area;
+        var filename= "Laporan Output Mesin Per Hari " + info.area;
         return super.getXls_AF(endpoint,"", filename);
     }
 }
