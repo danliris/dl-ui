@@ -40,7 +40,7 @@ export class Service extends RestService {
         }
         if (query !== '')
             endpoint = `${uriDownload}?${query}`;
-        var filename= "Monitoring Operational Harian " + info.area;
+        var filename= "Monitoring Spesifikasi Mesin " + info.area;
         return super.getXls_AF(endpoint,"", filename);
     }
 }
