@@ -166,10 +166,10 @@ export class StockItem {
         console.log(track);
         if(track.Type === undefined){
 
-            return `${track.type} - ${track.name}` ; 
+            return `${track.type} - ${track.name} - ${track.box}` ; 
           }else{
       
-            return `${track.Type} - ${track.Name}`;
+            return `${track.Type} - ${track.Name} - ${track.Box}`;
           }
     }
 
@@ -255,6 +255,7 @@ export class StockItem {
             this.data.trackId = newValue.Id;
             this.data.trackType = newValue.Type;
             this.data.trackName = newValue.Name;
+            this.data.trackBox = newValue.Box;
 
             
         }
