@@ -76,13 +76,30 @@ export class List {
             }
             get areaDyeing() {
                 return  this.infoAreaHard.text == "DYEING" ;
-        
             }
             get areaDyeingMonfort() {
                 return this.Machine && this.Machine.Id == 8;
             }
             get areaDyeingPS4() {
                 return this.Machine && this.Machine.Id == 10;
+            }
+            get areaDigitalPrint() {
+                return  this.infoAreaHard.text == "DIGITAL PRINT" ;
+            }
+            get areaDigitalPrintMSJP7() {
+                return this.Machine && this.Machine.Id == 39;
+            }
+            get areaPrinting() {
+                return  this.infoAreaHard.text == "PRINTING" ;
+            }
+            get areaPrintingArioli() {
+                return this.Machine && this.Machine.Id == 28;
+            }
+            get areaPrintingBrugman() {
+                return this.Machine && this.Machine.Id == 27;
+            }
+            get areaPrintingHaspel() {
+                return this.Machine && this.Machine.Id == 31;
             }
 
 
@@ -233,11 +250,11 @@ export class List {
                     { field: "noorder", title: "No.Order", valign: "top" },
                     { field: "nokereta", title: "No.kereta", valign: "top" },
                     { field: "speed", title: "Speed", valign: "top" },
-                    { field: "pressatair", title: "Temperatur washer 1", valign: "top" },
-                    { field: "pressat1naoh", title: "Temperatur washer 2", valign: "top" },
-                    { field: "pressat2naoh", title: "Temperatur washer 3", valign: "top" },
-                    { field: "naoh", title: "Temperatur washer 4", valign: "top" },
-                    { field: "naoh", title: "pH larutan asam", valign: "top" },
+                    { field: "tempwasher1", title: "Temperatur washer 1", valign: "top" },
+                    { field: "tempwasher2", title: "Temperatur washer 2", valign: "top" },
+                    { field: "tempwasher3", title: "Temperatur washer 3", valign: "top" },
+                    { field: "tempwasher4", title: "Temperatur washer 4", valign: "top" },
+                    { field: "phlarutasam", title: "pH larutan asam", valign: "top" },
                     
                     
                 ];
@@ -300,7 +317,109 @@ export class List {
                     { field: "naoh", title: "Tek. Dryer 1", valign: "top" },
                     { field: "naoh", title: "Tek. Dryer 2", valign: "top" },
                 ];
+            columnsDigitalPrint = [
+                    { field: "area", title: "AreaDigitalPrint", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                   
+                ];  
             
+            columnsDigitalPrintMSJP7 = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "tekananangin", title: "Tekanan Angin", valign: "top" },
+                    
+                ];
+            columnsPrinting = [
+                    { field: "area", title: "AreaDigitalPrint", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                   
+                ];  
+            columnsPrintingArioli = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+                    { field: "speed", title: "Kecepatan", valign: "top" },
+                    { field: "loop", title: "Loop Length", valign: "top" },
+                    { field: "temp1", title: "Temperature Chamber - 1", valign: "top" },
+                    { field: "temp2", title: "Temperature Chamber - 2", valign: "top" },
+                    { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+                    { field: "supplysteam", title: "Supply Steam", valign: "top" },
+                    { field: "exhaust", title: "Exhaust", valign: "top" },
+                    { field: "time", title: "Waktu Fiksasi", valign: "top" },
+                    { field: "RH", title: "Humidity (Kelembaban)", valign: "top" },
+                    
+                ];
+            columnsPrintingBrugman = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+                    { field: "speed", title: "Kecepatan", valign: "top" },
+                    { field: "tempwashing1", title: "Temperature Chamber - 1", valign: "top" },
+                    { field: "tempwashing2", title: "Temperature Chamber - 2", valign: "top" },
+                    { field: "tempwashing3", title: "Temperature Chamber - 3", valign: "top" },
+                    { field: "tempwashing45", title: "Temperature Chamber - 4 & 5", valign: "top" },
+                    { field: "tempwashing6", title: "Temperature Chamber - 6", valign: "top" },
+                    { field: "tempwashing78", title: "Temperature Chamber - 7 & 8", valign: "top" },
+                    { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+                    { field: "tekhidro", title: "Tekanan Roll Hidrolik", valign: "top" },
+                    
+                ];
+            columnsPrintingHaspel = [
+                    { field: "area", title: "Area", valign: "top" },
+                    { field: "mesin", title: "Mesin", valign: "top" },
+                    { field: "tgl", title: "Tanggal",  valign: "top", 
+                            formatter: function (value, data, index) {
+                                return moment(value).format("DD MMM YYYY"); 
+                            } 
+                    },
+                    { field: "noorder", title: "No.Order", valign: "top" },
+                    { field: "nokereta", title: "No.kereta", valign: "top" },
+                    { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+                    { field: "speed", title: "Kecepatan", valign: "top" },
+                    { field: "tempwashing1", title: "Temperature Chamber - 1", valign: "top" },
+                    { field: "tempwashing2", title: "Temperature Chamber - 2", valign: "top" },
+                    { field: "tempwashing3", title: "Temperature Chamber - 3", valign: "top" },
+                    { field: "tempwashing45", title: "Temperature Chamber - 4 & 5", valign: "top" },
+                    { field: "tempwashing6", title: "Temperature Chamber - 6", valign: "top" },
+                    { field: "tempwashing78", title: "Temperature Chamber - 7 & 8", valign: "top" },
+                    { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+                    { field: "tekhidro", title: "Tekanan Roll Hidrolik", valign: "top" },
+                    
+                ];
+
+
+
 
             rowFormatter(data, index) {
                 return {};
