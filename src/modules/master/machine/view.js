@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+console.log("masuk ke view.js");
 
 @inject(Router, Service)
 export class View {

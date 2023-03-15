@@ -10,7 +10,9 @@ export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable isSelected = false;
-
+    @bindable infoArea2;
+    areaOptions2 = [];
+    
     isSelected = false;
     formOptions = {
         cancelText: "Kembali",
@@ -50,7 +52,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        this.infoArea2 = "";
         this.cancelCallback = this.context.cancelCallback;
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
@@ -76,6 +78,24 @@ export class DataForm {
             this.detailOptions.processArea = this.data.ProcessArea;
         }
     }
+
+
+    areaOptions2
+    async bind(context) {
+        this.data = context.data;
+        this.error = context.error;
+        this.service.getAreaBaru().then(result => {
+            let areaList2 = [];
+            if (result !== null){ 
+                result.map(x => {
+                    areaList2.push({ text: x.name, value: x.id});
+                });
+                this.areaOptions2 = areaList2;
+                this.infoArea2 = areaList2[0];
+            }
+        });
+    }
+
 
     get machineLoader() {
         return MachineLoader;

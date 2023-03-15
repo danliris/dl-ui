@@ -1,64 +1,41 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
+import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/daily-operations/reports';
+const uriGRC = 'GetDataExcelNew';
 
 export class Service extends RestService {
-
-    constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "production-azure");
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "dyeing");
     }
+    
+   
+    // search(info) {
+    //     var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
+    //     return super.get(endpoint); 
+    // }
 
-    getReport(sdate, edate, machine, kanban) {
-        var endpoint = `${serviceUri}`;
-        var query = '';
-        
-        if (sdate) {
-            if (query === '') query = `dateFrom=${(sdate)}`;
-            else query = `${query}&dateFrom=${(sdate)}`;
-        }
-        if (edate) {
-            if (query === '') query = `dateTo=${(edate)}`;
-            else query = `${query}&dateTo=${(edate)}`;
-        }
-        if (machine) {
-            if (query === '') query = `machine=${machine.Id}`;
-            else query = `${query}&machine=${machine.Id}`;
-        }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban.Id}`;
-            else query = `${query}&kanban=${kanban.Id}`;
-        }
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-            
-        return super.get(endpoint);
+    search(info) {
+        console.log("masuk fungsi search service.js");
+        var endpoint = `${uriGRC}`;
+        return super.list(endpoint, info);
     }
+    
 
-    generateExcel(sdate, edate, machine, kanban) {
-        
-        var endpoint = `${serviceUri}/downloads/xls`;
-        var query = '';
-        if (sdate) {
-            if (query === '') query = `dateFrom=${sdate}`;
-            else query = `${query}&dateFrom=${sdate}`;
-        }
-        if (edate) {
-            if (query === '') query = `dateTo=${edate}`;
-            else query = `${query}&dateTo=${edate}`;
-        }
-        if (machine) {
-            if (query === '') query = `machine=${machine.Id}`;
-            else query = `${query}&machine=${machine.Id}`;
-        }
-        if (kanban) {
-            if (query === '') query = `kanban=${kanban.Id}`;
-            else query = `${query}&kanban=${kanban.Id}`;
-        }
-        if (query !== '')
-            endpoint = `${endpoint}?${query}`;
-
-        return super.getXls(endpoint);
-    }
+    // xls(info) {
+    //     console.log(info)
+    //     let endpoint = `${uriGRC}/download?${buildQueryString(info)}`;
+    //     return super.getXls(endpoint);
+    // }
 }
+
+// const UnitServiceUri = '../master/units';
+// export class CoreService extends RestService {
+//     constructor(http, aggregator, config, endpoint) {
+//         super(http, aggregator, config, "core");
+//     }
+
+//     getSampleUnit(info) {
+//         var endpoint = `${UnitServiceUri}`;
+//         return super.list(endpoint, info);
+//     }
+// }

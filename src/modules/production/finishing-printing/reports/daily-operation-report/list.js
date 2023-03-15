@@ -2,8 +2,9 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
-var moment = require('moment');
-var MachineLoader = require("../../../../../loader/machines-loader");
+
+import moment from 'moment';
+ var MachineLoader = require("../../../../../loader/machines-loader");
 var KanbanLoader = require("../../../../../loader/kanban-loader");
 
 @inject(Router, Service)
@@ -14,80 +15,56 @@ export class List {
         this.service = service;
         this.router = router;
         this.today = new Date();
+        this.flag = false;
     }
 
     tableOptions = {
         search: false,
         showToggle: false,
         showColumns: false,
-        pagination: false
+       // pagination: false
     }
 
-    listDataFlag = false;
+ 
 
-    dateFrom = null;
-    dateTo = null;
-    Machine = null;
-    Kanban = null;
-    filterKanban = null;
-    kanbanId = null;
+   
+
+    areaOptionsHard = [
+        { text: "SEMUA AREA", value: 0 },
+        { text: "DIGITAL PRINT", value: 1 },
+        { text: "DYEING", value: 2 },
+        { text: "FINISHING", value: 3 },
+        { text: "PRETREATMENT", value: 4 },
+        { text: "PRINTING", value: 5 },
+            ];
+    shiftOptionsHard = [
+        { text: "SEMUA SHIFT", value: 0 },
+        { text: "PAGI", value: 1 },
+        { text: "SIANG", value: 2 },
+        { text: "MALAM", value: 3 },
+            ];
 
     columns = [
-        [
-            {
-                field: "no", title: "No", rowspan: "3", valign: "top", formatter: function (value, data, index) {
-                    return index + 1;
-                }
-            },
-            { field: "Kanban.ProductionOrder.OrderNo", title: "No. Order", rowspan: "3", valign: "top" },
-            { field: "Kanban.Cart.CartNumber", title: "No. Kereta", rowspan: "3", valign: "top" },
-            { field: "Kanban.IsReprocess", title: "Reproses", rowspan: "3", valign: "top" },
-            { field: "Machine.Name", title: "Mesin", rowspan: "3", valign: "top" },
-            { field: "Step.Process", title: "Step Proses", rowspan: "3", valign: "top" },
-            { field: "Kanban.ProductionOrder.Material.Name", title: "Material", rowspan: "3", valign: "top" },
-            { field: "Kanban.SelectedProductionOrderDetail.ColorRequest", title: "Warna", rowspan: "3", valign: "top" },
-            { field: "Kanban.ProductionOrder.FinishWidth", title: "Lebar Kain (inch)", rowspan: "3", valign: "top" },
-            { field: "Kanban.ProductionOrder.ProcessType.Name", title: "Jenis Proses", rowspan: "3", valign: "top" },
-            { title: "Panjang In (m)", colspan: "3", valign: "middle" },
-            { title: "Panjang Out (m)", colspan: "4", valign: "middle" },
-            { field: "BadOutputDescription", title: "Keterangan BS", rowspan: "3", valign: "middle", classes: "newLine" },
-        ],
-        [
-            {
-                field: "DateInput", title: "Tgl", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
-                    return value ? moment(value).format("DD MMM YYYY") : "-";
-                }
-            },
-            {
-                field: "TimeInput", title: "Jam", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
-                    return value ? moment(value).format('HH:mm') : '-';
-                }
-            },
-            { field: "Input", title: "In Qty", rowspan: "2", valign: "middle", },
-            {
-                field: "DateOutput", title: "Tgl", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
-                    return value ? moment(value).format("DD MMM YYYY") : "-";
-                }
-            },
-            {
-                field: "TimeOutput", title: "Jam", rowspan: "2", valign: "middle", formatter: function (value, data, index) {
-                    return value ? moment(value).format('HH:mm') : '-';
-                }
-            },
-            { title: "Out Qty", colspan: "2", valign: "middle" },
-        ],
-        [
-            { field: "GoodOutput", title: "BQ", valign: "middle" },
-            { field: "BadOutput", title: "BS", valign: "middle" },
-        ]
-    ];
+                    
+                    { field: "name", title: "AreaJS", valign: "top" },
+                    { field: "namaMesin", title: "Mesin", valign: "top" },
+                    { field: "createdAt", title: "Tanggal",  valign: "top" },
+                    { field: "shift", title: "Shift",  valign: "top" },
+                    { field: "grup", title: "Group", valign: "top" },
+                    { field: "panjang_in", title: "Panjang_IN", valign: "top" },
+                    { field: "panjang_out_bq", title: "Panjang_OUT_BQ", valign: "top" },
+                    { field: "panjang_out_bs", title: "Panjang_OUT_BS", valign: "top" },
+               
+            ];
 
-    // activate() {
-    // }
+    
 
     bind(context) {
         this.context = context;
         this.data = context.data;
+        this.infoAreaHard="";
+        this.infoShift="";
+      
     }
 
     // searching() {
@@ -110,28 +87,95 @@ export class List {
         return {};
     }
 
+    search() {
+       this.error = {};
+       console.log("masuk fungsi search");
+         if (Object.getOwnPropertyNames(this.error).length === 0) {
+            this.flag = true;
+            console.log("diatas Table.refresh");
+            this.Table.refresh();
+            console.log("dibawah Table.refresh");
+             }
+        }
+
     loader = (info) => {
+        console.log("masuk fungsi loader");
+        var order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
+    
+      
+        var args = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order,
+            //idMesin:this.Machine.Id,
+          };
+        console.log("ini args : "+ args);
+        //console.log("idMesin : "+ idMesin);
+       // console.log("this.Machine.Id : "+ this.Machine.Id);
+        return this.flag ?
+            (
+                this.service.search(args)
+                    .then(result => {
+                        console.log("masuk this.service.search ");
 
-        this.info = {};
-       var dateFrom = this.dateFrom?  moment(this.dateFrom).format("DD MMM YYYY HH:mm")  :null
-       var dateTo = this.dateTo?  moment(this.dateTo).format("DD MMM YYYY HH:mm")  :null
-        return this.listDataFlag ? (
-            
-            // this.service.getReport(this.dateFrom, this.dateTo, this.Machine, this.Kanban)
-            this.service.getReport(dateFrom, dateTo, this.Machine, this.Kanban)
-                .then((result) => {
-                    return {
-                        data: result
-                    }
-                })
-        ) : { total: 0, data: {} };
-    }
+                        var index=0;
+                        for(var data of result.data){
+                            index++;
+                            data.index=index;
+                           
+                        }
+                        return {
+                            total: result.total,
+                            data: result.data
+                        };
+                    })
+            ) : { total: 0, data: [] };
+       
+        // return this.service.search(arg).then((result) => {
+        //   var resultPromise = [];
+        //   if (result && result.data && result.data.length > 0) {
+        //     resultPromise = result.data;
+        //   }
+        //   return Promise.all(resultPromise).then((newResult) => {
+        //     return {
+        //       total: result.info.total,
+        //       data: newResult,
+        //     };
+        //   });
+        // });
+      }
 
-    searching() {
-        this.listDataFlag = true;
+    // search() {
+    //     let args = {
+    //         // infoAreaHard:"PRINTING",
+    //         // Machine:"5",//mesin ichinose
+    //         // dateFrom:"2023-01-01",
+    //         // dateTo:"2023-01-31",
+    //         // infoShift:"PAGI",
+           
+    //       }
+    //       this.service.search().then(result => {
+    //         var resultPromise = [];
+    //         if (result && result.data && result.data.length > 0) {
+    //           resultPromise = result.data;
+    //         }
+    //         return Promise.all(resultPromise).then((newResult) => {
+    //           return {
+    //             total: result.info.total,
+    //             data: newResult,
+    //           };
+    //         });
+    //     })
+    // }
+
+    // searching() {
+    //     this.listDataFlag = true;
         
-        this.dailyTable.refresh();
-    }
+    //     this.dailyTable.refresh();
+    // }
 
     // exportToExcel() {
     //     this.fillValues();
@@ -154,16 +198,16 @@ export class List {
     //     }
     // }
 
-    reset() {
-        this.listDataFlag = false;
-        this.dateFrom = null;
-        this.dateTo = null;
-        this.Machine = null;
-        this.Kanban = null;
-        this.filterKanban = null;
-        this.kanbanId = null;
-        this.error = '';
-    }
+    // reset() {
+    //     this.listDataFlag = false;
+    //     this.dateFrom = null;
+    //     this.dateTo = null;
+    //     this.Machine = null;
+    //     this.Kanban = null;
+    //     this.filterKanban = null;
+    //     this.kanbanId = null;
+    //     this.error = '';
+    // }
 
     ExportToExcel() {
         //    var htmltable= document.getElementById('myTable');

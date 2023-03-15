@@ -1,0 +1,44 @@
+<template>
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form title.bind="title"
+                     with.bind="context"
+                     options.bind="formOptions">
+
+                     <au-dropdown
+                     label="Tipe"
+                     value.bind="data.Type"
+                     error.bind="error.type"
+                     read-only.bind="readOnly"
+                     items.bind="types"></au-dropdown>
+
+        <au-textbox label="Nama"
+                    value.bind="data.Name"
+                    error.bind="error.name"
+                    read-only.bind="readOnly"></au-textbox>
+        
+                    <au-textbox label="Box"
+                    value.bind="data.Box"
+                    error.bind="error.box"
+                    read-only.bind="readOnly"></au-textbox>
+
+        
+
+        
+        <!-- <au-collection if.bind="isPermitted"
+                       items.bind="data.MappingCategories"
+                       errors.bind="error.MappingCategories"
+                       columns.bind="columns"
+                       add.bind="addItems"
+                       remove.bind="onremove"
+                       read-only.bind="readOnly"
+                       item-template="modules/master/product-budgeting/template/mapping-category">
+        </au-collection> -->
+
+        <template replaceable
+                  part="actions"></template>
+
+      </au-input-form>
+    </div>
+  </div>
+</template>

@@ -1,45 +1,38 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from '../../../../utils/rest-service';
 
-const serviceUri = 'finishing-printing/daily-monitoring-event';
-const serviceUriEventOrganizer = 'master/event-organizer';
+const getFilePeriode = "GetFilePeriode";
+//const getArea = "GetArea";
+// const getAreaBaru = "GetAreaBaru";
 
 export class Service extends RestService {
-
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "production-azure");
+    super(http, aggregator, config, "dyeing");
+    //super(http, aggregator, config, "production-azure");
   }
 
   search(info) {
-    let endpoint = `${serviceUri}`;
+    var endpoint = `${getFilePeriode}`;
     return super.list(endpoint, info);
   }
 
-  getById(id) {
-    let endpoint = `${serviceUri}/${id}`;
-    return super.get(endpoint);
-  }
+  // getArea() {
+  //   var endpoint = `${getArea}`;
+  //   return super.get(endpoint);
+  // }
 
-  create(data) {
-    let endpoint = `${serviceUri}`;
-    return super.post(endpoint, data);
-  }
+  // getAreaBaru() {
+  //   var endpoint = `${getAreaBaru}`;
+  //   return super.get(endpoint);
+  // }
 
-  update(data) {
-    let endpoint = `${serviceUri}/${data.Id}`;
-    return super.put(endpoint, data);
-  }
-
-  delete(data) {
-    let endpoint = `${serviceUri}/${data.Id}`;
-    return super.delete(endpoint, data);
-  }
-
-  getByAreaAndGroup(info) {
-    let endpoint = `${serviceUriEventOrganizer}/group-area?area=${info.area}&group=${info.group}`;
-    return super.get(endpoint);
-  }
-
-
+  // getReport( machine) {
+  //  // var endpoint = `${serviceUri}`;
+  //   var query = '';
+  //   if (machine) {
+  //     if (query === '') query = `machine=${machine.Id}`;
+  //     else query = `${query}&machine=${machine.Id}`;
+  // }
+  // }
 }
