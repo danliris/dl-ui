@@ -54,17 +54,6 @@
     <div if.bind="infoAreaHard.text=='PRETREATMENT'">
        
         <au-table 
-            show.bind="Machine.Id==33"
-            view-model.ref="TableCBR" 
-            data.bind="loader" 
-            columns.bind="columnsPretreatmentCBR" 
-            options.bind="tableOptions">
-        <div slot="toolbar" class="btn-group">
-            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download CBR</button>
-        </div>
-        </au-table>
-
-        <au-table 
             show.bind="Machine.Id==37"
             view-model.ref="TableBruck" 
             data.bind="loader" 
@@ -72,6 +61,17 @@
             options.bind="tableOptions">
         <div slot="toolbar" class="btn-group">
             <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Bruckner</button>
+        </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==33"
+            view-model.ref="TableCBR" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentCBR" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download CBR</button>
         </div>
         </au-table>
 
@@ -85,6 +85,28 @@
             <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Bruckner</button>
         </div>
         </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==41"
+            view-model.ref="TableOsthoff" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentOsthoff" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Osthoff</button>
+        </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==7"
+            view-model.ref="TableWD2" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentWD2" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download WD2</button>
+        </div>
+        </au-table>
     </div>
     
     <div if.bind="infoAreaHard.text=='DYEING'">
@@ -92,14 +114,165 @@
             show.bind="Machine.Id==8"
             view-model.ref="TableMon" 
             data.bind="loader" 
-            columns.bind="McolumnsDyeingMonfort" 
+            columns.bind="columnsDyeingMonfort" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Monfort</button>
             </div>
         </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==10"
+            view-model.ref="TablePS4" 
+            data.bind="loader" 
+            columns.bind="columnsDyeingPS4" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download PS4</button>
+            </div>
+        </au-table>
     </div>
 
+    <div if.bind="infoAreaHard.text=='DIGITAL PRINT'">
+        <au-table 
+            show.bind="Machine.Id==39"
+            view-model.ref="TableDP" 
+            data.bind="loader" 
+            columns.bind="columnsDPrint" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Digital Print</button>
+            </div>
+        </au-table>
+
+    </div>
+
+    <div if.bind="infoAreaHard.text=='PRINTING'">
+        <au-table 
+            show.bind="Machine.Id==28"
+            view-model.ref="TableArioli" 
+            data.bind="loader" 
+            columns.bind="columnsPrintArioli" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Arioli</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==27"
+            view-model.ref="TableBrugman" 
+            data.bind="loader" 
+            columns.bind="columnsPrintBrugman" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Brugman</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==31"
+            view-model.ref="TableHaspel" 
+            data.bind="loader" 
+            columns.bind="columnsPrintHaspel" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Haspel</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==25"
+            view-model.ref="TableHF2" 
+            data.bind="loader" 
+            columns.bind="columnsPrintHF4" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Hot Flue 2</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==9"
+            view-model.ref="TableHF4" 
+            data.bind="loader" 
+            columns.bind="columnsPrintHF4" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Hot Flue 4</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==22"
+            view-model.ref="TableIchinose" 
+            data.bind="loader" 
+            columns.bind="columnsPrintIchinose" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Ichinose</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==24"
+            view-model.ref="TableZimmer" 
+            data.bind="loader" 
+            columns.bind="columnsPrintZimmer" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Zimmer</button>
+            </div>
+        </au-table>
+
+    </div>
+
+    <div if.bind="infoAreaHard.text=='FINISHING'">
+        <au-table 
+            show.bind="Machine.Id==13 || Machine.Id==14 || Machine.Id==17"
+            view-model.ref="TableCRF" 
+            data.bind="loader" 
+            columns.bind="columnsFinishCRF" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==18 || Machine.Id==19"
+            view-model.ref="TableCL" 
+            data.bind="loader" 
+            columns.bind="columnsFinishCL" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==15 || Machine.Id==16"
+            view-model.ref="TableSF" 
+            data.bind="loader" 
+            columns.bind="columnsFinishSF" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==12"
+            view-model.ref="TableBaking" 
+            data.bind="loader" 
+            columns.bind="columnsFinishBaking" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+
+    </div>
    
 </form>
 </template>
