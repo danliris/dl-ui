@@ -1,0 +1,105 @@
+<template>
+
+    <style>
+        table > tbody > tr > td {
+            white-space: pre;
+        }
+    </style>
+
+    <h1 class="page-header">Laporan Monitoring Spesifikasi Mesin </h1>
+    <form class="form-horizontal">
+        <au-dropdown 
+        label="Area" 
+        value.bind="infoAreaHard" 
+        items.bind="areaOptionsHard" 
+        key="value" text="text" 
+        options.bind="controlOptions" >
+        </au-dropdown>  
+        
+        <au-autocomplete 
+        value.bind="Machine" 
+        error.bind="error.Machine" 
+        label="Machine" 
+        loader.bind="machineLoader" 
+        placeholder="SEMUA MESIN"
+        key="Code" text="Name" 
+        read-only.bind="(readOnly)" 
+        options.bind="auInputOptions">
+        </au-autocomplete>
+
+       
+        <au-datepicker 
+        label="Tanggal Awal" 
+        value.bind="dateFrom">
+        </au-datepicker>
+        <au-datepicker 
+        label="Tanggal Akhir" 
+        value.bind="dateTo">
+        </au-datepicker>
+
+        <au-textbox 
+        label="No.Order" 
+        value.bind="orderNo" 
+        placeholder="No.Order">
+        </au-textbox>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+
+    <div if.bind="infoAreaHard.text=='PRETREATMENT'">
+       
+        <au-table 
+            show.bind="Machine.Id==33"
+            view-model.ref="TableCBR" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentCBR" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download CBR</button>
+        </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==37"
+            view-model.ref="TableBruck" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentBruckner" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Bruckner</button>
+        </div>
+        </au-table>
+
+        <au-table 
+            show.bind="Machine.Id==40"
+            view-model.ref="TableCMR" 
+            data.bind="loader" 
+            columns.bind="columnsPretreatmentCMR" 
+            options.bind="tableOptions">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Bruckner</button>
+        </div>
+        </au-table>
+    </div>
+    
+    <div if.bind="infoAreaHard.text=='DYEING'">
+        <au-table 
+            show.bind="Machine.Id==8"
+            view-model.ref="TableMon" 
+            data.bind="loader" 
+            columns.bind="McolumnsDyeingMonfort" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Monfort</button>
+            </div>
+        </au-table>
+    </div>
+
+   
+</form>
+</template>
