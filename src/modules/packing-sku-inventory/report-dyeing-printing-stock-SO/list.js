@@ -145,8 +145,11 @@ export class List {
                     this.sumTotal += item.total;
                     var newData = {
                       ProductionOrderNo: item.productionOrderNo,
-                      Grade: item.grade,
+                      Material : item.construction,
                       Color : item.color,
+                      Motif:item.motif,
+                      
+                      Grade: item.grade,
                       PackagingUnit: item.packagingUnit,
                       Barcode: item.productPackingCode,
                       //Jalur : item.trackName,

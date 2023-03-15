@@ -2,6 +2,7 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import moment from 'moment';
+import numeral from 'numeral';
 var ProductionOrderLoader = require('../../../loader/production-order-azure-loader');
 var TrackLoader = require("../../../loader/track-loader");
 
@@ -35,29 +36,38 @@ export class Create {
     units = ["", "DYEING", "PRINTING"];
    
     columns = [
-        { field: "bonNo", title: "No. Bon", sortable: false},
+        // { field: "bonNo", title: "No. Bon", sortable: false},
         { field: "productionOrderNo", title: "No. Spp", sortable: false},
         { 
-            field: "dateIn", title: "Tanggal Keluar", sortable: false, formatter: function (value, data, index) {
+            field: "dateIn", title: "Tanggal Masuk", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD/MMM/YYYY")
             }
         },
         
        
         { field: "productPackingCode", title: "Barcode", sortable: false},
-        { field: "grade", title: "Grade", sortable: false},
+        
+        { field: "construction", title: "Material", sortable: false},
         { field: "color", title: "Warna", sortable: false},
+        { field: "motif", title: "Motif", sortable: false},
+        { field: "grade", title: "Grade", sortable: false},
         { field: "trackName", title: "Jalur/Rak", sortable: false},
         // { field: "motif", title: "Motif", sortable: false},
         // { field: "uomUnit", title: "Satuan", sortable: false},
         { 
-            field: "packagingQty", title: "Jumlah Packing", sortable: false
+            field: "packagingQty", title: "Qty Pack", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         { 
-            field: "packingLength", title: "Panjang/Pack", sortable: false
+            field: "packingLength", title: "Qty Satuan", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         },
         { 
-            field: "inQty", title: "Total", sortable: false
+            field: "inQty", title: "Qty Total", formatter: function (value, data, index) {
+                return numeral(value).format('0.00');
+            }, align: "right", halign: "center"
         }
     ];
 

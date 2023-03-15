@@ -35,18 +35,20 @@ export class Create {
     units = ["", "DYEING", "PRINTING"];
    
     columns = [
-        { field: "bonNo", title: "No. Bon", sortable: false},
         { field: "productionOrderNo", title: "No. Spp", sortable: false},
         { 
-            field: "dateIn", title: "Tanggal Masuk", sortable: false, formatter: function (value, data, index) {
+            field: "dateIn", title: "Tanggal Keluar", sortable: false, formatter: function (value, data, index) {
                 return moment(value).format("DD/MMM/YYYY")
             }
         },
         
        
         { field: "productPackingCode", title: "Barcode", sortable: false},
-        { field: "grade", title: "Grade", sortable: false},
+        { field: "construction", title: "Material", sortable: false},
         { field: "color", title: "Warna", sortable: false},
+        { field: "motif", title: "Motif", sortable: false},
+        { field: "grade", title: "Grade", sortable: false},
+        
         { field: "trackName", title: "Jalur/Rak", sortable: false},
         // { field: "motif", title: "Motif", sortable: false},
         // { field: "uomUnit", title: "Satuan", sortable: false},
