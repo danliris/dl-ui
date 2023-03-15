@@ -9,7 +9,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T1":1},
+            permission: { "T1": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -23,7 +23,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1  },
-            permission :{"T2":1},
+            permission: { "T2": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -37,7 +37,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1  },
-            permission :{"T3":1},
+            permission: { "T3": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
@@ -51,12 +51,12 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T4":1},
+            permission: { "T4": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
 
-  {
+    {
         route: '/customs/traceable-out',
         name: 'customs-report-out',
         moduleId: './modules/customs/traceable-out/index',
@@ -66,7 +66,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T5":1},
+            permission: { "T5": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -77,13 +77,13 @@ module.exports = [
         name: 'customs-report-in',
         moduleId: './modules/customs/laporan-wip-position/index',
         nav: true,
-        title : 'Laporan Posisi WIP',
-        auth : true,
-        settings : {
-            group : "customs",
+        title: 'Laporan Posisi WIP',
+        auth: true,
+        settings: {
+            group: "customs",
             // permission : {"C9": 1,"B6": 1,"B1": 1},
-            permission :{"T6":1},
-            iconClass : 'fa fa-dashboard'
+            permission: { "T6": 1 },
+            iconClass: 'fa fa-dashboard'
         }
     },
     {
@@ -96,13 +96,13 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T7":1},
+            permission: { "T7": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
     },
 
-     {
+    {
         route: '/customs/beacukai_temp',
         name: 'customs-beacukaitemp',
         moduleId: './modules/customs-report/beacukai_temp/index',
@@ -112,7 +112,24 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"PG": 1,"B1": 1 },
-            permission :{"T8":1},
+            permission: { "T8": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+
+    },
+
+
+    {
+        route: '/customs/posting-BC40',
+        name: 'customs-posting-BC40',
+        moduleId: './modules/customs-report/posting-BC40/index',
+        nav: true,
+        title: 'Posting BC-40',
+        auth: true,
+        settings: {
+            group: "customs",
+            // permission: { "C9": 1,"PG": 1,"B1": 1 },
+            permission: { "T8": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
@@ -128,7 +145,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T9":1},
+            permission: { "T9": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -144,7 +161,7 @@ module.exports = [
             group: "customs",
             // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T10":1},
+            permission: { "T10": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -160,12 +177,12 @@ module.exports = [
             group: "customs",
             // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T11":1},
+            permission: { "T11": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
     },
-    
+
     {
         route: '/customs/pemasukan-sampah-sapuan',
         name: 'monitoring-pemasukan-sampah-sapuan',
@@ -177,7 +194,7 @@ module.exports = [
             group: "customs",
             // permission: { "C9": 1,"PG": 1,"B1": 1 ,"C2A":1 },
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T12":1},
+            permission: { "T12": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -193,7 +210,7 @@ module.exports = [
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
             // permission: { "C9": 1,"B6": 1,"B1": 1 },
-            permission :{"T13":1},
+            permission: { "T13": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -208,7 +225,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission :{"T14":1},
+            permission: { "T14": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -223,7 +240,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission :{"T15":1},
+            permission: { "T15": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -238,7 +255,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission :{"T16":1},
+            permission: { "T16": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -253,7 +270,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission :{"T17":1},
+            permission: { "T17": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -268,7 +285,7 @@ module.exports = [
         settings: {
             group: "customs",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission :{"T18":1},
+            permission: { "T18": 1 },
             iconClass: 'fa fa-dashboard'
         },
     },
