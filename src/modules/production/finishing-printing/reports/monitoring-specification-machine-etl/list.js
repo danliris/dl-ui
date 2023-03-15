@@ -86,9 +86,31 @@ export class List {
             if(this.infoAreaHard.text=='PRETREATMENT'){
                 this.TableCBR.refresh();
                 this.TableBruck.refresh();
+                this.TableCMR.refresh();
+                this.TableOsthoff.refresh();
+                this.TableWD2.refresh();
             }
             else if(this.infoAreaHard.text=='DYEING'){
                 this.TableMon.refresh();
+                this.TablePS4.refresh();
+            }
+            else if(this.infoAreaHard.text=='DIGITAL PRINT'){
+                this.TableDP.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING'){
+                this.TableArioli.refresh();
+                this.TableBrugman.refresh();
+                this.TableHaspel.refresh();
+                this.TableHF2.refresh();
+                this.TableHF4.refresh();
+                this.TableIchinose.refresh();
+                this.TableZimmer.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING'){
+                this.TableCRF.refresh();
+                this.TableCL.refresh();
+                this.TableSF.refresh();
+                this.TableBaking.refresh();
             }
         }
     }
