@@ -9,7 +9,7 @@ export class Index {
         title: "List: Monitoring Trouble Mesin"
       },
       {
-        route: "view/:Id",
+        route: "view",
         moduleId: "./view",
         name: "view",
         nav: false,

@@ -4,18 +4,18 @@ import { Router } from "aurelia-router";
 
 @inject(Router, Service)
 export class List {
-  //context = ["detail"];
+  context = ["detail"];
   columns = [
     {
-      field: "Month",
+      field: "month",
       title: "Bulan"
     },
     {
-      field: "YearPeriode",
+      field: "yearPeriode",
       title: "Tahun"
     },
     {
-      field: "CreatedDate",
+      field: "createdDate",
       title: "Tanggal Update"
     }
   ];
@@ -51,15 +51,15 @@ export class List {
     this.router = router;
   }
 
-  // contextCallback(event) {
-  //   var arg = event.detail;
-  //   var data = arg.data;
-  //   switch (arg.name) {
-  //     case "detail":
-  //       this.router.navigateToRoute("view", { Id: data.Id });
-  //       break;
-  //   }
-  // }
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute("view", { month: data.month, yearPeriode : data.yearPeriode });
+        break;
+    }
+  }
   tableOptions = {
     showColumns: false,
     search: false,

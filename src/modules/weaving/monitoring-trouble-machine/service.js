@@ -25,7 +25,11 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
-
+  getFilter(info) {
+    var endpoint = `${serviceUri}/monthYear`;
+    return super.list(endpoint,info);
+    
+  }
   update(data) {
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
