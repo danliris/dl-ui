@@ -6,14 +6,18 @@ import { Router } from "aurelia-router";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "Unit", title: "Unit Weaving" },
-    { field: "OrderNumber", title: "SPP" },
-    { field: "ConstructionNumber", title: "No Konstruksi" },
-    { field: "Process", title: "Proses" },
-    { field: "Operator", title: "Operator" },
-    { field: "MachineNumber", title: "No Mesin" },
-    { field: "Trouble", title: "Trouble" },
-    { field: "Description", title: "Keterangan" },    
+    {
+      field: "month",
+      title: "Bulan"
+    },
+    {
+      field: "yearPeriode",
+      title: "Tahun"
+    },
+    {
+      field: "createdDate",
+      title: "Tanggal Update"
+    }
   ];
 
   loader = info => {
@@ -61,15 +65,15 @@ export class List {
     this.router = router;
   }
 
-  // contextCallback(event) {
-  //   var arg = event.detail;
-  //   var data = arg.data;
-  //   switch (arg.name) {
-  //     case "detail":
-  //       this.router.navigateToRoute("view", { Id: data.Id });
-  //       break;
-  //   }
-  // }
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute("view", { month: data.month, yearPeriode : data.yearPeriode });
+        break;
+    }
+  }
   tableOptions = {
     showColumns: false,
     search: false,
