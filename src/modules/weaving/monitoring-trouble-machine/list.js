@@ -4,7 +4,7 @@ import { Router } from "aurelia-router";
 
 @inject(Router, Service)
 export class List {
-  //context = ["detail"];
+  context = ["detail"];
   columns = [
     {
       field: "month",
