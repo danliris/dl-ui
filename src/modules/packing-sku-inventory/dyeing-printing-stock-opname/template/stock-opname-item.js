@@ -47,6 +47,7 @@ export class StockItem {
             this.selectedTrack.Id = this.data.trackId;
             this.selectedTrack.Type = this.data.trackType;
             this.selectedTrack.Name = this.data.trackName;
+            this.selectedTrack.Box = this.data.trackBox;
         }
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
