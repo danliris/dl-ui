@@ -33,20 +33,20 @@ export async function configure(aurelia) {
 
             var core = "https://com-danliris-service-core-uat.azurewebsites.net/v1/";
             var auth = "https://com-danliris-service-auth-uat.azurewebsites.net/v1/";
-            var production = "https://dl-production-webapi.azurewebsites.net/v1/";
+            var production = "https://dl-production-webapi-uat.azurewebsites.net/v1/";
             var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
-            var purchasing = "https://dl-purchasing-webapi.azurewebsites-dev.net/v1/";
+            var purchasing = "https://dl-purchasing-webapi-uat.azurewebsites.net/v1/";
             var purchasingAzure = "https://com-danliris-service-purchasing-uat.azurewebsites.net/v1/";
-            var garmentPurchasing = "https://dl-purchasing-garment-webapi.azurewebsites.net/v1/";
-            var inventory = "https://dl-inventory-webapi.azurewebsites.net/v1/";
-            var inventoryAzure = "https://com-danliris-service-inventory-prd.azurewebsites.net/v1/";
-            var garmentMasterPlan = "https://dl-garment-master-plan-webapi.azurewebsites.net/v1/";
-            var spMasterPlan = "https://dl-sp-master-plan-webapi.mybluemix.net/v1/";
-            var spinning = "https://com-danliris-service-spinning.azurewebsites.net/";
-            var intPurchasing = "https://com-danliris-service-internal-transfer.azurewebsites.net/v1/";
-            var customsReport = "https://com-danliris-service-support.azurewebsites.net/v1/";
-            var merchandiser = "https://com-danliris-service-md.azurewebsites.net/v1/";
-            const dealTracking = 'https://com-danliris-service-deal-tracking.azurewebsites.net/v1/';
+            var garmentPurchasing = "https://dl-purchasing-garment-webapi-uat.azurewebsites.net/v1/";
+            var inventory = "https://dl-inventory-webapi.azurewebsites-uat.net/v1/";
+            var inventoryAzure = "https://com-danliris-service-inventory-uat.azurewebsites.net/v1/";
+            var garmentMasterPlan = "https://dl-garment-master-plan-webapi-uat.azurewebsites.net/v1/";
+            var spMasterPlan = "https://dl-sp-master-plan-webapi-uat.mybluemix.net/v1/";
+            var spinning = "https://com-danliris-service-spinning-uat.azurewebsites.net/";
+            var intPurchasing = "https://com-danliris-service-internal-transfer-uat.azurewebsites.net/v1/";
+            var customsReport = "https://com-danliris-service-support-uat.azurewebsites.net/v1/";
+            var merchandiser = "https://com-danliris-service-md-uat.azurewebsites.net/v1/";
+            const dealTracking = 'https://com-danliris-service-deal-tracking-uat.azurewebsites.net/v1/';
             const sales = "https://com-danliris-service-sales-uat.azurewebsites.net/v1/";
             var weaving = "https://com-danliris-service-weaving-uat.azurewebsites.net/";
             var finance = "https://com-danliris-service-finance-accounting-uat.azurewebsites.net/v1/";
@@ -79,7 +79,6 @@ export async function configure(aurelia) {
             config.registerEndpoint('packing-inventory', packingInventory, defaultConfig);
             config.registerEndpoint('dyeing', dyeing, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
             config.registerEndpoint('garment-shipping', garmentShipping, defaultConfig);
-            config.registerEndpoint('ItInven', ItInven, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
         })
         .plugin("aurelia-authentication", baseConfig => {
             baseConfig.configure(authConfig);

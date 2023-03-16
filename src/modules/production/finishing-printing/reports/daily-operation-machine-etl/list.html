@@ -4,7 +4,7 @@
             white-space: pre;
         }
     </style>
-    <h1 class="page-header">Laporan Monitoring Operational Harian</h1>
+    <h1 class="page-header">LAPORAN OUTPUT MESIN PER HARI</h1>
     <form class="form-horizontal">
         <au-dropdown 
             label="Area" 
@@ -33,13 +33,6 @@
             value.bind="dateTo">
         </au-datepicker>
 
-        <au-dropdown 
-            label="Shift" 
-            value.bind="infoShift" 
-            items.bind="shiftOptionsHard" 
-            key="value" text="text" 
-            options.bind="controlOptions" >
-        </au-dropdown>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
