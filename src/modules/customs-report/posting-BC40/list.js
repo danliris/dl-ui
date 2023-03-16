@@ -115,7 +115,7 @@ export class List {
 
       console.log(dataUpdate.Ids);
 
-      var endpoint = 'PostBeacukai';
+      var endpoint = 'PostBeacukai40';
       var request = {
         method: 'PUT',
         headers: {

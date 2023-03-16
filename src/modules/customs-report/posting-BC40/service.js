@@ -2,7 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
 
-const getData = "GetTemporary";
+const getData = "GetTemporary40";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, api) {
@@ -14,9 +14,9 @@ export class Service extends RestService {
     return super.list(endpoint);
   }
 
-  updatedata(data){
-    var uri="PostBeacukai";
-    var endpoint = `${uri}`; 
+  updatedata(data) {
+    var uri = "PostBeacukai";
+    var endpoint = `${uri}`;
 
     return super.put(endpoint, data);
 
