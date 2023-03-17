@@ -55,9 +55,11 @@
         <tr>
           <th>No.</th>
           <th>Barcode</th>
-          <th>Nama Barang</th>
+          <th>No SPP</th>
+          <th>Grade</th>
           <th>Saldo Packing</th>
           <th>Qty Keluar</th>
+          <th>Satuan Pack</th>
           <th>Panjang Satuan</th>
           <th>Jalur/Rak</th>
           
@@ -69,6 +71,7 @@
           <td>${$index+1}</td>
           <td>${item.productPackingCode}</td>
           <td>${item.productionOrderNo}</td>
+          <td>${item.grade}</td>
           <td>${item.packagingQty}</td>
           <!-- <td>${item.item.name}</td> -->
           <!-- <td>
@@ -78,14 +81,24 @@
               </center>
             </div>
           </td> -->
-          <td>
+          <!-- <td>
             <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
               <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
                 max.bind="item.quantity" min="0"
                 change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
               <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
             </div>
+          </td> -->
+
+          <td>
+            <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
+              <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
+                
+                change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
+              <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
+            </div>
           </td>
+          <td>${item.packagingUnit}</td>
           <td>
             <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
           </td>
