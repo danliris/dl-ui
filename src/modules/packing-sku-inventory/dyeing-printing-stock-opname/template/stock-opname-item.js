@@ -47,6 +47,7 @@ export class StockItem {
             this.selectedTrack.Id = this.data.trackId;
             this.selectedTrack.Type = this.data.trackType;
             this.selectedTrack.Name = this.data.trackName;
+            this.selectedTrack.Box = this.data.trackBox;
         }
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
@@ -162,16 +163,36 @@ export class StockItem {
         return TrackLoader;
     }
 
+    // trackView = (track) => {
+    //     console.log(track);
+    //     if(track.Type === undefined){
+
+    //         return `${track.type} - ${track.name} - ${track.box}` ; 
+    //       }else{
+      
+    //         return `${track.Type} - ${track.Name} - ${track.Box}`;
+    //       }
+    // }
+
     trackView = (track) => {
         console.log(track);
         if(track.Type === undefined){
-
+    
+          if(track.box === null){
             return `${track.type} - ${track.name}` ; 
-          }else{
-      
-            return `${track.Type} - ${track.Name}`;
+          } else{
+            return `${track.type} - ${track.name} - ${track.box}` ; 
           }
-    }
+          
+        }else{
+          if(track.Box === null){
+            return `${track.Type} - ${track.Name}`;
+          }else{
+            return `${track.Type} - ${track.Name} - ${track.Box}`;
+          }
+          
+        } 
+      }
 
     @bindable selectedUom;
     selectedUomChanged(newValue) {
@@ -255,6 +276,7 @@ export class StockItem {
             this.data.trackId = newValue.Id;
             this.data.trackType = newValue.Type;
             this.data.trackName = newValue.Name;
+            this.data.trackBox = newValue.Box;
 
             
         }

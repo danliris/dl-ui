@@ -10,6 +10,7 @@ export class DataForm {
     @bindable readOnly;
     @bindable Currency;
     @bindable UOM;
+    @bindable typeCheck;
 
     formOptions = {
         cancelText: "Kembali",
@@ -43,6 +44,28 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+        
+        if(this.data.Type=="Rak"){
+            
+            this.typeCheck=true;
+        }
+        else{
+            
+            this.typeCheck=false;
+        }
+    }
+
+    TypeChanged(e) {
+        var selectedType = e.srcElement.value;
+        console.log(selectedType);
+        if(selectedType=="Rak"){
+            
+            this.typeCheck=true;
+        }
+        else{
+            
+            this.typeCheck=false;
+        }
     }
  
 }
