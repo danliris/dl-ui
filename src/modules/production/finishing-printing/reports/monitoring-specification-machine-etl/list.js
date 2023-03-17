@@ -40,7 +40,18 @@ export class List {
         this.infoShift="";
       
     }
+    get areaDyeing() {
+        return  this.infoAreaHard.text == "DYEING" ;
+    }
+    get areaDyeingMonfort() {
+        return this.Machine && this.Machine.Id == 8;
+    }
+    get areaDyeingPS4() {
+        return this.Machine && this.Machine.Id == 10;
 
+
+
+    }
     rowFormatter(data, index) {
         return {};
     }
@@ -48,6 +59,7 @@ export class List {
     MachineChanged(newValue){
         this.flag = false;
         if(this.infoAreaHard.text=='PRETREATMENT'){
+            
             this.TableCBR.refresh();
             this.TableBruck.refresh();
             this.TableCMR.refresh();
@@ -55,8 +67,10 @@ export class List {
             this.TableWD2.refresh();
         }
         else if(this.infoAreaHard.text=='DYEING'){
-            this.TableMon.refresh();
-            this.TablePS4.refresh();
+            console.log('masuk MachineChanged refresh DYEING');
+            //this.Table1.refresh();
+             //this.TableMon.refresh();
+             //this.TablePS4.refresh();
         }
         else if(this.infoAreaHard.text=='DIGITAL PRINT'){
             this.TableDP.refresh();
@@ -83,16 +97,22 @@ export class List {
             this.error.Machine = "Mesin harus diisi";
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
-            if(this.infoAreaHard.text=='PRETREATMENT'){
-                this.TableCBR.refresh();
+            if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==37){
                 this.TableBruck.refresh();
-                this.TableCMR.refresh();
-                this.TableOsthoff.refresh();
-                this.TableWD2.refresh();
+               
+                // this.TableCBR.refresh();
+                // this.TableBruck.refresh();
+                // this.TableCMR.refresh();
+                // this.TableOsthoff.refresh();
+                // this.TableWD2.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==33){
+                this.TableCBR.refresh();
             }
             else if(this.infoAreaHard.text=='DYEING'){
-                this.TableMon.refresh();
-                this.TablePS4.refresh();
+               this.Table1.refresh();
+                //this.TableMon.refresh();
+                //this.TablePS4.refresh();
             }
             else if(this.infoAreaHard.text=='DIGITAL PRINT'){
                 this.TableDP.refresh();
@@ -213,20 +233,20 @@ export class List {
             { field: "tempwasher5", title: "Temp. washer 5", valign: "top" },
             { field: "temppolystream1", title: "Temp. Polystream 1", valign: "top" },
             { field: "temppolystream2", title: "Temp. Polystream 2", valign: "top" },
-            { field: "noorder", title: "Pompa chemical", valign: "top" },
-            { field: "noorder", title: "Pompa Sirkulasi", valign: "top" },
+            { field: "sirculasipump1", title: "Pompa chemical", valign: "top" },
+            { field: "sirculasipump2", title: "Pompa Sirkulasi", valign: "top" },
             { field: "naoh1", title: "Titrasi NaOH L BOX 1", valign: "top" },
             { field: "naoh2", title: "Titrasi NaOH L BOX 2", valign: "top" },
-            { field: "noorder", title: "Speed L-Box 2", valign: "top" },
-            { field: "noorder", title: "Tek. Press FM 2", valign: "top" },
-            { field: "noorder", title: "Tek. Press Sat. 2", valign: "top" },
-            { field: "noorder", title: "Temp. Chamber Air 2", valign: "top" },
-            { field: "noorder", title: "Temp. Chamber Uap 2", valign: "top" },
-            { field: "noorder", title: "Timing Chamber 2", valign: "top" },
-            { field: "noorder", title: "Temp. washer 6", valign: "top" },
-            { field: "noorder", title: "Temp. Polystream 3", valign: "top" },
-            { field: "noorder", title: "Temp. Polystream 4", valign: "top" },
-            { field: "noorder", title: "Titrasi H2O2", valign: "top" },
+            { field: "speedlbox2", title: "Speed L-Box 2", valign: "top" },
+            { field: "pressfm2", title: "Tek. Press FM 2", valign: "top" },
+            { field: "presssat2", title: "Tek. Press Sat. 2", valign: "top" },
+            { field: "tempair2", title: "Temp. Chamber Air 2", valign: "top" },
+            { field: "chamber2uap", title: "Temp. Chamber Uap 2", valign: "top" },
+            { field: "timmingchamber2", title: "Timing Chamber 2", valign: "top" },
+            { field: "tempwasher6", title: "Temp. washer 6", valign: "top" },
+            { field: "temppolystream3", title: "Temp. Polystream 3", valign: "top" },
+            { field: "temppolystream4", title: "Temp. Polystream 4", valign: "top" },
+            { field: "h202", title: "Titrasi H2O2", valign: "top" },
         ];
 
     columnsPretreatmentCMR = [
@@ -281,21 +301,21 @@ export class List {
         ];
 
     columnsPretreatmentWD2 = [
-            { field: "area", title: "Area", valign: "top" },
-            { field: "mesin", title: "Mesin", valign: "top" },
-            { field: "tgl", title: "Tanggal",  valign: "top", 
-                    formatter: function (value, data, index) {
-                        return moment(value).format("DD MMM YYYY"); 
-                    } 
-            },
-            { field: "noorder", title: "No.Order", valign: "top" },
-            { field: "nokereta", title: "No.kereta", valign: "top" },
-            { field: "speed", title: "Speed", valign: "top" },
-            { field: "pressatair", title: "Temperatur washer 1", valign: "top" },
-            { field: "pressat1naoh", title: "Temperatur washer 2", valign: "top" },
-            { field: "pressat2naoh", title: "Temperatur washer 3", valign: "top" },
-            { field: "naoh", title: "Temperatur washer 4", valign: "top" },
-            { field: "naoh", title: "pH larutan asam", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
+        { field: "mesin", title: "Mesin", valign: "top" },
+        { field: "tgl", title: "Tanggal",  valign: "top", 
+                formatter: function (value, data, index) {
+                    return moment(value).format("DD MMM YYYY"); 
+                } 
+        },
+        { field: "noorder", title: "No.Order", valign: "top" },
+        { field: "nokereta", title: "No.kereta", valign: "top" },
+        { field: "speed", title: "Speed", valign: "top" },
+        { field: "tempwasher1", title: "Temperatur washer 1", valign: "top" },
+        { field: "tempwasher2", title: "Temperatur washer 2", valign: "top" },
+        { field: "tempwasher3", title: "Temperatur washer 3", valign: "top" },
+        { field: "tempwasher4", title: "Temperatur washer 4", valign: "top" },
+        { field: "phlarutasam", title: "pH larutan asam", valign: "top" },
         ];
 
         columnsDyeingMonfort = [
@@ -309,17 +329,17 @@ export class List {
             { field: "noorder", title: "No.Order", valign: "top" },
             { field: "nokereta", title: "No.kereta", valign: "top" },
             { field: "speed", title: "Speed", valign: "top" },
-            { field: "pressatair", title: "Tek. Mangle L", valign: "top" },
-            { field: "pressat1naoh", title: "Tek. Mangle C", valign: "top" },
-            { field: "pressat2naoh", title: "Tek. Mangle R", valign: "top" },
-            { field: "naoh", title: "Temp. Chamber 1", valign: "top" },
-            { field: "naoh", title: "Temp. Chamber 2", valign: "top" },
-            { field: "naoh", title: "Temp. Thermosol 1", valign: "top" },
-            { field: "naoh", title: "Temp. Thermosol 2", valign: "top" },
-            { field: "naoh", title: "Exhaust fan dryer", valign: "top" },
-            { field: "naoh", title: "Exhaust fan Thermosol", valign: "top" },
-            { field: "naoh", title: "Sirkulasi Chamber", valign: "top" },
-            { field: "naoh", title: "Sirkulasi Thermosol", valign: "top" },
+            { field: "tknmanggleL", title: "Tek. Mangle L", valign: "top" },
+            { field: "tknmanggleC", title: "Tek. Mangle C", valign: "top" },
+            { field: "tknmanggleR", title: "Tek. Mangle R", valign: "top" },
+            { field: "tempcamber1set1", title: "Temp. Chamber 1", valign: "top" },
+            { field: "tempcamber1set2", title: "Temp. Chamber 2", valign: "top" },
+            { field: "exfanchamber1set2", title: "Temp. Thermosol 1", valign: "top" },
+            { field: "tempbakingset1", title: "Temp. Thermosol 2", valign: "top" },
+            { field: "sirkufanset2", title: "Exhaust fan dryer", valign: "top" },
+            { field: "exhaustbakingset2", title: "Exhaust fan Thermosol", valign: "top" },
+            { field: "sirkufanset1", title: "Sirkulasi Chamber", valign: "top" },
+            { field: "tempbakingset2", title: "Sirkulasi Thermosol", valign: "top" },
         ];
 
     columnsDyeingPS4 = [
@@ -333,18 +353,18 @@ export class List {
             { field: "noorder", title: "No.Order", valign: "top" },
             { field: "nokereta", title: "No.kereta", valign: "top" },
             { field: "speed", title: "Speed", valign: "top" },
-            { field: "pressatair", title: "Tek. Mangle L", valign: "top" },
-            { field: "pressat1naoh", title: "Tek. Mangle R", valign: "top" },
-            { field: "pressat2naoh", title: "Temp. Chamber", valign: "top" },
-            { field: "naoh", title: "Temp. Washer 1", valign: "top" },
-            { field: "naoh", title: "Temp. Washer 2", valign: "top" },
-            { field: "naoh", title: "Temp. Washer 3", valign: "top" },
-            { field: "naoh", title: "Temp. Polystream 1", valign: "top" },
-            { field: "naoh", title: "Temp. Polystream 2", valign: "top" },
-            { field: "naoh", title: "Temp. Polystream 3", valign: "top" },
-            { field: "naoh", title: "Temp. Washer", valign: "top" },
-            { field: "naoh", title: "Tek. Dryer 1", valign: "top" },
-            { field: "naoh", title: "Tek. Dryer 2", valign: "top" },
+            { field: "tknmanggleL", title: "Tek. Mangle L", valign: "top" },
+            { field: "tknmanggleC", title: "Tek. Mangle R", valign: "top" },
+            { field: "tknmanggleR", title: "Temp. Chamber", valign: "top" },
+            { field: "tempwasher1", title: "Temp. Washer 1", valign: "top" },
+            { field: "tempwasher2", title: "Temp. Washer 2", valign: "top" },
+            { field: "tempwasher3", title: "Temp. Washer 3", valign: "top" },
+            { field: "temppolys1", title: "Temp. Polystream 1", valign: "top" },
+            { field: "temppolys2", title: "Temp. Polystream 2", valign: "top" },
+            { field: "temppolys3", title: "Temp. Polystream 3", valign: "top" },
+            { field: "tempwasher", title: "Temp. Washer", valign: "top" },
+            { field: "tekdry1", title: "Tek. Dryer 1", valign: "top" },
+            { field: "tekdry2", title: "Tek. Dryer 2", valign: "top" },
         ];
 
     columnsDPrint = [
@@ -357,7 +377,7 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Angin", valign: "top" },
+        { field: "tekananangin", title: "Tekanan Angin", valign: "top" },
     ];
 
     columnsPrintArioli = [
@@ -370,16 +390,16 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Uap", valign: "top" },
-        { field: "pressatair", title: "Kecepatan", valign: "top" },
-        { field: "pressatair", title: "Loop Length", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 2", valign: "top" },
-        { field: "pressatair", title: "Tekanan Angin", valign: "top" },
-        { field: "pressatair", title: "Supply Steam", valign: "top" },
-        { field: "pressatair", title: "Exhaust", valign: "top" },
-        { field: "pressatair", title: "Waktu Fiksasi", valign: "top" },
-        { field: "pressatair", title: "Humidity(Kelembaban)", valign: "top" },
+        { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "loop", title: "Loop Length", valign: "top" },
+        { field: "temp1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "temp2", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+        { field: "supplysteam", title: "Supply Steam", valign: "top" },
+        { field: "exhaust", title: "Exhaust", valign: "top" },
+        { field: "time", title: "Waktu Fiksasi", valign: "top" },
+        { field: "RH", title: "Humidity(Kelembaban)", valign: "top" },
     ];
 
     columnsPrintBrugman = [
@@ -392,16 +412,16 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Uap", valign: "top" },
-        { field: "pressatair", title: "Kecepatan", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 2", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 3", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 4&5", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 6", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 7&8", valign: "top" },
-        { field: "pressatair", title: "Tekanan Angin", valign: "top" },
-        { field: "pressatair", title: "Tekanan Roll Hidrolik", valign: "top" },
+        { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "tempwashing1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "tempwashing2", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "tempwasing3", title: "Temp. Chamber - 3", valign: "top" },
+        { field: "tempwasing45", title: "Temp. Chamber - 4&5", valign: "top" },
+        { field: "tempwasing6", title: "Temp. Chamber - 6", valign: "top" },
+        { field: "tempwashing78", title: "Temp. Chamber - 7&8", valign: "top" },
+        { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+        { field: "tekhidro", title: "Tekanan Roll Hidrolik", valign: "top" },
     ];
     
     columnsPrintHaspel = [
@@ -414,16 +434,16 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Uap", valign: "top" },
-        { field: "pressatair", title: "Kecepatan", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 2", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 3", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 4&5", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 6", valign: "top" },
-        { field: "pressatair", title: "Temp. Chamber - 7&8", valign: "top" },
-        { field: "pressatair", title: "Tekanan Angin", valign: "top" },
-        { field: "pressatair", title: "Tekanan Roll Hidrolik", valign: "top" },
+        { field: "tekuap", title: "Tekanan Uap", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "tempwashing1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "tempwashing2", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "tempwasing3", title: "Temp. Chamber - 3", valign: "top" },
+        { field: "tempwasing45", title: "Temp. Chamber - 4&5", valign: "top" },
+        { field: "tempwasing6", title: "Temp. Chamber - 6", valign: "top" },
+        { field: "tempwashing78", title: "Temp. Chamber - 7&8", valign: "top" },
+        { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+        { field: "tekhidro", title: "Tekanan Roll Hidrolik", valign: "top" },
     ];
 
     columnsPrintHF2 = [
@@ -437,16 +457,16 @@ export class List {
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Tekanan Mangle L", valign: "top" },
-        { field: "speed", title: "Tekanan Mangle C", valign: "top" },
-        { field: "speed", title: "Tekanan Mangle R", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 2", valign: "top" },
-        { field: "speed", title: "Sirkulasi Fan", valign: "top" },
-        { field: "speed", title: "Exhaust Fan", valign: "top" },
-        { field: "speed", title: "WPU", valign: "top" },
-        { field: "speed", title: "Draw Roller", valign: "top" },
-        { field: "speed", title: "Colling Cylinder", valign: "top" },
+        { field: "tekmangleL", title: "Tekanan Mangle L", valign: "top" },
+        { field: "tekmangleC", title: "Tekanan Mangle C", valign: "top" },
+        { field: "tekmangleR", title: "Tekanan Mangle R", valign: "top" },
+        { field: "temp1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "temp2", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "sirkulasi", title: "Sirkulasi Fan", valign: "top" },
+        { field: "exhaust", title: "Exhaust Fan", valign: "top" },
+        { field: "wpu", title: "WPU", valign: "top" },
+        { field: "drawroll", title: "Draw Roller", valign: "top" },
+        { field: "coolingcylinde", title: "Colling Cylinder", valign: "top" },
     ];
 
     columnsPrintHF4 = [
@@ -460,15 +480,15 @@ export class List {
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Tek. Mangle L", valign: "top" },
-        { field: "speed", title: "Tek. Mangle C", valign: "top" },
-        { field: "speed", title: "Tek. Mangle R", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 2", valign: "top" },
-        { field: "speed", title: "Turq. Motor 1", valign: "top" },
-        { field: "speed", title: "Turq. Motor 2", valign: "top" },
-        { field: "speed", title: "Cooling Cylinder", valign: "top" },
-        { field: "speed", title: "Draw Roll", valign: "top" },
+        { field: "tekmangleL", title: "Tek. Mangle L", valign: "top" },
+        { field: "tekmangleC", title: "Tek. Mangle C", valign: "top" },
+        { field: "tekmangleR", title: "Tek. Mangle R", valign: "top" },
+        { field: "temp1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "temp2", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "turqmotor1", title: "Turq. Motor 1", valign: "top" },
+        { field: "turqmotor2", title: "Turq. Motor 2", valign: "top" },
+        { field: "coolingcylinde", title: "Cooling Cylinder", valign: "top" },
+        { field: "drawroll", title: "Draw Roll", valign: "top" },
     ];
 
     columnsPrintIchinose = [
@@ -481,11 +501,11 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Uap", valign: "top" },
+        { field: "tekuap", title: "Tekanan Uap", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Tekanan Angin", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 1", valign: "top" },
-        { field: "speed", title: "Temp. Chamber - 2", valign: "top" },
+        { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+        { field: "temp1", title: "Temp. Chamber - 1", valign: "top" },
+        { field: "temp2", title: "Temp. Chamber - 2", valign: "top" },
     ];
 
     columnsPrintZimmer = [
@@ -498,23 +518,23 @@ export class List {
         },
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
-        { field: "speed", title: "Tekanan Angin", valign: "top" },
-        { field: "speed", title: "Tekanan Uap Steam", valign: "top" },
+        { field: "tekangin", title: "Tekanan Angin", valign: "top" },
+        { field: "tekuap", title: "Tekanan Uap Steam", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Printing Unit 1", valign: "top" },
-        { field: "speed", title: "Printing Unit 2", valign: "top" },
-        { field: "speed", title: "Printing Unit 3", valign: "top" },
-        { field: "speed", title: "Printing Unit 4", valign: "top" },
-        { field: "speed", title: "Printing Unit 5", valign: "top" },
-        { field: "speed", title: "Printing Unit 6", valign: "top" },
-        { field: "speed", title: "Printing Unit 7", valign: "top" },
-        { field: "speed", title: "Printing Unit 8", valign: "top" },
-        { field: "speed", title: "Printing Unit 9", valign: "top" },
-        { field: "speed", title: "Printing Unit 10", valign: "top" },
-        { field: "speed", title: "Printing Unit 11", valign: "top" },
-        { field: "speed", title: "Printing Unit 12", valign: "top" },
-        { field: "speed", title: "Printing Unit 13", valign: "top" },
-        { field: "speed", title: "Printing Unit 14", valign: "top" },
+        { field: "ukuranrakel1", title: "Printing Unit 1", valign: "top" },
+        { field: "ukuranrakel2", title: "Printing Unit 2", valign: "top" },
+        { field: "ukuranrakel3", title: "Printing Unit 3", valign: "top" },
+        { field: "ukuranrakel4", title: "Printing Unit 4", valign: "top" },
+        { field: "ukuranrakel5", title: "Printing Unit 5", valign: "top" },
+        { field: "ukuranrakel6", title: "Printing Unit 6", valign: "top" },
+        { field: "ukuranrakel7", title: "Printing Unit 7", valign: "top" },
+        { field: "ukuranrakel8", title: "Printing Unit 8", valign: "top" },
+        { field: "ukuranrakel9", title: "Printing Unit 9", valign: "top" },
+        { field: "ukuranrakel10", title: "Printing Unit 10", valign: "top" },
+        { field: "ukuranrakel11", title: "Printing Unit 11", valign: "top" },
+        { field: "ukuranrakel12", title: "Printing Unit 12", valign: "top" },
+        { field: "ukuranrakel13", title: "Printing Unit 13", valign: "top" },
+        { field: "ukuranrakel14", title: "Printing Unit 14", valign: "top" },
     ];
 
     columnsFinishCRF = [
@@ -528,15 +548,15 @@ export class List {
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Tek. Mangle L", valign: "top" },
-        { field: "speed", title: "Tek. Mangle R", valign: "top" },
-        { field: "speed", title: "Temp. Pre Dryer", valign: "top" },
+        { field: "tknmangleL", title: "Tek. Mangle L", valign: "top" },
+        { field: "tknmangleR", title: "Tek. Mangle R", valign: "top" },
+        { field: "tempdryer", title: "Temp. Pre Dryer", valign: "top" },
         { field: "tempstenter1", title: "Temp.Stenter 1", valign: "top" },
         { field: "tempstenter2", title: "Temp.Stenter 2", valign: "top" },
         { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
-        { field: "tempstenter3", title: "Temp.Stenter 4", valign: "top" },
-        { field: "tempstenter3", title: "Temp.Stenter 5", valign: "top" },
-        { field: "speed", title: "Overfeed (cek 100cm)", valign: "top" },
+        { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
+        { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
+        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
 
     columnsFinishCL = [
@@ -550,8 +570,8 @@ export class List {
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
         { field: "speed", title: "Kecepatan", valign: "top" },
-        { field: "speed", title: "Beban", valign: "top" },
-        { field: "speed", title: "Press", valign: "top" },
+        { field: "beban", title: "Beban", valign: "top" },
+        { field: "tknpress", title: "Press", valign: "top" },
     ];
 
     columnsFinishSF = [
@@ -565,10 +585,10 @@ export class List {
         { field: "noorder", title: "No.Order", valign: "top" },
         { field: "nokereta", title: "No.kereta", valign: "top" },
         { field: "speed", title: "Speed", valign: "top" },
-        { field: "speed", title: "Press Rubber", valign: "top" },
-        { field: "speed", title: "Tek. Rubber Steam", valign: "top" },
-        { field: "speed", title: "Tek. Blanket Steam", valign: "top" },
-        { field: "speed", title: "Overfeed (cek 100cm)", valign: "top" },
+        { field: "pressrubber", title: "Press Rubber", valign: "top" },
+        { field: "rubbesteam", title: "Tek. Rubber Steam", valign: "top" },
+        { field: "blangketsteam", title: "Tek. Blanket Steam", valign: "top" },
+        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
 
     columnsFinishBaking = [
