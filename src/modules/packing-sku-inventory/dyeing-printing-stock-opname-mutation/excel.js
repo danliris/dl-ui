@@ -55,6 +55,7 @@ export class Create {
         { 
             field: "packagingQty", title: "Jumlah Packing", sortable: false
         },
+        { field: "packagingUnit", title: "Jenis Packing", sortable: false},
         { 
             field: "packingLength", title: "Panjang/Pack", sortable: false
         },

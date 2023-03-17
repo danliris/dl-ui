@@ -59,6 +59,7 @@ export class Create {
                 return numeral(value).format('0.00');
             }, align: "right", halign: "center"
         },
+        { field: "packagingUnit", title: "Jenis Packing", sortable: false},
         { 
             field: "packingLength", title: "Qty Satuan", formatter: function (value, data, index) {
                 return numeral(value).format('0.00');
