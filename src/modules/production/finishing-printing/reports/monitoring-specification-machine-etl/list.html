@@ -109,10 +109,11 @@
         </au-table>
     </div>
     
-    <div if.bind="infoAreaHard.text=='DYEING'">
-        <au-table 
-            show.bind="Machine.Id==8"
-            view-model.ref="TableMon" 
+   
+        <au-table if.bind="areaDyeing 
+        && areaDyeingMonfort"
+           
+            view-model.ref="Table1" 
             data.bind="loader" 
             columns.bind="columnsDyeingMonfort" 
             options.bind="tableOptions">
@@ -120,10 +121,11 @@
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Monfort</button>
             </div>
         </au-table>
-
-        <au-table 
-            show.bind="Machine.Id==10"
-            view-model.ref="TablePS4" 
+    
+        <au-table if.bind="areaDyeing 
+        && areaDyeingPS4"
+           
+            view-model.ref="Table1" 
             data.bind="loader" 
             columns.bind="columnsDyeingPS4" 
             options.bind="tableOptions">
@@ -131,7 +133,9 @@
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download PS4</button>
             </div>
         </au-table>
-    </div>
+    
+
+
 
     <div if.bind="infoAreaHard.text=='DIGITAL PRINT'">
         <au-table 
@@ -185,7 +189,7 @@
             show.bind="Machine.Id==25"
             view-model.ref="TableHF2" 
             data.bind="loader" 
-            columns.bind="columnsPrintHF4" 
+            columns.bind="columnsPrintHF2" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Hot Flue 2</button>
