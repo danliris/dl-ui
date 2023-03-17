@@ -145,6 +145,7 @@ export class List {
                     this.sumTotal += item.total;
                     var newData = {
                       ProductionOrderNo: item.productionOrderNo,
+                      BuyerName : item.buyerName,
                       Material : item.construction,
                       Color : item.color,
                       Motif:item.motif,
