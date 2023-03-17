@@ -26,9 +26,9 @@ export class Service extends RestService {
             if (query === '') query = `idmesin=${info.idmesin}`;
             else query = `${query}&idmesin=${info.idmesin}`;
         }
-        if (info.shift) {
-            if (query === '') query = `shift=${info.shift}`;
-            else query = `${query}&shift=${info.shift}`;
+        if (info.noorder) {
+            if (query === '') query = `shift=${info.noorder}`;
+            else query = `${query}&shift=${info.noorder}`;
         }
         if (info.startdate) {
             if (query === '') query = `startdate=${info.startdate}`;
