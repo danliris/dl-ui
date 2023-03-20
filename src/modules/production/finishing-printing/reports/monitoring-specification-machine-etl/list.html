@@ -13,6 +13,7 @@
         value.bind="infoAreaHard" 
         items.bind="areaOptionsHard" 
         key="value" text="text" 
+        change.delegate="infoAreaHardChanged($event)"
         options.bind="controlOptions" >
         </au-dropdown>  
         
@@ -21,7 +22,7 @@
         error.bind="error.Machine" 
         label="Machine" 
         loader.bind="machineLoader" 
-        placeholder="SEMUA MESIN"
+        placeholder="PILIH MESIN"
         key="Code" text="Name" 
         read-only.bind="(readOnly)" 
         options.bind="auInputOptions">
@@ -109,6 +110,7 @@
         </au-table>
     </div>
     
+   
     <div if.bind="infoAreaHard.text=='DYEING'">
         <au-table 
             show.bind="Machine.Id==8"
@@ -120,7 +122,7 @@
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Monfort</button>
             </div>
         </au-table>
-
+    
         <au-table 
             show.bind="Machine.Id==10"
             view-model.ref="TablePS4" 
@@ -132,6 +134,7 @@
             </div>
         </au-table>
     </div>
+
 
     <div if.bind="infoAreaHard.text=='DIGITAL PRINT'">
         <au-table 
@@ -185,7 +188,7 @@
             show.bind="Machine.Id==25"
             view-model.ref="TableHF2" 
             data.bind="loader" 
-            columns.bind="columnsPrintHF4" 
+            columns.bind="columnsPrintHF2" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Hot Flue 2</button>
@@ -229,10 +232,31 @@
 
     <div if.bind="infoAreaHard.text=='FINISHING'">
         <au-table 
-            show.bind="Machine.Id==13 || Machine.Id==14 || Machine.Id==17"
-            view-model.ref="TableCRF" 
+            show.bind="Machine.Id==13"
+            view-model.ref="TableCRF1" 
             data.bind="loader" 
-            columns.bind="columnsFinishCRF" 
+            columns.bind="columnsFinishCRF1" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+ 
+        <au-table 
+            show.bind="Machine.Id==14"
+            view-model.ref="TableCRF2" 
+            data.bind="loader" 
+            columns.bind="columnsFinishCRF2" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+        <au-table 
+            show.bind="Machine.Id==17"
+            view-model.ref="TableST" 
+            data.bind="loader" 
+            columns.bind="columnsFinishST" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
@@ -240,10 +264,21 @@
         </au-table>
 
         <au-table 
-            show.bind="Machine.Id==18 || Machine.Id==19"
-            view-model.ref="TableCL" 
+            show.bind="Machine.Id==18"
+            view-model.ref="TableCL1" 
             data.bind="loader" 
-            columns.bind="columnsFinishCL" 
+            columns.bind="columnsFinishCL1" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+        
+        <au-table 
+            show.bind="Machine.Id==19"
+            view-model.ref="TableCL2" 
+            data.bind="loader" 
+            columns.bind="columnsFinishCL2" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
@@ -251,10 +286,21 @@
         </au-table>
 
         <au-table 
-            show.bind="Machine.Id==15 || Machine.Id==16"
-            view-model.ref="TableSF" 
+            show.bind="Machine.Id==15 "
+            view-model.ref="TableSF1" 
             data.bind="loader" 
-            columns.bind="columnsFinishSF" 
+            columns.bind="columnsFinishSF1" 
+            options.bind="tableOptions">
+            <div slot="toolbar" class="btn-group">
+                <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
+            </div>
+        </au-table>
+        
+        <au-table 
+            show.bind="Machine.Id==16"
+            view-model.ref="TableSF2" 
+            data.bind="loader" 
+            columns.bind="columnsFinishSF2" 
             options.bind="tableOptions">
             <div slot="toolbar" class="btn-group">
                 <button class="btn btn-primary" click.delegate="ExportToExcel()">Download Finishing</button>
