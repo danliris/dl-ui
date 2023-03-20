@@ -1,6 +1,11 @@
 <template>
     <h1 class="page-header">Unggah Data</h1>
     <form class="form-horizontal">
+        <td>
+            <au-dropdown value.bind="type" error.bind="error.type" items.bind="typeOptions"
+                options.bind="controlOptions" label="Tipe BC">
+            </au-dropdown>
+        </td>
         <!-- <au-dropdown label="Area" value.bind="infoArea" items.bind="areaOptions" key="value" text="text" options.bind="controlOptions">
         </au-dropdown>
         <div class="row" show.bind="showMonth">
@@ -18,30 +23,31 @@
         </div>
     </form>
 
-       
 
-    
 
-    
+
+
+
     <block>
-        <hr/>
+        <hr />
         <div class="btn-group pull-right">
             <!-- <button class="btn btn-default" click.delegate="reset()" options.bind="controlOptions">Kembali</button> -->
-            <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()" options.bind="controlOptions">Tampilkan Data</button>
+            <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()"
+                options.bind="controlOptions">Tampilkan Data</button>
         </div>
     </block>
-<br>
-<br>
-<div class="row">
-    <div class="table-responsive">
-        <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
-    </div>
-    <!-- <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+    <br>
+    <br>
+    <div class="row">
+        <div class="table-responsive">
+            <table ref="table" class="table table-bordered table-hover" border="1" id="myTable"></table>
+        </div>
+        <!-- <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
         Tidak ada data.
     </div> -->
-    <hr/> 
-            
-            <!-- <thead align="center">
+        <hr />
+
+        <!-- <thead align="center">
                 <tr>
                     <td>No Aju</td>
                     <td>Jenis Dokumen</td>
@@ -71,16 +77,11 @@
         <!-- </table> -->
     </div>
     <div class="row">
-        <div class = "col-sm-6">
-            <au-datepicker
-                label="Pilih Tanggal"
-                value.bind="date"
-                error.bind="error.date"
-                options.bind="controlOptions"
-                if.bind="data"
-            ></au-datepicker>
+        <div class="col-sm-6">
+            <au-datepicker label="Pilih Tanggal" value.bind="date" error.bind="error.date" options.bind="controlOptions"
+                if.bind="data"></au-datepicker>
         </div>
-        <div class ="col-sm-3" if.bind="data">
+        <div class="col-sm-3" if.bind="data">
             <button class="btn btn-info" click.delegate="save()" options.bind="controlOptions">Simpan</button>
             <button class="btn btn-default" click.delegate="reset()" options.bind="controlOptions">Reset</button>
         </div>
