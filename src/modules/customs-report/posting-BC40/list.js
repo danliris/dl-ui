@@ -115,7 +115,7 @@ export class List {
 
       console.log(dataUpdate.Ids);
 
-      var endpoint = 'PostBeacukai';
+      var endpoint = 'PostBeacukai40';
       var request = {
         method: 'PUT',
         headers: {
@@ -181,7 +181,7 @@ export class List {
 
       console.log(this.service.endpoint.defaults.headers);
 
-      var endpoint = 'UploadPB';
+      var endpoint = 'UploadBC40';
       var request = {
         method: 'POST',
         headers: {

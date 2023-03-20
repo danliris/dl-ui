@@ -1,0 +1,90 @@
+<template>
+    <h1 class="page-header">Monitoring Saldo Piutang Buyer</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+            label="Buyer Agent"
+            value.bind="buyerAgent"
+            error.bind="error.BuyerAgent"
+            loader.bind="garmentbuyerLoader"
+            text.bind = "buyerAgentView"
+            key="Code"
+            placeholder="Cari Buyer Agent"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+         <au-autocomplete 
+            label="Invoice No"
+            value.bind="invoiceNo"
+            error.bind="error.InvoiceNo"
+            loader.bind="shippinginvoiceLoader"
+            text.bind = "shippinginvoiceNoView"
+            key="InvoiceNo"
+            placeholder="Cari Invoice No"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-datepicker label="Tanggal ETD Fessel Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal ETD Fessel Akhir" value.bind="dateTo"></au-datepicker>
+  
+       <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-danger'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <td align="center" rowspan="2">NO.</td>
+                    <td align="center" rowspan="2">INVOICE NO</td>
+                    <td align="center" rowspan="2">INVOICE DATE</td>
+                    <td align="center" rowspan="2">BUYER AGENT</td>                 
+                    <td align="center" rowspan="2">AMOUNT TO BE PAID (US$)</td>
+                    <td align="center" rowspan="2">ETD DATE</td>
+                    <td align="center" rowspan="2">PAYMENT DUE</td>
+                    <td align="center" rowspan="2">DUE DATE</td>
+                    <td align="center" rowspan="2">PAYMENT DATE</td>
+                    <td align="center" rowspan="2">PAYMENT AMOUNT (US$)</td>
+                    <td align="center" rowspan="2">BANK CHARGES</td>
+                    <td align="center" rowspan="2">OTHER CHARGES</td>                    
+                    <td align="center" rowspan="2">AMOUNT RECEIPT (US$)</td>
+                    <td align="center" rowspan="2">OUTSTANDING AMOUNT (US$)</td>
+                    <td align="center" rowspan="2">BANK DETAIL</td>
+                    <td align="center" rowspan="2">RECEIPT NO</td>
+                    <td align="center" rowspan="2">OVERDUE</td>                           
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">
+                    <td class="text-center"> ${$index + 1}</td>                        
+                    <td>${item.invoiceNo}</td>
+                    <td>${item.invoiceDate}</td>                       
+                    <td>${item.buyerAgentName}</td>                  
+                     <td class="text-right"><strong>${item.toBePaid}</strong></td>
+                    <td>${item.sailingDate}</td>
+                    <td>${item.paymentDue}</td>
+                    <td>${item.dueDate}</td>
+                    <td>${item.paymentDate}</td>
+
+                    <td class="text-right"><strong>${item.paymentAmount}</strong></td>
+                    <td class="text-right"><strong>${item.bankCharges}</strong></td>
+                    <td class="text-right"><strong>${item.otherCharges}</strong></td>                    
+                    <td class="text-right"><strong>${item.receiptAmount}</strong></td>
+                    <td class="text-right"><strong>${item.outStandingAmount}</strong></td>
+                    <td>${item.bankDetail}</td>
+                    <td>${item.receiptNo}</td>        
+                    <td>${item.overDue}</td>        
+                </tr>                    
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>
