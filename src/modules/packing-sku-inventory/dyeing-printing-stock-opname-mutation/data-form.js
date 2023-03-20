@@ -233,10 +233,19 @@ export class DataForm {
     console.log(track);
     if(track.Type === undefined){
 
-      return `${track.type} - ${track.name}` ; 
+      if(track.box === null){
+        return `${track.type} - ${track.name}` ; 
+      } else{
+        return `${track.type} - ${track.name} - ${track.box}` ; 
+      }
+      
     }else{
-
-      return `${track.Type} - ${track.Name}`;
+      if(track.Box === null){
+        return `${track.Type} - ${track.Name}`;
+      }else{
+        return `${track.Type} - ${track.Name} - ${track.Box}`;
+      }
+      
     }
     
   }
