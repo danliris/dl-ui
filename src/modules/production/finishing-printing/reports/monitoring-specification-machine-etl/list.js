@@ -40,22 +40,28 @@ export class List {
         this.infoShift="";
       
     }
-    get areaDyeing() {
-        return  this.infoAreaHard.text == "DYEING" ;
-    }
-    get areaDyeingMonfort() {
-        return this.Machine && this.Machine.Id == 8;
-    }
-    get areaDyeingPS4() {
-        return this.Machine && this.Machine.Id == 10;
+    // get areaDyeing() {
+    //     return  this.infoAreaHard.text == "DYEING" ;
+    // }
+    // get areaDyeingMonfort() {
+    //     return this.Machine && this.Machine.Id == 8;
+    // }
+    // get areaDyeingPS4() {
+    //     return this.Machine && this.Machine.Id == 10;
 
 
 
-    }
+    // }
     rowFormatter(data, index) {
         return {};
     }
-    
+
+    infoAreaHardChanged(){
+      console.log("infoAreaHardChanged");
+      this.Machine.Id = null;
+      this.Machine = { text: 'Pilih mesin nya'};
+    }
+
     MachineChanged(newValue){
         this.flag = false;
         if(this.infoAreaHard.text=='PRETREATMENT'){
@@ -67,10 +73,8 @@ export class List {
             this.TableWD2.refresh();
         }
         else if(this.infoAreaHard.text=='DYEING'){
-            console.log('masuk MachineChanged refresh DYEING');
-            //this.Table1.refresh();
-             //this.TableMon.refresh();
-             //this.TablePS4.refresh();
+             this.TableMon.refresh();
+             this.TablePS4.refresh();
         }
         else if(this.infoAreaHard.text=='DIGITAL PRINT'){
             this.TableDP.refresh();
@@ -85,9 +89,13 @@ export class List {
             this.TableZimmer.refresh();
         }
         else if(this.infoAreaHard.text=='FINISHING'){
-            this.TableCRF.refresh();
-            this.TableCL.refresh();
-            this.TableSF.refresh();
+            this.TableCRF1.refresh();
+            this.TableCRF2.refresh();
+            this.TableST.refresh();
+            this.TableCL1.refresh();
+            this.TableCL2.refresh();
+            this.TableSF1.refresh();
+            this.TableSF2.refresh();
             this.TableBaking.refresh();
         }
     }
@@ -97,42 +105,95 @@ export class List {
             this.error.Machine = "Mesin harus diisi";
         if (Object.getOwnPropertyNames(this.error).length === 0) {
             this.flag = true;
+            //Mesin PRETREATMENT
             if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==37){
                 this.TableBruck.refresh();
-               
-                // this.TableCBR.refresh();
-                // this.TableBruck.refresh();
-                // this.TableCMR.refresh();
-                // this.TableOsthoff.refresh();
-                // this.TableWD2.refresh();
             }
             else if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==33){
                 this.TableCBR.refresh();
             }
-            else if(this.infoAreaHard.text=='DYEING'){
-               this.Table1.refresh();
-                //this.TableMon.refresh();
-                //this.TablePS4.refresh();
+            else if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==40){
+                this.TableCMR.refresh();
             }
-            else if(this.infoAreaHard.text=='DIGITAL PRINT'){
+            else if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==41){
+                this.TableOsthoff.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRETREATMENT' && this.Machine.Id ==7){
+                this.TableWD2.refresh();
+            }
+            
+
+            //Mesin DYEING
+            else if(this.infoAreaHard.text=='DYEING' && this.Machine.Id ==8){
+                this.TableMon.refresh();
+            }
+            else if(this.infoAreaHard.text=='DYEING' && this.Machine.Id ==10){
+                this.TablePS4.refresh();
+            }
+
+            //Mesin DIGITAL PRINT
+            else if(this.infoAreaHard.text=='DIGITAL PRINT' && this.Machine.Id ==39){
                 this.TableDP.refresh();
             }
-            else if(this.infoAreaHard.text=='PRINTING'){
+
+            //Mesin PRINTING
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==28){
                 this.TableArioli.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==27){
                 this.TableBrugman.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==31){
                 this.TableHaspel.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==25){
                 this.TableHF2.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==9){
                 this.TableHF4.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==22){
                 this.TableIchinose.refresh();
+            }
+            else if(this.infoAreaHard.text=='PRINTING' && this.Machine.Id ==24){
                 this.TableZimmer.refresh();
             }
-            else if(this.infoAreaHard.text=='FINISHING'){
-                this.TableCRF.refresh();
-                this.TableCL.refresh();
-                this.TableSF.refresh();
+
+            //mesin Finishing
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==13){
+                this.TableCRF1.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==14){
+                this.TableCRF2.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==17){
+                this.TableST.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==18){
+                this.TableCL1.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==19){
+                this.TableCL2.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==15){
+                this.TableSF1.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==16){
+                this.TableSF2.refresh();
+            }
+            else if(this.infoAreaHard.text=='FINISHING' && this.Machine.Id ==12){
                 this.TableBaking.refresh();
             }
         }
+    }
+
+    reset() {
+       
+        this.Machine.Id =null;
+        this.Machine = { text: 'Pilih mesin nya'};
+        this.dateFrom = null;
+        this.dateTo = null;
+        this.orderNo=null;
     }
 
     loader = (info) => {
@@ -191,6 +252,7 @@ export class List {
     }
 
     columnsPretreatmentBruckner = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Areaprebruck", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -211,6 +273,7 @@ export class List {
         ];
 
     columnsPretreatmentCBR = [
+            { field: "index", title: "No", valign: "top" },
             { field: "area", title: "AreapreCBR", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -250,6 +313,7 @@ export class List {
         ];
 
     columnsPretreatmentCMR = [
+            { field: "index", title: "No", valign: "top" },
             { field: "area", title: "AreapreCMR", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -282,6 +346,7 @@ export class List {
         ];
 
     columnsPretreatmentOsthoff = [
+            { field: "index", title: "No", valign: "top" },
             { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -301,6 +366,7 @@ export class List {
         ];
 
     columnsPretreatmentWD2 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -319,6 +385,7 @@ export class List {
         ];
 
         columnsDyeingMonfort = [
+            { field: "index", title: "No", valign: "top" },
             { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -343,6 +410,7 @@ export class List {
         ];
 
     columnsDyeingPS4 = [
+            { field: "index", title: "No", valign: "top" },
             { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -368,6 +436,7 @@ export class List {
         ];
 
     columnsDPrint = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -381,6 +450,7 @@ export class List {
     ];
 
     columnsPrintArioli = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -403,6 +473,7 @@ export class List {
     ];
 
     columnsPrintBrugman = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -425,6 +496,7 @@ export class List {
     ];
     
     columnsPrintHaspel = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -447,6 +519,7 @@ export class List {
     ];
 
     columnsPrintHF2 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -470,6 +543,7 @@ export class List {
     ];
 
     columnsPrintHF4 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -492,6 +566,7 @@ export class List {
     ];
 
     columnsPrintIchinose = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -509,6 +584,7 @@ export class List {
     ];
 
     columnsPrintZimmer = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -537,7 +613,8 @@ export class List {
         { field: "ukuranrakel14", title: "Printing Unit 14", valign: "top" },
     ];
 
-    columnsFinishCRF = [
+    columnsFinishCRF1 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -558,8 +635,67 @@ export class List {
         { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
         { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
-
-    columnsFinishCL = [
+    columnsFinishCRF2 = [
+        { field: "index", title: "No", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
+        { field: "mesin", title: "Mesin", valign: "top" },
+        { field: "tgl", title: "Tanggal",  valign: "top", 
+                formatter: function (value, data, index) {
+                    return moment(value).format("DD MMM YYYY"); 
+                } 
+        },
+        { field: "noorder", title: "No.Order", valign: "top" },
+        { field: "nokereta", title: "No.kereta", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "tknmangleL", title: "Tek. Mangle L", valign: "top" },
+        { field: "tknmangleR", title: "Tek. Mangle R", valign: "top" },
+        { field: "tempdryer", title: "Temp. Pre Dryer", valign: "top" },
+        { field: "tempstenter1", title: "Temp.Stenter 1", valign: "top" },
+        { field: "tempstenter2", title: "Temp.Stenter 2", valign: "top" },
+        { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
+        { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
+        { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
+        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+    ];
+    columnsFinishST = [
+        { field: "index", title: "No", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
+        { field: "mesin", title: "Mesin", valign: "top" },
+        { field: "tgl", title: "Tanggal",  valign: "top", 
+                formatter: function (value, data, index) {
+                    return moment(value).format("DD MMM YYYY"); 
+                } 
+        },
+        { field: "noorder", title: "No.Order", valign: "top" },
+        { field: "nokereta", title: "No.kereta", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "tknmangleL", title: "Tek. Mangle L", valign: "top" },
+        { field: "tknmangleR", title: "Tek. Mangle R", valign: "top" },
+        { field: "tempdryer", title: "Temp. Pre Dryer", valign: "top" },
+        { field: "tempstenter1", title: "Temp.Stenter 1", valign: "top" },
+        { field: "tempstenter2", title: "Temp.Stenter 2", valign: "top" },
+        { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
+        { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
+        { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
+        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+    ];
+    columnsFinishCL1 = [
+        { field: "index", title: "No", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
+        { field: "mesin", title: "Mesin", valign: "top" },
+        { field: "tgl", title: "Tanggal",  valign: "top", 
+                formatter: function (value, data, index) {
+                    return moment(value).format("DD MMM YYYY"); 
+                } 
+        },
+        { field: "noorder", title: "No.Order", valign: "top" },
+        { field: "nokereta", title: "No.kereta", valign: "top" },
+        { field: "speed", title: "Kecepatan", valign: "top" },
+        { field: "beban", title: "Beban", valign: "top" },
+        { field: "tknpress", title: "Press", valign: "top" },
+    ];
+    columnsFinishCL2 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -574,7 +710,26 @@ export class List {
         { field: "tknpress", title: "Press", valign: "top" },
     ];
 
-    columnsFinishSF = [
+    columnsFinishSF1 = [
+        { field: "index", title: "No", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
+        { field: "mesin", title: "Mesin", valign: "top" },
+        { field: "tgl", title: "Tanggal",  valign: "top", 
+                formatter: function (value, data, index) {
+                    return moment(value).format("DD MMM YYYY"); 
+                } 
+        },
+        { field: "noorder", title: "No.Order", valign: "top" },
+        { field: "nokereta", title: "No.kereta", valign: "top" },
+        { field: "speed", title: "Speed", valign: "top" },
+        { field: "pressrubber", title: "Press Rubber", valign: "top" },
+        { field: "rubbesteam", title: "Tek. Rubber Steam", valign: "top" },
+        { field: "blangketsteam", title: "Tek. Blanket Steam", valign: "top" },
+        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+    ];
+
+    columnsFinishSF2 = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
@@ -592,6 +747,7 @@ export class List {
     ];
 
     columnsFinishBaking = [
+        { field: "index", title: "No", valign: "top" },
         { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
