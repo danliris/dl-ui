@@ -8,7 +8,7 @@ module.exports = function (keyword, filter, select) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("core");
 
-    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), select: select, size: 10 })
+    return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), select: select, size: 50 })
         .then(results => {
             return results.data.map(supplier => {
                 supplier.toString = function () {
