@@ -8,14 +8,17 @@ export class List {
   context = ["detail"];
 
   columns = [
-    { field: "EstimatedNumber", title: "No Estimasi Produksi" },
     {
-      field: "DateEstimated",
-      title: "Tanggal Estimasi Produksi",
-      formatter: function(value, data, index) {
-        moment.locale("id");
-        return moment(new Date(value)).format("DD MMMM YYYY");
-      }
+      field: "month",
+      title: "Bulan"
+    },
+    {
+      field: "yearPeriode",
+      title: "Tahun"
+    },
+    {
+      field: "createdDate",
+      title: "Tanggal Update"
     }
   ];
 
@@ -31,10 +34,12 @@ export class List {
     };
 
     return this.service.searchEstimatedProductions(arg).then(result => {
+      console.log(result.data);
       return {
         total: result.info.total,
         data: result.data
       };
+     
     });
   };
 
@@ -48,12 +53,12 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute("view", { Id: data.Id });
+        this.router.navigateToRoute("view", { month: data.month, yearPeriode : data.yearPeriode });
         break;
     }
   }
 
-  create() {
-    this.router.navigateToRoute("create");
+  upload() {
+    this.router.navigateToRoute("upload");
   }
 }

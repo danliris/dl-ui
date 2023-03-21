@@ -13,19 +13,24 @@ export class View {
   }
 
   async activate(params) {
-    var Id = params.Id;
+   // var Id = params.Id;
+   var arg = {
+    month: params.month,
+    yearPeriode: params.yearPeriode
+ };
+    var result= await  this.service.getFilter(arg);
+    this.data = result.data;
+    // this.data = await this.service.getById(Id);
+    // const unit = await this.service.getUnitById(this.data.Unit);
+    // this.data.Unit = unit.Name;
 
-    this.data = await this.service.getById(Id);
-    const unit = await this.service.getUnitById(this.data.Unit);
-    this.data.Unit = unit.Name;
-
-    if(this.data.MachineNumber){
-      this.selectedMachineDocument=this.data.MachineNumber;
-    }
+    // if(this.data.MachineNumber){
+    //   this.selectedMachineDocument=this.data.MachineNumber;
+    // }
     
-    if(this.data.OrderNumber){
-      this.selectedOrderNumber=this.data.OrderNumber;
-    }
+    // if(this.data.OrderNumber){
+    //   this.selectedOrderNumber=this.data.OrderNumber;
+    // }
 
   }
 
@@ -37,13 +42,13 @@ export class View {
     this.list();
   }
 
-  editCallback(event) {
-    this.router.navigateToRoute("edit", { Id: this.data.Id });
-  }
+  // editCallback(event) {
+  //   this.router.navigateToRoute("edit", { Id: this.data.Id });
+  // }
 
-  deleteCallback(event) {
-    this.service.delete(this.data).then(result => {
-      this.cancelCallback(event);
-    });
-  }
+  // deleteCallback(event) {
+  //   this.service.delete(this.data).then(result => {
+  //     this.cancelCallback(event);
+  //   });
+  // }
 }

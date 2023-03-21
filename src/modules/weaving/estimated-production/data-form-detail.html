@@ -1,0 +1,66 @@
+<template>
+    <!-- CSS Styling -->
+    <style>
+      .collection .panel-body {
+        padding: 0px;
+      }
+  
+    </style>
+  
+    <au-input-form title.bind="title" with.bind="context" options.bind="formOptions" part="actions">
+      <div class="col-md-12">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td rowspan="2">NO SP</td>
+                        <td rowspan="2">TGL</td>
+                        <td rowspan="2">KONSTRUKSI</td>
+                        <td rowspan="2">JENIS BENANG</td>
+                        <td colspan="5">ESTIMASI PRODUKSI</td>
+                        <td rowspan="2">ORDER BARU ALL</td>
+                        <td colspan="3">KEBUTUHAN BARANG</td>
+                         
+                    </tr>
+                    <tr>
+                        <td rowspan="2">GRADE A</td>
+                        <td rowspan="2">GRADE B</td>
+                        <td rowspan="2">GRADE C</td>
+                        <td rowspan="2">AVAL</td>
+                        <td rowspan="2">TOTAL</td>
+                         
+        
+                        <td rowspan="2">LUSI</td>
+                        <td rowspan="2">PAKAN</td>
+                        <td rowspan="2">TOTAL</td>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <require from="../../../lib/number-format-value-converter"></require>
+                    <tr repeat.for="item of data">
+                        <td class="text-center">${item.spNo}</td>
+                        <td class="text-center">${item.Date}</td>
+                        <td class="text-left">${item.construction1}</td>
+                        <td class="text-left">${item.thread}</td>
+                        <td class="text-center">${item.gradeA}</td>
+                        <td class="text-right">${item.gradeB}</td>
+                        <td class="text-right">${item.gradeC}</td>
+                        <td class="text-right">${item.aval}</td>
+                        <td class="text-right">${item.total}</td>
+                        <td class="text-right">${item.numberOrder}</td>
+                        <td class="text-right">${item.warpBale}</td>
+                        <td class="text-right">${item.weftBale}</td>
+                        <td class="text-right">${item.totalBale}</td>
+                        
+                    </tr>
+                      
+                </tbody>
+            </table>
+        </div>
+        
+      </div>
+    </au-input-form>
+  </template>
+  

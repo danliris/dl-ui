@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUriEstimated = "weaving/estimation-productions";
+const serviceUriEstimated = "weaving/estimation-productions/WeavingEstimated";
 const serviceUriOrder = "weaving/orders/get-by-unit-period";
 
 export class Service extends RestService {
@@ -27,6 +27,13 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+
+  getFilter(info) {
+    var endpoint = `${serviceUriEstimated}/monthYear`;
+    return super.list(endpoint,info);
+    
+  }
+  
   getByIdEdit(Id) {
     var endpoint = `${serviceUriEstimated}/edit/${Id}`;
     return super.get(endpoint);
