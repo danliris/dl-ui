@@ -18,7 +18,7 @@ export class List {
     this.permissions = permissionHelper.getUser();
 
   }
-  typeOptions = ['', '40', '23', '261']
+  typeOptions = ['', '40', '23', '261', '262']
   controlOptions = {
     label: {
       length: 2
@@ -49,7 +49,6 @@ export class List {
     this.service.search(args)
       .then(result => {
         this.data = result.data;
-        // console.log('result', result);
         this.FillTable();
       });
 
