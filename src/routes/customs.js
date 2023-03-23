@@ -120,16 +120,16 @@ module.exports = [
 
 
     {
-        route: '/customs/posting-BC40',
-        name: 'customs-posting-BC40',
-        moduleId: './modules/customs-report/posting-BC40/index',
+        route: '/customs/posting-BC-ceisa',
+        name: 'customs-posting-BC-Ceisa',
+        moduleId: './modules/customs-report/posting-BC-ceisa/index',
         nav: true,
-        title: 'Posting BC-40',
+        title: 'Posting BC dari Ceisa',
         auth: true,
         settings: {
             group: "customs",
             // permission: { "C9": 1,"PG": 1,"B1": 1 },
-            permission: { "T8": 1 },
+            permission: { "T19": 1 },
             iconClass: 'fa fa-dashboard'
         }
 
