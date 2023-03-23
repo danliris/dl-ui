@@ -18,7 +18,7 @@ export class List {
     this.permissions = permissionHelper.getUser();
 
   }
-
+  typeOptions = ['', '40', '23', '261', '262']
   controlOptions = {
     label: {
       length: 2
@@ -27,6 +27,7 @@ export class List {
       length: 5
     }
   };
+
 
 
   contextCallback(event) {
@@ -42,11 +43,12 @@ export class List {
   }
 
   searching() {
-
-    this.service.search()
+    var args = {
+      type: this.type,
+    }
+    this.service.search(args)
       .then(result => {
         this.data = result.data;
-
         this.FillTable();
       });
 
@@ -56,6 +58,7 @@ export class List {
     let columns = [];
     columns.push({ field: 'isEdit', title: '', checkbox: true, sortable: false, });
     columns.push({ field: 'noAju', title: 'No Aju' });
+    columns.push({ field: 'bcType', title: 'Jenis BC' });
     columns.push({ field: 'bcNo', title: 'No Daftar' });
     columns.push({ field: 'tglBCNO', title: 'Tgl BC No', formatter: value => moment(value).format("DD MMM YYYY") });
     columns.push({ field: 'namaSupplier', title: 'Nama Supplier' });
@@ -86,13 +89,8 @@ export class List {
       this.error.date = "Tanggal Datang harus diisi";
 
     if (Object.getOwnPropertyNames(this.error).length === 0) {
-      // this.flag = true;
-      // this.info.page = 1;
-      // this.info.total=0;
       this.changeDate();
     }
-
-
   }
 
 
@@ -101,6 +99,7 @@ export class List {
     this.data.forEach(s => {
       if (s.isEdit) {
         s.tglDatang = this.date ? moment(this.date).format("YYYY-MM-DD") : null;
+        s.Type = this.type;
         dataIds.push(s);
       }
     })
@@ -110,18 +109,13 @@ export class List {
     }
     else {
 
-      var dataUpdate = {};
-      dataUpdate.Ids = dataIds;
-
-      console.log(dataUpdate.Ids);
-
-      var endpoint = 'PostBeacukai40';
+      var endpoint = 'PostBeacukaies';
       var request = {
         method: 'PUT',
         headers: {
           username: this.permissions.username
         },
-        body: json(dataUpdate.Ids)
+        body: json(dataIds),
       };
 
       var promise = this.service.endpoint.client.fetch(endpoint, request);
@@ -163,57 +157,59 @@ export class List {
   saveCallback(event) {
 
     this.disabled = true;
-
+    this.error = {};
     var e = {};
     var formData = new FormData();
-    var header = new Headers();
 
     var fileInput = document.getElementById("fileCsv");
+
     var fileList = fileInput.files;
     if (fileList[0] == undefined) {
       e.file = "File Path harus dipilih";
+      this.disabled = false;
       this.error = e;
     } else {
-      formData.append("file", fileList[0]);
+      if (!this.type || this.type == undefined || this.type == '') {
+        this.error.type = "Tipe BC Harus Dipilih.";
+        this.disabled = false;
+      } else {
+        formData.append("file", fileList[0]);
+        formData.append("type", this.type);
 
-      // header.append("Access-Control-Allow-Headers", "Authorization, Content-Type");
-      // header.append("Access-Control-Allow-Origin", "*");
+        var endpoint = 'UploadBC';
+        var request = {
+          method: 'POST',
+          headers: {
 
-      console.log(this.service.endpoint.defaults.headers);
+          }
+          ,
+          body: formData
+        };
 
-      var endpoint = 'UploadBC40';
-      var request = {
-        method: 'POST',
-        headers: {
+        var promise = this.service.endpoint.client.fetch(endpoint, request);
+        this.service.publish(promise);
 
-        }
-        ,
-        body: formData
-      };
-
-      var promise = this.service.endpoint.client.fetch(endpoint, request);
-      this.service.publish(promise);
-
-      return promise.then((response) => {
-        var resultPromise = [];
-        if (response.status == 200) {
-          this.service.publish(promise);
-          this.search();
+        return promise.then((response) => {
+          var resultPromise = [];
+          if (response.status == 200) {
+            this.service.publish(promise);
+            this.search();
 
 
-        }
-        else if (response.status == 400) {
-          this.disabled = false;
-          response.json()
-            .then(result => {
-              alert(result.message);
-            });
-          this.router.navigateToRoute('list');
-          this.service.publish(promise);
-        }
+          }
+          else if (response.status == 400) {
+            this.disabled = false;
+            response.json()
+              .then(result => {
+                alert(result.message);
+              });
+            this.router.navigateToRoute('list');
+            this.service.publish(promise);
+          }
 
-      })
+        })
 
+      }
     }
   }
 
