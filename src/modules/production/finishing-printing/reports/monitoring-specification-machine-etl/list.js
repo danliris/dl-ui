@@ -422,8 +422,8 @@ export class List {
             { field: "nokereta", title: "No.kereta", valign: "top" },
             { field: "speed", title: "Speed", valign: "top" },
             { field: "tknmanggleL", title: "Tek. Mangle L", valign: "top" },
-            { field: "tknmanggleC", title: "Tek. Mangle R", valign: "top" },
-            { field: "tknmanggleR", title: "Temp. Chamber", valign: "top" },
+            { field: "tknmanggleR", title: "Tek. Mangle R", valign: "top" },
+            { field: "tempchamber", title: "Temp. Chamber", valign: "top" },
             { field: "tempwasher1", title: "Temp. Washer 1", valign: "top" },
             { field: "tempwasher2", title: "Temp. Washer 2", valign: "top" },
             { field: "tempwasher3", title: "Temp. Washer 3", valign: "top" },
@@ -469,7 +469,7 @@ export class List {
         { field: "supplysteam", title: "Supply Steam", valign: "top" },
         { field: "exhaust", title: "Exhaust", valign: "top" },
         { field: "time", title: "Waktu Fiksasi", valign: "top" },
-        { field: "RH", title: "Humidity(Kelembaban)", valign: "top" },
+        { field: "rh", title: "Humidity(Kelembaban)", valign: "top" },
     ];
 
     columnsPrintBrugman = [
@@ -633,7 +633,7 @@ export class List {
         { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
         { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
         { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
-        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+        { field: "overfeed", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
     columnsFinishCRF2 = [
         { field: "index", title: "No", valign: "top" },
@@ -655,7 +655,7 @@ export class List {
         { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
         { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
         { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
-        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+        { field: "overfeed", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
     columnsFinishST = [
         { field: "index", title: "No", valign: "top" },
@@ -677,7 +677,7 @@ export class List {
         { field: "tempstenter3", title: "Temp.Stenter 3", valign: "top" },
         { field: "tempstenter4", title: "Temp.Stenter 4", valign: "top" },
         { field: "tempstenter5", title: "Temp.Stenter 5", valign: "top" },
-        { field: "check100cm", title: "Overfeed (cek 100cm)", valign: "top" },
+        { field: "overfeed", title: "Overfeed (cek 100cm)", valign: "top" },
     ];
     columnsFinishCL1 = [
         { field: "index", title: "No", valign: "top" },
