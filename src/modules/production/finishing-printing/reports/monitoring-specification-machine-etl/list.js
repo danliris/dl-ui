@@ -253,7 +253,7 @@ export class List {
 
     columnsPretreatmentBruckner = [
         { field: "index", title: "No", valign: "top" },
-        { field: "area", title: "Areaprebruck", valign: "top" },
+        { field: "area", title: "Area", valign: "top" },
         { field: "mesin", title: "Mesin", valign: "top" },
         { field: "tgl", title: "Tanggal",  valign: "top", 
                 formatter: function (value, data, index) {
@@ -274,7 +274,7 @@ export class List {
 
     columnsPretreatmentCBR = [
             { field: "index", title: "No", valign: "top" },
-            { field: "area", title: "AreapreCBR", valign: "top" },
+            { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
                     formatter: function (value, data, index) {
@@ -314,7 +314,7 @@ export class List {
 
     columnsPretreatmentCMR = [
             { field: "index", title: "No", valign: "top" },
-            { field: "area", title: "AreapreCMR", valign: "top" },
+            { field: "area", title: "Area", valign: "top" },
             { field: "mesin", title: "Mesin", valign: "top" },
             { field: "tgl", title: "Tanggal",  valign: "top", 
                     formatter: function (value, data, index) {
