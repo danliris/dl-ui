@@ -50,9 +50,14 @@ export class List {
             },
             { field: "shift", title: "Shift",  valign: "top" },
             { field: "grup", title: "Group", valign: "top" },
+            { field: "kasubsie", title: "Kasubsie", valign: "top" },
+            { field: "keterangan", title: "Keterangan", valign: "top" },
+            { field: "grup", title: "No Order", valign: "top" },
+            { field: "speed", title: "Kecepatan", valign: "top" },
             { field: "qtyin", title: "Panjang_IN", valign: "top" },
             { field: "pjgoutbq", title: "Panjang_OUT_BQ", valign: "top" },
             { field: "pjgoutbs", title: "Panjang_OUT_BS", valign: "top" },
+            { field: "durasi", title: "Durasi (Menit)", valign: "top" },
     ];
 
     
@@ -102,7 +107,7 @@ export class List {
                     for(var data of result.data){
                         index++;
                         data.index=index;
-                        
+                        data.durasi= parseInt(data.durasi * 1440);
                     }
                     return {
                         total: result.total,
@@ -110,7 +115,6 @@ export class List {
                     };
                 })
             ) : { total: 0, data: [] };
-       
       }
 
     ExportToExcel() {

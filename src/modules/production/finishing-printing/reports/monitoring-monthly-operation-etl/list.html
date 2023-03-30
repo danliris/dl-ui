@@ -4,7 +4,7 @@
             white-space: pre;
         }
     </style>
-    <h1 class="page-header">Laporan Monitoring Operational Harian</h1>
+    <h1 class="page-header">Monitoring Monthly Operation Machine</h1>
     <form class="form-horizontal">
         <au-dropdown 
             label="Area" 
@@ -24,22 +24,22 @@
             options.bind="auInputOptions">
         </au-autocomplete>
 
-        <au-datepicker 
-            label="Tanggal Awal" 
-            value.bind="dateFrom">
-        </au-datepicker>
-        <au-datepicker 
-            label="Tanggal Akhir" 
-            value.bind="dateTo">
-        </au-datepicker>
-
         <au-dropdown 
-            label="Shift" 
-            value.bind="infoShift" 
-            items.bind="shiftOptionsHard" 
+            label="Periode" 
+            value.bind="month" 
             key="value" text="text" 
-            options.bind="controlOptions" >
+            items.bind="monthOptions" 
+            options.bind="controlOptions">
         </au-dropdown>
+
+        <au-dropdown  
+            label="Tahun"  
+            value.bind="year" 
+            key="value" text="text" 
+            items.bind="yearOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
