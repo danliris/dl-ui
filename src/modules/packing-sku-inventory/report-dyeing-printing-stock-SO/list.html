@@ -95,6 +95,7 @@
             <th>Saldo Awal</th>
             <th>Masuk SO</th>
             <th>Keluar</th>
+            <th>Adj Keluar</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -102,7 +103,7 @@
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="12">
+            <td colspan="13">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -118,6 +119,7 @@
             <td>${sumSaldoBegin}</td>
             <td>${sumInQty}</td>
             <td>${sumOutQty}</td>
+            <td>${sumAdjOutQty}</td>
             <td>${sumTotal}</td>
           </tr>
         </tbody>
