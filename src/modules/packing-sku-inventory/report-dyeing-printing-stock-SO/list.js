@@ -136,12 +136,15 @@ export class List {
                   this.sumSaldoBegin = 0;
                   this.sumInQty = 0;
                   this.sumOutQty = 0;
+                  this.sumAdjOutQty = 0;
                   this.sumTotal = 0;
+                  
 
                   for (var item of result) {
                     this.sumSaldoBegin += item.saldoBegin;
                     this.sumInQty += item.inQty;
                     this.sumOutQty += item.outQty;
+                    this.sumAdjOutQty += item.adjOutQty;
                     this.sumTotal += item.total;
                     var newData = {
                       ProductionOrderNo: item.productionOrderNo,
@@ -157,6 +160,7 @@ export class List {
                       Awal: item.saldoBegin ? numeral(item.saldoBegin).format("0.00") : 0,
                       Masuk: item.inQty ? numeral(item.inQty).format("0.00") : 0,
                       Keluar: item.outQty ? numeral(item.outQty).format("0.00") : 0,
+                      AdjKeluar: item.adjOutQty ? numeral(item.adjOutQty).format("0.00") : 0,
                       Total : item.total ? numeral(item.total).format("0.00") : 0
                     //   StockOpname: item.stockOpname ? numeral(item.stockOpname).format("0.00") : 0,
                     //   StorageBalance: item.storageBalance ? numeral(item.storageBalance).format("0.00") : 0,
