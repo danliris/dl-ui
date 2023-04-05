@@ -10,6 +10,15 @@
             </au-autocomplete>
 
         </td>
+
+        <td show.bind ="!isCreate">
+            <au-textbox value.bind="data.productPackingCode"
+                        read-only.bind="readOnly"
+                        
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
+
         <td>
             <au-numeric value.bind="data.productionOrder.orderQuantity"
                         format="0.00"
