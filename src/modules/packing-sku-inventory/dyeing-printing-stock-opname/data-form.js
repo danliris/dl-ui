@@ -69,15 +69,17 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
 
-   
+
+   console.log(this.context);
     this.detailOptions = {
       isEdit: this.isEdit,
       readOnly: this.readOnly,
+      isCreate: this.context.isCreate
     
     };
 
     if (this.readOnly) {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
+      this.adjItemColumns = ["No. SPP", "Barcode", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     } else {
       this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     }
@@ -100,6 +102,7 @@ export class DataForm {
     this.data.warehousesProductionOrders =
       this.data.warehousesProductionOrders || [];
     this.data.warehousesProductionOrders.push({});
+    this.add = true;
   };
   
   sppTextFormatter = (spp) => {

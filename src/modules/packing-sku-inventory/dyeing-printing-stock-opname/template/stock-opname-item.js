@@ -12,15 +12,18 @@ export class StockItem {
         this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
         this.packUnit = ["ROLL", "PIECE", "POTONGAN"];
         this.grade = [
-            "A", "B", "C", "BS", "A1", "B1", "Aval 1"
+            "A", "B", "C", "BS", "A1", "B1", "C1", "Aval 1"
         ];
         this.context = context;
         this.data = context.data;
-        console.log(this.data);
+        
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.isCreate = this.contextOptions.isCreate;
+
+        console.log(this.contextOptions);
         if (this.data.uom) {
 
             this.selectedUom = {};

@@ -41,6 +41,11 @@ export class Service extends RestService {
             if (query === '') query = `barcode=${info.barcode}`;
             else query = `${query}&barcode=${info.barcode}`;
         }
+
+        if (info.track) {
+            if (query === '') query = `track=${info.track}`;
+            else query = `${query}&track=${info.track}`;
+        }
         if (info.productionOrderId) {
             if (query === '') query = `productionOrderId=${info.productionOrderId}`;
             else query = `${query}&productionOrderId=${info.productionOrderId}`;
