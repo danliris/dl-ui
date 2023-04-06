@@ -188,6 +188,8 @@ export class DataForm {
                     Items.Colour =item.Colour,
                     Items.Rack = item.Rack,
                     Items.Box= item.Box,
+                    Items.Area= item.Area,
+                    Items.Level= item.Level,
                     Items.DOItemsId= item.DOItemsId
                     if(Items.ReturQuantity>0){
                         dataItems.push(Items);
