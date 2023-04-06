@@ -12,16 +12,17 @@
     </au-datepicker> -->
 
     <au-autocomplete  label="No SPP" value.bind="selectedProductionOrder"
-      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions">
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions" placeholder = "Filter No SPP">
     </au-autocomplete>
 
-    <au-textbox  label="Barcode" value.bind="barcode" error.bind="error.barcode" options.bind="controlOptions" placeholder = "Barcode"></au-textbox>
+    <au-textbox  label="Barcode" value.bind="barcode" error.bind="error.barcode" options.bind="controlOptions" placeholder = "Filter Barcode"></au-textbox>
 
     <au-autocomplete  label="Jalur" value.bind="track"
     loader.bind="trackLoader"
     read-only.bind="readOnly"
     placeholder="Jalur/Rak"
-    text.bind="trackView" options.bind="controlOptions">
+    text.bind="trackView" options.bind="controlOptions"
+    placeholder = "Filter Jalur/Rak">
     </au-autocomplete>
 
     <au-datepicker options.bind="controlOptions" value.bind="dateFrom" error.bind="error.dateFrom"
