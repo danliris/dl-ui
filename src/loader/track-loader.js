@@ -1,7 +1,7 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'master/track';
+const resource = 'master/track/search';
 
 module.exports = function (keyword, filter, select) {
 
