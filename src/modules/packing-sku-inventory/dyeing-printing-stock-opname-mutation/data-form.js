@@ -139,40 +139,46 @@ export class DataForm {
   async barcodeManual() {
 
     var newValue = this.barcode;
+    
 
-    console.log(newValue);
+    console.log(this.track);
 
     
         let args = {
           itemData : newValue.toString().trim(),
+          trackId : this.track.Id
         };
         console.log(args);
 
       var temp = await this.service.getByCode(args);
       console.log(temp);
-      
-      if(temp != undefined) {
-        if(Object.getOwnPropertyNames(temp).length > 0) {
-          var temp1 = temp[0];
-          temp1.sendquantity = 1;
-          console.log(this.data);
-          console.log(temp1);
-          var data = this.data.dyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
-          console.log(data);
-          if(!data) {
-            this.data.dyeingPrintingStockOpnameMutationItems.push(temp1);
-            //this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
-            
-          } else {
-            data.sendquantity++;
-            this.qtyChange(data.productPackingCode, data.sendquantity);
+      if (temp.length != 0){
+        if(temp != undefined) {
+          if(Object.getOwnPropertyNames(temp).length > 0) {
+            var temp1 = temp[0];
+            temp1.sendquantity = 1;
+            console.log(this.data);
+            console.log(temp1);
+            var data = this.data.dyeingPrintingStockOpnameMutationItems.find((x) => x.productPackingCode === temp1.productPackingCode);
+            console.log(data);
+            if(!data) {
+              this.data.dyeingPrintingStockOpnameMutationItems.push(temp1);
+              //this.data.DyeingPrintingStockOpnameMutationItems.push(temp1);
+              
+            } else {
+              data.sendquantity++;
+              this.qtyChange(data.productPackingCode, data.sendquantity);
 
+            }
+            this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
           }
-          this.makeTotal(this.data.dyeingPrintingStockOpnameMutationItems);
         }
-      }
 
-      this.barcode = "";
+        this.barcode = "";
+      } else{
+        alert("Barcode " + newValue +" tidak tersedia di Jalur/Rak ini, Silahkan Coba Lagi...");
+        this.barcode = "";
+      }
     
 
   }

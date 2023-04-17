@@ -8,6 +8,13 @@
 
     <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
       read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
+    <au-autocomplete  label="Jalur" value.bind="track"
+        loader.bind="trackLoader"
+        read-only.bind="readOnly"
+        placeholder="Jalur/Rak"
+        text.bind="trackView" options.bind="controlOptions"
+        placeholder = "Filter Jalur/Rak">
+    </au-autocomplete>
 
     <!-- <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
       read-only.bind="readOnly || isEdit" label="Tanggal">
@@ -114,7 +121,7 @@
               <au-autocomplete value.bind="item.track"
                              error.bind="error.track"
                              loader.bind="trackLoader"
-                             read-only.bind="readOnly"
+                             read-only.bind= true
                              placeholder="Jalur/Rak"
                              text.bind="trackView"
                              >
