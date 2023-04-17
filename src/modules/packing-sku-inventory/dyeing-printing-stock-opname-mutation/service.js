@@ -51,7 +51,7 @@ const uomServiceUri = 'master/uoms';
         //var endpoint = `${serviceUri}/code?itemData=${args.itemData}`;
 
         var config = Container.instance.get(Config);
-        var endpoint = config.getEndpoint("packing-inventory").client.baseUrl + `stock-opname-warehouse/code?itemData=${args.itemData}`;
+        var endpoint = config.getEndpoint("packing-inventory").client.baseUrl + `stock-opname-warehouse/code?itemData=${args.itemData}&trackId=${args.trackId}`;
         // return super.list(endpoint, args);
         //var endpoint = `${serviceUri}?itemData=${args.itemData}&source=${args.source}`
         return super.get(endpoint);

@@ -216,6 +216,7 @@ export class StockItem {
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
+            this.data.productionOrder.createdUtc = this.selectedProductionOrder.CreatedUtc;
 
             if (this.selectedProductionOrder.Construction) {
                 this.data.construction = this.selectedProductionOrder.Construction;

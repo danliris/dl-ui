@@ -237,7 +237,8 @@ export class List {
     reset() {
         this.dateFrom = undefined;
         this.dateTo = undefined;
-        this.barcode = null
+        this.barcode = null;
+        this.track =null;
      
         this.selectedProductionOrder = null;
         this.listDataFlag = false;
