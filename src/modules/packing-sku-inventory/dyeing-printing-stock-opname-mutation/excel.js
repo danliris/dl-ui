@@ -184,10 +184,10 @@ export class Create {
         console.log(track);
         if(track.Type === undefined){
 
-            return `${track.type} - ${track.name}` ; 
+            return `${track.type} - ${track.name} - ${track.box}` ; 
           }else{
       
-            return `${track.Type} - ${track.Name}`;
+            return `${track.Type} - ${track.Name} - ${track.Box}`;
           }
     }
 
