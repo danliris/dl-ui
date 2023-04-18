@@ -1,7 +1,8 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
-const BuyerLoader = require('../../../loader/garment-buyers-loader');
+//const BuyerLoader = require('../../../loader/garment-buyers-loader');
+var BuyerLoader = require('../../../loader/garment-buyer-brands-loader');
 const ROCCLoader = require('../../../loader/cost-calculation-garment-loader');
 const ComodityLoader = require("../../../loader/garment-comodities-loader");
 const SectionLoader = require('../../../loader/garment-sections-loader');
@@ -103,6 +104,10 @@ export class DataForm {
         var buyerCode = buyer.Code || buyer.code;
         return `${buyerCode} - ${buyerName}`
     }
+
+    filterbuyer = {
+             "Code!=BuyerName": true
+             };
 
     comodityView = (comodity) => {
         var code = comodity.code || comodity.Code;
