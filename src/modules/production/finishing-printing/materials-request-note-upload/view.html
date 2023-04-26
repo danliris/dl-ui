@@ -1,0 +1,41 @@
+<template>
+  <h1 class="page-header">Detail Surat Permintaan Barang</h1>
+  <table class="table table-bordered table-hover" border="1" id="myTable">
+    <thead align="center">
+        <th>No</th>
+        <th>Area</th>
+        <th>No Bon</th>
+        <th>Nama Barang</th>
+        <th>Material</th>
+        <th>Nomor Benang</th>
+        <th>Grade</th>
+        <th>Panjang SPB</th>
+        <th>Keterangan</th>
+        <th if.bind="unit=='PRINTING'">Analisa</th>
+        <th>Panjang Order</th>
+    </thead>
+    <tbody>
+        <tr repeat.for="mr of data" >
+            <td class="text-center">${$index + 1}</td>
+            <td class="text-left">${mr.unit}</td>
+            <td class="text-left">${mr.bonNumber}</td>
+            <td class="text-left">${mr.productName}</td>
+            <td class="text-left">${mr.material}</td>
+            <td class="text-left">${mr.threadNumber}</td>
+            <td class="text-left">${mr.grade}</td>
+            <td class="text-right">${mr.spbLength}</td>
+            <td class="text-left">${mr.information}</td>
+            <td class="text-left" if.bind="unit=='PRINTING'">${mr.analyst}</td>
+            <td class="text-right">${mr.orderLength}</td>
+        </tr>
+        <tr>
+          <td colspan="7" class="text-right"> <b>Total</b> </td>
+          <td class="text-right"> <b> ${total} </b> </td>
+        </tr>
+    </tbody>
+</table>
+<div slot="actions" class="btn-group">
+  <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+</div>
+  </template>
+  
