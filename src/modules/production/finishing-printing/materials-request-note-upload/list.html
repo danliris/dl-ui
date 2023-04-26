@@ -1,0 +1,15 @@
+<template>
+    <h1 class="page-header">Surat Permintaan Barang</h1>
+  
+    <au-table
+      data.bind="loader"
+      columns.bind="columns"
+      sortable.bind="true"
+      page-size="25"
+      context.bind="context"
+      context-click.delegate="contextClickCallback($event)">
+      <div slot="toolbar" class="btn-group">
+        <button class="btn btn-default" click.delegate="upload()">Upload Excel</button>
+      </div>
+    </au-table>
+  </template>
