@@ -1,0 +1,39 @@
+<template>
+    <h1 class="page-header">Surat Permintaan Barang</h1>
+    <form class="form-horizontal">
+        <au-autocomplete
+            placeholder="pilih unit"
+            label="Unit"
+            value.bind="unit"
+            loader.bind="unitLoader"
+            text.bind = "unitView"
+            query.bind="unitFilter"
+            options.bind="controlOptions"
+            key="Name">
+        </au-autocomplete>
+
+        <au-datepicker  
+            label="Tanggal" 
+            value.bind="date" 
+            options.bind="controlOptions">
+        </au-datepicker>
+       
+        <div class="${error.file ? 'has-error':''}">
+            <label for="dataFile" class="col-sm-4 control-label">File Path</label>
+            <div class="col-sm-4">
+                <input type="file" id="fileCsv" name="fileUpload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  >
+                <span class="help-block">${error.file}</span>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    
+    <block>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+            <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()">Simpan</button>
+        </div>
+    </block>
+</template>
