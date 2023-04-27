@@ -58,14 +58,25 @@ export class Service extends RestService {
     var endpoint = `${serviceUriEstimated}?keyword=${code}`;
     return super.get(endpoint);
   }
+ 
+  getReportXls(month, yearPeriode) {
+    var endpoint = `${serviceUriEstimated}/download`;
+    var query = '';
 
-  getUnitById(Id) {
-    var config = Container.instance.get(Config);
-    var _endpoint = config.getEndpoint("core");
-    var _serviceUri = `master/units/${Id}`;
+    if (month) {
+      if (query === '') query = `month=${month}`;
+      else query = `${query}&month=${wmonth}`;
+    }
+    if (yearPeriode) {
+      if (query === '') query = `yearPeriode=${(yearPeriode)}`;
+      else query = `${query}&yearPeriode=${(yearPeriode)}`;
+    }
+    
+    if (query !== '') {
+      endpoint = `${serviceUriEstimated}/download?${query}`;
+    }
 
-    return _endpoint.find(_serviceUri).then(result => {
-      return result.data;
-    });
+    return super.getXls(endpoint);
   }
+
 }
