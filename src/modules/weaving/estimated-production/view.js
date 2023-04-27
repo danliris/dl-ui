@@ -1,4 +1,4 @@
-import { inject, Lazy } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 
@@ -7,6 +7,8 @@ export class View {
   searchButton = false;
   dataExist = true;
   editable = true;
+  @bindable Month;
+  @bindable Year;
 
   constructor(router, service) {
     this.router = router;
@@ -19,6 +21,8 @@ export class View {
        month: params.month,
        yearPeriode: params.yearPeriode
     };
+    this.Month = params.month;
+    this.Year = params.yearPeriode;
     console.log(params)
     var result= await  this.service.getFilter(arg);
     this.data = result.data;
@@ -47,4 +51,15 @@ export class View {
   //     this.list();
   //   });
   // }
+  
+  exportToExcel() {
+    
+    return this.service.getReportXls(this.Month, this.Year).then(result => {
+    
+      return {
+        data: result,
+        total: length
+      };
+    })  
+  }
 }
