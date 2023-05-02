@@ -521,11 +521,11 @@ module.exports = [
     }
   },
   {
-    route: 'packing-sku-inventory/dyeing-printing-stock-opname-mutation',
+    route: 'packing-sku-inventory/dyeing-printing-stock-opname-track',
     name: 'dyeing-printing-stock-opname-mutation',
-    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-mutation/index',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-stock-opname-track/index',
     nav: true,
-    title: 'Stock Opname Mutasi',
+    title: 'Update Jalur & Rak',
     auth: true,
     settings: {
       group: "ps-inventory",

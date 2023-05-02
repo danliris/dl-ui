@@ -1,0 +1,46 @@
+<template>
+	<tr>
+
+		<td>
+			<au-numeric 
+                value.bind="packagingQtyRemains" 
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions"
+				change.delegate="packagingQtyRemainsChanged"
+				>
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric 
+                value.bind="data.packagingLength" 
+                read-only.bind="true"
+                options.bind="controlOptions"
+				>
+			</au-numeric>
+		</td>
+		<td>
+			<au-numeric 
+                value.bind="data.balance" 
+                read-only.bind="true"
+                options.bind="controlOptions"
+				>
+			</au-numeric>
+		</td>
+		<td>
+		<au-autocomplete 
+							value.bind="data.track"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind= "readOnly || (isEdit && data.Id)"
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView"
+							 error.bind="error.track"
+                             >
+            </au-autocomplete>
+		
+		</td>
+		<td if.bind="!readOnly" class="col-sm-1">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+		</td>
+	</tr>
+</template>

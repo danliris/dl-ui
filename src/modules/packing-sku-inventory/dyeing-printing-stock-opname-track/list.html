@@ -1,0 +1,111 @@
+<template>
+  <h1 class="page-header">Update Jalur & Rak</h1>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+
+        <au-autocomplete  label="No SPP" value.bind="selectedProductionOrder"
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions" placeholder = "Filter No SPP">
+    </au-autocomplete>
+
+        
+
+        <au-autocomplete value.bind="track"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind="readOnly"
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView"
+                             label ="Jalur / Rak">
+            </au-autocomplete>
+
+            <au-textbox value.bind="barcode" label="barcode" placeholder="Masukan barcode">
+            </au-textbox>
+
+        
+
+
+
+        <div class="form-group">
+          <label for="contact" class="col-sm-6 control-label"></label>
+          <div class="col-sm-3">
+            <button click.delegate="search()" class='btn btn-success'>Cari</button>
+            <button click.delegate="reset()" class='btn btn-danger'>Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br>
+  </br>
+
+  <div id="mutation-table">
+    <au-table 
+    view-model.ref="tableList" 
+    data.bind="loader" 
+    columns.bind="columns" 
+    sortable="true" page-size="25"
+    options.bind="tableOptions"
+    context.bind="context" 
+    context-click.delegate="contextClickCallback($event)"
+    selectable.bind="true">
+      
+    <div slot="toolbar" class="btn-group">
+        <button class="btn btn-primary" click.delegate="ExportToExcel()">Cetak Excel</button>
+      </div>
+    </au-table>
+  </div>
+  <!-- <div class="row" >
+    <div class="col-md-12" style="overflow-x: auto">
+    
+      <table class="table table-bordered" context.bind="context"
+      options.bind="tableOptions" context-click.delegate="contextClickCallback($event)"
+      context-show.call="contextShowCallback(index, context, data)">
+       
+        <thead>
+          <tr>
+            <th>No. SPP</th>
+            <th>Barcode</th>
+            <th>Grade</th>
+            <th>Satuan Pack</th>
+            <th>Jalur / Rak</th>
+            <th>Qty Packing</th>
+            <th>Qty/Packing</th>
+            <th>Quantity</th>
+            
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr show.bind="isEmpty">
+            <td colspan="8">
+              <div class="alert alert-info">Tidak ada data</div>
+            </td>
+          </tr>
+          <tr repeat.for="datum of data">
+            <td
+              repeat.for="key of datum | keys"
+            >
+              ${datum[key]}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" colspan="5">TOTAL</td>
+            <td>${sumPackagingQty}</td>
+            <td> </td>
+            <td>${sumBalance}</td>
+          </tr>
+        </tbody>
+        
+        <div style="margin-bottom: 1%" slot="toolbar" class="btn-group">
+          <button class="btn btn-primary" click.delegate="export()">
+            Excel
+          </button>
+        </div>
+      </table>
+      
+    </div>
+  </div> -->
+  
+</template>
