@@ -405,7 +405,7 @@ export class List {
             { field: "tempbakingset1", title: "Temp. Thermosol 2", valign: "top" },
             { field: "sirkufanset2", title: "Exhaust fan dryer", valign: "top" },
             { field: "exhaustbakingset2", title: "Exhaust fan Thermosol", valign: "top" },
-            { field: "sirkufanset1", title: "Sirkulasi Chamber", valign: "top" },
+            { field: "sirkulasiset1", title: "Sirkulasi Chamber", valign: "top" },
             { field: "tempbakingset2", title: "Sirkulasi Thermosol", valign: "top" },
         ];
 
