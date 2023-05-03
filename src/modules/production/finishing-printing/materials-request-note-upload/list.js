@@ -7,7 +7,7 @@ import moment from "moment";
 export class List {
   context = ["detail"];
   columns = [
-    { field: "unit", title: "Area" },
+    { field: "unit", title: "Unit" },
     { field: "date", title: "Tanggal", formatter: function (value, data, index) {
         return moment.utc(value).local().format('D MMMM YYYY');
     }},
