@@ -1,4 +1,3 @@
-
 <template>
   <h1 class="page-header">Monitoring Mesin</h1>
   <form class="form-horizontal">
@@ -35,15 +34,10 @@
   </br>
 
   <div id="machine-table">
-    <au-table view-model.ref="tableList"
-              data.bind="loader"
-              columns.bind="columns"
-              sortable="true"
-              page-size="25"
-              options.bind="tableOptions"
-              context.bind="context" 
-              context-click.delegate="contextClickCallback($event)"
-              selectable.bind="true">
+    <button click.delegate="ExportToExcel()" class='btn btn-success'>Cetak Excel</button>
+    <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable="true" page-size="25"
+      options.bind="tableOptions" context.bind="context" context-click.delegate="contextClickCallback($event)"
+      selectable.bind="true">
     </au-table>
   </div>
 

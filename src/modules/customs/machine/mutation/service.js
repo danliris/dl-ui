@@ -15,8 +15,8 @@ class Service extends RestService {
     getById(id) {
         var endpoint = `${serviceUri}/mutation/${id}`;
         return super.get(endpoint);
-      }
-    
+    }
+
     update(data) {
         var endpoint = `${serviceUri}/mutation/${data.TransactionID}`;
         return super.put(endpoint, data);
@@ -30,6 +30,11 @@ class Service extends RestService {
     createOut(data) {
         var endpoint = `${serviceUri}/machinesmutation/out`;
         return super.post(endpoint, data);
+    }
+
+    generateExcel(info) {
+        var endpoint = `${serviceUri}/mutation/download?tipe=${info.tipe}&ctg=${info.ctg}&serial=${info.serial}`;
+        return super.getXls(endpoint);
     }
 
 }

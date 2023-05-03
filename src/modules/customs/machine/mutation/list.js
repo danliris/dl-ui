@@ -22,10 +22,10 @@ export class List {
     { field: "MachineCategory", title: "KATEGORY" },
     { field: "MachineType", title: "TIPE" },
     { field: "IDNumber", title: "SERIAL" },
-    { field: "MachineQuantity", title: "JUMLAH" ,align: "right"},
+    { field: "MachineQuantity", title: "JUMLAH", align: "right" },
     { field: "UnitQuantity", title: "SATUAN" },
     { field: "TransactionType", title: "TIPE TRANSAKSI" },
-    { field: "TransactionAmount", title: "JUMLAH TRANSAKSI",align: "right" },
+    { field: "TransactionAmount", title: "JUMLAH TRANSAKSI", align: "right" },
     {
       field: "TransactionDate", title: "TANGGAL TRANSAKSI", formatter: (value, data, index) => {
         return value ? moment(value).format("DD-MMM-YYYY") : "";
@@ -64,20 +64,20 @@ export class List {
 
   loader = (info) => {
     let params = {
-          ctg: this.category ? this.category.CategoryName : "",
-          tipe: this.tipe ? this.tipe.MachineType : "",
-          serial: this.serial ? this.serial.IDNumber : ""
-        };
+      ctg: this.category ? this.category.CategoryName : "",
+      tipe: this.tipe ? this.tipe.MachineType : "",
+      serial: this.serial ? this.serial.IDNumber : ""
+    };
 
-        return this.flag
-        ? this.service.search(params).then((result) => {
-  
-          return {
-            // total: 0,
-            data: result.data
-          };
-        })
-        : { data: [] };
+    return this.flag
+      ? this.service.search(params).then((result) => {
+
+        return {
+          // total: 0,
+          data: result.data
+        };
+      })
+      : { data: [] };
   }
 
   search() {
@@ -131,13 +131,13 @@ export class List {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
-        case "Ubah Data":
-            this.router.navigateToRoute('edit', { id: data.TransactionID });
-            break;
+      case "Ubah Data":
+        this.router.navigateToRoute('edit', { id: data.TransactionID });
+        break;
     }
-}
+  }
 
-transactionIn() {
+  transactionIn() {
     this.router.navigateToRoute('in');
   }
 
@@ -153,6 +153,22 @@ transactionIn() {
     this.flag = false;
     this.tableList.refresh();
     // this.newData = [];
+  }
+
+  ExportToExcel() {
+    this.error = {};
+    if (Object.getOwnPropertyNames(this.error).length === 0) {
+      let args = {
+        ctg: this.category ? this.category.CategoryName : "",
+        tipe: this.tipe ? this.tipe.MachineType : "",
+        serial: this.serial ? this.serial.IDNumber : ""
+      };
+
+      this.service.generateExcel(args)
+        .catch(e => {
+          alert(e.replace(e, "Error:", ""));
+        });
+    }
   }
 
 }
