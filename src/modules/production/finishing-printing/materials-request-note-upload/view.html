@@ -1,9 +1,10 @@
 <template>
   <h1 class="page-header">Detail Surat Permintaan Barang</h1>
+  <require from="../../../../lib/number-format-value-converter"></require>
   <table class="table table-bordered table-hover" border="1" id="myTable">
     <thead align="center">
         <th>No</th>
-        <th>Area</th>
+        <th>Unit</th>
         <th>No Bon</th>
         <th>Nama Barang</th>
         <th>Material</th>
@@ -23,14 +24,14 @@
             <td class="text-left">${mr.material}</td>
             <td class="text-left">${mr.threadNumber}</td>
             <td class="text-left">${mr.grade}</td>
-            <td class="text-right">${mr.spbLength}</td>
+            <td class="text-right">${mr.spbLength | numberFormat: '0,000'}</td>
             <td class="text-left">${mr.information}</td>
             <td class="text-left" if.bind="unit=='PRINTING'">${mr.analyst}</td>
-            <td class="text-right">${mr.orderLength}</td>
+            <td class="text-right">${mr.orderLength | numberFormat: '0,000'}</td>
         </tr>
         <tr>
-          <td colspan="7" class="text-right"> <b>Total</b> </td>
-          <td class="text-right"> <b> ${total} </b> </td>
+          <td colspan="7" class="text-right"> <b>Total Panjang SPB</b> </td>
+          <td class="text-right"> <b> ${total | numberFormat: '0,000'} </b> </td>
         </tr>
     </tbody>
 </table>
