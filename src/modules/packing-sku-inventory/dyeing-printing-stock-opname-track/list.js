@@ -173,23 +173,21 @@ trackView = (track) => {
     
     
   // }
-  context = ["Update Racking","Kartu Stelling"];
+  context = ["Update Jalur/Rak"];
   contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
 
     switch (arg.name) {
-      case "Update Racking":
-        if (data.balance > 0) {
+      case "Update Jalur/Rak":
+        //if (data.balance > 0) {
           this.router.navigateToRoute('edit', { id: data.id });
-        }
-        else {
-          alert("Maaf, Quantity 0 hanya bisa melihat Kartu Stelling");
-        }
+        // }
+        // else {
+        //   alert("Maaf, Quantity 0 hanya bisa melihat Kartu Stelling");
+        // }
         break;
-      case "Kartu Stelling":
-        this.router.navigateToRoute('stelling', { id: data.Id });
-        break;
+      
     }
   }
 
@@ -198,9 +196,9 @@ trackView = (track) => {
 
   ExportToExcel() {
     let args = {
-      po: this.po ? this.po : "",
-      unitcode: this.unit ? this.unit : "",
-      productcode: this.code ? this.code : "",
+      productionOrderId: this.productionOrder ? this.productionOrder.Id : null,
+      barcode: this.barcode ? this.barcode : "",
+      trackId: this.track?this.track.Id: null,
     };
 
     this.service.generateExcel(args);
