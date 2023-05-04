@@ -177,7 +177,7 @@ export class List {
                       Grade: item.grade,
                       PackagingUnit: item.packagingUnit,
                       Barcode: item.productPackingCode,
-                      Jalur : item.trackName,
+                      //Jalur : item.trackName,
                       Awal: item.saldoBegin ? numeral(item.saldoBegin).format("0.00") : 0,
                       Masuk: item.inQty ? numeral(item.inQty).format("0.00") : 0,
                       Keluar: item.outQty ? numeral(item.outQty).format("0.00") : 0,
