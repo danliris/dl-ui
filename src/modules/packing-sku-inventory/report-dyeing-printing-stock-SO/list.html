@@ -17,13 +17,13 @@
 
     <au-textbox  label="Barcode" value.bind="barcode" error.bind="error.barcode" options.bind="controlOptions" placeholder = "Filter Barcode"></au-textbox>
 
-    <au-autocomplete  label="Jalur" value.bind="track"
+    <!-- <au-autocomplete  label="Jalur" value.bind="track"
     loader.bind="trackLoader"
     read-only.bind="readOnly"
     placeholder="Jalur/Rak"
     text.bind="trackView" options.bind="controlOptions"
     placeholder = "Filter Jalur/Rak">
-    </au-autocomplete>
+    </au-autocomplete> -->
 
     <au-datepicker options.bind="controlOptions" value.bind="dateFrom" error.bind="error.dateFrom"
       read-only.bind="readOnly" label="Tanggal Awal">
@@ -92,7 +92,7 @@
             <th>Grade</th>
             <th>Jenis Packing</th>
             <th>Barcode</th>
-            <th>Jalur/Rak</th>
+            <!-- <th>Jalur/Rak</th> -->
             <th>Saldo Awal</th>
             <th>Masuk SO</th>
             <th>Keluar</th>
@@ -104,7 +104,7 @@
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="14">
+            <td colspan="13">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -116,7 +116,7 @@
             </td>
           </tr>
           <tr>
-          <td class="text-right" colspan="9">TOTAL</td>
+          <td class="text-right" colspan="8">TOTAL</td>
             <td>${sumSaldoBeginFormat}</td>
             <td>${sumInQtyFormat}</td>
             <td>${sumOutQtyFormat}</td>
