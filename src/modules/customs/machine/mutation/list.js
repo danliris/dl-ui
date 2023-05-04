@@ -22,7 +22,7 @@ export class List {
     { field: "MachineCategory", title: "KATEGORY" },
     { field: "MachineType", title: "TIPE" },
     { field: "IDNumber", title: "SERIAL" },
-    { field: "MachineQuantity", title: "JUMLAH", align: "right" },
+    // { field: "MachineQuantity", title: "JUMLAH", align: "right" },
     { field: "UnitQuantity", title: "SATUAN" },
     { field: "TransactionType", title: "TIPE TRANSAKSI" },
     { field: "TransactionAmount", title: "JUMLAH TRANSAKSI", align: "right" },
