@@ -5,7 +5,7 @@ import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  context = ["detail"];
+  context = ["detail", "Cetak PDF"];
   columns = [
     { field: "unit", title: "Unit" },
     { field: "date", title: "Tanggal", formatter: function (value, data, index) {
@@ -53,9 +53,17 @@ export class List {
   contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
+    var info = {
+      unitId: data.unitId,
+      periode: data.date,
+      unit: data.unit
+    };
     switch (arg.name) {
         case "detail":
             this.router.navigateToRoute('view', { id: data.unitId, date: data.date });
+            break;
+        case "Cetak PDF":
+            this.service.getPdf(info);
             break;
     }
   }
