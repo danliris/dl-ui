@@ -170,6 +170,17 @@ export class RestService {
 
   }
 
+  getPdfAF(endpoint, header, filename) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+    return this._downloadFile_AF(getRequest,filename);
+
+  }
+
   getFile(endpoint, header) {
     var request = {
       method: 'GET',
