@@ -15,13 +15,15 @@ module.exports = [
     {
         route: 'garment-generating-data',
         name: 'garment-generating-data',
-        moduleId: './modules/garment-purchasing/garment-generating-data/index',
+        moduleId: './modules/garment-purchasing/garment-generate-data/index',
         nav: true,
         title: 'Garment Generating Data',
         auth: true,
         settings: {
             group: "g-purchasing",
+            subGroup: "fitur",
             //permission: {"C9" : 1 },
+            permission: { "H61": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
