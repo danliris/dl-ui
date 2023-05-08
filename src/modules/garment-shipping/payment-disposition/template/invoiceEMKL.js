@@ -2,11 +2,11 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "../service";
 
 const InvoiceLoader = require('../../../../loader/garment-shipping-invoice-loader');
-
+const BuyerLoader = require('../../../../loader/garment-buyers-loader');
 @inject(Service)
-export class invoice {
+export class invoiceEMKL {
     @bindable selectedInvoice;
-
+    @bindable selectedBuyer; 
     constructor(service) {
         this.service = service;
     }
@@ -14,6 +14,7 @@ export class invoice {
     async activate(context) {
         this.context = context;
         this.data = context.data;
+        console.log("data",this.data);
         this.error = context.error;
         this.options = context.options;
         this.readOnly = this.options.readOnly;
@@ -26,16 +27,18 @@ export class invoice {
             readOnly: this.readOnly,
             isEdit:this.isEdit,
         };
+
         if(this.data.invoiceNo){
             this.selectedInvoice={
                 invoiceNo:this.data.invoiceNo,
                 id:this.data.invoiceId
             }
         }
-        if(this.data.buyer){
-            this.filter={
-                BuyerAgentCode: this.data.buyer.Code || this.data.buyer.code
-            }
+
+        if(this.data.buyerAgent){
+
+            this.selectedBuyer= this.data.buyerAgent;
+
         }
        
         if(this.data.id){
@@ -51,8 +54,26 @@ export class invoice {
             }
         }
     }
+
+    get buyerLoader() {
+        return BuyerLoader;
+    }
     
-    
+    buyerView = (data) => {
+        var code= data.Code || data.code ;
+        var name= data.Name || data.name;
+        return `${code} - ${name}`;
+    }
+   
+    selectedBuyerChanged(newValue){
+        if(newValue != this.data.buyerAgent){
+            this.data.buyerAgent=newValue;
+            this.filter={
+                BuyerAgentCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+            }
+        }
+    }
+
     get invoiceLoader() {
         return InvoiceLoader;
     }

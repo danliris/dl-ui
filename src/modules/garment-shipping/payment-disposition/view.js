@@ -12,7 +12,14 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-        this.data = await this.service.getById(id);
+        var type = params.type; 
+        if(type == "EMKL")
+        {
+            this.data = await this.service.getByIdEMKL(id);
+        }else{
+            this.data = await this.service.getById(id);
+        }
+       
     }
 
     cancelCallback(event) {
@@ -20,7 +27,7 @@ export class View {
     }
 
     editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.id });
+        this.router.navigateToRoute('edit', { id: this.data.id,type:this.data.paymentType });
     }
 
     deleteCallback(event) {

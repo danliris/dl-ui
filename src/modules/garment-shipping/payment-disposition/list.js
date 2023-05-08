@@ -61,10 +61,15 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data.id });
+                this.router.navigateToRoute('view', { id: data.id,type :data.paymentType });
                 break;
             case "Cetak PDF": 
+            if(data.paymentType == "EMKL"){
+                this.service.getPdfByIdEMKL(data.id); 
+            }else{
                 this.service.getPdfById(data.id); 
+            }
+              
                 break;
         }
     }
