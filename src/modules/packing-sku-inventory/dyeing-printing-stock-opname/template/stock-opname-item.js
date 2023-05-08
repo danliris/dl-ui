@@ -210,7 +210,7 @@ export class StockItem {
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
-
+        console.log(this.selectedProductionOrder);
         if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
@@ -269,6 +269,36 @@ export class StockItem {
         else {
             this.data.productionOrder = {};
         }
+
+        if( this.selectedProductionOrder.ProcessType.SPPCode == "SPW"
+            || this.selectedProductionOrder.ProcessType.SPPCode == "SPWT")
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "WHITE"];
+        }
+
+        else if( this.selectedProductionOrder.ProcessType.SPPCode == "SPD" 
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDT"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDM"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDS"   )
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "DYEING", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+        } 
+        
+        else if( this.selectedProductionOrder.ProcessType.SPPCode == "SPP"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPT"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPM"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPS"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDP"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPTP")
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "BATIK", "TEKSTIL", "DIGITAL PRINT", "TRANSFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON"];
+        } else{
+            this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+        }
+        
     }
 
 

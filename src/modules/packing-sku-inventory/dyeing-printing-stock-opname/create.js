@@ -44,31 +44,34 @@ export class Create {
       this.error.Date = "";
     }
 
- 
-    if (errorIndex === 0) {
+    if (confirm("Apakah data yang diinput sudah sesuai?")) {
       
-     
+  
+      if (errorIndex === 0) {
+        
+      
 
-      this.service
-        .create(this.data)
-        .then((result) => {
-          alert("Data berhasil dibuat");
-          this.back();
-          // this.router.navigateToRoute(
-          //   "create",
-          //   {},
-          //   { replace: false, trigger: true }
-          // );
-        })
-        .catch((e) => {
-          if (e.statusCode == 500) {
-            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-          } else {
-            
-            this.error = e;
-            console.log(this.error);
-          }
-        });
+        this.service
+          .create(this.data)
+          .then((result) => {
+            alert("Data berhasil dibuat");
+            this.back();
+            // this.router.navigateToRoute(
+            //   "create",
+            //   {},
+            //   { replace: false, trigger: true }
+            // );
+          })
+          .catch((e) => {
+            if (e.statusCode == 500) {
+              alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+            } else {
+              
+              this.error = e;
+              console.log(this.error);
+            }
+          });
+      }
     }
   }
 }
