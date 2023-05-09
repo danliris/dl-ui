@@ -16,8 +16,7 @@
                 value.bind="selectedInvoice"
                 error.bind="error.invoice" 
                 loader.bind="invoiceLoader" 
-                query.bind="filter"
-                text="invoiceNo"
+                text.bind="invoiceView"
                 read-only.bind="readOnly || data.id" >
             </au-autocomplete>
         </td>

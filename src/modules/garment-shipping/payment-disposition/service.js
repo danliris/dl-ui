@@ -6,6 +6,7 @@ const serviceUriInvoice = 'garment-shipping/invoices';
 const serviceUriCoverLetter = 'garment-shipping/cover-letters';
 const serviceUriPL = 'garment-shipping/packing-lists';
 
+
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "packing-inventory");
@@ -39,6 +40,11 @@ class Service extends RestService {
     getInvoiceById(id) {
         var endpoint = `${serviceUriInvoice}/${id}`;
         return super.get(endpoint);
+    }
+
+    getInvoice(info) {
+        var endpoint = `${serviceUriInvoice}`;
+        return super.list(endpoint,info);
     }
 
     getCoverLetterByInvoice(info) {

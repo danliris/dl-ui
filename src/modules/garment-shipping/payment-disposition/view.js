@@ -31,7 +31,7 @@ export class View {
     }
 
     deleteCallback(event) {
-        if (confirm("Hapus?")) {
+        if (confirm("Hapus Data?")) {
             this.service.delete(this.data).then(result => {
                 this.cancelCallback();
             });

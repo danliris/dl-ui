@@ -31,7 +31,8 @@ export class Create {
             this.service.createEMKL(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('list');
             })
             .catch(error => {
                 this.error = error;
@@ -40,7 +41,8 @@ export class Create {
             this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                // this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                this.router.navigateToRoute('list');
             })
             .catch(error => {
                 this.error = error;

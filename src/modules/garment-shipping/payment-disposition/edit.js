@@ -24,14 +24,14 @@ export class Edit {
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data.id });
+        this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
     }
 
     saveCallback(event) {
         if(this.data.paymentType == 'EMKL'){
             this.service.updateEMKL(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.id });
+                this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
             })
             .catch(e => {
                 this.error = e;
@@ -39,7 +39,7 @@ export class Edit {
         }else{
         this.service.update(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.id });
+                this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
             })
             .catch(e => {
                 this.error = e;
