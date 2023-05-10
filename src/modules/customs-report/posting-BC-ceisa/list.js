@@ -18,7 +18,7 @@ export class List {
     this.permissions = permissionHelper.getUser();
 
   }
-  typeOptions = ['', '40', '23', '261', '262']
+  typeOptions = ['', '40', '23', '261', '262','30']
   controlOptions = {
     label: {
       length: 2
@@ -85,7 +85,7 @@ export class List {
 
   save() {
     this.error = {};
-    if (!this.date || this.date == "Invalid Date")
+    if ((!this.date || this.date == "Invalid Date" )&& this.type != "30")
       this.error.date = "Tanggal Datang harus diisi";
 
     if (Object.getOwnPropertyNames(this.error).length === 0) {

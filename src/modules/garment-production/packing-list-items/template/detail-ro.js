@@ -21,7 +21,7 @@ export class Item {
     let section = this.context.context.options.header.section || {};
     if(this.data.roType=='RO JOB'){
 
-      if (section.code === "C") {
+      if (section.code === "C" || section.code === "E") {
         filter = {
           //Section: section.code || section.Code,
           "SCGarmentId!=null": true

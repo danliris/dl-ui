@@ -32,9 +32,12 @@ export class invoice {
                 id:this.data.invoiceId
             }
         }
-        this.filter={
-            BuyerAgentCode: this.data.buyer.Code || this.data.buyer.code
+        if(this.data.buyer){
+            this.filter={
+                BuyerAgentCode: this.data.buyer.Code || this.data.buyer.code
+            }
         }
+       
         if(this.data.id){
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
             this.data.items=invoice.items;

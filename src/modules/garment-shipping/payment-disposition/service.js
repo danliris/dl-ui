@@ -1,9 +1,11 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-shipping/payment-dispositions';
+const serviceUriEMKL = 'garment-shipping/payment-dispositions/EMKL';
 const serviceUriInvoice = 'garment-shipping/invoices';
 const serviceUriCoverLetter = 'garment-shipping/cover-letters';
 const serviceUriPL = 'garment-shipping/packing-lists';
+
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -40,6 +42,11 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getInvoice(info) {
+        var endpoint = `${serviceUriInvoice}`;
+        return super.list(endpoint,info);
+    }
+
     getCoverLetterByInvoice(info) {
         var endpoint = `${serviceUriCoverLetter}`;
         return super.list(endpoint, info);
@@ -56,6 +63,23 @@ class Service extends RestService {
     }
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
+    //EMKL
+    createEMKL(data) {
+        var endpoint = `${serviceUriEMKL}`;
+        return super.post(endpoint, data);
+    }
+    getByIdEMKL(id) {
+        var endpoint = `${serviceUriEMKL}/${id}`;
+        return super.get(endpoint);
+    }
+    updateEMKL(data) {
+        var endpoint = `${serviceUriEMKL}/${data.id}`;
+        return super.put(endpoint, data);
+    }
+    getPdfByIdEMKL(id) {
+        var endpoint = `${serviceUriEMKL}/pdf/${id}`;
         return super.getPdf(endpoint);
     }
 }
