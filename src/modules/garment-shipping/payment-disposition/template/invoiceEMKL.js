@@ -1,8 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "../service";
 
-const InvoiceLoader = require('../../../../loader/garment-shipping-invoice-loader');
-const BuyerLoader = require('../../../../loader/garment-buyers-loader');
+// const InvoiceLoader = require('../../../../loader/garment-shipping-invoice-loader');
+// const BuyerLoader = require('../../../../loader/garment-buyers-loader');
 @inject(Service)
 export class invoiceEMKL {
     @bindable selectedInvoice;
@@ -35,11 +35,11 @@ export class invoiceEMKL {
             }
         }
 
-        if (this.data.buyerAgent) {
+        // if (this.data.buyerAgent) {
 
-            this.selectedBuyer = this.data.buyerAgent;
+        //     this.selectedBuyer = this.data.buyerAgent;
 
-        }
+        // }
 
         if (this.data.id) {
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
@@ -55,9 +55,9 @@ export class invoiceEMKL {
         }
     }
 
-    get buyerLoader() {
-        return BuyerLoader;
-    }
+    // get buyerLoader() {
+    //     return BuyerLoader;
+    // }
 
     buyerView = (data) => {
         var code = data.Code || data.code;
@@ -65,14 +65,14 @@ export class invoiceEMKL {
         return `${code} - ${name}`;
     }
 
-    selectedBuyerChanged(newValue) {
-        if (newValue != this.data.buyerAgent) {
-            this.data.buyerAgent = newValue;
-            // this.filter={
-            //     BuyerAgentCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
-            // }
-        }
-    }
+    // selectedBuyerChanged(newValue) {
+    //     if (newValue != this.data.buyerAgent) {
+    //         this.data.buyerAgent = newValue;
+    //         // this.filter={
+    //         //     BuyerAgentCode: this.data.buyerAgent.Code || this.data.buyerAgent.code
+    //         // }
+    //     }
+    // }
 
     // get invoiceLoader() {
     //     return InvoiceLoader;
@@ -85,7 +85,7 @@ export class invoiceEMKL {
         return (keyword) => {
             var info = {
                 keyword: keyword,
-                filter: JSON.stringify({ BuyerAgentCode: this.data.buyerAgent.Code || this.data.buyerAgent.code })
+                // filter: JSON.stringify({ BuyerAgentCode: this.data.buyerAgent.Code || this.data.buyerAgent.code })
             };
             return this.service.getInvoice(info)
                 .then((result) => {
@@ -103,6 +103,7 @@ export class invoiceEMKL {
 
     async selectedInvoiceChanged(newValue) {
         if (newValue) {
+            this.data.buyerAgent = newValue.buyerAgent;
             this.data.invoiceNo = newValue.invoiceNo;
             this.data.invoiceId = newValue.id;
             this.data.amount = newValue.totalAmount;
