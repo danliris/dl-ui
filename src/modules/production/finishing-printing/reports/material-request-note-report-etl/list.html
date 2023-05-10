@@ -1,0 +1,45 @@
+<template>
+    <h1 class="page-header">Laporan Surat Permintaan Barang</h1>
+    <form class="form-horizontal">
+        <au-autocomplete
+            value.bind="unit"
+            query.bind="unitFilter"
+            label="Unit"
+            loader.one-time="unitLoader"
+            options.bind="controlOptions"
+            text="Name">
+        </au-autocomplete>
+
+        <au-datepicker
+            value.bind="dateFrom"
+            label="Tanggal Awal"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker
+            value.bind="dateTo"
+            label="Tanggal Akhir"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="search()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+
+        <au-table
+            view-model.ref="mrnTable"
+            data.bind="loader"
+            columns.bind="columns"
+            sortable.bind="false"
+            options.bind="tableOptions">
+        </au-table>
+        <hr/>
+    </form>
+</template>
