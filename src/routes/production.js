@@ -451,7 +451,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/materials-request-note-report',
         name: 'materials-request-note-report',
-        moduleId: './modules/production/finishing-printing/reports/materials-request-note-report/index',
+        moduleId: './modules/production/finishing-printing/reports/material-request-note-report-etl/index',
         nav: true,
         title: 'Laporan Surat Permintaan Barang',
         auth: true,
