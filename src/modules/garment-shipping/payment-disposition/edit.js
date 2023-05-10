@@ -13,21 +13,37 @@ export class Edit {
 
     async activate(params) {
         var id = params.id;
-        this.data = await this.service.getById(id);
+        var type = params.type; 
+        if(type == "EMKL")
+        {
+            this.data = await this.service.getByIdEMKL(id);
+        }else{
+            this.data = await this.service.getById(id);
+        }
         this.error = {};
     }
 
     cancelCallback(event) {
-        this.router.navigateToRoute('view', { id: this.data.id });
+        this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
     }
 
     saveCallback(event) {
-        this.service.update(this.data)
+        if(this.data.paymentType == 'EMKL'){
+            this.service.updateEMKL(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.id });
+                this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
             })
             .catch(e => {
                 this.error = e;
             })
+        }else{
+        this.service.update(this.data)
+            .then(result => {
+                this.router.navigateToRoute('view', { id: this.data.id,type:this.data.paymentType });
+            })
+            .catch(e => {
+                this.error = e;
+            })
+        }
     }
 }

@@ -15,6 +15,7 @@ export class item {
     activate(context) {
         this.context = context;
         this.data = context.data;
+        this.dataItems = context.context.items;
         this.error = context.error;
         this.options = context.options;
         this.readOnly = this.options.readOnly;
@@ -26,7 +27,7 @@ export class item {
             this.selectedPaymentDisposition = this.data.paymentDisposition;
             this.isShowing = true;
         }
-        if(!this.data.paymentDisposition) {
+        if (!this.data.paymentDisposition) {
             this.data.paymentDisposition = {};
         }
 
@@ -55,20 +56,47 @@ export class item {
         return PaymentDispositionsLoader;
     }
 
-    get dispositionFilter() {
-        return {
-            paymentType: "EMKL",
-            EMKLId: this.context.context.options.data.emkl ? this.context.context.options.data.emkl.Id || this.context.context.options.data.emkl.id : -1
-        };
-    };
+    dispositionView = (disposition) => {
+        return `${disposition.dispositionNo}`;
+    }
+    get paymentDispositionsLoader() {
+        return (keyword) => {
+            var info = {
+                keyword: keyword,
+                filter: JSON.stringify({
+                    paymentType: "EMKL",
+                    EMKLId: this.context.context.options.data.emkl ? this.context.context.options.data.emkl.Id || this.context.context.options.data.emkl.id : -1
+                })
+            };
+            return this.service.getPaymentDispositions(info)
+                .then((result) => {
+                    var dispoList = [];
+                    console.log('item', this.dataItems);
+                    for (var a of result.data) {
+                        var dup = this.dataItems.find(d => d.data.paymentDisposition.dispositionNo == a.dispositionNo);
+                        if (!dup) {
+                            dispoList.push(a);
+                        }
+                    }
+                    return dispoList;
+                });
+        }
+    }
+
+    // get dispositionFilter() {
+    //     return {
+    //         paymentType: "EMKL",
+    //         EMKLId: this.context.context.options.data.emkl ? this.context.context.options.data.emkl.Id || this.context.context.options.data.emkl.id : -1
+    //     };
+    // };
 
     async selectedPaymentDispositionChanged(newValue) {
         if (newValue) {
             const disposition = await this.service.getDispositionById(newValue.id);
 
             disposition.amount = disposition.billValue + disposition.vatValue;
-            if(this.isNewSelected == false) {
-                if(this.data.paymentDisposition.incomeTaxValue != disposition.incomeTaxValue) {
+            if (this.isNewSelected == false) {
+                if (this.data.paymentDisposition.incomeTaxValue != disposition.incomeTaxValue) {
                     disposition.incomeTaxValue = this.data.paymentDisposition.incomeTaxValue;
                 }
             }
@@ -136,7 +164,7 @@ export class item {
     }
 
     toggle() {
-        if (!this.isShowing){
+        if (!this.isShowing) {
             this.isShowing = true;
         }
         else {
@@ -146,28 +174,28 @@ export class item {
 
     @computedFrom('data.service')
     get vatService() {
-        if(this.data.service) {
+        if (this.data.service) {
             var value = 0.1 * this.data.service;
             this.data.vatService = value;
             return value;
         }
-        return 0;        
+        return 0;
     }
 
     get amountService() {
-        if(this.data.service > 0 && this.data.truckingPayment > 0 && this.data.vatService > 0) {
+        if (this.data.service > 0 && this.data.truckingPayment > 0 && this.data.vatService > 0) {
             var value = this.data.paymentDisposition.amount - this.data.service - this.data.truckingPayment - this.data.vatService;
             this.data.amountService = value;
-            return value; 
+            return value;
         }
         return 0;
     }
 
     get paidDisposition() {
-        if(this.data.paymentDisposition.amount > 0 && this.data.paymentDisposition.incomeTaxValue > 0) {
+        if (this.data.paymentDisposition.amount > 0 && this.data.paymentDisposition.incomeTaxValue > 0) {
             var value = this.data.paymentDisposition.amount - this.data.paymentDisposition.incomeTaxValue + this.data.othersPayment;
             this.data.paymentDisposition.paid = value;
-            
+
             return value;
         }
         return 0;

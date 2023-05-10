@@ -78,6 +78,15 @@ export class DataForm {
         { header: "CBM"},
     ];
 
+    invoicesEMKLColumns = [
+        { header: "Buyer"},
+        { header: "No Invoice"},
+        { header: "Quantity"},
+        { header: "Amount"},
+        { header: "Total Carton"},
+        { header: "CBM"},
+    ];
+
     invoicesColumnsFreightCharge = [
         { header: "No Invoice"},
         { header: "Quantity"},
