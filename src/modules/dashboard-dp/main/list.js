@@ -10,7 +10,7 @@ export class List {
     { field: "namaMesin", title: "Mesin" },
     { field: "month", title: "Bulan" },
     { field: "year", title: "Tahun" },
-    { field: "updatedAt", title: "Tanggal Update", formatter: function (value, data, index) {
+    { field: "updatedAt", title: "Tanggal Upload", formatter: function (value, data, index) {
       // return moment.utc(value).local().format('DD-MM-YYYY HH:mm');
       return moment.utc(value).local().format('D MMMM YYYY HH:mm:ss');
       
