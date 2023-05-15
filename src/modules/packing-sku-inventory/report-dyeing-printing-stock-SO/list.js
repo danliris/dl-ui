@@ -175,6 +175,7 @@ export class List {
                       Motif:item.motif,
                       
                       Grade: item.grade,
+                      PackagingQty : item.packagingQty,
                       PackagingUnit: item.packagingUnit,
                       Barcode: item.productPackingCode,
                       //Jalur : item.trackName,

@@ -90,6 +90,7 @@
             <th>Warna</th>
             <th>Motif</th> 
             <th>Grade</th>
+            <th>Qty Packing</th>
             <th>Jenis Packing</th>
             <th>Barcode</th>
             <!-- <th>Jalur/Rak</th> -->
@@ -104,7 +105,7 @@
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="13">
+            <td colspan="14">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -116,7 +117,7 @@
             </td>
           </tr>
           <tr>
-          <td class="text-right" colspan="8">TOTAL</td>
+          <td class="text-right" colspan="9">TOTAL</td>
             <td>${sumSaldoBeginFormat}</td>
             <td>${sumInQtyFormat}</td>
             <td>${sumOutQtyFormat}</td>
