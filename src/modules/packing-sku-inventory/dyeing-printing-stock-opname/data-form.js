@@ -31,7 +31,7 @@ export class DataForm {
     },
   };
   //destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
-  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Jenis", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Jenis", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
     "Qty Order",
@@ -79,9 +79,9 @@ export class DataForm {
     };
 
     if (this.readOnly) {
-      this.adjItemColumns = ["No. SPP", "Barcode", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
+      this.adjItemColumns = ["No. SPP", "Barcode", "Qty Order", "Jenis Order", "Material",  "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     } else {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material",  "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
     }
 
     if (this.data.type == "STOCK OPNAME") {
