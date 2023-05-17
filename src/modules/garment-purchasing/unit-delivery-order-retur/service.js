@@ -9,6 +9,7 @@ const serviceUri = 'garment-unit-delivery-order-returns';
 // const unitReceiptNoteItemUri = 'garment-unit-receipt-notes/items';
 const unitReceiptNoteItemUri = 'garment-unit-receipt-notes/items-with-stock';
 const unitReceiptNoteUri = 'garment-unit-receipt-notes';
+const doitemsUri = 'garment-do-items';
 
 export class Service extends RestService {
 
@@ -58,7 +59,7 @@ export class Service extends RestService {
     }
 
     getDOItemsById(id) {
-        var endpoint = `${unitReceiptNoteUri}/do-items/${id}`;
+        var endpoint = `${doitemsUri}/${id}`;
         return super.get(endpoint);
     }
 }
