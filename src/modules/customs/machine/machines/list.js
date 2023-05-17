@@ -22,7 +22,7 @@ export class List {
     { field: "MachineCategory", title: "KATEGORY" },
     { field: "MachineType", title: "TIPE" },
     { field: "IDNumber", title: "SERIAL" },
-    { field: "MachineQuantity", title: "JUMLAH" ,align: "right"},
+    { field: "MachineQuantity", title: "JUMLAH", align: "right" },
     { field: "UnitQuantity", title: "SATUAN" },
     { field: "PurchaseYear", title: "TAHUN BELI" },
     { field: "SupplierType", title: "SUPPLIER" },
@@ -44,7 +44,7 @@ export class List {
     this.router = router;
   }
 
-  
+
   tableOptions = {
     showColumns: false,
     search: false,
@@ -52,21 +52,21 @@ export class List {
     sortable: false,
   };
 
-  // search() {
-  //   var args = {
-  //     ctg: this.category ? this.category.CategoryName : "",
-  //     tipe: this.tipe ? this.tipe.MachineType : "",
-  //     serial: this.serial ? this.serial.IDNumber : ""
-  //   }
-  //   this.service.search(args)
+  ExportToExcel() {
+    this.error = {};
+    if (Object.getOwnPropertyNames(this.error).length === 0) {
+      let args = {
+        ctg: this.category ? this.category.CategoryName : "",
+        tipe: this.tipe ? this.tipe.MachineType : "",
+        serial: this.serial ? this.serial.IDNumber : ""
+      };
 
-  //     .then(result => {
-  //       var index = 1;
-  //       this.data = result.data;
-
-  //     });
-
-  // }
+      this.service.generateExcel(args)
+        .catch(e => {
+          alert(e.replace(e, "Error:", ""));
+        });
+    }
+  }
 
   loader = (info) => {
     let params = {

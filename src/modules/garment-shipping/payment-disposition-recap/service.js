@@ -5,6 +5,8 @@ const disositionServiceUri = 'garment-shipping/payment-dispositions';
 const invoiceServiceUri = 'garment-shipping/invoices';
 const packingListServiceUri = 'garment-shipping/packing-lists';
 
+
+
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "packing-inventory");
@@ -52,6 +54,11 @@ class Service extends RestService {
     getPdfById(id) {
         var endpoint = `${serviceUri}/pdf/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getPaymentDispositions(info) {
+        var endpoint = `${disositionServiceUri}`;
+        return super.list(endpoint, info);
     }
 }
 

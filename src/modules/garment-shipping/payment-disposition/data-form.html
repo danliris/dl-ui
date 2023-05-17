@@ -57,7 +57,7 @@
                     loader.bind="buyerLoader" 
                     text.bind="buyerView"
                     read-only.bind="readOnly || data.id" 
-                    if.bind="data.paymentType!='COURIER'"
+                    if.bind="data.paymentType!='COURIER' && data.paymentType!='EMKL'"
                     options.bind="controlOptions">
                 </au-autocomplete>
 
@@ -472,7 +472,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <p show.bind="data.buyerAgent && data.paymentType!='COURIER'">Detail Invoice DL:</p>
+                <p show.bind="data.buyerAgent && data.paymentType!='COURIER' && data.paymentType !='EMKL'">Detail Invoice DL:</p>
                 <div class="form-group has-error">
                     <p if.bind="error.invoiceDetailsCount" class="help-block text-center">${error.invoiceDetailsCount}</p>
                 </div>
@@ -485,7 +485,7 @@
                     add.bind="addInvoices"
                     options.bind="Options"
                     change.delegate="invoiceChanged($event)"
-                    show.bind="data.buyerAgent && data.paymentType!='COURIER'"
+                    show.bind="data.buyerAgent && data.paymentType!='COURIER' && data.paymentType!='EMKL'"
                     item-template="modules/garment-shipping/payment-disposition/template/invoice">
                 </au-collection>
             </div>
@@ -512,6 +512,28 @@
                 </au-collection>
                 
         
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <p show.bind="data.paymentType=='EMKL'">Detail Invoice DL:</p>
+                <div class="form-group has-error">
+                    <p if.bind="error.invoiceDetailsCount" class="help-block text-center">${error.invoiceDetailsCount}</p>
+                </div>
+                <au-collection 
+                    items.bind="data.invoiceDetails" 
+                    errors.bind="error.invoices" 
+                    columns.bind="invoicesEMKLColumns"
+                    read-only.bind="readOnly" 
+                    remove.bind="removeInvoices"
+                    add.bind="addInvoices"
+                    options.bind="Options"
+                    change.delegate="invoiceChanged($event)"
+                    show.bind="data.paymentType=='EMKL'"
+                    item-template="modules/garment-shipping/payment-disposition/template/invoiceEMKL">
+                </au-collection>
             </div>
         </div>
     </au-input-form>

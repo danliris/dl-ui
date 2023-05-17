@@ -174,9 +174,10 @@ export class DataForm {
                     Items.UomUnit = item.SmallUomUnit;
                     Items.PricePerDealUnit = item.PricePerDealUnit;
                     Items.DesignColor = item.DesignColor;
-                    Items.ReturQuantity = parseFloat(((item.ReceiptCorrection) -( item.OrderQuantity/item.CorrectionConversion)).toFixed(2));
-                    //parseFloat(((item.SmallQuantity - item.OrderQuantity)/item.Conversion).toFixed(2));
-                    Items.Quantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                    // Items.ReturQuantity = parseFloat(((item.ReceiptCorrection) -( item.OrderQuantity/item.CorrectionConversion)).toFixed(2));
+                    // Items.Quantity = parseFloat(((item.ReceiptCorrection*item.CorrectionConversion) - item.OrderQuantity).toFixed(2));
+                    Items.ReturQuantity =item.Quantity;
+                    Items.Quantity = item.Quantity;
                     Items.IsSave = Items.Quantity > 0;
                     Items.IsDisabled = !(Items.Quantity > 0);
                     Items.ReturUomId = item.UomId;
@@ -184,6 +185,12 @@ export class DataForm {
                     Items.Conversion=item.CorrectionConversion;
                     Items.DOCurrency={};
                     Items.DOCurrency.Rate= item.DOCurrencyRate;
+                    Items.Colour =item.Colour,
+                    Items.Rack = item.Rack,
+                    Items.Box= item.Box,
+                    Items.Area= item.Area,
+                    Items.Level= item.Level,
+                    Items.DOItemsId= item.DOItemsId
                     if(Items.ReturQuantity>0){
                         dataItems.push(Items);
                     }
@@ -229,6 +236,9 @@ export class DataForm {
             "Satuan Kecil",
             "Jumlah Besar",
             "Satuan Besar",
+            "Warna",
+            "Rack",
+            "Box",
             "No Bon Terima Unit"
         ],
     };

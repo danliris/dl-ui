@@ -1,4 +1,3 @@
-
 <template>
   <h1 class="page-header">Monitoring Mutasi Mesin</h1>
   <form class="form-horizontal">
@@ -20,36 +19,26 @@
 
         <div class="form-group">
           <label for="contact" class="col-sm-6 control-label"></label>
-          <div class="col-sm-3">
+          <div class="col-sm-6">
             <button click.delegate="search()" class='btn btn-success'>Cari</button>
+            <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
             <button click.delegate="reset()" class='btn btn-danger'>Reset</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="btn-group pull-left">
-                <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
-            </div> -->
+
   </form>
   <br>
   </br>
 
   <div id="mutation-table">
-    <au-table view-model.ref="tableList"
-              data.bind="loader"
-              columns.bind="columns"
-              sortable="true"
-              page-size="25"
-              options.bind="tableOptions"
-              context.bind="context" 
-              context-click.delegate="contextClickCallback($event)"
-              selectable.bind="true">
-      <div slot="toolbar"
-           class="btn-group">
-        <button class="btn btn-success"
-                click.delegate="transactionIn()">Buat Mutasi Masuk</button>
-        <button class="btn btn-primary"
-                click.delegate="transactionOut()">Buat Mutasi Keluar</button>
+    <au-table view-model.ref="tableList" data.bind="loader" columns.bind="columns" sortable="true" page-size="25"
+      options.bind="tableOptions" context.bind="context" context-click.delegate="contextClickCallback($event)"
+      selectable.bind="true">
+      <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="transactionIn()">Buat Mutasi Masuk</button>
+        <button class="btn btn-primary" click.delegate="transactionOut()">Buat Mutasi Keluar</button>
       </div>
     </au-table>
   </div>

@@ -289,7 +289,23 @@ export class List {
             });
         }
     }
+    ExportToExcelMII() {
+        {
+            var filter = {
+            unitName : this.unitName ? this.unitName.Id : "",
+            supplierType : this.JenisSpl ? this.supplierType : "",
+            supplierName : this.NamaSpl,
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
+           }
 
+        this.service.generateExcelMII(filter)
+            .catch(e => {
+                alert(e.replace(e, "Error: ",""))
+            });
+        }
+    }
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
