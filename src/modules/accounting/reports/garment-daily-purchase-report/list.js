@@ -48,7 +48,8 @@ export class List {
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-            jnsbc : this.JenisBC ? this.JenisBC : ""
+            jnsbc : this.JenisBC ? this.JenisBC : "",
+            inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
         }
         this.service.search(info)
             .then(result => {
@@ -278,7 +279,8 @@ export class List {
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-            jnsbc : this.JenisBC ? this.JenisBC : ""
+            jnsbc : this.JenisBC ? this.JenisBC : "",
+            inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
            }
 
         this.service.generateExcel(filter)
