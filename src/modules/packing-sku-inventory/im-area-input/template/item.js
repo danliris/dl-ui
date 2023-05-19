@@ -16,6 +16,8 @@ export class CartItem {
             this.selectedProductionOrder = {};
             this.selectedProductionOrder.Id = this.data.productionOrder.id;
             this.selectedProductionOrder.OrderNo = this.data.productionOrder.no;
+            this.selectedProductionOrder.CreatedUtc = this.data.productionOrder.createdUtc ;
+            
 
             this.selectedProductionOrder.OrderType = {};
             this.selectedProductionOrder.OrderType.Name = this.data.productionOrder.type;
@@ -87,6 +89,7 @@ export class CartItem {
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
+            this.data.productionOrder.createdUtc = this.selectedProductionOrder.CreatedUtc;
 
             if (this.selectedProductionOrder.Construction) {
                 this.data.construction = this.selectedProductionOrder.Construction;
