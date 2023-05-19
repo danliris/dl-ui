@@ -8,7 +8,8 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var PRLoader = require('../../../loader/purchase-request-by-user-loader');
 var BudgetLoader = require('../../../loader/budget-loader');
 var CategoryLoader = require('../../../loader/category-loader');
-var SPBLoader = require('../../../loader/unit-payment-order-loader')
+var SPBLoader = require('../../../loader/unit-payment-order-loader');
+var DivisiLoader=require('../../../loader/division-loader');
 
 @inject(Service)
 
@@ -119,6 +120,8 @@ export class List {
             unitId: this.unit ? this.unit.Id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            inputDate: this.inputDate? moment(this.inputDate).format("MM/DD/YYYY"):"",
+            divisionId: this.division ? this.division.Id : "",
 
         };
 
@@ -152,6 +155,8 @@ export class List {
             unitId: this.unit ? this.unit.Id : "",
             dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
             dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):"",
+            inputDate: this.inputDate? moment(this.inputDate).format("MM/DD/YYYY"):"",
+            divisionId: this.division ? this.division.Id : "",
 
         };
 
@@ -161,7 +166,9 @@ export class List {
                 });
         }
     }
-
+    get divisionLoader() {
+        return DivisiLoader;
+    }
     get unitLoader() {
         return UnitLoader;
     }

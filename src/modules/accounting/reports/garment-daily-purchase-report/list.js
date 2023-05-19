@@ -297,6 +297,7 @@ export class List {
             supplierName : this.NamaSpl,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
             jnsbc : this.JenisBC ? this.JenisBC : ""
            }
 

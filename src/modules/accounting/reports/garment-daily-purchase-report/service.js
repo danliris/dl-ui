@@ -21,7 +21,7 @@ generateExcel(info) {
         return super.getXls(endpoint);
     }
 generateExcelMII(info) { 
-      var endpoint = `${serviceUri}/downloadMII?unitName=${info.unitName}&supplierType=${info.supplierType}&supplierName=${info.supplierName}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&jnsbc=${info.jnsbc}`;
+      var endpoint = `${serviceUri}/downloadMII?unitName=${info.unitName}&supplierType=${info.supplierType}&supplierName=${info.supplierName}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&jnsbc=${info.jnsbc}&inputDate=${info.inputDate}`;
       return super.getXls(endpoint);
   }
 }
