@@ -11,6 +11,15 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
+        <au-autocomplete
+            value.bind="division"
+            label="Divisi"
+            loader.bind="divisionLoader"
+            text="Name"
+            placeholder="Cari Divisi"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
         <au-autocomplete 
             value.bind="unit" 
             label="Unit" 
@@ -43,8 +52,13 @@
             error.bind="error.date">
         </au-datepicker>
 
-   
-        
+        <au-datepicker
+            value.bind="inputDate"
+            label="Tanggal input"
+            options.bind="controlOptions"
+            error.bind="error.date">
+        </au-datepicker>
+
         <div class="form-group">
             <label for="contact" class="col-sm-5 control-label"></label>
             <div class="col-sm-3">

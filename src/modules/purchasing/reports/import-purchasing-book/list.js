@@ -75,6 +75,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                inputDate: this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             };
             this.service.search(filter).then((result) => {
@@ -96,6 +97,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                inputDate: this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             };
             this.service.generateExcel(filter).catch((e) => {
@@ -117,6 +119,7 @@ export class List {
                 dateFrom: this.dateFrom ?
                     moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                inputDate: this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             };
             this.service.printPdf(filter).catch((e) => {
