@@ -127,7 +127,7 @@ export class DataForm {
 
     filterUEN={
         IsReceived:false,
-        ExpenditureType:"SUBCON"
+        'ExpenditureType=="SUBCON" OR ExpenditureType=="TRANSFER SUBCON"':true
     };
 
 
