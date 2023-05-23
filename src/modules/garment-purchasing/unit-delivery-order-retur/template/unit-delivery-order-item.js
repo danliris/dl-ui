@@ -45,7 +45,7 @@ export class UnitDeliveryOrderItem {
     }
 
     //ambil dr DOItems
-    var doItems= await this.service.getDOItemsById(this.data.URNItemId);
+    var doItems= await this.service.getDOItemsById(this.data.DOItemsId);
     if(!this.data.Id){
       this.data.Quantity= this.data.Quantity? this.data.Quantity : doItems.RemainingQuantity;
   
