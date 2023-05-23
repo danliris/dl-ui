@@ -107,6 +107,7 @@ export class DataForm {
 
         this.expenditureItem={
             columns: [
+                { field: 'IsSave', title: '',checkbox: true, sortable: false,width:20 },
                 { header: "Kode Barang" },
                 { header: "Nama Barang" },
                 { header: "Keterangan Barang" },

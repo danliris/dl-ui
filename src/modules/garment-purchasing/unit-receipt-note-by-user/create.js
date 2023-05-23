@@ -36,9 +36,16 @@ export class Create {
             }
         }
         else if(this.data.URNType=="SISA SUBCON"){
-            for(var a of this.data.Items){
-                a.ReceiptQuantity=a.SmallQuantity;
+            var items = [];
+            for (var a of this.data.Items) {
+                a.ReceiptQuantity = a.SmallQuantity;
+                if (a.IsSave) {
+                    a.ReceiptQuantity = a.SmallQuantity;
+                    items.push(a);
+                }
+
             }
+            this.data.Items = items;
         }
         this.service.create(this.data)
             .then(result => {
