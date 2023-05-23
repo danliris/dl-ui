@@ -1,6 +1,12 @@
 <template>
     <tr>
         <td>
+            <au-checkbox 
+                value.bind="data.IsSave" 
+                disabled.bind="readOnly">
+            </au-checkbox>
+        </td>
+        <td>
             <au-textbox 
                 value.bind="data.Product.Code"
                 read-only.bind="true">
