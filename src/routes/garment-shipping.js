@@ -690,6 +690,21 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/detail-local-sales-note",
+        name: "garment-shipping/detail-local-sales-note",
+        moduleId: "modules/garment-shipping/detail-local-sales-note/index",
+        nav: true,
+        title: "Detail Nota Penjualan (Lokal)",
+        //auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "penjualan lokal",
+            //permission: { "C9": 1, "SG": 1 },
+            permission: { "P80": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/local-sales-do",
         name: "garment-shipping/local-sales-do",
         moduleId: "modules/garment-shipping/local-sales-do/index",
@@ -806,6 +821,36 @@ module.exports = [
             subGroup: "monitoring",
             // permission: { "C9": 1, "SG": 1, "B1": 1 },
             permission: { "P42": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-local-sales-by-unit",
+        name: "garment-shipping/monitoring/omzet-local-sales-by-unit",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales-by-unit/index",
+        nav: true,
+        title: "Monitoring Omzet Penjualan Lokal / Unit",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P81": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/omzet-local-sales-by-unit-unpaid",
+        name: "garment-shipping/monitoring/omzet-local-sales-by-unit-unpaid",
+        moduleId: "modules/garment-shipping/monitoring/garment-omzet-local-sales-by-unit-unpaid/index",
+        nav: true,
+        title: "Monitoring Omzet Penjualan Lokal / Unit UnPaid",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P82": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
