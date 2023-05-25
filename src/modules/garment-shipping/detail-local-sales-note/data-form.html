@@ -1,0 +1,55 @@
+<template>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <au-input-form title.bind="title" with.bind="context">
+                <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+                
+                <au-autocomplete label="No Nota Penjualan" placeholder="Pilih No Nota Penjualan"
+                    value.bind="selectedSalesNote" error.bind="error.salesNote"
+                    loader.bind="salesNoteLoader"  text="noteNo" query.bind="filter"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-autocomplete>
+                <!---->
+
+                <au-datepicker label="Tgl Penjualan" value.bind="data.date" error.bind="error.date"
+                    read-only="true" options.bind="controlOptions">
+                </au-datepicker>
+               
+                <au-textbox label="No Sales Contract Lokal" value.bind="data.salesContractNo" read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+               
+                <au-autocomplete label="Jenis Transaksi" placeholder="Pilih Jenis Transaksi"
+                    value.bind="data.transactionType" error.bind="error.transactionType"
+                    loader.bind="transactionTypeLoader" text.bind="transactionTypeView"
+                    read-only.bind="true" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-autocomplete label="Buyer" placeholder="Pilih Buyer" value.bind="data.buyer"
+                    error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView"
+                    read-only.bind="true" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-numeric label="Total Amount" value.bind="data.amount" error.bind="error.amount" read-only="true"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
+                    add.bind="items.onAdd" read-only.bind="readOnly"
+                    options.bind="items.options" read-only.bind="readOnly"
+                    item-template="modules/garment-shipping/detail-local-sales-note/template/item">
+                </au-collection>
+
+                <au-numeric value.to-view="subtotal" read-only.bind="true" options.bind="controlOptions"
+                    label="TOTAL AMOUNT">
+                </au-numeric>
+
+            </au-input-form>
+        </div>
+    </div>
+</template>

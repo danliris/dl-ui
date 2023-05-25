@@ -1,0 +1,29 @@
+<template>
+    <tr>
+        <td class="col-sm-3">
+            <au-autocomplete value.bind="data.unit" error.bind="error.unit" loader.bind="unitLoader"
+                read-only.bind="readOnly" placeholder="Kode - Nama Unit" text.bind="unitView">
+            </au-autocomplete>
+        </td>
+
+        <td class="col-sm-2">
+            <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+
+        <td class="col-sm-2">
+            <au-autocomplete value.bind="data.uom" error.bind="error.uom" loader.bind="uomLoader"
+                read-only.bind="readOnly" placeholder="Satuan" text.bind="uomView">
+            </au-autocomplete>
+        </td>
+        
+        <td class="col-sm-2">
+            <au-numeric value.bind="data.amount" error.bind="error.amount" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        
+        <td class="col-sm-1" if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>
