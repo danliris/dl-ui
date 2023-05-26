@@ -157,6 +157,14 @@
                              text.bind="trackView">
             </au-autocomplete>
         </td>
+
+        <td>
+            <au-textbox value.bind="data.description"
+                        read-only.bind="readOnly"
+                        error.bind="error.remark"
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
         <!-- <td>
             <au-textbox value.bind="data.documentNo"
                         read-only.bind="readOnly"

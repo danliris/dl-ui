@@ -183,7 +183,8 @@ export class List {
                       Masuk: item.inQty ? numeral(item.inQty).format("0.00") : 0,
                       Keluar: item.outQty ? numeral(item.outQty).format("0.00") : 0,
                       AdjKeluar: item.adjOutQty ? numeral(item.adjOutQty).format("0.00") : 0,
-                      Total : item.total ? numeral(item.total).format("0.00") : 0
+                      Total : item.total ? numeral(item.total).format("0.00") : 0,
+                      Description : item.description
                     //   StockOpname: item.stockOpname ? numeral(item.stockOpname).format("0.00") : 0,
                     //   StorageBalance: item.storageBalance ? numeral(item.storageBalance).format("0.00") : 0,
                     //   Difference: item.difference ? numeral(item.difference).format("0.00") : 0
