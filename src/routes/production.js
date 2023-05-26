@@ -420,23 +420,38 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: "production/finishing-printing/materials-request-note",
+    //     name: "production/finishing-printing/materials-request-note",
+    //     moduleId: "./modules/production/finishing-printing/materials-request-note/index",
+    //     nav: true,
+    //     title: "Surat Permintaan Barang",
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         //permission: { "C24": 1},
+    //         //permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: "fa fa-dashboard"
+    //     }
+    // },
     {
         route: "production/finishing-printing/materials-request-note",
         name: "production/finishing-printing/materials-request-note",
-        moduleId: "./modules/production/finishing-printing/materials-request-note/index",
+        moduleId: "./modules/production/finishing-printing/materials-request-note-upload/index",
         nav: true,
         title: "Surat Permintaan Barang",
         auth: true,
         settings: {
             group: "dyeing-printing",
             permission: { "C24": 1},
+            //permission: { "C9": 1, "F1": 1, "F2": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
     {
         route: 'production/finishing-printing/reports/materials-request-note-report',
         name: 'materials-request-note-report',
-        moduleId: './modules/production/finishing-printing/reports/materials-request-note-report/index',
+        moduleId: './modules/production/finishing-printing/reports/material-request-note-report-etl/index',
         nav: true,
         title: 'Laporan Surat Permintaan Barang',
         auth: true,
