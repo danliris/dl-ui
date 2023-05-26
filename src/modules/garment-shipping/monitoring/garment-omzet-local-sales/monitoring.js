@@ -125,6 +125,20 @@ export class List {
         }
     }
 
+    ExportDetailToExcel() {       
+       {
+            var info = {
+                dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+
+        this.service.generateDetailExcel(info)
+            .catch(e => {
+                alert(e.replace(e, "Error: ",""))
+            });
+        }        
+    }
+
     reset() {
         this.dateFrom = null;
         this.dateTo = null;

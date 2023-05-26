@@ -19,4 +19,9 @@ generateExcel(info) {
         return super.getXls(endpoint);
     }
 
+generateDetailExcel(info) {
+        var endpoint = `${serviceUri}/download/detail?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
+    
 }

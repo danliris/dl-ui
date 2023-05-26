@@ -695,7 +695,7 @@ module.exports = [
         moduleId: "modules/garment-shipping/detail-local-sales-note/index",
         nav: true,
         title: "Detail Nota Penjualan (Lokal)",
-        //auth: true,
+        auth: true,
         settings: {
             group: "g-shipping",
             subGroup: "penjualan lokal",
