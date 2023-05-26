@@ -32,6 +32,7 @@ export class List {
     { field: "balance", title: "Total Quantity", sortable: false,formatter:(value,data)=>{
       return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     } },
+    { field: "description", title: "Keterangan" },
     
     
   ];
