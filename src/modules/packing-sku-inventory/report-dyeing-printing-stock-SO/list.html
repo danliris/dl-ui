@@ -99,13 +99,14 @@
             <th>Keluar</th>
             <th>Adj Keluar</th>
             <th>Total</th>
+            <th>Keterangan</th>
           </tr>
         </thead>
         <!--Table head-->
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="14">
+            <td colspan="15">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -123,6 +124,7 @@
             <td>${sumOutQtyFormat}</td>
             <td>${sumAdjOutQtyFormat}</td>
             <td>${sumTotalFormat}</td>
+            <td></td>
           </tr>
         </tbody>
         <!--Table body-->

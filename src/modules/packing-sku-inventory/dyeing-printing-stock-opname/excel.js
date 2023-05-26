@@ -69,7 +69,8 @@ export class Create {
             field: "inQty", title: "Qty Total", formatter: function (value, data, index) {
                 return numeral(value).format('0.00');
             }, align: "right", halign: "center"
-        }
+        },
+        { field: "description", title: "Keterangan", sortable: false},
     ];
 
     get productionOrderLoader() {

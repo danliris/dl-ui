@@ -62,10 +62,16 @@ export class Edit {
         console.log("packagingQtyRemains", parseFloat(this.data.packagingQtyRemains).toFixed(2) );
 
         console.log("itemQtySum", parseFloat(itemQtySum).toFixed(2) );
+        console.log("jumlah", this.data.Items.length);
 
         if (parseFloat(this.data.packagingQtyRemains).toFixed(2) != parseFloat(itemQtySum).toFixed(2) || trackValidate == false) {
             alert("Jumlah Quantity Item harus sama dengan Quantity Sebelumnya dan Jalur/Rak Tidak boleh sama dengen sebelum nya")
-        } else {
+        } 
+        // else if (this.data.Items.length<= 1){
+        //     alert("Jumlah baris haurs lebih dari satu");
+
+        // }
+        else {
             
             this.service.update(this.data).then(result => {
                 alert("Data berhasil diubah");
