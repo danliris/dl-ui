@@ -275,10 +275,23 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'production/finishing-printing/reports/packing-report',
+    //     name: 'packing-report',
+    //     moduleId: './modules/production/finishing-printing/reports/packing-report/index',
+    //     nav: true,
+    //     title: 'Laporan Penyerahan Produksi',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
-        route: 'production/finishing-printing/reports/packing-report',
+        route: 'production/finishing-printing/reports/production-submission-report',
         name: 'packing-report',
-        moduleId: './modules/production/finishing-printing/reports/packing-report/index',
+        moduleId: './modules/production/finishing-printing/reports/production-submission-report/index',
         nav: true,
         title: 'Laporan Penyerahan Produksi',
         auth: true,
