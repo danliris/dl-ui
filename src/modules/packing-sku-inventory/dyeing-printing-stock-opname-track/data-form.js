@@ -56,8 +56,8 @@ export class DataForm {
      
       this.data.Items.push(item);
     }
-
-    // console.log("data",this.data);
+    //this.data.Items;
+     console.log("data",this.data.Items);
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;
