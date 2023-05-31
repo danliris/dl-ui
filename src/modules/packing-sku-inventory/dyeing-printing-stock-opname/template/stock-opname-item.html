@@ -1,6 +1,6 @@
 <template replace-part="inspectionMaterialProductionOrders">
     <tr>
-        <td>
+        <td style="width: 10%;">
             <au-autocomplete value.bind="selectedProductionOrder"
                              error.bind="error.ProductionOrder"
                              loader.bind="productionOrderLoader"
@@ -10,6 +10,15 @@
             </au-autocomplete>
 
         </td>
+
+        <td show.bind ="!isCreate">
+            <au-textbox value.bind="data.productPackingCode"
+                        read-only.bind="readOnly"
+                        
+                        options.bind="controlOptions">
+            </au-textbox>
+        </td>
+
         <td>
             <au-numeric value.bind="data.productionOrder.orderQuantity"
                         format="0.00"
@@ -29,13 +38,13 @@
                         options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
+        <!-- <td>
             <au-textbox value.bind="data.unit"
                         read-only.bind="true"
                         error.bind="error.Unit"
                         options.bind="controlOptions">
             </au-textbox>
-        </td>
+        </td> -->
         <td>
             <au-textbox value.bind="data.buyer"
                         read-only.bind="true"
@@ -83,6 +92,7 @@
                         error.bind="error.QtyPacking"
                         format="0.00"
                         read-only.bind="readOnly"
+                        
                         options.bind="controlOptions">
             </au-numeric>
         </td>
@@ -137,7 +147,7 @@
                         options.bind="controlOptions">
             </au-textbox>
         </td>
-        <td>
+        <td style="width: 10%;">
 
             <au-autocomplete value.bind="selectedTrack"
                              error.bind="error.track"
@@ -146,6 +156,14 @@
                              placeholder="Jalur/Rak"
                              text.bind="trackView">
             </au-autocomplete>
+        </td>
+
+        <td>
+            <au-textbox value.bind="data.description"
+                        read-only.bind="readOnly"
+                        error.bind="error.remark"
+                        options.bind="controlOptions">
+            </au-textbox>
         </td>
         <!-- <td>
             <au-textbox value.bind="data.documentNo"

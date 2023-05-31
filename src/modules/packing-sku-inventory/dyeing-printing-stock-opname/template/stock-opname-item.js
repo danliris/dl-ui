@@ -12,15 +12,18 @@ export class StockItem {
         this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
         this.packUnit = ["ROLL", "PIECE", "POTONGAN"];
         this.grade = [
-            "A", "B", "C", "BS", "A1", "B1", "Aval 1"
+            "A", "B", "C", "BS", "A1", "B1", "C1", "Aval 1"
         ];
         this.context = context;
         this.data = context.data;
-        console.log(this.data);
+        
         this.error = context.error;
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.isEdit = this.contextOptions.isEdit;
+        this.isCreate = this.contextOptions.isCreate;
+
+        console.log(this.contextOptions);
         if (this.data.uom) {
 
             this.selectedUom = {};
@@ -47,6 +50,7 @@ export class StockItem {
             this.selectedTrack.Id = this.data.trackId;
             this.selectedTrack.Type = this.data.trackType;
             this.selectedTrack.Name = this.data.trackName;
+            this.selectedTrack.Box = this.data.trackBox;
         }
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
@@ -162,16 +166,36 @@ export class StockItem {
         return TrackLoader;
     }
 
+    // trackView = (track) => {
+    //     console.log(track);
+    //     if(track.Type === undefined){
+
+    //         return `${track.type} - ${track.name} - ${track.box}` ; 
+    //       }else{
+      
+    //         return `${track.Type} - ${track.Name} - ${track.Box}`;
+    //       }
+    // }
+
     trackView = (track) => {
         console.log(track);
         if(track.Type === undefined){
-
+    
+          if(track.box === null){
             return `${track.type} - ${track.name}` ; 
-          }else{
-      
-            return `${track.Type} - ${track.Name}`;
+          } else{
+            return `${track.type} - ${track.name} - ${track.box}` ; 
           }
-    }
+          
+        }else{
+          if(track.Box === null){
+            return `${track.Type} - ${track.Name}`;
+          }else{
+            return `${track.Type} - ${track.Name} - ${track.Box}`;
+          }
+          
+        } 
+      }
 
     @bindable selectedUom;
     selectedUomChanged(newValue) {
@@ -186,12 +210,13 @@ export class StockItem {
 
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
-
+        console.log(this.selectedProductionOrder);
         if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
             this.data.productionOrder = {};
             this.data.productionOrder.id = this.selectedProductionOrder.Id;
             this.data.productionOrder.no = this.selectedProductionOrder.OrderNo;
             this.data.productionOrder.type = this.selectedProductionOrder.OrderType.Name;
+            this.data.productionOrder.createdUtc = this.selectedProductionOrder.CreatedUtc;
 
             if (this.selectedProductionOrder.Construction) {
                 this.data.construction = this.selectedProductionOrder.Construction;
@@ -244,6 +269,36 @@ export class StockItem {
         else {
             this.data.productionOrder = {};
         }
+
+        if( this.selectedProductionOrder.ProcessType.SPPCode == "SPW"
+            || this.selectedProductionOrder.ProcessType.SPPCode == "SPWT")
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "WHITE"];
+        }
+
+        else if( this.selectedProductionOrder.ProcessType.SPPCode == "SPD" 
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDT"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDM"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDS"   )
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "DYEING", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+        } 
+        
+        else if( this.selectedProductionOrder.ProcessType.SPPCode == "SPP"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPT"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPM"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPPS"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPDP"
+                || this.selectedProductionOrder.ProcessType.SPPCode == "SPTP")
+        {
+            //this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+            this.packType = [ "BATIK", "TEKSTIL", "DIGITAL PRINT", "TRANSFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON"];
+        } else{
+            this.packType = ["WHITE", "DYEING", "BATIK", "TEXTILE", "DIGITAL PRINT", "TRANFER PRINT", "PRINTING MAKLOON", "PRINTING SUBCON", "DYEING MAKLOON", "DYEING SUBCON", "GINGHAM", "YARN DYED"];
+        }
+        
     }
 
 
@@ -255,6 +310,7 @@ export class StockItem {
             this.data.trackId = newValue.Id;
             this.data.trackType = newValue.Type;
             this.data.trackName = newValue.Name;
+            this.data.trackBox = newValue.Box;
 
             
         }

@@ -51,12 +51,22 @@ const uomServiceUri = 'master/uoms';
         //var endpoint = `${serviceUri}/code?itemData=${args.itemData}`;
 
         var config = Container.instance.get(Config);
-        var endpoint = config.getEndpoint("packing-inventory").client.baseUrl + `stock-opname-warehouse/code?itemData=${args.itemData}`;
+        var endpoint = config.getEndpoint("packing-inventory").client.baseUrl + `stock-opname-warehouse/code?itemData=${args.itemData}&trackId=${args.trackId}`;
         // return super.list(endpoint, args);
         //var endpoint = `${serviceUri}?itemData=${args.itemData}&source=${args.source}`
         return super.get(endpoint);
     
-      }
+    }
+
+    searchMonitoring(info) {
+        var endpoint = `${serviceUri}/monitoring-so`;
+        return super.list(endpoint, info);
+    }
+
+      generateExcel(info) {
+        var endpoint = `${serviceUri}/monitoring-so-xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&productionOrderId=${info.productionOrderId}&track=${info.track}`;       
+        return super.getXls(endpoint);
+    }
 
 
 }

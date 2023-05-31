@@ -17,6 +17,7 @@ export class List {
     @bindable dateReport;
     @bindable barcode;
     @bindable selectedProductionOrder;
+    @bindable track;
     listDataFlag = false;
 
     controlOptions = {
@@ -47,9 +48,20 @@ export class List {
     productionOrder = null;
     
     selectedProductionOrderChanged(n, o) {
+        console.log(n);
         if (n) {
             this.productionOrder = n;
         } else {
+            this.productionOrder = null;
+        }
+    }
+
+    trackChanged(n,o)
+    {
+        console.log(n);
+        if(n){
+            this.track = n;
+        }else{
             this.productionOrder = null;
         }
     }
@@ -119,6 +131,7 @@ export class List {
          if (this.dateFrom && this.dateTo && (this.dateFrom <= this.dateTo)) {
             this.listDataFlag = true;
             this.error = {};
+            console.log(this.track);
             var arg = {
                 productionOrderId: this.productionOrder ? this.productionOrder.Id : null,
                 barcode: this.barcode,     
@@ -136,24 +149,42 @@ export class List {
                   this.sumSaldoBegin = 0;
                   this.sumInQty = 0;
                   this.sumOutQty = 0;
+                  this.sumAdjOutQty = 0;
                   this.sumTotal = 0;
+                  
 
                   for (var item of result) {
+                    // this.sumSaldoBegin += item.saldoBegin;
+                    // this.sumInQty += item.inQty;
+                    // this.sumOutQty += item.outQty;
+                    // this.sumAdjOutQty += item.adjOutQty;
+                    // this.sumTotal += item.total;
+
                     this.sumSaldoBegin += item.saldoBegin;
                     this.sumInQty += item.inQty;
                     this.sumOutQty += item.outQty;
+                    this.sumAdjOutQty += item.adjOutQty;
                     this.sumTotal += item.total;
+
+
                     var newData = {
                       ProductionOrderNo: item.productionOrderNo,
-                      Grade: item.grade,
+                      BuyerName : item.buyerName,
+                      Material : item.construction,
                       Color : item.color,
+                      Motif:item.motif,
+                      
+                      Grade: item.grade,
+                      PackagingQty : item.packagingQty,
                       PackagingUnit: item.packagingUnit,
                       Barcode: item.productPackingCode,
                       //Jalur : item.trackName,
                       Awal: item.saldoBegin ? numeral(item.saldoBegin).format("0.00") : 0,
                       Masuk: item.inQty ? numeral(item.inQty).format("0.00") : 0,
                       Keluar: item.outQty ? numeral(item.outQty).format("0.00") : 0,
-                      Total : item.total ? numeral(item.total).format("0.00") : 0
+                      AdjKeluar: item.adjOutQty ? numeral(item.adjOutQty).format("0.00") : 0,
+                      Total : item.total ? numeral(item.total).format("0.00") : 0,
+                      Description : item.description
                     //   StockOpname: item.stockOpname ? numeral(item.stockOpname).format("0.00") : 0,
                     //   StorageBalance: item.storageBalance ? numeral(item.storageBalance).format("0.00") : 0,
                     //   Difference: item.difference ? numeral(item.difference).format("0.00") : 0
@@ -161,6 +192,12 @@ export class List {
 
                     data.push(newData);
                   }
+
+                  this.sumSaldoBeginFormat = this.sumSaldoBegin ? numeral(this.sumSaldoBegin).format("0.00") : 0;
+                  this.sumInQtyFormat = this.sumInQty ? numeral(this.sumInQty).format("0.00") : 0;
+                  this.sumOutQtyFormat = this.sumOutQty  ? numeral(this.sumOutQty).format("0.00") : 0;;
+                  this.sumAdjOutQtyFormat = this.sumAdjOutQty? numeral(this.sumAdjOutQty).format("0.00") : 0;;
+                  this.sumTotalFormat = this.sumTotal ? numeral(this.sumTotal).format("0.00") : 0;;
 
                   return data;
               });
@@ -202,7 +239,8 @@ export class List {
     reset() {
         this.dateFrom = undefined;
         this.dateTo = undefined;
-        this.barcode = null
+        this.barcode = null;
+        this.track =null;
      
         this.selectedProductionOrder = null;
         this.listDataFlag = false;
@@ -225,7 +263,6 @@ export class List {
         data.zona = this.zona;
         data.buyer = this.buyer;
         data.data = arg.data;
-        console.log(data);
         switch (arg.name) {
             case "detail":
                 this.dialog.show(PackingListForm, data)
@@ -267,7 +304,7 @@ export class List {
     
       trackView = (track) => {
         console.log(track);
-        return `${track.Type} - ${track.Name}`
+        return `${track.Type} - ${track.Name} - ${track.Box}`
       }
     
 

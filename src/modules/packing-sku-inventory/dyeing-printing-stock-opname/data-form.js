@@ -31,7 +31,7 @@ export class DataForm {
     },
   };
   //destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
-  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Jenis", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
+  adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Jenis", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
     "Qty Order",
@@ -69,17 +69,19 @@ export class DataForm {
     this.editCallback = this.context.editCallback;
     this.saveCallback = this.context.saveCallback;
 
-   
+
+   console.log(this.context);
     this.detailOptions = {
       isEdit: this.isEdit,
       readOnly: this.readOnly,
+      isCreate: this.context.isCreate
     
     };
 
     if (this.readOnly) {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
+      this.adjItemColumns = ["No. SPP", "Barcode", "Qty Order", "Jenis Order", "Material",  "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur", "Keterangan"];
     } else {
-      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur"];
+      this.adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material",  "Buyer", "Warna", "Motif", "Grade", "Jenis", "QTY Pack",  "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "Jalur", "Keterangan"];
     }
 
     if (this.data.type == "STOCK OPNAME") {
@@ -100,6 +102,7 @@ export class DataForm {
     this.data.warehousesProductionOrders =
       this.data.warehousesProductionOrders || [];
     this.data.warehousesProductionOrders.push({});
+    this.add = true;
   };
   
   sppTextFormatter = (spp) => {

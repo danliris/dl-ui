@@ -8,6 +8,13 @@
 
     <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
       read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
+    <au-autocomplete  label="Jalur" value.bind="track"
+        loader.bind="trackLoader"
+        read-only.bind="readOnly"
+        placeholder="Jalur/Rak"
+        text.bind="trackView" options.bind="controlOptions"
+        placeholder = "Filter Jalur/Rak">
+    </au-autocomplete>
 
     <!-- <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
       read-only.bind="readOnly || isEdit" label="Tanggal">
@@ -55,11 +62,14 @@
         <tr>
           <th>No.</th>
           <th>Barcode</th>
-          <th>Nama Barang</th>
+          <th>No SPP</th>
+          <th>Grade</th>
           <th>Saldo Packing</th>
           <th>Qty Keluar</th>
+          <th>Satuan Pack</th>
           <th>Panjang Satuan</th>
           <th>Jalur/Rak</th>
+          <th>Keterangan</th>
           
           <th></th>
         </tr>
@@ -69,6 +79,7 @@
           <td>${$index+1}</td>
           <td>${item.productPackingCode}</td>
           <td>${item.productionOrderNo}</td>
+          <td>${item.grade}</td>
           <td>${item.packagingQty}</td>
           <!-- <td>${item.item.name}</td> -->
           <!-- <td>
@@ -78,14 +89,24 @@
               </center>
             </div>
           </td> -->
-          <td>
+          <!-- <td>
             <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
               <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
                 max.bind="item.quantity" min="0"
                 change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
               <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
             </div>
+          </td> -->
+
+          <td>
+            <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
+              <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
+                
+                change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
+              <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
+            </div>
           </td>
+          <td>${item.packagingUnit}</td>
           <td>
             <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
           </td>
@@ -101,7 +122,7 @@
               <au-autocomplete value.bind="item.track"
                              error.bind="error.track"
                              loader.bind="trackLoader"
-                             read-only.bind="readOnly"
+                             read-only.bind= true
                              placeholder="Jalur/Rak"
                              text.bind="trackView"
                              >
@@ -109,6 +130,7 @@
               <span class="help-block">${error.Items[$index].Track}</span>
             </div>
           </td>
+          <td>${item.description}</td>
 
 
 

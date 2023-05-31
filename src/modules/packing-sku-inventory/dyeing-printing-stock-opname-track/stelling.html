@@ -1,0 +1,82 @@
+<template>
+  <div class="row">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" border="1" id="poReport">
+          <thead align="center">
+            <tr>
+              <td colspan="8" align="center">DATA PENERIMAAN</td>
+            </tr>
+            <tr>
+              <td align="center">Nomor PO</td>
+              <td align="center">QTY</td>
+              <td align="center">Satuan</td>
+              <td align="center">Warna</td>
+              <td align="center">Rak</td>
+              <td align="center">Level</td>
+              <td align="center">Box</td>
+              <td align="center">Area</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr repeat.for="item of receipt">
+              <td>${item.POSerialNumber}</td>
+              <td>${item.Quantity}</td>
+              <td>${item.Uom}</td>
+              <td>${item.Colour}</td>
+              <td>${item.Rack}</td>
+              <td>${item.Box}</td>
+              <td>${item.Level}</td>
+              <td>${item.Area}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" border="1" id="poReport">
+          <thead align="center">
+            <tr>
+              <td colspan="7" align="center">KARTU STELLING</td>
+            </tr>
+            <tr>
+              <td align="center">Tanggal Masuk</td>
+              <td align="center">Panjang (Mtr)</td>
+              <td align="center">Tanggal Keluar</td>
+              <td align="center">Panjang (Mtr)</td>
+              <td align="center">Sisa (Mtr)</td>
+              <td align="center">RO Job</td>
+              <td align="center">User</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr repeat.for="item of data">
+              <td>${item.ReceiptDate}</td>
+              <td>${item.Quantity}</td>
+              <td>${item.ExpenditureDate}</td>
+              <td>${item.QtyExpenditure}</td>
+              <td>${item.Remaining}</td>
+              <td>${item.Remark}</td>
+              <td>${item.User}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <br>
+    <br>
+  <br>
+  </div>
+
+  <div slot="toolbar" class="btn-group">
+    <button class='btn btn-default' click.delegate="cancel($event)">Kembali</button>
+    <button class='btn btn-primary' click.delegate="getPdf(Id)">Cetak PDF</button>
+  </div>
+</template>

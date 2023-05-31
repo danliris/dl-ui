@@ -12,16 +12,17 @@
     </au-datepicker> -->
 
     <au-autocomplete  label="No SPP" value.bind="selectedProductionOrder"
-      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions">
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions" placeholder = "Filter No SPP">
     </au-autocomplete>
 
-    <au-textbox  label="Barcode" value.bind="barcode" error.bind="error.barcode" options.bind="controlOptions" placeholder = "Barcode"></au-textbox>
+    <au-textbox  label="Barcode" value.bind="barcode" error.bind="error.barcode" options.bind="controlOptions" placeholder = "Filter Barcode"></au-textbox>
 
-    <!-- <au-autocomplete  label="No SPP" value.bind="track"
+    <!-- <au-autocomplete  label="Jalur" value.bind="track"
     loader.bind="trackLoader"
     read-only.bind="readOnly"
     placeholder="Jalur/Rak"
-    text.bind="trackView" options.bind="controlOptions">
+    text.bind="trackView" options.bind="controlOptions"
+    placeholder = "Filter Jalur/Rak">
     </au-autocomplete> -->
 
     <au-datepicker options.bind="controlOptions" value.bind="dateFrom" error.bind="error.dateFrom"
@@ -84,21 +85,28 @@
         <thead>
           <tr>
             <th>No. SPP</th>
-            <th>Grade</th>
+            <th>Buyer</th>
+            <th>Material</th>
             <th>Warna</th>
+            <th>Motif</th> 
+            <th>Grade</th>
+            <th>Qty Packing</th>
             <th>Jenis Packing</th>
             <th>Barcode</th>
+            <!-- <th>Jalur/Rak</th> -->
             <th>Saldo Awal</th>
             <th>Masuk SO</th>
             <th>Keluar</th>
+            <th>Adj Keluar</th>
             <th>Total</th>
+            <th>Keterangan</th>
           </tr>
         </thead>
         <!--Table head-->
         <!--Table body-->
         <tbody>
           <tr show.bind="isEmpty">
-            <td colspan="11">
+            <td colspan="15">
               <div class="alert alert-info">Tidak ada data</div>
             </td>
           </tr>
@@ -110,11 +118,13 @@
             </td>
           </tr>
           <tr>
-            <td class="text-right" colspan="5">TOTAL</td>
-            <td>${sumSaldoBegin}</td>
-            <td>${sumInQty}</td>
-            <td>${sumOutQty}</td>
-            <td>${sumTotal}</td>
+          <td class="text-right" colspan="9">TOTAL</td>
+            <td>${sumSaldoBeginFormat}</td>
+            <td>${sumInQtyFormat}</td>
+            <td>${sumOutQtyFormat}</td>
+            <td>${sumAdjOutQtyFormat}</td>
+            <td>${sumTotalFormat}</td>
+            <td></td>
           </tr>
         </tbody>
         <!--Table body-->
