@@ -2,9 +2,9 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
-
 import moment from 'moment';
 var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
+let InspectionMaterialLoader = require('../../../../../loader/input-inspection-material-loader');
 
 @inject(Router, Service)
 export class List {
@@ -23,6 +23,15 @@ export class List {
         showColumns: false,
         pagination: false
     }
+
+    controlOptions = {
+        label: {
+            length: 4,
+        },
+        control: {
+            length: 4,
+        },
+    };
 
     areaOptionsHard = [
         { text: "DIGITAL PRINT", value: 1 },
@@ -76,11 +85,7 @@ export class List {
     
       
         var args = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-            order: order,
-            bonNo: this.bonNo,
+            bonNo: this.IM ? this.IM.bonNo : null,
             startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
             orderNo:this.productionOrderNo ? this.productionOrderNo.OrderNo : null,
@@ -105,7 +110,7 @@ export class List {
 
     ExportToExcel() {
         var args = {
-            bonNo: this.bonNo,
+            bonNo: this.IM ? this.IM.bonNo : null,
             startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
             orderNo:this.productionOrderNo ? this.productionOrderNo.OrderNo : null,
@@ -115,5 +120,15 @@ export class List {
 
     get productionOrderLoader() {
         return ProductionOrderLoader;
+    }
+    get inspectionMaterialLoader() {
+        return InspectionMaterialLoader;
+    }
+
+    reset(){
+        this.IM=null;
+        this.dateFrom=null;
+        this.dateTo=null;
+        this.productionOrderNo=null;
     }
 }
