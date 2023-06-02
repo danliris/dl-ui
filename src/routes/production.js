@@ -249,10 +249,23 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'finishing-printing/reports/fabric-quality-control-report',
+    //     name: 'fabric-quality-control-report',
+    //     moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+    //     nav: true,
+    //     title: 'Laporan Pemeriksaan Kain',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'finishing-printing/reports/fabric-quality-control-report',
         name: 'fabric-quality-control-report',
-        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report-new/index',
         nav: true,
         title: 'Laporan Pemeriksaan Kain',
         auth: true,
