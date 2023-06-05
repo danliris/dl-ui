@@ -93,19 +93,22 @@ export class DataForm {
             if (this.data.buyer.id) {
                 this.coreService.getBuyerById(this.data.buyer.id)
                     .then(buyerResult => {
+                        this.data.buyer.code = buyerResult.Code;
                         this.data.buyer.address = buyerResult.Address;
                     });
             }
 
             this.data.bank = {
                 id: newValue.bankAccountId,
-                accountName: newValue.bankAccount
+                accountName: newValue.bankAccount          
             };
             if (this.data.bank.id) {
                 this.coreService.getBankById(this.data.bank.id)
                     .then(bankResult => {
-                        this.data.bank.bankAddress = bankResult.BankAddress;
+                        this.data.bank.AccountNumber = bankResult.AccountNumber;
+                        this.data.bank.bankAddress = bankResult.BankAddress;                        
                     });
+                    console.log(this.data.bank);
             }
         } else {
             this.data.packingListId = 0;

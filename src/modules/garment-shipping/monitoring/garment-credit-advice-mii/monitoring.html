@@ -1,0 +1,56 @@
+<template>
+    <h1 class="page-header">Monitoring Credit Advice Untuk MII</h1>
+    <form class="form-horizontal">
+
+        <au-datepicker label="Tanggal Trucking Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Trucking Akhir" value.bind="dateTo"></au-datepicker>
+  
+       <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-danger'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>                        
+                    <th class="text-center">TANGGAL</th>
+                    <th class="text-center">KODE BUYER</th>                
+                    <th class="text-center">NAMA BUYER</th>
+                    <th class="text-center">NO KWITANSI</th>
+                    <th class="text-center">BANK DEVISA</th>
+                    <th class="text-center">NO REK BANK</th>
+                    <th class="text-center">NO INVOICE</th>
+                    <th class="text-center">CURRENCY</th>  
+                    <th class="text-center">RATE</th>
+                    <th class="text-center">AMOUNT VLS</th>
+                    <th class="text-center">AMOUNT IDR</th>                
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">                                           
+                        <td>${item.caDate}</td>
+                        <td>${item.buyerCode}</td>
+                        <td>${item.buyerName}</td>
+                        <td>${item.receiptNo}</td>
+                        <td>${item.bankName}</td>
+                        <td>${item.accountBankNo}</td>
+                        <td>${item.invoiceNo}</td>
+                        <td>${item.currencyCode}</td>
+                        <td class="text-right"><strong>${item.rate}</strong></td>
+                        <td class="text-right"><strong>${item.amount}</strong></td>
+                        <td class="text-right"><strong>${item.amountIDR}</strong></td>
+                    </tr>                
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="item.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>
