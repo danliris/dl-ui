@@ -7,15 +7,15 @@ export class List {
   //context = ["detail"];
   columns = [
     {
-      field: "Month",
+      field: "month",
       title: "Bulan"
     },
     {
-      field: "YearPeriode",
+      field: "yearPeriode",
       title: "Tahun"
     },
     {
-      field: "CreatedDate",
+      field: "createdDate",
       title: "Tanggal Update"
     }
   ];
