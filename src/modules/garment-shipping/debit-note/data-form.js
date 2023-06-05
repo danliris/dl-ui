@@ -46,7 +46,7 @@ export class DataForm {
     }
 
     bankView = (data) => {
-        return `${data.BankName || data.bankName} - ${data.Currency ? data.Currency.Code : data.currency.code }`;
+        return `${data.BankName || data.bankName} - ${data.Currency ? data.Currency.Code : data.currency.code } - ${data.AccountNumber || data.accountNumber}`;
     }
 
     get bankQuery(){

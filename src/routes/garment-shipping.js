@@ -438,6 +438,21 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/monitoring/garment-credit-advice-mii",
+        name: "garment-shipping/monitoring/garment-credit-advice-mii",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-advice-mii/index",
+        nav: true,
+        title: "Monitoring Credit Advice - MII",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P81": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/vb-payment",
         name: "garment-shipping/vb-payment",
         moduleId: "modules/garment-shipping/vb-payment/index",
@@ -656,6 +671,21 @@ module.exports = [
             subGroup: "monitoring",
             // permission: { "C9": 1, "SG": 1 },
             permission: { "P39": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/garment-debit-note-mii",
+        name: "garment-shipping/monitoring/garment-debit-note-mii",
+        moduleId: "modules/garment-shipping/monitoring/garment-debit-note-mii/index",
+        nav: true,
+        title: "Monitoring Debit Note - MII",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P82": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
