@@ -64,6 +64,7 @@ export class DataForm {
         this.data.UnitFrom = newValue;
 
         this.selectedExpenditureGood = null;
+        this.data.DataItems.splice(0);
 
     }
 
@@ -154,7 +155,8 @@ export class DataForm {
     get addItems() {
         return (event) => {
             this.data.DataItems.push({
-                unitId: this.data.UnitFrom.Id
+                unitId: this.data.UnitFrom.Id,
+                unitCode: this.data.UnitFrom.Code
             })
         };
     }

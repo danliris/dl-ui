@@ -39,6 +39,7 @@ class Service extends RestService {
 }
 
 const expenditureGoodUri = 'expenditure-goods';
+const expenditureGoodSampleUri = 'garment-sample-expenditure-goods';
 
 class GarmentProductionService extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -47,6 +48,11 @@ class GarmentProductionService extends RestService {
 
     getExpenditureGoodById(id) {
         var endpoint = `${expenditureGoodUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getExpenditureGoodSampleById(id) {
+        var endpoint = `${expenditureGoodSampleUri}/${id}`;
         return super.get(endpoint);
     }
 

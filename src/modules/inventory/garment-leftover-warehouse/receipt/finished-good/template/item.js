@@ -2,6 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { GarmentProductionService } from "../service";
 const LeftoverComodityLoader = require('../../../../../../loader/garment-leftover-comodity-loader');
 const ExpenditureGoodLoader = require('../../../../../../loader/garment-expenditure-good-loader');
+const ExpenditureGoodSampleLoader = require('../../../../../../loader/garment-expenditure-good-sample-loader');
 
 @inject(GarmentProductionService)
 export class Item {
@@ -46,8 +47,17 @@ export class Item {
         this.garmentProductionService = garmentProductionService;
     }
 
+    // get expenditureGoodLoader() {
+    //     return ExpenditureGoodLoader;
+    // }
+
     get expenditureGoodLoader() {
-        return ExpenditureGoodLoader;
+        if (this.data.unitCode == "SMP1") {
+            return ExpenditureGoodSampleLoader;
+
+        } else {
+            return ExpenditureGoodLoader;
+        }
     }
 
     activate(context) {
@@ -87,7 +97,7 @@ export class Item {
             this.data.dataDetails.splice(0);
         }
         if (newValue) {
-            if (newValue.Id != oldValue.Id) {
+            if (newValue.Id != oldValue.Id && this.data.unitCode != "SMP1") {
                 this.garmentProductionService.getExpenditureGoodById(newValue.Id)
                     .then(exGood => {
                         console.log(exGood)
@@ -157,6 +167,27 @@ export class Item {
                         //         this.data.dataDetails.push(item);
                         //     }
                         // }
+                    });
+            } else {
+                this.garmentProductionService.getExpenditureGoodSampleById(newValue.Id)
+                    .then(exGood => {
+                        console.log(exGood)
+                        this.data.ExpenditureGoodId = exGood.Id;
+                        this.data.ExpenditureGoodNo = exGood.ExpenditureGoodNo;
+                        this.data.RONo = exGood.RONo;
+                        this.data.Article = exGood.Article;
+                        this.data.Comodity = exGood.Comodity;
+                        this.data.ComodityName = exGood.Comodity.Name;
+                        this.data.Buyer = exGood.Buyer;
+                        this.data.BuyerName = exGood.Buyer.Name;
+                        this.data.details = [];
+                        this.data.Quantity = 0;
+                        var price = 0;
+                        for (const item of exGood.Items) {
+                            this.data.Quantity += item.Quantity;
+                            price += item.Price;
+                        }
+                        this.data.BasicPrice = price / this.data.Quantity;
                     });
             }
         } else {
