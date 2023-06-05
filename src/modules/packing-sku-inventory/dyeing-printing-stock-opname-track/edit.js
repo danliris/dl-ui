@@ -41,31 +41,43 @@ export class Edit {
             itemQtySum += x.packagingQtySplit;
 
         });
-
+        //console.log( this.data.Items);
         for(let i = 0; i < this.data.Items.length; i++){
-            if ( i !== 0){
-
-               if( this.data.Items[0].track.id == this.data.Items[i].track.id){
+            //console.log( this.data.Items.track.id);
+            
+            if ( i > 0){
+                //console.log("Id Rak Pertama",this.data.Items[0].track.id);
+                
+                var NextId = this.data.Items[i].track.id != undefined ? this.data.Items[i].track.id : this.data.Items[i].track.Id;
+                //console.log("Id Rak berikutnya",NextId);
+               if( this.data.Items[0].track.id == NextId){
                 trackValidate = false;
                }
             }
         };
-        console.log(this.data.Items[0].track.id);
+        //console.log(this.data.Items[0].track.id);
+        //console.log(this.data.Items[1].track.id);
 
-        console.log(this.data.Items);
+        //console.log(this.data.Items);
 
-        console.log("sum", itemQtySum);
+        //console.log("sum", itemQtySum);
 
 
-        console.log("trackValidate", trackValidate);
+        //console.log("trackValidate", trackValidate);
 
-        console.log("packagingQtyRemains", parseFloat(this.data.packagingQtyRemains).toFixed(2) );
+        //console.log("packagingQtyRemains", parseFloat(this.data.packagingQtyRemains).toFixed(2) );
 
-        console.log("itemQtySum", parseFloat(itemQtySum).toFixed(2) );
+        //console.log("itemQtySum", parseFloat(itemQtySum).toFixed(2) );
+        //console.log("jumlah", this.data.Items.length);
 
-        if (parseFloat(this.data.packagingQtyRemains).toFixed(2) != parseFloat(itemQtySum).toFixed(2) || trackValidate == false) {
-            alert("Jumlah Quantity Item harus sama dengan Quantity Sebelumnya dan Jalur/Rak Tidak boleh sama dengen sebelum nya")
-        } else {
+        if (parseFloat(this.data.packagingQtyRemains).toFixed(2) != parseFloat(itemQtySum).toFixed(2)) {
+            alert("Jumlah Quantity Item harus sama dengan Quantity Sebelumnya")
+        } 
+        else if (trackValidate == false){
+            alert(" Jalur/Rak Tidak boleh sama dengan Sebelum nya")
+
+        }
+        else {
             
             this.service.update(this.data).then(result => {
                 alert("Data berhasil diubah");

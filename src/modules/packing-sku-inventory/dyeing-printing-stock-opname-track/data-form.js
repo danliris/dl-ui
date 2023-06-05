@@ -33,7 +33,8 @@ export class DataForm {
     "Qty Packing",
     "Qty Satuan",
     "Qty Total",
-    "Jalur / Rak"
+    "Jalur / Rak",
+    "Keterangan"
 ];
 
   bind(context) {
@@ -50,11 +51,13 @@ export class DataForm {
       item.packagingQtyRemains = this.data.packagingQtyRemains;
       item.track = this.data.track;
       item.packagingLength = this.data.packagingLength;
+      item.description = this.data.description;
+      item.isRead = true;
      
       this.data.Items.push(item);
     }
-
-    // console.log("data",this.data);
+    //this.data.Items;
+     console.log("data",this.data.Items);
     this.error = this.context.error;
 
     this.cancelCallback = this.context.cancelCallback;
@@ -80,7 +83,9 @@ export class DataForm {
       packagingQtyRemains : this.data.packagingQtyRemains,
       track : this.data.track,
       packagingLength : this.data.packagingLength,
-      packagingQtySplit : this.data.packagingQtyRemains
+      packagingQtySplit : this.data.packagingQtyRemains,
+      description : this.data.description,
+      isRead : false
       });
     };
   }
