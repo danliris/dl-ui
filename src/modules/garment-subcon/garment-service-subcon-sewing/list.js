@@ -35,7 +35,7 @@ export class List {
         return moment(value).format("DD MMM YYYY")
       },
     },
-    { field: "RONo", title :"RO"},
+    { field: "RONo", title: "RO" },
     { field: "Buyer.Name", title: "Buyer" },
     { field: "TotalQty", title: "Total Qty" },
     { field: "Unit", title: "Satuan" }
@@ -81,12 +81,12 @@ export class List {
           // }
           var getRO = s.Items.map(x => {
             return `<ul><li>${x.RONo}</li></ul>`;
-              // var str = "<ul>";
-              // for (var item of s.Items){
-              //   str += `<li>${item.RONo}</li>`
-              // }
-              // str += "</ul>";
-              // return str;
+            // var str = "<ul>";
+            // for (var item of s.Items){
+            //   str += `<li>${item.RONo}</li>`
+            // }
+            // str += "</ul>";
+            // return str;
           })
           s.RONo = getRO;
           qty += s.TotalQty
@@ -94,11 +94,11 @@ export class List {
           // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
           // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
         });
-        
-        
+
+
         this.totalQuantity = qty;
         return {
-          total: result.info.total,
+          total: result.info.count,
           data: result.data
         }
       });
@@ -123,7 +123,7 @@ export class List {
     this.router.navigateToRoute('create');
   }
 
-   excel() {
-        this.router.navigateToRoute('excel');     
+  excel() {
+    this.router.navigateToRoute('excel');
   }
 }
