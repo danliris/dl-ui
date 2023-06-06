@@ -315,9 +315,9 @@ module.exports = [
         }
     },
     {
-        route: 'production/finishing-printing/reports/qcgudang-report',
+        route: 'production/finishing-printing/reports/qcgudang-report-packing',
         name: 'packing-report',
-        moduleId: './modules/production/finishing-printing/reports/qcgudang-report/index',
+        moduleId: './modules/production/finishing-printing/reports/qcgudang-report-packing/index',
         nav: true,
         title: 'Laporan Penyerahan QC ke Gudang',
         auth: true,
