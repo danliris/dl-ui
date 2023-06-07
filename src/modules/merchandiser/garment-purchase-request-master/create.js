@@ -2,12 +2,14 @@ import {inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 import {activationStrategy} from 'aurelia-router';
+import { AuthService } from "aurelia-authentication";
 
-@inject(Router, Service)
+@inject(Router, Service,AuthService)
 export class Create {
-    constructor(router, service) {
+    constructor(router, service,authService) {
         this.router = router;
         this.service = service;
+        this.authService=authService;
     }
 
     bind() {
@@ -17,6 +19,13 @@ export class Create {
             ShipmentDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
         };
         this.error = {};
+
+        let username = null;
+        if (this.authService.authenticated) {
+            const me = this.authService.getTokenPayload();
+            username = me.username;
+            this.data.MDStaff=username;
+        }
     }
 
     cancelCallback(event) {
@@ -31,6 +40,7 @@ export class Create {
     }
 
     saveCallback(event) {
+        
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

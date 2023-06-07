@@ -249,10 +249,23 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'finishing-printing/reports/fabric-quality-control-report',
+    //     name: 'fabric-quality-control-report',
+    //     moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+    //     nav: true,
+    //     title: 'Laporan Pemeriksaan Kain',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'finishing-printing/reports/fabric-quality-control-report',
         name: 'fabric-quality-control-report',
-        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report/index',
+        moduleId: './modules/production/finishing-printing/reports/fabric-quality-control-report-new/index',
         nav: true,
         title: 'Laporan Pemeriksaan Kain',
         auth: true,
@@ -275,10 +288,23 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'production/finishing-printing/reports/packing-report',
+    //     name: 'packing-report',
+    //     moduleId: './modules/production/finishing-printing/reports/packing-report/index',
+    //     nav: true,
+    //     title: 'Laporan Penyerahan Produksi',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
-        route: 'production/finishing-printing/reports/packing-report',
+        route: 'production/finishing-printing/reports/production-submission-report',
         name: 'packing-report',
-        moduleId: './modules/production/finishing-printing/reports/packing-report/index',
+        moduleId: './modules/production/finishing-printing/reports/production-submission-report/index',
         nav: true,
         title: 'Laporan Penyerahan Produksi',
         auth: true,
@@ -406,11 +432,25 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+
+    //     route: 'production/finishing-printing/reports/fp-regrading-result-doc-report',
+    //     name: 'fp-regrading-result-doc-report',
+    //     moduleId: './modules/production/finishing-printing/reports/fp-regrading-result-doc-report/index',
+    //     nav: true,
+    //     title: 'Laporan Bon Hasil Re-grading',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C9": 1, "F1": 1, "F2": 1 },
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
 
-        route: 'production/finishing-printing/reports/fp-regrading-result-doc-report',
-        name: 'fp-regrading-result-doc-report',
-        moduleId: './modules/production/finishing-printing/reports/fp-regrading-result-doc-report/index',
+        route: 'production/dyeing-printing/reports/dp-regrading-result-doc-report',
+        name: 'dp-regrading-result-doc-report',
+        moduleId: './modules/production/finishing-printing/reports/regrading-result-doc-report-new/index',
         nav: true,
         title: 'Laporan Bon Hasil Re-grading',
         auth: true,
