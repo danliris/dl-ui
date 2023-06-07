@@ -151,6 +151,7 @@ export class List {
                   this.sumOutQty = 0;
                   this.sumAdjOutQty = 0;
                   this.sumTotal = 0;
+                  this.sumQtyPacking = 0;
                   
 
                   for (var item of result) {
@@ -165,6 +166,7 @@ export class List {
                     this.sumOutQty += item.outQty;
                     this.sumAdjOutQty += item.adjOutQty;
                     this.sumTotal += item.total;
+                    this.sumQtyPacking += item.packagingQty;
 
 
                     var newData = {
@@ -175,7 +177,7 @@ export class List {
                       Motif:item.motif,
                       
                       Grade: item.grade,
-                      PackagingQty : item.packagingQty,
+                      PackagingQty : item.packagingQty ? numeral(item.packagingQty).format("0.00") : 0,
                       PackagingUnit: item.packagingUnit,
                       Barcode: item.productPackingCode,
                       //Jalur : item.trackName,
@@ -198,6 +200,7 @@ export class List {
                   this.sumOutQtyFormat = this.sumOutQty  ? numeral(this.sumOutQty).format("0.00") : 0;;
                   this.sumAdjOutQtyFormat = this.sumAdjOutQty? numeral(this.sumAdjOutQty).format("0.00") : 0;;
                   this.sumTotalFormat = this.sumTotal ? numeral(this.sumTotal).format("0.00") : 0;;
+                  this.sumQtyPackingFormat = this.sumQtyPacking ? numeral(this.sumQtyPacking).format("0.00") : 0;
 
                   return data;
               });
