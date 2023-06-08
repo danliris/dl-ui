@@ -1,6 +1,6 @@
-import {inject, bindable} from 'aurelia-framework';
-import {Service} from "./service";
-import {Router} from 'aurelia-router';
+import { inject, bindable } from 'aurelia-framework';
+import { Service } from "./service";
+import { Router } from 'aurelia-router';
 import moment from 'moment';
 const UnitLoader = require('../../../loader/garment-units-loader');
 
@@ -26,21 +26,21 @@ export class List {
 
     @bindable UnitItem;
 
-    UnitItems = ['','KONFEKSI 2A','KONFEKSI 2B','KONFEKSI 2C','KONFEKSI 1A','KONFEKSI 1B']
+    UnitItems = ['', 'KONFEKSI 2A', 'KONFEKSI 2B', 'KONFEKSI 2C', 'KONFEKSI 1A', 'KONFEKSI 1B']
 
     searching() {
         var info = {
             // unit : this.unit ? this.unit.Id : "",
-            unit : this.unit ? this.unit : 0,
-            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            ro : this.ro ?this.ro:""
+            unit: this.unit ? this.unit : 0,
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            ro: this.ro ? this.ro : ""
         }
 
         this.service.search(info)
             .then(result => {
-                this.data=[];
-                for(var _data of result){
+                this.data = [];
+                for (var _data of result) {
                     _data.QtyOrder = _data.QtyOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data.FC = _data.FC.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._BeginingBalanceCuttingQty = _data.BeginingBalanceCuttingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -136,25 +136,29 @@ export class List {
                     _data._ExpenditureNew = _data.ExpenditureNew.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._ExpenditureGoodInTransfer = _data.ExpenditureGoodInTransfer.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     _data._ExpenditureGoodInTransferPrice = _data.ExpenditureGoodInTransferPrice.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._SubconSewingInQty = _data.SubconSewingInQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._SubconSewingOutQty = _data.SubconSewingOutQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._SubconExpenditureGoodInQty = _data.SubconExpenditureGoodInQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    _data._SubconExpenditureGoodQty = _data.SubconExpenditureGoodQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     console.log(_data);
 
                     this.data.push(_data);
 
-                 }
+                }
             });
     }
 
     ExportToExcel() {
         var info = {
-            unit : this.unit ? this.unit : 0,
-            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-            ro : this.ro ?this.ro:""
+            unit: this.unit ? this.unit : 0,
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            ro: this.ro ? this.ro : ""
         }
         this.service.generateExcel(info);
     }
 
-    get unitLoader(){
+    get unitLoader() {
         return UnitLoader;
     }
     unitView = (unit) => {
@@ -162,579 +166,444 @@ export class List {
 
     }
 
-    get AmountOrder()
-    {
-        var totalOrder=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            totalOrder += item.QtyOrder;
-        }
+    get AmountOrder() {
+        var totalOrder = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                totalOrder += item.QtyOrder;
+            }
         }
         return totalOrder.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get BeginingBalanceCuttingQtyTotal()
-    {
-        var beginingBalanceCuttingQtyTotal=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            beginingBalanceCuttingQtyTotal += item.BeginingBalanceCuttingQty;
-        }
+    get BeginingBalanceCuttingQtyTotal() {
+        var beginingBalanceCuttingQtyTotal = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                beginingBalanceCuttingQtyTotal += item.BeginingBalanceCuttingQty;
+            }
         }
         return beginingBalanceCuttingQtyTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtyCuttingInTotal()
-    {
-        var qtyCuttingInTotal=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            qtyCuttingInTotal += item.QtyCuttingIn;
-        }
+    get QtyCuttingInTotal() {
+        var qtyCuttingInTotal = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                qtyCuttingInTotal += item.QtyCuttingIn;
+            }
         }
         return qtyCuttingInTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtyCuttingOutTotal()
-    {
-        var qtyCuttingOutTotal=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            qtyCuttingOutTotal += item.QtyCuttingOut;
-        }
+    get QtyCuttingOutTotal() {
+        var qtyCuttingOutTotal = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                qtyCuttingOutTotal += item.QtyCuttingOut;
+            }
         }
         return qtyCuttingOutTotal.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get QtyCuttingTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyCuttingTransfer;
-        }
+    get QtyCuttingTransferTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyCuttingTransfer;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get QtyCuttingsubkonTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyCuttingsubkon;
-        }
+    get QtyCuttingsubkonTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyCuttingsubkon;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get AvalCuttingTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.AvalCutting;
-        }
+    get AvalCuttingTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.AvalCutting;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get AvalSewingTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.AvalSewing;
-        }
+    get AvalSewingTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.AvalSewing;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get AvalSewingTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.AvalSewing;
-        }
+    get AvalSewingTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.AvalSewing;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get EndBalancCuttingeQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalancCuttingeQty;
-        }
+    get EndBalancCuttingeQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalancCuttingeQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get BeginingBalanceLoadingQtyotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.BeginingBalanceLoadingQty;
-        }
+    get BeginingBalanceLoadingQtyotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.BeginingBalanceLoadingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get QtyLoadingInTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyLoadingIn;
-        }
+    get QtyLoadingInTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyLoadingIn;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtyLoadingInTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyLoadingInTransfer;
-        }
+    get QtyLoadingInTransferTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyLoadingInTransfer;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtyLoadingTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyLoading;
-        }
+    get QtyLoadingTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyLoading;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtyLoadingAdjsTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtyLoadingAdjs;
-        }
+    get QtyLoadingAdjsTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtyLoadingAdjs;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get EndBalanceLoadingQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalanceLoadingQty;
-        }
+    get EndBalanceLoadingQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalanceLoadingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get BeginingBalanceSewingQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.BeginingBalanceSewingQty;
-        }
+    get BeginingBalanceSewingQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.BeginingBalanceSewingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingInTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingIn;
-        }
+    get QtySewingInTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingIn;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get QtySewingOutTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingOut;
-        }
+    get QtySewingOutTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingOut;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingInTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingInTransfer;
-        }
+    get QtySewingInTransferTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingInTransfer;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingInTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingInTransfer;
-        }
+    get QtySewingInTransferTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingInTransfer;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get WipSewingOutTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.WipSewingOut;
-        }
+    get WipSewingOutTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.WipSewingOut;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get WipFinishingOutTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.WipFinishingOut;
-        }
+    get WipFinishingOutTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.WipFinishingOut;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingReturTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingRetur;
-        }
+    get QtySewingReturTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingRetur;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get QtySewingAdjTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.QtySewingAdj;
-        }
+    get QtySewingAdjTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.QtySewingAdj;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get EndBalanceSewingQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalanceSewingQty;
-        }
+    get EndBalanceSewingQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalanceSewingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get BeginingBalanceFinishingQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.BeginingBalanceFinishingQty;
-        }
+    get BeginingBalanceFinishingQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.BeginingBalanceFinishingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get FinishingInQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingInQty;
-        }
+    get FinishingInQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingInQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get BeginingBalanceSubconQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.BeginingBalanceSubconQty;
-        }
+    get BeginingBalanceSubconQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.BeginingBalanceSubconQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get SubconInQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.SubconInQty;
-        }
+    get SubconInQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.SubconInQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get SubconOutQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.SubconOutQty;
-        }
+    get SubconOutQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.SubconOutQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get EndBalanceSubconQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalanceSubconQty;
-        }
+    get EndBalanceSubconQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalanceSubconQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get FinishingOutQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingOutQty;
-        }
+    get FinishingOutQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingOutQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get FinishingInTransferQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingInTransferQty;
-        }
+    get FinishingInTransferQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingInTransferQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    get FinishingAdjQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingAdjQty;
-        }
+    get FinishingAdjQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingAdjQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get FinishingReturQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingReturQty;
-        }
+    get FinishingReturQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingReturQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get EndBalanceFinishingQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalanceFinishingQty;
-        }
+    get EndBalanceFinishingQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalanceFinishingQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get BeginingBalanceExpenditureGoodTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.BeginingBalanceExpenditureGood;
-        }
+    get BeginingBalanceExpenditureGoodTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.BeginingBalanceExpenditureGood;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get FinishingInExpenditureTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.FinishingInExpenditure;
-        }
+    get FinishingInExpenditureTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.FinishingInExpenditure;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get ExpenditureGoodInTransferTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.ExpenditureGoodInTransfer;
-        }
+    get ExpenditureGoodInTransferTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.ExpenditureGoodInTransfer;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get ExpenditureGoodReturTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.ExpenditureGoodRetur;
-        }
+    get ExpenditureGoodReturTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.ExpenditureGoodRetur;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get ExportQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.ExportQty;
-        }
+    get ExportQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.ExportQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get OtherQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.OtherQty;
-        }
+    get OtherQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.OtherQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get SampleQtyTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.SampleQty;
-        }
+    get SampleQtyTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.SampleQty;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get ExpenditureGoodAdjTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.ExpenditureGoodAdj;
-        }
+    get ExpenditureGoodAdjTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.ExpenditureGoodAdj;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    get EndBalanceExpenditureGoodTotal()
-    {
-        var sum=0;
-        if(this.data)
-        {
-        for(var item of this.data)
-        {
-            sum += item.EndBalanceExpenditureGood;
-        }
+    get EndBalanceExpenditureGoodTotal() {
+        var sum = 0;
+        if (this.data) {
+            for (var item of this.data) {
+                sum += item.EndBalanceExpenditureGood;
+            }
         }
         return sum.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+
+
+
 
     reset() {
         this.ro = null;
-        this.date  = null;
+        this.date = null;
         this.unit = null;
     }
 
-    
 
-    UnitItemChanged(newvalue){
+
+    UnitItemChanged(newvalue) {
         // console.log(newvalue);
         if (newvalue) {
             if (newvalue === "KONFEKSI 2A") {
@@ -748,17 +617,17 @@ export class List {
             else if (newvalue === "KONFEKSI 2C") {
                 this.unit = 47;
                 this.unitname = "KONFEKSI 2C";
-            }else if(newvalue === "KONFEKSI 1A"){
+            } else if (newvalue === "KONFEKSI 1A") {
                 this.unit = 51;
                 this.unitname = "KONFEKSI 1A";
-            }else if(newvalue === "KONFEKSI 1B"){
+            } else if (newvalue === "KONFEKSI 1B") {
                 this.unit = 52;
                 this.unitname = "KONFEKSI 1B";
-            }else{
+            } else {
                 this.unit = 0;
                 this.unitname = "";
             }
-        }else{
+        } else {
             this.unit = 0;
             this.unitname = "";
         }
