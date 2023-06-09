@@ -17,7 +17,7 @@ export class DataForm {
     @bindable selectedSubconCategory;
 
     ContractTypeOptions = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
-    SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+    SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING"];
     constructor(service) {
         this.service = service;
     }
@@ -36,7 +36,7 @@ export class DataForm {
     //         "Satuan",
     //         "Nilai CIF"
     //     ],
-    
+
     //     columnsSewing: [
     //         "Barang",
     //         "Jumlah",
@@ -45,14 +45,14 @@ export class DataForm {
 
     // }
 
-    columns= [
+    columns = [
         "Barang",
         "Jumlah",
         "Satuan",
         "CIF"
     ];
 
-    garmentColumns= [
+    garmentColumns = [
         "Barang",
         "Jumlah",
         "Satuan",
@@ -61,13 +61,13 @@ export class DataForm {
         "CIF"
     ];
 
-    Uomfilter={
-            'Unit=="MTR" || Unit=="PCS" || Unit=="SETS" || Unit == "YARD"': "true",
-        };
+    Uomfilter = {
+        'Unit=="MTR" || Unit=="PCS" || Unit=="SETS" || Unit == "YARD"': "true",
+    };
 
     controlOptions = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 7
@@ -76,13 +76,13 @@ export class DataForm {
 
     controlOptions2 = {
         label: {
-            length:3
+            length: 3
         },
         control: {
             length: 5
         }
     };
-    
+
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -93,16 +93,16 @@ export class DataForm {
             checkedAll: this.context.isCreate == true ? false : true,
             isEdit: this.isEdit,
             // isSubconCutting:this.data.SubconCategory == 'SUBCON CUTTING SEWING'? true:false,
-          };
-        this.isItems=false;
-        this.selectedContractType=this.data.ContractType;
-        this.selectedSubconCategory=this.data.SubconCategory;
-        if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
-            this.isItems=true;
+        };
+        this.isItems = false;
+        this.selectedContractType = this.data.ContractType;
+        this.selectedSubconCategory = this.data.SubconCategory;
+        if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON SEWING" || this.data.SubconCategory == "SUBCON JASA KOMPONEN") {
+            this.isItems = true;
         }
-        if(this.data.Items){
-            for(var item of this.data.Items){
-                item.ContractType=this.data.ContractType;
+        if (this.data.Items) {
+            for (var item of this.data.Items) {
+                item.ContractType = this.data.ContractType;
             }
         }
     }
@@ -121,8 +121,8 @@ export class DataForm {
     // }
 
     supplierView = (supplier) => {
-        var code= supplier.code || supplier.Code;
-        var name=supplier.name || supplier.Name;
+        var code = supplier.code || supplier.Code;
+        var name = supplier.name || supplier.Name;
         return `${code} - ${name}`;
     }
 
@@ -130,96 +130,96 @@ export class DataForm {
         return SupplierLoader;
     }
 
-    get JobType(){
+    get JobType() {
         return (this.data.JobType || "").toUpperCase();
     }
-    set JobType(value){
-        this.data.JobType=value.toUpperCase();
+    set JobType(value) {
+        this.data.JobType = value.toUpperCase();
     }
 
-    get BPJNo(){
+    get BPJNo() {
         return (this.data.BPJNo || "").toUpperCase();
     }
-    set BPJNo(value){
-        this.data.BPJNo=value.toUpperCase();
+    set BPJNo(value) {
+        this.data.BPJNo = value.toUpperCase();
     }
-    
-    get FinishedGoodType(){
+
+    get FinishedGoodType() {
         return (this.data.FinishedGoodType || "").toUpperCase();
     }
-    set FinishedGoodType(value){
-        this.data.FinishedGoodType=value.toUpperCase();
+    set FinishedGoodType(value) {
+        this.data.FinishedGoodType = value.toUpperCase();
     }
-    
-    get AgreementNo(){
+
+    get AgreementNo() {
         return (this.data.AgreementNo || "").toUpperCase();
     }
-    set AgreementNo(value){
-        this.data.AgreementNo=value.toUpperCase();
+    set AgreementNo(value) {
+        this.data.AgreementNo = value.toUpperCase();
     }
-    
+
     // get ContractNo(){
     //     return (this.data.ContractNo || "").toUpperCase();
     // }
-    set ContractNo(value){
-        this.data.ContractNo=value.toUpperCase();
-    }
-    
-    get SKEPNo(){
-        return (this.data.SKEPNo || "").toUpperCase();
-    }
-    set SKEPNo(value){
-        this.data.SKEPNo=value.toUpperCase();
+    set ContractNo(value) {
+        this.data.ContractNo = value.toUpperCase();
     }
 
-    selectedContractTypeChanged(newValue){
-        if(this.data.ContractType!=newValue){
-            this.data.ContractType=newValue;
-            if(this.data.Items){
+    get SKEPNo() {
+        return (this.data.SKEPNo || "").toUpperCase();
+    }
+    set SKEPNo(value) {
+        this.data.SKEPNo = value.toUpperCase();
+    }
+
+    selectedContractTypeChanged(newValue) {
+        if (this.data.ContractType != newValue) {
+            this.data.ContractType = newValue;
+            if (this.data.Items) {
                 this.data.Items.splice(0);
             }
-            if(this.data.ContractType=="SUBCON GARMENT"){
-                this.SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+            if (this.data.ContractType == "SUBCON GARMENT") {
+                this.SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING"];
             }
-            else if(this.data.ContractType=="SUBCON BAHAN BAKU"){
-                this.SubconCategoryTypeOptions=["SUBCON BB SHRINKAGE/PANEL","SUBCON BB FABRIC WASH/PRINT"];
+            else if (this.data.ContractType == "SUBCON BAHAN BAKU") {
+                this.SubconCategoryTypeOptions = ["SUBCON BB SHRINKAGE/PANEL", "SUBCON BB FABRIC WASH/PRINT"];
             }
-            else if(this.data.ContractType=="SUBCON JASA"){
-                this.SubconCategoryTypeOptions=["SUBCON JASA GARMENT WASH","SUBCON JASA KOMPONEN"];
+            else if (this.data.ContractType == "SUBCON JASA") {
+                this.SubconCategoryTypeOptions = ["SUBCON JASA GARMENT WASH", "SUBCON JASA KOMPONEN", "SUBCON JASA BARANG JADI"];
             }
         }
 
         // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
-        
+
     }
 
-    selectedSubconCategoryChanged(newValue){
-        if(newValue!=this.data.SubconCategory){
-            this.data.SubconCategory=newValue;
-            if(this.data.Items){
+    selectedSubconCategoryChanged(newValue) {
+        if (newValue != this.data.SubconCategory) {
+            this.data.SubconCategory = newValue;
+            if (this.data.Items) {
                 this.data.Items.splice(0);
             }
-            if(this.data.SubconCategory=="SUBCON CUTTING SEWING"||this.data.SubconCategory=="SUBCON SEWING" || this.data.SubconCategory=="SUBCON JASA KOMPONEN"){
-                this.isItems=true;
+            if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON SEWING" || this.data.SubconCategory == "SUBCON JASA KOMPONEN") {
+                this.isItems = true;
             }
-            else{
-                this.isItems=false;
+            else {
+                this.isItems = false;
             }
             // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"? true:false;
         }
-        
+
     }
 
     get addItems() {
         return (event) => {
-          this.data.Items.push({ContractType: this.data.ContractType});
+            this.data.Items.push({ ContractType: this.data.ContractType });
         };
-      }
-    
-      get removeItems() {
+    }
+
+    get removeItems() {
         return (event) => {
-          this.error = null;
+            this.error = null;
         };
-      }
-    
+    }
+
 }

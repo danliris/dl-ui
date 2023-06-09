@@ -1,46 +1,31 @@
 <template>
-  <au-input-form 
-        title.bind="title" 
-        with.bind="context">
+    <au-input-form title.bind="title" with.bind="context">
 
         <div slot="actions" class="btn-group">
-            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
-            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
-            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-default" click.delegate="context.cancel($event)"
+                if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"
+                if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)"
+                if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)"
+                if.one-way="context.hasDelete">Hapus</button>
         </div>
-        <au-checkbox label="Apakah BCDL?" value.bind="data.isBCDL" change.delegate="isBCDLChanged($event)" 
-        read-only.bind="readOnly ||isEdit" options.bind="controlOptions">
-    </au-checkbox>
-    <au-autocomplete 
-            value.bind="beacukai" 
-            error.bind="error.beacukaiNo" 
-            label="Data BC" 
-            loader.bind="customsLoader"
-            placeholder="Pilih BC" 
-            read-only.bind="readOnlyNoBCDL" 
-            show.bind="showCustoms"
-            text.bind="customsView"
-            view-model.ref="beacukaiAU"
-            options.bind="controlOptions">
-        </au-autocomplete>  
-        <au-textbox 
-            label="Nomor Bea Cukai" 
-            value.bind="data.beacukaiNo"
-            error.bind="error.beacukaiNo"
-            read-only.bind="readOnlyBCDL "
-            options.bind="controlOptions">
+        <au-checkbox label="Apakah BCDL?" value.bind="data.isBCDL" change.delegate="isBCDLChanged($event)"
+            read-only.bind="readOnly ||isEdit" options.bind="controlOptions">
+        </au-checkbox>
+        <au-autocomplete value.bind="beacukai" error.bind="error.beacukaiNo" label="Data BC" loader.bind="customsLoader"
+            placeholder="Pilih BC" read-only.bind="readOnlyNoBCDL" show.bind="showCustoms" text.bind="customsView"
+            view-model.ref="beacukaiAU" options.bind="controlOptions">
+        </au-autocomplete>
+        <au-textbox label="Nomor Bea Cukai" value.bind="data.beacukaiNo" error.bind="error.beacukaiNo"
+            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
         </au-textbox>
-        
-        <au-dropdown
-            label="Tipe Bea Cukai"
-            value.bind="selectedCustomType"
-            error.bind="error.customType"
-            read-only.bind="readOnlyBCDL "
-            items.bind="typeCustoms"
-            options.bind="controlOptions">
+
+        <au-dropdown label="Tipe Bea Cukai" value.bind="selectedCustomType" error.bind="error.customType"
+            read-only.bind="readOnlyBCDL " items.bind="typeCustoms" options.bind="controlOptions">
         </au-dropdown>
-<!--    
+        <!--    
         <au-textbox 
             label="Asal Bea Cukai" 
             value.bind="data.customsOrigin"
@@ -48,22 +33,14 @@
             options.bind="controlOptions">
         </au-textbox> -->
 
-        <au-datepicker  
-            label="Tanggal Bea Cukai" 
-            value.bind="data.beacukaiDate"
-            error.bind="error.beacukaiDate" 
-            read-only.bind="readOnlyBCDL "
-            options.bind="controlOptions">
-        </au-datepicker >
+        <au-datepicker label="Tanggal Bea Cukai" value.bind="data.beacukaiDate" error.bind="error.beacukaiDate"
+            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+        </au-datepicker>
 
-        <au-datepicker  
-            label="Tanggal Kedatangan Barang" 
-            value.bind="data.arrivalDate"
-            error.bind="error.arrivalDate" 
-            read-only.bind="readOnlyBCDL "
-            options.bind="controlOptions">
-        </au-datepicker >
-<!-- 
+        <au-datepicker label="Tanggal Kedatangan Barang" value.bind="data.arrivalDate" error.bind="error.arrivalDate"
+            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+        </au-datepicker>
+        <!-- 
         <au-datepicker 
             label="Tanggal Pengesahan" 
             value.bind="data.validationDate"
@@ -72,48 +49,43 @@
             options.bind="controlOptions">
         </au-datepicker > -->
 
-        <au-autocomplete 
-            value.bind="data.supplier" 
-            error.bind="error.supplier" 
-            label="Supplier" 
-            loader.bind="supplierLoader"
-            placeholder="Cari Supplier" 
-            read-only.bind="readOnly || isEdit" 
-            change.delegate="supplierChange($event)" 
-            text.bind="supplierView"
-            options.bind="controlOptions">
+
+
+
+        <au-autocomplete value.bind="data.supplier" error.bind="error.supplier" label="Supplier"
+            loader.bind="supplierLoader" placeholder="Cari Supplier" read-only.bind="readOnly || isEdit"
+            change.delegate="supplierChange($event)" text.bind="supplierView" options.bind="controlOptions">
         </au-autocomplete>
 
-            <!--text.bind="textFormatter"-->
-        <au-numeric  
-            label="Jumlah Kemasan" 
-            value.bind="data.packagingQty"
-            error.bind="error.packagingQty"
-            read-only.bind="readOnly"
-            options.bind="controlOptions">
+        <au-autocomplete value.bind="selectedContract" error.bind="error.SubconContractId" label="No Subcon Contract"
+            loader.bind="contractLoader" text="ContractNo" query.bind="contractFilter" placeholder="subcon contract"
+            read-only.bind="readOnly|| isEdit" options.bind="controlOptions"
+            if.bind="data.customType == 'BC 262' || data.customType == 'BC 27'">
+        </au-autocomplete>
+
+        <div class="form-group has-error" if.bind="DueDate">
+            <p class="help-block text-center"><b>Tanggal Jatuh Tempo Tinggal ${warningDueDate} Hari</b></p>
+        </div>
+
+        <au-numeric label="Qty Contract" value.bind="data.QuantityContract" error.bind="error.QuantityContract"
+            read-only.bind="true" options.bind="controlOptions"
+            if.bind="data.customType == 'BC 262' || data.customType == 'BC 27'">
         </au-numeric>
 
-        <au-textbox 
-            label="Kemasan" 
-            value.bind="data.packaging"
-            error.bind="error.packaging"
-            read-only.bind="readOnly"
+        <!--text.bind="textFormatter"-->
+        <au-numeric label="Jumlah Kemasan" value.bind="data.packagingQty" error.bind="error.packagingQty"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-numeric>
+
+        <au-textbox label="Kemasan" value.bind="data.packaging" error.bind="error.packaging" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-numeric  
-            label="Bruto (Kg)" 
-            value.bind="data.bruto"
-            error.bind="error.bruto"
-            read-only.bind="readOnly"
+        <au-numeric label="Bruto (Kg)" value.bind="data.bruto" error.bind="error.bruto" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-numeric>
 
-        <au-numeric  
-            label="Netto (Kg)" 
-            value.bind="data.netto"
-            error.bind="error.netto"
-            read-only.bind="readOnly"
+        <au-numeric label="Netto (Kg)" value.bind="data.netto" error.bind="error.netto" read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-numeric>
 
@@ -131,18 +103,11 @@
             options.bind="controlOptions">
         </au-autocomplete>-->
 
-        <au-autocomplete
-            label="Mata Uang"
-            value.bind="data.currency"
-            error.bind="error.currency"
-            loader.bind="currencyLoader"
-            read-only.bind="readOnly || isEdit"
-            change.delegate="currencyChange($event)"
-            text.bind="currencyView"
-            show.bind="data.supplier && data.beacukaiNo"
-            options.bind="controlOptions"     
-          ></au-autocomplete>
-            <!--item-template="modules/garment-purchasing/customs/template/currency"-->
+        <au-autocomplete label="Mata Uang" value.bind="data.currency" error.bind="error.currency"
+            loader.bind="currencyLoader" read-only.bind="readOnly || isEdit" change.delegate="currencyChange($event)"
+            text.bind="currencyView" show.bind="data.supplier && data.beacukaiNo"
+            options.bind="controlOptions"></au-autocomplete>
+        <!--item-template="modules/garment-purchasing/customs/template/currency"-->
 
         <!--<au-numeric  
             label="Total Nominal" 
@@ -150,29 +115,18 @@
             read-only.bind="true"
             options.bind="controlOptions">
         </au-numeric>-->
-        
-        <au-dropdown
-            label="Keterangan Nilai Import"
-            value.bind="data.importValue"
-            error.bind="error.importValue"
-            read-only.bind="readOnlyBCDL "
-            items.bind="importValueBC23"
-            options.bind="controlOptions"
-            show.bind="data.IsBC23"    
-        >
+
+        <au-dropdown label="Keterangan Nilai Import" value.bind="data.importValue" error.bind="error.importValue"
+            read-only.bind="readOnlyBCDL " items.bind="importValueBC23" options.bind="controlOptions"
+            show.bind="data.IsBC23">
         </au-dropdown>
 
         <au-layout error.bind="item"></au-layout>
-        <au-collection 
-            title="Surat Jalan"
-            items.bind="data.deliveryOrders"
-            errors.bind="error.deliveryOrders" 
-            columns.bind="deliveryOrderColumns"
-            options.bind="options"
-            read-only.bind="true" 
+        <au-collection title="Surat Jalan" items.bind="data.deliveryOrders" errors.bind="error.deliveryOrders"
+            columns.bind="deliveryOrderColumns" options.bind="options" read-only.bind="true"
             item-template="modules/garment-purchasing/customs/template/delivery-order"
             header-template="modules/garment-purchasing/customs/template/delivery-order-header"
             footer-template="modules/garment-purchasing/customs/template/delivery-order-footer">
         </au-collection>
-  </au-input-form>
+    </au-input-form>
 </template>

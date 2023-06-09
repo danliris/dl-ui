@@ -44,6 +44,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    getDeliveryLetterOutByID(id) {
+        var endpoint = `${DLserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
     getSubconContractByID(id) {
         var endpoint = `${subconContractUri}/${id}`;
         return super.get(endpoint);

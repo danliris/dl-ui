@@ -1,17 +1,18 @@
 import { bindable, inject, containerless, computedFrom, BindingEngine } from "aurelia-framework";
 import { BindingSignaler } from 'aurelia-templating-resources';
-import { Service } from "./service";
+import { Service, GarmentService } from "./service";
 import moment from 'moment';
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var CustomsLoader = require('../../../loader/garment-customs-by-no-loader');
+const ContractLoader = require('../../../loader/garment-subcon-contract-loader');
 
 @containerless()
-@inject(Service, BindingSignaler, BindingEngine)
+@inject(Service, BindingSignaler, BindingEngine, GarmentService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable readOnlyBCDL = true;
-    @bindable readOnlyNoBCDL=false;
+    @bindable readOnlyNoBCDL = false;
     @bindable options = { readOnly: false };
     @bindable hasView = false;
     @bindable data = {};
@@ -20,8 +21,11 @@ export class DataForm {
     @bindable item;
     @bindable beacukai;
     @bindable selectedCustomType;
-    typeCustoms = ["","BC 262", "BC 23","BC 40", "BC 27"]
-    importValueBC23=[
+    @bindable selectedContract;
+    @bindable selectedContract;
+    @bindable DueDate;
+    typeCustoms = ["", "BC 262", "BC 23", "BC 40", "BC 27"]
+    importValueBC23 = [
         "EXW",
         "FCA",
         "FAS",
@@ -35,10 +39,11 @@ export class DataForm {
         "DDP"
     ]
 
-    constructor(service, bindingSignaler, bindingEngine) {
+    constructor(service, bindingSignaler, bindingEngine, garmentService) {
         this.service = service;
         this.signaler = bindingSignaler;
         this.bindingEngine = bindingEngine;
+        this.garmentService = garmentService;
     }
     @computedFrom("data.Id")
     get isEdit() {
@@ -53,81 +58,83 @@ export class DataForm {
         }
     }
 
-    get dataAmount(){
+    get dataAmount() {
         this.amount = this.amount || 0;
         return this.amount;
     }
     async beacukaiChanged(newValue, oldValue) {
         var selectedBeacukai = newValue;
-       
+
         if (selectedBeacukai) {
             if (selectedBeacukai.BCId) {
                 this.data.beacukaiNo = selectedBeacukai.BCNo;
                 this.data.beacukaiDate = selectedBeacukai.TglBCNo;
                 this.data.customType = selectedBeacukai.JenisBC;
                 this.selectedCustomType = selectedBeacukai.JenisBC;
-                this.data.billNo=selectedBeacukai.BCId;
+                this.data.billNo = selectedBeacukai.BCId;
                 this.data.arrivalDate = selectedBeacukai.Hari;
                 this.data.netto = selectedBeacukai.Netto;
                 this.data.bruto = selectedBeacukai.Bruto;
-                this.context.beacukaiAU.editorValue="";
-            }else {
+                this.context.beacukaiAU.editorValue = "";
+
+            } else {
                 this.data.beacukaiDate = null;
                 this.data.beacukaiNo = null;
-                this.data.customType=null;
+                this.data.customType = null;
                 this.selectedCustomType = null;
-                this.data.billNo="";
+                this.data.billNo = "";
                 this.data.arrivalDate = null;
                 this.data.netto = 0;
                 this.data.bruto = 0;
+                this.DueDate = null;
             }
-        //     if (oldValue) {
-        //         this.data.beacukaiDate = null;
-        //         this.data.beacukaiNo = null;
-        //         this.data.customType=null;
-        //         this.data.billNo="";
-        //     }
-        // } else {
-        //     this.data.beacukaiDate = null;
-        //     this.data.beacukaiNo = null;
-        //     this.data.customType=null;
-        //     this.data.billNo="";
+            //     if (oldValue) {
+            //         this.data.beacukaiDate = null;
+            //         this.data.beacukaiNo = null;
+            //         this.data.customType=null;
+            //         this.data.billNo="";
+            //     }
+            // } else {
+            //     this.data.beacukaiDate = null;
+            //     this.data.beacukaiNo = null;
+            //     this.data.customType=null;
+            //     this.data.billNo="";
         }
+
     }
     isBCDLChanged(e) {
         var selectedisBCDL = e.srcElement.checked || false;
-      
-       if(selectedisBCDL == true)
-       {
-         
-            this.beacukai={};
-            this.readOnlyBCDL=false;
-            this.readOnlyNoBCDL=true;
+
+        if (selectedisBCDL == true) {
+
+            this.beacukai = {};
+            this.readOnlyBCDL = false;
+            this.readOnlyNoBCDL = true;
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
-            this.data.customType=undefined;
+            this.data.customType = undefined;
             this.selectedCustomType = undefined;
-            this.data.arrivalDate =undefined;
-       }else
-       {
-            this.beacukai={};
-            this.readOnlyBCDL=true;
-            this.readOnlyNoBCDL=false;
+            this.data.arrivalDate = undefined;
+        } else {
+            this.beacukai = {};
+            this.readOnlyBCDL = true;
+            this.readOnlyNoBCDL = false;
             this.data.beacukaiDate = undefined;
             this.data.beacukaiNo = undefined;
-            this.data.customType=undefined;
+            this.data.customType = undefined;
             this.selectedCustomType = undefined;
-            this.data.arrivalDate =undefined;
-       }
+            this.data.arrivalDate = undefined;
+        }
     }
     bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.selectedCustomType = this.context.data.customType;
+        this.selectedContract = this.data.SubconContractNo;
         this.error = this.context.error;
         this.hasView = this.context.hasView ? this.context.hasView : false;
         this.deliveryOrderColumns = this.hasView ? [
-            
+
             { header: "No Surat Jalan", value: "no" },
             { header: "Tanggal Surat Jalan", value: "supplierDate" },
             { header: "Tanggal Datang Barang", value: "date" },
@@ -141,94 +148,92 @@ export class DataForm {
             { header: "Total Jumlah", value: "quantity" },
             { header: "Total Harga", value: "price" }
         ]
-      
-        if(this.data.Id)
-        {
-           
-            var a;
-            for(var i of this.data.deliveryOrders)
-            {
-                a=i.isView;break;
-            }
-           
-            if(a===true)
-            {
-                this.options.hasView=true;
-            }else
-            {
 
-                this.options.hasView=false;
+        if (this.data.Id) {
+
+            var a;
+            for (var i of this.data.deliveryOrders) {
+                a = i.isView; break;
             }
-            if(this.data.billNo.includes("BP"))
-            { this.data.isBCDL=false;
-                this.readOnlyBCDL=true;
-                
+
+            if (a === true) {
+                this.options.hasView = true;
+            } else {
+
+                this.options.hasView = false;
             }
-            else
-            {
-                this.showCustoms=false;
-                this.readOnlyBCDL=false;
-                this.data.isBCDL=true; 
+            if (this.data.billNo.includes("BP")) {
+                this.data.isBCDL = false;
+                this.readOnlyBCDL = true;
+
             }
-        }else
-        {
-            this.options.hasView=true;
-            this.showCustoms=true;
+            else {
+                this.showCustoms = false;
+                this.readOnlyBCDL = false;
+                this.data.isBCDL = true;
+            }
+        } else {
+            this.options.hasView = true;
+            this.showCustoms = true;
         }
+
+        this.today = moment(new Date()).format("YYYY-MM-DD");
     }
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
     }
-    deliveryOrderColumns = [] 
+    deliveryOrderColumns = []
 
-    get supplierLoader(){
+    get supplierLoader() {
         return SupplierLoader;
     }
 
-    get currencyLoader(){
+    get currencyLoader() {
         return CurrencyLoader;
     }
-    get customsLoader(){
+    get customsLoader() {
         return CustomsLoader;
     }
 
 
-    get isSupplier(){
+    get isSupplier() {
         return this.data && this.data.supplierId && this.data.supplierId !== '';
     }
 
-    valueChange(e){
+    valueChange(e) {
     }
     customsView = (customs) => {
-       if(customs.BCNo)
-    //    return `${customs.BCNo} - ${customs.JenisBC}- ${customs.TglBCNo.toString()}`;
-       return `${customs.BCNo} - ${customs.JenisBC}- ${moment(customs.TglBCNo).format("YYYY-MM-DD")}`;
+        if (customs.BCNo)
+            //    return `${customs.BCNo} - ${customs.JenisBC}- ${customs.TglBCNo.toString()}`;
+            return `${customs.BCNo} - ${customs.JenisBC}- ${moment(customs.TglBCNo).format("YYYY-MM-DD")}`;
     }
     currencyView = (currency) => {
-        if(this.data.Id)
-        {
+        if (this.data.Id) {
             return currency.Code
-        }else
-        {
+        } else {
             return currency.code
         }
     }
     supplierView = (supplier) => {
-        if(this.data.Id)
-        {
+        if (this.data.Id) {
             return `${supplier.Code} - ${supplier.Name}`
-        }else
-        {
+        } else {
             return `${supplier.code} - ${supplier.name}`
         }
     }
 
+
+
+
     supplierChange(e) {
-        if (this.data.supplier && this.data.supplier._id){
+        if (this.data.supplier && this.data.supplier._id) {
             this.data.supplierId = this.data.supplier._id;
+
+
+
         }
-        else{
+        else {
             delete this.data.supplierId;
         }
         this.data.deliveryOrders = [];
@@ -236,28 +241,28 @@ export class DataForm {
         this.data.currency = {};
     }
 
-    async currencyChange(e){
+    async currencyChange(e) {
         this.data.deliveryOrders = [];
-      
-        if (this.data.currency && this.data.currency.Id){
+
+        if (this.data.currency && this.data.currency.Id) {
             this.data.currencyId = this.data.currency.Id;
-            if(!this.hasView){
-                var result = await this.service.searchDeliveryOrder({ "supplier" : `${this.data.supplier.Id}`, "currency" : `${this.data.currency.code}`, "billNo" : this.data.billNo });
+            if (!this.hasView) {
+                var result = await this.service.searchDeliveryOrder({ "supplier": `${this.data.supplier.Id}`, "currency": `${this.data.currency.code}`, "billNo": this.data.billNo });
                 var dataDelivery = [];
-              
-                for(var a of result.data){
+
+                for (var a of result.data) {
                     var data = a;
                     data["selected"] = false;
-                    data["doNo"]=a.doNo;
-                    data["doId"]=a.Id;
-                    data["doDate"]=a.doDate;
-                    data["arrivalDate"]=a.arrivalDate;
-                    
+                    data["doNo"] = a.doNo;
+                    data["doId"] = a.Id;
+                    data["doDate"] = a.doDate;
+                    data["arrivalDate"] = a.arrivalDate;
+
                     data["isView"] = !this.hasView ? true : false
                     var quantity = 0;
                     var totPrice = 0;
-                    for(var b of a.items){
-                        for(var c of b.fulfillments){
+                    for (var b of a.items) {
+                        for (var c of b.fulfillments) {
                             quantity += c.doQuantity;
                             var priceTemp = c.doQuantity * c.pricePerDealUnit;
                             totPrice += priceTemp;
@@ -270,18 +275,75 @@ export class DataForm {
                 this.data.deliveryOrders = dataDelivery;
             }
         }
-        else{
+        else {
             delete this.data.currencyId;
         }
     }
-    selectedCustomTypeChanged(o,n){
+    selectedCustomTypeChanged(o, n) {
         // console.log(n);
         // console.log(o);
         this.data.customType = o;
-        if(o =="BC 23")
-            this.data.IsBC23 =true;
+        if (o == "BC 23")
+            this.data.IsBC23 = true;
         else
             this.data.IsBC23 = false;
-            this.data.importValue = null;
+        this.data.importValue = null;
+    }
+
+    contractView = (contract) => {
+        return `${contract.ContractNo}`;
+    }
+
+    get contractLoader() {
+        return ContractLoader;
+    }
+
+    get contractFilter() {
+        if (this.data.supplier) {
+            var filter = {
+                IsUsed: true,
+                SupplierCode: this.data.supplier.code
+            };
+
+            filter[`DueDate >= ${JSON.stringify(this.today)} `] = true;
+            return filter;
+        }
+    }
+
+    get warningDueDate() {
+        var selisih = "";
+        if (this.DueDate) {
+            var dueDatee = moment(this.DueDate);
+            dueDatee.add(7, "h");
+
+            selisih = dueDatee.diff(this.today, 'days').toString();
+        }
+        return selisih;
+    }
+
+    async selectedContractChanged(newValue) {
+        if (newValue) {
+            this.data.SubconContractId = newValue.Id;
+            this.data.SubconContractNo = newValue.ContractNo;
+            this.data.FinishedGoodType = newValue.FinishedGoodType;
+            this.DueDate = newValue.DueDate;
+
+            //GetQuantityFromCustomsIn with same Contract ID
+            const dataCusIN = await this.service.search({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+            var QtyCustomIn = 0
+
+            dataCusIN.data.forEach(item => {
+                QtyCustomIn += item.QuantityContract;
+            });
+
+            //GetQuantityFromCustomsOutSubcok with same Contract ID
+            const dataCusOUT = await this.garmentService.searchCustomsComplete({ filter: JSON.stringify({ SubconContractId: newValue.Id }) });
+            const dataJumlahCustomsOut = dataCusOUT.data.map(x => {
+                return x.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
+            });
+
+            const QtyCustomOut = dataJumlahCustomsOut.reduce((acc, cur) => acc += cur, 0);
+            this.data.QuantityContract = QtyCustomOut - QtyCustomIn;
+        }
     }
 }
