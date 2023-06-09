@@ -9,10 +9,10 @@ const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
 const serviceUriUnitReceiptNotes = 'garment-delivery-orders/isReceived';
 const serviceUriPOMasterDistributions = 'garment-po-master-distributions';
 
-export class Service extends RestService {
+class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config,  "purchasing-azure");
+        super(http, aggregator, config, "purchasing-azure");
     }
 
     search(info) {
@@ -47,20 +47,20 @@ export class Service extends RestService {
 
     searchDeliveryOrder(info) {
         var endpoint = `${deliveryOrderForCustoms}`;
-        
+
         var filter = {
-                    "supplierId" : info.supplier ? info.supplier : "",
-                     "docurrencycode" : info.currency ? info.currency : ""
-                    };
+            "supplierId": info.supplier ? info.supplier : "",
+            "docurrencycode": info.currency ? info.currency : ""
+        };
         var arc = {
-                filter : JSON.stringify(filter),
-                select : ["doNo","doDate","arrivalDate","items"],
-                size: 200,
-                billNo : info.billNo || ""
-            }
+            filter: JSON.stringify(filter),
+            select: ["doNo", "doDate", "arrivalDate", "items"],
+            size: 200,
+            billNo: info.billNo || ""
+        }
         return super.list(endpoint, arc);
     }
-   
+
     isCreatedOfUnitReceiptNotes(Id) {
         let a = "";
         for (const i of Id) {
@@ -75,3 +75,17 @@ export class Service extends RestService {
         return super.list(endpoint, info);
     }
 }
+
+const customsOutUri = 'subcon-customs-outs';
+class GarmentService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "garment-production");
+    }
+
+    searchCustomsComplete(info) {
+        var endpoint = `${customsOutUri}/complete`;
+        return super.list(endpoint, info);
+    }
+}
+
+export { Service, GarmentService }

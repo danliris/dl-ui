@@ -3,10 +3,11 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'subcon-delivery-letter-outs';
 const subconContractServiceUri = 'subcon-contracts';
 const SubconCuttingOutServiceUri = 'subcon-cutting-outs';
-const ServiceSubconCuttingUri='service-subcon-cuttings';
-const ServiceSubconSewingUri='service-subcon-sewings';
+const ServiceSubconCuttingUri = 'service-subcon-cuttings';
+const ServiceSubconSewingUri = 'service-subcon-sewings';
 const ServiceSubconFabricUri = 'service-subcon-fabric-washes';
 const ServiceSubconShrinkageUri = 'service-subcon-shrinkage-panels';
+const SubconExpenditureGoodUri = 'service-subcon-expenditure-good';
 const serviceUriSewIn = 'sewing-ins';
 const serviceUriSewInByRo = 'sewing-ins/get-by-ro';
 
@@ -64,7 +65,12 @@ class Service extends RestService {
         var endpoint = `${ServiceSubconSewingUri}/${id}`;
         return super.get(endpoint);
     }
-  
+
+    readServiceSubconExpenditureGoodById(id) {
+        var endpoint = `${SubconExpenditureGoodUri}/${id}`;
+        return super.get(endpoint);
+    }
+
     readServiceSubconShrinkageById(id) {
         var endpoint = `${ServiceSubconShrinkageUri}/${id}`;
         return super.get(endpoint);
@@ -139,8 +145,8 @@ class PurchasingService extends RestService {
     getGarmentPR(info) {
         var endpoint = `${serviceUriPR}`;
         return super.list(endpoint, info);
-    } 
-    
+    }
+
 }
 const uomServiceUri = 'master/uoms';
 class CoreService extends RestService {
@@ -155,4 +161,4 @@ class CoreService extends RestService {
 }
 
 
-export { Service,PurchasingService, CoreService}
+export { Service, PurchasingService, CoreService }

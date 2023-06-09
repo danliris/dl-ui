@@ -15,9 +15,9 @@
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON GARMENT'"
-                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="true" items.bind="subconCategoryGarmentOptions"
-                        options.bind="controlOptions" show.bind="selectedContract">
+                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory" read-only.bind="true"
+                        items.bind="subconCategoryGarmentOptions" options.bind="controlOptions"
+                        show.bind="selectedContract">
                     </au-dropdown>
 
                     <!-- <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.SubconCategory"
@@ -25,15 +25,14 @@
                     </au-textbox> -->
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON BAHAN BAKU'"
-                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="true" items.bind="subconCategoryBBOptions"
-                        options.bind="controlOptions" show.bind="selectedContract">
+                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory" read-only.bind="true"
+                        items.bind="subconCategoryBBOptions" options.bind="controlOptions" show.bind="selectedContract">
                     </au-dropdown>
 
                     <au-dropdown label="Kategori Subcon" if.bind="data.SubconType == 'SUBCON JASA'"
-                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory"
-                        read-only.bind="true" items.bind="subconCategoryServiceOptions"
-                        options.bind="controlOptions" show.bind="selectedContract">
+                        value.bind="selectedSubconCategory" error.bind="error.SubconCategory" read-only.bind="true"
+                        items.bind="subconCategoryServiceOptions" options.bind="controlOptions"
+                        show.bind="selectedContract">
                     </au-dropdown>
 
                     <au-textbox value.bind="data.CustomsOutNo" error.bind="error.CustomsOutNo" label="No BC Keluar"
@@ -70,20 +69,20 @@
                     <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.BPJNo" label="No BPJ">
                     </au-textbox>
 
-                    <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.FinishedGoodType"
-                        label="Jenis Barang Jadi">
+                    <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.JobType"
+                        label="Jenis Pekerjaan">
                     </au-textbox>
 
-                    <au-numeric options.bind="controlOptions" read-only="true" value.bind="dataSC.Quantity"
-                        label="Jumlah">
+                    <au-numeric options.bind="controlOptions" read-only="true" value.bind="data.Quantity"
+                        label="Jumlah Kontrak">
                     </au-numeric>
 
                     <au-datepicker options.bind="controlOptions" read-only="true" value.bind="dataSC.DueDate"
                         label="Tanggal Jatuh Tempo">
                     </au-datepicker>
 
-                    <au-numeric options.bind="controlOptions" read-only="true" value.bind="dataSC.RemainingQuantity"
-                        label="Qty Tersedia">
+                    <au-numeric options.bind="controlOptions" read-only="true" value.bind="data.RemainingQuantity"
+                        label="Sisa Qty Kontrak" if.bind="isView && isEdit">
                     </au-numeric>
 
                 </div>
