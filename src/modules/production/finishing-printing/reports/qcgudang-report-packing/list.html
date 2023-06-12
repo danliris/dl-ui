@@ -1,0 +1,69 @@
+<template>
+    <h1 class="page-header">Laporan Penyerahan Barang QC ke Gudang</h1>
+        <form class="form-horizontal">
+           <!--<kanban-auto-suggest            label="Nomor Order/Kereta"        value.bind="kanban"    ></kanban-auto-suggest>
+           <machine-auto-suggest           label="Mesin"	                  value.bind="machine"   ></machine-auto-suggest>
+           -->
+           <datepicker label="Tanggal Awal" value.bind="dateFrom" ></datepicker>
+           <datepicker label="Tanggal Akhir" value.bind="dateTo" ></datepicker> 
+           <div class="form-group">
+               <label for="contact" class="col-sm-6 control-label"></label>
+               <div class="col-sm-3">
+                  <button click.delegate="searching()" class='btn btn-success'>Cari</button> 
+                  <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+               </div>
+           </div> 
+           <div class="btn-group pull-left">
+               <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+           </div>
+       </form>
+   <br>
+       <table class="table table-bordered table-hover" border="1" id="myTable">
+           <thead align="center">
+              
+               <tr>
+                   <td>No</td>
+                   <td>Tanggal</td>
+                   <td>Total White</td>
+                   <td>Total Dyeing</td>
+                   <td>Total Printing</td>
+                </tr>
+           </thead>
+           <tbody>
+               <tr repeat.for="item of data">
+                <td class="text-center"> ${$index + 1}</td>    
+                <td class="text-center">${item.createdUtc  | dateFormat:'DD-MM-YYYY'}</td>
+                <td class="text-right">${item.inputQuantitySolid}</td>
+                <td class="text-right">${item.inputQuantityDyeing}</td>
+                <td class="text-right">${item.inputQuantityPrinting}</td>
+          
+
+   
+     
+               </tr>
+               <tr >
+                <td class="text-center"></td>  
+                   <td class="text-center"><b>Total</b></td>
+                   <td class="text-right"><b>${inputQuantitySolidtotals}</b></td>
+                   <td class="text-right"><b>${inputQuantityDyeingtotals}</b></td>
+                   <td class="text-right"><b>${inputQuantityPrintingtotals}</b></td>
+                 
+               </tr>
+               <tr >
+                <td class="text-center"> </td> 
+                   <td class="text-center"><b>Avg</b></td>
+                   <td class="text-right"><b>${ntotinputQuantitySolidtgl}</b></td>
+                   <td class="text-right"><b>${ntotinputQuantityDyeingtgl}</b></td>
+                   <td class="text-right"><b>${ntotinputQuantityPrintingtgl}</b></td>
+                  
+               </tr>
+              
+           </tbody>
+       </table>
+       <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+               Tidak ada data ditemukan.
+           </div>
+           <hr/>
+       </form>
+       
+   </template>
