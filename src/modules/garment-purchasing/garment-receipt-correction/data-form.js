@@ -70,7 +70,8 @@ export class DataForm {
                 "Konversi",
                 "Jumlah Kecil",
                 "Satuan Kecil",
-                "Design Color"
+                "Design Color",
+                "Warna"
             ]
         };
 
@@ -85,7 +86,8 @@ export class DataForm {
                 "Konversi",
                 "Jumlah Kecil",
                 "Satuan Kecil",
-                "Design Color"
+                "Design Color",
+                "Warna"
             ]
         };
         
@@ -120,40 +122,43 @@ export class DataForm {
     }
 
     
-    unitReceiptNoteChanged(newValue, oldValue) {
+    async unitReceiptNoteChanged(newValue, oldValue) {
         var selectedURN = newValue;
         if (selectedURN) {
+            var urn = await this.service.getURNByIdforCorrection(selectedURN.Id);
+            console.log("urn",urn);
             this.data.URNId = selectedURN.Id;
             this.data.URNNo = selectedURN.URNNo;
             this.data.Unit=selectedURN.Unit;
             this.data.Storage=selectedURN.Storage;
 
             this.data.Items=[];
-            for(var i of selectedURN.Items ){
+            for(var i of urn.Items ){
                 var item={};
-                item.Product={};
-                item.Product.Id=i.ProductId;
-                item.Product.Code=i.ProductCode;
-                item.Product.Name=i.ProductName;
-                item.ProductCode=i.ProductCode;
-                item.ProductId=i.ProductId;
-                item.ProductName=i.ProductName;
-                item.ProductRemark=i.ProductRemark.trim();
+                item.Product=i.Product;
+                // item.Product.Id=i.ProductId;
+                // item.Product.Code=i.ProductCode;
+                // item.Product.Name=i.ProductName;
+
+                item.ProductCode=i.Product.Code;
+                item.ProductId=i.Product.Id;
+                item.ProductName=i.Product.Name;
+                item.ProductRemark=i.Product.Remark.trim();
                 item.URNItemId = i.Id;
                 item.RONo = i.RONo;
                 item.OrderQuantity=i.OrderQuantity;
                 item.Quantity=i.ReceiptCorrection;
                 item.SmallQuantity=i.SmallQuantity;
-                item.UomId=i.UomId;
-                item.UomUnit=i.UomUnit;
+                item.UomId=i.Uom.Id;
+                item.UomUnit=i.Uom.Unit;
                 item.Conversion=i.CorrectionConversion;
                 item.DODetailId=i.DODetailId;
                 item.EPOItemId=i.EPOItemId;
                 item.POItemId=i.POItemId;
                 item.PRItemId=i.PRItemId;
                 item.POSerialNumber=i.POSerialNumber;
-                item.SmallUomId=i.SmallUomId;
-                item.SmallUomUnit=i.SmallUomUnit;
+                item.SmallUomId=i.SmallUom.Id;
+                item.SmallUomUnit=i.SmallUom.Unit;
                 item.PricePerDealUnit=i.PricePerDealUnit;
                 item.DesignColor=i.DesignColor;
                 item.leftOverQty=i.ReceiptCorrection-(i.OrderQuantity/i.CorrectionConversion);
@@ -161,6 +166,8 @@ export class DataForm {
                 item.IsSave=false;
                 item.QuantityCheck=item.leftOverQty;
                 item.CorrectionConversion=i.CorrectionConversion;
+                item.DOItemsId = i.DOItemsId;
+                item.Colour = i.Colour;
                 this.data.Items.push(item);
             }
 

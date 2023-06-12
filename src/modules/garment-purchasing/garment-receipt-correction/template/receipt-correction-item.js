@@ -21,12 +21,12 @@ export class GarmentReceiptCorrectionItem {
         }
 
         //ambil dr DOItems
-        var doItems= await this.service.getDOItemsById(this.data.URNItemId);
+        var doItems= await this.service.getDOItemsById(this.data.DOItemsId);
         this.data.leftOverQty=doItems.RemainingQuantity/this.data.Conversion;
 	}
 
 	get product() {
-		return `${this.data.Product.Code} - ${this.data.Product.Name}`;
+		return `${this.data.Product.Code} - ${this.data.Product.Name} - ${this.data.POSerialNumber}`;
     }
     
     changeCheckBox() {
