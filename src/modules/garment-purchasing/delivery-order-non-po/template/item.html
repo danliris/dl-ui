@@ -1,0 +1,42 @@
+<template>
+  <tr>
+    <td class="bg-primary">
+      <au-textbox value.bind="data.ProductRemark" error.bind="error.ProductRemark" read-only.bind="hasView"
+        options.bind="controlOptions">
+      </au-textbox>
+    </td>
+
+     <td class="bg-primary">
+      <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="hasView" format="0">
+      </au-numeric>
+    </td>
+
+   <td class="bg-primary">
+            <au-autocomplete
+                value.bind="data.uom"
+                error.bind="error.Uom"
+                loader.bind="uomLoader"
+                text.bind="uomView"
+                placeholder="cari satuan"
+                read-only.bind="hasView">
+            </au-autocomplete>
+        </td>
+        
+    <td class="bg-primary">
+      <au-numeric value.bind="data.Price" error.bind="error.Price" read-only.bind="hasView" format="0.0000">
+      </au-numeric>
+    </td>
+
+     <td class="bg-primary">
+        <au-autocomplete    placeholder="cari mata uang" value.bind="data.currency" error.bind="error.currency" loader.bind="currencyLoader" text.bind="currencyView"
+          key="code" read-only.bind="hasView" options.bind="controlOptions" >
+        </au-autocomplete>
+    </td>
+
+    <td if.bind="hasCreate || hasEdit ">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+    </td>
+
+  </tr>
+
+</template>
