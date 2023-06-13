@@ -394,24 +394,24 @@ module.exports = [{
     iconClass: "fa fa-dashboard"
   }
 },
-{
-  route: "weaving/warping-productions-report",
-  name: "warping-productions-report",
-  moduleId: "./modules/weaving/warping-productions-report/index",
-  nav: true,
-  title: "Laporan Produksi Warping Per Operator",
-  auth: true,
-  settings: {
-    group: "weaving",
-    // permission: {
-    //   W1: 1,
-    //   W2: 1,
-    //   "*": 1
-    // },
-    permission: { "M22": 1 },
-    iconClass: "fa fa-dashboard"
-  }
-},
+// {
+//   route: "weaving/warping-productions-report",
+//   name: "warping-productions-report",
+//   moduleId: "./modules/weaving/warping-productions-report/index",
+//   nav: true,
+//   title: "Laporan Produksi Warping Per Operator",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     // permission: {
+//     //   W1: 1,
+//     //   W2: 1,
+//     //   "*": 1
+//     // },
+//     permission: { "M22": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
 {
   route: "weaving/warping-broken-report",
   name: "warping-broken-report",
