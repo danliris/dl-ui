@@ -57,7 +57,9 @@ export class DataForm {
     // }
 
     filter[
-      `DueDate >= ${moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")} `
+      `DueDate >= ${JSON.stringify(
+        moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
+      )} `
     ] = true;
     return filter;
   }
