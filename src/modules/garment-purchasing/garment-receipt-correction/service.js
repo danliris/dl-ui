@@ -4,6 +4,8 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'garment-receipt-corrections';
 const URNServiceUri = 'garment-unit-receipt-notes';
+const DOItemsUri  = 'garment-do-items';
+
 
 export class Service extends RestService {
 
@@ -31,8 +33,19 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    // getDOItemsById(id) {
+    //     var endpoint = `${URNServiceUri}/do-items/${id}`;
+    //     return super.get(endpoint);
+    // }
+
     getDOItemsById(id) {
-        var endpoint = `${URNServiceUri}/do-items/${id}`;
+        var endpoint = `${DOItemsUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getURNByIdforCorrection(id) {
+        var endpoint = `${URNServiceUri}/for-correction/${id}`;
+        console.log("endpoint",endpoint);
         return super.get(endpoint);
     }
 

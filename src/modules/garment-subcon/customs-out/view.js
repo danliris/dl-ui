@@ -13,20 +13,13 @@ export class View {
     async activate(params) {
         let id = params.id;
         this.data = await this.service.read(id);
+
+        this.Items = this.data.Items;
+        this.data.Items = [];
         if (this.data) {
-            if(this.data.IsUsed){
-                this.deleteCallback=null;
-                this.editCallback=null;
-            }
-            this.selectedContract={
-                ContractNo: this.data.SubconContractNo,
-                Id:this.data.SubconContractId,
-            };
-            this.selectedSubconType=this.data.SubconType;
-            if (this.data.Items) {
-                for(var item of this.data.Items){
-                    item.IsSave=true;
-                }
+            if (this.data.IsUsed) {
+                this.deleteCallback = null;
+                this.editCallback = null;
             }
         }
     }
@@ -50,7 +43,7 @@ export class View {
                     }
                 })
     }
-    
+
     editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data.Id });
     }

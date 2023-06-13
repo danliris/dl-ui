@@ -10,7 +10,7 @@ module.exports = function (keyword, filter) {
   //   var order={
   //       "TglBCNo":"desc"
   //   };
-  console.log(keyword);
+  // console.log(keyword);
   return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(""), size: 10 })
     .then(results => {
       return results.data
