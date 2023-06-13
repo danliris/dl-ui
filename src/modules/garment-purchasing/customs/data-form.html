@@ -64,10 +64,10 @@
         </au-autocomplete>
 
         <div class="form-group has-error" if.bind="DueDate">
-            <p class="help-block text-center"><b>Tanggal Jatuh Tempo Tinggal ${warningDueDate} Hari</b></p>
+            <p class="help-block text-center"><b>Tanggal Jatuh Tempo Tinggal ${warningDueDate}</b></p>
         </div>
 
-        <au-numeric label="Qty Contract" value.bind="data.QuantityContract" error.bind="error.QuantityContract"
+        <au-numeric label="Qty Sisa di Supplier" value.bind="data.QuantityContract" error.bind="error.QuantityContract"
             read-only.bind="true" options.bind="controlOptions"
             if.bind="data.customType == 'BC 262' || data.customType == 'BC 27'">
         </au-numeric>
