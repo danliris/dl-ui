@@ -227,7 +227,7 @@ module.exports = [
             group: "g-purchasing",
             subGroup: "transaksi",
             // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
-            permission: { "H16": 1 },
+            permission: { "H62": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -462,50 +462,6 @@ module.exports = [
             subGroup: "transaksi",
             // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
             permission: { "H17": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-       {
-        route: '/garment/unit-delivery-order-by-user',
-        name: 'unit-receipt-note-by-user',
-        moduleId: './modules/garment-purchasing/unit-delivery-order-by-user/index',
-        nav: true,
-        title: 'Unit Delivery Order',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            subGroup: "transaksi",
-            // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
-            permission: { "H16": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },
-       {
-        route: '/garment/unit-delivery-order-by-user',
-        name: 'unit-receipt-note-by-user',
-        moduleId: './modules/garment-purchasing/unit-delivery-order-by-user/index',
-        nav: true,
-        title: 'Unit Delivery Order',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            subGroup: "transaksi",
-            // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
-            permission: { "H16": 1 },
-            iconClass: 'fa fa-dashboard'
-        }
-    },    {
-        route: '/garment/unit-delivery-order-by-user',
-        name: 'unit-receipt-note-by-user',
-        moduleId: './modules/garment-purchasing/unit-delivery-order-by-user/index',
-        nav: true,
-        title: 'Unit Delivery Order',
-        auth: true,
-        settings: {
-            group: "g-purchasing",
-            subGroup: "transaksi",
-            // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
-            permission: { "H16": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
