@@ -1,0 +1,72 @@
+<template>
+	<tr>
+		<td >
+			<au-autocomplete 
+                value.bind="selectedDL" 
+                error.bind="error.DLNo"
+				loader.bind="POType == 'DENGAN PO'? dlLoader : dlNonPOLoader" 
+                text.bind="dlView" 
+				query.bind="filter"
+                placeholder="No Surat Jalan"
+				read-only.bind="readOnly || (isEdit && data.Id)" 
+                options.bind="controlOptions">
+			</au-autocomplete>
+		</td>
+
+		<td >
+			<au-datepicker
+                value.bind="data.DLDate" 
+				read-only.bind="true"
+                options.bind="controlOptions">
+			</au-datepicker>
+		</td>
+
+		<td>
+			<au-textbox 
+                value.bind="data.productView"
+                read-only.bind="true"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+
+		<td>
+			<au-numeric 
+                value.bind="data.Quantity" 
+                read-only.bind="true"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
+
+		<td>
+			<au-textbox 
+                value.bind="data.Uom.Unit"
+                read-only.bind="true"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+		
+		<td>
+			<au-numeric 
+                value.bind="data.PricePerDealUnit" 
+                read-only.bind="true"
+                options.bind="controlOptions"
+				format = "0.00">
+			</au-numeric>
+		</td>
+
+		<td >
+			<au-numeric
+                value.bind="data.TotalPrice" 
+				format = "0.00"
+				read-only.bind="true"
+                options.bind="controlOptions">
+			</au-numeric>
+		</td>
+
+		<td if.bind="!readOnly" class="col-sm-1">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+		</td>
+	</tr>
+
+	
+</template>
