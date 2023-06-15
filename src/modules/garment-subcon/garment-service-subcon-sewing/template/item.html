@@ -7,7 +7,7 @@
         loader.bind="roLoader"
         text.bind="ROView" 
         placeholder="Nomor RO" 
-        read-only.bind="readOnly || isEdit"
+        read-only.bind="readOnly"
         options.bind="controlOptions" 
         view-model.ref="selectedROViewModel">
       </au-autocomplete>
@@ -24,24 +24,20 @@
     </td>
 
     <td class="bg-primary">
-      <au-autocomplete
-          value.bind="data.Unit"
-          error.bind="error.Unit"
-          loader.bind="unitLoader"
-          text.bind = "unitView"
-          placeholder="Cari Area"
-          read-only.bind="readOnly || isEdit"
-          options.bind="controlOptions">
-      </au-autocomplete>
+      <au-textbox
+      value.bind="data.Unitview" 
+      read-only="true">
+    </au-textbox>
     </td>
-    <td class="bg-primary">
+
+    <!-- <td class="bg-primary">
       <au-textbox 
         value.bind="data.BuyerView" 
-        label="Buyer" read-only="true" 
+        read-only="true" 
         if.bind="data.Buyer"
         options.bind="controlOptions">
       </au-textbox>
-    </td>
+    </td> -->
 
     <td class="bg-primary">
       <au-autocomplete 
@@ -53,7 +49,7 @@
         options.bind="controlOptions">
       </au-autocomplete>
     </td>
-    <td if.bind="isCreate">
+    <td if.bind="isCreate || isEdit">
       <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)" >-</button>
   </td>
   <td class="col-sm-1">
