@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Github Pages - dl-ui-migration
 on:
   push:
     branches:
-      - migration
+      - newMigration
 
 jobs:
   build-and-deploy:
