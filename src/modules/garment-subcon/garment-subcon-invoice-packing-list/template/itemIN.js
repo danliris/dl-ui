@@ -32,6 +32,7 @@ export class ItemIN {
 
       this.filter = {
         SupplierCode: this.data.Supplier != null ? this.data.Supplier.Code : "",
+        IsSubconInvoice: false,
       };
     } else {
       this.filter = {
@@ -39,6 +40,7 @@ export class ItemIN {
           this.data.Supplier.code == null
             ? this.data.Supplier.Code
             : this.data.Supplier.code,
+        IsSubconInvoice: false,
       };
     }
   }
