@@ -405,10 +405,23 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    // {
+    //     route: 'production/finishing-printing/reports/order-status-report',
+    //     name: 'order-status-report-production',
+    //     moduleId: './modules/production/finishing-printing/reports/order-status-report/index',
+    //     nav: true,
+    //     title: 'Laporan Status Order',
+    //     auth: true,
+    //     settings: {
+    //         group: "dyeing-printing",
+    //         permission: { "C21": 1},
+    //         iconClass: 'fa fa-dashboard'
+    //     }
+    // },
     {
         route: 'production/finishing-printing/reports/order-status-report',
         name: 'order-status-report-production',
-        moduleId: './modules/production/finishing-printing/reports/order-status-report/index',
+        moduleId: './modules/production/finishing-printing/reports/order-status-report-new/index',
         nav: true,
         title: 'Laporan Status Order',
         auth: true,
