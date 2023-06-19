@@ -4,6 +4,7 @@ import { Service, CoreService } from "./service";
 var SectionLoader = require('../../../loader/garment-sections-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 var LCLoader = require('../../../loader/garment-shipping-letter-of-credit');
+var ShippingStaffLoader = require('../../../loader/garment-shipping-staff-loader');
 
 @inject(Service, CoreService)
 export class DataForm {
@@ -272,22 +273,22 @@ export class DataForm {
             if (newValue == "DS") {
                 this.data.omzet = true;
                 this.data.accounting = true;
-                var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "DEDE" }) });
-                this.data.shippingStaffName = shippingStaff.data[0].Name;
-                this.data.shippingStaff = {
-                    id: shippingStaff.data[0].Id,
-                    name: shippingStaff.data[0].Name
-                };
+                // var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "DEDE" }) });
+                // this.data.shippingStaffName = shippingStaff.data[0].Name;
+                // this.data.shippingStaff = {
+                //     id: shippingStaff.data[0].Id,
+                //     name: shippingStaff.data[0].Name
+                // };
 
             } else {
                 this.data.omzet = false;
                 this.data.accounting = false;
-                var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "SYARIF" }) });
-                this.data.shippingStaffName = shippingStaff.data[0].Name;
-                this.data.shippingStaff = {
-                    id: shippingStaff.data[0].Id,
-                    name: shippingStaff.data[0].Name
-                };
+                // var shippingStaff = await this.coreService.getStaffIdByName({ size: 1, filter: JSON.stringify({ Name: "SYARIF" }) });
+                // this.data.shippingStaffName = shippingStaff.data[0].Name;
+                // this.data.shippingStaff = {
+                //     id: shippingStaff.data[0].Id,
+                //     name: shippingStaff.data[0].Name
+                // };
 
             }
         }
