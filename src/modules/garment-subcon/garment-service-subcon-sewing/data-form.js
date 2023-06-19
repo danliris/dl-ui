@@ -41,8 +41,8 @@ export class DataForm {
     columns: [
       "RO",
       "Article",
-      "Area",
-      "Buyer",
+      "Unit",
+      // "Buyer",
       "Komoditi",
       ""
     ]
