@@ -30,6 +30,13 @@ const serviceUri = "dp-input-warehouse";
         
     }
 
+    reject(data) {
+        var endpoint = `${serviceUri}/reject`;
+        console.log(data);
+        return super.post(endpoint, data);
+        
+    }
+
     getById(id) {
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
