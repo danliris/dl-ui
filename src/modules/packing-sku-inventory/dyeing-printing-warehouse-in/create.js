@@ -93,6 +93,51 @@ export class Create {
      console.log(this.data);
 
       this.service
+        .create(this.data)
+        .then((result) => {
+          alert("Data berhasil di Tolak");
+          this.router.navigateToRoute(
+            "create",
+            {},
+            { replace: true, trigger: true }
+          );
+        })
+        .catch((e) => {
+          if (e.statusCode == 500) {
+            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+          } else {
+            
+            this.error = e;
+
+            alert("Mohon Cek Data Kembali");
+            
+            //console.log(this.error.Items[0].SendQuantity);
+          }
+        });
+    }
+  }
+
+  reject() {
+    let errorIndex = 0;
+    this.error = {};
+
+    // if (
+    //   this.data.date === null ||
+    //   this.data.date === undefined ||
+    //   this.data.date === ""
+    // ) {
+    //   this.error.Date = "Tanggal Harus Diisi!";
+    //   errorIndex++;
+    // } else {
+    //   this.error.Date = "";
+    // }
+
+ 
+    if (errorIndex === 0) {
+      
+     console.log(this.data);
+
+      this.service
         .reject(this.data)
         .then((result) => {
           alert("Data berhasil di Tolak");

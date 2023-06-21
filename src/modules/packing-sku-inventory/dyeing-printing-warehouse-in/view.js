@@ -10,6 +10,14 @@ export class View {
     this.service = service;
   }
 
+  controlOptions = {
+    label: {
+      length: 4,
+    },
+    control: {
+      length: 4,
+    },
+  };
   canEdit = true;
   async activate(params) {
     
