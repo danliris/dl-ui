@@ -48,8 +48,6 @@ export class Create {
         { field: "color", title: "Warna", sortable: false},
         { field: "motif", title: "Motif", sortable: false},
         { field: "grade", title: "Grade", sortable: false},
-        
-        { field: "trackName", title: "Jalur/Rak", sortable: false},
         // { field: "motif", title: "Motif", sortable: false},
         // { field: "uomUnit", title: "Satuan", sortable: false},
         { 
@@ -60,7 +58,7 @@ export class Create {
             field: "packingLength", title: "Panjang/Pack", sortable: false
         },
         { 
-            field: "inQty", title: "Total", sortable: false
+            field: "balance", title: "Total", sortable: false
         }
     ];
 
@@ -212,7 +210,6 @@ export class Create {
             if (Object.getOwnPropertyNames(this.error).length === 0) {
                 let args = {
                     productionOrderId: this.productionOrder ? this.productionOrder.Id: null,
-                    track: this.selectedTrack ? this.selectedTrack.Id: null,
                     dateTo: this.dateTo? moment(this.dateTo).format("MM/DD/YYYY"):"",
                     dateFrom: this.dateFrom? moment(this.dateFrom).format("MM/DD/YYYY"):""
             };

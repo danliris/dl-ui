@@ -1,26 +1,17 @@
 <template>
-    <h1 class="page-header">Monitoring Stock Opname Keluar</h1>
+    <h1 class="page-header">Monitoring Penerimaan Gudang Jadi</h1>
     <form class="form-horizontal">
         <au-autocomplete 
-        label="No SPP" 
-        value.bind="productionOrder"
-      loader.bind="productionOrderLoader" 
-      text="OrderNo" 
-      read-only.bind="readOnly" 
-      options.bind="controlOptions">
-    </au-autocomplete>
-
-    
-        <au-autocomplete 
-            label="Jalur/Tracks" 
-            value.bind="selectedTrack"
-            error.bind="error.track"
-            loader.bind="trackLoader"
-            read-only.bind="readOnly"
-            placeholder="Jalur/Rak"
-            text.bind="trackView"
+            label="No SPP" 
+            value.bind="productionOrder"
+            loader.bind="productionOrderLoader" 
+            text="OrderNo" 
+            read-only.bind="readOnly" 
             options.bind="controlOptions">
         </au-autocomplete>
+
+    
+        
             <!-- <au-dropdown 
             options.bind="controlOptions" 
             label="Unit" 
@@ -34,18 +25,18 @@
         </au-datepicker-->
         
         <au-datepicker
-        value.bind="dateFrom"
-        label="Tanggal Awal"
-        options.bind="controlOptions"
-        error.bind="error.dateFrom">
-    </au-datepicker>
-    
-    <au-datepicker
-        value.bind="dateTo"
-        label="Tanggal Akhir"
-        options.bind="controlOptions"
-        error.bind="error.dateTo">
-    </au-datepicker>
+            value.bind="dateFrom"
+            label="Tanggal Awal"
+            options.bind="controlOptions"
+            error.bind="error.dateFrom">
+        </au-datepicker>
+        
+        <au-datepicker
+            value.bind="dateTo"
+            label="Tanggal Akhir"
+            options.bind="controlOptions"
+            error.bind="error.dateTo">
+        </au-datepicker>
 
         <div class="btn-group col-md-offset-5">
             <button class="btn btn-success" click.delegate="search()">Cari</button>
