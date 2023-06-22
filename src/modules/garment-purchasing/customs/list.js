@@ -56,7 +56,8 @@ export class List {
                     var dOrder = ""
                     if(a.items || a.items.length > 0){
                         for(var b of a.items){
-                            dOrder+=`${b.deliveryOrder.doNo}` + "</br>";
+                            // dOrder+=`${b.deliveryOrder.doNo}` + "</br>";
+                            dOrder+=`<ul><li>${b.deliveryOrder.doNo}</li></ul>`;
                         }
                     }
                     var data = {

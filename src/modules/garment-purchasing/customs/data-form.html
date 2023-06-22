@@ -128,5 +128,13 @@
             header-template="modules/garment-purchasing/customs/template/delivery-order-header"
             footer-template="modules/garment-purchasing/customs/template/delivery-order-footer">
         </au-collection>
+
+        <au-collection title="Surat Jalan Non PO" items.bind="data.deliveryOrderNonPO" errors.bind="error.deliveryOrderNonPO"
+            columns.bind="deliveryOrderColumns" options.bind="options" read-only.bind="true"
+            item-template="modules/garment-purchasing/customs/template/delivery-order-non-po"
+            header-template="modules/garment-purchasing/customs/template/delivery-order-header"
+            footer-template="modules/garment-purchasing/customs/template/delivery-order-footer"
+            if.bind="data.customType == 'BC 262'">
+        </au-collection>
     </au-input-form>
 </template>
