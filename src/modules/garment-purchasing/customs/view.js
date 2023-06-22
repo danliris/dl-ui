@@ -28,9 +28,11 @@ export class View {
     var unitReceiptNotesDeliveryOrderNo = []; // get DeliveryOrderNo
 
     for (var data of this.data.items) {
-      unitReceiptNotesDeliveryOrderNo.push(data.deliveryOrder.Id);
+      if(data.deliveryOrderNonPO == null){
+        unitReceiptNotesDeliveryOrderNo.push(data.deliveryOrder.Id);
+      }
     }
-    isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
+    // isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
 
     let poMasterDistributionRequestFilter = {};
     poMasterDistributionRequestFilter[unitReceiptNotesDeliveryOrderNo.map(id => `DOId==${id}`).join(" || ")] = true;
@@ -45,36 +47,49 @@ export class View {
     //   this.hasDelete = false;
     // }
 
-    this.data.deliveryOrders = this.data.items;
+    this.data.deliveryOrders = this.data.items.filter(x => x.deliveryOrderNonPO == null);
+    this.data.deliveryOrderNonPO = this.data.items.filter(x => x.deliveryOrderNonPO != null);
 
 
     for (var a of this.data.items) {
-      a["selected"] = true;
-      a["isView"] = false;
-      a["doNo"] = a.deliveryOrder.doNo;
-      a["doDate"] = a.deliveryOrder.doDate;
-      a["arrivalDate"] = a.deliveryOrder.arrivalDate;
-      a["quantity"] = a.quantity;
-      a["price"] = a.deliveryOrder.totalAmount;
-
-      var isReceipt;
-
-      for (var item of a.deliveryOrder.items) {
-        for (var detail of item.fulfillments) {
-          if (detail.receiptQuantity > 0) {
-            isReceipt = true;
-            break;
+      //Mapping data DO With PO
+      if(a.deliveryOrderNonPO == null){
+        a["selected"] = true;
+        a["isView"] = false;
+        a["doNo"] = a.deliveryOrder.doNo;
+        a["doDate"] = a.deliveryOrder.doDate;
+        a["arrivalDate"] = a.deliveryOrder.arrivalDate;
+        a["quantity"] = a.quantity;
+        a["price"] = a.deliveryOrder.totalAmount;
+  
+        var isReceipt;
+  
+        for (var item of a.deliveryOrder.items) {
+          for (var detail of item.fulfillments) {
+            if (detail.receiptQuantity > 0) {
+              isReceipt = true;
+              break;
+            }
           }
         }
+        if (a.deliveryOrder.isInvoice === true || isReceipt === true) {
+          this.hasEdit = false;
+          this.hasDelete = false;
+        }
+  
+        if (poMasterDistributionRequest && poMasterDistributionRequest.statusCode == 200 && poMasterDistributionRequest.info.total > 0) {
+          this.hasDelete = false;
+        }
+      }else{ //Mapping data DO Non PO
+        a["selected"] = true;
+        a["isView"] = false;
+        a["doNo"] = a.deliveryOrderNonPO.doNo;
+        a["doDate"] = a.deliveryOrderNonPO.doDate;
+        a["arrivalDate"] = a.deliveryOrderNonPO.arrivalDate;
+        a["quantity"] = a.quantity;
+        a["price"] = a.deliveryOrderNonPO.totalAmount;
       }
-      if (a.deliveryOrder.isInvoice === true || isReceipt === true) {
-        this.hasEdit = false;
-        this.hasDelete = false;
-      }
-
-      if (poMasterDistributionRequest && poMasterDistributionRequest.statusCode == 200 && poMasterDistributionRequest.info.total > 0) {
-        this.hasDelete = false;
-      }
+     
 
     }
 
