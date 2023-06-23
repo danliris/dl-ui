@@ -1,244 +1,97 @@
-import {
-  inject,
-  bindable
-} from 'aurelia-framework';
-import {
-  Service
-} from "./service";
-import {
-  Router
-} from 'aurelia-router';
+import {inject} from 'aurelia-framework';
+import {Service} from "./service";
+import {Router} from 'aurelia-router';
 import moment from 'moment';
-let UnitLoader = require('../../../loader/unit-loader');
+const UnitLoader = require('../../../loader/garment-units-loader');
 
 @inject(Router, Service)
 export class List {
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
 
-  months = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-
-  years = [];
-
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-
-    this.currentYearItem = parseInt(moment().format('YYYY'));
-    this.minYearItem = this.currentYearItem - 5;
-    this.maxYearItem = this.currentYearItem + 5;
-
-    for (var i = parseInt(this.minYearItem); i <= parseInt(this.maxYearItem); i++) {
-      this.years.push(i.toString());
     }
-  }
-
-  bind() {
-    this.reset();
-  }
-
-  controlOptions = {
-    label: {
-      length: 3
-    },
-    control: {
-      length: 6
+    bind(context) {
+        this.context = context;
     }
-  }
-
-  get units() {
-    return UnitLoader;
-  }
-
-  searchWarpingBrokens() {
-    this.error = {};
-    if (false) {
-      alert("");
-    } else {
-      var errorIndex = 0;
-      if (this.Year) {
-        var YearContainer = this.Year;
-      } else {
-        this.error.Year = "Tahun Harus Diisi";
-        errorIndex++;
-      }
-      if (this.Month) {
-        var MonthContainer = this.Month;
-      } else {
-        this.error.Month = "Bulan Harus Diisi";
-        errorIndex++;
-      }
-      if (this.WeavingUnit) {
-        var WeavingUnitIdContainer = this.WeavingUnit.Id;
-      } else {
-        this.error.WeavingUnit = "Unit Weaving Harus Diisi";
-        errorIndex++;
-      }
-
-      var MonthInNumber = 0;
-
-      switch (MonthContainer) {
-        case "Januari":
-          MonthInNumber = 1;
-          break;
-        case "Februari":
-          MonthInNumber = 2;
-          break;
-        case "Maret":
-          MonthInNumber = 3;
-          break;
-        case "April":
-          MonthInNumber = 4;
-          break;
-        case "Mei":
-          MonthInNumber = 5;
-          break;
-        case "Juni":
-          MonthInNumber = 6;
-          break;
-        case "Juli":
-          MonthInNumber = 7;
-          break;
-        case "Agustus":
-          MonthInNumber = 8;
-          break;
-        case "September":
-          MonthInNumber = 9;
-          break;
-        case "Oktober":
-          MonthInNumber = 10;
-          break;
-        case "November":
-          MonthInNumber = 11;
-          break;
-        case "Desember":
-          MonthInNumber = 12;
-          break;
-        default:
-          MonthInNumber = 0;
-          break;
-      }
-
-      var arg = {
-        month: MonthInNumber,
-        year: YearContainer,
-        weavingUnitId: WeavingUnitIdContainer
-      };
-      if (errorIndex == 0) {
-        this.service.getReportData(arg).then(result => {
-          this.data = result.data;
-
-          var ignoredKeys = ["SupplierName", "YarnName", "Total", "Max", "Min", "Average"];
-
-          var keys = ["SupplierName", "YarnName"];
-          if (this.data.GroupedItems.length > 0) {
-            var firstElement = this.data.GroupedItems[0].ItemsValue[0];
-            var brokenHeaders = [];
-
-            for (var key in firstElement) {
-              if (!ignoredKeys.find((ignoredKey) => ignoredKey == key)) {
-                brokenHeaders.push(key);
-                keys.push(key);
-              }
+    shiftOptions = [
+      { text: "", value: 0 },
+      { text: "I", value: 1 },
+      { text: "II", value: 2 },
+      { text: "III", value: 3 } 
+  ];
+    MCNOOptions = [
+    { text: "", value: 0 },
+    { text: "WP 1", value: 1 },
+    { text: "WP 2", value: 2 },
+    { text: "WP 3", value: 3 } 
+  ];
+  
+    searching() {
+        var info = {
+            shift : this.info.shift ? this.info.shift.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            sp: this.info.sp ? this.info.sp: "",
+            code: this.info.code ? this.info.code: "",
+            threadNo : this.info.threadNo ? this.info.threadNo: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+             }
+        
+        this.service.getReportData(info)
+            .then(result => {
+              this.data= result.data;
+                
+            });
+    }
+    get sumThreadCut()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.ThreadCut;
             }
-
-            keys.push("Total");
-            keys.push("Max");
-            keys.push("Min");
-            keys.push("Average");
-
-            this.data.keys = keys;
-
-            this.data.HeaderBrokens = brokenHeaders;
-
-            var bodyKeys = keys.filter(key => key != "SupplierName");
-            this.data.bodyKeys = bodyKeys;
-          }
-          return result;
-        });
-      }
+        }
+        
+        return sum;//.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
-  }
-
-  reset() {
-    this.Month = null;
-    this.MonthContainer = null;
-    this.MonthInNumber = null;
-    this.Year = null;
-    this.YearContainer = null;
-    this.WeavingUnit = null;
-    this.WeavingUnitIdContainer = null;
-
-    this.error = {};
-    this.data = [];
-  }
-
-  exportToExcel() {
-    this.error = {};
-    var errorIndex = 0;
-    if (this.Year) {
-      var YearContainer = this.Year;
-    } else {
-      this.error.Year = "Tahun Harus Diisi";
-      errorIndex++;
+    get sumLength()
+    {
+        var sum=0;
+        if(this.data)
+        {
+            for(var item of this.data)
+            {
+                sum += item.Length;
+            }
+        }
+        
+        return sum;//.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
     }
-    if (this.Month) {
-      var MonthContainer = this.Month;
-    } else {
-      this.error.Month = "Bulan Harus Diisi";
-      errorIndex++;
+    ExportToExcel() {
+     
+    var info = {
+      shift : this.info.shift ? this.info.shift.text: "",
+      mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+      sp: this.info.sp ? this.info.sp: "",
+      code: this.info.code ? this.info.code: "",
+      threadNo : this.info.threadNo ? this.info.threadNo: "",
+      fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+      toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
     }
-    if (this.WeavingUnit) {
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
-    } else {
-      this.error.WeavingUnit = "Unit Weaving Harus Diisi";
-      errorIndex++;
+        this.service.generateExcel(info);
     }
 
-    var MonthInNumber = 0;
-
-    switch (MonthContainer) {
-      case "Januari":
-        MonthInNumber = 1;
-        break;
-      case "Februari":
-        MonthInNumber = 2;
-        break;
-      case "Maret":
-        MonthInNumber = 3;
-        break;
-      case "April":
-        MonthInNumber = 4;
-        break;
-      case "Mei":
-        MonthInNumber = 5;
-        break;
-      case "Juni":
-        MonthInNumber = 6;
-        break;
-      case "Juli":
-        MonthInNumber = 7;
-        break;
-      case "Agustus":
-        MonthInNumber = 8;
-        break;
-      case "September":
-        MonthInNumber = 9;
-        break;
-      case "Oktober":
-        MonthInNumber = 10;
-        break;
-      case "November":
-        MonthInNumber = 11;
-        break;
-      case "Desember":
-        MonthInNumber = 12;
-        break;
-      default:
-        MonthInNumber = 0;
-        break;
+  
+    reset() {
+        this.fromDate = null;
+        this.toDate = null;
+        this.info.shift = null;
+        this.info.mcNo = null;
+        this.info.sp = null;
+        this.info.threadNo= null;
+        this.info.code= null;
     }
-
-    if (errorIndex == 0) {
-      this.service.getReportXls(MonthInNumber, YearContainer, WeavingUnitIdContainer);
-    }
-  }
 }

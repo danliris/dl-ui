@@ -6,15 +6,18 @@
   </style>
   <au-input-form title.bind="title" options.bind="formOptions">
 
-    <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
-      read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
-    <au-autocomplete  label="Jalur" value.bind="track"
+    <!-- <au-autocomplete  label="No SPP" value.bind="selectedProductionOrder"
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions" placeholder = "Filter No SPP">
+    </au-autocomplete> -->
+    <!-- <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
+      read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown> -->
+    <!-- <au-autocomplete  label="Jalur" value.bind="track"
         loader.bind="trackLoader"
         read-only.bind="readOnly"
         placeholder="Jalur/Rak"
         text.bind="trackView" options.bind="controlOptions"
         placeholder = "Filter Jalur/Rak">
-    </au-autocomplete>
+    </au-autocomplete> -->
 
     <!-- <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
       read-only.bind="readOnly || isEdit" label="Tanggal">
@@ -34,18 +37,17 @@
       focus.bind="hasFocus" 
       value.bind="barcode" 
       class="col-md-3" 
-      aria-placeholder="Barcode" 
-      options.bind="controlOptions">
+      aria-placeholder="Barcode" >
     </input>
     <!-- <au-textbox
-            label="Barcode"
-            type="text" 
-            focus.bind="hasFocus" 
-            value.bind="barcode"
-            placeholder="cari Barcode" 
-            
-            options.bind="controlOptions">
-        </au-textbox> -->
+        label="Barcode"
+        type="text" 
+        focus.bind="hasFocus" 
+        value.bind="barcode"
+        placeholder="cari Barcode" 
+        
+        options.bind="controlOptions">
+    </au-textbox> -->
 
     
     <numeric label="Total Packing:" read-only.bind="true" value.bind="sumTotalQty" class="col-md-5"></numeric>
@@ -66,20 +68,19 @@
           <th>No SPP</th>
           <th>Grade</th>
           <th>Saldo Packing</th>
-          <th>Qty Keluar</th>
+          <th>Qty Terima</th>
           <th>Satuan Pack</th>
           <th>Panjang Satuan</th>
-          <th>Jalur/Rak</th>
-          <th>Keterangan</th>
+          <!-- <th>Jalur/Rak</th> -->
           
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr repeat.for="item of data.dyeingPrintingStockOpnameMutationItems">
+        <tr repeat.for="item of data.dyeingPrintingWarehouseInItems">
           <td>${$index+1}</td>
           <td>${item.productPackingCode}</td>
-          <td>${item.productionOrderNo}</td>
+          <td>${item.productionOrder.no}</td>
           <td>${item.grade}</td>
           <td>${item.packagingQty}</td>
           <!-- <td>${item.item.name}</td> -->
@@ -118,7 +119,7 @@
             </div>
           </td> -->
 
-          <td>
+          <!-- <td>
             <div class="form-group ${error.Items[$index].Track?'has-error':''}">
               <au-autocomplete value.bind="item.track"
                              error.bind="error.track"
@@ -130,8 +131,7 @@
             </au-autocomplete>
               <span class="help-block">${error.Items[$index].Track}</span>
             </div>
-          </td>
-          <td>${item.description}</td>
+          </td> -->
 
 
 
