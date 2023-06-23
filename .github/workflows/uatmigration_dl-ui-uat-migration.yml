@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - dl-ui-uat-migration
 on:
   push:
     branches:
-      - uatMigration
+      - newUatMigration
   workflow_dispatch:
 
 jobs:
