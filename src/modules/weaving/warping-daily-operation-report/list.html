@@ -1,0 +1,93 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+      <style>
+          table>tbody>tr>td {
+              white-space: pre;
+          }
+      </style>
+  
+      <h1 class="page-header">Laporan Putus Benang Warping</h1>
+  
+      <form class="form-horizontal">
+     
+        <au-datepicker label="Tanggal Awal" value.bind="fromDate"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="toDate"></au-datepicker>
+        <au-dropdown   
+            label="Shift" 
+            value.bind="info.shift" 
+            key="value" text="text" 
+            items.bind="shiftOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+        <au-dropdown  
+            label="No MC"  
+            value.bind="info.mcNo" 
+            key="value" text="text" 
+            items.bind="MCNOOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+        <au-textbox 
+          label="SP"    
+          value.bind="info.sp"     
+          read-only.bind="readOnly"      
+          options.bind="controlOptions">
+        </au-textbox>
+        <au-textbox  
+            label="Code" 
+            value.bind="info.code" 
+            read-only.bind="readOnly"  
+            options.bind="controlOptions">
+        </au-textbox>
+        <au-textbox  
+            label="Name" 
+            value.bind="info.name" 
+            read-only.bind="readOnly"  
+            options.bind="controlOptions">
+        </au-textbox>
+  
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+  
+        <div class="btn-group pull-left">
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+        </div>
+    </form>
+    <br>
+  </br>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" border="1" id="myTable">
+          <thead align="center">
+              <tr>
+                <td>No</td>
+                <td>Nama Operator</td>
+                <td>Sum Of Putus Benang</td>
+  
+              </tr>
+          </thead>
+          <tbody>
+              <require from="../../../lib/number-format-value-converter"></require>
+              <tr repeat.for="item of data">
+                <td>${$index + 1}</td>
+                <td class="text-center">${item.Name}</td>
+                <td class="text-right">${item.ThreadCut}</td>
+            </tr>
+  
+              <tr class="active">
+                  <td class="text-center" colspan="2"><strong> GRAND TOTAL </strong></td>
+                  <td class="text-right"><strong>${sumThreadCut}</strong></td>  
+              </tr> 
+          </tbody>
+      </table>
+  </div>
+  <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+    Tidak ada data.
+  </div>
+  <hr/>
+    </au-input-form>
+    <div class="row"></div>
+  </template>
