@@ -64,23 +64,25 @@
           <thead align="center">
               <tr>
                 <td>No</td>
-                <td>Nama Operator</td>
-                <td>Sum Of Putus Benang</td>
-  
+                <td>Tanggal</td>
+                <td>Shift</td>
+                <td>No MC</td>
+                <td>Panjang</td>
+                <td>Effisiensi</td>
+                <td>Putus Benang</td>
               </tr>
           </thead>
           <tbody>
               <require from="../../../lib/number-format-value-converter"></require>
               <tr repeat.for="item of data">
                 <td>${$index + 1}</td>
-                <td class="text-center">${item.Name}</td>
+                <td class="text-center">${item.Date}</td>
+                <td class="text-center">${item.Shift}</td>
+                <td class="text-center">${item.MCNo}</td>
+                <td class="text-center">${item.Length}</td>
+                <td class="text-center">${item.Efficiency}</td>
                 <td class="text-right">${item.ThreadCut}</td>
             </tr>
-  
-              <tr class="active">
-                  <td class="text-center" colspan="2"><strong> GRAND TOTAL </strong></td>
-                  <td class="text-right"><strong>${sumThreadCut}</strong></td>  
-              </tr> 
           </tbody>
       </table>
   </div>
