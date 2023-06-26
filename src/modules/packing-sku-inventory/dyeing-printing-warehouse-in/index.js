@@ -32,7 +32,7 @@ export class Index {
         moduleId: './excel', 
         name: 'excel', 
         nav: false, 
-        title: 'Monitoring : Mutasi Stock Opname' }
+        title: 'Monitoring : Penerimaan Gudang Barang Jadi - Dyeing & Printing' }
         
       ]);
   
