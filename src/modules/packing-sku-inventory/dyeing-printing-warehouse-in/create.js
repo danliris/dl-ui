@@ -95,7 +95,7 @@ export class Create {
       this.service
         .create(this.data)
         .then((result) => {
-          alert("Data berhasil di Tolak");
+          alert("Data berhasil di Simpan");
           this.router.navigateToRoute(
             "create",
             {},

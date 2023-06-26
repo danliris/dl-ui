@@ -695,8 +695,24 @@ module.exports = [
       subGroup: "gudang jadi",
       // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
       //permission :{"S28":1},
-      permission : {"S38" : 1},
+      permission : {"S40" : 1},
       iconClass: 'fa fa-dashboard'
     }
-  }
+  },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-warehouse-track',
+    name: 'dyeing-printing-warehouse-track',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-warehouse-track/index',
+    nav: true,
+    title: 'Update Jalur & Rak',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "gudang jadi",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"S41" : 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];
