@@ -26,7 +26,7 @@ export class Service extends RestService {
 
   generateExcel(info) {
     
-    var endpoint = `${serviceUri}/get-warping-broken-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
+    var endpoint = `${serviceUri}/get-warping-daily-operation-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
            
     var query = '';
 
@@ -59,7 +59,7 @@ export class Service extends RestService {
         else query = `${query}&code=${info.code}`;
       }
         if (query !== '')
-        endpoint = `${serviceUri}/get-warping-broken-report/download?${query}`;
+        endpoint = `${serviceUri}/get-warping-daily-operation-report/download?${query}`;
     
     return super.getXls(endpoint);
   }
