@@ -40,20 +40,22 @@ export class List {
         
         this.service.getReportData(info)
             .then(result => {
-              this.data= result.data;
-                
+                for(var d of result.data){
+                    d.Date=moment(d.Date).format("YYYY-MM-DD");
+                    this.data= result.data;
+                }
             });
     }
     
     ExportToExcel() {
         var info = {
-        shift : this.info.shift ? this.info.shift.text: "",
-        mcNo : this.info.mcNo ? this.info.mcNo.text: "",
-        sp: this.info.sp ? this.info.sp: "",
-        code: this.info.code ? this.info.code: "",
-        name : this.info.name ? this.info.name: "",
-        fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
-        toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+            shift : this.info.shift ? this.info.shift.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            sp: this.info.sp ? this.info.sp: "",
+            code: this.info.code ? this.info.code: "",
+            name : this.info.name ? this.info.name: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
         this.service.generateExcel(info);
     }
@@ -65,7 +67,7 @@ export class List {
         this.info.shift = null;
         this.info.mcNo = null;
         this.info.sp = null;
-        this.info.threadNo= null;
+        this.info.name= null;
         this.info.code= null;
     }
 }
