@@ -20,9 +20,9 @@ export class View {
     var id = params.id;
     this.isCustomsDisplay = "Ya";
     this.data = await this.service.getById(id);
-    this.supplier = this.data.Supplier;
+    this.supplier = this.data.supplier;
     this.cc = {
-      RO_Number: this.data.RONo,
+      RO_Number: this.data.roNo,
     };
 
     if (this.data.customsId == 0) {

@@ -17,7 +17,7 @@ export class Create {
   }
   activate(params) {}
   bind() {
-    this.data = { Items: [] };
+    this.data = { items: [] };
     this.data.isCustoms = true;
     this.error = {};
   }
