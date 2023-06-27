@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Laporan Putus Benang Warping</h1>
+      <h1 class="page-header">Laporan Operasional Harian Warping</h1>
   
       <form class="form-horizontal">
      
@@ -74,15 +74,17 @@
           </thead>
           <tbody>
               <require from="../../../lib/number-format-value-converter"></require>
-              <tr repeat.for="item of data">
-                <td>${$index + 1}</td>
-                <td class="text-center">${item.Date}</td>
-                <td class="text-center">${item.Shift}</td>
-                <td class="text-center">${item.MCNo}</td>
-                <td class="text-center">${item.Length}</td>
-                <td class="text-center">${item.Efficiency}</td>
-                <td class="text-right">${item.ThreadCut}</td>
-            </tr>
+              <div if.bind="data.length > 0">
+                <tr repeat.for="item of data">
+                  <td>${$index + 1}</td>
+                  <td class="text-center">${item.Date}</td>
+                  <td class="text-center">${item.Shift}</td>
+                  <td class="text-center">${item.MCNo}</td>
+                  <td class="text-center">${item.Length}</td>
+                  <td class="text-center">${item.Efficiency}</td>
+                  <td class="text-right">${item.ThreadCut}</td>
+                </tr>
+              </div>
           </tbody>
       </table>
   </div>
