@@ -33,14 +33,17 @@ export class View {
       }
     }
     // isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
-
-    let poMasterDistributionRequestFilter = {};
-    poMasterDistributionRequestFilter[unitReceiptNotesDeliveryOrderNo.map(id => `DOId==${id}`).join(" || ")] = true;
-    const poMasterDistributionRequest = await this.service.searchPOMasterDistributions({
-      filter: JSON.stringify(poMasterDistributionRequestFilter),
-      // select: JSON.stringify({ Id: 1, DOId: 1 }),
-      size: 0
-    });
+    var poMasterDistributionRequest ={};
+    if(unitReceiptNotesDeliveryOrderNo.length > 0){
+      let poMasterDistributionRequestFilter = {};
+      poMasterDistributionRequestFilter[unitReceiptNotesDeliveryOrderNo.map(id => `DOId==${id}`).join(" || ")] = true;
+      poMasterDistributionRequest = await this.service.searchPOMasterDistributions({
+        filter: JSON.stringify(poMasterDistributionRequestFilter),
+        // select: JSON.stringify({ Id: 1, DOId: 1 }),
+        size: 0
+      });
+    }
+   
 
     // if (isCreated > 0) {
     //   this.hasEdit = false;
