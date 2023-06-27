@@ -21,11 +21,11 @@ export class List {
       { text: "III", value: 3 } 
   ];
     MCNOOptions = [
-    { text: "", value: 0 },
-    { text: "WP 1", value: 1 },
-    { text: "WP 2", value: 2 },
-    { text: "WP 3", value: 3 } 
-  ];
+        { text: "", value: 0 },
+        { text: "1", value: 1 },
+        { text: "2", value: 2 },
+        { text: "3", value: 3 } 
+    ];
   
     searching() {
         var info = {
@@ -37,13 +37,13 @@ export class List {
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
-        
         this.service.getReportData(info)
             .then(result => {
+                console.log(result.data)
                 for(var d of result.data){
                     d.Date=moment(d.Date).format("YYYY-MM-DD");
-                    this.data= result.data;
                 }
+                this.data= result.data;
             });
     }
     
