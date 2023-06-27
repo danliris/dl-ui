@@ -451,7 +451,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-sizing",
   name: "daily-operation-sizing",
-  moduleId: "./modules/weaving/daily-operation-sizing/index",
+  moduleId: "./modules/weaving/daily-operation-sizing-new/index",
   nav: true,
   title: "Operasional Mesin Harian Sizing",
   auth: true,
