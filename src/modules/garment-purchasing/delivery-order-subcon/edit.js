@@ -22,9 +22,9 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.supplier = this.data.Supplier;
+    this.supplier = this.data.supplier;
     this.cc = {
-      RO_Number: this.data.RONo,
+      RO_Number: this.data.roNo,
     };
   }
 

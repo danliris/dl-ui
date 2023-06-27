@@ -305,6 +305,41 @@ export class DataForm {
           }
           this.data.deliveryOrderNonPO = dataDeliveryNonPO;
         }
+
+        if (
+          this.data.customType == "BC 40" ||
+          this.data.customType == "BC 27"
+        ) {
+          var result = await this.service.searchSubconDeliveryOrder({
+            supplier: `${this.data.supplier.Id}`,
+            currency: `${this.data.currency.code}`,
+            // billNo: this.data.billNo,
+          });
+
+          var dataDeliveryNonPO = [];
+
+          for (var a of result.data) {
+            var data = a;
+            data["selected"] = false;
+            data["doNo"] = a.doNo;
+            data["doId"] = a.Id;
+            data["doDate"] = a.doDate;
+            data["arrivalDate"] = a.arrivalDate;
+            data["isView"] = !this.hasView ? true : false;
+            data["IsPO"] = false;
+            var quantity = 0;
+            var totPrice = 0;
+            for (var b of a.items) {
+              quantity += b.DOQuantity;
+              var priceTemp = b.DOQuantity * b.PricePerDealUnit;
+              totPrice += priceTemp;
+            }
+            data["quantity"] = quantity;
+            data["price"] = totPrice.toFixed(3);
+            dataDeliveryNonPO.push(data);
+          }
+          this.data.deliveryOrderNonPO = dataDeliveryNonPO;
+        }
       }
     } else {
       delete this.data.currencyId;
