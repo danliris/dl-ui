@@ -435,7 +435,7 @@ module.exports = [{
   name: "warping-broken-report",
   moduleId: "./modules/weaving/warping-broken-report/index",
   nav: true,
-  title: "Laporan Putus Warping",
+  title: "Laporan Putus Benang Warping",
   auth: true,
   settings: {
     group: "weaving",
