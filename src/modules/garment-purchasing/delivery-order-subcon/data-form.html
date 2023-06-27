@@ -9,7 +9,7 @@ ogol<template>
 
         <au-textbox 
             label="Nomor Surat Jalan" 
-            value.bind="data.DONo" 
+            value.bind="data.doNo" 
             error.bind="error.DONo" 
             placeholder="tambahkan nomor surat jalan" 
             read-only.bind="readOnly"
@@ -18,7 +18,7 @@ ogol<template>
 
         <au-datepicker 
             label="Tgl. Surat Jalan" 
-            value.bind="data.DODate" 
+            value.bind="data.doDate" 
             error.bind="error.DODate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
@@ -26,7 +26,7 @@ ogol<template>
 
         <au-datepicker 
             label="Tgl. Tiba" 
-            value.bind="data.ArrivalDate" 
+            value.bind="data.arrivalDate" 
             error.bind="error.ArrivalDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
@@ -58,7 +58,7 @@ ogol<template>
 
         <au-multiline 
             label="Keterangan" 
-            value.bind="data.Remark"
+            value.bind="data.remark"
             placeholder="tambah keterangan" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
@@ -71,14 +71,14 @@ ogol<template>
         </au-textbox>
 
         <au-collection 
-            items.bind="data.Items" 
+            items.bind="data.items" 
             errors.bind="error.Items" 
             columns.bind="itemsInfo.columns" 
             add.bind="itemsInfo.onAdd" 
             remove.bind="removeItems"
             options.bind="options"
             read-only.bind="readOnly"
-            if.bind="data.Supplier"
+            if.bind="data.supplier"
             item-template="modules/garment-purchasing/delivery-order-subcon/template/item"
             view-model.ref="ItemsCollection">
         </au-collection>

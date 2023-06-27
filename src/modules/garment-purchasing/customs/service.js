@@ -7,6 +7,7 @@ import { Config } from "aurelia-api";
 const serviceUri = 'garment-beacukai';
 const deliveryOrderForCustoms = 'garment-delivery-orders/forCustoms';
 const deliveryOrderNonPOForCustoms = 'garment-delivery-orders-non-po/forCustoms';
+const subconDeliveryOrderForCustoms = 'garment-subcon-delivery-orders/forCustoms';
 const serviceUriUnitReceiptNotes = 'garment-delivery-orders/isReceived';
 const serviceUriPOMasterDistributions = 'garment-po-master-distributions';
 
@@ -75,6 +76,22 @@ class Service extends RestService {
             select: ["doNo", "doDate", "arrivalDate", "items"],
             size: 200,
             billNo: info.billNo || ""
+        }
+        return super.list(endpoint, arc);
+    }
+
+    searchSubconDeliveryOrder(info) {
+        var endpoint = `${subconDeliveryOrderForCustoms}`;
+
+        var filter = {
+            "supplierId": info.supplier ? info.supplier : "",
+            // "docurrencycode": info.currency ? info.currency : ""
+        };
+        var arc = {
+            filter: JSON.stringify(filter),
+            select: ["doNo", "doDate", "arrivalDate", "items"],
+            size: 200,
+            currencycode: info.currency ? info.currency : ""
         }
         return super.list(endpoint, arc);
     }
