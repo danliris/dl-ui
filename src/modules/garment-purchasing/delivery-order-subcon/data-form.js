@@ -41,7 +41,7 @@ export class DataForm {
 
     onAdd: function () {
       this.context.ItemsCollection.bind();
-      this.data.Items.push({});
+      this.data.items.push({});
     }.bind(this),
   };
 
@@ -55,7 +55,7 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     var hasItems = true;
-    if (this.data.Items.length == 0) hasItems = false;
+    if (this.data.items.length == 0) hasItems = false;
 
     this.options = {
       hasCreate: this.context.hasCreate,
@@ -64,7 +64,7 @@ export class DataForm {
     };
 
     if (this.data.Id) {
-      this.options.CostCalculationId = this.data.CostCalculationId;
+      this.options.CostCalculationId = this.data.costCalculationId;
     }
 
     this.filterCC = {
@@ -82,12 +82,12 @@ export class DataForm {
     var selectedSupplier = newValue;
     if (selectedSupplier) {
       if (selectedSupplier.Id) {
-        this.data.Supplier = selectedSupplier;
+        this.data.supplier = selectedSupplier;
       }
     } else {
-      this.data.Supplier = {};
+      this.data.supplier = {};
     }
-    this.data.Items = [];
+    this.data.items = [];
     this.resetErrorItems();
   }
 
@@ -111,19 +111,19 @@ export class DataForm {
   ccChanged(newValue, oldValue) {
     var selectedCC = newValue;
     if (selectedCC) {
-      this.data.RONo = selectedCC.RO_Number;
-      this.data.CostCalculationId = selectedCC.Id;
+      this.data.roNo = selectedCC.RO_Number;
+      this.data.costCalculationId = selectedCC.Id;
       //inject CC id for Filter Item
-      this.options.CostCalculationId = this.data.CostCalculationId;
+      this.options.CostCalculationId = this.data.costCalculationId;
     }
-    this.data.Items = [];
+    this.data.items = [];
     this.resetErrorItems();
   }
 
   resetErrorItems() {
     if (this.error) {
-      if (this.error.Items) {
-        this.error.Items = [];
+      if (this.error.items) {
+        this.error.items = [];
       }
     }
   }
