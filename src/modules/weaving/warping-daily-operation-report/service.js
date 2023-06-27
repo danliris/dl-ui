@@ -20,13 +20,13 @@ export class Service extends RestService {
   }
 
   getReportData(info) {
-    var endpoint = `${serviceUri}/get-warping-production-report`;
+    var endpoint = `${serviceUri}/get-warping-daily-operation-report`;
     return super.list(endpoint, info);
   }
 
   generateExcel(info) {
     
-    var endpoint = `${serviceUri}/get-warping-broken-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
+    var endpoint = `${serviceUri}/get-warping-daily-operation-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
            
     var query = '';
 
@@ -50,16 +50,16 @@ export class Service extends RestService {
         if (query === '') query = `sp=${info.sp}`;
         else query = `${query}&sp=${info.sp}`;
       }
-      if (info.threadNo && info.threadNo !== "") {
-        if (query === '') query = `threadNo=${info.threadNo}`;
-        else query = `${query}&threadNo=${info.threadNo}`;
+      if (info.name && info.name !== "") {
+        if (query === '') query = `name=${info.name}`;
+        else query = `${query}&name=${info.name}`;
       }
       if (info.code && info.code !== "") {
         if (query === '') query = `code=${info.code}`;
         else query = `${query}&code=${info.code}`;
       }
         if (query !== '')
-        endpoint = `${serviceUri}/get-warping-broken-report/download?${query}`;
+        endpoint = `${serviceUri}/get-warping-daily-operation-report/download?${query}`;
     
     return super.getXls(endpoint);
   }
