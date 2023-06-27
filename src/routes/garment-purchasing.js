@@ -232,6 +232,21 @@ module.exports = [
         }
     },
     {
+        route: '/garment/delivery-order-subcon',
+        name: 'delivery-order-subcon',
+        moduleId: './modules/garment-purchasing/delivery-order-subcon/index',
+        nav: true,
+        title: 'Surat Jalan Subcon',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "transaksi",
+            // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+            permission: { "H61": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/garment/monitoring-delivery-order',
         name: 'monitoring-delivery-order',
         moduleId: './modules/garment-purchasing/monitoring-delivery-order/index',
