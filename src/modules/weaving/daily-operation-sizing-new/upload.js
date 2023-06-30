@@ -88,7 +88,8 @@ export class Create {
             
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = `weaving/estimation-productions/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
+            //var endpoint = `weaving/estimation-productions/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
+            var endpoint = `weaving/daily-operation-sizing-machine/upload?month=${this.info.month.text}&year=${this.info.year.value}&monthId=${this.info.month.value}`;
             var request = {
                 method: 'POST',
                 headers: {
@@ -96,12 +97,12 @@ export class Create {
                 body: formData
             };
             var promise = this.service.endpoint.client.fetch(endpoint, request);
-            this.service.publish(promise);
+            //this.service.publish(promise);
             return promise
                 .then((result) => {
                     this.service.publish(promise);
                     if ( result.status == 500) {
-                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                        //var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         result.json()
                         .then(result => {
                             alert(result.message + " Inputan Data harus benar");
