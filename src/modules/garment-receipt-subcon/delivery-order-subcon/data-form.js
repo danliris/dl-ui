@@ -54,6 +54,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+
     var hasItems = true;
     if (this.data.items.length == 0) hasItems = false;
 
@@ -61,6 +62,7 @@ export class DataForm {
       hasCreate: this.context.hasCreate,
       hasEdit: this.context.hasEdit,
       hasView: this.context.hasView,
+      isEdit: this.context.isEdit,
     };
 
     if (this.data.Id) {
@@ -73,10 +75,10 @@ export class DataForm {
     };
   }
 
-  @computedFrom("data.Id")
-  get isEdit() {
-    return (this.data.Id || "").toString() != "";
-  }
+  // @computedFrom("data.Id")
+  // get isEdit() {
+  //   return (this.data.Id || "").toString() != "";
+  // }
 
   supplierChanged(newValue, oldValue) {
     var selectedSupplier = newValue;
@@ -113,6 +115,7 @@ export class DataForm {
     if (selectedCC) {
       this.data.roNo = selectedCC.RO_Number;
       this.data.costCalculationId = selectedCC.Id;
+      this.data.article = selectedCC.Article;
       //inject CC id for Filter Item
       this.options.CostCalculationId = this.data.costCalculationId;
     }

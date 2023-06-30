@@ -18,6 +18,7 @@ export class Item {
     this.readOnly = context.options.readOnly;
     this.hasCreate = context.context.options.hasCreate;
     this.hasEdit = context.context.options.hasEdit;
+    this.isEdit = context.context.options.isEdit;
     this.hasView = context.context.options.hasView;
     this.items = this.context.context.items;
     this.CostCalculationId = this.options.CostCalculationId;

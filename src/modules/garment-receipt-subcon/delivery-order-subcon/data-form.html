@@ -1,10 +1,10 @@
-ogol<template>
+<template>
     <au-input-form title.bind="title" with.bind="context">
         <div slot="actions" class="btn-group">
-            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
-            <button class="btn btn-primary" click.delegate="context.edit($event)"  show.bind=!data.billNo     if.one-way="context.hasView">Ubah</button>
-            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger"  click.delegate="context.delete($event)" show.bind=!data.billNo    if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"  if.one-way="context.hasDelete">Hapus</button>
         </div>
 
         <au-textbox 
@@ -47,10 +47,10 @@ ogol<template>
         <au-autocomplete 
             value.bind="supplier" 
             error.bind="error.Supplier"
-            label="Supplier" 
+            label="Pemilik Barang" 
             loader.bind="supplierLoader"
             text.bind = "supplierView"
-            placeholder="cari supplier" 
+            placeholder="cari Pemilik Barang" 
             key="code" 
             read-only.bind="readOnly || isEdit"
             options.bind="controlOptions">
@@ -79,7 +79,7 @@ ogol<template>
             options.bind="options"
             read-only.bind="readOnly"
             if.bind="data.supplier"
-            item-template="modules/garment-purchasing/delivery-order-subcon/template/item"
+            item-template="modules/garment-receipt-subcon/delivery-order-subcon/template/item"
             view-model.ref="ItemsCollection">
         </au-collection>
 
