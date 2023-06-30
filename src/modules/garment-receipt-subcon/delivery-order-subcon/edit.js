@@ -7,9 +7,9 @@ export class Edit {
   hasCancel = true;
   hasSave = true;
   hasView = false;
-  hasEdit = true;
   hasCreate = false;
-
+  isEdit = true;
+  
   constructor(router, service) {
     this.router = router;
     this.service = service;

@@ -84,7 +84,7 @@ class Service extends RestService {
         var endpoint = `${subconDeliveryOrderForCustoms}`;
 
         var filter = {
-            "supplierId": info.supplier ? info.supplier : "",
+            "productOwnerId": info.supplier ? info.supplier : "",
             // "docurrencycode": info.currency ? info.currency : ""
         };
         var arc = {
