@@ -17,6 +17,15 @@ export class List {
     },
     { field: "Supplier.Name", title: "Nama Supplier" },
     { field: "RONo", title: "Ro Job Subcon", sortable: false },
+    { field: "BeacukaiType", title: "Tipe BC" },
+    { field: "BeacukaiNo", title: "No BC" },
+    {
+      field: "BeacukaiDate",
+      title: "Tanggal BC",
+      formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
+      },
+    },
   ];
 
   loader = (info) => {

@@ -57,7 +57,7 @@
       </au-textbox>
     </td>
 
-    <td if.bind="hasCreate || hasEdit ">
+    <td if.bind="hasCreate || isEdit ">
       <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
     </td>
 
