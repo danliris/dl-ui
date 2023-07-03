@@ -37,6 +37,9 @@
       <div class="btn-group pull-left">
         <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
       </div>
+      <div class="btn-group pull-left">
+        <a click.delegate="ExportToExcelMII()" class='btn btn-primary'>Excel MII</a>
+      </div>
     </form>
     <br>
     </br>
@@ -134,10 +137,10 @@
             <td class="text-center">${item._BeginingBalanceSewingQty}</td>
             <td class="text-right">${item._QtySewingIn}</td>
             <td class="text-right">${item._QtySewingOut}</td>
-            <td class="text-right">${item._QtySewingInTransfer}</td>
-            <td class="text-right">${item._WipSewingOut}</td>
             <td class="text-right">${item._SubconSewingInQty}</td>
             <td class="text-right">${item._SubconSewingOutQty}</td>
+            <td class="text-right">${item._QtySewingInTransfer}</td>
+            <td class="text-right">${item._WipSewingOut}</td>
             <td class="text-right">${item._WipFinishingOut}</td>
             <td class="text-right">${item._QtySewingRetur}</td>
             <td class="text-right">${item._QtySewingAdj}</td>
@@ -186,10 +189,11 @@
             <td class="text-right"><strong>${BeginingBalanceSewingQtyTotal}</strong></td>
             <td class="text-right"><strong>${QtySewingInTotal}</strong></td>
             <td class="text-right"><strong>${QtySewingOutTotal}</strong></td>
+            <td class="text-right"><strong>0</strong></td>
+            <td class="text-right"><strong>0</strong></td>
             <td class="text-right"><strong>${QtySewingInTransferTotal}</strong></td>
             <td class="text-right"><strong>${WipSewingOutTotal}</strong></td>
-            <td class="text-right"><strong>0</strong></td>
-            <td class="text-right"><strong>0</strong></td>
+          
             <td class="text-right"><strong>${WipFinishingOutTotal}</strong></td>
 
             <td class="text-right"><strong>${QtySewingReturTotal}</strong></td>

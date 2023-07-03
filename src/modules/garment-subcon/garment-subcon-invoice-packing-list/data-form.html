@@ -8,13 +8,35 @@
                 <au-dropdown 
                     label="Jenis BC" 
                     value.bind="selecteBCType" 
-                    read-only.bind="readOnly"
                     items.bind="BCType"
                     error.bind="error.BCType"
-                    read-only.bind="readOnly|| isEdit "
+                    read-only.bind="readOnly || isEdit "
                     options.bind="controlOptions">
                 </au-dropdown>
 
+                <radiobutton 
+                    label="Tipe PO"
+                    checked.bind="data.POType"
+                    value.bind="data.POType"
+                    if.bind="data.BCType == 'BC 2.6.2'"
+                    error.bind="error.POType"
+                    selections.bind="poTypeSelection"
+                    read-only.bind="readOnly || isEdit"
+                    change.delegate="selectedTypePOChanged($event)"
+                    options.bind="controlOptions">
+                </radiobutton>
+<!-- 
+                <label repeat.for="tipe of poTypeSelection">
+                    <input type="radio" 
+                    name="group4"
+                    value.bind="tipe" 
+                    checked.bind="data.POType"  
+                    if.bind="data.BCType == 'BC 2.6.2'"  
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions"  
+                    change.delegate="selectedTypePOChanged($event)">
+                    ${tipe}
+                </label> -->
 
                 <au-datepicker 
                     label="Tanggal"
@@ -75,14 +97,16 @@
                     value.bind="data.NW"
                     label="Nilai NW"
                     read-only.bind="true"
-                    options.bind="controlOptions">
+                    options.bind="controlOptions"
+                    format="0.0000">
                 </au-numeric>
 
                 <au-numeric
                     value.bind="data.GW"
                     label="Nilai GW"
                     read-only.bind="true"
-                    options.bind="controlOptions">
+                    options.bind="controlOptions"
+                    format="0.0000">
                 </au-numeric>
 
                 <au-multiline
@@ -104,10 +128,23 @@
                 read-only.bind="readOnly"
                 remove.bind="removeItems"
                 add.bind="addItems"
-                if.bind="isItems"
+                if.bind="data.BCType != 'BC 2.6.2'"
                 options.bind="itemOptions"
                 item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/item"
                 footer-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/invoice-packing-list">
+            </au-collection>
+
+            <au-collection
+                items.bind="data.Items"
+                errors.bind="error.Items"
+                columns.bind="columnsIN"
+                read-only.bind="readOnly"
+                remove.bind="removeItems"
+                add.bind="addItems"
+                if.bind="data.BCType == 'BC 2.6.2' && data.Supplier"
+                options.bind="itemOptions"
+                item-template="modules/garment-subcon/garment-subcon-invoice-packing-list/template/itemIN"
+                >
             </au-collection>
         </div>
     </au-input-form>

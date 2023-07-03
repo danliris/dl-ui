@@ -158,6 +158,16 @@ export class List {
         this.service.generateExcel(info);
     }
 
+    ExportToExcelMII() {
+        var info = {
+            unit: this.unit ? this.unit : 0,
+            dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : moment(new Date()).format("YYYY-MM-DD"),
+            ro: this.ro ? this.ro : ""
+        }
+        this.service.generateExcelMII(info);
+    }
+
     get unitLoader() {
         return UnitLoader;
     }
