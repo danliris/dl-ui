@@ -72,6 +72,7 @@ export class DataForm {
     this.filterCC = {
       CCType: "SUBCON",
       IsPosted: true,
+      IsApprovedKadivMD: true,
     };
   }
 
