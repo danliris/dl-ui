@@ -42,6 +42,7 @@ export class List {
                 console.log(result.data)
                 for(var d of result.data){
                     d.Date=moment(d.Date).format("YYYY-MM-DD");
+                    d.Efficiency= (d.Efficiency*100).toFixed(2);
                 }
                 this.data= result.data;
             });
