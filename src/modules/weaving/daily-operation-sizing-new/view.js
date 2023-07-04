@@ -4,6 +4,7 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
+  
   searchButton = false;
   dataExist = true;
   editable = true;
@@ -11,6 +12,7 @@ export class View {
   @bindable Year;
 
   constructor(router, service) {
+    console.log("masuk view.js");
     this.router = router;
     this.service = service;
     this.data = {};
@@ -26,7 +28,7 @@ export class View {
     console.log(params)
     var result= await  this.service.getFilter(arg);
     this.data = result.data;
-    console.log(this.data);
+    //console.log(this.data);
     
   }
 
@@ -40,17 +42,7 @@ export class View {
     this.list();
   }
 
-  //Tombol "Ubah", routing ke 'edit'
-  // editCallback(event) {
-  //   this.router.navigateToRoute("edit", { Id: this.data.Id });
-  // }
-
-  //Tombol "Hapus", hapus this.data, redirect ke list
-  // deleteCallback(event) {
-  //   this.service.delete(this.data).then(result => {
-  //     this.list();
-  //   });
-  // }
+  
   
   exportToExcel() {
     

@@ -34,7 +34,7 @@ export class List {
     };
 
     return this.service.searchEstimatedProductions(arg).then(result => {
-      console.log(result.data);
+      //console.log(result.data);
       return {
         total: result.info.total,
         data: result.data
