@@ -10,7 +10,8 @@ import {
   VERIFICATION,
   CASHIER,
   RETUR,
-} from "../shared/permission-constants";
+} from "./permission-constant";
+
 const DispositionNoteLoader = require("../shared/disposition-note-loader");
 const SupplierLoader = require("../../../loader/garment-supplier-loader");
 // const DivisionLoader = require("../../../loader/division-loader");

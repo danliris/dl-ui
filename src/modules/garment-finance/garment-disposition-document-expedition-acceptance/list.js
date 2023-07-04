@@ -10,7 +10,7 @@ import {
   VERIFICATION,
   CASHIER,
   RETUR
-} from "../shared/permission-constants";
+} from "./permission-constant";
 
 @inject(Router, Service, Dialog, PermissionHelper)
 export class List {
