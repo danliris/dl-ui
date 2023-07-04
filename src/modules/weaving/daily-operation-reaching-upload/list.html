@@ -1,0 +1,16 @@
+<template>
+    <h1 class="page-header">Operasional Mesin Harian Reaching</h1>
+    <au-table
+      data.bind="loader"
+      columns.bind="columns"
+      page-size="25"
+      context.bind="context"
+      context-click.delegate="contextCallback($event)"
+      options.bind="tableOptions"
+    >
+      <div slot="toolbar" class="btn-group">
+        <button class="btn btn-success" click.delegate="upload()">Upload</button>
+      </div>
+    </au-table>
+  </template>
+  
