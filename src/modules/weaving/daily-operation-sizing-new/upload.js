@@ -113,7 +113,8 @@ export class Create {
                     }
                     else{
                         alert("Data Berhasil Diupload");
-                        document.getElementById("fileCsv").value = "";
+                       // document.getElementById("fileCsv").value = "";
+                       this.router.navigateToRoute("list");
             
                     }
                     return Promise.resolve(result);
