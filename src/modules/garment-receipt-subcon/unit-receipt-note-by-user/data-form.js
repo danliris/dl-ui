@@ -62,7 +62,7 @@ export class DataForm {
         { header: "Satuan SJ" },
         { header: "Konversi" },
         { header: "Qty Kecil" },
-        { header: "Qty Kecil" },
+        { header: "Satuan Kecil" },
         { header: "Keterangan" },
         { header: "Design/Color" },
       ],
