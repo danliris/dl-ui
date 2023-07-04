@@ -505,7 +505,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-reaching",
   name: "weaving-daily-operation-reaching",
-  moduleId: "./modules/weaving/daily-operation-reaching/index",
+  moduleId: "./modules/weaving/daily-operation-reaching-upload/index",
   nav: true,
   title: "Operasional Mesin Harian Reaching",
   auth: true,
