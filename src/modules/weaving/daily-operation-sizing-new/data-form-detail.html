@@ -74,7 +74,7 @@
                 </thead>
                 <tbody>
                     <require from="../../../lib/number-format-value-converter"></require>
-                    <tr repeat.for="item of data">
+                    <tr repeat.for="item of dataThrow">
                         <td class="text-center">${item.date}</td>
                         <td class="text-center">${item.week}</td>
                         <td class="text-left">${item.machineSizing}</td>
@@ -120,15 +120,15 @@
                         <td class="text-center">${item.bruto}</td>
                         <td class="text-center">${item.netto}</td>
                         <td class="text-left">${item.teoritis}</td>
-                        <td class="text-left">${item.spu}</td>
+                        <td class="text-left">${item.spu}%</td>
                         <td class="text-center">${item.warpingLenght}</td>
                         <td class="text-right">${item.finalCounter}</td>
-                        <td class="text-right">${item.draft}</td>
+                        <td class="text-right">${item.draft}%</td>
                         <td class="text-right">${item.speed}</td>
                         <td class="text-right">${item.information}</td>
                         <td class="text-right">${item.speedMin}</td>
                         <td class="text-right">${item.capacity}</td>
-                        <td class="text-right">${item.efficiency}</td>
+                        <td class="text-right">${item.efficiency}%</td>
                         
                         
                     </tr>
