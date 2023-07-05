@@ -1,6 +1,7 @@
 <template>
     <h1 class="page-header">Detail Operasional Mesin Harian Reaching</h1>
     <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center">
           <th>No</th>
@@ -46,7 +47,7 @@
               <td class="text-left">${mr.CM}</td>
               <td class="text-left">${mr.BeamWidth}</td>
               <td class="text-left">${mr.TotalWarp}</td>
-              <td class="text-right">${mr.ReachingStrands | numberFormat: '0,000'}</td>
+              <td class="text-right">${mr.ReachingStrands}</td>
               <td class="text-left">${mr.ReachingEfficiency}</td>
               <td class="text-left">${mr.CombWidth}</td>
               <td class="text-left">${mr.CombStrands}</td>
@@ -63,6 +64,7 @@
           </tr>
       </tbody>
   </table>
+</div>
   <div slot="actions" class="btn-group">
     <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
   </div>
