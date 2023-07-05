@@ -15,7 +15,7 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       },
     },
-    { field: "Supplier.Name", title: "Nama Supplier" },
+    { field: "Supplier.Name", title: "Nama Pemilik Barang" },
     { field: "RONo", title: "Ro Job Subcon", sortable: false },
     { field: "BeacukaiType", title: "Tipe BC" },
     { field: "BeacukaiNo", title: "No BC" },
