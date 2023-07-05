@@ -715,4 +715,20 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-warehouse-out',
+    name: 'dyeing-printing-warehouse-out',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-warehouse-out/index',
+    nav: true,
+    title: 'Pengeluaran Gudang Barang Jadi',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "gudang jadi",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"S42" : 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  }
 ];
