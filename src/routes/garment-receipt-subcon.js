@@ -71,4 +71,20 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/unit-expenditure-note-by-user",
+    name: "unit-expenditure-note-by-user",
+    moduleId:
+      "./modules/garment-receipt-subcon/unit-expenditure-note-by-user/index",
+    nav: true,
+    title: "Bon Pengeluaran Unit",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "transaksi",
+      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      permission: { H19: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
