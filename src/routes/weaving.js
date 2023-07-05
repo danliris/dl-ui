@@ -485,11 +485,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/size-pickup-report",
-  name: "size-pickup-report",
-  moduleId: "./modules/weaving/size-pickup-report/index",
+  route: "weaving/warping-SPU-report",
+  name: "warping-SPU-report",
+  moduleId: "./modules/weaving/warping-SPU-report/index",
   nav: true,
-  title: "Laporan Size Pickup",
+  title: "Laporan SPU",
   auth: true,
   settings: {
     group: "weaving",
