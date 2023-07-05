@@ -19,11 +19,11 @@
             view-model.ref="beacukaiAU" options.bind="controlOptions">
         </au-autocomplete>
         <au-textbox label="Nomor Bea Cukai" value.bind="data.beacukaiNo" error.bind="error.beacukaiNo"
-            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL ||readOnly || isEdit" options.bind="controlOptions">
         </au-textbox>
 
         <au-dropdown label="Tipe Bea Cukai" value.bind="selectedCustomType" error.bind="error.customType"
-            read-only.bind="readOnlyBCDL " items.bind="typeCustoms" options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL || readOnly || isEdit" items.bind="typeCustoms" options.bind="controlOptions">
         </au-dropdown>
         <!--    
         <au-textbox 
@@ -34,7 +34,7 @@
         </au-textbox> -->
 
         <au-datepicker label="Tanggal Bea Cukai" value.bind="data.beacukaiDate" error.bind="error.beacukaiDate"
-            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL  && readOnly || isEdit" options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker label="Tanggal Kedatangan Barang" value.bind="data.arrivalDate" error.bind="error.arrivalDate"
