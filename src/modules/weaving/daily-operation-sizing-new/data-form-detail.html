@@ -16,6 +16,7 @@
             <table class="table table-bordered table-hover" border="1" id="myTable">
                 <thead align="center">
                     <tr>
+                        <td rowspan="2">No</td>
                         <td rowspan="2">Tanggal</td>
                         <td rowspan="2">Week</td>
                         <td rowspan="2">Machine Sizing</td>
@@ -75,6 +76,7 @@
                 <tbody>
                     <require from="../../../lib/number-format-value-converter"></require>
                     <tr repeat.for="item of dataThrow">
+                        <td class="text-center">${$index + 1}</td>
                         <td class="text-center">${item.date}</td>
                         <td class="text-center">${item.week}</td>
                         <td class="text-left">${item.machineSizing}</td>
