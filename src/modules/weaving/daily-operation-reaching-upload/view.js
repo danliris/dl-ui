@@ -17,8 +17,8 @@ export class View {
         var MR=await this.service.getByMonthYear(arg);
         for(var data of MR.data){
             data.InstallEfficiency= data.InstallEfficiency? ((parseFloat(data.InstallEfficiency)*100).toFixed(2)).toString() + '%' : '-';
-            data.ReachingEfficiency= data.ReachingEfficiency? ((parseFloat(data.ReachingEfficiency)*100).toFixed(2)).toString() + '%' : '-';
-            data.CombEfficiency= data.CombEfficiency? ((parseFloat(data.CombEfficiency)*100).toFixed(2)).toString() + '%': '-';
+            data.ReachingEfficiency= data.ReachingEfficiency? ((parseFloat(data.ReachingEfficiency)*100).toFixed(0)).toString() + '%' : '-';
+            data.CombEfficiency= data.CombEfficiency? ((parseFloat(data.CombEfficiency)*100).toFixed(0)).toString() + '%': '-';
             data.DoffingEfficiency= data.DoffingEfficiency? ((parseFloat(data.DoffingEfficiency)*100).toFixed(2)).toString() + '%': '-';
             data.Eff2= data.Eff2? ((parseFloat(data.Eff2)*100).toFixed(2)).toString() + '%': '-';
         }
