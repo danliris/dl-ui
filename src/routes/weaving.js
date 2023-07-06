@@ -523,7 +523,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-reaching-report",
   name: "weaving-daily-operation-reaching-report",
-  moduleId: "./modules/weaving/daily-operation-reaching-report/index",
+  moduleId: "./modules/weaving/reaching-daily-operation-report/index",
   nav: true,
   title: "Laporan Operasional Mesin Harian Reaching",
   auth: true,
