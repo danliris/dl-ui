@@ -326,7 +326,7 @@ export class DataForm {
   }
 
   async selectedContractChanged(newValue) {
-    if (newValue) {
+    if (newValue && !this.hasView) {
       this.data.SubconContractId = newValue.Id;
       this.data.SubconContractNo = newValue.ContractNo;
       this.data.FinishedGoodType = newValue.FinishedGoodType;
