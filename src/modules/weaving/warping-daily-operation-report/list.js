@@ -39,10 +39,9 @@ export class List {
         }
         this.service.getReportData(info)
             .then(result => {
-                console.log(result.data)
                 for(var d of result.data){
                     d.Date=moment(d.Date).format("YYYY-MM-DD");
-                    d.Efficiency= (d.Efficiency*100).toFixed(2);
+                    d.Efficiency= (d.Eff*100).toFixed(2);
                 }
                 this.data= result.data;
             });
