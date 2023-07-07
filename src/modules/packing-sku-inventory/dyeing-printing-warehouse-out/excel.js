@@ -60,7 +60,10 @@ export class Create {
             field: "packingLength", title: "Panjang/Pack", sortable: false
         },
         { 
-            field: "inQty", title: "Total", sortable: false
+            field: "balance", title: "Total", sortable: false
+        },
+        { 
+            field: "uomUnit", title: "Satuan", sortable: false
         }
     ];
 

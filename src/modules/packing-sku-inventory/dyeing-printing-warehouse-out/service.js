@@ -59,12 +59,12 @@ const uomServiceUri = 'master/uoms';
     }
 
     searchMonitoring(info) {
-        var endpoint = `${serviceUri}/monitoring-so`;
+        var endpoint = `${serviceUri}/monitoring`;
         return super.list(endpoint, info);
     }
 
       generateExcel(info) {
-        var endpoint = `${serviceUri}/monitoring-so-xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&productionOrderId=${info.productionOrderId}&track=${info.track}`;       
+        var endpoint = `${serviceUri}/monitoring-xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&productionOrderId=${info.productionOrderId}&track=${info.track}`;       
         return super.getXls(endpoint);
     }
 
