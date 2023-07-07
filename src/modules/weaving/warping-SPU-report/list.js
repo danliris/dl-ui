@@ -16,24 +16,28 @@ export class List {
     }
     shiftOptions = [
         { text: "", value: 0 },
-        { text: "I", value: 1 },
-        { text: "II", value: 2 },
-        { text: "III", value: 3 } 
-    ];
-    MCNOOptions = [
-        { text: "", value: 0 },
         { text: "1", value: 1 },
         { text: "2", value: 2 },
         { text: "3", value: 3 } 
+    ];
+    MESINSIZINGOptions = [
+        { text: "", value: 0 },
+        { text: "SZ 1", value: 1 },
+        { text: "SZ 2", value: 2 },
+        { text: "SZ 3", value: 3 } 
+    ];
+    GROUPOptions = [
+        { text: "", value: 0 },
+        { text: "A", value: 1 },
+        { text: "B", value: 2 },
+        { text: "C", value: 3 } 
     ];
   
     searching() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
-            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
-            sp: this.info.sp ? this.info.sp: "",
-            code: this.info.code ? this.info.code: "",
-            name : this.info.name ? this.info.name: "",
+            machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
+            groupui : this.info.groupui ? this.info.groupui.text: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
@@ -51,7 +55,7 @@ export class List {
     ExportToExcel() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
-            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
             sp: this.info.sp ? this.info.sp: "",
             code: this.info.code ? this.info.code: "",
             name : this.info.name ? this.info.name: "",
@@ -66,9 +70,8 @@ export class List {
         this.fromDate = null;
         this.toDate = null;
         this.info.shift = null;
-        this.info.mcNo = null;
-        this.info.sp = null;
-        this.info.name= null;
-        this.info.code= null;
+        this.info.machineSizing = null;
+        this.info.groupui = null;
+    
     }
 }

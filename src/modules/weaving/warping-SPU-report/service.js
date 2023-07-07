@@ -42,22 +42,16 @@ export class Service extends RestService {
             if (query === '') query = `shift=${info.shift}`;
             else query = `${query}&shift=${info.shift}`;
         }
-        if (info.mcNo && info.mcNo !== "") {
-          if (query === '') query = `mcNo=${info.mcNo}`;
-          else query = `${query}&mcNo=${info.mcNo}`;
+        if (info.machineSizing && info.machineSizing !== "") {
+          if (query === '') query = `machineSizing=${info.machineSizing}`;
+          else query = `${query}&machineSizing=${info.machineSizing}`;
       }
-      if (info.sp && info.sp !== "") {
-        if (query === '') query = `sp=${info.sp}`;
-        else query = `${query}&sp=${info.sp}`;
+      if (info.groupui && info.groupui !== "") {
+        if (query === '') query = `groupui=${info.groupui}`;
+        else query = `${query}&groupui=${info.groupui}`;
       }
-      if (info.name && info.name !== "") {
-        if (query === '') query = `name=${info.name}`;
-        else query = `${query}&name=${info.name}`;
-      }
-      if (info.code && info.code !== "") {
-        if (query === '') query = `code=${info.code}`;
-        else query = `${query}&code=${info.code}`;
-      }
+     
+      
         if (query !== '')
         endpoint = `${serviceUri}/get-warping-daily-operation-report/download?${query}`;
     
