@@ -20,30 +20,20 @@
             options.bind="controlOptions">
         </au-dropdown>
         <au-dropdown  
-            label="No MC"  
-            value.bind="info.mcNo" 
+            label="Mesin Sizing"  
+            value.bind="info.machineSizing" 
             key="value" text="text" 
-            items.bind="MCNOOptions" 
+            items.bind="MESINSIZINGOptions" 
             options.bind="controlOptions">
         </au-dropdown>
-        <au-textbox 
-          label="SP"    
-          value.bind="info.sp"     
-          read-only.bind="readOnly"      
-          options.bind="controlOptions">
-        </au-textbox>
-        <au-textbox  
-            label="Code" 
-            value.bind="info.code" 
-            read-only.bind="readOnly"  
+        <au-dropdown  
+            label="GROUP"  
+            value.bind="info.groupui" 
+            key="value" text="text" 
+            items.bind="GROUPOptions" 
             options.bind="controlOptions">
-        </au-textbox>
-        <au-textbox  
-            label="Name" 
-            value.bind="info.name" 
-            read-only.bind="readOnly"  
-            options.bind="controlOptions">
-        </au-textbox>
+        </au-dropdown>
+       
   
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -64,12 +54,10 @@
           <thead align="center">
               <tr>
                 <td>No</td>
-                <td>Tanggal</td>
-                <td>Shift</td>
                 <td>No MC</td>
-                <td>Panjang</td>
-                <td>Effisiensi(%)</td>
-                <td>Putus Benang</td>
+                <td>Shift</td>
+                <td>SPU</td>
+                
               </tr>
           </thead>
           <tbody>
@@ -78,11 +66,9 @@
                 <tr repeat.for="item of data">
                   <td>${$index + 1}</td>
                   <td class="text-center">${item.Date}</td>
-                  <td class="text-center">${item.Shift}</td>
-                  <td class="text-center">${item.MCNo}</td>
-                  <td class="text-center">${item.Length}</td>
-                  <td class="text-center">${item.Efficiency} %</td>
-                  <td class="text-right">${item.ThreadCut}</td>
+                  <td class="text-center">${item.shift}</td>
+                  <td class="text-center">${item.group}</td>
+                
                 </tr>
               </div>
           </tbody>
