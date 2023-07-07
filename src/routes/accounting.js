@@ -27,6 +27,66 @@ module.exports = [
       iconClass: 'fa fa-clone'
     }
   },
+   {
+    route: "garment-finance/report/local-purchasing-journal",
+    name: "local-purchasing-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-purchasing-journal/index",
+    nav: true,
+    title: "Jurnal Pembelian Lokal",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      //permission: { "B1": 1, "C9": 1 },
+      permission: { "N44": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/import-purchasing-journal",
+    name: "import-purchasing-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/import-purchasing-journal/index",
+    nav: true,
+    title: "Jurnal Pembelian Import",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N45": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "garment-finance/report/export-sales-journal",
+    name: "export-sales-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/export-sales-journal/index",
+    nav: true,
+    title: "Jurnal Penjualan Export",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N46": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+    {
+    route: "garment-finance/report/local-sales-journal",
+    name: "local-sales-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-sales-journal/index",
+    nav: true,
+    title: "Jurnal Penjualan Lokal",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N47": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
   {
     route: '/accounting/post-vb-transaction',
     name: 'journal-transaction-vb',
