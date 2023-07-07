@@ -6,7 +6,7 @@ import { inject } from "aurelia-framework";
   @inject(Router, Service)
   export class List {
     tableOptions = {
-      search: false,
+      search: true,
       showToggle: false,
       showColumns: false,
       pagination: true,
