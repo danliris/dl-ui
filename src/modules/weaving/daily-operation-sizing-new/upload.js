@@ -107,6 +107,7 @@ export class Create {
                         .then(result => {
                             alert(result.message + " Inputan Data harus benar");
                         });
+                        this.router.navigateToRoute("list");
                     }
                     else if (result.status == 404) {
                         alert("Data gagal disimpan. Hubungi Administrator");
