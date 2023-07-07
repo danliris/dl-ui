@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Laporan Operasional Harian Warping</h1>
+      <h1 class="page-header">Laporan Operasional Harian Reaching</h1>
   
       <form class="form-horizontal">
      
@@ -26,24 +26,6 @@
             items.bind="MCNOOptions" 
             options.bind="controlOptions">
         </au-dropdown>
-        <au-textbox 
-          label="SP"    
-          value.bind="info.sp"     
-          read-only.bind="readOnly"      
-          options.bind="controlOptions">
-        </au-textbox>
-        <au-textbox  
-            label="Code" 
-            value.bind="info.code" 
-            read-only.bind="readOnly"  
-            options.bind="controlOptions">
-        </au-textbox>
-        <au-textbox  
-            label="Name" 
-            value.bind="info.name" 
-            read-only.bind="readOnly"  
-            options.bind="controlOptions">
-        </au-textbox>
   
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -65,11 +47,9 @@
               <tr>
                 <td>No</td>
                 <td>Tanggal</td>
-                <td>Shift</td>
-                <td>No MC</td>
-                <td>Panjang</td>
+                <td>Nama Operator</td>
                 <td>Effisiensi(%)</td>
-                <td>Putus Benang</td>
+                <td>Jumlah Beam</td>
               </tr>
           </thead>
           <tbody>
@@ -77,12 +57,14 @@
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
                   <td>${$index + 1}</td>
-                  <td class="text-center">${item.Date}</td>
-                  <td class="text-center">${item.Shift}</td>
-                  <td class="text-center">${item.MCNo}</td>
-                  <td class="text-right">${item.Length}</td>
-                  <td class="text-center">${item.Efficiency} %</td>
-                  <td class="text-right">${item.ThreadCut}</td>
+                  <td class="text-center">${item.Periode}</td>
+                  <td class="text-center">${item.Operator}</td>
+                  <td class="text-center">${item.Efficiency}%</td>
+                  <td class="text-right">${item.BeamNo}</td>
+                </tr>
+                <tr>
+                    <td class="text-right" colspan="4"> <strong>Total Beam</strong> </td>
+                    <td class="text-right"><strong>${total}</strong></td> 
                 </tr>
               </div>
           </tbody>

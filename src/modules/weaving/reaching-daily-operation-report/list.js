@@ -16,9 +16,9 @@ export class List {
     }
     shiftOptions = [
         { text: "", value: 0 },
-        { text: "I", value: 1 },
-        { text: "II", value: 2 },
-        { text: "III", value: 3 } 
+        { text: "1", value: 1 },
+        { text: "2", value: 2 },
+        { text: "3", value: 3 } 
     ];
     MCNOOptions = [
         { text: "", value: 0 },
@@ -31,17 +31,17 @@ export class List {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
             mcNo : this.info.mcNo ? this.info.mcNo.text: "",
-            sp: this.info.sp ? this.info.sp: "",
-            code: this.info.code ? this.info.code: "",
-            name : this.info.name ? this.info.name: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
+        this.total=0
         this.service.getReportData(info)
             .then(result => {
+                console.log(result.data)
                 for(var d of result.data){
-                    d.Date=moment(d.Date).format("YYYY-MM-DD");
-                    d.Efficiency= (d.Eff*100).toFixed(2);
+                    d.Periode=moment(d.Periode).format("DD MMMM YYYY");
+                    d.Efficiency= ( d.Efficiency *100).toFixed(0);
+                    this.total+=parseFloat(d.BeamNo);
                 }
                 this.data= result.data;
             });
@@ -49,13 +49,10 @@ export class List {
     
     ExportToExcel() {
         var info = {
-        shift : this.info.shift ? this.info.shift.text: "",
-        mcNo : this.info.mcNo ? this.info.mcNo.text: "",
-        sp: this.info.sp ? this.info.sp: "",
-        code: this.info.code ? this.info.code: "",
-        name : this.info.name ? this.info.name: "",
-        fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
-        toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+            shift : this.info.shift ? this.info.shift.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
         this.service.generateExcel(info);
     }
@@ -66,8 +63,5 @@ export class List {
         this.toDate = null;
         this.info.shift = null;
         this.info.mcNo = null;
-        this.info.sp = null;
-        this.info.name= null;
-        this.info.code= null;
     }
 }
