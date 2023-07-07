@@ -22,9 +22,9 @@ export class List {
   ];
     MCNOOptions = [
     { text: "", value: 0 },
-    { text: "WP 1", value: 1 },
-    { text: "WP 2", value: 2 },
-    { text: "WP 3", value: 3 } 
+    { text: "1", value: 1 },
+    { text: "2", value: 2 },
+    { text: "3", value: 3 } 
   ];
   
     searching() {

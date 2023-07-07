@@ -1,0 +1,72 @@
+<template>
+    <h1 class="page-header">Detail Operasional Mesin Harian Reaching</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tgl</th>
+          <th>Shift</th>
+          <th>Group</th>
+          <th>Operator</th>
+          <th>No MC</th>
+          <th>Code</th>
+          <th>No Beam</th>
+          <th>Pasang Reaching</th>
+          <th>Eff Pasang</th>
+          <th>CM</th>
+          <th>Lebar Beam</th>
+          <th>Total Lusi</th>
+          <th>Helai Cucukan</th>
+          <th>Eff Cucukan</th>
+          <th>Lebar Sisiran</th>
+          <th>Helai Sisiran</th>
+          <th>Eff Sisir</th>
+          <th>Doffing</th>
+          <th>Eff Doffing</th>
+          <th>Anyaman</th>
+          <th>Pinggiran(Helai)</th>
+          <th>No Sisir</th>
+          <th>Reed Space</th>
+          <th>Eff2</th>
+          <th>Checker</th>
+          <th>Ket</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${$index + 1}</td>
+              <td class="text-left">${mr.Date}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.Group}</td>
+              <td class="text-left">${mr.Operator}</td>
+              <td class="text-left">${mr.MCNo}</td>
+              <td class="text-left">${mr.Code}</td>
+              <td class="text-right">${mr.BeamNo}</td>
+              <td class="text-left">${mr.ReachingInstall}</td>
+              <td class="text-left">${mr.InstallEfficiency}</td>
+              <td class="text-left">${mr.CM}</td>
+              <td class="text-left">${mr.BeamWidth}</td>
+              <td class="text-left">${mr.TotalWarp}</td>
+              <td class="text-right">${mr.ReachingStrands}</td>
+              <td class="text-left">${mr.ReachingEfficiency}</td>
+              <td class="text-left">${mr.CombWidth}</td>
+              <td class="text-left">${mr.CombStrands}</td>
+              <td class="text-left">${mr.CombEfficiency}</td>
+              <td class="text-left">${mr.Doffing}</td>
+              <td class="text-left">${mr.DoffingEfficiency}</td>
+              <td class="text-left">${mr.Webbing}</td>
+              <td class="text-left">${mr.Margin}</td>
+              <td class="text-left">${mr.CombNo}</td>
+              <td class="text-left">${mr.ReedSpace}</td>
+              <td class="text-left">${mr.Eff2}</td>
+              <td class="text-left">${mr.Checker}</td>
+              <td class="text-left">${mr.Information}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+    </template>
+    
