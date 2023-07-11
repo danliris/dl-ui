@@ -88,12 +88,13 @@ export class Item {
             //console.log(newValue);
             
             var UOM = [];
+            this.quantity = 0;
             for(var item of this.DL.Items)
             {
                 this.data.Product = item.Product;
 
                 this.data.DesignColor = item.DesignColor;
-                this.data.Quantity = item.Quantity; 
+                this.quantity += item.Quantity; 
                 this.data.TotalPrice = this.datas.CIF*item.Quantity;
 
                 // this.data.NettWeight.push(this.data.NettWeight);
@@ -107,6 +108,9 @@ export class Item {
                 // this.TotalHarga = item.Quantity
             }
             this.UOM = UOM;
+            this.data.Quantity = this.quantity;
+
+            console.log(this.data.Quantity);
             //console.log(newValue);
         }
     }
