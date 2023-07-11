@@ -49,8 +49,13 @@ export class UnitDeliveryOrderItem {
     if(!this.data.Id){
       this.data.Quantity= this.data.Quantity? this.data.Quantity : doItems.RemainingQuantity;
   
-      this.data.ReturQuantity= this.data.ReturQuantity? this.data.ReturQuantity: doItems.RemainingQuantity/this.data.Conversion;
+      //this.data.ReturQuantity= this.data.ReturQuantity? this.data.ReturQuantity: doItems.RemainingQuantity/this.data.Conversion;
+      this.data.ReturQuantity=  doItems.RemainingQuantity/this.data.Conversion;
       this.data.ReturQtyCheck=this.data.ReturQtyCheck? this.data.ReturQtyCheck:doItems.RemainingQuantity;
+      
+      // console.log(this.data.ReturQuantity);
+      // console.log("data", this.data);
+      // console.log("doItem", doItems);
 
     }
     else{
