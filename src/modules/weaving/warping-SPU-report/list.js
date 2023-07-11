@@ -77,7 +77,7 @@ export class List {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
             machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
-            groupui: this.info.groupui ? this.info.groupui: "",
+            groupui: this.info.groupui ? this.info.groupui.text: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
