@@ -63,8 +63,10 @@
                         <td rowspan="2">Komoditas</td>
                         <td rowspan="2">Kualitas</td>
                         <td rowspan="2">Jumlah Order SC</td>
+                        <td rowspan="2">Nomor Order SPP</td>
                         <td rowspan="2">Jumlah sudah dibuatkan SPP</td>
                         <td rowspan="2">Satuan</td>
+                        <td rowspan="2">Tanggal Turun Order</td>
                         <td rowspan="2">Toleransi(%)</td>
                         <td rowspan="2">Syarat Pembayaran</td>
                         <td rowspan="2">Pembayaran ke Rekening</td>
@@ -84,28 +86,30 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td class="text-center">${$index + 1}</td>
-                        <td class="text-right">${item.salesContractNo}</td>
-                        <td class="text-center">${item.CreatedUtc | dateFormat:'D MMM YYYY'}</td>
-                        <td class="text-right">${item.buyerName}</td>
-                        <td class="text-right">${item.buyerType}</td>
-                        <td class="text-right">${item.dispositionNo}</td>
-                        <td class="text-right">${item.orderType}</td>
-                        <td class="text-right">${item.comodityName}</td>
-                        <td class="text-left">${item.qualityName}</td>
-                        <td class="text-left">${item.orderQuantity}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.salesContractNo}</td>
+                        <td class="text-center" if.bind="item.docspan" rowspan="${item.docspan}">${item.CreatedUtc | dateFormat:'D MMM YYYY'}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.buyerName}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.buyerType}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.dispositionNo}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.orderType}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.comodityName}</td>
+                        <td class="text-left" if.bind="item.docspan" rowspan="${item.docspan}">${item.qualityName}</td>
+                        <td class="text-left" if.bind="item.docspan" rowspan="${item.docspan}">${item.orderQuantity}</td>
+                        <td class="text-left">${item.sppOrderNo}</td>
                         <td class="text-left">${item.productionOrderQuantity}</td>
                         <td class="text-right">${item.uomUnit}</td>
-                        <td class="text-right">${item.shippingQuantityTolerance}</td>
-                        <td class="text-right">${item.termOfPaymentName}</td>
-                        <td class="text-right">${item.paymentTo}</td>
-                        <td class="text-right">${item.deliverySchedule| dateFormat:'D MMM YYYY'}</td>
-                        <td class="text-right">${item.agentName}</td>
-                        <td class="text-right">${item.comission}</td>
-                        <td class="text-left">${item.color}</td>
-                        <td class="text-right">${item.price}</td>
-                        <td class="text-right">${item.accountCurrencyCode}</td>
-                        <td class="text-right">${item.useIncomeTax}</td>
-                        <td class="text-right">${item.status}</td>
+                        <td class="text-right">${item.sppDate | dateFormat:'D MMM YYYY'}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.shippingQuantityTolerance}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.termOfPaymentName}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.paymentTo}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.deliverySchedule| dateFormat:'D MMM YYYY'}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.agentName}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.comission}</td>
+                        <td class="text-left" if.bind="item.docspan" rowspan="${item.docspan}">${item.color}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.price}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.accountCurrencyCode}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.useIncomeTax}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.status}</td>
                     </tr>
                 </tbody>
             </table>
