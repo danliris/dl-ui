@@ -63,5 +63,7 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
-
+    download() {
+      this.service.download();
+  }
 }
