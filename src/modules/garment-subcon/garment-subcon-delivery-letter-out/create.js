@@ -47,6 +47,9 @@ export class Create {
                     item.UomOut={
                         Id:0
                     }
+                    if(this.data.SubconCategory == 'SUBCON BB SHRINKAGE/PANEL'){
+                        item.SmallUomUnit = 'PCS';
+                    }
                 }
             }
         }
