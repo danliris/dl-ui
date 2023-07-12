@@ -76,6 +76,9 @@ export class Edit {
         else if (trackValidate == false){
             alert(" Jalur/Rak Tidak boleh sama dengan Sebelum nya")
 
+        } else if(this.data.Items.length <2){
+
+            alert("Data awal tidak di hapus")
         }
         else {
             
