@@ -541,7 +541,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-loom",
   name: "weaving-daily-operation-loom",
-  moduleId: "./modules/weaving/daily-operation-loom/index",
+  moduleId: "./modules/weaving/daily-operation-loom-upload/index",
   nav: true,
   title: "Operasional Mesin Harian Loom",
   auth: true,
