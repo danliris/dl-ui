@@ -39,9 +39,5 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
   }
-  download()
-  {
-      var endpoint = `${serviceUri}/download`;
-      return super.getXls(endpoint);
-  }
+
 }
