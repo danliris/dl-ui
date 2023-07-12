@@ -55,8 +55,8 @@ export class Edit {
                }
             }
         };
-        console.log(this.data.Items[0].isRead);
-        console.log(this.data.Items[1].isRead);
+        // console.log(this.data.Items[0].isRead);
+        // console.log(this.data.Items[1].isRead);
 
         //console.log(this.data.Items);
 
