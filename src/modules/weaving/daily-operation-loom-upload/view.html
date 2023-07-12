@@ -1,0 +1,114 @@
+<template>
+    <h1 class="page-header">Detail Operasional Mesin Harian Reaching</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tgl</th>
+          <th>Shift</th>
+          <th>No MC</th>
+          <th>No SP</th>
+          <th>Tahun</th>
+          <th>TA</th>
+          <th>LUSI</th>
+          <th>Pakan</th>
+          <th>Lebar</th>
+          <th>Jenis Lusi</th>
+          <th>Jenis Pakan</th>
+          <th>Jenis Pakan2</th>
+          <th>Jenis Pakan3</th>
+          <th>AL</th>
+          <th>AP</th>
+          <th>AP2</th>
+          <th>AP3</th>
+          <th>Benang</th>
+          <th>Konstruksi</th>
+          <th>Jenis Benang</th>
+          <th>Bulan</th>
+          <th>Produk si (CMPX)</th>
+          <th>Eff MC</th>
+          <th>RPM</th>
+          <th>T</th>
+          <th>F</th>
+          <th>W</th>
+          <th>L</th>
+          <th>Column1</th>
+          <th>Produksi(m)</th>
+          <th>100% Produksi</th>
+          <th>% Eff</th>
+          <th>EFF MC2</th>
+          <th>100% Produksi(RPM)</th>
+          <th>Lokasi</th>
+          <th>Jenis Mesin</th>
+          <th>Jenis Mesin Name</th>
+          <th>Blok</th>
+          <th>Blok Name</th>
+          <th>Mtc Lok</th>
+          <th>Mtc</th>
+          <th>Mtc Name</th>
+          <th>No MC2</th>
+          <th>RPM MC</th>
+          <th>Deret</th>
+          <th>Operator</th>
+          <th>No SP/Tahun</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${$index + 1}</td>
+              <td class="text-left">${mr.Date}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.MCNo}</td>
+              <td class="text-left">${mr.SPNo}</td>
+              <td class="text-left">${mr.Year}</td>
+              <td class="text-right">${mr.TA}</td>
+              <td class="text-left">${mr.Warp}</td>
+              <td class="text-left">${mr.Weft}</td>
+              <td class="text-left">${mr.Length}</td>
+              <td class="text-left">${mr.WarpType}</td>
+              <td class="text-left">${mr.WeftType}</td>
+              <td class="text-right">${mr.WeftType2}</td>
+              <td class="text-left">${mr.WeftType3}</td>
+              <td class="text-left">${mr.AL}</td>
+              <td class="text-left">${mr.AP}</td>
+              <td class="text-left">${mr.AP2}</td>
+              <td class="text-left">${mr.AP3}</td>
+              <td class="text-left">${mr.Thread}</td>
+              <td class="text-left">${mr.Construction}</td>
+              <td class="text-left">${mr.ThreadType}</td>
+              <td class="text-left">${mr.MonthId}</td>
+              <td class="text-left">${mr.ProductionCMPX}</td>
+              <td class="text-left">${mr.EFFMC}</td>
+              <td class="text-left">${mr.RPM}</td>
+              <td class="text-left">${mr.T}</td>
+              <td class="text-left">${mr.F}</td>
+              <td class="text-left">${mr.W}</td>
+              <td class="text-left">${mr.L}</td>
+              <td class="text-left">${mr.Column1}</td>
+              <td class="text-left">${mr.Production}</td>
+              <td class="text-left">${mr.Production100}</td>
+              <td class="text-left">${mr.PercentEff}</td>
+              <td class="text-left">${mr.MC2Eff}</td>
+              <td class="text-left">${mr.RPMProduction100}</td>
+              <td class="text-left">${mr.Location}</td>
+              <td class="text-left">${mr.MachineType}</td>
+              <td class="text-left">${mr.MachineNameType}</td>
+              <td class="text-left">${mr.Block}</td>
+              <td class="text-left">${mr.BlockName}</td>
+              <td class="text-left">${mr.MTCLock}</td>
+              <td class="text-left">${mr.MTC}</td>
+              <td class="text-left">${mr.MTCName}</td>
+              <td class="text-left">${mr.MTCNo2}</td>
+              <td class="text-left">${mr.MCRPM}</td>
+              <td class="text-left">${mr.Row}</td>
+              <td class="text-left">${mr.Operator}</td>
+              <td class="text-left">${mr.SPYear}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+    </template>
+    
