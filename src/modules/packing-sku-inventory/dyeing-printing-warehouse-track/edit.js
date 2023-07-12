@@ -55,8 +55,8 @@ export class Edit {
                }
             }
         };
-        //console.log(this.data.Items[0].track.id);
-        //console.log(this.data.Items[1].track.id);
+        // console.log(this.data.Items[0].isRead);
+        // console.log(this.data.Items[1].isRead);
 
         //console.log(this.data.Items);
 
@@ -76,7 +76,7 @@ export class Edit {
         else if (trackValidate == false){
             alert(" Jalur/Rak Tidak boleh sama dengan Sebelum nya")
 
-        } else if(this.data.Items.length <2){
+        } else if(this.data.Items.length <2 || !this.data.Items[0].isRead){
 
             alert("Data awal tidak di hapus")
         }
