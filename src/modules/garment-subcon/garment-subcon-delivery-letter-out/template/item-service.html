@@ -84,6 +84,16 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+
+        <td class="col-sm-4 bg-primary" if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL'">
+            <au-numeric 
+                value.bind="data.SmallQuantity"
+                error.bind = "error.SmallQuantity"
+                read-only.bind="readOnly"
+                format="0">
+            </au-numeric>                    
+        </td>
+
         <td if.bind="!readOnly" class="col-sm-1">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
