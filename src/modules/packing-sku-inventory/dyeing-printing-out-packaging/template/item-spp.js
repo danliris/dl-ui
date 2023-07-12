@@ -62,7 +62,7 @@ export class ItemSPP {
                     if(this.type ==true){
                         this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan",  "QTY Keluar", "Keterangan","Status"];    
                     }else{
-                        this.itemColumns = ["Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
+                        this.itemColumns = [ "Barcode","Buyer", "Qty Order", "Unit", "Material", "Nama Barang", "Warna", "Motif", "Mesin Produksi", "Jenis", "Grade", "Qty Packaging", "Packaging", "Satuan", "Panjang Per Packing", "QTY Keluar", "Keterangan", "Status"];
                     }
                 }
 
