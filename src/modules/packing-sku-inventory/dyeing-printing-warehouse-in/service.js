@@ -70,11 +70,19 @@ const serviceUri = "dp-input-warehouse";
         var endpoint = `${serviceUri}/monitoring`;
         return super.list(endpoint, info);
     }
-
-      generateExcel(info) {
+    generateExcel(info) {
         var endpoint = `${serviceUri}/monitoring-xls?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&productionOrderId=${info.productionOrderId}`;       
         return super.getXls(endpoint);
     }
+    searchPreInput(info) {
+        var endpoint = `${serviceUri}/preinput`;
+        return super.list(endpoint, info);
+    }
+    generateExcelPreInput(info) {
+        var endpoint = `${serviceUri}/preinput-xls?productionOrderId=${info.productionOrderId}&productPackingCode=${info.productPackingCode}`;       
+        return super.getXls(endpoint);
+    }
+      
 
 
 }
