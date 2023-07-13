@@ -59,6 +59,10 @@ export class List {
         { field: "totalPrice", title: "Harga Total", sortable: false,formatter:(value,data)=>{
             return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
         }  },
+        { field: "currencyCode", title: "Mata Uang", sortable: false },
+        { field: "totalPriceIDR", title: "Harga Total(IDR)", sortable: false,formatter:(value,data)=>{
+            return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
+        }  },
 
 
         
@@ -119,14 +123,15 @@ export class List {
             (
                 this.service.search(args)
                     .then(result => {
+                        console.log(result.data.Data);
                         var index=0;
-                        for(var a of result.data){
+                        for(var a of result.data.Data){
                             index++;
                             a.index=index;
                         }
                         return {
                             total: result.info.total,
-                            data: result.data
+                            data: result.data.Data
                         };
                     })
             ) : { total: 0, data: [] };
