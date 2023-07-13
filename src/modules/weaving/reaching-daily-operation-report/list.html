@@ -47,8 +47,7 @@
               <tr>
                 <td>No</td>
                 <td>Tanggal</td>
-                <td>Nama Operator</td>
-                <td>Effisiensi(%)</td>
+                <td>Code</td>
                 <td>Jumlah Beam</td>
               </tr>
           </thead>
@@ -58,12 +57,11 @@
                 <tr repeat.for="item of data">
                   <td>${$index + 1}</td>
                   <td class="text-center">${item.Periode}</td>
-                  <td class="text-center">${item.Operator}</td>
-                  <td class="text-center">${item.Efficiency}%</td>
+                  <td class="text-center">${item.Code}</td>
                   <td class="text-right">${item.BeamNo}</td>
                 </tr>
                 <tr>
-                    <td class="text-right" colspan="4"> <strong>Total Beam</strong> </td>
+                    <td class="text-right" colspan="3"> <strong>Total Beam</strong> </td>
                     <td class="text-right"><strong>${total}</strong></td> 
                 </tr>
               </div>
