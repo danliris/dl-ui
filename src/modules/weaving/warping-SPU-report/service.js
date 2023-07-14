@@ -53,7 +53,7 @@ export class Service extends RestService {
      
       
         if (query !== '')
-        endpoint = `${serviceUri}/get-warping-daily-operation-report/download?${query}`;
+        endpoint = `${serviceUri}/get-spu-daily-operation-report/download?${query}`;
     
     return super.getXls(endpoint);
   }
