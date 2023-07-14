@@ -98,10 +98,9 @@ trackView = (track) => {
 
 
   tableOptions = {
-    showColumns: false,
     search: false,
-    showToggle: false,
-    sortable: false,
+        showToggle: false,
+        showColumns: false
   };
 
   loader = (info) => {
@@ -115,7 +114,8 @@ trackView = (track) => {
       ? this.service.search(params).then((result) => {
 
         return {
-          data: result.data
+          data: result.data,
+          total:result.total
         };
       })
       : { data: [] };
