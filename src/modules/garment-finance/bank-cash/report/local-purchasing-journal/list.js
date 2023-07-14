@@ -37,10 +37,10 @@ export class List {
     
     controlOptions = {
         label: {
-            length: 4
+            length: 3
         },
         control: {
-            length: 4
+            length: 3
         }
     };
 
@@ -57,7 +57,7 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             // month: this.month.value,
-            // year: this.year,            
+            // year: this.year,
         };
         this.service.search(args)
         .then(result => {
@@ -67,7 +67,6 @@ export class List {
         });
         
     }
-
 
     fillTable() {
         const columns = [
@@ -93,31 +92,40 @@ export class List {
     }
 
     ExportToExcel() {
-        // if (!this.year) {
-        //     alert("Tahun Harus Diisi");
-        // }
-        // else if(!this.month){
-        //     alert("Bulan Harus Diisi");
-        // }
         if (!this.dateFrom) {
             alert("Tanggal Mulai Harus Diisi");
         }
         else if(!this.dateTo){
             alert("Tanggal Akhir Harus Diisi");
         }
-
         let args = {
-            // month: this.month.value,
-            // year: this.year,
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            // month: this.month.value,
+            // year: this.year,
         };
         this.service.generateExcel(args);
     }
 
+    ExportDetailToExcel() {
+        if (!this.dateFrom) {
+            alert("Tanggal Mulai Harus Diisi");
+        }
+        else if(!this.dateTo){
+            alert("Tanggal Akhir Harus Diisi");
+        }
+        let args = {
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            // month: this.month.value,
+            // year: this.year,
+        };
+        this.service.generateDetailExcel(args);
+    }
+
     reset() {
-        // this.year = moment().format("YYYY");
-        // this.month = { text: "January", value: 1 };
+        //this.year = moment().format("YYYY");
+        //this.month = { text: "January", value: 1 };
         this.dateFrom = null;
         this.dateTo = null;
         this.error = {};
@@ -127,20 +135,12 @@ export class List {
     }
 
     search() {
-        // if (!this.year) {
-        //     alert("Tahun Harus Diisi");
-        // }
-        // else if(!this.month){
-        //     alert("Bulan Harus Diisi");
-        // }
-
         if (!this.dateFrom) {
             alert("Tanggal Mulai Harus Diisi");
         }
         else if(!this.dateTo){
             alert("Tanggal Akhir Harus Diisi");
         }
-
         this.searching();
     }
 }
