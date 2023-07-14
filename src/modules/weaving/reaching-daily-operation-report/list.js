@@ -40,7 +40,7 @@ export class List {
                 console.log(result.data)
                 for(var d of result.data){
                     d.Periode=moment(d.Periode).format("DD MMMM YYYY");
-                    d.Efficiency= ( d.Efficiency *100).toFixed(0);
+                    //d.Efficiency= ( d.Efficiency *100).toFixed(0);
                     this.total+=parseFloat(d.BeamNo);
                 }
                 this.data= result.data;
