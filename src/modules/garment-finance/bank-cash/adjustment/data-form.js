@@ -1,10 +1,10 @@
 import { Router } from 'aurelia-router';
 import { CoreService, Service } from './service';
-import { inject, bindable, computedFrom } from 'aurelia-framework';
+import { inject, bindable, computedFrom,containerless, BindingEngine } from 'aurelia-framework';
 import { Dialog } from '../../../../au-components/dialog/dialog';
 import moment from 'moment';
 
-var AccountingBookLoader=require('../../../../loader/accounting-book-loader');
+// var AccountingBookLoader=require('../../../../loader/accounting-book-loader');
 var CurrenciesLoader=require('../../../../loader/currency-loader');
 
 @inject(Router, Service, CoreService, Dialog)
@@ -23,13 +23,14 @@ export class DataForm {
 		deleteText: "Hapus",
 		editText: "Ubah",
 	}
-    get accountingBookLoader() {
-        return AccountingBookLoader;
-    }
+    // get accountingBookLoader() {
+    //     return AccountingBookLoader;
+    // }
 
 	itemsColumns = [
 		{ header: "No Account" },
 		{ header: "Nama Account" },
+		{ header: "Keterangan" },	
 		{ header: "Debet" },
 		{ header: "Kredit" },
 	]
@@ -57,26 +58,26 @@ export class DataForm {
 		}
 
 		if (this.data) {
-			this.accountingBook = this.data.AccountingBookId ? {
-                Id:this.data.AccountingBookId,
-                Code:this.data.AccountingBookCode,
-                Type:this.data.AccountingBookType
-            } : null;
+			// this.accountingBook = this.data.AccountingBookId ? {
+            //     Id:this.data.AccountingBookId,
+            //     Code:this.data.AccountingBookCode,
+            //     Type:this.data.AccountingBookType
+            // } : null;
 			this.currencies = this.data.GarmentCurrency || null;
             this.date=this.data.Date;
 		}
 	}
 
-    accountingBookView=(acc) => {
-		return acc.Code + " - " + acc.Type;
-    }
+    // accountingBookView=(acc) => {
+	// 	return acc.Code + " - " + acc.Type;
+    // }
 
-    accountingBookChanged(newValue){
-		console.log(newValue)
-        this.data.AccountingBookId=newValue.Id;
-        this.data.AccountingBookCode=newValue.Code;
-        this.data.AccountingBookType= newValue.Type;
-    }
+    // accountingBookChanged(newValue){
+	// 	console.log(newValue)
+    //     this.data.AccountingBookId=newValue.Id;
+    //     this.data.AccountingBookCode=newValue.Code;
+    //     this.data.AccountingBookType= newValue.Type;
+    // }
     
 	currenciesView = (currency) => {
         if(currency)
@@ -90,6 +91,7 @@ export class DataForm {
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
 			var year = date.format('Y');
+			
             let info = {
 				size: 10,
 				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month, "Year": year })
@@ -139,6 +141,7 @@ export class DataForm {
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
 			var year = date.format('Y');
+			
             let info = {
 				size: 10,
 				filter: JSON.stringify({ "Currency.Id": this.data.GarmentCurrency.Id, "Month": month, "Year": year })
