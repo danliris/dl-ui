@@ -57,4 +57,7 @@ export class List {
         break;
     }
   }
+  download() {
+    this.service.download();
+}
 }
