@@ -42,7 +42,7 @@ export class DataForm {
 
   
   types = [ "OUT", "ADJ OUT"];
-  destinationAreas = ["SHIPPING", "PACKING","INSPECTION MATERIAL"];
+  destinationAreas = ["SHIPPING", "PACKING","INSPECTION MATERIAL", "TRANSIT"];
 
 
   
