@@ -305,11 +305,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/beam-monitoring-visualization",
-  name: "beam-monitoring-visualization",
-  moduleId: "./modules/weaving/beam-monitoring-visualization/index",
+  route: "weaving/stock-beam",
+  name: "stock-beam",
+  moduleId: "./modules/weaving/stock-beam-upload/index",
   nav: true,
-  title: "Visualisasi Pemantauan Beam",
+  title: "Stock Beam",
   auth: true,
   settings: {
     group: "weaving",
