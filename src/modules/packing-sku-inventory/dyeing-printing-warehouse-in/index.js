@@ -32,7 +32,7 @@ export class Index {
         moduleId: './excel', 
         name: 'excel', 
         nav: false, 
-        title: 'Monitoring : Penerimaan Gudang Barang Jadi - Dyeing & Printing' },
+        title: 'Monitoring : Penerimaan Gudang Barang Jadi - Dyeing & Printing' }, 
         { route: 'pending', 
         moduleId: './pending', 
         name: 'pending', 
