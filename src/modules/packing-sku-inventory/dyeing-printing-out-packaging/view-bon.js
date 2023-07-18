@@ -14,7 +14,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getByIdBon(id);
-        this.type= true;
+        //this.type= true;
         // if (this.data.type == "OUT") {
         //     this.data.packagingProductionOrders = this.data.packagingProductionOrders.filter(s => s.hasNextAreaDocument === false);
         // }

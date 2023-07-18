@@ -81,7 +81,8 @@ export class DataForm {
             //"Asal Unit",
             "Jumlah",
             "Jumlah Kemasan",
-            "Satuan Kemasan"
+            "Satuan Kemasan",
+            "Qty Keluar (PCS)"
         ],
         columnBBWash: [
             "No Subcon BB Fabric Wash/Print",
@@ -89,7 +90,8 @@ export class DataForm {
             //"Asal Unit",
             "Jumlah",
             "Jumlah Kemasan",
-            "Satuan Kemasan"
+            "Satuan Kemasan",
+          
         ],
         columnsServiceWash: [
             "No Subcon Jasa Garment Wash",
@@ -373,10 +375,16 @@ export class DataForm {
         var qty = 0;
         if (this.data.Items) {
             if (this.data.Items.length > 0) {
-                for (var item of this.data.Items) {
-                    qty += item.Quantity;
+                if(this.data.SubconCategory != 'SUBCON BB SHRINKAGE/PANEL')
+                {
+                    for (var item of this.data.Items) {
+                        qty += item.Quantity;
+                    }
+                }else{
+                    for (var item of this.data.Items) {
+                        qty += item.SmallQuantity;
+                    }
                 }
-
             }
             this.data.TotalQty = qty ? qty : 0;
         }
@@ -410,7 +418,7 @@ export class DataForm {
 
     get addItems() {
         return (event) => {
-            if (this.data.Items.length >= 1 && this.data.SubconCategory == "SUBCON JASA BARANG JADI") {
+            if (this.data.Items.length >= 1) {
                 alert("Item tidak boleh lebih dari 1");
             } else {
                 this.data.Items.push({ DLType: this.data.DLType });

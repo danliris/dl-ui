@@ -110,7 +110,8 @@ export class DataForm {
 
   preSalesContractFilter = {
     IsPosted: true,
-    SCType: "JOB ORDER"
+    "SCType == \"JOB ORDER\" || SCType == \"SUBCON\"": true
+    //SCType: "JOB ORDER"
   }
 
   constructor(router, bindingEngine, serviceEffeciency, rateService, element, serviceCore) {
@@ -368,6 +369,7 @@ export class DataForm {
     if (newValue) {
       this.data.PreSCId = newValue.Id;
       this.data.PreSCNo = newValue.SCNo;
+      this.data.CCType = newValue.SCType;
       this.data.Section = newValue.SectionCode;
       console.log(this.data.Section);
       const section = await this.serviceCore.getSection(newValue.SectionId);

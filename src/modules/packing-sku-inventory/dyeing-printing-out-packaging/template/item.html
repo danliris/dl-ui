@@ -4,6 +4,11 @@
             <au-checkbox value.bind="data.IsSave" disabled.bind="readOnly" change.delegate="changeCheckBox()">
             </au-checkbox>
         </td>
+        <td show.bind="readOnly || isEdit">
+            <au-textbox value.bind="data.productPackingCode" read-only.bind="true" error.bind="error.Construction"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
         <td>
             <au-textbox value.bind="data.buyer" read-only.bind="true" error.bind="error.Buyer"
                 options.bind="controlOptions">
@@ -83,7 +88,7 @@
             </au-textbox>
         </td>
         <td show.bind="!readOnly || !isEdit">
-            <au-numeric value.bind="data.balance" format="0.00" read-only.bind="true" error.bind="error.BalanceRemains"
+            <au-numeric value.bind="data.balanceRemains" format="0.00" read-only.bind="true" error.bind="error.BalanceRemains"
                 options.bind="controlOptions">
             </au-numeric>
         </td>

@@ -231,12 +231,15 @@ export class DataForm {
       delete this.data.supplierId;
     }
     this.data.deliveryOrders = [];
+    this.data.deliveryOrderNonPO = [];
     delete this.data.currencyId;
     this.data.currency = {};
   }
 
   async currencyChange(e) {
     this.data.deliveryOrders = [];
+    this.data.deliveryOrderNonPO = [];
+
 
     if (this.data.currency && this.data.currency.Id) {
       this.data.currencyId = this.data.currency.Id;
@@ -255,8 +258,8 @@ export class DataForm {
           data["doId"] = a.Id;
           data["doDate"] = a.doDate;
           data["arrivalDate"] = a.arrivalDate;
-
           data["isView"] = !this.hasView ? true : false;
+          data["IsPO"] = true;
           var quantity = 0;
           var totPrice = 0;
           for (var b of a.items) {
@@ -271,6 +274,70 @@ export class DataForm {
           dataDelivery.push(data);
         }
         this.data.deliveryOrders = dataDelivery;
+
+        if (this.data.customType == "BC 262") {
+          var result = await this.service.searchDeliveryOrderNonPO({
+            supplier: `${this.data.supplier.Id}`,
+            currency: `${this.data.currency.code}`,
+            billNo: this.data.billNo,
+          });
+
+          var dataDeliveryNonPO = [];
+
+          for (var a of result.data) {
+            var data = a;
+            data["selected"] = false;
+            data["doNo"] = a.doNo;
+            data["doId"] = a.Id;
+            data["doDate"] = a.doDate;
+            data["arrivalDate"] = a.arrivalDate;
+            data["isView"] = !this.hasView ? true : false;
+            data["IsPO"] = false;
+            var quantity = 0;
+            var totPrice = 0;
+            for (var b of a.items) {
+                quantity += b.Quantity;
+                var priceTemp = b.Quantity * b.PricePerDealUnit;
+                totPrice += priceTemp;
+            }
+            data["quantity"] = quantity;
+            data["price"] = totPrice.toFixed(3);
+            dataDeliveryNonPO.push(data);
+          }
+          this.data.deliveryOrderNonPO = dataDeliveryNonPO;
+        }
+
+        if (this.data.customType == "BC 40" || this.data.customType == "BC 27") {
+          var result = await this.service.searchSubconDeliveryOrder({
+            supplier: `${this.data.supplier.Id}`,
+            currency: `${this.data.currency.code}`,
+            // billNo: this.data.billNo,
+          });
+
+          var dataDeliveryNonPO = [];
+
+          for (var a of result.data) {
+            var data = a;
+            data["selected"] = false;
+            data["doNo"] = a.doNo;
+            data["doId"] = a.Id;
+            data["doDate"] = a.doDate;
+            data["arrivalDate"] = a.arrivalDate;
+            data["isView"] = !this.hasView ? true : false;
+            data["IsPO"] = false;
+            var quantity = 0;
+            var totPrice = 0;
+            for (var b of a.items) {
+                quantity += b.DOQuantity;
+                var priceTemp = b.DOQuantity * b.PricePerDealUnit;
+                totPrice += priceTemp;
+            }
+            data["quantity"] = quantity;
+            data["price"] = totPrice.toFixed(3);
+            dataDeliveryNonPO.push(data);
+          }
+          this.data.deliveryOrderNonPO = dataDeliveryNonPO;
+        }
       }
     } else {
       delete this.data.currencyId;

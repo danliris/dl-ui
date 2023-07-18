@@ -90,6 +90,7 @@ export class DataForm {
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
 			var year = date.format('Y');
+			
             let info = {
 				size: 10,
 				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month, "Year": year })
@@ -139,6 +140,7 @@ export class DataForm {
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
 			var year = date.format('Y');
+			
             let info = {
 				size: 10,
 				filter: JSON.stringify({ "Currency.Id": this.data.GarmentCurrency.Id, "Month": month, "Year": year })

@@ -1,0 +1,43 @@
+<template>
+
+  <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+    <div slot="actions" class="btn-group">
+      <button class="btn btn-default" click.delegate="context.cancel($event)"
+        if.one-way="context.hasCancel">Kembali</button>
+      <!-- <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button> -->
+      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+      <!-- <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button> -->
+    </div>
+
+    <div class="row">
+
+      <au-textbox value.bind="data.productionOrderNo" error.bind="error.productionOrderNo" label="No SPP"
+        read-only.bind="true" options.bind="controlOptions">
+      </au-textbox>
+
+      <au-textbox label="Barcode" value.bind="data.productPackingCode" error.bind="error.productPackingCode" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-textbox>
+
+      
+
+      <au-numeric label="Quantity" value.bind="data.balanceRemains" error.bind="error.balanceRemains"
+        read-only.bind="true" options.bind="controlOptions">
+      </au-numeric>
+
+      <au-textbox label="Qty Satuan" value.bind="data.packagingQtyRemains" error.bind="error.PackagingQTyRemans" read-only.bind="true"
+        options.bind="controlOptions">
+      </au-textbox>
+    </div>
+
+
+      <div class="table-responsive">
+        <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns"
+          read-only.bind="readOnly" remove.bind="removeItems" add.bind="addItems" if.bind="isItems"
+          options.bind="itemOptions" item-template="modules/packing-sku-inventory/dyeing-printing-stock-opname-track/template/item">
+        </au-collection>
+      </div>
+
+  </au-input-form>
+  <div class="row"></div>
+</template>

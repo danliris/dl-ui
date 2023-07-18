@@ -1,0 +1,214 @@
+<template>
+  <style>
+    .collection .panel-body {
+      padding: 0px;
+    }
+  </style>
+  <au-input-form title.bind="title" options.bind="formOptions">
+
+    <!-- <au-autocomplete  label="No SPP" value.bind="selectedProductionOrder"
+      loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly" options.bind="controlOptions" placeholder = "Filter No SPP">
+    </au-autocomplete> -->
+    <!-- <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
+      read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown> -->
+    <!-- <au-autocomplete  label="Jalur" value.bind="track"
+        loader.bind="trackLoader"
+        read-only.bind="readOnly"
+        placeholder="Jalur/Rak"
+        text.bind="trackView" options.bind="controlOptions"
+        placeholder = "Filter Jalur/Rak">
+    </au-autocomplete> -->
+
+    <!-- <au-datepicker options.bind="controlOptions" value.bind="data.date" error.bind="error.Date"
+      read-only.bind="readOnly || isEdit" label="Tanggal">
+    </au-datepicker> -->
+
+    <!-- <p class="col-md-1">Barcode</p>
+    <input type="text" 
+      focus.bind="hasFocus" 
+      value.bind="barcode" 
+      class="col-md-3" 
+      aria-placeholder="Barcode" 
+      input.delegate="barcodeChoose($event)">
+    </input> -->
+
+    <p class="col-md-1">Barcode</p>
+    <input type="text" 
+      focus.bind="hasFocus" 
+      value.bind="barcode" 
+      class="col-md-3" 
+      aria-placeholder="Barcode" >
+    </input>
+    <!-- <au-textbox
+        label="Barcode"
+        type="text" 
+        focus.bind="hasFocus" 
+        value.bind="barcode"
+        placeholder="cari Barcode" 
+        
+        options.bind="controlOptions">
+    </au-textbox> -->
+
+    
+    <numeric label="Total Packing:" read-only.bind="true" value.bind="sumTotalQty" class="col-md-5"></numeric>
+    <numeric label="Total Panjang:" read-only.bind="true" value.bind="sumLength" class="col-md-3"></numeric>
+    <p class="col-md-1"></p>
+    <button class="btn btn-success" click.delegate="barcodeManual()">Cari</button>
+    <div class="form-group" if.bind="error.itemscount">
+      <center>
+        <p if.bind="error.itemscount" class="help-block text-center">${error.itemscount}</p>
+      </center>
+    </div>
+    <br>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Barcode</th>
+          <th>No SPP</th>
+          <th>Grade</th>
+          <th>Saldo Packing</th>
+          <th>Qty Terima</th>
+          <th>Satuan Pack</th>
+          <th>Panjang Satuan</th>
+          <!-- <th>Jalur/Rak</th> -->
+          
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr repeat.for="item of data.dyeingPrintingWarehouseInItems">
+          <td>${$index+1}</td>
+          <td>${item.productPackingCode}</td>
+          <td>${item.productionOrder.no}</td>
+          <td>${item.grade}</td>
+          <td>${item.packagingQty}</td>
+          <!-- <td>${item.item.name}</td> -->
+          <!-- <td>
+            <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+              <center>
+                <p class="form-control-static">${item.quantity}</p>
+              </center>
+            </div>
+          </td> -->
+          <!-- <td>
+            <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
+              <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
+                max.bind="item.quantity" min="0"
+                change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
+              <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
+            </div>
+          </td> -->
+
+          <td>
+            <div class="form-group ${error.Items[$index].Sendquantity?'has-error':''}">
+              <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
+                
+                change.delegate="qtyChange(item.productPackingCode, item.sendquantity, item.packagingLength)" />
+              <span class="help-block" style="color: red;">${error.Items[$index].SendQuantity}</span>
+            </div>
+          </td>
+          <td>${item.packagingUnit}</td>
+          <td>
+            <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
+          </td>
+          <!-- <td>
+            <div class="form-group ${error.items[$index].track?'has-error':''}">
+              <input class="form-control" type="text" name="track" value.bind="item.track" />
+              <span class="help-block">${error.items[$index].track}</span>
+            </div>
+          </td> -->
+
+          <!-- <td>
+            <div class="form-group ${error.Items[$index].Track?'has-error':''}">
+              <au-autocomplete value.bind="item.track"
+                             error.bind="error.track"
+                             loader.bind="trackLoader"
+                             read-only.bind= true
+                             placeholder="Jalur/Rak"
+                             text.bind="trackView"
+                             >
+            </au-autocomplete>
+              <span class="help-block">${error.Items[$index].Track}</span>
+            </div>
+          </td> -->
+
+
+
+
+
+          <!-- <td>
+            <div class="row">
+              <div class="col-md-2">
+                <p class="form-control-static">${item.item.code}</p>
+              </div>
+              <div class="col-md-2">
+                <p class="form-control-static">${item.item.name}</p>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                  <center>
+                    <p class="form-control-static">${item.quantity}</p>
+                  </center>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group ${error.items[$index].sendquantity?'has-error':''}">
+                  <input class="form-control" type="number" name="sendquantity" value.bind="item.sendquantity"
+                    max.bind="item.quantity" min="0"
+                    change.delegate="qtyChange(item.item.code, item.sendquantity, item.item.domesticCOGS)" />
+                  <span class="help-block">${error.items[$index].quantity}</span>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <numeric label="" read-only.bind="true" value.bind="item.item.domesticCOGS" class="col-md-1"></numeric>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                  <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                  <span class="help-block">${error.items[$index].remark}</span>
+                </div>
+              </div>
+            </div>
+          </td> -->
+          <td>
+            <button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- <au-autocomplete options.bind="controlOptions" value.bind="selectedWarehouse" label="Nomor Bon"
+      read-only.bind="readOnly || isEdit" error.bind="error.BonNo" loader.bind="bonWarehouseLoader"
+      add.bind="addItemCallback"
+      text.bind="areaMovementTextFormatter">
+    </au-autocomplete> -->
+
+     
+
+ <!-- <div if.bind="isStockOpname">
+      <au-textbox show.bind="error.WarehousesProductionOrder" read-only.bind="true"
+        value.bind="error.WarehousesProductionOrder" style="color: red;"></au-textbox>
+      <br>
+     
+      <br>
+    <au-collection 
+        class="adjTable" 
+        columns.bind="adjItemColumns" 
+        items.bind="data.warehousesProductionOrders"
+        options.bind="detailOptions" 
+        errors.one-way="error.WarehousesProductionOrders" 
+        add.bind="addItemCallback"
+        remove.bind="onremove" 
+        read-only.bind="readOnly"
+        item-template="modules/packing-sku-inventory/dyeing-printing-stock-opname/template/stock-opname-item">
+      </au-collection>  
+
+    </div>  -->
+
+
+
+
+    <template replaceable part="actions"></template>
+  </au-input-form>
+</template>
