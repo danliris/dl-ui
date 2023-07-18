@@ -29,7 +29,81 @@ module.exports = [
 			iconClass: 'fa fa-dashboard'
 		}
 	},
-	
+	{
+    route: '/garment-sample/service-sample-cutting',
+    name: 'service-sample-cutting',
+    moduleId: './modules/garment-sample/garment-service-sample-cutting/index',
+    nav: true,
+    title: 'Sample Jasa - Komponen',
+    auth: true,
+    settings: {
+      group: "g-sample",
+      subGroup: "packing list sample",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "R38": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-sample/service-sample-sewing',
+    name: 'sample-sewing',
+    moduleId: './modules/garment-sample/garment-service-sample-sewing/index',
+    nav: true,
+    title: 'Sample Jasa - Garment Wash',
+    auth: true,
+    settings: {
+      group: "g-sample",
+      subGroup: "packing list sample",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "R39": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-sample/service-sample-expenditure-good',
+    name: 'sample-expenditure-good',
+    moduleId: './modules/garment-sample/garment-service-sample-expenditure-good/index',
+    nav: true,
+    title: 'Sample Jasa - Barang Jadi',
+    auth: true,
+    settings: {
+      group: "g-sample",
+      subGroup: "packing list sample",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "R40": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-sample/service-sample-shrinkage-panel',
+    name: 'service-sample-shrinkage-panel',
+    moduleId: './modules/garment-sample/garment-service-sample-shrinkage-panel/index',
+    nav: true,
+    title: 'Sample BB - Shrinkage / Panel',
+    auth: true,
+    settings: {
+      group: "g-sample",
+      subGroup: "packing list sample",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "R41": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: '/garment-sample/fabric-wash',
+    name: 'sample-fabric-wash',
+    moduleId: './modules/garment-sample/garment-service-fabric-wash/index',
+    nav: true,
+    title: 'Sample BB - Fabric Wash/Print',
+    auth: true,
+    settings: {
+      group: "g-sample",
+      subGroup: "packing list sample",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "R42": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 	{
 		route: '/garment-sample/unit-delivery-order-by-user',
 		name: 'unit-delivery-order',
