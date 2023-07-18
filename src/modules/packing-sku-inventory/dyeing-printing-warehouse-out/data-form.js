@@ -20,6 +20,7 @@ export class DataForm {
     
     indexSource = 0;
     hasFocus = true;
+    areaCheck=true;
  // @bindable selectedWarehouse;
 
   constructor(router, service) {
@@ -274,21 +275,18 @@ export class DataForm {
     }
   }
 
-  // @bindable selectedTrack;
-  //   selectedTrackChanged(newValue) {
-  //       console.log(newValue);
-  //       console.log(this.selectedTrack);
-  //       if (this.selectedTrack) {
-  //           this.data.items = {};
-  //           this.data.items.trackId = newValue.Id;
-  //           this.data.items.trackType = newValue.Type;
-  //           this.data.items.trackName = newValue.Name;
-
-            
-  //       }
-        // else {
-        //     this.data.productionOrder = {};
-        // }
-    //}
+  destinationAreaChanged(e) {
+    var selectedDestinationArea = e.srcElement.value;
+    console.log(selectedDestinationArea);
+    if(selectedDestinationArea=="SHIPPING"){
+        
+        this.areaCheck=true;
+    }
+    else{
+        
+        this.areaCheck=false;
+    }
+    console.log(this.areaCheck);
+  }
 
 }

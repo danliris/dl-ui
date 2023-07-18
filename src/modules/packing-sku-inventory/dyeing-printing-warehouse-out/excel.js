@@ -36,6 +36,7 @@ export class Create {
     units = ["", "DYEING", "PRINTING"];
    
     columns = [
+        { field: "deliveryOrderSalesNo", title: "DO Sales", sortable: false},
         { field: "productionOrderNo", title: "No. Spp", sortable: false},
         { 
             field: "dateIn", title: "Tanggal Keluar", sortable: false, formatter: function (value, data, index) {

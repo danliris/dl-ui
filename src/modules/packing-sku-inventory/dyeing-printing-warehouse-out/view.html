@@ -36,8 +36,9 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>DO Sales</th>
                     <th>Barcode</th>
-                    <th>Nama SPP</th>
+                    <th>No SPP</th>
                     <th>Grade</th>
                     <th>Qty Keluar</th>
                     <th>Panjang Satuan</th>
@@ -48,6 +49,7 @@
             <tbody>
                 <tr repeat.for="item of data.dyeingPrintingWarehouseOutputItems">
                     <td>${$index+1}</td>
+                    <td>${item.doSales.no}</td>
                     <td>${item.productPackingCode}</td>
                     <td>${item.productionOrder.no}</td>
                     <td>${item.grade}</td>
