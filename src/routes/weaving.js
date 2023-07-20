@@ -377,11 +377,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/daily-operation-warping-report",
-  name: "daily-operation-warping",
-  moduleId: "./modules/weaving/daily-operation-warping-report/index",
+  route: "weaving/warping-daily-operation-report",
+  name: "warping-daily-operation-report",
+  moduleId: "./modules/weaving/warping-daily-operation-report/index",
   nav: true,
-  title: "Laporan Operasional Mesin Harian Warping",
+  title: "Laporan Operasional Harian Warping",
   auth: true,
   settings: {
     group: "weaving",
@@ -393,7 +393,25 @@ module.exports = [{
     permission: { "M21": 1 },
     iconClass: "fa fa-dashboard"
   }
-},
+ },
+// {
+//   route: "weaving/daily-operation-warping-report",
+//   name: "daily-operation-warping",
+//   moduleId: "./modules/weaving/daily-operation-warping-report/index",
+//   nav: true,
+//   title: "Laporan Operasional Mesin Harian Warping",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     // permission: {
+//     //   W1: 1,
+//     //   W2: 1,
+//     //   "*": 1
+//     // },
+//     permission: { "M21": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
 // {
 //   route: "weaving/warping-productions-report",
 //   name: "warping-productions-report",
@@ -417,7 +435,7 @@ module.exports = [{
   name: "warping-broken-report",
   moduleId: "./modules/weaving/warping-broken-report/index",
   nav: true,
-  title: "Laporan Putus Warping",
+  title: "Laporan Putus Benang Warping",
   auth: true,
   settings: {
     group: "weaving",
@@ -487,7 +505,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-reaching",
   name: "weaving-daily-operation-reaching",
-  moduleId: "./modules/weaving/daily-operation-reaching/index",
+  moduleId: "./modules/weaving/daily-operation-reaching-upload/index",
   nav: true,
   title: "Operasional Mesin Harian Reaching",
   auth: true,
@@ -505,7 +523,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-reaching-report",
   name: "weaving-daily-operation-reaching-report",
-  moduleId: "./modules/weaving/daily-operation-reaching-report/index",
+  moduleId: "./modules/weaving/reaching-daily-operation-report/index",
   nav: true,
   title: "Laporan Operasional Mesin Harian Reaching",
   auth: true,

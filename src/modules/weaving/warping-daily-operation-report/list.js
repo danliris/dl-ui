@@ -21,11 +21,11 @@ export class List {
       { text: "III", value: 3 } 
   ];
     MCNOOptions = [
-    { text: "", value: 0 },
-    { text: "1", value: 1 },
-    { text: "2", value: 2 },
-    { text: "3", value: 3 } 
-  ];
+        { text: "", value: 0 },
+        { text: "1", value: 1 },
+        { text: "2", value: 2 },
+        { text: "3", value: 3 } 
+    ];
   
     searching() {
         var info = {
@@ -33,26 +33,29 @@ export class List {
             mcNo : this.info.mcNo ? this.info.mcNo.text: "",
             sp: this.info.sp ? this.info.sp: "",
             code: this.info.code ? this.info.code: "",
-            threadNo : this.info.threadNo ? this.info.threadNo: "",
+            name : this.info.name ? this.info.name: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
-             }
-        
+        }
         this.service.getReportData(info)
             .then(result => {
-              this.data= result.data;
-                
+                console.log(result.data)
+                for(var d of result.data){
+                    d.Date=moment(d.Date).format("YYYY-MM-DD");
+                }
+                this.data= result.data;
             });
     }
-    get sumThreadCut()
-    {
-        var sum=0;
-        if(this.data)
-        {
-            for(var item of this.data)
-            {
-                sum += item.ThreadCut;
-            }
+    
+    ExportToExcel() {
+        var info = {
+            shift : this.info.shift ? this.info.shift.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            sp: this.info.sp ? this.info.sp: "",
+            code: this.info.code ? this.info.code: "",
+            name : this.info.name ? this.info.name: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
         
         return sum;//.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); 
@@ -91,7 +94,7 @@ export class List {
         this.info.shift = null;
         this.info.mcNo = null;
         this.info.sp = null;
-        this.info.threadNo= null;
+        this.info.name= null;
         this.info.code= null;
     }
 }
