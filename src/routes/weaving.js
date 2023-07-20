@@ -469,7 +469,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-sizing-report",
   name: "daily-operation-sizing",
-  moduleId: "./modules/weaving/daily-operation-sizing-report/index",
+  moduleId: "./modules/weaving/daily-operation-sizing-report-new/index",
   nav: true,
   title: "Laporan Operasional Mesin Harian Sizing",
   auth: true,
