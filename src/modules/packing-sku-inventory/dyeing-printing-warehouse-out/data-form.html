@@ -9,9 +9,10 @@
     <au-dropdown options.bind="controlOptions" label="Jenis" value.bind="data.type" error.bind="error.Type"
       read-only.bind="readOnly || isEdit" items.bind="types"></au-dropdown>
     <au-dropdown options.bind="controlOptions" label="Tujuan" value.bind="data.destinationArea" error.bind="error.Type"
-      read-only.bind="readOnly || isEdit" items.bind="destinationAreas"></au-dropdown>
+      read-only.bind="readOnly || isEdit" items.bind="destinationAreas" change.delegate="destinationAreaChanged($event)"></au-dropdown>
   
   <au-autocomplete 
+  if.bind = "areaCheck"
     label="Nomor DO" 
     value.bind="selectedDeliveryOrderSales" 
     error.bind="error.DeliveryOrderSales"
@@ -91,7 +92,7 @@
         <tr repeat.for="item of data.dyeingPrintingWarehouseOutputItems">
           <td>${$index+1}</td>
           <td>${item.productPackingCode}</td>
-          <td>${item.productionOrder.No}</td>
+          <td>${item.productionOrder.no}</td>
           <td>${item.grade}</td>
           <td>${item.packagingQty}</td>
           <!-- <td>${item.item.name}</td> -->

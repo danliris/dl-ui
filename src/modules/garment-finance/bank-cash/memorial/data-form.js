@@ -89,9 +89,11 @@ export class DataForm {
 		if (newValue && this.data.Date) {
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
+			var year = date.format('Y');
+			
             let info = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month })
+				filter: JSON.stringify({ "Currency.Id": newValue.Id, "Month": month, "Year": year })
 			}
             var rate=0;
 			var currency= await this.coreService.getBICurrencies(info);
@@ -137,9 +139,11 @@ export class DataForm {
         if(this.data.GarmentCurrency){
             var date = moment(this.data.Date, 'YYYY/MM/DD');
             var month = date.format('M');
+			var year = date.format('Y');
+			
             let info = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": this.data.GarmentCurrency.Id, "Month": month })
+				filter: JSON.stringify({ "Currency.Id": this.data.GarmentCurrency.Id, "Month": month, "Year": year })
 			}
             var rate=0;
 			var currency= await this.coreService.getBICurrencies(info);

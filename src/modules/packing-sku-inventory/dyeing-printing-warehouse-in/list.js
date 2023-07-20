@@ -61,5 +61,10 @@ export class List {
     this.router.navigateToRoute("excel");
     // this.service.generateExcel();
   }
+
+  pending() {
+    this.router.navigateToRoute("pending");
+    // this.service.generateExcel();
+  }
  
 }

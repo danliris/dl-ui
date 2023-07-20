@@ -305,11 +305,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/beam-monitoring-visualization",
-  name: "beam-monitoring-visualization",
-  moduleId: "./modules/weaving/beam-monitoring-visualization/index",
+  route: "weaving/stock-beam",
+  name: "stock-beam",
+  moduleId: "./modules/weaving/stock-beam-upload/index",
   nav: true,
-  title: "Visualisasi Pemantauan Beam",
+  title: "Stock Beam",
   auth: true,
   settings: {
     group: "weaving",
@@ -523,7 +523,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-reaching-report",
   name: "weaving-daily-operation-reaching-report",
-  moduleId: "./modules/weaving/daily-operation-reaching-report/index",
+  moduleId: "./modules/weaving/reaching-daily-operation-report/index",
   nav: true,
   title: "Laporan Operasional Mesin Harian Reaching",
   auth: true,
@@ -541,7 +541,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-loom",
   name: "weaving-daily-operation-loom",
-  moduleId: "./modules/weaving/daily-operation-loom/index",
+  moduleId: "./modules/weaving/daily-operation-loom-upload/index",
   nav: true,
   title: "Operasional Mesin Harian Loom",
   auth: true,

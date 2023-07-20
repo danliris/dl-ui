@@ -10,12 +10,16 @@
   
     <form class="form-horizontal">
        
-      <au-dropdown value.bind="month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths" key="value"
+      <!--<au-dropdown value.bind="month" label="Bulan" options.bind="controlOptions" items.bind="itemMonths" key="value"
         text="text">
       </au-dropdown>
       <au-dropdown value.bind="year" label="Tahun" options.bind="controlOptions" items.bind="itemYears" key="value"
         text="text">
-      </au-dropdown>
+      </au-dropdown>-->
+
+       <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+       <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
+
 
       <div class="form-group">
         <label for="contact" class="col-sm-5 control-label"></label>

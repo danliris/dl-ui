@@ -2,6 +2,7 @@ import { inject, bindable, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import moment from 'moment';
+import numeral from 'numeral';
 var ProductionOrderLoader = require('../../../loader/production-order-azure-loader');
 var TrackLoader = require("../../../loader/track-loader");
 
@@ -38,7 +39,7 @@ export class Create {
         { field: "productionOrderNo", title: "No. Spp", sortable: false},
         { 
             field: "dateIn", title: "Tanggal Keluar", sortable: false, formatter: function (value, data, index) {
-                return moment(value).format("DD/MMM/YYYY")
+                return value == "0001-01-01T00:00:00" ?"" :moment(value).format("DD/MMM/YYYY")
             }
         },
         
@@ -51,15 +52,22 @@ export class Create {
         // { field: "motif", title: "Motif", sortable: false},
         // { field: "uomUnit", title: "Satuan", sortable: false},
         { 
-            field: "packagingQty", title: "Jumlah Packing", sortable: false
+            field: "packagingQty", title: "Jumlah Packing", sortable: false, formatter: function(value, data, index) {
+                return numeral(value).format("0,000.00");
+            },
         },
         { field: "packagingUnit", title: "Jenis Packing", sortable: false},
         { 
-            field: "packingLength", title: "Panjang/Pack", sortable: false
+            field: "packingLength", title: "Panjang/Pack", sortable: false, formatter: function (value, data, index) {
+                return value == "0" ?"" :numeral(value).format("0,000.00"); 
+            }
         },
         { 
-            field: "balance", title: "Total", sortable: false
-        }
+            field: "balance", title: "Total", sortable: false, formatter: function(value, data, index) {
+                return numeral(value).format("0,000.00");
+            },
+        },
+        { field: "uomUnit", title: "Satuan", sortable: false}
     ];
 
     get productionOrderLoader() {

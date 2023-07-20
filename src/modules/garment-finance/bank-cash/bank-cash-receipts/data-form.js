@@ -114,6 +114,7 @@ export class DataForm {
 			var check = moment(this.data.ReceiptDate, 'YYYY/MM/DD');
 
 			var month = check.format('M');
+			var year = date.format('Y');
 			let currencyId = 0;
 			if (newValue.Currency) {
 				currencyId = newValue.Currency.Id;
@@ -122,7 +123,7 @@ export class DataForm {
 			}
 			let args2 = {
 				size: 10,
-				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month })
+				filter: JSON.stringify({ "Currency.Id": currencyId, "Month": month, "Year": year })
 			}
 
 			this.coreService.getIBCurrencies(args2).then(result => {

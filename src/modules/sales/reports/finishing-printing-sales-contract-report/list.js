@@ -74,6 +74,46 @@ export class List {
             .then(result => {
                 this.info.total=result.info.total; 
                 this.data = result.data;
+                var rowDoc=[];
+                var index=0;
+                console.log(result);
+                for (var a of result.data ){
+
+                    var doc=a.salesContractNo;
+                   // var  = a.Jumlah;
+
+                    // if(!this.rowCount[doc]){
+                    //     this.rowCount[doc]=1;
+                    // }
+                    // else{
+                    //     this.rowCount[doc]++;
+                    // }
+
+
+                    if(!rowDoc[doc]){
+                        index++;
+                        //a.count=index;
+                        rowDoc[doc]=1;
+                    }
+
+                    else{
+                        rowDoc[doc]++;
+                    }
+                }
+
+                for (var _data of result.data)
+                {
+                    console.log(_data.salesContractNo);
+                    let salesNo=result.data.find(o=> o.salesContractNo == _data.salesContractNo);
+                            // if(invoice){
+                            //     invoice.rowspan=this.rowCount[_data.InvoiceNo];
+                            // }
+
+                           // let bcno=result.data.find(o=> o.BCType + o.BCNo==b.BCType + b.BCNo);
+                            if(salesNo){
+                                salesNo.docspan=rowDoc[_data.salesContractNo];
+                            }
+                }
                 // for(var a of this.data){
                 //     a.deliverySchedule=moment(item.deliverySchedule).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(item.deliverySchedule).format("DD MMM YYYY");
                 // }

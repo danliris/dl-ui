@@ -42,33 +42,41 @@ export class Create {
     //   this.error.Date = "";
     // }
 
- 
-    if (errorIndex === 0) {
+    console.log(this.data.dyeingPrintingWarehouseOutputItems.length);
+    if(this.data.dyeingPrintingWarehouseOutputItems.length ===0){
+
+      alert("Detail Harus Diisi");
+      this.router.navigateToRoute('create');
+    } else{
+      if (errorIndex === 0) {
       
-     console.log(this.data);
+        console.log(this.data);
+   
+         this.service
+           .create(this.data)
+           .then((result) => {
+             alert("Data berhasil dibuat");
+             this.router.navigateToRoute(
+               "create",
+               {},
+               { replace: true, trigger: true }
+             );
+           })
+           .catch((e) => {
+             if (e.statusCode == 500) {
+               alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+             } else {
+               
+               this.error = e;
+   
+               alert("Mohon Cek Data Kembali");
+               
+               //console.log(this.error.Items[0].SendQuantity);
+             }
+           });
+       }
 
-      this.service
-        .create(this.data)
-        .then((result) => {
-          alert("Data berhasil dibuat");
-          this.router.navigateToRoute(
-            "create",
-            {},
-            { replace: true, trigger: true }
-          );
-        })
-        .catch((e) => {
-          if (e.statusCode == 500) {
-            alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-          } else {
-            
-            this.error = e;
-
-            alert("Mohon Cek Data Kembali");
-            
-            //console.log(this.error.Items[0].SendQuantity);
-          }
-        });
     }
+    
   }
 }
