@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Laporan SPU</h1>
+      <h1 class="page-header">LAPORAN OPERASIONAL HARIAN SIZING</h1>
   
       <form class="form-horizontal">
      
@@ -33,7 +33,18 @@
             items.bind="GROUPOptions" 
             options.bind="controlOptions">
         </au-dropdown>
-       
+        <au-textbox 
+        label="SP"    
+        value.bind="info.sp"     
+        read-only.bind="readOnly"      
+        options.bind="controlOptions">
+      </au-textbox>
+      <au-textbox 
+        label="CODE"    
+        value.bind="info.code"     
+        read-only.bind="readOnly"      
+        options.bind="controlOptions">
+      </au-textbox>
   
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -54,9 +65,13 @@
           <thead align="center">
               <tr>
                 <td>No</td>
+                <td>Tanggal</td>
                 <td>No MC</td>
                 <td>Shift</td>
                 <td>SPU</td>
+                <td>Panjang</td>
+                <td>Efisiensi</td>
+                
                 
               </tr>
           </thead>
@@ -65,9 +80,13 @@
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
                   <td>${$index + 1}</td>
+                  <td class="text-center">${item.periode}</td>
                   <td class="text-center">${item.machineSizing}</td>
                   <td class="text-center">${item.shift}</td>
                   <td class="text-center">${item.spu}%</td>
+                  <td class="text-center">${item.length}</td>
+                  <td class="text-center">${item.efficiency}%</td>
+                 
                 
                 </tr>
               </div>

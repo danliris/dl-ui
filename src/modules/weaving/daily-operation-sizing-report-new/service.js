@@ -20,7 +20,7 @@ export class Service extends RestService {
   }
 
   getReportData(info) {
-    var endpoint = `${serviceUri}/get-spu-daily-operation-report`;
+    var endpoint = `${serviceUri}/get-sizing-daily-operation-report`;
     return super.list(endpoint, info);
   }
 
