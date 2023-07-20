@@ -27,7 +27,8 @@ export class List {
         { text: "", value: 0 },
         { text: "SZ 1", value: 1 },
         { text: "SZ 2", value: 2 },
-        { text: "SZ 3", value: 3 } 
+        { text: "SZ 3", value: 3 }, 
+        { text: "SZ 4", value: 4 } 
     ];
     GROUPOptions = [
         { text: "", value: 0 },
