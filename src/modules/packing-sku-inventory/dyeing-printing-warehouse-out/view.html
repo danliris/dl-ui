@@ -36,7 +36,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>DO Sales</th>
+                    <th if.bind = "warehouse">DO Sales</th>
                     <th>Barcode</th>
                     <th>No SPP</th>
                     <th>Grade</th>
@@ -47,21 +47,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr repeat.for="item of data.dyeingPrintingWarehouseOutputItems">
+                <tr repeat.for="item of datas">
                     <td>${$index+1}</td>
-                    <td>${item.doSales.no}</td>
+                    <td if.bind = "warehouse">${item.doSales.no}</td>
                     <td>${item.productPackingCode}</td>
                     <td>${item.productionOrder.no}</td>
                     <td>${item.grade}</td>
                     <td>
-                        <numeric label="" read-only.bind="true" value.bind="item.packagingQty" class="col-md-1"></numeric>
+                        ${item.packagingQty}</numeric>
                     </td>
                     <td>
-                        <numeric label="" read-only.bind="true" value.bind="item.packagingLength" class="col-md-1"></numeric>
+                        ${item.packagingLength}</numeric>
                     </td>
                     <td>${item.track.type} - ${item.track.name} - ${item.track.box} </td>
                     <td>
-                        <numeric label="" read-only.bind="true" value.bind="item.packagingQty * item.packagingLength" class="col-md-1"></numeric>
+                        ${item.balance}</numeric>
                     </td>
                 </tr>
             </tbody>

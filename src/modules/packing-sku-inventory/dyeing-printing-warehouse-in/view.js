@@ -25,8 +25,17 @@ export class View {
 
 
     this.data = await this.service.getById(id);
+    console.log(this.data);
    
    this.canEdit = true
+      this.datas =[];
+    for(var _data of this.data.dyeingPrintingWarehouseInItems){
+      _data.packagingQty = _data.packagingQty.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      _data.packagingLength = _data.packagingLength.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      _data.balance = _data.balance.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      this.datas.push(_data);
+  }
+
     
   }
 
