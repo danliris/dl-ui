@@ -451,7 +451,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-sizing",
   name: "daily-operation-sizing",
-  moduleId: "./modules/weaving/daily-operation-sizing/index",
+  moduleId: "./modules/weaving/daily-operation-sizing-new/index",
   nav: true,
   title: "Operasional Mesin Harian Sizing",
   auth: true,
@@ -485,11 +485,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/size-pickup-report",
-  name: "size-pickup-report",
-  moduleId: "./modules/weaving/size-pickup-report/index",
+  route: "weaving/warping-SPU-report",
+  name: "warping-SPU-report",
+  moduleId: "./modules/weaving/warping-SPU-report/index",
   nav: true,
-  title: "Laporan Size Pickup",
+  title: "Laporan SPU",
   auth: true,
   settings: {
     group: "weaving",
