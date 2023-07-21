@@ -22,5 +22,10 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/download?dateFrom=${dateFrom}&dateTo=${dateTo}&jnsbc=${jnsbc}`;
         return super.getXls(endpoint);
     }
+    generateExcelMII(dateFrom, dateTo, jnsbc) {
+    
+        var endpoint = `${serviceUri}/downloadMII?dateFrom=${dateFrom}&dateTo=${dateTo}&jnsbc=${jnsbc}`;
+        return super.getXls(endpoint);
+    }
 
 }
