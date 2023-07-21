@@ -56,6 +56,11 @@ export class DataForm {
         return UomLoader;
     }
 
+   get unitQuery(){
+    var result = { "Name" : "SMP1" }
+    return result;   
+   }
+
     get buyerLoader() {
         return BuyerLoader;
     }
