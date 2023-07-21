@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service, SalesService, CoreService } from "../service";
 
-const CuttingInLoader = require('../../../../loader/garment-cutting-in-by-ro-loader');
+const CuttingInLoader = require('../../../../loader/garment-sample-cutting-in-by-ro-loader');
 
 @inject(Service, SalesService, CoreService)
 export class Item {
