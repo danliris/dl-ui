@@ -4,7 +4,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 
 const serviceUri = 'service-sample-expenditure-good';
 // const serviceUriSewIn = 'sewing-ins';
-const serviceUriFinishedGoodStock = 'finished-good-stocks';
+const serviceUriFinishedGoodStock = 'garment-sample-finished-good-stocks';
 const serviceUriPR = 'garment-purchase-requests';
 const comodityPriceserviceUri = 'comodity-prices';
 
