@@ -1,6 +1,7 @@
 <template>
   <tr>
     <td class="col-sm-4 bg-primary">
+      <!-- Loader Job Order -->
       <au-autocomplete
         value.bind="selectedSubconCutting"
         error.bind="error.SubconNo"
@@ -9,7 +10,7 @@
         placeholder="Nomor Subcon"
         read-only.bind="readOnly || data.Id"
         options.bind="controlOptions"
-        if.bind="isSubconCutting"
+        if.bind="isSubconCutting && orderType == 'JOB ORDER'"
         query.bind="filter"
       >
       </au-autocomplete>
@@ -22,7 +23,7 @@
         placeholder="Nomor Subcon"
         read-only.bind="readOnly || (isEdit && data.Id)"
         options.bind="controlOptions"
-        if.bind="isSubconSewing"
+        if.bind="isSubconSewing && orderType == 'JOB ORDER'"
         query.bind="filter"
       >
       </au-autocomplete>
@@ -35,7 +36,7 @@
         placeholder="Nomor Subcon"
         read-only.bind="readOnly || data.Id"
         options.bind="controlOptions"
-        if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL'"
+        if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL' && orderType == 'JOB ORDER'"
         query.bind="filter"
       >
       </au-autocomplete>
@@ -48,7 +49,7 @@
         placeholder="Nomor Subcon"
         read-only.bind="readOnly || data.Id"
         options.bind="controlOptions"
-        if.bind="subconCategory=='SUBCON BB FABRIC WASH/PRINT'"
+        if.bind="subconCategory=='SUBCON BB FABRIC WASH/PRINT' && orderType == 'JOB ORDER'"
         query.bind="filter"
       >
       </au-autocomplete>
@@ -61,7 +62,73 @@
         placeholder="Nomor Subcon"
         read-only.bind="readOnly || data.Id"
         options.bind="controlOptions"
-        if.bind="isSubconExpenditure"
+        if.bind="isSubconExpenditure && orderType == 'JOB ORDER'"
+        query.bind="filter"
+      >
+      </au-autocomplete>
+
+      <!-- Loader Sample -->
+      <au-autocomplete
+        value.bind="selectedSubconCutting"
+        error.bind="error.SubconNo"
+        loader.bind="subconSampleCuttingLoader"
+        text="SubconNo"
+        placeholder="Nomor Subcon"
+        read-only.bind="readOnly || data.Id"
+        options.bind="controlOptions"
+        if.bind="isSubconCutting && orderType == 'SAMPLE'"
+        query.bind="filter"
+      >
+      </au-autocomplete>
+
+      <au-autocomplete
+        value.bind="selectedSubconSewing"
+        error.bind="error.SubconNo"
+        loader.bind="subconSampleSewingLoader"
+        text="ServiceSubconSewingNo"
+        placeholder="Nomor Subcon"
+        read-only.bind="readOnly || (isEdit && data.Id)"
+        options.bind="controlOptions"
+        if.bind="isSubconSewing && orderType == 'SAMPLE'"
+        query.bind="filter"
+      >
+      </au-autocomplete>
+
+      <au-autocomplete
+        value.bind="selectedSubconShrinkage"
+        error.bind="error.SubconNo"
+        loader.bind="subconSampleShrinkageLoader"
+        text="ServiceSubconShrinkagePanelNo"
+        placeholder="Nomor Subcon"
+        read-only.bind="readOnly || data.Id"
+        options.bind="controlOptions"
+        if.bind="subconCategory=='SUBCON BB SHRINKAGE/PANEL' && orderType == 'SAMPLE'"
+        query.bind="filter"
+      >
+      </au-autocomplete>
+
+      <au-autocomplete
+        value.bind="selectedSubconFabric"
+        error.bind="error.SubconNo"
+        loader.bind="subconSampleFabricLoader"
+        text="ServiceSubconFabricWashNo"
+        placeholder="Nomor Subcon"
+        read-only.bind="readOnly || data.Id"
+        options.bind="controlOptions"
+        if.bind="subconCategory=='SUBCON BB FABRIC WASH/PRINT' && orderType == 'SAMPLE'"
+        query.bind="filter"
+      >
+      </au-autocomplete>
+
+      <au-autocomplete
+        value.bind="selectedSubconExpenditure"
+        error.bind="error.SubconNo"
+        loader.bind="subconSampleExpenditureGoodLoader"
+        text="ServiceSubconExpenditureGoodNo"
+        placeholder="Nomor Subcon"
+        read-only.bind="readOnly || data.Id"
+        options.bind="controlOptions"
+        if.bind="isSubconExpenditure && orderType == 'SAMPLE'"
         query.bind="filter"
       >
       </au-autocomplete>
@@ -222,7 +289,7 @@
             query.bind="UENFilterAcc"
             options.bind="itemOptions"
             placeholder="No Bon Pengeluaran Unit"
-            read-only.bind="readOnly|| isEdit"
+            read-only.bind="readOnly"
           >
           </au-autocomplete>
         </div>

@@ -23,6 +23,7 @@ export class View {
 
       this.selectedContractType = this.data.ContractType;
       this.selectedSubconCategory = this.data.SubconCategory;
+      this.selectedOrderType = this.data.OrderType;
     }
     this.getContractQty();
     await this.GetUEN();
@@ -65,7 +66,7 @@ export class View {
     if (
       (this.data.SubconCategory == "SUBCON JASA KOMPONEN" ||
         this.data.SubconCategory == "SUBCON SEWING") &&
-      this.data.Items[0].Details != null
+      this.data.Items[0].Details.length > 0
     ) {
       this.purchasingService
         .getUENById(this.data.Items[0].Details[0].UENId)

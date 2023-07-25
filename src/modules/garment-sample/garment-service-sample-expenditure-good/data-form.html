@@ -1,7 +1,7 @@
 <template>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-    <au-textbox if.bind="data.ServiceSampleExpenditureGoodNo" value.bind="data.ServiceSampleExpenditureGoodNo"
+    <au-textbox if.bind="data.ServiceSubconExpenditureGoodNo" value.bind="data.ServiceSubconExpenditureGoodNo"
       label="No Sample Jasa Barang Jadi" read-only="true" options.bind="controlOptions">
     </au-textbox>
 
@@ -16,8 +16,8 @@
       options.bind="controlOptions">
     </au-autocomplete> -->
 
-    <au-datepicker label="Tanggal Sample Jasa Barang Jadi" value.bind="data.ServiceSampleExpenditureGoodDate"
-      error.bind="error.ServiceSampleExpenditureGoodDate" read-only.bind="readOnly" options.bind="controlOptions">
+    <au-datepicker label="Tanggal Sample Jasa Barang Jadi" value.bind="data.ServiceSubconExpenditureGoodDate"
+      error.bind="error.ServiceSubconExpenditureGoodDate" read-only.bind="readOnly" options.bind="controlOptions">
     </au-datepicker>
 
     <au-autocomplete value.bind="data.Buyer" error.bind="error.Buyer" label="Buyer" loader.bind="buyerLoader"
