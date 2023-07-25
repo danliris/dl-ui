@@ -25,6 +25,7 @@ export class View {
       };
       this.selectedContractType = this.data.ContractType;
       this.selectedSubconCategory = this.data.SubconCategory;
+      this.selectedOrderType = this.data.OrderType;
 
       if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
         //Mapping data Item Acc

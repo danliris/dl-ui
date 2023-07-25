@@ -1,12 +1,12 @@
 <template>
 	<au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-		<au-textbox if.bind="data.ServiceSampleShrinkagePanelNo" value.bind="data.ServiceSampleShrinkagePanelNo"
+		<au-textbox if.bind="data.ServiceSubconShrinkagePanelNo" value.bind="data.ServiceSubconShrinkagePanelNo"
 			label="No Sample BB Shrinkage / Panel" read-only="true" options.bind="controlOptions">
 		</au-textbox>
 
-		<au-datepicker label="Tanggal Sample BB Shrinkage / Panel" value.bind="data.ServiceSampleShrinkagePanelDate"
-			error.bind="error.ServiceSampleShrinkagePanelDate" read-only.bind="readOnly" options.bind="controlOptions">
+		<au-datepicker label="Tanggal Sample BB Shrinkage / Panel" value.bind="data.ServiceSubconShrinkagePanelDate"
+			error.bind="error.ServiceSubconShrinkagePanelDate" read-only.bind="readOnly" options.bind="controlOptions">
 		</au-datepicker>
 
 		<au-multiline label="Keterangan" error.bind="error.Remark" read-only.bind="readOnly" value.bind="data.Remark"

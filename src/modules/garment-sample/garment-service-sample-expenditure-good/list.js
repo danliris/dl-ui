@@ -1,6 +1,6 @@
-import { inject } from 'aurelia-framework';
+import { inject } from "aurelia-framework";
 import { Service, PurchasingService } from "./service";
-import { Router } from 'aurelia-router';
+import { Router } from "aurelia-router";
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
@@ -22,84 +22,93 @@ export class List {
       username = me.username;
     }
     this.filter = {
-      CreatedBy: username
-    }
+      CreatedBy: username,
+    };
   }
 
   context = ["Rincian", "Cetak PDF"];
 
   columns = [
-    { field: "ServiceSampleExpenditureGoodNo", title: "No Sample Jasa Barang Jadi" },
     {
-      field: "ServiceSampleExpenditureGoodDate", title: "Tgl Sample Jasa Barang Jadi", formatter: function (value, data, index) {
-        return moment(value).format("DD MMM YYYY")
+      field: "ServiceSubconExpenditureGoodNo",
+      title: "No Sample Jasa Barang Jadi",
+    },
+    {
+      field: "ServiceSubconExpenditureGoodDate",
+      title: "Tgl Sample Jasa Barang Jadi",
+      formatter: function (value, data, index) {
+        return moment(value).format("DD MMM YYYY");
       },
     },
     { field: "RONo", title: "RO" },
     { field: "Buyer.Name", title: "Buyer" },
     { field: "TotalQty", title: "Total Qty" },
-    { field: "Unit", title: "Satuan" }
+    { field: "Unit", title: "Satuan" },
     // { field: "RONo", title: "RO" },
     // { field: "Article", title: "No Artikel" },
     // { field: "TotalQuantity", title: "Jumlah", sortable: false },
     // { field: "ColorList", title: "Warna", sortable: false },
     // { field: "ProductList", title: "Kode Barang", sortable: false },
-  ]
+  ];
 
   loader = (info) => {
     var order = {};
-    if (info.sort)
-      order[info.sort] = info.order;
+    if (info.sort) order[info.sort] = info.order;
 
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
       order: order,
-      select: ["ServiceSampleExpenditureGoodNo", "ServiceSampleExpenditureGoodDate", "RONo", "Buyer.Name", "TotalQty", "Unit"],
-    }
+      select: [
+        "ServiceSampleExpenditureGoodNo",
+        "ServiceSampleExpenditureGoodDate",
+        "RONo",
+        "Buyer.Name",
+        "TotalQty",
+        "Unit",
+      ],
+    };
 
-    return this.service.searchComplete(arg)
-      .then(result => {
-        var qty = 0;
-        var data = {};
-        data.total = result.info.total;
-        data.data = result.data;
-        result.data.map(s => {
-          s.TotalQty = s.Items.reduce((acc, cur) => acc += cur.Quantity, 0);
-          s.Unit = "PCS";
-          // s.Items.toString = function () {
-          //   var str = "<ul>";
-          //   for (var item of s.Items){
-          //     str += `<li>${item.RONo}</li>`
-          //   }
-          //   str += "</ul>";
-          //   return str;
+    return this.service.searchComplete(arg).then((result) => {
+      var qty = 0;
+      var data = {};
+      data.total = result.info.total;
+      data.data = result.data;
+      result.data.map((s) => {
+        s.TotalQty = s.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
+        s.Unit = "PCS";
+        // s.Items.toString = function () {
+        //   var str = "<ul>";
+        //   for (var item of s.Items){
+        //     str += `<li>${item.RONo}</li>`
+        //   }
+        //   str += "</ul>";
+        //   return str;
+        // }
+        var getRO = s.Items.map((x) => {
+          return `<ul><li>${x.RONo}</li></ul>`;
+          // var str = "<ul>";
+          // for (var item of s.Items){
+          //   str += `<li>${item.RONo}</li>`
           // }
-          var getRO = s.Items.map(x => {
-            return `<ul><li>${x.RONo}</li></ul>`;
-            // var str = "<ul>";
-            // for (var item of s.Items){
-            //   str += `<li>${item.RONo}</li>`
-            // }
-            // str += "</ul>";
-            // return str;
-          })
-          s.RONo = getRO;
-          qty += s.TotalQty
-          // s.UnitCode = s.Unit.Code;
-          // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
-          // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
+          // str += "</ul>";
+          // return str;
         });
-
-
-        this.totalQuantity = qty;
-        return {
-          total: result.info.count,
-          data: result.data
-        }
+        s.RONo = getRO;
+        qty += s.TotalQty;
+        // s.UnitCode = s.Unit.Code;
+        // s.ColorList = `${s.Colors.map(p => `- ${p}`).join("<br/>")}`;
+        // s.ProductList = `${s.Products.map(p => `- ${p}`).join("<br/>")}`;
       });
-  }
+
+      this.totalQuantity = qty;
+      return {
+        total: result.info.count,
+        data: result.data,
+      };
+    });
+  };
 
   async contextClickCallback(event) {
     var arg = event.detail;
@@ -107,20 +116,19 @@ export class List {
 
     switch (arg.name) {
       case "Rincian":
-        this.router.navigateToRoute('view', { id: data.Id });
+        this.router.navigateToRoute("view", { id: data.Id });
         break;
       case "Cetak PDF":
         this.service.getPdfById(data.Id);
         break;
-
     }
   }
 
   create() {
-    this.router.navigateToRoute('create');
+    this.router.navigateToRoute("create");
   }
 
   excel() {
-    this.router.navigateToRoute('excel');
+    this.router.navigateToRoute("excel");
   }
 }
