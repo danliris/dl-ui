@@ -9,7 +9,7 @@ export const VERIFICATION = {
 export const CASHIER = {
     key: 'CASHIER',
     label: 'Kasir',
-    position: 7, //CASHIER_DIVISION
+    position: 5, //CASHIER_DIVISION
     positionAutocomplete: 4, //SEND_TO_CASHIER_DIVISION
     code: ['J48'],
 };
