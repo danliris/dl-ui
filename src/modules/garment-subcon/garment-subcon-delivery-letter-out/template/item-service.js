@@ -1,13 +1,21 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service, CoreService, PurchasingService } from "../service";
 
+//loader Job Order
 const SubconCuttingLoader = require("../../../../loader/garment-service-subcon-cutting-loader");
 const SubconSewingLoader = require("../../../../loader/garment-service-subcon-sewing-loader");
 const SubconFabricLoader = require("../../../../loader/garment-service-subcon-fabric-loader");
 const SubconShrinkageLoader = require("../../../../loader/garment-service-subcon-shrinkage-loader");
 const SubconExpenditureGoodLoader = require("../../../../loader/garment-service-subcon-expenditure-good-loader");
-const UENLoader = require("../../../../loader/garment-unit-expenditure-note-loader");
 
+//loader Sample
+const SubconSampleCuttingLoader = require("../../../../loader/garment-service-subcon-sample-cutting-loader");
+const SubconSampleSewingLoader = require("../../../../loader/garment-service-subcon-sample-sewing-loader");
+const SubconSampleFabricLoader = require("../../../../loader/garment-service-subcon-sample-fabric-loader");
+const SubconSampleShrinkageLoader = require("../../../../loader/garment-service-subcon-sample-shrinkage-loader");
+const SubconSampleExpenditureGoodLoader = require("../../../../loader/garment-service-subcon-sample-expenditure-good-loader");
+
+const UENLoader = require("../../../../loader/garment-unit-expenditure-note-loader");
 @inject(Service, CoreService, PurchasingService)
 export class Item {
   @bindable selectedSubconSewing;
@@ -59,6 +67,7 @@ export class Item {
     this.subconCategory = this.itemOptions.subconCategory;
     this.ContractNo = this.itemOptions.ContractNo;
     this.HeaderId = this.itemOptions.HeaderId;
+    this.orderType = this.itemOptions.orderType;
     if (this.data.Details) {
       if (this.data.Details.length > 0) {
         this.isShowing = true;
@@ -191,21 +200,44 @@ export class Item {
       IsUsed: false,
     };
     for (var item of this.context.context.items) {
-      if (this.isSubconCutting) {
-        filter[`SubconNo == "${item.data.SubconNo}"`] = false;
-      } else if (this.isSubconSewing) {
-        filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`] = false;
-        // filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
-      } else if (this.subconCategory == "SUBCON BB SHRINKAGE/PANEL") {
-        filter[
-          `ServiceSubconShrinkagePanelNo == "${item.data.SubconNo}"`
-        ] = false;
-      } else if (this.subconCategory == "SUBCON BB FABRIC WASH/PRINT") {
-        filter[`ServiceSubconFabricWashNo == "${item.data.SubconNo}"`] = false;
-      } else if (this.isSubconExpenditure) {
-        filter[
-          `ServiceSubconExpenditureGoodNo == "${item.data.SubconNo}"`
-        ] = false;
+      if (this.orderType == "JOB ORDER") {
+        if (this.isSubconCutting) {
+          filter[`SubconNo == "${item.data.SubconNo}"`] = false;
+        } else if (this.isSubconSewing) {
+          filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`] = false;
+          // filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
+        } else if (this.subconCategory == "SUBCON BB SHRINKAGE/PANEL") {
+          filter[
+            `ServiceSubconShrinkagePanelNo == "${item.data.SubconNo}"`
+          ] = false;
+        } else if (this.subconCategory == "SUBCON BB FABRIC WASH/PRINT") {
+          filter[
+            `ServiceSubconFabricWashNo == "${item.data.SubconNo}"`
+          ] = false;
+        } else if (this.isSubconExpenditure) {
+          filter[
+            `ServiceSubconExpenditureGoodNo == "${item.data.SubconNo}"`
+          ] = false;
+        }
+      } else {
+        if (this.isSubconCutting) {
+          filter[`SampleNo == "${item.data.SubconNo}"`] = false;
+        } else if (this.isSubconSewing) {
+          filter[`ServiceSampleSewingNo == "${item.data.SubconNo}"`] = false;
+          // filter[`ServiceSubconSewingNo == "${item.data.SubconNo}"`]=false;
+        } else if (this.subconCategory == "SUBCON BB SHRINKAGE/PANEL") {
+          filter[
+            `ServiceSampleShrinkagePanelNo == "${item.data.SubconNo}"`
+          ] = false;
+        } else if (this.subconCategory == "SUBCON BB FABRIC WASH/PRINT") {
+          filter[
+            `ServiceSampleFabricWashNo == "${item.data.SubconNo}"`
+          ] = false;
+        } else if (this.isSubconExpenditure) {
+          filter[
+            `ServiceSampleExpenditureGoodNo == "${item.data.SubconNo}"`
+          ] = false;
+        }
       }
     }
     return filter;
@@ -229,6 +261,26 @@ export class Item {
 
   get subconShrinkageLoader() {
     return SubconShrinkageLoader;
+  }
+
+  get subconSampleCuttingLoader() {
+    return SubconSampleCuttingLoader;
+  }
+
+  get subconSampleSewingLoader() {
+    return SubconSampleSewingLoader;
+  }
+
+  get subconSampleExpenditureGoodLoader() {
+    return SubconSampleExpenditureGoodLoader;
+  }
+
+  get subconSampleFabricLoader() {
+    return SubconSampleFabricLoader;
+  }
+
+  get subconSampleShrinkageLoader() {
+    return SubconSampleShrinkageLoader;
   }
 
   toggle() {
@@ -259,8 +311,10 @@ export class Item {
     this.data.Quantity = 0;
     if (newValue) {
       this.data.SubconId = newValue.Id;
+
       this.data.SubconNo = newValue.ServiceSubconExpenditureGoodNo;
       this.data.date = newValue.ServiceSubconExpenditureGoodDate;
+
       this.data.NettWeight = newValue.NettWeight;
       this.data.GrossWeight = newValue.GrossWeight;
       this.data.QtyPacking = newValue.QtyPacking;
@@ -288,26 +342,35 @@ export class Item {
     if (newValue) {
       this.data.SubconId = newValue.Id;
       this.data.SubconNo = newValue.ServiceSubconSewingNo;
-      var subcon = await this.service.readServiceSubconSewingById(
-        this.data.SubconId
-      );
-      this.data.date = subcon.ServiceSubconSewingDate;
-      //this.data.unit=subcon.Unit.Code;
-      this.data.Details = subcon.Items;
-      for (var item of subcon.Items) {
-        this.data.Article = item.Article;
-        this.data.RONo = item.RONo;
-        this.data.Buyer = item.Buyer.Name;
-        this.data.Comodity = item.Comodity.Code + " - " + item.Comodity.Name;
-        this.data.Details = item.Details;
-        for (var detail of item.Details) {
-          this.data.Quantity += detail.Quantity;
-        }
+
+      if (this.orderType == "JOB ORDER") {
+        var subcon = await this.service.readServiceSubconSewingById(
+          this.data.SubconId
+        );
+      } else {
+        var subcon = await this.service.readServiceSubconSampleSewingById(
+          this.data.SubconId
+        );
       }
-      this.data.QtyPacking = subcon.QtyPacking;
-      this.data.UomSatuanUnit = subcon.UomUnit;
+      this.data.date = subcon.ServiceSubconSewingDate;
     }
+
+    //this.data.unit=subcon.Unit.Code;
+    this.data.Details = subcon.Items;
+    for (var item of subcon.Items) {
+      this.data.Article = item.Article;
+      this.data.RONo = item.RONo;
+      this.data.Buyer = item.Buyer.Name;
+      this.data.Comodity = item.Comodity.Code + " - " + item.Comodity.Name;
+      this.data.Details = item.Details;
+      for (var detail of item.Details) {
+        this.data.Quantity += detail.Quantity;
+      }
+    }
+    this.data.QtyPacking = subcon.QtyPacking;
+    this.data.UomSatuanUnit = subcon.UomUnit;
   }
+
   async selectedSubconCuttingChanged(newValue) {
     this.data.date = null;
     this.data.unit = "";
@@ -321,10 +384,17 @@ export class Item {
       this.data.SubconId = newValue.Id;
       this.data.SubconNo = newValue.SubconNo;
 
-      var subcon = await this.service.readServiceSubconCuttingById(
-        this.data.SubconId
-      );
+      if (this.orderType == "JOB ORDER") {
+        var subcon = await this.service.readServiceSubconCuttingById(
+          this.data.SubconId
+        );
+      } else {
+        var subcon = await this.service.readServiceSubconSampleCuttingById(
+          this.data.SubconId
+        );
+      }
       this.data.date = subcon.SubconDate;
+
       this.data.unit = subcon.Unit.Code;
       this.data.subconType = subcon.SubconType;
       this.data.QtyPacking = subcon.QtyPacking;
@@ -349,9 +419,17 @@ export class Item {
     if (newValue) {
       this.data.SubconId = newValue.Id;
       this.data.SubconNo = newValue.ServiceSubconShrinkagePanelNo;
-      var subcon = await this.service.readServiceSubconShrinkageById(
-        this.data.SubconId
-      );
+
+      if (this.orderType == "JOB ORDER") {
+        var subcon = await this.service.readServiceSubconShrinkageById(
+          this.data.SubconId
+        );
+      } else {
+        var subcon = await this.service.readServiceSubconSampleShrinkageById(
+          this.data.SubconId
+        );
+      }
+
       this.data.date = subcon.ServiceSubconShrinkagePanelDate;
       this.data.QtyPacking = subcon.QtyPacking;
       this.data.UomSatuanUnit = subcon.UomUnit;
@@ -374,9 +452,17 @@ export class Item {
     if (newValue) {
       this.data.SubconId = newValue.Id;
       this.data.SubconNo = newValue.ServiceSubconFabricWashNo;
-      var subcon = await this.service.readServiceSubconFabricById(
-        this.data.SubconId
-      );
+
+      if (this.orderType == "JOB ORDER") {
+        var subcon = await this.service.readServiceSubconFabricById(
+          this.data.SubconId
+        );
+      } else {
+        var subcon = await this.service.readServiceSubconSampleFabricById(
+          this.data.SubconId
+        );
+      }
+
       this.data.date = subcon.ServiceSubconFabricWashDate;
       this.data.QtyPacking = subcon.QtyPacking;
       this.data.UomSatuanUnit = subcon.UomUnit;
@@ -431,9 +517,9 @@ export class Item {
                   var qty = this.data.savedItems.find(
                     (a) => a.UENItemId == uenItem.Id
                   );
-                  if (this.isEdit) {
-                    item.Id = qty.Id;
-                  }
+                  // if (this.isEdit) {
+                  //   item.Id = qty.Id;
+                  // }
                   if (qty) item.Quantity = qty.Quantity;
                 }
                 //item.UENItemId=uenItem.Id;

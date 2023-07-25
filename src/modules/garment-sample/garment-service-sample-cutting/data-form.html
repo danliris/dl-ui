@@ -5,8 +5,8 @@
         options.bind="formOptions">
 
         <au-textbox
-            if.bind="data.SampleNo"
-            value.bind="data.SampleNo"
+            if.bind="data.SubconNo"
+            value.bind="data.SubconNo"
             label="No Sample Jasa Komponen"
             read-only="true"
             options.bind="controlOptions">
@@ -14,8 +14,8 @@
 
         <au-dropdown
             label="Jenis Sample"
-            value.bind="data.SampleType"
-            error.bind="error.sampleType"
+            value.bind="data.SubconType"
+            error.bind="error.SubconType"
             read-only.bind="readOnly || isEdit"
             items.bind="sampleTypes"
             options.bind="controlOptions">
@@ -35,8 +35,8 @@
 
         <au-datepicker 
             label="Tanggal Sample Jasa Komponen"
-            value.bind="data.SampleDate"
-            error.bind="error.SampleDate"
+            value.bind="data.SubconDate"
+            error.bind="error.SubconDate"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
