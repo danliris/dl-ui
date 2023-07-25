@@ -1,14 +1,14 @@
 <template>
     <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-        <au-textbox label="No Sample Jasa" if.bind="data.ServiceSampleFabricWashNo"
-            value.bind="data.ServiceSampleFabricWashNo" read-only="true" options.bind="controlOptions">
+        <au-textbox label="No Sample Jasa" if.bind="data.ServiceSubconFabricWashNo"
+            value.bind="data.ServiceSubconFabricWashNo" read-only="true" options.bind="controlOptions">
         </au-textbox>
 
         <au-datepicker 
             label="Tanggal Sample BB Fabric Wash / Print"
-            value.bind="data.ServiceSampleFabricWashDate"
-            error.bind="error.ServiceSampleFabricWashDate"
+            value.bind="data.ServiceSubconFabricWashDate"
+            error.bind="error.ServiceSubconFabricWashDate"
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
