@@ -19,6 +19,7 @@ export class DataForm {
   @bindable selectedPO;
   @bindable selectedContract;
   @bindable selectedDLType;
+  @bindable selectedOrderType;
   @bindable selectedContractType;
   @bindable selectedServiceType;
   @bindable selectedSubconCategory;
@@ -36,6 +37,7 @@ export class DataForm {
     editText: "Ubah",
   };
 
+  orderTypes = ["JOB ORDER", "SAMPLE"];
   dlTypes = ["PROSES", "RE PROSES"];
   contractTypes = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
   SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING"];
@@ -175,6 +177,7 @@ export class DataForm {
       isSubconExpenditure:
         this.data.SubconCategory == "SUBCON JASA BARANG JADI" ? true : false,
       subconCategory: this.data.SubconCategory,
+      orderType: this.data.OrderType,
       ContractNo: this.data.ContractNo,
       HeaderId: this.data.Id,
     };
@@ -184,6 +187,7 @@ export class DataForm {
         if (this.isCreate || this.isEdit) {
           //Mapping data Item Fabric
           var itemFab = this.data.Items.find((x) => x.Product.Name == "FABRIC");
+          console.log("itemFab", itemFab);
           if (itemFab) {
             var uen = await this.purchasingService.getUENById(itemFab.UENId);
             this.selectedUEN = {
@@ -196,6 +200,7 @@ export class DataForm {
 
           //Mapping data Item Acc
           var itemAcc = this.data.Items.find((x) => x.Product.Name != "FABRIC");
+          console.log("itemAcc", itemAcc);
           if (itemAcc) {
             var uen = await this.purchasingService.getUENById(itemAcc.UENId);
             this.selectedUENAcc = {
@@ -245,6 +250,36 @@ export class DataForm {
     this.context.selectedContractViewModel.editorValue = "";
   }
 
+  selectedOrderTypeChanged(newValue) {
+    this.data.OrderType = newValue;
+    this.selectedUEN = null;
+    this.selectedUENAcc = null;
+    this.data.UENId = 0;
+    this.data.UENNo = "";
+    this.data.UENAccId = 0;
+    this.data.UENAccNo = "";
+    this.selectedContract = null;
+    this.data.ContractNo = "";
+    this.data.SubconContractId = 0;
+
+    this.itemOptions.orderType = this.data.OrderType;
+    this.data.ContractQty = 0;
+    this.data.UsedQty = 0;
+    this.data.QtyUsed = 0;
+    this.data.Items.splice(0);
+    this.data.ItemsAcc.splice(0);
+    this.context.selectedContractViewModel.editorValue = "";
+
+    if (this.data.OrderType == "JOB ORDER") {
+      this.SubconCategoryTypeOptions = [
+        "SUBCON CUTTING SEWING",
+        "SUBCON SEWING",
+      ];
+    } else {
+      this.SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING"];
+    }
+  }
+
   selectedContractTypeChanged(newValue) {
     if (this.data.ContractType != newValue) {
       this.data.ContractType = newValue;
@@ -266,10 +301,14 @@ export class DataForm {
       this.data.SubconCategory = "";
       this.selectedSubconCategory = null;
       if (this.data.ContractType == "SUBCON GARMENT") {
-        this.SubconCategoryTypeOptions = [
-          "SUBCON CUTTING SEWING",
-          "SUBCON SEWING",
-        ];
+        if (this.data.OrderType == "JOB ORDER") {
+          this.SubconCategoryTypeOptions = [
+            "SUBCON CUTTING SEWING",
+            "SUBCON SEWING",
+          ];
+        } else {
+          this.SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING"];
+        }
       } else if (this.data.ContractType == "SUBCON BAHAN BAKU") {
         this.SubconCategoryTypeOptions = [
           "SUBCON BB SHRINKAGE/PANEL",
@@ -500,7 +539,10 @@ export class DataForm {
       if (this.data.Items.length >= 1) {
         alert("Item tidak boleh lebih dari 1");
       } else {
-        this.data.Items.push({ DLType: this.data.DLType });
+        this.data.Items.push({
+          DLType: this.data.DLType,
+          OrderType: this.data.OrderType,
+        });
       }
     };
   }

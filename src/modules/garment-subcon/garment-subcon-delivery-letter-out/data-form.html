@@ -4,6 +4,15 @@
     with.bind="context"
     options.bind="formOptions"
   >
+    <au-dropdown
+      label="Tipe Order"
+      value.bind="selectedOrderType"
+      error.bind="error.OrderType"
+      read-only.bind="readOnly || isEdit"
+      items.bind="orderTypes"
+      options.bind="controlOptions"
+    >
+    </au-dropdown>
     <au-textbox
       if.bind="data.DLNo"
       value.bind="data.DLNo"
@@ -132,7 +141,7 @@
           query.bind="UENFilter"
           options.bind="itemOptions"
           placeholder="No Bon Pengeluaran Unit"
-          read-only.bind="readOnly|| isEdit"
+          read-only.bind="readOnly || isEdit"
           view-model.ref="selectedUENViewModel"
         >
         </au-autocomplete>
@@ -166,7 +175,7 @@
           query.bind="UENFilterAcc"
           options.bind="itemOptions"
           placeholder="No Bon Pengeluaran Unit"
-          read-only.bind="readOnly|| isEdit"
+          read-only.bind="readOnly"
           view-model.ref="selectedUENAccViewModel"
         >
         </au-autocomplete>
