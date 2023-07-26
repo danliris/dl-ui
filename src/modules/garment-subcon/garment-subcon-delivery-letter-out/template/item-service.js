@@ -68,6 +68,7 @@ export class Item {
     this.ContractNo = this.itemOptions.ContractNo;
     this.HeaderId = this.itemOptions.HeaderId;
     this.orderType = this.itemOptions.orderType;
+    this.DLType = this.itemOptions.DLType;
     if (this.data.Details) {
       if (this.data.Details.length > 0) {
         this.isShowing = true;
@@ -175,7 +176,7 @@ export class Item {
 
   get UENFilterAcc() {
     var UENFilter = {};
-    if (this.data.DLType == "PROSES") {
+    if (this.DLType == "PROSES") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",

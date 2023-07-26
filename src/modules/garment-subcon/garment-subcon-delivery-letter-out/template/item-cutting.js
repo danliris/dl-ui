@@ -37,6 +37,7 @@ export class Item {
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
     this.itemOptions = context.context.options;
+    this.DLType = this.itemOptions.DLType;
     this.ContractNo = this.itemOptions.ContractNo;
     this.HeaderId = this.itemOptions.HeaderId;
     if (this.data) {
@@ -128,7 +129,7 @@ export class Item {
 
   get UENFilterAcc() {
     var UENFilter = {};
-    if (this.data.DLType == "PROSES") {
+    if (this.DLType == "PROSES") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
@@ -214,7 +215,6 @@ export class Item {
               }
             }
             this.data.QtyUsed = usedQty;
-            console.log("");
             if (deliveryOrder) {
               for (var uenItem of newValue.Items) {
                 var item = {};
@@ -223,9 +223,9 @@ export class Item {
                   var qty = this.data.savedItems.find(
                     (a) => a.UENItemId == uenItem.Id
                   );
-                  if (this.isEdit) {
-                    item.Id = qty.Id;
-                  }
+                  // if (this.isEdit) {
+                  //   item.Id = qty.Id;
+                  // }
                   if (qty) item.Quantity = qty.Quantity;
                 }
                 //item.UENItemId=uenItem.Id;

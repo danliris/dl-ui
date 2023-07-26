@@ -22,14 +22,13 @@
         </au-dropdown>
         
         <au-autocomplete
-            value.bind="selectedUnit"
+            value.bind="data.Unit"
             error.bind="error.Unit"
             label="Unit Asal"
             loader.bind="unitLoader"
             text.bind="unitView"
-            query.bind="unitQuery"
             placeholder="Unit"
-            read-only.bind="readOnly|| isEdit"
+            read-only.bind="true"
             options.bind="controlOptions">
         </au-autocomplete>
 
