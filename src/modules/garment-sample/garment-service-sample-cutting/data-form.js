@@ -57,7 +57,7 @@ export class DataForm {
     }
 
    get unitQuery(){
-    var result = { "Name" : "SMP1" }
+    var result = { "Code" : "SMP1" }
     return result;   
    }
 
@@ -100,6 +100,12 @@ export class DataForm {
             isEdit: this.isEdit,
             readOnly: this.readOnly,
 
+        }
+
+        this.data.Unit = {
+            Id: 107,
+            Code:'SMP1',
+            Name:'SAMPLE'
         }
 
         if (this.data && this.data.Items) {
