@@ -26,7 +26,7 @@ export class Service extends RestService {
 
   generateExcel(info) {
     
-    var endpoint = `${serviceUri}/get-spu-daily-operation-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
+    var endpoint = `${serviceUri}/get-sizing-daily-operation-report/download?fromDate=${info.fromDate}&toDate=${info.toDate}&shift=${info.shift}`;
            
     var query = '';
 
@@ -50,10 +50,18 @@ export class Service extends RestService {
         if (query === '') query = `groupui=${info.groupui}`;
         else query = `${query}&groupui=${info.groupui}`;
       }
+      if (info.sp && info.sp !== "") {
+        if (query === '') query = `sp=${info.sp}`;
+        else query = `${query}&sp=${info.sp}`;
+      }
+      if (info.code && info.code !== "") {
+        if (query === '') query = `code=${info.code}`;
+        else query = `${query}&code=${info.code}`;
+      }
      
       
         if (query !== '')
-        endpoint = `${serviceUri}/get-spu-daily-operation-report/download?${query}`;
+        endpoint = `${serviceUri}/get-sizing-daily-operation-report/download?${query}`;
     
     return super.getXls(endpoint);
   }
