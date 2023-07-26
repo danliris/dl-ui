@@ -180,6 +180,7 @@ export class DataForm {
       orderType: this.data.OrderType,
       ContractNo: this.data.ContractNo,
       HeaderId: this.data.Id,
+      DLType: this.data.DLType,
     };
 
     if (this.data.Id) {
