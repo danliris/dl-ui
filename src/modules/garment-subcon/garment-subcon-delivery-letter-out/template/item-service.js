@@ -61,6 +61,7 @@ export class Item {
     this.itemOptions = context.context.options;
     this.isCreate = this.itemOptions.isCreate;
     this.isEdit = this.itemOptions.isEdit;
+    this.readOnly = this.itemOptions.readOnly;
     this.isSubconCutting = this.itemOptions.isSubconCutting;
     this.isSubconSewing = this.itemOptions.isSubconSewing;
     this.isSubconExpenditure = this.itemOptions.isSubconExpenditure;
@@ -82,20 +83,28 @@ export class Item {
         };
 
         if (this.data.Id) {
-          var subcon = await this.service.readServiceSubconCuttingById(
-            this.data.SubconId
-          );
+          if (this.orderType == "JOB ORDER") {
+            var subcon = await this.service.readServiceSubconCuttingById(
+              this.data.SubconId
+            );
+          } else {
+            var subcon = await this.service.readServiceSubconSampleCuttingById(
+              this.data.SubconId
+            );
+          }
+
           this.data.date = subcon.SubconDate;
           this.data.unit = subcon.Unit.Code;
           this.data.subconType = subcon.SubconType;
         }
-      }
-      if (this.data.Details) {
-        if (this.data.Details.length > 0)
-          this.selectedUENAcc = {
-            UENNo: this.data.Details[0].UENNo,
-            Id: this.data.Details[0].Id,
-          };
+
+        if (this.data.Details) {
+          if (this.data.Details.length > 0)
+            this.selectedUENAcc = {
+              UENNo: this.data.Details[0].UENNo,
+              Id: this.data.Details[0].Id,
+            };
+        }
       }
       // else if(this.subconCategory=="SUBCON JASA GARMENT WASH"){
       //     this.selectedSubconSewing={
@@ -113,9 +122,16 @@ export class Item {
           Id: this.data.SubconId,
         };
         if (this.data.Id) {
-          var subcon = await this.service.readServiceSubconSewingById(
-            this.data.SubconId
-          );
+          if (this.orderType == "JOB ORDER") {
+            var subcon = await this.service.readServiceSubconSewingById(
+              this.data.SubconId
+            );
+          } else {
+            var subcon = await this.service.readServiceSubconSampleSewingById(
+              this.data.SubconId
+            );
+          }
+
           this.data.date = subcon.ServiceSubconSewingDate;
           this.data.Details = subcon.Items;
           for (var item of subcon.Items) {
@@ -133,9 +149,17 @@ export class Item {
           Id: this.data.SubconId,
         };
         if (this.data.Id) {
-          var subcon = await this.service.readServiceSubconShrinkageById(
-            this.data.SubconId
-          );
+          if (this.orderType == "JOB ORDER") {
+            var subcon = await this.service.readServiceSubconShrinkageById(
+              this.data.SubconId
+            );
+          } else {
+            var subcon =
+              await this.service.readServiceSubconSampleShrinkageById(
+                this.data.SubconId
+              );
+          }
+
           this.data.date = subcon.ServiceSubconShrinkagePanelDate;
         }
       } else if (this.subconCategory == "SUBCON BB FABRIC WASH/PRINT") {
@@ -144,9 +168,16 @@ export class Item {
           Id: this.data.SubconId,
         };
         if (this.data.Id) {
-          var subcon = await this.service.readServiceSubconFabricById(
-            this.data.SubconId
-          );
+          if (this.orderType == "JOB ORDER") {
+            var subcon = await this.service.readServiceSubconFabricById(
+              this.data.SubconId
+            );
+          } else {
+            var subcon = await this.service.readServiceSubconSampleFabricById(
+              this.data.SubconId
+            );
+          }
+
           this.data.date = subcon.ServiceSubconFabricWashDate;
         }
       } else if (this.isSubconExpenditure) {
@@ -154,16 +185,25 @@ export class Item {
           ServiceSubconExpenditureGoodNo: this.data.SubconNo,
           Id: this.data.SubconId,
         };
+
         if (this.data.Id) {
-          var subcon = await this.service.readServiceSubconExpenditureGoodById(
-            this.data.SubconId
-          );
+          if (this.orderType == "JOB ORDER") {
+            var subcon =
+              await this.service.readServiceSubconExpenditureGoodById(
+                this.data.SubconId
+              );
+          } else {
+            var subcon =
+              await this.service.readServiceSubconSampleExpenditureGoodById(
+                this.data.SubconId
+              );
+          }
+
           this.data.date = subcon.ServiceSubconExpenditureGoodDate;
         }
       }
     }
     // this.isShowing = false;
-    // console.log(context);
   }
 
   comodityView = (comodity) => {
@@ -176,16 +216,29 @@ export class Item {
 
   get UENFilterAcc() {
     var UENFilter = {};
-    if (this.DLType == "PROSES") {
+    if (this.DLType == "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
-    } else {
+    } else if (this.DLType == "PROSES" && this.orderType == "SAMPLE") {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
+    } else if (this.DLType != "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
+      };
+    } else if (this.DLType != "PROSES" && this.orderType == "SAMPLE") {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
       };
     }
 
