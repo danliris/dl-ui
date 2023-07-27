@@ -309,7 +309,7 @@ module.exports = [{
   name: "stock-beam",
   moduleId: "./modules/weaving/stock-beam-upload/index",
   nav: true,
-  title: "Stock Beam",
+  title: "Laporan Visualisasi Stock Beam",
   auth: true,
   settings: {
     group: "weaving",
