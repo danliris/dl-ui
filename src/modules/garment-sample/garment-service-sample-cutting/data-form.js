@@ -1,11 +1,11 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service, SalesService, CoreService } from "./service";
+import { Service, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 const UomLoader = require("../../../loader/uom-loader");
 
-@inject(Service, SalesService, CoreService)
+@inject(Service, CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
