@@ -31,7 +31,7 @@ export class View {
   }
 
   deleteCallback(event) {
-    if (confirm(`Hapus ${this.data.ServiceSampleSewingNo}?`))
+    if (confirm(`Hapus ${this.data.ServiceSubconSewingNo}?`))
       this.service
         .delete(this.data)
         .then((result) => {

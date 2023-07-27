@@ -140,7 +140,7 @@ export class Item {
             this.data.Comodity =
               item.Comodity.Code + " - " + item.Comodity.Name;
             this.data.Buyer = item.Buyer.Code + " - " + item.Buyer.Name;
-            this.data.Details = item.Details;
+            this.data.DetailsSewing = item.Details;
           }
         }
       } else if (this.subconCategory == "SUBCON BB SHRINKAGE/PANEL") {
@@ -390,8 +390,8 @@ export class Item {
     this.data.QtyPacking = 0;
     this.data.UomSatuanUnit = "";
 
-    if (this.data.Details.length > 0) {
-      this.data.Details.splice(0);
+    if (this.data.DetailsSewing.length > 0) {
+      this.data.DetailsSewing.splice(0);
     }
     if (newValue) {
       this.data.SubconId = newValue.Id;
@@ -416,7 +416,7 @@ export class Item {
       this.data.RONo = item.RONo;
       this.data.Buyer = item.Buyer.Name;
       this.data.Comodity = item.Comodity.Code + " - " + item.Comodity.Name;
-      this.data.Details = item.Details;
+      this.data.DetailsSewing = item.Details;
       for (var detail of item.Details) {
         this.data.Quantity += detail.Quantity;
       }
