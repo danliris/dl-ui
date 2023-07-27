@@ -161,7 +161,7 @@ export class DataForm {
     return UENFilter;
   }
 
-  @computedFrom("data.DLType || data.OrderType")
+  @computedFrom("data.DLType && data.OrderType")
   get UENFilterAcc() {
     var UENFilter = {};
     if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
