@@ -10,7 +10,7 @@ export class View {
         this.service = service;
     }
 
-    info={size:10, page:1}
+    info={size:100, page:1}
 
     async activate(params) {
         this.params=params;
@@ -53,7 +53,7 @@ export class View {
         };
         this.service.getByMonthYear(this.info)
             .then(result => {
-                var idx=(this.info.page-1) *10;
+                var idx=(this.info.page-1) *100;
                 for(var data of result.data){
                     idx++;
                     data.index=idx;
