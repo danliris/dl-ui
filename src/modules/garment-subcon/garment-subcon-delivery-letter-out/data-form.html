@@ -175,7 +175,7 @@
           query.bind="UENFilterAcc"
           options.bind="itemOptions"
           placeholder="No Bon Pengeluaran Unit"
-          read-only.bind="readOnly"
+          read-only.bind="isCreate ? false : (selectedUENAcc.UENNo == '' || selectedUENAcc == null) ? readOnly : true"
           view-model.ref="selectedUENAccViewModel"
         >
         </au-autocomplete>
