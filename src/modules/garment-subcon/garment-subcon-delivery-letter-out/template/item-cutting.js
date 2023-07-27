@@ -37,7 +37,9 @@ export class Item {
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
     this.itemOptions = context.context.options;
+    this.readOnly = this.itemOptions.readOnly;
     this.DLType = this.itemOptions.DLType;
+    this.orderType = this.itemOptions.orderType;
     this.ContractNo = this.itemOptions.ContractNo;
     this.HeaderId = this.itemOptions.HeaderId;
     if (this.data) {
@@ -129,19 +131,31 @@ export class Item {
 
   get UENFilterAcc() {
     var UENFilter = {};
-    if (this.DLType == "PROSES") {
+    if (this.DLType == "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
-    } else {
+    } else if (this.DLType == "PROSES" && this.orderType == "SAMPLE") {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
+    } else if (this.DLType != "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
+    } else if (this.DLType != "PROSES" && this.orderType == "SAMPLE") {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
     }
-
     return UENFilter;
   }
 

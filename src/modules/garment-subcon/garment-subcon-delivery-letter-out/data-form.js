@@ -120,38 +120,82 @@ export class DataForm {
     };
   }
 
-  @computedFrom("data.DLType")
+  @computedFrom("data.DLType && data.OrderType")
   get UENFilter() {
     var UENFilter = {};
-    if (this.data.DLType == "PROSES") {
+    if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
       };
-    } else {
+    } else if (
+      this.data.DLType == "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG BAHAN BAKU",
+        UnitRequestCode: "SMP1",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "JOB ORDER"
+    ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG BAHAN BAKU",
+        UnitRequestCode: "SMP1",
       };
     }
 
     return UENFilter;
   }
 
-  @computedFrom("data.DLType")
+  @computedFrom("data.DLType || data.OrderType")
   get UENFilterAcc() {
     var UENFilter = {};
-    if (this.data.DLType == "PROSES") {
+    if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
-    } else {
+    } else if (
+      this.data.DLType == "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "JOB ORDER"
+    ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
       };
     }
 
@@ -188,7 +232,6 @@ export class DataForm {
         if (this.isCreate || this.isEdit) {
           //Mapping data Item Fabric
           var itemFab = this.data.Items.find((x) => x.Product.Name == "FABRIC");
-          console.log("itemFab", itemFab);
           if (itemFab) {
             var uen = await this.purchasingService.getUENById(itemFab.UENId);
             this.selectedUEN = {

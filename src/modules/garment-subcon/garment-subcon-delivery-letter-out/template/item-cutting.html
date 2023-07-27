@@ -95,7 +95,7 @@
             text.bind="uenView"
             options.bind="itemOptions"
             placeholder="No Bon Pengeluaran Unit"
-            read-only.bind="readOnly"
+            read-only.bind="isCreate ? false : selectedUENAcc == null ? readOnly : true"
           >
           </au-autocomplete>
         </div>

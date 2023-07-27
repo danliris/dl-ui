@@ -2,10 +2,11 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'service-sample-cuttings';
 const comodityServiceUri = 'master/garment-comodities';
-const costCalculationServiceUri = 'cost-calculation-garments';
-const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
-const cuttingInUri = 'cutting-ins';
+// const costCalculationServiceUri = 'cost-calculation-garments';
+// const hOrderKodeByNoServiceUri = 'local-merchandiser/horders/kode-by-no';
+const cuttingInUri = 'garment-sample-cutting-ins';
 const uomServiceUri = 'master/uoms';
+const sampleRequestUri = 'garment-sample-requests';
 
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
@@ -51,6 +52,12 @@ class Service extends RestService {
         var endpoint = `${cuttingInUri}/complete`;
         return super.list(endpoint, info);
     }
+
+    getSampleRequest(info) {
+        var endpoint = `${sampleRequestUri}`;
+        return super.list(endpoint, info);
+    }
+
     getPdfById(id) {
         var endpoint = `${serviceUri}/get-pdf/${id}`;
         return super.getPdf(endpoint);
@@ -84,20 +91,20 @@ class CoreService extends RestService {
     }
 }
 
-class SalesService extends RestService {
-    constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "sales");
-    }
+// class SalesService extends RestService {
+//     constructor(http, aggregator, config, api) {
+//         super(http, aggregator, config, "sales");
+//     }
 
-    getCostCalculationByRONo(info) {
-        var endpoint = `${costCalculationServiceUri}`;
-        return super.list(endpoint, info);
-    }
+//     getCostCalculationByRONo(info) {
+//         var endpoint = `${costCalculationServiceUri}`;
+//         return super.list(endpoint, info);
+//     }
 
-    getHOrderKodeByNo(info) {
-        var endpoint = `${hOrderKodeByNoServiceUri}`;
-        return super.list(endpoint, info);
-    }
-}
+//     getHOrderKodeByNo(info) {
+//         var endpoint = `${hOrderKodeByNoServiceUri}`;
+//         return super.list(endpoint, info);
+//     }
+// }
 
-export { Service, CoreService,SalesService }
+export { Service, CoreService }
