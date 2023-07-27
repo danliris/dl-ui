@@ -10,7 +10,7 @@ export class View {
         this.service = service;
     }
 
-    info={size:100, page:1}
+    info={size:10, page:1}
 
     async activate(params) {
         this.params=params;
@@ -45,7 +45,7 @@ export class View {
 
     loadPage() {
         this.info = {
-            monthId: this.params.month,
+            monthId: this.params.monthId,
             year: this.params.year,
             page:this.info.page,
             size:this.info.size,
@@ -53,10 +53,14 @@ export class View {
         };
         this.service.getByMonthYear(this.info)
             .then(result => {
-                var idx=(this.info.page-1) *100;
+                var idx=(this.info.page-1) *10;
                 for(var data of result.data){
                     idx++;
                     data.index=idx;
+                    data.spbDate= moment(data.spbDate).format('DD/MM/YYYY');
+                    data.deliveryDate= moment(data.deliveryDate).format('DD/MM/YYYY');
+                    var spp= this.service.getProductionOrderDetails(data.sppNo);
+                    data.spp= spp.data;
                 }
                 this.data = result.data;
                 this.info = result.info;
