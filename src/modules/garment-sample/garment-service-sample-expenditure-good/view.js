@@ -1,6 +1,6 @@
-import { inject } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service, PurchasingService } from './service';
+import { inject } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service, PurchasingService } from "./service";
 
 @inject(Router, Service, PurchasingService)
 export class View {
@@ -23,26 +23,27 @@ export class View {
   }
 
   cancelCallback(event) {
-    this.router.navigateToRoute('list');
+    this.router.navigateToRoute("list");
   }
 
   editCallback(event) {
-    this.router.navigateToRoute('edit', { id: this.data.Id });
+    this.router.navigateToRoute("edit", { id: this.data.Id });
   }
 
   deleteCallback(event) {
-    if (confirm(`Hapus ${this.data.ServiceSampleExpenditureGoodNo}?`))
-      this.service.delete(this.data)
-        .then(result => {
+    if (confirm(`Hapus ${this.data.ServiceSubconExpenditureGoodNo}?`))
+      this.service
+        .delete(this.data)
+        .then((result) => {
           this.cancelCallback();
         })
-        .catch(e => {
+        .catch((e) => {
           this.error = e;
-          if (typeof (this.error) == "string") {
+          if (typeof this.error == "string") {
             alert(this.error);
           } else {
             alert("Missing Some Data");
           }
-        })
+        });
   }
 }
