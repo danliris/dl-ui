@@ -1,16 +1,15 @@
 import { inject } from "aurelia-framework";
-import { Service, SalesService } from "./service";
+import { Service } from "./service";
 import { Router } from "aurelia-router";
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service, AuthService, SalesService)
+@inject(Router, Service, AuthService)
 export class List {
-  constructor(router, service, authService, salesService) {
+  constructor(router, service, authService) {
     this.service = service;
     this.router = router;
     this.authService = authService;
-    this.salesService = salesService;
   }
 
   filter = {};
