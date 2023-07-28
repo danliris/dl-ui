@@ -24,6 +24,11 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getByMonthYear(info) {
+    var endpoint = `${serviceUri}/monthYear`;
+    return super.list(endpoint, info);
+  }
+
   getUnitById(Id) {
     var config = Container.instance.get(Config);
     var _endpoint = config.getEndpoint("core");
@@ -68,21 +73,6 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }
-
-  // getBeamByOrderIdAndBeamType(orderId, beamType){
-  //   var config = Container.instance.get(Config);
-  //   var endpoint = config.getEndpoint("weaving");
-  //   const resource = "weaving/daily-operations-sizing";
-
-  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
-  //   return super.get(endpoint);
-  // }
-
-  // getBeamByOrderIdAndBeamType(orderId, beamType) {
-  //   const _serviceUri = "weaving/daily-operations-sizing";
-  //   var endpoint = `${_serviceUri}/order/${orderId}/beam-type/${beamType}`;
-  //   return super.get(endpoint);
-  // }
 
   updateStartProcess(Id, data) {
     const process = 'start-process';
