@@ -10,7 +10,7 @@ var StorageLoader = require("../../../loader/storage-loader");
 //var UnitLoader = require('../../../loader/garment-units-loader');
 var UnitSenderLoader = require("../../../loader/garment-sample-unit-loader");
 var UnitRequestLoader = require("../../../loader/garment-units-loader");
-var UnitReceiptNoteLoader = require("../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader");
+var UnitReceiptNoteLoader = require("../../../loader/garment-subcon-unit-receipt-note-for-unit-delivery-order-loader");
 import moment from "moment";
 
 @containerless()
