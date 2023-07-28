@@ -1,0 +1,34 @@
+<template>
+    <h1 class="page-header">Detail Operasional Mesin Harian Loom</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tanggal</th>
+          <th>Week</th>
+          <th>Shift</th>
+          <th>No MC</th>
+          <th>Nama</th>
+          <th>Group</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${mr.index}</td>
+              <td class="text-left">${mr.Day}</td>
+              <td class="text-left">${mr.Week}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.MCNo}</td>
+              <td class="text-left">${mr.Name}</td>
+              <td class="text-left">${mr.Group}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
+    </template>
+    
