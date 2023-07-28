@@ -1,4 +1,5 @@
 module.exports = [
+  //Transaksi
   {
     route: "/garment-receipt-subcon/delivery-order-subcon",
     name: "delivery-order-subcon",
@@ -82,6 +83,39 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "transaksi",
+      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      permission: { H19: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  //Production
+  {
+    route: "/garment-receipt-subcon/preparing",
+    name: "preparing",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/preparing/index",
+    nav: true,
+    title: "Preparing",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      permission: { H19: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/preparing-alluser",
+    name: "preparing-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/preparing_alluser/index",
+    nav: true,
+    title: "Preparing - Semua User",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
       // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
       permission: { H19: 1 },
       iconClass: "fa fa-dashboard",
