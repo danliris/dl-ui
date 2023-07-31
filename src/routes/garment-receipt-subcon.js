@@ -91,7 +91,7 @@ module.exports = [
   //Production
   {
     route: "/garment-receipt-subcon/preparing",
-    name: "preparing",
+    name: "garment-receipt-subcon-preparing",
     moduleId:
       "./modules/garment-receipt-subcon/garment-production/preparing/index",
     nav: true,
@@ -107,7 +107,7 @@ module.exports = [
   },
   {
     route: "/garment-receipt-subcon/preparing-alluser",
-    name: "preparing-alluser",
+    name: "garment-receipt-subcon-preparing-alluser",
     moduleId:
       "./modules/garment-receipt-subcon/garment-production/preparing_alluser/index",
     nav: true,
@@ -118,6 +118,38 @@ module.exports = [
       subGroup: "produksi",
       // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
       permission: { H19: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/cutting-in",
+    name: "garment-receipt-subcon-cutting-in",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/cutting-in/index",
+    nav: true,
+    title: "Cutting-In",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+      permission: { O7: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-production/cutting-in-alluser",
+    name: "garment-production-cutting-in-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/cutting-in-alluser/index",
+    nav: true,
+    title: "Cutting-In (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+      permission: { O22: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
