@@ -1,10 +1,49 @@
 <template>
-  <require from="./data-form-detail"></require>
-  <data-form
-    title="Detail Trouble Machine"
-    read-only="true"
-    data.bind="data"
-    error.bind="error"
-  >
-  </data-form>
+  <h1 class="page-header">Detail Monitoring Trouble Mesin</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+      <div class="table-responsive">
+          <table class="table table-bordered table-hover" border="1" id="myTable">
+              <thead align="center">
+                  <tr>
+                      <td rowspan="2">Tanggal</td>
+                      <td rowspan="2">Week</td>
+                      <td rowspan="2">Mesin Warping</td>
+                      <td rowspan="2">Group</td>
+                      <td rowspan="2">Shift</td>
+                      <td rowspan="2">Start</td>
+                      <td rowspan="2">Finish</td>
+                      <td rowspan="2">Downtime Mc</td>
+                      <td rowspan="2">Time (menit)</td>
+                      <td rowspan="2">Kode</td>
+                      <td rowspan="2">Keterangan</td>
+                  </tr>
+                   
+              </thead>
+              <tbody>
+                  <require from="../../../lib/number-format-value-converter"></require>
+                  <tr repeat.for="item of data">
+                      <td class="text-center">${item.date}</td>
+                      <td class="text-center">${item.week}</td>
+                      <td class="text-center">${item.warpingMachineNo}</td>
+                      <td class="text-left">${item.group}</td>
+                      <td class="text-left">${item.shift}</td> 
+                      <td class="text-right">${item.start}</td>
+                      <td class="text-right">${item.finish}</td>
+                      <td class="text-right">${item.downTimeMC}</td>
+                      <td class="text-right">${item.timePerMinutes}</td>
+                      <td class="text-right">${item.code}</td>
+                      <td class="text-right">${item.description}</td>
+                     
+                  </tr>
+                    
+              </tbody>
+          </table>
+      </div>
+      
+    </div>
+  </au-input-form>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
 </template>
