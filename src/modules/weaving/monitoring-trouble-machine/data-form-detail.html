@@ -15,6 +15,7 @@
                 <thead align="center">
                     <tr>
                         <td rowspan="2">Tanggal</td>
+                        <td rowspan="2">Week</td>
                         <td rowspan="2">Mesin Warping</td>
                         <td rowspan="2">Group</td>
                         <td rowspan="2">Shift</td>
@@ -31,6 +32,7 @@
                     <require from="../../../lib/number-format-value-converter"></require>
                     <tr repeat.for="item of data">
                         <td class="text-center">${item.date}</td>
+                        <td class="text-center">${item.week}</td>
                         <td class="text-center">${item.warpingMachineNo}</td>
                         <td class="text-left">${item.group}</td>
                         <td class="text-left">${item.shift}</td> 
@@ -49,5 +51,6 @@
         
       </div>
     </au-input-form>
+    <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
   </template>
   
