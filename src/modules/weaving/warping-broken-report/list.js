@@ -40,6 +40,9 @@ export class List {
         
         this.service.getReportData(info)
             .then(result => {
+                for(var a of result.data){
+                    a.Date= moment(a.Date).format('DD MMM YYYY');
+                }
               this.data= result.data;
                 
             });

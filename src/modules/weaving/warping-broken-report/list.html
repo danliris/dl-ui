@@ -47,8 +47,11 @@
         <thead align="center">
             <tr>
               <td>No</td>
-              <td>Nama Operator</td>
-              <td>Sum Of Putus Benang</td>
+              <td>Tanggal</td>
+              <td>Code</td>
+              <td>Jenis Benang</td>
+              <td>Asal Benang</td>
+              <td>Putus Benang</td>
 
             </tr>
         </thead>
@@ -56,7 +59,10 @@
             <require from="../../../lib/number-format-value-converter"></require>
             <tr repeat.for="item of data">
               <td>${$index + 1}</td>
-              <td class="text-center">${item.Name}</td>
+              <td class="text-center">${item.Date}</td>
+              <td class="text-center">${item.Code}</td>
+              <td class="text-center">${item.WarpType}</td>
+              <td class="text-center">${item.AL}</td>
               <td class="text-right">${item.ThreadCut}</td>
           </tr>
 
