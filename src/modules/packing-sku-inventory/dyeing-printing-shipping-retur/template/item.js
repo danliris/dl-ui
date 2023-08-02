@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from 'aurelia-framework'
 var ProductionOrderLoader = require('../../../../loader/production-order-azure-loader');
 var DOSalesLoader = require('../../../../loader/do-sales-loader');
 var DeliveryOrderLoader = require('../../../../loader/do-retur-loader');
+let BarcodeLoader = require("../../../../loader/fabric-packing-code-loader");
 export class CartItem {
     @bindable product;
 
@@ -16,12 +17,9 @@ export class CartItem {
         this.dyeingPrintingAreaInputId = this.contextOptions.dyeingPrintingAreaInputId;
         this.isEdit = this.contextOptions.isEdit;
         this.type = this.contextOptions.type;
-        console.log(this.type);
+        
         this.isRetur = this.contextOptions.isRetur;
-
-        console.log(this.isRetur);
-        console.log(this.contextOptions);
-
+        this.isBarcode = this.contextOptions.isBarcode;
         if (this.isRetur) {
             this.data.IsSave = true;
             this.data.area = "SHIPPING";
@@ -85,6 +83,11 @@ export class CartItem {
             this.selectedProductionOrder.ProcessType.Unit = this.data.unit;
         }
 
+        if (this.data.productPackingCode){
+            this.selectedBarcode ={};
+            this.selectedBarcode.code = this.data.productPackingCode
+        }
+
         if (this.data.packingLength) {
             this.packingLength = this.data.packingLength;
         }
@@ -120,7 +123,9 @@ export class CartItem {
     get deliveryOrderLoader() {
         return DeliveryOrderLoader;
     }
-
+    get barcodeLoader() {
+        return BarcodeLoader;
+      }
     @bindable deliveryOrder;
     deliveryOrderChanged(n, o) {
         if (this.deliveryOrder) {
@@ -132,7 +137,19 @@ export class CartItem {
             this.data.deliveryOrderRetur = null;
         }
     }
-
+    @bindable selectedBarcode;
+    selectedBarcodeChanged(n, o){
+        if(this.selectedBarcode)
+        {
+            this.data.productPackingCode = this.selectedBarcode.code;
+            this.data.productSKUId = this.selectedBarcode.productSKUId;
+            //this.data.FabricSKUCode = this.selectedBarcode.FabricSKUCode;
+            this.data.productPackingId = this.selectedBarcode.productPackingId;
+            this.data.fabricPackingId = this.selectedBarcode.fabricPackingId;
+            this.data.fabricProductSKUId = this.selectedBarcode.fabricProductSKUId;
+        }
+        console.log(this.selectedBarcode);
+    }
     @bindable selectedProductionOrder;
     selectedProductionOrderChanged(newValue, oldValue) {
         if (this.selectedProductionOrder && this.selectedProductionOrder.Id) {
