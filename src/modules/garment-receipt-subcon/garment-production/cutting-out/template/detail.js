@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { CoreService } from '../service';
-const SizeLoader = require('../../../../loader/size-loader');
+const SizeLoader = require('../../../../../loader/size-loader');
 
 @inject(CoreService)
 export class Detail {

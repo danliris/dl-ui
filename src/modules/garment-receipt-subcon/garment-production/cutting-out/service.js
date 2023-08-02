@@ -1,4 +1,4 @@
-import { RestService } from '../../../utils/rest-service';
+import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = 'receipt-subcon-cutting-outs';
 const cuttingInUri = 'subcon-cutting-ins';
