@@ -153,4 +153,36 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/cutting-out",
+    name: "garment-receipt-subcon-cutting-out",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/cutting-our/index",
+    nav: true,
+    title: "Cutting-Out",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+      permission: { O7: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-production/cutting-out-alluser",
+    name: "garment-production-cutting-out-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/cutting-out-alluser/index",
+    nav: true,
+    title: "Cutting-Out (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+      permission: { O22: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
