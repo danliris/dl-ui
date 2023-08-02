@@ -17,6 +17,7 @@ export class List {
         },
         { field: "bonNo", title: "No. Bon" },
         { field: "shift", title: "Shift" },
+        { field: "shippingType", title: "Tipe" }
     ];
 
     loader = (info) => {

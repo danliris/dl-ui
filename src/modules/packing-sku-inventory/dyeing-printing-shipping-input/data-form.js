@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from "./service";
 let PreShippingAreaLoader = require("../../../loader/pre-input-shipping-loader");
-let FilterDOLoader = require("../../../loader/pre-input-shipping-do-loader");
+let FilterDOLoader = require("../../../loader/pre-input-shipping-dp-do-loader");
 
 @inject(Service)
 export class DataForm {
@@ -88,7 +88,7 @@ export class DataForm {
         } else {
             if(this.type == true){
                 //this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"]; 
-                this.itemColumns = ["No. DO", "No. SPP","Barcode", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "QTY Masuk", "Satuan"];       
+                this.itemColumns = ["No. DO", "No. SPP","Barcode", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing","Panjang per Packing", "QTY Masuk", "Satuan"];       
             }else{
             //this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
             this.itemColumns = ["No. DO", "No. SPP", "Barcode","Qty Order", "Buyer", "Material",  "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];

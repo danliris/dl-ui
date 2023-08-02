@@ -47,19 +47,35 @@ export class List {
 
     }
 
+    // contextClickCallback(event) {
+    //     var arg = event.detail;
+    //     var data = arg.data;
+    //     switch (arg.name) {
+    //         case "detail packinglist":
+    //             this.router.navigateToRoute('view', { id: data.id });
+    //             break;
+    //         case "detail bon":
+    //             this.router.navigateToRoute('view-bon', { id: data.id });
+    //             break;
+    //         case "print":
+    //             this.service.getPdfById(data.id);
+    //             break;
+    //     }
+    // }
+
     contextClickCallback(event) {
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
-            case "detail packinglist":
+            case "detail":
                 this.router.navigateToRoute('view', { id: data.id });
                 break;
-            case "detail bon":
-                this.router.navigateToRoute('view-bon', { id: data.id });
-                break;
-            case "print":
-                this.service.getPdfById(data.id);
-                break;
+            // case "detail bon":
+            //     this.router.navigateToRoute('view-bon', { id: data.id });
+            //     break;
+            // case "print":
+            //     this.service.getPdfById(data.id);
+            //     break;
         }
     }
 
