@@ -1,6 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import moment from "moment";
 
 @inject(Router, Service)
 export class View {
@@ -24,6 +25,9 @@ export class View {
         for(var data of MR.data){
             data.index=idx;
             idx++;
+            data.Start=moment(data.Start).format("DD MMM YYYY");
+            data.Doff=moment(data.Doff).format("DD MMM YYYY");
+            data.Eff= data.Eff? ((parseFloat(data.Eff)*100).toFixed(2)).toString() + '%': '-';
         }
         this.data = MR.data;
         this.info.total=MR.info.total;
@@ -50,6 +54,9 @@ export class View {
                 for(var data of result.data){
                     idx++;
                     data.index=idx;
+                    data.Start=moment(data.Start).format("DD MMM YYYY");
+                    data.Doff=moment(data.Doff).format("DD MMM YYYY");
+                    data.Eff= data.Eff? ((parseFloat(data.Eff)*100).toFixed(2)).toString() + '%': '-';
                 }
                 this.data = result.data;
                 this.info = result.info;
