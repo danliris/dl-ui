@@ -35,12 +35,17 @@ export class Edit {
     save(event) {
         var itemQtySum = 0;
         var trackValidate = true;
+        var gradeBs = false;
 
 
         this.data.Items.forEach(x => {
             itemQtySum += x.packagingQtySplit;
 
         });
+
+        let datas = this.data.Items.filter(i => i.grade === "BS" && i.track.Id === 1360).map(i => i.track.Id);
+
+        console.log(datas.length);
         //console.log( this.data.Items);
         for(let i = 0; i < this.data.Items.length; i++){
             //console.log( this.data.Items.track.id);
@@ -54,6 +59,15 @@ export class Edit {
                 trackValidate = false;
                }
             }
+
+           //console.log(this.data.Items[i].grade);
+           //console.log(this.data.Items[i].track.id);
+
+        //    if(this.data.Items[i].grade == "BS" && this.data.items[i].track.id == 1360)
+        //    {
+        //      gradeBs = true;
+
+        //    }
         };
         // console.log(this.data.Items[0].isRead);
         // console.log(this.data.Items[1].isRead);
@@ -61,6 +75,10 @@ export class Edit {
         //console.log(this.data.Items);
 
         //console.log("sum", itemQtySum);
+
+       // var datas = this.data.Items.where('grade','BS');
+
+        //console.log(datas);
 
 
         //console.log("trackValidate", trackValidate);
@@ -79,6 +97,8 @@ export class Edit {
         } else if(this.data.Items.length <2 || !this.data.Items[0].isRead){
 
             alert("Data awal tidak di hapus")
+        } else if (datas.length >0){
+            alert("Grade BS tidak bisa Ke Jalur Fast Move")
         }
         else {
             

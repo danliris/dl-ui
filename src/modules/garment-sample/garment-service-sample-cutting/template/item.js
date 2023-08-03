@@ -1,15 +1,14 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service, SalesService, CoreService } from "../service";
 
-const CuttingInLoader = require('../../../../loader/garment-cutting-in-by-ro-loader');
+const CuttingInLoader = require('../../../../loader/garment-sample-cutting-in-by-ro-loader');
 
-@inject(Service, SalesService, CoreService)
+@inject(Service, CoreService)
 export class Item {
     @bindable selectedCuttingIn;
 
-    constructor(service, salesService, coreService) {
+    constructor(service, coreService) {
         this.service = service;
-        this.salesService = salesService;
         this.coreService = coreService;
     }
 
@@ -93,17 +92,10 @@ export class Item {
                 //this.context.error.Items = [];
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
-                let noResult = await this.salesService.getCostCalculationByRONo({ size: 1, filter: JSON.stringify({ RO_Number: this.data.RONo }) });
+                let noResult = await this.service.getSampleRequest({ size: 1, filter: JSON.stringify({ RONoSample: this.data.RONo }) });
                 if(noResult.data.length>0){
                     this.data.Comodity = noResult.data[0].Comodity;
-                } else {
-                    const comodityCodeResult = await this.salesService.getHOrderKodeByNo({ no: this.data.RONo });
-                    const comodityCode = comodityCodeResult.data[0];
-                    if (comodityCode) {
-                        const comodityResult = await this.coreService.getGComodity({ size: 1, filter: JSON.stringify({ Code: comodityCode }) });
-                        this.data.Comodity = comodityResult.data[0];
-                    }
-                }
+                } 
                 let ssCuttingItems=[];
                 let ssCutting = await this.service.searchItem({ size: 100, filter: JSON.stringify({ RONo: this.data.RONo }) });
                 //console.log(ssCutting)

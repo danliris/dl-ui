@@ -36,6 +36,7 @@ export class Create {
     units = ["", "DYEING", "PRINTING"];
    
     columns = [
+        { field: "destinationArea", title: "Area Tujuan", sortable: false},
         { field: "deliveryOrderSalesNo", title: "DO Sales", sortable: false},
         { field: "productionOrderNo", title: "No. Spp", sortable: false},
         { 

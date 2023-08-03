@@ -1,11 +1,11 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
-import { Service, SalesService, CoreService } from "./service";
+import { Service, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 const UomLoader = require("../../../loader/uom-loader");
 
-@inject(Service, SalesService, CoreService)
+@inject(Service, CoreService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable isCreate = false;
@@ -56,6 +56,11 @@ export class DataForm {
         return UomLoader;
     }
 
+   get unitQuery(){
+    var result = { "Code" : "SMP1" }
+    return result;   
+   }
+
     get buyerLoader() {
         return BuyerLoader;
     }
@@ -95,6 +100,12 @@ export class DataForm {
             isEdit: this.isEdit,
             readOnly: this.readOnly,
 
+        }
+
+        this.data.Unit = {
+            Id: 107,
+            Code:'SMP1',
+            Name:'SAMPLE'
         }
 
         if (this.data && this.data.Items) {

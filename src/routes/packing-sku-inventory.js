@@ -730,5 +730,37 @@ module.exports = [
       permission : {"S42" : 1},
       iconClass: 'fa fa-dashboard'
     }
+  },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-shipping-input',
+    name: 'dyeing-printing-shipping-input',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-shipping-input/index',
+    nav: true,
+    title: 'Penerimaan Shipping DP - Gudang Jadi',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "shipping",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"S43" : 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-shipping-retur',
+    name: 'dyeing-printing-shipping-retur',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-shipping-retur/index',
+    nav: true,
+    title: 'Penerimaan Shipping DP - Retur Buyer',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "shipping",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"S44" : 1},
+      iconClass: 'fa fa-dashboard'
+    }
   }
 ];

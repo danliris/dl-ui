@@ -54,6 +54,7 @@ export class DataForm {
       item.description = this.data.description;
       item.productPackingCode = this.data.productPackingCode;
       item.isRead = true;
+      item.grade = this.data.grade;
      
       this.data.Items.push(item);
     }
@@ -87,7 +88,8 @@ export class DataForm {
       packagingQtySplit : this.data.packagingQtyRemains,
       description : this.data.description,
       productPackingCode : this.data.productPackingCode,
-      isRead : false
+      isRead : false,
+      grade : this.data.grade
       });
     };
   }

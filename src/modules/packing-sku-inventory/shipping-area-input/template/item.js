@@ -19,6 +19,9 @@ export class CartItem {
         console.log(this.type);
         this.isRetur = this.contextOptions.isRetur;
 
+        console.log(this.isRetur);
+        console.log(this.contextOptions);
+
         if (this.isRetur) {
             this.data.IsSave = true;
             this.data.area = "SHIPPING";

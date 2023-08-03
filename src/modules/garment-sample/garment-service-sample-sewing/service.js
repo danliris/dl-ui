@@ -1,12 +1,12 @@
-import { RestService } from '../../../utils/rest-service';
-import { inject, Lazy } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from "../../../utils/rest-service";
+import { inject, Lazy } from "aurelia-framework";
+import { HttpClient } from "aurelia-fetch-client";
 
-const serviceUri = 'service-sample-sewings';
-const serviceUriSewIn = 'sewing-ins';
-const serviceUriSewInByRo = 'sewing-ins/get-by-ro';
-const serviceUriPR = 'garment-purchase-requests';
-const comodityPriceserviceUri = 'comodity-prices';
+const serviceUri = "service-sample-sewings";
+const serviceUriSewIn = "garment-sample-sewing-ins";
+const serviceUriSewInByRo = "garment-sample-sewing-ins/get-by-ro";
+const serviceUriPR = "garment-purchase-requests";
+const comodityPriceserviceUri = "comodity-prices";
 
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -69,15 +69,14 @@ class Service extends RestService {
   }
 
   getPdfById(id) {
-      var endpoint = `${serviceUri}/get-pdf/${id}`;
-      return super.getPdf(endpoint);
+    var endpoint = `${serviceUri}/get-pdf/${id}`;
+    return super.getPdf(endpoint);
   }
 
   generateExcel(info) {
-        var endpoint = `${serviceUri}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
-        return super.getXls(endpoint);
+    var endpoint = `${serviceUri}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+    return super.getXls(endpoint);
   }
-
 }
 
 class PurchasingService extends RestService {
@@ -91,4 +90,4 @@ class PurchasingService extends RestService {
   }
 }
 
-export { Service, PurchasingService }
+export { Service, PurchasingService };

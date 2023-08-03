@@ -27,7 +27,8 @@ export class List {
         { text: "", value: 0 },
         { text: "SZ 1", value: 1 },
         { text: "SZ 2", value: 2 },
-        { text: "SZ 3", value: 3 } 
+        { text: "SZ 3", value: 3 },
+        { text: "SZ 4", value: 4 }  
     ];
     GROUPOptions = [
         { text: "", value: 0 },
@@ -103,7 +104,9 @@ export class List {
             machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
             groupui: this.info.groupui ? this.info.groupui.text: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
-            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD"),
+            sp: this.info.sp ? this.info.sp: "",
+            code: this.info.code ? this.info.code: ""
         }
         this.service.generateExcel(info);
     }
@@ -115,6 +118,8 @@ export class List {
         this.info.shift = null;
         this.info.machineSizing = null;
         this.info.groupui = null;
+        this.info.sp = null;
+        this.info.code = null;
     
     }
 }
