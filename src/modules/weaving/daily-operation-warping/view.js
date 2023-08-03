@@ -25,8 +25,8 @@ export class View {
         for(var data of MR.data){
             data.index=idx;
             idx++;
-            data.Start=moment(data.Start).format("DD MMM YYYY");
-            data.Doff=moment(data.Doff).format("DD MMM YYYY");
+            data.Start=moment(data.Start).format("HH:mm");
+            data.Doff=moment(data.Doff).format("HH:mm");
             data.Eff= data.Eff? ((parseFloat(data.Eff)*100).toFixed(2)).toString() + '%': '-';
         }
         this.data = MR.data;
