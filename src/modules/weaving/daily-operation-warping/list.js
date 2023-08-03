@@ -24,18 +24,11 @@ export class List {
     this.router = router;
   }
 
- // context = ["detail"];
+  context = ["detail"];
 
   columns = [{
-      field: "MCNo",
-      title: "MC No"
-    }, {
-      field: "Name",
-      title: "Nama"
-    },
-    {
-      field: "Group",
-      title: "Group"
+      field: "Month",
+      title: "Periode"
     },
     {
       field: "YearPeriode",
@@ -74,21 +67,15 @@ export class List {
     });
   }
 
-  // contextCallback(event) {
-  //   var arg = event.detail;
-  //   var data = arg.data;
-  //   switch (arg.name) {
-  //     case "detail":
-  //       this.router.navigateToRoute("update", {
-  //         Id: data.Id
-  //       });
-  //       break;
-  //   }
-  // }
-
-  // create() {
-  //   this.router.navigateToRoute("create");
-  // }
+  contextCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "detail":
+        this.router.navigateToRoute("view", { month: data.MonthId, year : data.YearPeriode });
+        break;
+    }
+  }
   upload() {
     this.router.navigateToRoute("upload");
   }
