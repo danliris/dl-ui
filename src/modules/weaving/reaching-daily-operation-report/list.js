@@ -26,11 +26,19 @@ export class List {
         { text: "2", value: 2 },
         { text: "3", value: 3 } 
     ];
-  
+    controlOptions = {
+        label: {
+            length: 4
+        },
+        control: {
+            length: 6
+        }
+    }
+
     searching() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
-            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
@@ -50,7 +58,7 @@ export class List {
     ExportToExcel() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
-            mcNo : this.info.mcNo ? this.info.mcNo.text: "",
+            mcNo : this.info.mcNo ? this.info.mcNo: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }
