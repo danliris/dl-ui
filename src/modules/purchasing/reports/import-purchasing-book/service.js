@@ -24,6 +24,12 @@ export class Service extends RestService {
         return super.getXls(endpoint);
     }
 
+    generateExcelMII(filter) {
+        // var endpoint = `${serviceUri}/download?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
+        var endpoint = `${serviceUri}/download/mii?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}&divisionId=${filter.divisionId}&inputDate=${filter.inputDate}`;
+        return super.getXls(endpoint);
+    }
+
     printPdf(filter) {
         // var endpoint = `${serviceUri}/pdf?no=${filter.no}&unit=${filter.unit}&category=${filter.category}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}`;
         var endpoint = `${serviceUri}/pdf?no=${filter.no}&accountingUnitId=${filter.accountingUnitId}&accountingCategoryId=${filter.accountingCategoryId}&dateFrom=${filter.dateFrom}&dateTo=${filter.dateTo}&divisionId=${filter.divisionId}&inputDate=${filter.inputDate}`;
