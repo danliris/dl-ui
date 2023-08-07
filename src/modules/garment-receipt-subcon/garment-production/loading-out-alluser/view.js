@@ -17,13 +17,9 @@ export class View {
       this.data.CuttingOutId
     );
 
-    this.same = true;
-    for (var item of this.data.Items) {
-      if (item.Quantity != item.RemainingQuantity) {
-        this.same = false;
-      }
+    if (this.data.IsApproved == true) {
+      this.deleteCallback = null;
     }
-
     this.selectedUnit = this.data.Unit;
   }
 
