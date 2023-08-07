@@ -96,8 +96,8 @@ export class DataForm {
             this.data.buyerAgent=newValue.buyerAgent;
             this.data.shippingStaffName=newValue.shippingStaff;
             this.data.shippingStaffId=newValue.shippingStaffId;
-            //this.data.buyerAgentAddress=newValue.consigneeAddress;
-            this.data.buyerAgentAddress=newValue.deliverTo;
+            this.data.buyerAgentAddress=newValue.consigneeAddress;
+            //this.data.buyerAgentAddress=newValue.deliverTo;
             
             this.service.searchPackingList({filter : JSON.stringify({ InvoiceNo: this.data.invoiceNo })})
             .then(result=>{
