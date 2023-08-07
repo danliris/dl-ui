@@ -106,6 +106,28 @@ export class List {
         }
     }
 
+    ExportToExcelMII() {
+        if (false) {
+            alert("");
+        } else {
+            var filter = {
+                no: this.unitReceiptNote ? this.unitReceiptNote.no : "",
+                // category: this.category ? this.category.code : "",
+                // unit: this.unit ? this.unit.Code : "",
+                accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+                accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
+                dateFrom: this.dateFrom ?
+                    moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                inputDate: this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
+            };
+            this.service.generateExcelMII(filter).catch((e) => {
+                alert(e.replace(e, "Error: ", ""));
+            });
+        }
+    }
+
     printPdf() {
         if (false) {
             alert("");
