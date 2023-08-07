@@ -19,21 +19,6 @@ export class List {
   activate(params) {
     let username = null;
     let permission = null;
-    if (this.authService.authenticated) {
-      const me = this.authService.getTokenPayload();
-
-      username = me.username;
-      permission = me.permission;
-    }
-
-    let arrayPermission = Object.entries(permission);
-    this.isKasie = arrayPermission.find(([key, value]) => key == "X15");
-
-    if (!this.isKasie) {
-      this.filter = {
-        CreatedBy: username,
-      };
-    }
   }
 
   dataToBePosted = [];
@@ -41,16 +26,6 @@ export class List {
   context = ["Rincian", "Cetak PDF"];
 
   columns = [
-    {
-      field: "IsApproved",
-      title: "Approve",
-      checkbox: true,
-      sortable: false,
-      formatter: function (value, data, index) {
-        this.checkboxEnabled = !data.IsApproved;
-        return "";
-      },
-    },
     { field: "LoadingNo", title: "No Loading" },
     { field: "Article", title: "No Artikel" },
     { field: "TotalLoadingQuantity", title: "Jumlah", sortable: false },
