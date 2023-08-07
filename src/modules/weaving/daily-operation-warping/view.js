@@ -1,6 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import moment from "moment";
 
 @inject(Router, Service)
 export class View {
@@ -14,16 +15,19 @@ export class View {
     async activate(params) {
         this.params=params;
         var arg = {
-            month: params.month,
-            yearPeriode: params.yearPeriode,
+            monthId: params.month,
+            year: params.year,
             page:this.info.page,
             size:this.info.size
         };
-        var MR=await this.service.getFilter(arg);
+        var MR=await this.service.getByMonthYear(arg);
         var idx=1;
         for(var data of MR.data){
             data.index=idx;
             idx++;
+            data.Start=moment(data.Start).format("HH:mm");
+            data.Doff=moment(data.Doff).format("HH:mm");
+            data.Eff= data.Eff? ((parseFloat(data.Eff)*100).toFixed(2)).toString() + '%': '-';
         }
         this.data = MR.data;
         this.info.total=MR.info.total;
@@ -39,17 +43,20 @@ export class View {
 
     loadPage() {
         this.info = {
-            month: this.params.month,
-            yearPeriode: this.params.yearPeriode,
+            monthId: this.params.month,
+            year: this.params.year,
             page:this.info.page,
             size:this.info.size
         };
-        this.service.getFilter(this.info)
+        this.service.getByMonthYear(this.info)
             .then(result => {
                 var idx=(this.info.page-1) *100;
                 for(var data of result.data){
                     idx++;
                     data.index=idx;
+                    data.Start=moment(data.Start).format("HH:mm");
+                    data.Doff=moment(data.Doff).format("HH:mm");
+                    data.Eff= data.Eff? ((parseFloat(data.Eff)*100).toFixed(2)).toString() + '%': '-';
                 }
                 this.data = result.data;
                 this.info = result.info;

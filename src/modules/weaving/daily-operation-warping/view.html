@@ -1,0 +1,76 @@
+<template>
+    <h1 class="page-header">Detail Daily Operation Mesin Warping</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tanggal</th>
+          <th>Week</th>
+          <th>Shift</th>
+          <th>No MC</th>
+          <th>Nama</th>
+          <th>Group</th>
+          <th>Lot</th>
+          <th>SP</th>
+          <th>Tahun</th>
+          <th>SP/Tahun</th>
+          <th>Jenis Lusi</th>
+          <th>AL</th>
+          <th>Konstruksi</th>
+          <th>Code</th>
+          <th>No Beam</th>
+          <th>Total Cone</th>
+          <th>No Benang</th>
+          <th>Panjang (Meter)</th>
+          <th>Start</th>
+          <th>Doff</th>
+          <th>HN Kiri</th>
+          <th>HN Tengah</th>
+          <th>HN Kanan</th>
+          <th>SPEED (m/min)</th>
+          <th>Putus Benang</th>
+          <th>Kapasitas</th>
+          <th>EFF</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${mr.index}</td>
+              <td class="text-left">${mr.Day}</td>
+              <td class="text-left">${mr.Week}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.MCNo}</td>
+              <td class="text-left">${mr.Name}</td>
+              <td class="text-left">${mr.Group}</td>
+              <td class="text-left">${mr.Lot}</td>
+              <td class="text-left">${mr.SP}</td>
+              <td class="text-left">${mr.Year}</td>
+              <td class="text-left">${mr.YearSP}</td>
+              <td class="text-left">${mr.WarpType}</td>
+              <td class="text-left">${mr.AL}</td>
+              <td class="text-left">${mr.Construction}</td>
+              <td class="text-left">${mr.Code}</td>
+              <td class="text-left">${mr.BeamNo}</td>
+              <td class="text-left">${mr.TotalCone}</td>
+              <td class="text-left">${mr.ThreadNo}</td>
+              <td class="text-left">${mr.Length}</td>
+              <td class="text-left">${mr.Start}</td>
+              <td class="text-left">${mr.Doff}</td>
+              <td class="text-left">${mr.HNLeft}</td>
+              <td class="text-left">${mr.HNMiddle}</td>
+              <td class="text-left">${mr.HNRight}</td>
+              <td class="text-left">${mr.SpeedMeterPerMinute}</td>
+              <td class="text-left">${mr.ThreadCut}</td>
+              <td class="text-left">${mr.Capacity}</td>
+              <td class="text-left">${mr.Eff}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
+    </template>
+    
