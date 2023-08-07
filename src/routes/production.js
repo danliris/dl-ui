@@ -226,7 +226,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/monitoring-kanban',
         name: 'monitoring-kanban',
-        moduleId: './modules/production/finishing-printing/monitoring-kanban/index',
+        moduleId: './modules/production/finishing-printing/monitoring-kanban-upload/index',
         nav: true,
         title: 'Monitoring Kanban',
         auth: true,

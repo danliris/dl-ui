@@ -1,0 +1,48 @@
+<template>
+    <h1 class="page-header">DETAIL MONITORING KANBAN</h1>
+    <require from="../../../../lib/number-format-value-converter"></require>
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <th>No</th>
+            <th>Tanggal SPB</th>
+            <th>Tanggal Kirim</th>
+            <th>Nomor SPP</th>
+            <th>Lebar Finish</th>
+            <th>Material</th>
+            <th>Nomor Benang</th>
+            <th>Warna/Motif</th>
+            <th>Standar Handfeel</th>
+            <th>Grade Material</th>
+            <th>Panjang Material</th>
+            <th>Buyer</th>
+            <th>Metode/Tipe</th>
+            <th>No. Kereta</th>
+            <th>Standar Test</th>
+        </thead>
+        <tbody>
+            <tr repeat.for="mr of data" >
+                <td class="text-center">${mr.index}</td>
+                <td class="text-left">${mr.spbDate}</td>
+                <td class="text-left">${mr.deliveryDate}</td>
+                <td class="text-left">${mr.sppNo}</td>
+                <td class="text-left">${mr.finishWidth}</td>
+                <td class="text-left">${mr.material}</td>
+                <td class="text-left">${mr.threadNo}</td>
+                <td class="text-left">${mr.color}</td>
+                <td class="text-left">${mr.standarHandfeel}</td>
+                <td class="text-left">${mr.grade}</td>
+                <td class="text-right">${mr.materialLength}</td>
+                <td class="text-left">${mr.buyer}</td>
+                <td class="text-left">${mr.method}</td>
+                <td class="text-left">${mr.trainNo}</td>
+                <td class="text-left">${mr.spp}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div slot="actions" class="btn-group">
+        <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+        <br>
+        <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+    </div>
+</template>
+    
