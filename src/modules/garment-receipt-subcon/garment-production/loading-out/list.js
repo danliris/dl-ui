@@ -1,17 +1,16 @@
 import { inject, bindable } from "aurelia-framework";
-import { Service, PurchasingService } from "./service";
+import { Service } from "./service";
 import { Router } from "aurelia-router";
 import { AuthService } from "aurelia-authentication";
 var moment = require("moment");
 
-@inject(Router, Service, AuthService, PurchasingService)
+@inject(Router, Service, AuthService)
 export class List {
-  @bindable isKasie = null;
-  constructor(router, service, authService, purchasingService) {
+  constructor(router, service, authService) {
     this.service = service;
     this.router = router;
     this.authService = authService;
-    this.purchasingService = purchasingService;
+    // this.purchasingService = purchasingService;
   }
 
   filter = {};
@@ -23,17 +22,10 @@ export class List {
       const me = this.authService.getTokenPayload();
 
       username = me.username;
-      permission = me.permission;
     }
-
-    let arrayPermission = Object.entries(permission);
-    this.isKasie = arrayPermission.find(([key, value]) => key == "X15");
-
-    if (!this.isKasie) {
-      this.filter = {
-        CreatedBy: username,
-      };
-    }
+    this.filter = {
+      CreatedBy: username,
+    };
   }
 
   dataToBePosted = [];
@@ -41,17 +33,7 @@ export class List {
   context = ["Rincian", "Cetak PDF"];
 
   columns = [
-    {
-      field: "IsApproved",
-      title: "Approve",
-      checkbox: true,
-      sortable: false,
-      formatter: function (value, data, index) {
-        this.checkboxEnabled = !data.IsApproved;
-        return "";
-      },
-    },
-    { field: "LoadingNo", title: "No Loading" },
+    { field: "LoadingOutNo", title: "No Loading" },
     { field: "Article", title: "No Artikel" },
     { field: "TotalLoadingQuantity", title: "Jumlah", sortable: false },
     { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
@@ -59,26 +41,14 @@ export class List {
     { field: "ColorList", title: "Warna", sortable: false },
     { field: "UnitName", title: "Unit Loading" },
     { field: "UnitFromName", title: "Unit Asal" },
-    { field: "CuttingOutNo", title: "No Cutting Out" },
+    { field: "LoadingInNo", title: "No Loading In" },
     {
-      field: "LoadingDate",
+      field: "LoadingOutDate",
       title: "Tanggal Loading",
       formatter: (value) => moment(value).format("DD MMM YYYY"),
     },
     { field: "ProductList", title: "Kode Barang", sortable: false },
   ];
-
-  rowFormatter(data, index) {
-    if (data.IsApproved) return { classes: "success" };
-    else return {};
-  }
-
-  attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
-  }
 
   loader = (info) => {
     var order = {};
@@ -110,14 +80,14 @@ export class List {
   async contextClickCallback(event) {
     var arg = event.detail;
     var data = arg.data;
-    let pr = await this.purchasingService.getGarmentPR({
-      size: 1,
-      filter: JSON.stringify({ RONo: data.RONo }),
-    });
+    // let pr = await this.purchasingService.getGarmentPR({
+    //   size: 1,
+    //   filter: JSON.stringify({ RONo: data.RONo }),
+    // });
     var buyer = "";
-    if (pr.data.length > 0) {
-      buyer = pr.data[0].Buyer.Code;
-    }
+    // if (pr.data.length > 0) {
+    //   buyer = pr.data[0].Buyer.Code;
+    // }
     switch (arg.name) {
       case "Rincian":
         this.router.navigateToRoute("view", {
@@ -133,24 +103,5 @@ export class List {
 
   create() {
     this.router.navigateToRoute("create");
-  }
-
-  posting() {
-    if (this.dataToBePosted.length > 0) {
-      var dataIds = [];
-      this.dataToBePosted.map((d) => dataIds.push(d.Id));
-
-      var dataUpdate = {};
-      dataUpdate.ids = dataIds;
-      this.service
-        .post(dataUpdate)
-        .then((result) => {
-          alert("Data berhasil diApprove");
-          this.table.refresh();
-        })
-        .catch((e) => {
-          this.error = e;
-        });
-    }
   }
 }
