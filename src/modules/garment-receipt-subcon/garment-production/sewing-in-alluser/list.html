@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Loading In</h1>
+    <h1 class="page-header">Sewing In</h1>
     <au-table 
         view-model.ref="table" 
         data.bind="loader" 
@@ -13,10 +13,10 @@
         selections.bind="dataToBePosted"
         row-formatter.bind="rowFormatter">
         
-        <div slot="toolbar" class="btn-group">
+        <!-- <div slot="toolbar" class="btn-group">
             <button class="btn btn-success" click.delegate="create()" if.bind="!isKasie">Buat</button>
             <button class="btn btn-primary" if.bind="isKasie" disabled.bind="!dataToBePosted.length > 0 " click.delegate="posting()">Approve</button>
-        </div>
+        </div> -->
         </div>
     </au-table>
 

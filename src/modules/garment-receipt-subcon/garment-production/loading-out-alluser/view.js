@@ -17,9 +17,6 @@ export class View {
       this.data.CuttingOutId
     );
 
-    if (this.data.IsApproved == true) {
-      this.deleteCallback = null;
-    }
     this.selectedUnit = this.data.Unit;
   }
 
