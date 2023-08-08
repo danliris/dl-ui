@@ -13,34 +13,43 @@ export class View {
     let id = params.id;
     this.isKasie = params.isKasie;
     this.data = await this.service.read(id);
-    this.selectedLoadingIn = await this.service.getLoadingInbyId(
-      this.data.LoadingInId
+    this.selectedLoadingOut = await this.service.getLoadingOutbyId(
+      this.data.LoadingOutId
     );
 
+    this.same = true;
     for (var item of this.data.Items) {
       if (item.Quantity != item.RemainingQuantity) {
-        this.deleteCallback = null;
+        this.same = false;
       }
     }
 
     this.selectedUnit = this.data.Unit;
   }
 
-  cancelCallback(event) {
+  cancel(event) {
     this.router.navigateToRoute("list");
   }
 
-  // editCallback(event) {
-  //   this.router.navigateToRoute("edit", { id: this.data.Id });
-  // }
+  unpost(data) {
+    var dataIds = [];
+    dataIds.push(this.data.Id);
 
-  deleteCallback(event) {
-    if (confirm(`Hapus ${this.data.LoadingOutNo}?`))
+    var dataUpdate = {};
+    dataUpdate.ids = dataIds;
+    if (confirm(`UnApprove Data?`))
+      this.service.unpost(dataUpdate).then((result) => {
+        this.cancel();
+      });
+  }
+
+  delete(event) {
+    if (confirm(`Hapus ${this.data.SewingInNo}?`))
       this.service
         .delete(this.data)
         .then((result) => {
           alert(`delete data success`);
-          this.cancelCallback();
+          this.cancel();
         })
         .catch((e) => {
           this.error = e;

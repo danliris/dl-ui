@@ -83,7 +83,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "transaksi",
-      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
       permission: { X6: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -100,7 +99,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
       permission: { X7: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -116,7 +114,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
       permission: { X8: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -132,7 +129,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X9: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -148,7 +144,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X10: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -164,7 +159,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X11: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -180,7 +174,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X12: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -196,7 +189,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X13: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -212,7 +204,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X14: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -228,7 +219,6 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X16: 1 },
       iconClass: "fa fa-dashboard",
     },
@@ -244,8 +234,37 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
       permission: { X17: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/sewing-in",
+    name: "garment-receipt-subcon-sewing-in",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/sewing-in/index",
+    nav: true,
+    title: "Sewing In",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X18: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/sewing-in-alluser",
+    name: "garment-receipt-subcon-sewing-in-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/sewing-in-alluser/index",
+    nav: true,
+    title: "Sewing In (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X20: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
