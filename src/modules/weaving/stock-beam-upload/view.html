@@ -1,6 +1,23 @@
 <template>
     <h1 class="page-header">Detail Laporan Visualisasi Stock Beam</h1>
     <require from="../../../lib/number-format-value-converter"></require>
+    <form class="form-horizontal">
+    <au-datepicker label="Tanggal Awal" value.bind="min" options.bind="controlOptions" ></au-datepicker>
+    <au-datepicker label="Tanggal Akhir" value.bind="max" options.bind="controlOptions" ></au-datepicker>
+    <au-dropdown   
+      label="Shift" 
+      value.bind="shift" 
+      key="value" text="text" 
+      items.bind="shiftOptions" 
+      options.bind="controlOptions">
+    </au-dropdown>
+    <div class="form-group">
+      <label for="contact" class="col-sm-6 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+      </div>
+    </div>
+  </form>
     <div class="table-responsive">
     <table class="table table-bordered table-hover" border="1" id="myTable">
       <thead align="center">
