@@ -9,9 +9,26 @@ export class View {
         this.service = service;
     }
 
-    info={size:100, page:1}
+    shiftOptions = [
+        { text: "", value: 0 },
+        { text: "1", value: 1 },
+        { text: "2", value: 2 },
+        { text: "3", value: 3 } 
+    ];
 
+    controlOptions = {
+        label: {
+          length: 4
+        },
+        control: {
+          length: 6
+        }
+      }
+    info={size:100, page:1}
+    
     async activate(params) {
+        this.min= new Date(params.year,params.month-1,1);
+        this.max=new Date(params.year,params.month,0);
         this.params=params;
         var arg = {
             monthId: params.month,
@@ -23,11 +40,6 @@ export class View {
         var idx=1;
         for(var data of MR.data){
             data.index=idx;
-            // data.RPMProduction100= data.RPMProduction100? (parseFloat(data.RPMProduction100).toFixed(2)).toString() : '-';
-            // data.Production100= data.Production100? (parseFloat(data.Production100).toFixed(0)).toString(): '-';
-            // data.Production= data.Production? (parseFloat(data.Production).toFixed(0)).toString() : '-';
-            // data.MC2Eff= data.MC2Eff? ((parseFloat(data.MC2Eff)*100).toFixed(2)).toString() + '%': '-';
-            // data.PercentEff= data.PercentEff? ((parseFloat(data.PercentEff)*100).toFixed(2)).toString() + '%': '-';
             idx++;
         }
         this.data = MR.data;
@@ -47,7 +59,10 @@ export class View {
             monthId: this.params.month,
             year: this.params.year,
             page:this.info.page,
-            size:this.info.size
+            size:this.info.size,
+            datestart: this.min.getDate(),
+            datefinish: this.max.getDate(),
+            shift:this.shift ? this.shift.text: ""
         };
         this.service.getByMonthYear(this.info)
             .then(result => {
@@ -55,11 +70,6 @@ export class View {
                 for(var data of result.data){
                     idx++;
                     data.index=idx;
-                    // data.RPMProduction100= data.RPMProduction100? (parseFloat(data.RPMProduction100).toFixed(2)).toString() : '-';
-                    // data.Production100= data.Production100? (parseFloat(data.Production100).toFixed(0)).toString(): '-';
-                    // data.Production= data.Production? (parseFloat(data.Production).toFixed(0)).toString() : '-';
-                    // data.MC2Eff= data.MC2Eff? ((parseFloat(data.MC2Eff)*100).toFixed(2)).toString() + '%': '-';
-                    // data.PercentEff= data.PercentEff? ((parseFloat(data.PercentEff)*100).toFixed(2)).toString() + '%': '-';
                 }
                 this.data = result.data;
                 this.info = result.info;
@@ -70,5 +80,18 @@ export class View {
         var page = e.detail;
         this.info.page = page;
         this.loadPage();
+    }
+
+    searching() {
+        if (this.min.getMonth() != this.params.month && this.min.getFullYear()!=this.params.year) {
+            alert(`Tanggal awal harus pada bulan ${this.params.month} dan tahun ${this.params.year}`);
+        }
+        else if(this.max.getMonth() != this.params.month && this.max.getFullYear()!=this.params.year){
+            alert(`Tanggal Akhir harus pada bulan ${this.params.month} dan tahun ${this.params.year}`);
+        }
+        else{
+            this.info.page = 1;
+            this.loadPage();
+        }
     }
 }
