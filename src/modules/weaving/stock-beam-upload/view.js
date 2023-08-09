@@ -83,11 +83,22 @@ export class View {
     }
 
     searching() {
-        if (this.min.getMonth() != this.params.month && this.min.getFullYear()!=this.params.year) {
-            alert(`Tanggal awal harus pada bulan ${this.params.month} dan tahun ${this.params.year}`);
+        var e="";
+        if (this.min.getMonth()+1 != this.params.month) {
+            e+=`Tanggal awal harus pada bulan ${this.params.month} \n`
         }
-        else if(this.max.getMonth() != this.params.month && this.max.getFullYear()!=this.params.year){
-            alert(`Tanggal Akhir harus pada bulan ${this.params.month} dan tahun ${this.params.year}`);
+        if(this.min.getFullYear()!=this.params.year){
+            e+=`Tanggal awal harus pada tahun ${this.params.year} \n`;
+        }
+        if(this.max.getMonth()+1 != this.params.month ){
+            e+=`Tanggal akhir harus pada bulan ${this.params.month} \n`
+        }
+        if(this.max.getFullYear()!=this.params.year){
+            e+=`Tanggal akhir harus pada tahun ${this.params.year} \n`;
+        }
+        
+        if(e!=""){
+            alert(e);
         }
         else{
             this.info.page = 1;
