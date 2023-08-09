@@ -2,6 +2,7 @@ import { buildQueryString } from 'aurelia-path';
 import { RestService } from '../../../../../utils/rest-service';
 
 const serviceUri = "garment-shipping/report/garment-finance-local-sales-journals";
+const serviceDetailUri = "garment-shipping/report/garment-finance-detail-local-sales-journals";
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -15,6 +16,11 @@ export class Service extends RestService {
 
     generateExcel(info) {
         let endpoint = `${serviceUri}/download?${buildQueryString(info)}`;
+        return super.getXls(endpoint);
+    }
+
+    generateDetailExcel(info) {
+        let endpoint = `${serviceDetailUri}/download?${buildQueryString(info)}`;
         return super.getXls(endpoint);
     }
 
