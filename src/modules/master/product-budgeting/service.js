@@ -35,6 +35,11 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
+  nonActived(id) {
+    var endpoint = `${serviceUri}/nonactived/${id}`;
+    return super.put(endpoint);
+  }
+
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
@@ -44,4 +49,9 @@ export class Service extends RestService {
       var endpoint = `${serviceUri}/download`;
       return super.getXls(endpoint);
   }
+
+  post(data) {
+    var endpoint = `${serviceUri}/posting`;
+    return super.put(endpoint, data);
+}
 }
