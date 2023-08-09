@@ -23,6 +23,9 @@ export class PurchaseRequestItem {
   get productLoader() {
     return ProductLoader;
   }
+  isPostedQuery = {
+    "Active": true
+  }
 
   dataProductChanged(newValue) {
     this.data.product = newValue;

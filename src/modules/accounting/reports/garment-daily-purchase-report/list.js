@@ -49,7 +49,8 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             jnsbc : this.JenisBC ? this.JenisBC : "",
-            inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+            inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+            inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
         }
         this.service.search(info)
             .then(result => {
@@ -280,7 +281,8 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             jnsbc : this.JenisBC ? this.JenisBC : "",
-            inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+            inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+            inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
            }
 
         this.service.generateExcel(filter)
@@ -298,6 +300,10 @@ export class List {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
             inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+            inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+            //inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
+            inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+            inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
             jnsbc : this.JenisBC ? this.JenisBC : ""
            }
 
@@ -314,6 +320,8 @@ export class List {
         this.supplierType = false; 
         this.supplierName = null;         
         this.suppliers = [];
+        this.inputDateFrom = null;
+        this.inputDateTo = null;
         this.AmountTotal1 = null;
         this.AmountTotal2 = null;
         this.AmountTotal3 = null;
