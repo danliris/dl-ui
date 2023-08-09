@@ -11,6 +11,7 @@ export class List {
         this.router = router;
 
     }
+    info={size:100, page:1}
     bind(context) {
         this.context = context;
     }
@@ -37,6 +38,8 @@ export class List {
 
     searching() {
         var info = {
+            page:this.info.page,
+            size:this.info.size,
             shift : this.info.shift ? this.info.shift.text: "",
             mcNo : this.info.mcNo ? this.info.mcNo: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
@@ -45,13 +48,15 @@ export class List {
         this.total=0
         this.service.getReportData(info)
             .then(result => {
-                console.log(result.data)
+                var idx=(this.info.page-1) *100;
                 for(var d of result.data){
+                    idx++;
+                    d.index=idx;
                     d.Periode=moment(d.Periode).format("DD MMMM YYYY");
-                    //d.Efficiency= ( d.Efficiency *100).toFixed(0);
                     this.total+=parseFloat(d.BeamNo);
                 }
                 this.data= result.data;
+                this.info.total=result.info.total;
             });
     }
     
@@ -71,5 +76,11 @@ export class List {
         this.toDate = null;
         this.info.shift = null;
         this.info.mcNo = null;
+    }
+
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
     }
 }
