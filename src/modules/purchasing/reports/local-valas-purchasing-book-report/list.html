@@ -41,10 +41,19 @@
         <au-datepicker label="Sampai Tanggal"
                        value.bind="dateTo"
                        options.bind="controlOptions"></au-datepicker>
-        <au-datepicker label="Tanggal Input" 
+        <!-- <au-datepicker label="Tanggal Input" 
                        value.bind="inputDate"
                        options.bind="controlOptions">
-                   </au-datepicker>
+                   </au-datepicker> -->
+
+        <au-datepicker label="Tanggal Input Awal" 
+            value.bind="inputDateFrom"
+            options.bind="controlOptions">
+        </au-datepicker>
+        <au-datepicker label="Tanggal Input Akhir" 
+            value.bind="inputDateTo"
+            options.bind="controlOptions">
+        </au-datepicker>
         <div class="form-group">
             <label for="contact"
                    class="col-sm-6 control-label"></label>
