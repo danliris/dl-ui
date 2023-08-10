@@ -19,7 +19,7 @@
             <th>No. Kereta</th>
             <th>Standar Test</th>
         </thead>
-        <tbody>
+        <tbody if.bind="Pretreatment">
             <tr repeat.for="mr of data" >
                 <td class="text-center">${mr.index}</td>
                 <td class="text-left">${mr.spbDate}</td>
