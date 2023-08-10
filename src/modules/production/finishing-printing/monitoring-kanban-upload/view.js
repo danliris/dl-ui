@@ -36,12 +36,11 @@ export class View {
                 console.log(spp)
                 var sppData= spp.data;
                 if(sppData!=null){
-
-                    data.yarnMaterialName=sppData.yarnMaterialName;
-                    data.standardTestName=sppData.standardTestName;
-                    data.finishType=sppData.finishType;
-                    data.deliveryDate=moment(sppData.deliveryDate).format('DD/MM/YYYY');
-                    data.buyer=sppData.buyer;
+                    data.sppthreadNo=sppData.yarnMaterialName;
+                    data.sppstandarTest=sppData.standardTestName;
+                    data.sppfinishType=sppData.finishType;
+                    data.sppdeliveryDate=moment(sppData.deliveryDate).format('DD/MM/YYYY');
+                    data.sppbuyer=sppData.buyer;
                 }
             }
             idx++;
