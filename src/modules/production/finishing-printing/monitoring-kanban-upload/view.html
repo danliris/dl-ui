@@ -2,7 +2,44 @@
     <h1 class="page-header">Detail Surat Permintaan Barang</h1>
     <require from="../../../../lib/number-format-value-converter"></require>
     <table class="table table-bordered table-hover" border="1" id="myTable">
-        <thead align="center">
+        <thead align="center" if.bind="Dyeing">
+            <th>No9</th>
+            <th>Tanggal SPB9</th>
+            <th>Tanggal Kirim9</th>
+            <th>Nomor SPP9</th>
+            <th>Lebar Finish9</th>
+            <th>Material9</th>
+            <th>Nomor Benang9</th>
+            <th>Warna/Motif9</th>
+            <th>Standar Handfeel9</th>
+            <th>Grade Material</th>
+            <th>Panjang Material</th>
+            <th>Buyer</th>
+            <th>Metode/Tipe</th>
+            <th>No. Kereta</th>
+            <th>Standar Test</th>
+        </thead>
+        <tbody if.bind="Dyeing">
+            <tr repeat.for="mr of data" >
+                <td class="text-center">${mr.index}</td>
+                <td class="text-left">${mr.spbDate}</td>
+                <td class="text-left">${mr.deliveryDate}</td>
+                <td class="text-left">${mr.sppNo}</td>
+                <td class="text-left">${mr.finishWidth}</td>
+                <td class="text-left">${mr.material}</td>
+                <td class="text-left">${mr.threadNo}</td>
+                <td class="text-left">${mr.color}</td>
+                <td class="text-left">${mr.standarHandfeel}</td>
+                <td class="text-left">${mr.grade}</td>
+                <td class="text-right">${mr.materialLength}</td>
+                <td class="text-left">${mr.buyer}</td>
+                <td class="text-left">${mr.method}</td>
+                <td class="text-left">${mr.trainNo}</td>
+                <td class="text-left">${mr.spp}</td>
+            </tr>
+        </tbody>
+
+        <thead align="center" if.bind="Pretreatment">
             <th>No</th>
             <th>Tanggal SPB</th>
             <th>Tanggal Kirim</th>
@@ -19,7 +56,7 @@
             <th>No. Kereta</th>
             <th>Standar Test</th>
         </thead>
-        <tbody>
+        <tbody if.bind="Pretreatment">
             <tr repeat.for="mr of data" >
                 <td class="text-center">${mr.index}</td>
                 <td class="text-left">${mr.spbDate}</td>
