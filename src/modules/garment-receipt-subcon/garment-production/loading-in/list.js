@@ -27,7 +27,7 @@ export class List {
     }
 
     let arrayPermission = Object.entries(permission);
-    this.isKasie = arrayPermission.find(([key, value]) => key == "X1");
+    this.isKasie = arrayPermission.find(([key, value]) => key == "X15");
 
     if (!this.isKasie) {
       this.filter = {

@@ -144,9 +144,9 @@ export class CostCalculationMaterial {
     }
 
     calculateProcessPrice() {
-        let CuttingFee = this.data.Wage.Value * this.data.SMV_Cutting * (100 / 75);
+        let CuttingFee = this.data.Wage.Value * this.data.SMV_Cutting * (100 / 70);
         let SewingFee = this.data.Wage.Value * this.data.SMV_Sewing * (100 / this.data.Efficiency.Value);
-        let FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 90);
+        let FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 92);
         let THR = this.data.THR.Value * this.data.SMV_Total;
         let result = CuttingFee + SewingFee + FinishingFee + THR;
         return numeral(numeral(result).format(rateNumberFormat)).value();

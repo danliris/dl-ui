@@ -41,8 +41,12 @@
         <au-datepicker label="Sampai Tanggal"
                        value.bind="dateTo"
                        options.bind="controlOptions"></au-datepicker>
-        <au-datepicker label="Tanggal Input" 
-            value.bind="inputDate"
+        <au-datepicker label="Tanggal Input Awal" 
+            value.bind="inputDateFrom"
+            options.bind="controlOptions">
+        </au-datepicker>
+        <au-datepicker label="Tanggal Input Akhir" 
+            value.bind="inputDateTo"
             options.bind="controlOptions">
         </au-datepicker>
         <div class="form-group">
@@ -58,6 +62,8 @@
         <div class="btn-group pull-left">
             <a click.delegate="ExportToExcel()"
                class='btn btn-primary'>Cetak Excel</a>
+            <a click.delegate="ExportToExcelMII()"
+               class='btn btn-primary'>Cetak Excel MII</a>
             <a click.delegate="printPdf()"
                class='btn btn-info'>Cetak Pdf</a>
         </div>

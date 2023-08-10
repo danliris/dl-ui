@@ -17,9 +17,13 @@ export class View {
       this.data.CuttingOutId
     );
 
-    if (this.data.IsApproved == true) {
-      this.deleteCallback = null;
+    this.same = true;
+    for (var item of this.data.Items) {
+      if (item.Quantity != item.RemainingQuantity) {
+        this.same = false;
+      }
     }
+
     this.selectedUnit = this.data.Unit;
   }
 
@@ -44,15 +48,15 @@ export class View {
   }
 
   delete(event) {
-    // if (confirm(`Hapus ${this.data.CutInNo}?`))
-    this.service
-      .delete(this.data)
-      .then((result) => {
-        alert(`delete data success`);
-        this.cancel();
-      })
-      .catch((e) => {
-        this.error = e;
-      });
+    if (confirm(`Hapus ${this.data.LoadingNo}?`))
+      this.service
+        .delete(this.data)
+        .then((result) => {
+          alert(`delete data success`);
+          this.cancel();
+        })
+        .catch((e) => {
+          this.error = e;
+        });
   }
 }

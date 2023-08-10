@@ -55,20 +55,24 @@ export class Create {
     }
 
     reject() {
-        if (this.data.shippingType == "ZONA GUDANG") {
+        
             this.data.shippingProductionOrders = this.data.displayShippingProductionOrders.filter(s => s.IsSave === true);
-        }
+    
 
         this.service.reject(this.data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert("Data berhasil ditolak");
+                console.log(result);
                 this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
-                if (e.statusCode == 500) {
+                this.error = e;
+                console.log(this.error);
+                if (this.error.statusCode === 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
                 } else {
-                    this.error = e;
+                    
+                    alert("Mohon Cek Data Kembali");
                 }
             })
     }

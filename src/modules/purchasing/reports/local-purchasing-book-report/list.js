@@ -76,7 +76,9 @@ export class List {
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-                inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                //inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+                inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             }
             this.service.search(info)
@@ -98,11 +100,37 @@ export class List {
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-                inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+                inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             }
 
             this.service.generateExcel(filter)
+                .catch(e => {
+                    alert(e.replace(e, "Error: ", ""))
+                });
+        }
+    }
+
+    ExportToExcelMII() {
+        if (false) {
+            alert("");
+        } else {
+            var filter = {
+                no: this.no ? this.no : "",
+                // category: this.category ? this.category.code : "",
+                // unit: this.unit ? this.unit.Code : "",
+                accountingCategoryId: this.accountingCategory ? this.accountingCategory.Id : 0,
+                accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
+                dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+                //inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+                inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
+                divisionId: this.division ? this.division.Id : 0
+            }
+
+            this.service.generateExcelMII(filter)
                 .catch(e => {
                     alert(e.replace(e, "Error: ", ""))
                 });
@@ -121,7 +149,9 @@ export class List {
                 accountingUnitId: this.accountingUnit ? this.accountingUnit.Id : 0,
                 dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-                inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                //inputDate:this.inputDate ? moment(this.inputDate).format("YYYY-MM-DD") : "",
+                inputDateFrom:this.inputDateFrom ? moment(this.inputDateFrom).format("YYYY-MM-DD") : "",
+                inputDateTo:this.inputDateTo ? moment(this.inputDateTo).format("YYYY-MM-DD") : "",
                 divisionId: this.division ? this.division.Id : 0
             }
 
@@ -142,6 +172,8 @@ export class List {
         this.dateFrom = null;
         this.dateTo = null;
         this.inputDate = null;
+        this.inputDateFrom = null;
+        this.inputDateTo = null;
         this.data = [];
 
     }
