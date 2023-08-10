@@ -14,6 +14,8 @@ export class View {
 
     async activate(params) {
         this.params=params;
+        this.Dyeing=params.area=="DYEING";//this.DYEING nilai true
+        this.Pretreatment=params.area=="PRETREATMENT";//this.PRETREATMENT nilai true
         var arg = {
             monthId:params.monthId,
             year:params.year,
@@ -21,6 +23,7 @@ export class View {
             size:this.info.size,
             area:params.area
         };
+
         var MR=await this.service.getByMonthYear(arg);
         var idx=1;
         for(var data of MR.data){
