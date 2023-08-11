@@ -4,39 +4,39 @@
     <table class="table table-bordered table-hover" border="1" id="myTable">
         <!-- DYEING -->
         <thead align="center" if.bind="Dyeing">
-            <th>No9</th>
-            <th>Tanggal SPB9</th>
-            <th>Tanggal Kirim9</th>
-            <th>Nomor SPP9</th>
-            <th>Lebar Finish9</th>
-            <th>Material9</th>
-            <th>Nomor Benang9</th>
-            <th>Warna/Motif9</th>
-            <th>Standar Handfeel9</th>
-            <th>Grade Material</th>
-            <th>Panjang Material</th>
-            <th>Buyer</th>
-            <th>Metode/Tipe</th>
+            <th>No</th>
+            <th>No. SPP</th>
+            <th>Flow Proses</th>
+            <th>Lebar Finish</th>
+            <th>Material</th>
+            <th>Panjang</th>
             <th>No. Kereta</th>
+            <th>Warna</th>
+            <th>Grade Material</th>
+            <th>Buyer </th>
+            <th>Nomor Benang</th>
+            <th>Jenis Finish</th>
             <th>Standar Test</th>
+            <th>Tanggal Delivery</th>
+            
         </thead>
         <tbody if.bind="Dyeing">
             <tr repeat.for="mr of data" >
                 <td class="text-center">${mr.index}</td>
-                <td class="text-left">${mr.spbDate}</td>
-                <td class="text-left">${mr.deliveryDate}</td>
                 <td class="text-left">${mr.sppNo}</td>
+                <td class="text-left">${mr.flowProses}</td>
                 <td class="text-left">${mr.finishWidth}</td>
                 <td class="text-left">${mr.material}</td>
-                <td class="text-left">${mr.threadNo}</td>
-                <td class="text-left">${mr.color}</td>
-                <td class="text-left">${mr.standarHandfeel}</td>
-                <td class="text-left">${mr.grade}</td>
-                <td class="text-right">${mr.materialLength}</td>
-                <td class="text-left">${mr.buyer}</td>
-                <td class="text-left">${mr.method}</td>
+                <td class="text-left">${mr.length}</td>
                 <td class="text-left">${mr.trainNo}</td>
-                <td class="text-left">${mr.spp}</td>
+                <td class="text-left">${mr.color}</td>
+                <td class="text-left">${mr.materialGrades}</td>
+                <td class="text-left">${mr.buyer}</td>
+                <td class="text-right">${mr.threadNo}</td>
+                <td class="text-right">${mr.finishType}</td>
+                <td class="text-left">${mr.standarTest}</td>
+                <td class="text-left">${mr.deliveryDateDyeing}</td>
+               
             </tr>
         </tbody>
         <!-- PRETREATMENT -->
