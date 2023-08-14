@@ -4,7 +4,8 @@ import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["detail", "nonaktif"];
+    context = ["detail", "nonaktif", "detail "];
+    //context2 = ["detail", "nonaktif"];
     columns = [
       {
         field: "isPosting", title: "Post", checkbox: true, sortable: false,
@@ -66,12 +67,17 @@ export class List {
         this.accessoriesId = "";
         this.accessories = [];
     }
-
+    
     contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
+    console.log(data);
+    console.log(event);
     switch (arg.name) {
       case "detail":
+        this.router.navigateToRoute('view', { id: data.Id });
+        break;
+      case "detail ":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
       case "nonaktif":
@@ -83,6 +89,27 @@ export class List {
         break;
     }
   }
+
+  contextShowCallback(index, name, data) {
+    console.log(data);
+    
+    switch (name) {
+        case "detail ":
+        case "nonaktif":
+            return data.IsPosted;
+        case "detail":
+            return !data.IsPosted;
+        default:
+            return true;
+    }
+
+    // switch(data.IsPosted){
+    //   case true:
+    //     return name;
+    //   case false:
+    //     return name;
+    // }
+}
   posting() {
     if (this.dataToBePosted.length > 0) {
       this.service.post(this.dataToBePosted).then(result => {
