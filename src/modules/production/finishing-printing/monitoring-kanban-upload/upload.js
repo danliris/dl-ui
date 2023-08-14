@@ -43,6 +43,7 @@ export class Create {
         { text: "PRETREATMENT", value: 1},
         { text: "DYEING", value: 2 },
         { text: "PRINTING", value: 3 },
+        { text: "FINISHING", value: 4 },
     ];
 
     constructor(router, service,authService) {
