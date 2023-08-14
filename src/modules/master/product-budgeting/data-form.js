@@ -10,6 +10,8 @@ export class DataForm {
     @bindable readOnly;
     @bindable Currency;
     @bindable UOM;
+    @bindable Price;
+
 
     formOptions = {
         cancelText: "Kembali",
@@ -42,6 +44,10 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
+    get isActive(){
+        return this.data.IsPosted == true;
+    }
+
 
     bind(context) {
         this.context = context;
@@ -49,7 +55,12 @@ export class DataForm {
         if (this.data.Id) {
             this.Currency = this.data.Currency;
             this.UOM = this.data.UOM;
+            this.Price = this.data.Price;
+            this.originPrice = this.data.Price;
+            //this.isActive = this.data.IsPosted;
         }
+
+       
 
         this.error = this.context.error;
 
@@ -70,6 +81,16 @@ export class DataForm {
     CurrencyChanged() {
         if (this.Currency) {
             this.data.Currency = this.Currency;
+        } else {
+            this.Currency = {};
+        }
+    }
+
+    PriceChanged() {
+        console.log(this.originPrice);
+        if (this.Price) {
+            this.data.Price = this.Price;
+            this.data.originPrice = this.originPrice;
         } else {
             this.Currency = {};
         }
