@@ -17,6 +17,7 @@ export class View {
         this.Dyeing=params.area=="DYEING";//this.DYEING nilai true
         this.Pretreatment=params.area=="PRETREATMENT";//this.PRETREATMENT nilai true
         this.Printing=params.area=="PRINTING";
+        this.Finishing=params.area=="FINISHING";
         var arg = {
             monthId:params.monthId,
             year:params.year,
