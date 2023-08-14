@@ -426,7 +426,7 @@ module.exports = [
   },
   {
     route: "garment-finance/adjustments",
-    name: "memorials",
+    name: "adjustments",
     moduleId: "./modules/garment-finance/bank-cash/adjustment/index",
     nav: true,
     title: "Jurnal Penyesuaian",
