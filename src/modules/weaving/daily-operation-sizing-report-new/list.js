@@ -37,6 +37,7 @@ export class List {
         { text: "C", value: 3 } 
     ];
   
+    info={size:100, page:1}
     searching() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
@@ -45,12 +46,19 @@ export class List {
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD"),
             sp: this.info.sp ? this.info.sp: "",
-            code: this.info.code ? this.info.code: ""
+            code: this.info.code ? this.info.code: "",
+            page : this.info.page,
+            size : this.info.size
         }
         this.service.getReportData(info)
             .then(result => {
+                var idx=(this.info.page-1) *100;
                 console.log(result.data)
                 for(var d of result.data){
+                    idx++;
+                    d.index=idx;
+
+
                     d.Date=moment(d.Date).format("YYYY-MM-DD");
                     d.periode=moment(d.periode).format("YYYY-MM-DD");
                     
@@ -95,6 +103,8 @@ export class List {
                         }
                 }
                 this.data= result.data;
+                //tmbh ini
+                this.info.total=result.info.total;
             });
     }
     
@@ -112,6 +122,12 @@ export class List {
     }
 
   
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
+    }
+
     reset() {
         this.fromDate = null;
         this.toDate = null;
@@ -121,5 +137,6 @@ export class List {
         this.info.sp = null;
         this.info.code = null;
     
+        this.info.page=1;
     }
 }

@@ -5,7 +5,7 @@ export class Index {
         moduleId: './list',
         name: 'list',
         nav: true,
-        title: 'List : LAPORAN SPU'
+        title: 'List : LAPORAN OPERASIONAL HARIAN SIZING'
       }, ]);
   
       this.router = router;
