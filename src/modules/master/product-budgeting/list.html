@@ -8,6 +8,7 @@
   page-size="25" 
   context.bind="context" 
   context-click.delegate="contextCallback($event)"
+  context-show.call="contextShowCallback(index, context, data)"
   selectable.bind="true"
   selections.bind="dataToBePosted" 
   row-formatter.bind="rowFormatter"
