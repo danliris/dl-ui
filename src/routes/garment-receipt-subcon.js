@@ -279,7 +279,7 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      permission: { X20: 1 },
+      permission: { X21: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -294,7 +294,37 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      permission: { X20: 1 },
+      permission: { X22: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/finishing-in",
+    name: "garment-receipt-subcon-finishing-in",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/finishing-in/index",
+    nav: true,
+    title: "Finishing In",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X23: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/finishing-in-alluser",
+    name: "garment-receipt-subcon-finishing-in-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/finishing-in-alluser/index",
+    nav: true,
+    title: "Finishing In (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X25: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
