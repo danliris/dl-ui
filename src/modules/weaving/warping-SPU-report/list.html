@@ -54,8 +54,10 @@
           <thead align="center">
               <tr>
                 <td>No</td>
-                <td>No MC</td>
-                <td>Shift</td>
+                 <td>Tanggal</td><!--tmbah ini -->
+                <td>Kode</td><!--tmbah ini -->
+                <td>Mc Sz</td>
+                <td>Resep</td><!--sesuaikan kolom ini -->
                 <td>SPU</td>
                 
               </tr>
@@ -65,8 +67,10 @@
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
                   <td>${$index + 1}</td>
+                  <td>${item.periode}</td>
+                  <td>${item.code}</td>
                   <td class="text-center">${item.machineSizing}</td>
-                  <td class="text-center">${item.shift}</td>
+                  <td class="text-center">${item.recipe}</td>
                   <td class="text-center">${item.spu}%</td>
                 
                 </tr>
