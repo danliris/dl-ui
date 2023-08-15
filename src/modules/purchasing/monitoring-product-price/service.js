@@ -23,24 +23,13 @@ export class Service extends RestService {
 
     _getEndPoint(info)
     {
-        var endpoint = `${serviceUri}/download`;
+        var endpoint = `${serviceUri}/download/monitoring`;
         var query = '';
-        if (info.buyerCode) {
-            if (query === '') query = `buyerCode=${info.buyerCode}`;
-            else query = `${query}&buyerCode=${info.buyerCode}`;
+        if (info.productId) {
+            if (query === '') query = `productId=${info.productId}`;
+            else query = `${query}&productId=${info.productId}`;
         }
-        if (info.orderTypeCode) {
-            if (query === '') query = `orderTypeCode=${info.orderTypeCode}`;
-            else query = `${query}&orderTypeCode=${info.orderTypeCode}`;
-        }
-        if (info.comodityCode) {
-            if (query === '') query = `comodityCode=${info.comodityCode}`;
-            else query = `${query}&comodityCode=${info.comodityCode}`;
-        }
-        if (info.no) {
-            if (query === '') query = `no=${info.no}`;
-            else query = `${query}&no=${info.no}`;
-        }
+        
         if (info.dateFrom) {
             if (query === '') query = `dateFrom=${info.dateFrom}`;
             else query = `${query}&dateFrom=${info.dateFrom}`;
@@ -50,7 +39,7 @@ export class Service extends RestService {
             else query = `${query}&dateTo=${info.dateTo}`;
         }
         if (query !== '')
-            endpoint = `${serviceUri}/download?${query}`;
+            endpoint = `${serviceUri}/download/monitoring?${query}`;
         
         return endpoint;
     }

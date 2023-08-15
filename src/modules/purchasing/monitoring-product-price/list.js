@@ -134,10 +134,8 @@ export class List {
 
     ExportToExcel() {
         if (this.filter) {
-            this.info.no = this.filter.salesContractNo ? this.filter.salesContractNo.SalesContractNo : null;
-            this.info.buyerCode = this.filter.buyer ? this.filter.buyer.Code : null;
-            this.info.orderTypeCode=this.filter.orderType ? this.filter.orderType.Code : null;
-            this.info.comodityCode = this.filter.comodity ? this.filter.comodity.Code : null;
+            this.info.productId = this.filter.dataProduct ? this.filter.dataProduct.Id : 0;
+           
             this.info.dateFrom = this.filter.dateFrom ? moment(this.filter.dateFrom).format("YYYY-MM-DD") : "";
             this.info.dateTo = this.filter.dateTo ? moment(this.filter.dateTo).format("YYYY-MM-DD") : "";
         } else {

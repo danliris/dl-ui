@@ -54,11 +54,11 @@
                         <td class="text-left">${item.DateIn | dateFormat:'DD MMM YYYY'}</td>
                         <td class="text-right">${item.UOMUnit}</td>
                         <!-- <td class="text-right">${item.sppDate | dateFormat:'D MMM YYYY'}</td> -->
-                        <td class="text-right">${item.CurrencyCode}</td>
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.CurrencyCode}</td>
                         <td class="text-right">${item.PriceOrigin}</td>
                         <td class="text-right">${item.Price}</td>
                         <td class="text-right">${item.DiffPrice}</td>
-                        <td class="text-right">${item.DiffPricePercentage}</td>
+                        <td class="text-right">${item.DiffPricePercentage} %</td>
                         <td class="text-right">${item.EditReason}</td>
                         <td class="text-right">${item.DateChange | dateFormat:'DD MMM YYYY'}</td>
                        
