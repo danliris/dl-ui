@@ -23,6 +23,7 @@
         <td >
             <au-autocomplete value.bind="selectedProductionOrder" error.bind="error.ProductionOrder"
                 loader.bind="productionOrderLoader" text="OrderNo" read-only.bind="readOnly"
+                query.bind="sppQuery"
                 options.bind="controlOptions">
             </au-autocomplete>
         </td>
@@ -84,7 +85,7 @@
         </td>
        
         <td>
-            <au-numeric value.bind="packingLength" format="0.00" read-only.bind="readOnly"
+            <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true"
                 error.bind="error.PackingLength" options.bind="controlOptions">
             </au-numeric>
         </td>
