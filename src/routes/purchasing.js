@@ -525,7 +525,7 @@ module.exports = [
         name: 'purchase-order-monitoring-product-price',
         moduleId: './modules/purchasing/monitoring-product-price/index',
         nav: true,
-        title: 'Monitoring Harga Barang',
+        title: 'Monitoring Perubahan Harga Barang',
         auth: true,
         settings: {
             group: "purchasing",
