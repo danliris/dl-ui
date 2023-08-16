@@ -137,6 +137,7 @@ export class CartItem {
             this.data.deliveryOrderRetur = null;
         }
     }
+   
     @bindable selectedBarcode;
     selectedBarcodeChanged(n, o){
         if(this.selectedBarcode)
@@ -147,7 +148,13 @@ export class CartItem {
             this.data.productPackingId = this.selectedBarcode.productPackingId;
             this.data.fabricPackingId = this.selectedBarcode.fabricPackingId;
             this.data.fabricProductSKUId = this.selectedBarcode.fabricProductSKUId;
+            this.data.packingLength = this.selectedBarcode.packingLength;
+            this.sppQuery = {
+                "OrderNo" : this.selectedBarcode.productionOrderNo
+               }
         }
+
+        
         console.log(this.selectedBarcode);
     }
     @bindable selectedProductionOrder;
@@ -214,18 +221,18 @@ export class CartItem {
     @bindable inputQtyPacking;
     inputQtyPackingChanged(n, o) {
         if (n != o) {
-            this.data.inputQuantity = this.packingLength * n;
+            this.data.inputQuantity = this.data.packingLength * n;
             this.data.inputQtyPacking = n;
         }
     }
 
-    @bindable packingLength;
-    packingLengthChanged(n, o) {
-        if (n != o) {
-            this.data.inputQuantity = this.inputQtyPacking * n;
-            this.data.packingLength = n;
-        }
-    }
+    // @bindable packingLength;
+    // packingLengthChanged(n, o) {
+    //     if (n != o) {
+    //         this.data.inputQuantity = this.inputQtyPacking * n;
+    //         this.data.packingLength = n;
+    //     }
+    // }
 
     doTextFormatter = (deliveryOrder) => {
         return `${deliveryOrder.DOReturnNo}`;
