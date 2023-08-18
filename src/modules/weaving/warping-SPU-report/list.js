@@ -49,8 +49,8 @@ export class List {
             .then(result => {
                 console.log(result.data)
                 for(var d of result.data){
-                    d.Date=moment(d.Date).format("YYYY-MM-DD");
-                    
+              
+                    d.periode=moment(d.periode).format("YYYY-MM-DD");
                         //SPU
                         if (d.spu != null){
                             d.spu =d.spu.replaceAll(",",".")
