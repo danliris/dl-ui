@@ -10,12 +10,10 @@ export class View {
         this.service = service;
     }
 
-    info={size:100, page:1}
+    info={size:10, page:1}
 
     async activate(params) {
         this.params=params;
-        this.Dyeing=params.area=="DYEING";//this.DYEING nilai true
-        this.Pretreatment=params.area=="PRETREATMENT";//this.PRETREATMENT nilai true
         var arg = {
             monthId:params.monthId,
             year:params.year,
@@ -23,7 +21,6 @@ export class View {
             size:this.info.size,
             area:params.area
         };
-
         var MR=await this.service.getByMonthYear(arg);
         var idx=1;
         for(var data of MR.data){
@@ -56,7 +53,7 @@ export class View {
         };
         this.service.getByMonthYear(this.info)
             .then(result => {
-                var idx=(this.info.page-1) *100;
+                var idx=(this.info.page-1) *10;
                 for(var data of result.data){
                     idx++;
                     data.index=idx;

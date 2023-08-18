@@ -646,8 +646,8 @@ export class DataForm {
   get productionCost() {
     let productionCost = this.data.Efficiency ?
       (this.data.Efficiency.Value ? this.data.Wage.Value * this.data.SMV_Sewing * 100 / this.data.Efficiency.Value +
-        this.data.Wage.Value * this.data.SMV_Cutting * 100 / 75 +
-        this.data.Wage.Value * this.data.SMV_Finishing * 100 / 90 +
+        this.data.Wage.Value * this.data.SMV_Cutting * 100 / 70 +
+        this.data.Wage.Value * this.data.SMV_Finishing * 100 / 92 +
         this.data.THR.Value * this.data.SMV_Total : 0)
       : 0;
     productionCost = numeral(productionCost).format();

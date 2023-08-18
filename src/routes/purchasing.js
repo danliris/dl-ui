@@ -521,6 +521,21 @@ module.exports = [
         }
     },
     {
+        route: 'purchase-order/monitoring-product-price',
+        name: 'purchase-order-monitoring-product-price',
+        moduleId: './modules/purchasing/monitoring-product-price/index',
+        nav: true,
+        title: 'Monitoring Perubahan Harga Barang',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            subGroup: "monitoring",
+            
+            permission: { "E40": 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: 'po/reports/ketepatan/staff',
         name: 'purchase-order-reports-ketepatan-staff',
         moduleId: './modules/purchasing/reports/purchase-order-report/staff-report-new/index',

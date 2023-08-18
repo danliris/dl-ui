@@ -81,6 +81,17 @@ export class List {
         
         this.service.generateExcel(args.dateFrom, args.dateTo, args.jnsbc);
     }
+    exportToXlsMII() {
+        let args = {            
+            page: this.info.page,
+            size: this.info.size,
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            jnsbc : this.JenisBC ? this.JenisBC : ""
+        };
+        
+        this.service.generateExcelMII(args.dateFrom, args.dateTo, args.jnsbc);
+    }
 
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);

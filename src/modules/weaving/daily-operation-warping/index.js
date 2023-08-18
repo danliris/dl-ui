@@ -21,7 +21,8 @@ export class Index {
         nav: false,
         title: "Update: Operasional Mesin Harian Warping"
       },
-      { route: 'upload', moduleId: './upload', name: 'upload', nav: false, title: 'Upload:Unit' }
+      { route: 'upload', moduleId: './upload', name: 'upload', nav: false, title: 'Upload:Unit' },
+      { route: "view/", moduleId: "./view", name: "view", nav: false, title: "Detail: Operasional Mesin Harian Warping" },
     ]);
 
     this.router = router;

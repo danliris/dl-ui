@@ -14,20 +14,25 @@ export class Service extends RestService {
 
     search(info) {
         // var endpoint = `${serviceUri}?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
-        var endpoint = `${serviceUri}?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDate=${info.inputDate}`;
+        var endpoint = `${serviceUri}?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDateFrom=${info.inputDateFrom}&inputDateTo=${info.inputDateTo}`;
         return super.get(endpoint);
 
     }
 
     generateExcel(info) {
         // var endpoint = `${serviceUri}/download?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
-        var endpoint = `${serviceUri}/download?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDate=${info.inputDate}`;
+        var endpoint = `${serviceUri}/download?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDateFrom=${info.inputDateFrom}&inputDateTo=${info.inputDateTo}`;
+        return super.getXls(endpoint);
+    }
+    generateExcelMII(info) {
+        // var endpoint = `${serviceUri}/download?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/download/mii?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDateFrom=${info.inputDateFrom}&inputDateTo=${info.inputDateTo}`;
         return super.getXls(endpoint);
     }
 
     printPdf(info) {
         // var endpoint = `${serviceUri}/pdf?isValas=true&no=${info.no}&category=${info.category}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
-        var endpoint = `${serviceUri}/pdf?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDate=${info.inputDate}`;
+        var endpoint = `${serviceUri}/pdf?isValas=true&no=${info.no}&accountingUnitId=${info.accountingUnitId}&accountingCategoryId=${info.accountingCategoryId}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&divisionId=${info.divisionId}&inputDateFrom=${info.inputDateFrom}&inputDateTo=${info.inputDateTo}`;
         return super.getPdf(endpoint);
     }
 }

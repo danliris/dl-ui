@@ -39,17 +39,7 @@ export class Create {
         { text: "Desember", value: 12 },
     ];
 
-    // areaOptionsHard = [
-    //     { text: "DIGITAL PRINT", value: 1 },
-    //     { text: "DYEING", value: 2 },
-    //     { text: "FINISHING", value: 3 },
-    //     { text: "PRETREATMENT", value: 4 },
-    //     { text: "PRINTING", value: 5 },
-    //         ];
-    areaOptionsHard = [
-        { text: "PRETREATMENT", value: 1},
-        { text: "DYEING", value: 2 },
-            ];
+    areaOptionsHard = ["PRETREATMENT" ];
 
     constructor(router, service,authService) {
         this.router = router;
@@ -116,7 +106,7 @@ export class Create {
             formData.append("file", fileList[0]);
            
             formData.append("monthId", this.info.month.value);
-            formData.append("area", this.infoAreaHard.text);
+            formData.append("area", this.infoAreaHard);
             formData.append("month", this.info.month.text);
             formData.append("username", username);
             formData.append("year", this.info.year.value);

@@ -30,9 +30,19 @@ export class Service extends RestService {
     return super.put(endpoint, data);
   }
 
+  updateProduct(data) {
+    var endpoint = `${serviceUri}/update/${data.Id}`;
+    return super.put(endpoint, data);
+  }
+
   delete(data) {
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.delete(endpoint, data);
+  }
+
+  nonActived(id) {
+    var endpoint = `${serviceUri}/nonactived/${id}`;
+    return super.put(endpoint);
   }
 
   getByCode(code) {
@@ -44,4 +54,9 @@ export class Service extends RestService {
       var endpoint = `${serviceUri}/download`;
       return super.getXls(endpoint);
   }
+
+  post(data) {
+    var endpoint = `${serviceUri}/posting`;
+    return super.put(endpoint, data);
+}
 }
