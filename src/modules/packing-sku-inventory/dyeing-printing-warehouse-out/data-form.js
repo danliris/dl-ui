@@ -162,7 +162,7 @@ export class DataForm {
             temp1.sendquantity = 1;
             console.log(this.data);
             console.log(temp1);
-            var data = this.data.dyeingPrintingWarehouseOutputItems.find((x) => x.productPackingCode === temp1.productPackingCode);
+            var data = this.data.dyeingPrintingWarehouseOutputItems.find((x) => x.productPackingCode === temp1.productPackingCode && x.track.id === temp1.track.id);
             console.log(data);
             if(!data) {
               this.data.dyeingPrintingWarehouseOutputItems.push(temp1);

@@ -84,7 +84,7 @@ export class DataForm {
             console.log(this.data.packagingProductionOrders);
         }
 
-
+         console.log(this.data);
         if (this.readOnly) {
             this.itemColumnsAdj = ["No SP", "QTY Order", "Material", "Nama Barang","Unit", "Buyer", "Warna", "Motif", "Jenis", "Grade", "Qty Pack", "SAT", "SAT", "@ QTY", "QTY Total", "No Dokumen"];
         } else {
@@ -115,7 +115,12 @@ export class DataForm {
     };
 
     ExportToExcel() {
+        
         this.service.generateExcel(this.data.id);
+    }
+    ExportToExcelBon() {
+        
+        this.service.generateExcelBon(this.data.id);
     }
 
     selectedTypeChanged(n, o) {
