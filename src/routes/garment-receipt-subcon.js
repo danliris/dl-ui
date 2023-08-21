@@ -328,4 +328,34 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/finishing-out",
+    name: "garment-receipt-subcon-finishing-out",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/finishing-out/index",
+    nav: true,
+    title: "Finishing Out",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X25: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/finishing-out-alluser",
+    name: "garment-receipt-subcon-finishing-out-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/finishing-out-alluser/index",
+    nav: true,
+    title: "Finishing Out (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X25: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
