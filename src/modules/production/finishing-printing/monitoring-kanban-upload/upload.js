@@ -111,7 +111,7 @@ export class Create {
             formData.append("file", fileList[0]);
            
             formData.append("monthId", this.info.month.value);
-            formData.append("area", this.infoAreaHard);
+            formData.append("area", this.infoAreaHard.text);
             formData.append("month", this.info.month.text);
             formData.append("username", username);
             formData.append("year", this.info.year.value);
