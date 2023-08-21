@@ -142,6 +142,7 @@ export class CartItem {
     selectedBarcodeChanged(n, o){
         if(this.selectedBarcode)
         {
+            console.log(this.selectedBarcode);
             this.data.productPackingCode = this.selectedBarcode.code;
             this.data.productSKUId = this.selectedBarcode.productSKUId;
             //this.data.FabricSKUCode = this.selectedBarcode.FabricSKUCode;
@@ -149,9 +150,21 @@ export class CartItem {
             this.data.fabricPackingId = this.selectedBarcode.fabricPackingId;
             this.data.fabricProductSKUId = this.selectedBarcode.fabricProductSKUId;
             this.data.packingLength = this.selectedBarcode.packingLength;
+            this.data.grade = this.selectedBarcode.grade;
             this.sppQuery = {
                 "OrderNo" : this.selectedBarcode.productionOrderNo
                }
+        }else{
+            this.selectedProductionOrder = null;
+            
+            this.data.buyerId = null;
+            this.data.buyer = null;
+            this.data.unit =null;
+            this.data.color = null;
+            this.data.grade = null;
+            this.data.construction = null;
+            this.data.uomUnit = null;
+            this.data.packingLength = null;
         }
 
         

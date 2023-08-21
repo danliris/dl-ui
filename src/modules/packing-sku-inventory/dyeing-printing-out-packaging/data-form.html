@@ -32,7 +32,8 @@
       value.bind="error.PackagingProductionOrderAdj" style="color: red;"></au-textbox>
     <br>
 
-    <button show.bind="data.id && readOnly" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+    <button show.bind="data.id && readOnly && !data.isBon" class='btn btn-primary' click.delegate="ExportToExcel()">Excel</button>
+    <button show.bind="data.id && readOnly && data.isBon" class='btn btn-primary' click.delegate="ExportToExcelBon()">Excel</button>
     <br>
     <au-collection columns.bind="itemColumns" items.bind="data.packagingProductionOrders"
       errors.one-way="error.PackagingProductionOrders" view-model.ref="ItemsCollection" options.bind="detailOptions" read-only.bind="readOnly"

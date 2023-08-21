@@ -51,7 +51,8 @@ export class View {
         });
         
         this.data.packagingProductionOrders = packagingProductionOrdersGroup;
-        //console.log(packagingProductionOrdersGroup);
+        this.data.isBon = true;
+        console.log(this.data);
 
     }
 

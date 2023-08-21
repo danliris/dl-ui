@@ -8,7 +8,7 @@
         </td>
 
         <td if.bind = "isBarcode || options.readOnly">
-            <au-autocomplete value.bind="selectedBarcode" error.bind="error.ProductionOrder"
+            <au-autocomplete value.bind="selectedBarcode" error.bind="error.ProductPackingCode"
                 loader.bind="barcodeLoader" text="code" read-only.bind="readOnly"
                 options.bind="controlOptions">
             </au-autocomplete>
@@ -29,7 +29,7 @@
         </td>
         <td>
             <au-numeric value.bind="data.productionOrder.orderQuantity" format="0.00" read-only.bind="true"
-                error.bind="error.ProductionOrder" options.bind="controlOptions">
+                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
@@ -63,9 +63,12 @@
             </au-textbox>
         </td>
         <td>
-            <au-dropdown value.bind="data.grade" items.bind="grades" read-only.bind="readOnly "
+            <!-- <au-dropdown value.bind="data.grade" items.bind="grades" read-only.bind="readOnly "
                 error.bind="error.Grade" options.bind="controlOptions">
-            </au-dropdown>
+            </au-dropdown> -->
+            <au-textbox value.bind="data.grade" read-only.bind="true" error.bind="error.grade"
+                options.bind="controlOptions">
+            </au-textbox>
         </td>
         <td >
             <au-dropdown value.bind="data.packingType" items.bind="packTypes" read-only.bind="readOnly"
@@ -86,12 +89,12 @@
        
         <td>
             <au-numeric value.bind="data.packingLength" format="0.00" read-only.bind="true"
-                error.bind="error.PackingLength" options.bind="controlOptions">
+                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
             <au-numeric value.bind="data.inputQuantity" format="0.00" read-only.bind="true"
-                error.bind="error.InputQuantity" options.bind="controlOptions">
+                 options.bind="controlOptions">
             </au-numeric>
         </td>
         <td>
