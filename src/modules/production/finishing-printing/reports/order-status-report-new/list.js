@@ -118,6 +118,8 @@ export class List {
         return OrderTypeLoader;
     }
     reset(){
-        this.orderType=null;
+        this.OrderType=null;
+        this.dateFrom=null;
+        this.dateTo=null;
     }
 }
