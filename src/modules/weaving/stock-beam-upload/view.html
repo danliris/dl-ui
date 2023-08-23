@@ -1,0 +1,38 @@
+<template>
+    <h1 class="page-header">Detail Stock Beam</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tgl</th>
+          <th>Shift</th>
+          <th>Beam</th>
+          <th>Code</th>
+          <th>Sizing</th>
+          <th>Di Reaching</th>
+          <th>Reaching</th>
+          <th>Ket</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${mr.index}</td>
+              <td class="text-left">${mr.Date}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.Beam}</td>
+              <td class="text-left">${mr.Code}</td>
+              <td class="text-left">${mr.Sizing}</td>
+              <td class="text-right">${mr.InReaching}</td>
+              <td class="text-left">${mr.Reaching}</td>
+              <td class="text-left">${mr.Information}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
+    </template>
+    
