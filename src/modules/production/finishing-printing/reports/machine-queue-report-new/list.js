@@ -20,8 +20,7 @@ export class List {
     tableOptions = {
         search: false,
         showToggle: false,
-        showColumns: false,
-        pagination: false
+        showColumns: false
     }
 
     controlOptions = {
@@ -36,7 +35,7 @@ export class List {
     columns = [
             { field: "index", title: "No",align: 'center' },
             { field: "SPPNo", title: "Nomor SPP",align: 'center' },
-            { field: "OrderLength", title: "Panjang Order",align: 'right' },
+            { field: "OrderLength", title: "Panjang Order",align: 'center' },
             { field: "DeliveryDate", title: "Tanggal Delivery",align: 'center' }
     ];
 
@@ -67,11 +66,12 @@ export class List {
         var args = {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            orderType:this.OrderType ? this.OrderType.Id : null,
+            orderType:this.OrderType ? this.OrderType.Name : null,
         };
+        
         return this.flag ?
             (
-            this.service.search(args)
+            this.service.search({ filter: JSON.stringify(args) })
                 .then(result => {
                     var index=0;
                     for(var data of result.data){
@@ -93,9 +93,10 @@ export class List {
         var args = {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            orderType:this.OrderType ? this.OrderType.Id : null,
+            orderType:this.OrderType ? this.OrderType.Name : null,
+            orderTypeName:this.OrderType ? this.OrderType.Name : null,
           };
-        this.service.xls(args);
+        this.service.xls({ filter: JSON.stringify(args) });
     }
     
     get orderTypeLoader() {
