@@ -28,7 +28,7 @@ export class List {
         { field: "RONo", title: "RO" },
         { field: "Article", title: "No Artikel" },
         { field: "TotalCuttingOutQuantity", title: "Jumlah Out", sortable: false },
-        { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
+        { field: "TotalQtyOut", title: "Jumlah Qty Loading", sortable: false },
         { field: "CuttingOutDate", title: "Tanggal Cutting Out", formatter: value => moment(value).format("DD MMM YYYY") },
         { field: "Items", title: "Kode Barang", sortable: false},
         { field: "CreatedBy", title: "Staff", sortable: false},

@@ -22,6 +22,7 @@ export class Detail {
     activate(context) {
         this.context = context;
         this.data = context.data;
+        console.log(this.data);
         this.error = context.error;
         this.options = context.options;
         if(this.data.Size){

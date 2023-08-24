@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
 const UnitLoader = require("../../../../loader/garment-units-loader");
-const CuttingOutLoader = require("../../../../loader/garment-subcon-receipt-cutting-out-loader");
+const LoadingInLoader = require("../../../../loader/garment-subcon-receipt-loading-in-loader");
 
 @inject(Service)
 export class DataForm {
@@ -11,7 +11,7 @@ export class DataForm {
   @bindable title;
   @bindable data = {};
   // @bindable error = {};
-  @bindable selectedCuttingOut;
+  @bindable selectedLoadingIn;
   @bindable itemOptions = {};
   @bindable selectedUnit;
 
@@ -46,9 +46,6 @@ export class DataForm {
       isEdit: this.isEdit,
       checkedAll: true,
     };
-    // if(this.data.CuttingOutId){
-    //     this.selectedCuttingOut= await this.service.getSewingDObyId(this.data.CuttingOutId);
-    // }
 
     if (this.data && this.data.Items) {
       this.data.Items.forEach((item) => {
@@ -64,26 +61,25 @@ export class DataForm {
   ROView = (DO) => {
     var colorList = [];
     var sizeList = [];
-    for (var a of DO.Items) {
-      for (var detail of a.Details)
-        if (colorList.length == 0) {
-          colorList.push(detail.Color);
-        } else {
-          var dup = colorList.find((d) => d == detail.Color);
-          if (!dup) {
-            colorList.push(detail.Color);
-          }
-        }
-      if (sizeList.length == 0) {
-        sizeList.push(detail.Size.Size);
+    for (var item of DO.Items) {
+      if (colorList.length == 0) {
+        colorList.push(item.Color);
       } else {
-        var duplicate = sizeList.find((d) => d == detail.Size.Size);
+        var dup = colorList.find((d) => d == item.Color);
+        if (!dup) {
+          colorList.push(item.Color);
+        }
+      }
+      if (sizeList.length == 0) {
+        sizeList.push(item.Size.Size);
+      } else {
+        var duplicate = sizeList.find((d) => d == item.Size.Size);
         if (!duplicate) {
-          sizeList.push(detail.Size.Size);
+          sizeList.push(item.Size.Size);
         }
       }
     }
-    return `${DO.RONo} - ${DO.CutOutNo} - ${colorList.join(
+    return `${DO.RONo} - ${DO.LoadingNo} - ${colorList.join(
       ", "
     )} - ${sizeList.join(", ")}`;
   };
@@ -92,8 +88,8 @@ export class DataForm {
     return UnitLoader;
   }
 
-  get cuttingOutLoader() {
-    return CuttingOutLoader;
+  get loadingInLoader() {
+    return LoadingInLoader;
   }
 
   @computedFrom("data.Unit")
@@ -101,8 +97,8 @@ export class DataForm {
     if (this.data.Unit) {
       return {
         UnitId: this.data.Unit.Id,
-        "GarmentSubconCuttingOutItem.Any(a=>a.GarmentSubconCuttingOutDetail.Any(x => x.RemainingQuantity>0))": true,
-        CuttingOutType: "SEWING",
+        "Items.Any(a=> a.RemainingQuantity>0)": true,
+        IsApproved: true,
       };
     } else {
       return {
@@ -112,39 +108,38 @@ export class DataForm {
   }
 
   selectedUnitChanged(newValue) {
-    this.selectedCuttingOut = null;
+    this.selectedLoadingIn = null;
     this.data.RONo = null;
     this.data.Article = null;
     this.data.Comodity = null;
     this.data.UnitFrom = null;
-    this.data.CuttingOutId = null;
-    this.data.CuttingOutNo = null;
+    this.data.LoadingInId = null;
+    this.data.LoadingInNo = null;
     this.data.Price = 0;
     this.data.Items = [];
     if (newValue) {
       this.data.Unit = newValue;
     } else {
       this.data.Unit = null;
-      this.selectedCuttingOut = null;
-      this.selectedCuttingOut = null;
+      this.selectedLoadingIn = null;
       this.data.RONo = null;
       this.data.Article = null;
       this.data.Comodity = null;
       this.data.UnitFrom = null;
-      this.data.CuttingOutId = null;
-      this.data.CuttingOutNo = null;
+      this.data.LoadingInId = null;
+      this.data.LoadingInNo = null;
       this.data.Price = 0;
       this.data.Items = [];
     }
   }
 
-  async selectedCuttingOutChanged(newValue, oldValue) {
+  async selectedLoadingInChanged(newValue, oldValue) {
     this.data.RONo = null;
     this.data.Article = null;
     this.data.Comodity = null;
     this.data.UnitFrom = null;
-    this.data.CuttingOutId = null;
-    this.data.CuttingOutNo = null;
+    this.data.LoadingInId = null;
+    this.data.LoadingInNo = null;
     this.data.Items.splice(0);
     this.data.Price = 0;
     if (newValue) {
@@ -153,8 +148,8 @@ export class DataForm {
       this.data.Article = newValue.Article;
       this.data.Comodity = newValue.Comodity;
       this.data.UnitFrom = newValue.Unit;
-      this.data.CuttingOutId = newValue.Id;
-      this.data.CuttingOutNo = newValue.CutOutNo;
+      this.data.LoadingInId = newValue.Id;
+      this.data.LoadingInNo = newValue.LoadingNo;
       // this.data.SewingDODate = newValue.CuttingOutDate;
 
       let priceResult = await this.service.getComodityPrice({
@@ -173,24 +168,22 @@ export class DataForm {
 
       var items = [];
       for (var item of newValue.Items) {
-        for (var detail of item.Details) {
-          var a = {};
-          if (detail.RemainingQuantity > 0) {
-            a.Product = item.Product;
-            a.Uom = detail.CuttingOutUom;
-            a.DesignColor = item.DesignColor;
-            a.Color = detail.Color;
-            a.Size = detail.Size;
-            a.SizeName = detail.Size.Size;
-            a.Quantity = detail.RemainingQuantity;
-            a.SewingDORemainingQuantity = detail.RemainingQuantity;
-            a.IsSave = true;
-            a.CuttingOutDetailId = detail.Id;
-            a.RemainingQuantity = detail.RemainingQuantity;
-            a.BasicPrice = detail.BasicPrice;
-            a.ComodityPrice = this.data.Price;
-            this.data.Items.push(a);
-          }
+        var a = {};
+        if (item.RemainingQuantity > 0) {
+          a.Product = item.Product;
+          a.Uom = item.Uom;
+          a.DesignColor = item.DesignColor;
+          a.Color = item.Color;
+          a.Size = item.Size;
+          a.SizeName = item.Size.Size;
+          a.Quantity = item.RemainingQuantity;
+          a.LoadingInRemainingQuantity = item.RemainingQuantity;
+          a.IsSave = true;
+          a.LoadingInItemId = item.Id;
+          a.RemainingQuantity = item.RemainingQuantity;
+          a.BasicPrice = item.BasicPrice;
+          a.ComodityPrice = this.data.Price;
+          this.data.Items.push(a);
         }
       }
       this.data.Items.sort(
@@ -198,13 +191,13 @@ export class DataForm {
           a.Color.localeCompare(b.Color) || a.SizeName.localeCompare(b.SizeName)
       );
     } else {
-      this.context.selectedCuttingOutViewModel.editorValue = "";
+      this.context.selectedLoadingInViewModel.editorValue = "";
       this.data.RONo = null;
       this.data.Article = null;
       this.data.Comodity = null;
       this.data.UnitFrom = null;
-      this.data.CuttingOutId = null;
-      this.data.CuttingOutNo = null;
+      this.data.LoadingInId = null;
+      this.data.LoadingInNo = null;
       this.data.Price = 0;
       this.data.Items = [];
     }
@@ -219,7 +212,7 @@ export class DataForm {
       "Keterangan",
       "Size",
       "Jumlah",
-      "Sisa",
+      "Jumlah Sewing In",
       "Satuan",
       "Warna",
     ],

@@ -212,7 +212,7 @@ export class DataForm {
       "Keterangan",
       "Size",
       "Jumlah",
-      "Sisa",
+      "Jumlah Sewing In",
       "Satuan",
       "Warna",
     ],
