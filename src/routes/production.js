@@ -395,7 +395,7 @@ module.exports = [
     {
         route: 'production/finishing-printing/reports/machine-queue-report',
         name: 'machine-queue-report',
-        moduleId: './modules/production/finishing-printing/reports/machine-queue-report/index',
+        moduleId: './modules/production/finishing-printing/reports/machine-queue-report-new/index',
         nav: true,
         title: 'Laporan Order Belum Diproduksi Mesin',
         auth: true,
