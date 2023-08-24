@@ -107,6 +107,7 @@ export class List {
             startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
             orderType:this.OrderType ? this.OrderType.Id : null,
+            orderTypeName:this.OrderType ? this.OrderType.Name : null,
           };
         this.service.generateExcel(args);
     }
