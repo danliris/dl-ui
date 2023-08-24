@@ -5,8 +5,8 @@
     options.bind="formOptions"
   >
     <au-textbox
-      if.bind="data.LoadingNo"
-      value.bind="data.LoadingNo"
+      if.bind="data.LoadingOutNo"
+      value.bind="data.LoadingOutNo"
       label="No Loading"
       read-only="true"
       options.bind="controlOptions"
@@ -26,17 +26,17 @@
     </au-autocomplete>
 
     <au-autocomplete
-      value.bind="selectedCuttingOut"
+      value.bind="selectedLoadingIn"
       error.bind="error.RONo"
       label="No RO"
-      loader.bind="cuttingOutLoader"
+      loader.bind="loadingInLoader"
       query.bind="filter"
       show.bind="data.Unit"
       text.bind="ROView"
-      placeholder="nomor Cutting Out"
+      placeholder="nomor Loading In"
       read-only.bind="readOnly || isEdit"
       options.bind="controlOptions"
-      view-model.ref="selectedCuttingOutViewModel"
+      view-model.ref="selectedLoadingInViewModel"
     >
     </au-autocomplete>
 
@@ -53,8 +53,8 @@
     </au-autocomplete>
 
     <au-textbox
-      value.bind="data.CuttingOutNo"
-      label="No Cutting Out"
+      value.bind="data.LoadingInNo"
+      label="No Loading In"
       read-only="true"
       options.bind="controlOptions"
     >
@@ -79,8 +79,8 @@
 
     <au-datepicker
       label="Tanggal Loading"
-      value.bind="data.LoadingDate"
-      error.bind="error.LoadingDate"
+      value.bind="data.LoadingOutDate"
+      error.bind="error.LoadingOutDate"
       read-only.bind="readOnly"
       options.bind="controlOptions"
     >
@@ -99,9 +99,9 @@
       columns.bind="itemsInfo.columns"
       read-only.bind="readOnly"
       options.bind="itemOptions"
-      item-template="modules/garment-production/loading/templates/item"
-      header-template="modules/garment-production/loading/templates/item-header"
-      if.bind="selectedCuttingOut && !readOnly"
+      item-template="modules/garment-receipt-subcon/garment-production/loading-out/templates/item"
+      header-template="modules/garment-receipt-subcon/garment-production/loading-out/templates/item-header"
+      if.bind="selectedLoadingIn && !readOnly"
     >
     </au-collection>
 
@@ -111,9 +111,9 @@
       columns.bind="itemsInfoView.columns"
       read-only.bind="readOnly"
       options.bind="itemOptions"
-      item-template="modules/garment-production/loading/templates/item-view"
-      header-template="modules/garment-production/loading/templates/item-view-header"
-      if.bind="selectedCuttingOut && readOnly"
+      item-template="modules/garment-receipt-subcon/garment-production/loading-out/templates/item-view"
+      header-template="modules/garment-receipt-subcon/garment-production/loading-out/templates/item-view-header"
+      if.bind="selectedLoadingIn && readOnly"
     >
     </au-collection>
 

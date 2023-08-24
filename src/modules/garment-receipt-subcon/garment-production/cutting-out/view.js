@@ -20,15 +20,12 @@ export class View {
 
             this.selectedUnit=this.data.Unit;
             this.selectedUnitFrom=this.data.UnitFrom;
-
-            //this.dataCutting = await this.service.getSewingDO(id);
-            let dataRemainingQuantity = 0, dataCuttingInQuantity = 0;
           
             if (this.data.Items) {
                 var i = 0;
                 for(var sewingItem of this.data.Items){
                      for(var sewingDetail of sewingItem.Details){
-                         if(sewingDetail.RemainingQuantity != sewingDetail.CuttingOutQuantity){
+                         if(sewingDetail.RealQtyOut != 0){
                             i++;
                         }
                      }

@@ -18,7 +18,7 @@ export class View {
     );
 
     for (var item of this.data.Items) {
-      if (item.Quantity != item.RemainingQuantity) {
+      if (item.RealQtyOut != 0) {
         this.deleteCallback = null;
       }
     }
