@@ -100,7 +100,7 @@ export class DataForm {
       if (this.data.SewingFrom == "CUTTING") {
         filter = {
           UnitId: this.data.Unit.Id,
-          "Items.Any(x => x.RemainingQuantity>0)": true,
+          "Items.Any(x => x.RealQtyOut == 0)": true,
         };
       }
     }
@@ -169,18 +169,18 @@ export class DataForm {
       var items = [];
       for (var item of newValue.Items) {
         var a = {};
-        if (item.RemainingQuantity > 0) {
+        if (item.RealQtyOut ==  0) {
           a.Product = item.Product;
           a.Uom = item.Uom;
           a.DesignColor = item.DesignColor;
           a.Color = item.Color;
           a.Size = item.Size;
           a.SizeName = item.Size.Size;
-          a.Quantity = item.RemainingQuantity;
-          a.LoadingOutRemainingQuantity = item.RemainingQuantity;
+          a.Quantity = item.Quantity;
+          a.LoadingOutRemainingQuantity = item.Quantity;
           a.IsSave = true;
           a.LoadingOutItemId = item.Id;
-          a.RemainingQuantity = item.RemainingQuantity;
+          a.RemainingQuantity = item.Quantity;
           a.BasicPrice = item.BasicPrice;
           a.ComodityPrice = this.data.Price;
           this.data.Items.push(a);

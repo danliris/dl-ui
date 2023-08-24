@@ -18,7 +18,7 @@ export class DataForm {
   @bindable selectedUnit;
   @bindable selectedUnitFrom;
 
-  CuttingOutTypeOptions = ["SEWING", "PACKING", "LAINNYA"];
+  CuttingOutTypeOptions = ["SEWING", "PACKING", "AVAL"];
 
   constructor(service, salesService, coreService) {
     this.service = service;

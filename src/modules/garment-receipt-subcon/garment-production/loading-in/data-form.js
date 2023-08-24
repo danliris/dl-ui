@@ -101,7 +101,7 @@ export class DataForm {
     if (this.data.Unit) {
       return {
         UnitId: this.data.Unit.Id,
-        "GarmentSubconCuttingOutItem.Any(a=>a.GarmentSubconCuttingOutDetail.Any(x => x.RemainingQuantity>0))": true,
+        "GarmentSubconCuttingOutItem.Any(a=>a.GarmentSubconCuttingOutDetail.Any(x => x.RealQtyOut == 0))": true,
         CuttingOutType: "SEWING",
       };
     } else {
@@ -175,18 +175,18 @@ export class DataForm {
       for (var item of newValue.Items) {
         for (var detail of item.Details) {
           var a = {};
-          if (detail.RemainingQuantity > 0) {
+          if (detail.RealQtyOut == 0) {
             a.Product = item.Product;
             a.Uom = detail.CuttingOutUom;
             a.DesignColor = item.DesignColor;
             a.Color = detail.Color;
             a.Size = detail.Size;
             a.SizeName = detail.Size.Size;
-            a.Quantity = detail.RemainingQuantity;
-            a.SewingDORemainingQuantity = detail.RemainingQuantity;
+            a.Quantity = detail.CuttingOutQuantity;
+            a.SewingDORemainingQuantity = detail.CuttingOutQuantity;
             a.IsSave = true;
             a.CuttingOutDetailId = detail.Id;
-            a.RemainingQuantity = detail.RemainingQuantity;
+            a.RemainingQuantity = detail.CuttingOutQuantity;
             a.BasicPrice = detail.BasicPrice;
             a.ComodityPrice = this.data.Price;
             this.data.Items.push(a);

@@ -4,6 +4,8 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
+  deleteCallback = null;
+  readOnly = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -13,14 +15,20 @@ export class View {
     let id = params.id;
     this.isKasie = params.isKasie;
     this.data = await this.service.read(id);
-    this.selectedCuttingOut = await this.service.getCuttingOutbyId(
-      this.data.CuttingOutId
+    this.selectedLoadingIn = await this.service.getLoadingInbyId(
+      this.data.LoadingInId
     );
+
+    for (var item of this.data.Items) {
+      if (item.RealQtyOut != 0) {
+        this.deleteCallback = null;
+      }
+    }
 
     this.selectedUnit = this.data.Unit;
   }
 
-  cancel(event) {
+  cancelCallback(event) {
     this.router.navigateToRoute("list");
   }
 
@@ -28,28 +36,16 @@ export class View {
   //   this.router.navigateToRoute("edit", { id: this.data.Id });
   // }
 
-  unpost(data) {
-    var dataIds = [];
-    dataIds.push(this.data.Id);
-
-    var dataUpdate = {};
-    dataUpdate.ids = dataIds;
-    if (confirm(`UnApprove Data?`))
-      this.service.unpost(dataUpdate).then((result) => {
-        this.cancel();
-      });
-  }
-
-  delete(event) {
-    // if (confirm(`Hapus ${this.data.CutInNo}?`))
-    this.service
-      .delete(this.data)
-      .then((result) => {
-        alert(`delete data success`);
-        this.cancel();
-      })
-      .catch((e) => {
-        this.error = e;
-      });
+  deleteCallback(event) {
+    if (confirm(`Hapus ${this.data.LoadingOutNo}?`))
+      this.service
+        .delete(this.data)
+        .then((result) => {
+          alert(`delete data success`);
+          this.cancelCallback();
+        })
+        .catch((e) => {
+          this.error = e;
+        });
   }
 }

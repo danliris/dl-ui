@@ -22,7 +22,7 @@ export class View {
     this.data.ProductOwnerView =
       this.data.ProductOwner.Code + " - " + this.data.ProductOwner.Name;
     for (var a of this.data.Items) {
-      if (a.RemainingQuantity != a.Quantity) {
+      if (a.RealQtyOut != 0) {
         this.deleteCallback = null;
         // this.editCallback = null;
         break;
