@@ -36,7 +36,7 @@ export class List {
     { field: "LoadingOutNo", title: "No Loading" },
     { field: "Article", title: "No Artikel" },
     { field: "TotalLoadingQuantity", title: "Jumlah", sortable: false },
-    { field: "TotalRemainingQuantity", title: "Sisa", sortable: false },
+    { field: "TotalRealQtyOut", title: "Jumlah Sewing In", sortable: false },
     { field: "RONo", title: "RO" },
     { field: "ColorList", title: "Warna", sortable: false },
     { field: "UnitName", title: "Unit Loading" },

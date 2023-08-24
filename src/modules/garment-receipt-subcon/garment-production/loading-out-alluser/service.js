@@ -1,22 +1,16 @@
 import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = "subcon-loading-ins";
-const serviceUriCuttingOut = "receipt-subcon-cutting-outs";
+const serviceUri = "subcon-loading-outs";
+const serviceUriLoadingIn = "subcon-loading-ins";
 const comodityPriceserviceUri = "comodity-prices";
-// const serviceUriSewingIn = "sewing-ins";
 
-class Service extends RestService {
+export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "garment-production");
   }
 
   search(info) {
     var endpoint = `${serviceUri}`;
-    return super.list(endpoint, info);
-  }
-
-  getComodityPrice(info) {
-    var endpoint = `${comodityPriceserviceUri}`;
     return super.list(endpoint, info);
   }
 
@@ -40,8 +34,8 @@ class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  getCuttingOutbyId(id) {
-    var endpoint = `${serviceUriCuttingOut}/${id}`;
+  getLoadingInbyId(id) {
+    var endpoint = `${serviceUriLoadingIn}/${id}`;
     return super.get(endpoint);
   }
 
@@ -50,35 +44,8 @@ class Service extends RestService {
     return super.getPdf(endpoint);
   }
 
-  post(data) {
-    data.approved = true;
-    var endpoint = `${serviceUri}/approve`;
-    return super.put(endpoint, data);
-  }
-
-  unpost(data) {
-    data.approved = false;
-    var endpoint = `${serviceUri}/approve`;
-    return super.put(endpoint, data);
-  }
-
-  // searchSewingIn(info) {
-  //   var endpoint = `${serviceUriSewingIn}`;
-  //   return super.list(endpoint, info);
-  // }
-}
-
-const serviceUriPR = "garment-purchase-requests";
-
-class PurchasingService extends RestService {
-  constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "purchasing-azure");
-  }
-
-  getGarmentPR(info) {
-    var endpoint = `${serviceUriPR}`;
+  getComodityPrice(info) {
+    var endpoint = `${comodityPriceserviceUri}`;
     return super.list(endpoint, info);
   }
 }
-
-export { Service, PurchasingService };

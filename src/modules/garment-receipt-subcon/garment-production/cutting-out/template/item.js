@@ -3,7 +3,7 @@ export class Item {
     itemsColumns = [
         { header: "Ukuran" },
         { header: "Jumlah Potong" },
-        { header: "Sisa" },
+        { header: "Jumlah Loading" },
         { header: "Satuan Potong" },
         { header: "Warna" },
     ];

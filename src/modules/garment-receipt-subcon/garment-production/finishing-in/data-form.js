@@ -69,7 +69,7 @@ export class DataForm {
           UnitToId: this.data.Unit.Id,
           UnitId: this.data.UnitFrom.Id,
           SewingTo: "FINISHING",
-          "GarmentSewingOutItem.Any(RemainingQuantity>0)": true,
+          "GarmentSewingOutItem.Any(RealQtyOut == 0)": true,
         }),
       };
       return this.service.searchRoSewingOut(info).then((result) => {
@@ -211,7 +211,7 @@ export class DataForm {
             UnitToId: this.data.Unit.Id,
             UnitId: this.data.UnitFrom.Id,
             SewingTo: "FINISHING",
-            "GarmentSewingOutItem.Any(RemainingQuantity>0)": true,
+            "GarmentSewingOutItem.Any(RealQtyOut == 0)": true,
           }),
         })
       ).then((result) => {
@@ -223,13 +223,13 @@ export class DataForm {
           this.data.SewingOutDate = date;
           for (var sewingOutItem of sewingOut.Items) {
             var item = {};
-            if (sewingOutItem.RemainingQuantity > 0) {
+            if (sewingOutItem.RealQtyOut ==  0) {
               if (sewingOut.IsDifferentSize) {
                 for (var sewingOutDetail of sewingOutItem.Details) {
                   item = {};
                   item.SewingOutItemId = sewingOutItem.Id;
                   item.SewingOutDetailId = sewingOutDetail.Id;
-                  item.Quantity = sewingOutDetail.RemainingQuantity;
+                  item.Quantity = sewingOutDetail.Quantity;
                   item.Product = sewingOutItem.Product;
                   item.Uom = sewingOutItem.Uom;
                   item.Size = sewingOutDetail.Size;
@@ -237,8 +237,8 @@ export class DataForm {
                   item.Color = sewingOutItem.Color;
                   item.DesignColor = sewingOutItem.DesignColor;
                   item.SewingOutRemainingQuantity =
-                    sewingOutDetail.RemainingQuantity;
-                  item.RemainingQuantity = sewingOutDetail.RemainingQuantity;
+                    sewingOutDetail.Quantity;
+                  item.RemainingQuantity = sewingOutDetail.Quantity;
                   item.BasicPrice = sewingOutItem.BasicPrice;
                   item.ComodityPrice = this.data.Price;
                   item.Price =
@@ -248,7 +248,7 @@ export class DataForm {
                 }
               } else {
                 item.SewingOutItemId = sewingOutItem.Id;
-                item.Quantity = sewingOutItem.RemainingQuantity;
+                item.Quantity = sewingOutItem.Quantity;
                 item.Product = sewingOutItem.Product;
                 item.Uom = sewingOutItem.Uom;
                 item.Size = sewingOutItem.Size;
@@ -256,8 +256,8 @@ export class DataForm {
                 item.Color = sewingOutItem.Color;
                 item.DesignColor = sewingOutItem.DesignColor;
                 item.SewingOutRemainingQuantity =
-                  sewingOutItem.RemainingQuantity;
-                item.RemainingQuantity = sewingOutItem.RemainingQuantity;
+                  sewingOutItem.Quantity;
+                item.RemainingQuantity = sewingOutItem.Quantity;
                 item.BasicPrice = sewingOutItem.BasicPrice;
                 item.ComodityPrice = this.data.Price;
                 item.Price =
