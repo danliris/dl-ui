@@ -10,8 +10,8 @@
   
       <form class="form-horizontal">
      
-        <au-datepicker label="Tanggal Awal" value.bind="fromDate"></au-datepicker>
-        <au-datepicker label="Tanggal Akhir" value.bind="toDate"></au-datepicker>
+        <au-datepicker label="Tanggal Awal" value.bind="fromDate" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="toDate" options.bind="controlOptions"></au-datepicker>
         <au-dropdown   
             label="Shift" 
             value.bind="info.shift" 
@@ -19,13 +19,12 @@
             items.bind="shiftOptions" 
             options.bind="controlOptions">
         </au-dropdown>
-        <au-dropdown  
+        <au-textbox  
             label="No MC"  
             value.bind="info.mcNo" 
             key="value" text="text" 
-            items.bind="MCNOOptions" 
             options.bind="controlOptions">
-        </au-dropdown>
+        </au-textbox>
   
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -55,7 +54,7 @@
               <require from="../../../lib/number-format-value-converter"></require>
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
-                  <td>${$index + 1}</td>
+                  <td>${item.index}</td>
                   <td class="text-center">${item.Periode}</td>
                   <td class="text-center">${item.Code}</td>
                   <td class="text-right">${item.BeamNo}</td>
@@ -71,7 +70,9 @@
   <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
     Tidak ada data.
   </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
   <hr/>
     </au-input-form>
+    
     <div class="row"></div>
   </template>
