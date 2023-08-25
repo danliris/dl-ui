@@ -20,17 +20,7 @@ export class List {
     constructor(router, service) {
         this.service = service;
         this.router = router;
-        // this.filterAccount = {
-        //     "roles": {
-        //         "$elemMatch": {
-        //             "permissions": {
-        //                 "$elemMatch": {
-        //                     "unit.name": "PENJUALAN FINISHING & PRINTING"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+
         this.filterAccount = {"roles.0.permissions.0.unit.name.toUpper()":"PENJUALAN FINISHING & PRINTING"};
     }
 
@@ -51,25 +41,6 @@ export class List {
         this.arg.accountId = this.account ? this.account._id : null;
     }
 
-    // columns = [
-    //     { field: "no", title: "No.", sortable: false },
-    //     { field: "status", title: "Status" },
-    //     { field: "detail", title: "Detail", sortable: false },
-    //     { field: "salesContractNo", title: "No. Sales Contract" },
-    //     { field: "orderQuantity", title: "Jumlah di Sales Contract (meter)" },
-    //     { field: "orderNo", title: "No. Surat Perintah Produksi" },
-    //     { field: "orderType", title: "Jenis Order" },
-    //     { field: "processType", title: "Jenis Proses" },
-    //     { field: "construction", title: "Konstruksi" },
-    //     { field: "designMotive", title: "Warna/Motif" },
-    //     { field: "quantity", title: "Jumlah di Surat Perintah Produksi (meter)" },
-    //     { field: "buyer", title: "Buyer" },
-    //     { field: "buyerType", title: "Tipe Buyer" },
-    //     { field: "staffName", title: "Nama Sales" },
-    //     { field: "_createdDate", title: "Tanggal Terima Order" },
-    //     { field: "deliveryDate", title: "Tanggal Permintaan Pengiriman" }
-    // ]
-
     columns = [
         { field: "index", title: "No.", sortable: false },
         { field: "status", title: "Status" },
@@ -85,7 +56,6 @@ export class List {
         { field: "processType", title: "Jenis Proses" },
         { field: "construction", title: "Konstruksi" },
         { field: "designCode", title: "Motif" },
-        // { field: "designCode", title: "Motif" },
         { field: "colorTemplate", title: "Hasil Matching" },   
         { field: "colorRequest", title: "CW" },
         { field: "buyer", title: "Buyer" },
@@ -111,11 +81,20 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            dateFrom : this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null,
+            dateTo : this.edate ? moment(this.edate).format("YYYY-MM-DD") : null,
+            salesContractNo : this.salesContractNo ? this.salesContractNo : null,
+            orderNo : this.productionOrder ? this.productionOrder.OrderNo : null,
+            orderTypeId : this.orderType ? this.orderType.Id : null,
+            processTypeId : this.processType ? this.processType.Id : null,
+            buyerId : this.buyer ? this.buyer.Id : null,
+            accountId : this.account ? this.account._id : null
         };
 
         return this.listDataFlag ? (
             this.Values(),
+          
             this.service.getReport(this.arg)
                 .then(result => {
                     var index=0;
@@ -131,19 +110,6 @@ export class List {
         ) : { total: 0, data: {} };
     }
 
-    reset() {
-        this.sdate = null;
-        this.edate = null;
-        this.salesContractNo = '';
-        this.productionOrder = undefined;
-        this.orderType = null;
-        this.processType = null;
-        this.buyer = null;
-        this.account = null;
-        this.filter = {};
-        this.table.refresh();
-    }
-
     search() {
         this.listDataFlag = true;
         this.table.refresh();
@@ -153,7 +119,7 @@ export class List {
         this.Values();
         this.service.generateExcel(this.arg);
     }
-
+// ***IEDP_BTN**//
     ExportToExcel2() {
         this.Values();
         this.service.generateExcel2(this.arg);
@@ -168,6 +134,17 @@ export class List {
             this.filterOrder = {};
         }
     }
+
+processTypeChanged(newValue) {
+    if (newValue) {
+        this.filterProcess = {
+            "processType.code": newValue.code
+        };
+    } else {
+        this.filterProcess = {};
+    }
+}
+
     
     contextClickCallback(event) {
         var arg = event.detail;
@@ -175,7 +152,6 @@ export class List {
         switch (arg.name) {
             case "Rincian":
             window.open(`${window.location.origin}/#/sales/reports/production-order-reports/view/${encodeURIComponent(data.id)}`);
-            // this.router.navigateToRoute('view', { id: data.orderNo });
                 break;
         }
 
@@ -206,4 +182,18 @@ export class List {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
+
+    reset() {
+        this.productionOrder = null;
+        this.buyer = null;
+        this.comodity = null;
+        this.dateFrom = null;
+        this.dateTo = null;
+        this.orderType = null;
+        this.processType = null;
+        this.account = null;
+        this.filter = {};
+        this.table.refresh();
+    }
 }
+//belum bisa cuy//

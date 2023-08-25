@@ -12,6 +12,7 @@ export class Service extends RestService {
     }
 
     getReport(info) {
+        console.log(info);
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, info);
     }

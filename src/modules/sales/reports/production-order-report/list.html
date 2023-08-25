@@ -21,55 +21,56 @@
                     value.bind="orderNo"
                     placeholder="Pilih Nomor SPP">
                 </au-textbox> -->
-
+                
+                <!-- No. SPP -->
                 <au-autocomplete 
                     value.bind="productionOrder" 
                     label="Nomor Order Produksi" 
-                    placeholder="Pilih Nomor SPP" 
+                    placeholder="Cari Nomor SPP" 
                     loader.one-time="productionOrderLoader" 
                     key="OrderNo" 
                     text="OrderNo">
                 </au-autocomplete>
 
+                <!-- Jenis Order -->
                 <au-autocomplete 
                     value.bind="orderType" 
                     label="Jenis Order" 
-                    placeholder="Pilih Jenis Order" 
+                    placeholder="Cari Jenis Order" 
                     loader.one-time="orderTypeLoader" 
                     key="Code" 
                     text="Name">
                 </au-autocomplete>
                 
+<!-- Jenis Proses -->
                 <au-autocomplete 
-                    value.bind="processType" 
-                    label="Jenis Proses" 
-                    filter.bind="filterOrder"
-                    show.bind="orderType"
-                    placeholder="Pilih Jenis Proses"
-                    loader.one-time="processTypeLoader" 
-                    key="Code" 
-                    text="Name">
+                value.bind="processType" 
+                label="Jenis Proses" 
+                placeholder="Cari Jenis Proses"
+                loader.one-time="processTypeLoader" 
+                key="Code" 
+                text="Name">
                 </au-autocomplete>
 
+<!-- Buyer -->
                 <au-autocomplete 
                     value.bind="buyer"
                     label="Buyer" 
-                    placeholder="Pilih Buyer" 
+                    placeholder="Cari Buyer" 
                     loader.one-time="buyerLoader" 
                     key="Code" 
                     text="Name">
                 </au-autocomplete>
-
+<!-- Staf Penjualan -->
                 <au-autocomplete 
                     value.bind="account" 
                     label="Staff Penjualan" 
-                    placeholder="Pilih Staff" 
-                    filter.bind="filterAccount"
+                    placeholder="Cari Staff" 
                     loader.one-time="accountLoader" 
                     key="_id"
                     text="username">
                 </au-autocomplete>
-
+              
                 <au-datepicker 
                     label="Tanggal Awal" 
                     value.bind="sdate">
