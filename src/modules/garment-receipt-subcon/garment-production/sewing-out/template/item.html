@@ -42,6 +42,14 @@
                 format="0">
             </au-numeric>
         </td>
+        <td class="bg-primary" if.bind="readOnly">
+            <au-numeric
+                value.bind="data.RealQtyOut"
+                error.bind="error.RealQtyOut"
+                read-only.bind="true"
+                format="0">
+            </au-numeric>
+        </td>
         <td class="bg-primary">
             <au-textbox
                 value.bind="data.Uom.Unit"
