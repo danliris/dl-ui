@@ -2,7 +2,13 @@ export class Item {
 
     itemsColumns = [
         { header: "Ukuran" },
-        { header: "Jumlah" }
+        { header: "Jumlah" },
+    ];
+
+    itemsColumnsView = [
+        { header: "Ukuran" },
+        { header: "Jumlah" },
+        { header: "Jumlah Finishing In" }
     ];
 
     // constructor(coreService) {

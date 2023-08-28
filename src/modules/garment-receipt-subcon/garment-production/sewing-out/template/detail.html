@@ -16,6 +16,14 @@
                 error.bind="error.Quantity"
                 read-only.bind="readOnly"
                 format="0">
+            </au-numeric>   
+        </td>
+        <td class="col-sm-5" if.bind="readOnly">
+            <au-numeric 
+                value.bind="data.RealQtyOut"
+                error.bind="error.RealQtyOut"
+                read-only.bind="true"
+                format="0">
             </au-numeric>
         </td>
         
