@@ -55,5 +55,19 @@ module.exports = [
             //permission : {"*":1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'auth/monitoring-account',
+        name: 'monitoring-account',
+        moduleId: './modules/auth/monitoring-account/index',
+        nav: true,
+        title: 'Monitoring Account',
+        auth: true,
+        settings: {
+            group: "Auth",
+            permission : {"A3":1},
+            //permission : {"*":1},
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ]
