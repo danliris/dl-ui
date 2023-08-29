@@ -10,10 +10,7 @@ export class Service extends RestService {
         super(http, aggregator, config, "auth");
     }
 
-    search(info) {
-        var endpoint = `${serviceUri}`;
-        return super.list(endpoint, info);
-    }
+    
 
     generateExcel(info) {
         var endpoint = `${serviceUri}/xls`;
@@ -33,22 +30,5 @@ export class Service extends RestService {
     return super.getXls(endpoint);
     }
 
-    _getEndPoint(info)
-    {
-        var endpoint = `${serviceUri}`;
-        var query = '';
-        if (info.userId) {
-            if (query === '') query = `userId=${info.userId}`;
-            else query = `${query}&userId=${info.userId}`;
-        }
-        if (info.menu) {
-            if (query === '') query = `menu=${info.menu}`;
-            else query = `${query}&menu=${info.menu}`;
-        }
-       
-        if (query !== '')
-            endpoint = `${serviceUri}?${query}`;
-        
-        return endpoint;
-    }
+   
 }
