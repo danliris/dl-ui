@@ -94,7 +94,6 @@ export class List {
 
         return this.listDataFlag ? (
             this.Values(),
-          
             this.service.getReport(this.arg)
                 .then(result => {
                     var index=0;
@@ -192,6 +191,8 @@ processTypeChanged(newValue) {
         this.orderType = null;
         this.processType = null;
         this.account = null;
+        this.sdate = null;
+        this.edate = null;
         this.filter = {};
         this.table.refresh();
     }
