@@ -21,7 +21,7 @@ export class View {
     this.selectedUnit = this.data.Unit;
     this.selectedFinishingTo = this.data.FinishingTo;
     for (var a of this.data.Items) {
-      if (a.RemainingQuantity != a.Quantity) {
+      if (a.RealQtyOut != 0) {
         this.deleteCallback = null;
         this.editCallback = null;
         break;

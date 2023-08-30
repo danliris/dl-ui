@@ -27,7 +27,6 @@ export class Detail {
     if (this.data.Size) {
       this.selectedSize = this.data.Size;
     }
-    console.log(this.options);
     this.readOnly = this.options.readOnly;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = this.context.context.options.isEdit;

@@ -339,7 +339,7 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      permission: { X25: 1 },
+      permission: { X26: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
@@ -354,7 +354,37 @@ module.exports = [
     settings: {
       group: "g-receipt-subcon",
       subGroup: "produksi",
-      permission: { X25: 1 },
+      permission: { X27: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/packing-in",
+    name: "garment-receipt-subcon-packing-in",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/packing-in/index",
+    nav: true,
+    title: "Packing In",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X28: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/packing-in-alluser",
+    name: "garment-receipt-subcon-packing-in-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/packing-in-alluser/index",
+    nav: true,
+    title: "Packing In (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X30: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
