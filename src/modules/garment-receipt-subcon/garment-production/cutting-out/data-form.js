@@ -46,6 +46,10 @@ export class DataForm {
     columns: ["Kode Barang", "Keterangan", "Jumlah"],
   };
 
+  itemsInfoView = {
+    columns: ["Kode Barang", "Keterangan", "Jumlah", "Jumlah Aktual Keluar"],
+  };
+
   @computedFrom("data.UnitFrom")
   get cuttingInFilter() {
     this.selectedCuttingIn = null;
