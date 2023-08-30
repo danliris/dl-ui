@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-var BuyerLoader = require('../../../loader/garment-buyers-loader');
+var BuyerLoader = require("../../../loader/garment-buyer-brand-loader");
 const UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service, CoreService)
