@@ -42,7 +42,15 @@ export class DataForm {
   };
 
   itemsInfo = {
-    columns: ["Kode Barang", "Keterangan", "Size", "Jumlah", "Satuan", "Warna"],
+    columns: [
+      "Kode Barang",
+      "Keterangan",
+      "Size",
+      "Jumlah",
+      "Jumlah Packing In",
+      "Satuan",
+      "Warna",
+    ],
   };
 
   columnsSameSize = [
@@ -50,7 +58,7 @@ export class DataForm {
     "Keterangan",
     "Size",
     "Jumlah",
-    "Jumlah Keluar",
+    "Jumlah Packing In",
     "Satuan",
     "Warna",
   ];

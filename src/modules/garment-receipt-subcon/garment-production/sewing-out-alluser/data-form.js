@@ -57,6 +57,7 @@ export class DataForm {
       "Keterangan",
       "Size",
       "JumlahKeluar",
+      "Jumlah Aktual Keluar",
       "Satuan",
       "Warna",
     ],
