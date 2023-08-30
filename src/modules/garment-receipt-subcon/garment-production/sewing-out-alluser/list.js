@@ -39,7 +39,7 @@ export class List {
     { field: "RONo", title: "RO" },
     { field: "Article", title: "No Artikel" },
     { field: "TotalQuantity", title: "Jumlah", sortable: false },
-    { field: "TotalRealQtyOut", title: "Jumlah Finishing In", sortable: false },
+    { field: "TotalRealQtyOut", title: "Jumlah Aktual Out", sortable: false },
     { field: "UnitCode", title: "Unit Sewing Out" },
     { field: "SewingTo", title: "Proses Tujuan" },
     { field: "UnitToCode", title: "Unit Tujuan" },
