@@ -27,22 +27,24 @@ export class View {
     var isCreated = {};
     var unitReceiptNotesDeliveryOrderNo = []; // get DeliveryOrderNo
 
-    for (var data of this.data.items) {
-      if(data.deliveryOrderNonPO == null){
-        unitReceiptNotesDeliveryOrderNo.push(data.deliveryOrder.Id);
-      }
-    }
-    // isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
-    var poMasterDistributionRequest ={};
-    if(unitReceiptNotesDeliveryOrderNo.length > 0){
-      let poMasterDistributionRequestFilter = {};
-      poMasterDistributionRequestFilter[unitReceiptNotesDeliveryOrderNo.map(id => `DOId==${id}`).join(" || ")] = true;
-      poMasterDistributionRequest = await this.service.searchPOMasterDistributions({
-        filter: JSON.stringify(poMasterDistributionRequestFilter),
-        // select: JSON.stringify({ Id: 1, DOId: 1 }),
-        size: 0
-      });
-    }
+
+    //Comment validation for delete
+    // for (var data of this.data.items) {
+    //   if(data.deliveryOrderNonPO == null){
+    //     unitReceiptNotesDeliveryOrderNo.push(data.deliveryOrder.Id);
+    //   }
+    // }
+    // // isCreated = await this.service.isCreatedOfUnitReceiptNotes(unitReceiptNotesDeliveryOrderNo); // search
+    // var poMasterDistributionRequest ={};
+    // if(unitReceiptNotesDeliveryOrderNo.length > 0){
+    //   let poMasterDistributionRequestFilter = {};
+    //   poMasterDistributionRequestFilter[unitReceiptNotesDeliveryOrderNo.map(id => `DOId==${id}`).join(" || ")] = true;
+    //   poMasterDistributionRequest = await this.service.searchPOMasterDistributions({
+    //     filter: JSON.stringify(poMasterDistributionRequestFilter),
+    //     // select: JSON.stringify({ Id: 1, DOId: 1 }),
+    //     size: 0
+    //   });
+    // }
    
 
     // if (isCreated > 0) {
@@ -80,9 +82,9 @@ export class View {
           this.hasDelete = false;
         }
   
-        if (poMasterDistributionRequest && poMasterDistributionRequest.statusCode == 200 && poMasterDistributionRequest.info.total > 0) {
-          this.hasDelete = false;
-        }
+        // if (poMasterDistributionRequest && poMasterDistributionRequest.statusCode == 200 && poMasterDistributionRequest.info.total > 0) {
+        //   this.hasDelete = false;
+        // }
       }else{ //Mapping data DO Non PO
         a["selected"] = true;
         a["isView"] = false;
