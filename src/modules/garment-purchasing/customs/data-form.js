@@ -365,6 +365,7 @@ export class DataForm {
       var filter = {
         IsUsed: true,
         SupplierCode: this.data.supplier.code,
+        IsCustoms:true,
       };
 
       filter[
@@ -405,9 +406,14 @@ export class DataForm {
       });
       var QtyCustomIn = 0;
 
-      dataCusIN.data.forEach((item) => {
-        QtyCustomIn += item.QuantityContract;
+      dataCusIN.data.forEach((datas) => {
+        datas.items.forEach((item) => {
+          QtyCustomIn += item.quantity;
+        })
+       
       });
+
+      console.log("QtyCustomIn",QtyCustomIn);
 
       //GetQuantityFromCustomsOutSubcok with same Contract ID
       const dataCusOUT = await this.garmentService.searchCustomsComplete({
@@ -417,10 +423,14 @@ export class DataForm {
         return x.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
       });
 
+      console.log("dataJumlahCustomsOut",dataJumlahCustomsOut);
+
       const QtyCustomOut = dataJumlahCustomsOut.reduce(
         (acc, cur) => (acc += cur),
         0
       );
+console.log("QtyCustomOut",QtyCustomOut)
+
       this.data.QuantityContract = QtyCustomOut - QtyCustomIn;
     }
   }
