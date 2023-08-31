@@ -52,6 +52,7 @@ export class Create {
       
         var isSelectedData = false;
 
+        var totalQtyDO = 0;
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
@@ -65,6 +66,7 @@ export class Create {
                     deliveryOrder.IsPO=a.IsPO;
                     items.push({deliveryOrder : deliveryOrder});
                     isSelectedData = true;
+                    totalQtyDO += a.quantity;
                 }
                 // items.quantity=a.quantity;
                
@@ -84,6 +86,7 @@ export class Create {
                     deliveryOrderNonPO.IsPO=a.IsPO;
                     items.push({deliveryOrder : deliveryOrderNonPO});
                     isSelectedData = true;
+                    totalQtyDO += a.quantity;
                 }
                 // items.quantity=a.quantity;
             }
@@ -92,6 +95,11 @@ export class Create {
 
         if(items.length > 0){
             dataCustoms.items = items;
+           
+        }
+
+        if(dataCustoms.customType == "BC 262"){
+            dataCustoms.totalQtyDO = totalQtyDO;
         }
 
         if(this.data.billNo.includes("BP"))
