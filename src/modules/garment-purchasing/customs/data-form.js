@@ -240,7 +240,6 @@ export class DataForm {
     this.data.deliveryOrders = [];
     this.data.deliveryOrderNonPO = [];
 
-
     if (this.data.currency && this.data.currency.Id) {
       this.data.currencyId = this.data.currency.Id;
       if (!this.hasView) {
@@ -296,9 +295,9 @@ export class DataForm {
             var quantity = 0;
             var totPrice = 0;
             for (var b of a.items) {
-                quantity += b.Quantity;
-                var priceTemp = b.Quantity * b.PricePerDealUnit;
-                totPrice += priceTemp;
+              quantity += b.Quantity;
+              var priceTemp = b.Quantity * b.PricePerDealUnit;
+              totPrice += priceTemp;
             }
             data["quantity"] = quantity;
             data["price"] = totPrice.toFixed(3);
@@ -331,16 +330,16 @@ export class DataForm {
   get contractFilter() {
     if (this.data.supplier) {
       var filter = {
-        IsUsed: true,
+        // IsUsed: true,
         SupplierCode: this.data.supplier.code,
-        IsCustoms:true,
+        // IsCustoms:true,
       };
 
-      filter[
-        `DueDate >= ${JSON.stringify(
-          moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
-        )} `
-      ] = true;
+      // filter[
+      //   `DueDate >= ${JSON.stringify(
+      //     moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
+      //   )} `
+      // ] = true;
       return filter;
     }
   }
@@ -377,11 +376,10 @@ export class DataForm {
       dataCusIN.data.forEach((datas) => {
         datas.items.forEach((item) => {
           QtyCustomIn += item.quantity;
-        })
-       
+        });
       });
 
-      console.log("QtyCustomIn",QtyCustomIn);
+      console.log("QtyCustomIn", QtyCustomIn);
 
       //GetQuantityFromCustomsOutSubcok with same Contract ID
       const dataCusOUT = await this.garmentService.searchCustomsComplete({
@@ -391,13 +389,13 @@ export class DataForm {
         return x.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
       });
 
-      console.log("dataJumlahCustomsOut",dataJumlahCustomsOut);
+      console.log("dataJumlahCustomsOut", dataJumlahCustomsOut);
 
       const QtyCustomOut = dataJumlahCustomsOut.reduce(
         (acc, cur) => (acc += cur),
         0
       );
-console.log("QtyCustomOut",QtyCustomOut)
+      console.log("QtyCustomOut", QtyCustomOut);
 
       this.data.QuantityContract = QtyCustomOut - QtyCustomIn;
     }
