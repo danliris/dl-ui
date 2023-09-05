@@ -140,7 +140,10 @@
         </div>
        
       </div>
-     
+      <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+      <!-- <pagination if.bind="arg.total>arg.size"  info.bind="arg" change.delegate="changePage($event)"></pagination> -->
+      <hr/>
     </au-input-form>
+    <div class="row"></div>
   </template>
   
