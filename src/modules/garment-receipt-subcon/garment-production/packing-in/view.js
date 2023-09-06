@@ -26,6 +26,7 @@ export class View {
     this.selectedRO = {
       RONo: this.data.RONo,
     };
+    this.selectedPackingFrom = this.data.PackingFrom;
     // this.deleteCallback = null;
   }
 
