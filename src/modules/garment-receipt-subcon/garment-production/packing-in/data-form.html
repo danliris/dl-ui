@@ -48,7 +48,7 @@
 
     <au-dropdown
       label="Asal Packing In"
-      value.bind="data.PackingFrom"
+      value.bind="selectedPackingFrom"
       read-only.bind="readOnly || isEdit"
       items.bind="packingFromOptions"
       options.bind="controlOptions"
@@ -60,7 +60,7 @@
       error.bind="error.RONo"
       label="No RO"
       loader.bind="data.PackingFrom == 'FINISHING' ?  roLoaderFinishing : data.PackingFrom == 'SEWING' ? roLoaderSewing : roLoaderCutting "
-      show.bind="data.Unit && data.UnitFrom && data.PackingFrom"
+      show.bind="data.Unit && data.UnitFrom"
       text.bind="ROView"
       placeholder="nomor RO"
       read-only.bind="readOnly || isEdit"
