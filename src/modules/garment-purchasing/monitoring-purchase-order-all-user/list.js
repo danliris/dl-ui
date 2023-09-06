@@ -59,14 +59,15 @@ export class List {
                 console.log(result.data);
                 var resultTotal=0;
                 //this.info.total=result.info.total; 
-                this.data = result.data.Result;
+                //this.data = result.data.Result;
+                this.data = result.data;
                 var index=1;
                 for(var item of this.data)
                 {
                     this.resultTotal= item.Total;
                     item.index=index;
                     index++;
-                    item.totalBudget =  numeral(item.prBudgetPrice * item.poDefaultQty).format("0,000.00");
+                    item.totalBudget = numeral(item.prBudgetPrice * item.poDefaultQty).format("0,000.00");
                 }
                 this.info.total= this.resultTotal;
                 
