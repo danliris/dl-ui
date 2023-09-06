@@ -14,6 +14,7 @@ export class DataForm {
   @bindable itemOptions = {};
   @bindable selectedUnit;
   @bindable selectedUnitFrom;
+  @bindable selectedPackingFrom;
 
   packingFromOptions = ["FINISHING", "SEWING", "CUTTING"];
   constructor(service) {
@@ -196,11 +197,34 @@ export class DataForm {
     }
   }
 
+  selectedPackingFromChanged(newValue) {
+    if (!this.data.Id) {
+      this.selectedRO = null;
+      this.data.RONo = null;
+      this.data.Article = null;
+      this.data.Comodity = null;
+      this.data.Items.splice(0);
+      this.data.Price = 0;
+      this.context.selectedROViewModel.editorValue = "";
+      if (newValue) {
+        this.data.PackingFrom = newValue;
+      } else {
+        this.data.PackingFrom = null;
+        this.selectedRO = null;
+        this.data.RONo = null;
+        this.data.Article = null;
+        this.data.Comodity = null;
+        this.data.Items.splice(0);
+        this.data.Price = 0;
+        this.context.selectedROViewModel.editorValue = "";
+      }
+    }
+  }
+
   async selectedROChanged(newValue, oldValue) {
     this.data.RONo = null;
     this.data.Article = null;
     this.data.Comodity = null;
-    this.data.UnitFrom = null;
     this.data.Items.splice(0);
     this.data.Price = 0;
     if (newValue) {
@@ -428,7 +452,6 @@ export class DataForm {
       this.data.RONo = null;
       this.data.Article = null;
       this.data.Comodity = null;
-      this.data.UnitFrom = null;
       this.data.Items.splice(0);
       this.data.Price = 0;
     }

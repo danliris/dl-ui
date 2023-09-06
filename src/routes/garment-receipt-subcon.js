@@ -388,4 +388,34 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/packing-out",
+    name: "garment-receipt-subcon-packing-out",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/packing-out/index",
+    nav: true,
+    title: "Packing Out",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X31: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/packing-out-alluser",
+    name: "garment-receipt-subcon-packing-out-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/packing-out-alluser/index",
+    nav: true,
+    title: "Packing Out (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X32: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
