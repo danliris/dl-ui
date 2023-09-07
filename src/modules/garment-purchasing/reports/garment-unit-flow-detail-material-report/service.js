@@ -24,5 +24,11 @@ export class Service extends RestService {
         let endpoint = `${uriGRC}/download-for-unit?${buildQueryString(info)}`;
         return super.getXls(endpoint);
     }
+
+    xlsMII(info) {
+        console.log(info)
+        let endpoint = `${uriGRC}/download-for-mii?${buildQueryString(info)}`;
+        return super.getXls(endpoint);
+    }
 }
 
