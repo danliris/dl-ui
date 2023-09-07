@@ -183,6 +183,22 @@ module.exports = [
   },
 
   {
+    route: '/garment-subcon/garment-subcon-monitoring-out',
+    name: 'garment-subcon-monitoring-out',
+    moduleId: './modules/garment-subcon/report/garment-subcon-monitoring-out/index',
+    nav: true,
+    title: 'Monitoring Subcon Keluar',
+    auth: true,
+    settings: {
+      group: "g-subcon",
+      subGroup: "laporan",
+      // permission: { "E": 1, "K": 1, "C9": 1, "B9": 1, "C5": 1, "P1A": 1, "C2A": 1, "C2B": 1, "FP": 1, "P": 1, "FC": 1, "PG": 1, "C1A": 1, "C1B": 1, "KK": 1, "B1": 1 },
+      permission: { "Q13": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
+
+  {
     route: '/garment-subcon/subcon-invoice-packing-list',
     name: 'subcon-invoice-packing-list',
     moduleId: './modules/garment-subcon/garment-subcon-invoice-packing-list/index',
