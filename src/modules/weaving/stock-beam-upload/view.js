@@ -1,6 +1,7 @@
 import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
+import moment from 'moment';
 
 @inject(Router, Service)
 export class View {
@@ -104,5 +105,54 @@ export class View {
             this.info.page = 1;
             this.loadPage();
         }
+    }
+
+    ExportToExcel() {
+
+
+    
+
+        var e="";
+        if (this.min.getMonth()+1 != this.params.month) {
+            e+=`Tanggal awal harus pada bulan ${this.params.month} \n`
+        }
+        if(this.min.getFullYear()!=this.params.year){
+            e+=`Tanggal awal harus pada tahun ${this.params.year} \n`;
+        }
+        if(this.max.getMonth()+1 != this.params.month ){
+            e+=`Tanggal akhir harus pada bulan ${this.params.month} \n`
+        }
+        if(this.max.getFullYear()!=this.params.year){
+            e+=`Tanggal akhir harus pada tahun ${this.params.year} \n`;
+        }
+        
+        if(e!=""){
+            alert(e);
+        }
+        else{
+            console.log("masuk else")
+           
+           //ini akan di panggil di service.js generateExcel
+        var info = {
+            monthId: this.params.month,
+            year: this.params.year,
+            //page:this.info.page,
+            //size:this.info.size,
+            datestart: this.min.getDate(),
+            datefinish: this.max.getDate(),
+            shift:this.shift ? this.shift.text: ""
+        }
+       // console.log(shift)
+           this.service.generateExcel(info);    
+
+            
+        //return this.service.getReportXls(this.Month, this.Year).then(result => {
+        
+        //  return {
+          //  data: result,
+         //   total: length
+         // };
+       // })  
+      }
     }
 }

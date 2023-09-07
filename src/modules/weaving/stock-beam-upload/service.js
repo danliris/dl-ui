@@ -21,4 +21,9 @@ export class Service extends RestService {
     return super.list(endpoint, info);
   }
 
+  generateExcel(info) {
+    var endpoint = `${serviceUri}/download?datefinish=${info.datefinish}&datestart=${info.datestart}&monthId=${info.monthId}&shift=${info.shift}&year=${info.year}`;
+    return super.getXls(endpoint);
+  }
+
 }
