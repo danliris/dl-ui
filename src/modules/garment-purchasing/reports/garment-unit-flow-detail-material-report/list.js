@@ -182,6 +182,8 @@ export class List {
         let args = {
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+            dateFromCreate : this.dateFromCreate ? moment(this.dateFromCreate).format("YYYY-MM-DD") : null,
+            dateToCreate : this.dateToCreate ? moment(this.dateToCreate).format("YYYY-MM-DD") : "",
             category : this.category ? this.category : "",
             unit : this.unit ? this.unit : "",
             productcode : this.productcode != "" ? this.productcode : "",
@@ -239,6 +241,14 @@ export class List {
 
             filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
             filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
+
+        if (this.dateFromCreate && this.dateFromCreate != 'Invalid Date') {
+            filter.dateFromCreate = this.dateFromCreate;
+            filter.dateToCreate = this.dateToCreate;
+
+            filter.dateFromCreate = moment(filter.dateFromCreate).format("MM/DD/YYYY");
+            filter.dateToCreate = moment(filter.dateToCreate).format("MM/DD/YYYY");
         }
 
         this.service.xls(filter);
