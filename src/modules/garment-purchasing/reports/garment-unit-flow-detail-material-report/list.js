@@ -254,6 +254,41 @@ export class List {
         this.service.xls(filter);
     }
 
+    xlsMII() {
+        let filter = {};
+
+
+        if (this.category) {
+            filter.category = this.category;
+            filter.categoryname = this.categoryname;
+        }
+        if (this.productcode) {
+            filter.productcode = this.productcode;
+        }
+        if (this.unit){
+          filter.unit = this.unit;
+          filter.unitname = this.unitname;
+        }
+
+        if (this.dateFrom && this.dateFrom != 'Invalid Date') {
+            filter.dateFrom = this.dateFrom;
+            filter.dateTo = this.dateTo;
+
+            filter.dateFrom = moment(filter.dateFrom).format("MM/DD/YYYY");
+            filter.dateTo = moment(filter.dateTo).format("MM/DD/YYYY");
+        }
+
+        if (this.dateFromCreate && this.dateFromCreate != 'Invalid Date') {
+            filter.dateFromCreate = this.dateFromCreate;
+            filter.dateToCreate = this.dateToCreate;
+
+            filter.dateFromCreate = moment(filter.dateFromCreate).format("MM/DD/YYYY");
+            filter.dateToCreate = moment(filter.dateToCreate).format("MM/DD/YYYY");
+        }
+
+        this.service.xlsMII(filter);
+    }
+
     unitView = (unit) => {
 
       return `${unit.Code} - ${unit.Name}`
