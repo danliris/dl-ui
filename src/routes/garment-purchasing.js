@@ -1194,6 +1194,26 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+
+  //COBA--MDP
+  {
+    route: "monitoring-history-delet",
+    name: "monitoring-history-delet",
+    moduleId:
+      //"./modules/garment-purchasing/reports/monitoring-flow-product/index",
+      "./modules/garment-purchasing/reports/monitoring-history-delet/index",
+    nav: true,
+    title: "Monitoring History Data Delet",
+    auth: true,
+    settings: {
+      group: "g-purchasing",
+      subGroup: "monitoring",
+      // permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      permission: { H39: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  //
   {
     route: "/bcno-feature",
     name: "bcno-feature",
