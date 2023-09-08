@@ -75,10 +75,41 @@ export class DataForm {
             this.data.invoiceNo = newValue.invoiceNo;
             this.data.date = newValue.invoiceDate;
             this.data.amount = newValue.totalAmount;
-            this.data.amountToBePaid = newValue.amountToBePaid - newValue.amountCA;
-            this.data.amountPaid = newValue.amountToBePaid - newValue.amountCA;
-            this.data.balancaAmount =  this.data.amountToBePaid - this.data.amountPaid;
-            
+            // this.data.amountToBePaid = newValue.amountToBePaid - newValue.amountCA;
+            // this.data.amountPaid = newValue.amountToBePaid - newValue.amountCA;
+
+            // this.data.amountToBePaid = newValue.amountToBePaid;
+            // this.data.amountPaid = newValue.amountToBePaid;
+            // this.data.balancaAmount =  this.data.amountToBePaid - this.data.amountPaid;
+            this.data.lessFabricCost = 0;
+            this.data.dhlCharges = 0;
+
+            //
+            var lessFabCost = 0;
+
+            if (newValue.items) {
+
+                for (var item of newValue.items) {
+                   
+                    // if (item.amount > 0) {
+                    //     totalAmount = totalAmount + (item.price * item.quantity);
+                    // } else {
+                    //    totalAmount = 0;
+                    // }
+
+                     if (item.cmtPrice > 0) {
+                        lessFabCost += ((item.cmtPrice-item.price) * item.quantity);
+                    }
+                }
+            }
+
+            this.data.lessFabricCost = lessFabCost;
+
+            this.data.amountToBePaid = newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA ;
+            this.data.amountPaid = newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA;
+            this.data.balancaAmount =  newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA - this.data.amountPaid;
+
+            //
             if (this.data.packingListId) {
                 this.service.getPackingListById(this.data.packingListId)
                     .then(packingListData => {
@@ -122,7 +153,21 @@ export class DataForm {
         }
     }
 
+
+     @computedFrom('data.amount', 'data.lessFabricCost', 'data.dhlCharges')
+     get amountToBePaid() {
+            console.log(this.data.amount);
+            console.log(this.data.lessFabricCost);
+            console.log(this.data.dhlCharges);
+        
+            let AmtToBePaid = this.data.amount + this.data.dhlCharges - this.data.lessFabricCost ;
+            console.log(AmtToBePaid);
+            AmtToBePaid = numeral(AmtToBePaid).format();
+            this.data.amountToBePaid = numeral(AmtToBePaid).value();           
+            return AmtToBePaid;                    
+     }
     //
+
     @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
     get NETTNEGO() {
         // console.log(this.data.paymentTerm)
@@ -130,7 +175,7 @@ export class DataForm {
             // console.log(this.data.amountToBePaid);
             // console.log(this.data.bankCharges);
             // console.log(this.data.otherCharge);
-            let NETTNEGO = this.data.amountToBePaid - (this.data.bankCharges + this.data.otherCharge);
+            let NETTNEGO = this.data.amountToBePaid  - (this.data.bankCharges + this.data.otherCharge + this.data.creditInterest);
             // console.log(NETTNEGO);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.nettNego = numeral(NETTNEGO).value();           
@@ -143,7 +188,7 @@ export class DataForm {
             // console.log(this.data.creditInterest);
             // console.log(this.data.bankCharges);
 
-            let NETTNEGO = this.data.amountToBePaid - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
+            let NETTNEGO = this.data.amountToBePaid  - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.NETTNEGO = numeral(NETTNEGO).value();
             return NETTNEGO;

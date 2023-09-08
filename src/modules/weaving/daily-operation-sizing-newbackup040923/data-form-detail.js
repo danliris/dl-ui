@@ -49,6 +49,7 @@ import {
     bind(context) {
       this.context = context;
       this.data = this.context.data;
+      console.log(this.data);
       this.dataThrow = [];
      
       //console.log(this.data);
