@@ -1166,13 +1166,13 @@ module.exports = [
 
   //COBA--MDP
   {
-    route: "monitoring-history-delet",
-    name: "monitoring-history-delet",
+    route: "monitoring-history-delete",
+    name: "monitoring-history-delete",
     moduleId:
       //"./modules/garment-purchasing/reports/monitoring-flow-product/index",
-      "./modules/garment-purchasing/reports/monitoring-history-delet/index",
+      "./modules/garment-purchasing/reports/monitoring-history-delete/index",
     nav: true,
-    title: "Monitoring History Data Delet",
+    title: "Monitoring History Data Delete",
     auth: true,
     settings: {
       group: "g-purchasing",

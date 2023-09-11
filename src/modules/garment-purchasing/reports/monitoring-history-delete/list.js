@@ -51,6 +51,9 @@ export class List {
         this.SearchItem === 'Bon Penerimaan Unit BUK' ? moment(this.tanggalAkhirBUK).format('YYYY-MM-DD') :
         null,
       // ...
+      filter : this.filter ? this.filter : "",
+            keyword : this.BCNo ? this.BCNo : this.pono ? this.pono : this.rono ? this.rono : "",
+            
     };
 
     this.service.search(args)
