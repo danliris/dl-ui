@@ -84,11 +84,10 @@ export class DataForm {
             this.data.lessFabricCost = 0;
             this.data.dhlCharges = 0;
 
-            //
             var lessFabCost = 0;
-
+        
             if (newValue.items) {
-
+                console.log(newValue);
                 for (var item of newValue.items) {
                    
                     // if (item.amount > 0) {
@@ -104,11 +103,12 @@ export class DataForm {
             }
 
             this.data.lessFabricCost = lessFabCost;
-
-            this.data.amountToBePaid = newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA ;
-            this.data.amountPaid = newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA;
-            this.data.balancaAmount =  newValue.totalAmount + this.data.dhlCharges - this.data.lessFabricCost - newValue.amountCA - this.data.amountPaid;
-
+            //console.log(this.data.lessFabricCost);
+            this.data.amountToBePaid = newValue.totalAmount + this.data.lessFabricCost + newValue.dhlCharges - newValue.amountCA ;
+            this.data.amountPaid =  this.data.amountToBePaid ;
+            //this.data.balancaAmount =  newValue.totalAmount + newValue.dhlCharges + this.data.lessFabricCost - newValue.amountCA - this.data.amountPaid;
+            this.data.balancaAmount =  this.data.amountToBePaid + this.data.dhlCharges - this.data.amountPaid;
+           
             //
             if (this.data.packingListId) {
                 this.service.getPackingListById(this.data.packingListId)
@@ -153,29 +153,40 @@ export class DataForm {
         }
     }
 
-
-     @computedFrom('data.amount', 'data.lessFabricCost', 'data.dhlCharges')
-     get amountToBePaid() {
-            console.log(this.data.amount);
-            console.log(this.data.lessFabricCost);
-            console.log(this.data.dhlCharges);
+    //  @computedFrom('data.amount', 'data.lessFabricCost')
+    //  get amountToBePaid() {
+    //         // console.log(this.data.amount);
+    //         // console.log(this.data.lessFabricCost);
+    //         // console.log(this.data.dhlCharges);
         
-            let AmtToBePaid = this.data.amount + this.data.dhlCharges - this.data.lessFabricCost ;
-            console.log(AmtToBePaid);
-            AmtToBePaid = numeral(AmtToBePaid).format();
-            this.data.amountToBePaid = numeral(AmtToBePaid).value();           
-            return AmtToBePaid;                    
-     }
+    //         let AmtToBePaid = this.data.amount + this.data.lessFabricCost;
+    //         console.log(AmtToBePaid);
+    //         AmtToBePaid = numeral(AmtToBePaid).format();
+    //         this.data.amountToBePaid = numeral(AmtToBePaid).value();           
+    //         return AmtToBePaid;                    
+    //  }
+
     //
 
-    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
+    @computedFrom('data.amountToBePaid', 'data.dhlCharges', 'data.amountPaid')
+        get BalanceAmount() {
+            // console.log(this.data.amountToBePaid);
+            // console.log(this.data.amountPaid);
+            let BalanceAmount = this.data.amountToBePaid + this.data.dhlCharges - this.data.amountPaid;
+            console.log(BalanceAmount);
+            BalanceAmount = numeral(BalanceAmount).format();
+            this.data.balanceAmount = numeral(BalanceAmount).value();           
+            return BalanceAmount;                    
+      }
+
+    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.dhlCharges', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
     get NETTNEGO() {
         // console.log(this.data.paymentTerm)
         if (this.data.paymentTerm === "TT/OA") {
             // console.log(this.data.amountToBePaid);
             // console.log(this.data.bankCharges);
             // console.log(this.data.otherCharge);
-            let NETTNEGO = this.data.amountToBePaid  - (this.data.bankCharges + this.data.otherCharge + this.data.creditInterest);
+            let NETTNEGO = (this.data.amountToBePaid + this.data.dhlCharges) - (this.data.bankComission + this.data.creditInterest + this.data.bankCharges + this.data.otherCharge );
             // console.log(NETTNEGO);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.nettNego = numeral(NETTNEGO).value();           
@@ -188,21 +199,10 @@ export class DataForm {
             // console.log(this.data.creditInterest);
             // console.log(this.data.bankCharges);
 
-            let NETTNEGO = this.data.amountToBePaid  - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
+            let NETTNEGO =  (this.data.amountToBePaid + this.data.dhlCharges) - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.NETTNEGO = numeral(NETTNEGO).value();
             return NETTNEGO;
         }    
-      }
-
-       @computedFrom('data.amountToBePaid', 'data.amountPaid')
-        get BalanceAmount() {
-            console.log(this.data.amountToBePaid);
-            console.log(this.data.amountPaid);
-            let BalanceAmount = this.data.amountToBePaid - this.data.amountPaid;
-            console.log(BalanceAmount);
-            BalanceAmount = numeral(BalanceAmount).format();
-            this.data.balanceAmount = numeral(BalanceAmount).value();           
-            return BalanceAmount;                    
       }
 }
