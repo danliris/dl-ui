@@ -3,7 +3,11 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 //const serviceUri = 'monitoring-flow-product';
-const serviceUri = 'monitoring-history-delet';
+//const serviceUri = 'bcno-feature';
+
+const serviceUri = 'monitoring-history-delete';
+
+
 
 export class Service extends RestService {
 
@@ -11,12 +15,17 @@ export class Service extends RestService {
         super(http, aggregator, config, "purchasing-azure");
     }
 
-    search(info) {
-        let endpoint = `${serviceUri}?dono=${info.dono}&beacukaino=${info.beacukaino}&beacukaino=${info.productCode}`;
-        // let endpoint = `${serviceUri}`;
+    // search(info) {
+    //     let endpoint = `${serviceUri}?dono=${info.dono}&beacukaino=${info.beacukaino}&beacukaino=${info.productCode}`;
+    //     // let endpoint = `${serviceUri}`;
        
-        return super.get(endpoint, info);
-    }
+    //     return super.get(endpoint, info);
+    // }
+
+    search(info) {
+      let endpoint = `${serviceUri}?filter=${info.filter}&keyword=${info.keyword}`;
+      return super.get(endpoint);
+  }
 
     generateExcel(args) {
         var endpoint = `${serviceUri}/download?dono=${args.dono}&beacukaino=${args.beacukaino}&beacukaino=${args.productCode}`;
