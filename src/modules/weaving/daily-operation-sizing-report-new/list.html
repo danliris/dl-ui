@@ -6,7 +6,7 @@
           }
       </style>
   
-      <h1 class="page-header">Laporan SPU</h1>
+      <h1 class="page-header">LAPORAN OPERASIONAL HARIAN SIZING</h1>
   
       <form class="form-horizontal">
      
@@ -33,7 +33,18 @@
             items.bind="GROUPOptions" 
             options.bind="controlOptions">
         </au-dropdown>
-       
+        <au-textbox 
+        label="SP"    
+        value.bind="info.sp"     
+        read-only.bind="readOnly"      
+        options.bind="controlOptions">
+      </au-textbox>
+      <au-textbox 
+        label="CODE"    
+        value.bind="info.code"     
+        read-only.bind="readOnly"      
+        options.bind="controlOptions">
+      </au-textbox>
   
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -54,11 +65,13 @@
           <thead align="center">
               <tr>
                 <td>No</td>
-                 <td>Tanggal</td><!--tmbah ini -->
-                <td>Kode</td><!--tmbah ini -->
-                <td>Mc Sz</td>
-                <td>Resep</td><!--sesuaikan kolom ini -->
+                <td>Tanggal</td>
+                <td>Mesin Sizing</td>
+                <td>Shift</td>
                 <td>SPU</td>
+                <td>Panjang</td>
+                <td>Efisiensi</td>
+                
                 
               </tr>
           </thead>
@@ -66,12 +79,14 @@
               <require from="../../../lib/number-format-value-converter"></require>
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
-                  <td>${$index + 1}</td>
-                  <td>${item.periode}</td>
-                  <td>${item.code}</td>
+                  <td>${item.index}</td>
+                  <td class="text-center">${item.periode}</td>
                   <td class="text-center">${item.machineSizing}</td>
-                  <td class="text-center">${item.recipe}</td>
+                  <td class="text-center">${item.shift}</td>
                   <td class="text-center">${item.spu}%</td>
+                  <td class="text-center">${item.length}</td>
+                  <td class="text-center">${item.efficiency}%</td>
+                 
                 
                 </tr>
               </div>
@@ -81,7 +96,8 @@
   <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
     Tidak ada data.
   </div>
-  <hr/>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
     </au-input-form>
     <div class="row"></div>
   </template>
