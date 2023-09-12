@@ -5,7 +5,7 @@ import { RestService } from '../../../../utils/rest-service';
 //const serviceUri = 'monitoring-flow-product';
 //const serviceUri = 'bcno-feature';
 
-const serviceUri = 'monitoring-history-delete';
+const serviceUri = 'unit-receipt-note-monitoring-all/Deleted';
 
 
 
@@ -23,7 +23,7 @@ export class Service extends RestService {
     // }
 
     search(info) {
-      let endpoint = `${serviceUri}?filter=${info.filter}&keyword=${info.keyword}`;
+      let endpoint = `${serviceUri}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}bonType=${info.bonType}`;
       return super.get(endpoint);
   }
 
