@@ -18,13 +18,22 @@
                             options.bind="controlOptions">
                         </au-datepicker>
 
-                        <au-numeric label="Amount (US$)" value.bind="data.amount" read-only="true"
+                        <au-numeric label="Amount (US$)" value.bind="data.amount" read-only="readOnly"
                             options.bind="controlOptions">
                         </au-numeric>
 
-                        <au-numeric label="Amount To Be Paid (US$)" value.bind="data.amountToBePaid" read-only="true"
-                            options.bind="controlOptions">
+                        <au-numeric label="Less Fabric Cost (US$)" value.bind="data.lessFabricCost"  read-only="readOnly" 
+                           options.bind="controlOptions">
                         </au-numeric>
+
+                        <au-numeric label="Amount To Be Paid (US$)" value.bind="data.amountToBePaid" read-only="readOnly"
+                            options.bind="controlOptions">
+                        </au-numeric>       
+
+                        <au-numeric label="DHL Charges (US$)" value.bind="data.dhlCharges"
+                            error.bind="error.dhlCharges" read-only.bind="readOnly" options.bind="controlOptions"
+                            options.bind="controlOptions">
+                        </au-numeric>             
                         
                         <au-numeric label="Paid Amount (US$)" value.bind="data.amountPaid" read-only.bind="readOnly" 
                             options.bind="controlOptions">
@@ -86,16 +95,6 @@
                         <au-textbox label="Kurs" value="USD" read-only="true" options.bind="controlOptions"
                             show.bind="data.paymentTerm == 'LC'">
                         </au-textbox>
-
-                        <au-numeric label="Bank Commision" value.bind="data.bankComission"
-                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions"
-                            show.bind="data.paymentTerm == 'LC'">
-                        </au-numeric>
-
-                        <au-numeric label="Discrepancy Fee / Postage" value.bind="data.discrepancyFee"
-                            error.bind="error.discrepancyFee" read-only.bind="readOnly" options.bind="controlOptions"
-                            show.bind="data.paymentTerm == 'LC'">
-                        </au-numeric>
 
                         <au-numeric label="Nett Nego (US$)" value.bind="NETTNEGO"
                             options.bind="controlOptions"
@@ -183,9 +182,22 @@
                         <hr />
                         <h1 class="page-header">BANK CHARGE</h1>
 
-                        <au-numeric label="Credit Interest" value.bind="data.creditInterest"
+                        <!--<au-numeric label="Credit Interest" value.bind="data.creditInterest"
                             error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions"
                             show.bind="data.paymentTerm == 'LC'">
+                        </au-numeric>-->
+
+                        <au-numeric label="Bank Commision" value.bind="data.bankComission"
+                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Discrepancy Fee / Postage" value.bind="data.discrepancyFee"
+                            error.bind="error.discrepancyFee" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
+                        </au-numeric>
+
+                        <au-numeric label="Credit Interest" value.bind="data.creditInterest"
+                            error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-numeric>
 
                         <au-numeric label="Bank Charge" value.bind="data.bankCharges" error.bind="error.bankCharges"
