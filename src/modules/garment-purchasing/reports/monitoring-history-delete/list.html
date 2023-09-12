@@ -14,17 +14,17 @@
             options.bind="controlOptions">
         </au-textbox> -->
       <!--Menambahkan Search Tanggal-->
-        <au-datepicker label="Tanggal Awal Delete BUM" value.bind="tanggalAwalBUM" if.bind="SearchItem == 'No BC'"
+        <au-datepicker label="Tanggal Awal Delete BUM" value.bind="tanggalAwalBUM" if.bind="SearchItem == 'Bon Penerimaan Unit BUM'"
             options.bind="controlOptions">
         </au-datepicker>
-        <au-datepicker label="Tanggal Awal Delete BUK" value.bind="tanggalAwalBUK" if.bind="SearchItem == 'No RO'"
+        <au-datepicker label="Tanggal Awal Delete BUK" value.bind="tanggalAwalBUK" if.bind="SearchItem == 'Bon Penerimaan Unit BUK'"
             options.bind="controlOptions">
         </au-datepicker>
       <!--Menamabah Serach Akhir Tanggal-->
-      <au-datepicker label="Tanggal Akhir Delete BUM" value.bind="tanggalAkhirBUM" if.bind="SearchItem == 'No BC'"
+      <au-datepicker label="Tanggal Akhir Delete BUM" value.bind="tanggalAkhirBUM" if.bind="SearchItem == 'Bon Penerimaan Unit BUM'"
             options.bind="controlOptions">
       </au-datepicker>
-      <au-datepicker label="Tanggal Akhir Delete BUK" value.bind="tanggalAkhirBUK" if.bind="SearchItem == 'No RO'"
+      <au-datepicker label="Tanggal Akhir Delete BUK" value.bind="tanggalAkhirBUK" if.bind="SearchItem == 'Bon Penerimaan Unit BUK'"
             options.bind="controlOptions">
       </au-datepicker>
         <!---------------------------->
@@ -56,12 +56,6 @@
                       <td>SURAT JALAN</td>
                       <td>BON KELUAR</td>
                       <td>DRNO</td>
-                      <td>NO RO</td>
-                      <td>NO PO</td>
-                      <td>BARANG</td>
-                      <td>JUMLAH</td>
-                      <td>SATUAN</td>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -78,11 +72,6 @@
                         <td>${item.DoNo}</td>
                         <td>${item.UENNo}</td>
                         <td>${item.DRNo}</td>
-                        <td>${item.RONo}</td>
-                        <td>${item.POSerialNumber}</td>
-                        <td>${item.ProductName}</td>
-                        <td>${item.ReceiptQuantity}</td>
-                        <td>${item.UomUnit}</td>
                     </tr>
 
                 </tbody>

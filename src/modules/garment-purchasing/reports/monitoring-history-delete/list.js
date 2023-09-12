@@ -28,7 +28,10 @@ export class List {
   tanggalAkhirBUM = null;
   tanggalAkhirBUK = null;
 
-  SearchItems = ['No RO', 'No BC'];
+
+  //SearchItem = ['Bon Penerimaan Unit BUM', 'Bon Penerimaan Unit BUK'];
+
+  SearchItems = ['Bon Penerimaan Unit BUM', 'Bon Penerimaan Unit BUK'];
   UnitItems = ['', 'KONFEKSI 2A', 'KONFEKSI 2B', 'KONFEKSI 2C', 'KONFEKSI 1A', 'KONFEKSI 1B'];
 
   search() {
@@ -44,16 +47,14 @@ export class List {
   searching() {
     var args = {
       // ...
-      dateFrom: this.SearchItem === 'Bon Penerimaan Unit BUM' ? moment(this.tanggalAwalBUM).format('YYYY-MM-DD') :
-        this.SearchItem === 'Bon Penerimaan Unit BUK' ? moment(this.tanggalAwalBUK).format('YYYY-MM-DD') :
-        null,
-        dateFrom: this.SearchItem === 'Bon Penerimaan Unit BUM' ? moment(this.tanggalAkhirBUM).format('YYYY-MM-DD') :
-        this.SearchItem === 'Bon Penerimaan Unit BUK' ? moment(this.tanggalAkhirBUK).format('YYYY-MM-DD') :
-        null,
-      // ...
-      filter : this.filter ? this.filter : "",
-            keyword : this.BCNo ? this.BCNo : this.pono ? this.pono : this.rono ? this.rono : "",
-            
+      dateFrom: moment(this.tanggalAwalBUM).format('YYYY-MM-DD') ,
+       
+      dateTo:  moment(this.tanggalAkhirBUM).format('YYYY-MM-DD') ,
+      bonType : this.SearchItem
+      // // ...
+      // filter : this.filter ? this.filter : "",
+      //       //keyword : this.BCNo ? this.BCNo : this.pono ? this.pono : this.rono ? this.rono : "",
+      //       keyword : this.DeletedUtc ? this.DeletedUtc : this.URNNo ? this.URNNo : "",
     };
 
     this.service.search(args)
@@ -79,13 +80,13 @@ export class List {
 
   SearchItemChanged(newvalue) {
     if (newvalue) {
-      if (newvalue === 'No BC') {
-        this.filter = 'BCNo';
+      if (newvalue === 'Bon Penerimaan Unit BUM') {
+        this.filter = 'DeletedUtc';
         this.pono = '';
         this.rono = '';
         this.data = [];
-      } else if (newvalue === 'No RO') {
-        this.filter = 'RONo';
+      } else if (newvalue === 'URNNo') {
+        this.filter = 'URNNo';
         this.BCNo = '';
         this.pono = '';
         this.data = [];
