@@ -1,78 +1,136 @@
 <template>
-  <h1 class="page-header">Laporan Operasional Mesin Harian Loom</h1>
-  <div class="row">
-    <div class="col-md-1" style="white-space: nowrap;">
-      <textbox label="Tanggal Pasang" read-only="true"></textbox>
-    </div>
-    <div class="col-md-2" style="text-align:left;">
-      <au-datepicker value.bind="StartDatePeriod" error.bind="error.StartDatePeriod" read-only.bind="readOnly">
-      </au-datepicker>
-    </div>
+  <au-input-form title.bind="title" with.bind="context">
+    <style>
+        table>tbody>tr>td {
+            white-space: pre;
+        }
+    </style>
 
-    <div class="col-md-1" style="white-space: nowrap; padding-top: 20px;text-align:center;">
-      <p>s.d</p>
-    </div>
+    <h1 class="page-header">LAPORAN OPERASIONAL MESIN HARIAN LOOM</h1>
 
-    <div class="col-md-2" style="text-align:left;">
-      <au-datepicker value.bind="EndDatePeriod" error.bind="error.EndDatePeriod" read-only.bind="readOnly">
-      </au-datepicker>
-    </div>
-  </div>
+    <form class="form-horizontal">
+   
+      <au-datepicker label="Tanggal Awal" value.bind="fromDate"></au-datepicker>
+      <au-datepicker label="Tanggal Akhir" value.bind="toDate"></au-datepicker>
+      <au-dropdown   
+          label="Shift" 
+          value.bind="info.shift" 
+          key="value" text="text" 
+          items.bind="shiftOptions" 
+          options.bind="controlOptions">
+      </au-dropdown>
+      <au-dropdown  
+          label="Jenis Mesin"  
+          value.bind="info.jenisMesin" 
+          key="value" text="text" 
+          items.bind="jenisMesinOptions" 
+          options.bind="controlOptions">
+      </au-dropdown>
+      <au-dropdown  
+          label="Nama Blok"  
+          value.bind="info.namaBlok" 
+          key="value" text="text" 
+          items.bind="namaBlokOptions" 
+          options.bind="controlOptions">
+      </au-dropdown>
+     
+      <au-dropdown  
+      label="Nama MTC"  
+      value.bind="info.namaMtc" 
+      key="value" text="text" 
+      items.bind="namaMtcOptions" 
+      options.bind="controlOptions">
+      </au-dropdown>
 
-  <div class="row">
-    <div class="col-md-1" style="white-space: nowrap;">
-      <textbox label="No. Order Produksi" read-only="true"></textbox>
-    </div>
-    <div class="col-md-2" style="text-align:left;">
-      <au-autocomplete value.bind="OrderProduction" error.bind="error.OrderProduction" read-only.bind="readOnly"
-        loader.bind="orders" text="OrderNumber"></au-autocomplete>
-    </div>
+      <au-textbox 
+      label="Operator"    
+      value.bind="info.operatornya"     
+      read-only.bind="readOnly"      
+      options.bind="controlOptions">
+      </au-textbox>
+      <au-textbox 
+      label="No SP / Tahun"    
+      value.bind="info.sp"     
+      read-only.bind="readOnly"      
+      options.bind="controlOptions">
+      </au-textbox>
 
-    <div class="col-md-1" style="white-space: nowrap;">
-      <textbox label="Unit Weaving" read-only="true"></textbox>
-    </div>
-    <div class="col-md-2" style="text-align:left;">
-      <au-autocomplete value.bind="WeavingUnit" error.bind="error.WeavingUnit" read-only.bind="readOnly"
-        loader.bind="units" text="Name"></au-autocomplete>
-    </div>
-  </div>
+      <div class="form-group">
+          <label for="contact" class="col-sm-6 control-label"></label>
+          <div class="col-sm-3">
+              <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+              <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+          </div>
+      </div>
 
-  <div class="row">
-    <div class="col-md-1" style="white-space: nowrap;">
-      <textbox label="No. Konstruksi" read-only="true"></textbox>
-    </div>
-    <div class="col-md-2" style="text-align:left;">
-      <au-autocomplete value.bind="FabricConstruction" error.bind="error.FabricConstruction" read-only.bind="readOnly"
-        loader.bind="constructions" text="ConstructionNumber"></au-autocomplete>
-    </div>
+      <div class="btn-group pull-left">
+          <a click.delegate="ExportToExcel()" class='btn btn-primary'>Excel</a>
+      </div>
+  </form>
+  <br>
+</br>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+        <thead align="center">
+            <tr>
+              <td>No</td>
+              <td>Kontruksi</td>
+              <td>Jenis Benang</td>
+              <td>CMPX</td>
+              <td>Frm</td>
+              <td>Produksi Meter</td>
+              <td>100 % Produksi</td>
+              <td>% EFF</td>
+              <td>EFF MC 2</td>
+              <td>Fill</td>
+              <td>Warp</td>
+              <td>RPM</td>
+            
 
-    <div class="col-md-1" style="white-space: nowrap;">
-      <textbox label="Status Operasi" read-only="true"></textbox>
-    </div>
-    <div class="col-md-2" style="text-align:left;">
-      <au-dropdown value.bind="OperationStatus" error.bind="error.OperationStatus" read-only.bind="readOnly"
-        items.bind="operationStatusItems"></au-dropdown>
-    </div>
-  </div>
+              
+            </tr>
+        </thead>
+        <tbody>
+            <require from="../../../lib/number-format-value-converter"></require>
+            <div if.bind="data.length > 0">
+              <tr repeat.for="item of data">
+                <td>${item.index}</td>
+                <td>${item.Construction}</td>
+                <td>${item.ThreadType}</td><!-- 3 -->
+                <td>${item.TotProductionCMPX}</td>
+               <td class="text-center">${item.MCNo}</td> <!-- 5.blm -->
+                <td class="text-center">${item.TotProduction}</td>
+                <td class="text-center">${item.TotProduction100}</td><!-- 7 -->
+                <td class="text-center">${item.TotPercentEff}</td>
+                <td class="text-center">${item.TotMC2Eff}</td><!-- 9 -->
+                <td class="text-center">${item.TotF}</td><!-- 10-->
+                <td class="text-center">${item.TotW}</td>
+                <td class="text-center">${item.TotRPM}</td><!-- 12-->
+               
+              
+              </tr>
+              <tr>
+                <td colspan="3" class="text-right" style="padding-right:10%"><b>Grand Total </b></td>
+                <td class="text-right"><b>${AmountCMPX}</b> </td>
+                <td class="text-right"><b>${AmountFrm}</b> </td>
+                <td class="text-right"><b>${AmountProduksiMeter}</b> </td>
+                <td class="text-right"><b>${Amount100Produksi}</b> </td>
+                <td class="text-right"><b>${AmountEFF}</b> </td>
+                <td class="text-right"><b>${AmountEFFmc2}</b> </td>
+                <td class="text-right"><b>${AmountFill}</b> </td>
+                <td class="text-right"><b>${AmountWarp}</b> </td>
+                <td class="text-right"><b>${AmountRPM}</b> </td>
+              </tr>
+            </div>
+        </tbody>
+    </table>
+</div>
+<div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+  Tidak ada data.
+</div>
+<pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
 
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-md-4">
-      <button class="btn btn-primary" click.delegate="exportToExcel()"
-        style="margin-bottom: 8px; white-space: nowrap; width: 112px; border: 1px solid #777777;">
-        Print Laporan
-      </button>
-      <button class="btn btn-success" click.delegate="searchDailyOperationLooms()"
-        style="margin-bottom: 8px; white-space: nowrap; width: 56px; border: 1px solid #777777;">
-        Cari
-      </button>
-      <button class="btn btn-success" click.delegate="reset()"
-        style="margin-bottom: 8px; white-space: nowrap; width: 96px; border: 1px solid #777777;">
-        Atur Ulang
-      </button>
-    </div>
-  </div>
-  <au-table style="white-space: nowrap; margin-top: 26px;" data.bind="loader" columns.bind="columns"
-    sortable.bind="true" view-model.ref="dailyOperationLoomsTable" page-size="25" options.bind="tableOptions"
-    context.bind="context" context-click.delegate="contextCallback($event)">
-  </au-table>
+<hr/>
+  </au-input-form>
+  <div class="row"></div>
 </template>
