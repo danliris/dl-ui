@@ -418,4 +418,34 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/packing-list",
+    name: "garment-receipt-subcon-packing-list",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/packing-list-items/index",
+    nav: true,
+    title: "Packing List",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X33: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/packing-list-alluser",
+    name: "garment-receipt-subcon-packing-list-alluser",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/packing-list-items-alluser/index",
+    nav: true,
+    title: "Packing List (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X35: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
