@@ -97,15 +97,15 @@
                 <td>${item.index}</td>
                 <td>${item.Construction}</td>
                 <td>${item.ThreadType}</td><!-- 3 -->
-                <td>${item.TotProductionCMPX}</td>
-               <td class="text-center">${item.MCNo}</td> <!-- 5.blm -->
-                <td class="text-center">${item.TotProduction}</td>
-                <td class="text-center">${item.TotProduction100}</td><!-- 7 -->
-                <td class="text-center">${item.TotPercentEff}</td>
-                <td class="text-center">${item.TotMC2Eff}</td><!-- 9 -->
-                <td class="text-center">${item.TotF}</td><!-- 10-->
-                <td class="text-center">${item.TotW}</td>
-                <td class="text-center">${item.TotRPM}</td><!-- 12-->
+                <td class="text-center">${item.TotProductionCMPX.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+               <td class="text-center">${item.TotMCNo}</td> <!-- 5 -->
+                <td class="text-center">${item.TotProduction.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+                <td class="text-center">${item.TotProduction100.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td><!-- 7 -->
+                <td class="text-center">${item.TotPercentEff.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+                <td class="text-center">${item.TotMC2Eff.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td><!-- 9 -->
+                <td class="text-center">${item.TotF.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td><!-- 10-->
+                <td class="text-center">${item.TotW.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td>
+                <td class="text-center">${item.TotRPM.toLocaleString('en-EN', { minimumFractionDigits: 2 })}</td><!-- 12-->
                
               
               </tr>

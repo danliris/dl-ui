@@ -81,8 +81,11 @@ export class List {
 
 
                     d.periode=moment(d.periode).format("YYYY-MM-DD");
+                   // d.TotProduction=d.TotProduction.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    //hitung grand total
                     this.AmountCMPX += d.TotProductionCMPX;  
-                    this.AmountFrm += d.TotProductionCMPX;  
+                    this.AmountFrm += d.TotMCNo;  
                     this.AmountProduksiMeter += d.TotProduction;  
                     this.Amount100Produksi += d.TotProduction100;  
                     this.AmountEFF += d.TotPercentEff;  
