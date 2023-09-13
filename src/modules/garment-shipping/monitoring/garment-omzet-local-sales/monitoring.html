@@ -24,6 +24,7 @@
                     <th class="text-center">Nama Buyer</th>
                     <th class="text-center">No Nota</th>
                     <th class="text-center">Tanggal Nota</th>
+                    <th class="text-center">Tanggal Surat Pengantar</th>
                     <th class="text-center">Jenis Nota</th>
                     <th class="text-center">No Disposisi</th>
                     <th class="text-center">No BC</th>
@@ -46,6 +47,7 @@
                         <td>${data.buyerName}</td>
                         <td>${data.lsNo}</td>
                         <td>${data.lsDate}</td>
+                        <td>${data.lcldate}</td>
                         <td>${data.transactionName}</td>      
                         <td>${data.dispoNo}</td>      
                         <td>${data.bcNo}</td>  
@@ -63,7 +65,7 @@
                         <td class="text-center">.</td>
                         <td class="text-center" colspan="2"><strong>NOMOR NOTA :</strong></td>
                         <td class="text-center" colspan="2"><strong>${buyer.buyer}</strong></td>
-                        <td class="text-center" colspan="7"><strong>SUB TOTAL</strong></td>
+                        <td class="text-center" colspan="8"><strong>SUB TOTAL</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal3}</strong></td>
                         <td class="text-right"><strong>.</strong></td>
                         <td class="text-right"><strong>${buyer.subTotal}</strong></td>
@@ -72,7 +74,7 @@
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="12"><strong>G R A N D . . . T O T A L  . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-center" colspan="13"><strong>G R A N D . . . T O T A L  . . . . . . . . . . . . . . .</strong></td>
                         <td class="text-right"><strong>${TotQty}</strong></td>
                         <td class="text-right"><strong>.</strong></td>
                         <td class="text-right"><strong>${TotDPP}</strong></td>
