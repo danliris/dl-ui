@@ -18,7 +18,7 @@ import {
     debug
   } from 'util';
   
-  const serviceUri = 'weaving/daily-operations-loom';
+  const serviceUri = 'weaving/daily-operations-loom-machine-report';
   
   export class Service extends RestService {
   
@@ -26,59 +26,17 @@ import {
       super(http, aggregator, config, "weaving");
     }
   
-    getById(id) {
-      var endpoint = `${serviceUri}/${id}`;
-      return super.get(endpoint);
-    }
-  
-    getUnitById(Id) {
-      var config = Container.instance.get(Config);
-      var _endpoint = config.getEndpoint("core");
-      var _serviceUri = `master/units/${Id}`;
-  
-      return _endpoint.find(_serviceUri).then(result => {
-        return result.data;
-      });
-    }
+   
   
     getReportData(info) {
-      var endpoint = `${serviceUri}/get-report`;
+      var endpoint = `${serviceUri}/get-loom-daily-operation-report`;
   
       return super.list(endpoint, info);
     }
   
-    getReportXls(order, constructions, status, weavingUnit, dateFrom, dateTo) {
-      var endpoint = `${serviceUri}/get-report`;
-      var query = '';
-  
-      if (order) {
-        if (query === '') query = `orderId=${(order.Id)}`;
-        else query = `${query}&orderId=${(order.Id)}`;
-      }
-      if (constructions) {
-        if (query === '') query = `constructionId=${(constructions.Id)}`;
-        else query = `${query}&constructionId=${(constructions.Id)}`;
-      }
-      if (weavingUnit) {
-        if (query === '') query = `unitId=${weavingUnit.Id}`;
-        else query = `${query}&unitId=${weavingUnit.Id}`;
-      }
-      if (dateFrom) {
-        if (query === '') query = `dateFrom=${(dateFrom)}`;
-        else query = `${query}&dateFrom=${(dateFrom)}`;
-      }
-      if (dateTo) {
-        if (query === '') query = `dateTo=${(dateTo)}`;
-        else query = `${query}&dateTo=${(dateTo)}`;
-      }
-      if (status) {
-        if (query === '') query = `operationStatus=${status}`;
-        else query = `${query}&operationStatus=${status}`;
-      }
-      if (query !== '')
-        endpoint = `${serviceUri}/get-report?${query}`;
-  
-      return super.getXls(endpoint);
-    }
+    // generateExcel(info) {
+    //   var endpoint = `${serviceUri}/get-loom-daily-operation-report/download?shift=${info.shift}&jenisMesin=${info.jenisMesin}&namaBlok=${info.namaBlok}&namaMtc=${info.namaMtc}&operatornya=${info.operatornya}&sp=${info.sp}&fromDate=${info.fromDate}&toDate=${info.toDate}`;
+    //   return super.getXls(endpoint);
+    // }
   }
   
