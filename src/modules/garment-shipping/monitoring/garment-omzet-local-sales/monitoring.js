@@ -58,6 +58,8 @@ export class List {
                             dpp : data.dpp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             ppn : data.ppn.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
                             total : data.total.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                            lcldate :  moment(data.lclDate).format("DD MMM YYYY")=="01 Jan 1970"? "-" : moment(data.lclDate).format("DD MMM YYYY"),
+
                         });
                         
                         if (!subTotalBuyer[Buyer]){
