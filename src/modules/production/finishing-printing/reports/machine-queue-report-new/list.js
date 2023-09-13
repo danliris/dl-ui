@@ -3,7 +3,6 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
 import moment from 'moment';
-var ProductionOrderLoader = require('../../../../../loader/production-order-loader');
 var OrderTypeLoader = require('../../../../../loader/order-type-loader');
 
 @inject(Router, Service)
@@ -16,17 +15,12 @@ export class List {
         this.today = new Date();
         this.flag = false;
 
-        this.year = moment().format('YYYY');
-        for (var i = parseInt(this.year) + 1; i > 2010; i--) {
-            this.yearList.push(i.toString());
-        }
     }
 
     tableOptions = {
         search: false,
         showToggle: false,
-        showColumns: false,
-        pagination: false
+        showColumns: false
     }
 
     controlOptions = {
@@ -37,21 +31,12 @@ export class List {
             length: 4,
         },
     };
-    yearList = [];
-    orderTypeList = ["", "WHITE", "DYEING", "PRINTING", "YARN DYED"];
 
     columns = [
-            { field: "index", title: "No", valign: "top" },
-            { field: "productionOrderNo", title: "Nomor SPP", valign: "top" },
-            { field: "targetQty", title: "Target Kirim Buyer", valign: "top" },
-            { field: "remainingQty", title: "Sisa Belum Turun Kanban", valign: "top" },
-            { field: "preProductionQty", title: "Belum Produksi", valign: "top" },
-            { field: "inProductionQty", title: "Sedang Produksi", valign: "top" },
-            { field: "qcQty", title: "Sedang QC", valign: "top" },
-            { field: "producedQty", title: "Sudah Produksi", valign: "top" },
-            { field: "sentGJQty", title: "Sudah Kirim Gudang Jadi", valign: "top" },
-            { field: "sentBuyerQty", title: "Sudah Kirim Buyer", valign: "top" },
-            { field: "remainingSentQty", title: "Sisa Belum Kirim Buyer", valign: "top" },
+            { field: "index", title: "No",align: 'center' },
+            { field: "SPPNo", title: "Nomor SPP",align: 'center' },
+            { field: "OrderLength", title: "Panjang Order",align: 'center' },
+            { field: "DeliveryDate", title: "Tanggal Delivery",align: 'center' }
     ];
 
     bind(context) {
@@ -78,20 +63,22 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
     
-      
         var args = {
-            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            orderType:this.OrderType ? this.OrderType.Id : null,
-          };
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
+            orderType:this.OrderType ? this.OrderType.Name : null,
+        };
+        
         return this.flag ?
             (
-            this.service.search(args)
+            this.service.search({ filter: JSON.stringify(args) })
                 .then(result => {
                     var index=0;
                     for(var data of result.data){
                         index++;
                         data.index=index;
+                        data.OrderLength= data.orderLength + "  "+ data.UomUnit;
+                        data.DeliveryDate=moment(data.DeliveryDate).format("DD MMM YYYY")
                     }
                     return {
                         total: result.total,
@@ -104,17 +91,14 @@ export class List {
 
     ExportToExcel() {
         var args = {
-            startdate : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
-            finishdate : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
-            orderType:this.OrderType ? this.OrderType.Id : null,
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : null,
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : null,
+            orderType:this.OrderType ? this.OrderType.Name : null,
             orderTypeName:this.OrderType ? this.OrderType.Name : null,
           };
-        this.service.generateExcel(args);
+        this.service.xls({ filter: JSON.stringify(args) });
     }
-
-    get productionOrderLoader() {
-        return ProductionOrderLoader;
-    }
+    
     get orderTypeLoader() {
         return OrderTypeLoader;
     }

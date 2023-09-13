@@ -39,17 +39,12 @@ export class Create {
         { text: "Desember", value: 12 },
     ];
 
-    // areaOptionsHard = [
-    //     { text: "DIGITAL PRINT", value: 1 },
-    //     { text: "DYEING", value: 2 },
-    //     { text: "FINISHING", value: 3 },
-    //     { text: "PRETREATMENT", value: 4 },
-    //     { text: "PRINTING", value: 5 },
-    //         ];
     areaOptionsHard = [
         { text: "PRETREATMENT", value: 1},
         { text: "DYEING", value: 2 },
-            ];
+        { text: "PRINTING", value: 3 },
+        { text: "FINISHING", value: 4 },
+    ];
 
     constructor(router, service,authService) {
         this.router = router;

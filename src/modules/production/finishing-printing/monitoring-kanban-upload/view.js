@@ -16,6 +16,8 @@ export class View {
         this.params=params;
         this.Dyeing=params.area=="DYEING";//this.DYEING nilai true
         this.Pretreatment=params.area=="PRETREATMENT";//this.PRETREATMENT nilai true
+        this.Printing=params.area=="PRINTING";
+        this.Finishing=params.area=="FINISHING";
         var arg = {
             monthId:params.monthId,
             year:params.year,
@@ -29,8 +31,18 @@ export class View {
             data.index=idx;
             data.spbDate= moment(data.spbDate).format('DD/MM/YYYY');
             data.deliveryDate= moment(data.deliveryDate).format('DD/MM/YYYY');
-            var spp= await this.service.getProductionOrderDetails(data.sppNo);
-            data.spp= spp.data;
+            if(this.Pretreatment || this.Printing){
+                var spp= await this.service.getProductionOrderDetails(data.sppNo);
+                console.log(spp)
+                var sppData= spp.data;
+                if(sppData!=null){
+                    data.sppthreadNo=sppData.yarnMaterialName;
+                    data.sppstandarTest=sppData.standardTestName;
+                    data.sppfinishType=sppData.finishType;
+                    data.sppdeliveryDate=moment(sppData.deliveryDate).format('DD/MM/YYYY');
+                    data.sppbuyer=sppData.buyer;
+                }
+            }
             idx++;
         }
         this.data = MR.data;
