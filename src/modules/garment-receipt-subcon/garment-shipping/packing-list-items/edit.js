@@ -100,6 +100,18 @@ export class Edit {
   }
 
   saveCallback(event) {
+    for (var item of this.data.items) {
+      var qty = 0;
+      for (var detail of item.details) {
+        for (var size of detail.sizes) {
+          if (size.quantity > 0) {
+            qty += size.quantity;
+          }
+        }
+      }
+      item.totalQuantitySize = qty;
+    }
+
     this.service
       .update(this.data)
       .then((result) => {

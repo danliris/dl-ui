@@ -48,7 +48,7 @@ export class Detail {
         // keyword: keyword,
         filter: JSON.stringify({
           PackingOutNo: this.data.packingOutNo,
-          "Items.Any(IsPackingList == false)": true,
+          IsReceived: false,
         }),
       };
 
@@ -59,24 +59,22 @@ export class Detail {
 
           for (var header of result.data) {
             for (var item of header.Items) {
-              if (item.IsPackingList == false) {
-                var itemData = {};
-                itemData.packingOutItemId = item.Id;
-                itemData.size = item.Size;
-                itemData.quantity = item.Quantity;
-                itemData.color = item.Description;
+              var itemData = {};
+              itemData.packingOutItemId = item.Id;
+              itemData.size = item.Size;
+              itemData.quantity = item.Quantity;
+              itemData.color = item.Description;
 
-                var selected = this.items.find(
-                  (x) => x.data.packingOutItemId == item.Id
-                );
+              var selected = this.items.find(
+                (x) => x.data.packingOutItemId == item.Id
+              );
 
-                var selected2 = this.selectSize.find(
-                  (x) => x.packingOutItemId == item.Id
-                );
+              var selected2 = this.selectSize.find(
+                (x) => x.packingOutItemId == item.Id
+              );
 
-                if (!selected && !selected2) {
-                  noList.push(itemData);
-                }
+              if (!selected && !selected2) {
+                noList.push(itemData);
               }
             }
           }

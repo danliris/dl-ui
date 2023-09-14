@@ -44,7 +44,7 @@ export class Item {
       var info = {
         keyword: keyword,
         filter: JSON.stringify({
-          "Items.Any(IsPackingList == false)": true,
+          IsReceived: false,
         }),
       };
 
@@ -131,6 +131,7 @@ export class Item {
   selectedPackingOutChanged(newValue) {
     if (newValue) {
       this.data.packingOutNo = newValue.PackingOutNo;
+      this.data.totalQuantityPackingOut = newValue.TotalQuantity;
 
       this.salesService.getCostCalculationByRO(newValue.RONo).then((result) => {
         this.salesService

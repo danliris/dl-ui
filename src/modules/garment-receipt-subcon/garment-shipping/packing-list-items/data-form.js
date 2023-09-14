@@ -49,7 +49,7 @@ export class DataForm {
     { header: "RONo" },
     { header: "SC No" },
     { header: "Buyer Brand" },
-    // { header: "Seksi" },
+    { header: "Total Qty PackOut" },
     { header: "Komoditi Description" },
     { header: "Qty" },
     { header: "Satuan" },

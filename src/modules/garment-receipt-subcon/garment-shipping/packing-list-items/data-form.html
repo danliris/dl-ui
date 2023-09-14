@@ -68,22 +68,22 @@
           ${error.ItemsCount}
         </p>
       </div>
-      <div class="row">
-        <div class="tbl">
-          <au-collection
-            items.bind="data.items"
-            errors.bind="error.Items"
-            columns.bind="itemsColumns"
-            read-only.bind="readOnly"
-            add.bind="addItems"
-            remove.bind="removeItems"
-            options.bind="itemOptions"
-            show.bind="selectedLocalNote"
-            item-template="modules/garment-receipt-subcon/garment-shipping/packing-list-items/template/detail-ro"
-          >
-          </au-collection>
-        </div>
-      </div>
+      <!-- <div class="row">
+        <div class="tbl"> -->
+      <au-collection
+        items.bind="data.items"
+        errors.bind="error.Items"
+        columns.bind="itemsColumns"
+        read-only.bind="readOnly"
+        add.bind="addItems"
+        remove.bind="removeItems"
+        options.bind="itemOptions"
+        show.bind="selectedLocalNote"
+        item-template="modules/garment-receipt-subcon/garment-shipping/packing-list-items/template/detail-ro"
+      >
+      </au-collection>
+      <!-- </div>
+      </div> -->
     </div>
   </au-input-form>
 </template>
