@@ -11,6 +11,7 @@
       >
       </au-autocomplete>
     </td>
+
     <td class="bg-primary">
       <au-textbox value.bind="data.roNo" read-only.bind="true"> </au-textbox>
     </td>
@@ -23,6 +24,15 @@
         read-only.bind="true"
       >
       </au-textbox>
+    </td>
+
+    <td class="bg-primary col-md-1">
+      <au-numeric
+        value.bind="data.totalQuantityPackingOut"
+        error.bind="error.TotalQuantityPackingOut"
+        read-only.bind="true"
+      >
+      </au-numeric>
     </td>
     <!-- <td class="bg-primary">
       <au-textbox
