@@ -22,6 +22,7 @@ export class DataForm {
     items = {
         columns: [
             "Description",
+            "Jenis Item Credit Note",
             "Currency",
             "Amount"
         ],
@@ -29,6 +30,19 @@ export class DataForm {
             this.data.items.push({});
         }.bind(this),
         options: {
+        }
+    };
+
+    itemCNs = {
+        columns: [
+            "Jenis Item Credit Note",
+            "Amount"
+        ],
+        onAdd: function () {
+            this.data.itemCNs.push({});
+        }.bind(this),
+        options: {
+            
         }
     };
 
