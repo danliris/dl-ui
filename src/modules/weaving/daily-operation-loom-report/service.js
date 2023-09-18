@@ -34,9 +34,9 @@ import {
       return super.list(endpoint, info);
     }
   
-    // generateExcel(info) {
-    //   var endpoint = `${serviceUri}/get-loom-daily-operation-report/download?shift=${info.shift}&jenisMesin=${info.jenisMesin}&namaBlok=${info.namaBlok}&namaMtc=${info.namaMtc}&operatornya=${info.operatornya}&sp=${info.sp}&fromDate=${info.fromDate}&toDate=${info.toDate}`;
-    //   return super.getXls(endpoint);
-    // }
+    generateExcel(info) {
+      var endpoint = `${serviceUri}/get-loom-daily-operation-report/download?shift=${info.shift}&jenisMesin=${info.jenisMesin}&namaBlok=${info.namaBlok}&namaMtc=${info.namaMtc}&operatornya=${info.operatornya}&sp=${info.sp}&fromDate=${info.fromDate}&toDate=${info.toDate}`;
+      return super.getXls(endpoint);
+    }
   }
   
