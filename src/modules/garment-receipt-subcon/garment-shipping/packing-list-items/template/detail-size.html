@@ -1,0 +1,51 @@
+<template>
+  <tr>
+    <td>
+      <!-- <au-dropdown
+        value.bind="data.Size"
+        error.bind="error.Size"
+        items.bind="data.DetailSize"
+        read-only.bind="readOnly"
+        placeholder="Size"
+        text="Size.Size"
+        change.delegate="changeSize($event)"
+      >
+      </au-dropdown> -->
+
+      <au-autocomplete
+        value.bind="selectedSize"
+        error.bind="error.Size"
+        loader.bind="sizeLoader"
+        text.bind="sizeView"
+        placeholder="cari Size"
+        read-only.bind="readOnly"
+      >
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-textbox
+        value.bind="data.color"
+        error.bind="error.Color"
+        read-only.bind="true"
+      >
+      </au-textbox>
+    </td>
+    <td>
+      <au-numeric
+        value.bind="data.quantity"
+        error.bind="error.Quantity"
+        format="0"
+        read-only.bind="true"
+      >
+      </au-numeric>
+    </td>
+    <td if.bind="!readOnly" class="bg-light">
+      <button
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(data, $event)"
+      >
+        -
+      </button>
+    </td>
+  </tr>
+</template>
