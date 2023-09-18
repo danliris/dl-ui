@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Monitoring Debit Note Untuk MII</h1>
+    <h1 class="page-header">Monitoring Credit Note Untuk MII</h1>
     <form class="form-horizontal">
 
         <au-datepicker label="Tanggal Nota Awal" value.bind="dateFrom"></au-datepicker>
@@ -25,11 +25,12 @@
                     <th class="text-center">NO KWITANSI</th>
                     <th class="text-center">BANK DEVISA</th>
                     <th class="text-center">NO REK BANK</th>
-                    <th class="text-center">NO DEBIT NOTE</th>
+                    <th class="text-center">NO CREDIT NOTE</th>
                     <th class="text-center">CURRENCY</th>  
                     <th class="text-center">RATE</th>
                     <th class="text-center">AMOUNT VLS</th>
-                    <th class="text-center">AMOUNT IDR</th>                
+                    <th class="text-center">AMOUNT IDR</th>
+                    <!-- <th class="text-center">JENIS ITEM</th>                 -->
                 </tr>
             </thead>
             <tbody>
@@ -42,12 +43,14 @@
                         <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.accountBankNo}</td>
                         <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.invoiceNo}</td>
                         <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.currencyCode}</td>
-                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.rate}</td>
-                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amount}</td>
-                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amountIDR}</td>
+
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.rate}</td>
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amount}</td>
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amountIDR}</td>
                         <!-- <td class="text-right"><strong>${item.rate}</strong></td>
                         <td class="text-right"><strong>${item.amount}</strong></td>
                         <td class="text-right"><strong>${item.amountIDR}</strong></td> -->
+                        <!-- <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.itemCreditNote}</td> -->
                     </tr>                
             </tbody>
         </table>

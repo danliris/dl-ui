@@ -1,0 +1,15 @@
+<template>
+
+  <tr>
+    <td class="text-right">
+      Total Amount
+    </td>
+   
+    <td class="text-left">
+      <require from="../../../../lib/number-format-value-converter"></require>
+      ${itemSum | numberFormat:"0.00"}
+    </td>
+    
+    
+  </tr>
+</template>

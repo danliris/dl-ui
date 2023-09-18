@@ -1,12 +1,17 @@
 <template>
     <tr>
-        <td class="col-sm-6">
+        <td class="col-sm-4">
             <!-- <au-textbox value.bind="data.description" error.bind="error.description" read-only.bind="readOnly"
                 placeholder="Description">
             </au-textbox> -->
             <au-multiline value.bind="data.description" error.bind="error.description" read-only.bind="readOnly"
                 placeholder="Description">
             </au-multiline>
+        </td>
+        <td class="col-sm-3">
+            <au-autocomplete value.bind="data.debitCreditNote" error.bind="error.debitCreditNote" loader.bind="debitCreditNoteLoader"
+                read-only.bind="readOnly" placeholder="pilih item" text.bind="creditNoteView" query.bind="cnQuery" >
+            </au-autocomplete>
         </td>
 
         <td class="col-sm-3">

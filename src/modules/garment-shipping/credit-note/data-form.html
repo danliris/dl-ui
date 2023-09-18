@@ -37,10 +37,27 @@
                     options.bind="controlOptions">
                 </au-textbox>
 
-                <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
-                    add.bind="items.onAdd" read-only.bind="readOnly" options.bind="items.options"
-                    item-template="modules/garment-shipping/credit-note/template/item">
-                </au-collection>
+                <!-- <div class="col-sm-6"> -->
+                    <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
+                        add.bind="items.onAdd" read-only.bind="readOnly" options.bind="items.options"
+                        item-template="modules/garment-shipping/credit-note/template/item"
+                        footer-template="modules/garment-shipping/credit-note/template/item-footer">
+                    </au-collection>
+                <!-- </div> -->
+
+                <au-textbox error.bind="error.diffAmount" read-only.bind="true" show.bind="error.diffAmount"
+                    options.bind="controlOptions">
+                </au-textbox>
+                
+                <!-- <div class="col-sm-6">
+                    <au-collection columns.bind="itemCNs.columns" items.bind="data.itemCNs" errors.bind="error.itemCNs"
+                        add.bind="itemCNs.onAdd" read-only.bind="readOnly" options.bind="itemCNs.options"
+                        item-template="modules/garment-shipping/credit-note/template/itemCN"
+                        footer-template="modules/garment-shipping/credit-note/template/itemCN-footer">
+                    </au-collection>
+
+                </div> -->
+                
 
             </au-input-form>
         </div>
