@@ -1,0 +1,25 @@
+<template>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            
+            <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+                
+                <au-dropdown 
+                    label="Tipe"
+                    value.bind="data.TypeDCN"
+                    error.bind="error.ItemTypeDCN"
+                    read-only.bind="(readOnly)"
+                    items.bind="typeOptions"
+                    options.bind="formOptions"
+                ></au-dropdown>
+                <au-textbox label="Jenis Item" placeholder="Jenis Tipe" value.bind="data.ItemTypeDCN" error.bind="error.ItemTypeDCN"
+                    read-only.bind="readOnly">
+                </au-textbox>
+
+            </au-input-form>
+        </div>
+    </div>
+
+</template>

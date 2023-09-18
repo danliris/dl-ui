@@ -180,6 +180,21 @@ module.exports = [
         },
     },
     {
+        route: "garment-debit-credit-note",
+        name: "garment-debit-credit-note",
+        moduleId: "./modules/master/garment-item-dncn/index",
+        nav: true,
+        title: "Debit Credit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "master",
+            // permission: { "C9": 1, "SG": 1, "B12": 1 },
+            permission: { "P84": 1 },
+            iconClass: "fa fa-dashboard",
+        },
+    },
+    {
         route: '/merchandiser/garment-sales-contract',
         name: 'garment-sales-contract',
         moduleId: './modules/merchandiser/garment-sales-contract/index',
@@ -641,6 +656,21 @@ module.exports = [
             subGroup: "monitoring",
             // permission: { "C9": 1, "SG": 1 },
             permission: { "P38": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/credit-note-mii",
+        name: "garment-shipping/monitoring/credit-note-mii",
+        moduleId: "modules/garment-shipping/monitoring/garment-credit-note-mii/index",
+        nav: true,
+        title: "Monitoring Credit Note - MII",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P83": 1 },
             iconClass: "fa fa-dashboard"
         }
     },

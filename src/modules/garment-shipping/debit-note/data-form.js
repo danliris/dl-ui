@@ -23,6 +23,7 @@ export class DataForm {
     items = {
         columns: [
             "Description",
+            "Jenis Item Debit Note",
             // "Currency",
             "Amount"
         ],
@@ -64,5 +65,12 @@ export class DataForm {
         this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
 
         return this.data.totalAmount;
+    }
+    @bindable bankCharge
+    get nettNego(){
+
+        this.data.totalAmount = (this.data.items || []).reduce((acc, cum) => acc + cum.amount, 0);
+        this.data.nettNego = this.data.totalAmount - this.data.bankCharge ;
+        return this.data.nettNego;
     }
 }
