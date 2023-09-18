@@ -14,6 +14,14 @@
                     options.bind="length4"
                     keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
+                
+                <au-textbox
+                    label="Tipe Pre SC"
+                    value.bind="data.CCType"
+                    read-only="true"
+                    options.bind="length4">
+                </au-textbox>
+
                 <au-textbox
                     label="Artikel"
                     placeholder="Nama Artikel"
@@ -43,7 +51,6 @@
                     loader.one-time="comodityLoader"
                     options.bind="length4">
                 </au-autocomplete>
-<!--keypress.delegate="enterDelegate($event)"-->
                 <au-multiline
                     placeholder="Deskripsi Komoditi"
                     label="Deskripsi Komoditi"
