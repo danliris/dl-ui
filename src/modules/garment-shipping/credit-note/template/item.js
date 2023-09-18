@@ -1,5 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 const CurrencyLoader = require('../../../../loader/garment-currencies-by-date-loader');
+const DebitCreditNote = require('../../../../loader/debit-credit-note-loader');
 import { Service } from '../service';
 
 @inject(Service)
@@ -18,4 +19,14 @@ export class Item {
     get currencyLoader() {
         return CurrencyLoader;
     }
+    get debitCreditNoteLoader(){
+        return DebitCreditNote;
+    }
+
+    creditNoteView = (data) => {
+        return `${data.ItemTypeDCN || data.itemTypeDCN}`;
+    }
+    cnQuery = {
+        "TypeDCN": "CREDIT NOTE"
+      }
 }
