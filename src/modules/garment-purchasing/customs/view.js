@@ -93,6 +93,11 @@ export class View {
         a["arrivalDate"] = a.deliveryOrderNonPO.arrivalDate;
         a["quantity"] = a.quantity;
         a["price"] = a.deliveryOrderNonPO.totalAmount;
+
+        if (a.deliveryOrderNonPO.IsReceived === true) {
+          this.hasEdit = false;
+          this.hasDelete = false;
+        }
       }
      
 

@@ -52,6 +52,7 @@
             <!-- <i class="fa fa-area-chart" if.bind="key.toUpperCase() == 'DAILY-OPERATION-MESIN'"></i> -->
             <i class="fa fa-area-chart" if.bind="key.toUpperCase() == 'G-DASHBOARD'"></i>
             <i class="fa fa-table" if.bind="key.toUpperCase() == 'CUSTOMS'"></i>
+            <i class="fa fa-shopping-cart" if.bind="key.toUpperCase() == 'G-RECEIPT-SUBCON'"></i>
             <span if.bind="!minimized">${key.toUpperCase()}</span>
             <div class="pull-right" if.bind="value.size > 0 && !minimized">
               <i class="fa ${activeMenu == value ? 'fa-angle-left' : 'fa-angle-right'}"></i>
