@@ -353,4 +353,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/customs/log-histories",
+    name: "log-histories",
+    moduleId:
+      "./modules/customs/log-histories/index",
+    nav: true,
+    title: "Log History",
+    auth: true,
+    settings: {
+      group: "customs",
+      // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+      permission: { T25: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
