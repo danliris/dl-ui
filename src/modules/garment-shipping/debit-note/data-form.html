@@ -21,6 +21,16 @@
                     options.bind="controlOptions">
                 </au-numeric>
 
+                <au-numeric label="BankCharge" value.bind="data.bankCharge" error.bind="error.bankCharge" read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                <au-numeric label="NettNego" value.to-view="nettNego" error.bind="error.nettNego" read-only="true"
+                    options.bind="controlOptions">
+                </au-numeric>
+
+                
+
                 <au-autocomplete label="Bank" placeholder="Pilih Bank" value.bind="data.bank" error.bind="error.bank"
                     loader.bind="bankLoader" text.bind="bankView" read-only.bind="readOnly"
                     query.bind="bankQuery" options.bind="controlOptions">
@@ -44,7 +54,8 @@
 
                 <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
                     add.bind="items.onAdd" read-only.bind="readOnly" options.bind="items.options"
-                    item-template="modules/garment-shipping/debit-note/template/item">
+                    item-template="modules/garment-shipping/debit-note/template/item"
+                    footer-template="modules/garment-shipping/debit-note/template/item-footer">
                 </au-collection>
 
             </au-input-form>
