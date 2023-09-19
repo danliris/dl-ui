@@ -179,14 +179,14 @@ export class DataForm {
             return BalanceAmount;                    
       }
 
-    @computedFrom('data.paymentTerm', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
+    @computedFrom('data.paymentTerm', 'data.amountPaid', 'data.amountToBePaid', 'data.bankCharges', 'data.otherCharge', 'data.bankComission', 'data.discrepancyFee', 'data.creditInterest')
     get NETTNEGO() {
         // console.log(this.data.paymentTerm)
         if (this.data.paymentTerm === "TT/OA") {
             // console.log(this.data.amountToBePaid);
             // console.log(this.data.bankCharges);
             // console.log(this.data.otherCharge);
-            let NETTNEGO = this.data.amountToBePaid  - (this.data.bankComission + this.data.creditInterest + this.data.bankCharges + this.data.otherCharge );
+            let NETTNEGO = this.data.amountPaid  - (this.data.bankComission + this.data.creditInterest + this.data.bankCharges + this.data.otherCharge );
             // console.log(NETTNEGO);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.nettNego = numeral(NETTNEGO).value();           
@@ -199,7 +199,7 @@ export class DataForm {
             // console.log(this.data.creditInterest);
             // console.log(this.data.bankCharges);
 
-            let NETTNEGO =  this.data.amountToBePaid  - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
+            let NETTNEGO =  this.data.amountPaid  - (this.data.bankComission + this.data.discrepancyFee + this.data.creditInterest + this.data.bankCharges);
             NETTNEGO = numeral(NETTNEGO).format();
             this.data.NETTNEGO = numeral(NETTNEGO).value();
             return NETTNEGO;
