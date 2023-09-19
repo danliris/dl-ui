@@ -14,7 +14,20 @@ export class List {
     { field: "CurrencyCode", title: "Mata Uang" },
     { field: "Price", title: "Harga Barang" },
     { field: "Tags", title: "Tags" },
+    {
+      field: "IsPosted", title: "Active",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+      }
+    }
   ];
+
+  rowFormatter(data, index) {
+    if (data.IsPosted)
+      return { classes: "success" }
+    else
+      return {}
+  }
 
   loader = (info) => {
     var order = {};
