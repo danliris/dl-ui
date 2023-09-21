@@ -90,32 +90,92 @@ export class Item {
           this.data.Buyer.Code + " - " + this.data.Buyer.Name;
       }
 
-      //Get Valur From Sample Sewing In By RO
-      let ssSewingItems = [];
-      let ssSewing = await this.service.searchItem({
-        size: 100,
-        filter: JSON.stringify({ RONo: this.data.RONo }),
-      });
+      //Old Query Calculating Recent item that uses, from items to SewIn (13/09/2023)
+      // //Get Valur From Sample Sewing In By RO
+      // let ssSewingItems = [];
+      // let ssSewing = await this.service.searchItem({
+      //   size: 100,
+      //   filter: JSON.stringify({ RONo: this.data.RONo }),
+      // });
 
-      if (ssSewing.data.length > 0) {
-        for (var ssS of ssSewing.data) {
-          for (var ssSItem of ssS.Details) {
-            var item = {};
-            item.sewingInItemId = ssSItem.SewingInItemId;
-            item.qty = ssSItem.Quantity;
+      // if (ssSewing.data.length > 0) {
+      //   for (var ssS of ssSewing.data) {
+      //     for (var ssSItem of ssS.Details) {
+      //       var item = {};
+      //       item.sewingInItemId = ssSItem.SewingInItemId;
+      //       item.qty = ssSItem.Quantity;
 
-            //Mapping Quantity By Sewing In ItemId
-            if (ssSewingItems[ssSItem.SewingInItemId]) {
-              ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
-            } else {
-              ssSewingItems[ssSItem.SewingInItemId] = item;
-            }
-          }
-        }
-      }
-      //UnitId: this.data.Unit.Id,
+      //       //Mapping Quantity By Sewing In ItemId
+      //       if (ssSewingItems[ssSItem.SewingInItemId]) {
+      //         ssSewingItems[ssSItem.SewingInItemId].qty += ssSItem.Quantity;
+      //       } else {
+      //         ssSewingItems[ssSItem.SewingInItemId] = item;
+      //       }
+      //     }
+      //   }
+      // }
+      // //UnitId: this.data.Unit.Id,
 
-      //Get Valur From Sewing In By RO
+      // //Get Valur From Sewing In By RO
+      // Promise.resolve(
+      //   this.service.searchSewingIn({
+      //     filter: JSON.stringify({ RONo: this.data.RONo }),
+      //   })
+      // ).then((result) => {
+      //   for (var sewingIn of result.data) {
+      //     for (var sewingInItem of sewingIn.Items) {
+      //       var detail = {};
+      //       if (sewingInItem.Quantity > 0) {
+      //         var qtyOut = 0;
+      //         //Mapping Quantity Out Group By SewingInItem Id
+      //         if (ssSewingItems[sewingInItem.Id]) {
+      //           qtyOut += ssSewingItems[sewingInItem.Id].qty;
+      //         }
+
+      //         //Get Availabe Quantity from SewingInItem reduce QuantitySSampleSewing
+      //         var qty = sewingInItem.Quantity - qtyOut;
+
+      //         if (qty > 0) {
+      //           if (this.data.Details.length == 0) {
+      //             detail.Quantity = qty;
+      //             detail.SewingInQuantity = qty;
+      //             detail.Color = sewingInItem.Color;
+      //             detail.DesignColor = sewingInItem.DesignColor;
+      //             detail.Uom = sewingInItem.Uom;
+      //             detail.Unit = sewingIn.Unit;
+      //             this.data.Details.push(detail);
+      //           } else {
+      //             var exist = this.data.Details.find(
+      //               (a) =>
+      //                 a.DesignColor == sewingInItem.DesignColor &&
+      //                 a.Unit.Id == sewingIn.Unit.Id &&
+      //                 a.Color == sewingInItem.Color
+      //             );
+      //             if (!exist) {
+      //               detail.Quantity = qty;
+      //               detail.SewingInQuantity = qty;
+      //               detail.Color = sewingInItem.Color;
+      //               detail.DesignColor = sewingInItem.DesignColor;
+      //               detail.Uom = sewingInItem.Uom;
+      //               detail.Unit = sewingIn.Unit;
+      //               this.data.Details.push(detail);
+      //             } else {
+      //               var idx = this.data.Details.indexOf(exist);
+      //               exist.Quantity += qty;
+      //               exist.SewingInQuantity += qty;
+      //               this.data.Details[idx] = exist;
+      //             }
+      //           }
+      //         }
+
+      //         // }
+      //       }
+      //     }
+      //   }
+      //   //this.data.Items.sort((a, b) => a.Color.localeCompare(b.Color) || a.SizeName.localeCompare(b.SizeName));
+      // });
+
+      //New Query-Ignore Calculating (13/09/2023)
       Promise.resolve(
         this.service.searchSewingIn({
           filter: JSON.stringify({ RONo: this.data.RONo }),
@@ -125,45 +185,34 @@ export class Item {
           for (var sewingInItem of sewingIn.Items) {
             var detail = {};
             if (sewingInItem.Quantity > 0) {
-              var qtyOut = 0;
-              //Mapping Quantity Out Group By SewingInItem Id
-              if (ssSewingItems[sewingInItem.Id]) {
-                qtyOut += ssSewingItems[sewingInItem.Id].qty;
-              }
-
-              //Get Availabe Quantity from SewingInItem reduce QuantitySSampleSewing
-              var qty = sewingInItem.Quantity - qtyOut;
-
-              if (qty > 0) {
-                if (this.data.Details.length == 0) {
-                  detail.Quantity = qty;
-                  detail.SewingInQuantity = qty;
+              if (this.data.Details.length == 0) {
+                detail.Quantity = sewingInItem.Quantity;
+                detail.SewingInQuantity = sewingInItem.Quantity;
+                detail.Color = sewingInItem.Color;
+                detail.DesignColor = sewingInItem.DesignColor;
+                detail.Uom = sewingInItem.Uom;
+                detail.Unit = sewingIn.Unit;
+                this.data.Details.push(detail);
+              } else {
+                var exist = this.data.Details.find(
+                  (a) =>
+                    a.DesignColor == sewingInItem.DesignColor &&
+                    a.Unit.Id == sewingIn.Unit.Id &&
+                    a.Color == sewingInItem.Color
+                );
+                if (!exist) {
+                  detail.Quantity = sewingInItem.Quantity;
+                  detail.SewingInQuantity = sewingInItem.Quantity;
                   detail.Color = sewingInItem.Color;
                   detail.DesignColor = sewingInItem.DesignColor;
                   detail.Uom = sewingInItem.Uom;
                   detail.Unit = sewingIn.Unit;
                   this.data.Details.push(detail);
                 } else {
-                  var exist = this.data.Details.find(
-                    (a) =>
-                      a.DesignColor == sewingInItem.DesignColor &&
-                      a.Unit.Id == sewingIn.Unit.Id &&
-                      a.Color == sewingInItem.Color
-                  );
-                  if (!exist) {
-                    detail.Quantity = qty;
-                    detail.SewingInQuantity = qty;
-                    detail.Color = sewingInItem.Color;
-                    detail.DesignColor = sewingInItem.DesignColor;
-                    detail.Uom = sewingInItem.Uom;
-                    detail.Unit = sewingIn.Unit;
-                    this.data.Details.push(detail);
-                  } else {
-                    var idx = this.data.Details.indexOf(exist);
-                    exist.Quantity += qty;
-                    exist.SewingInQuantity += qty;
-                    this.data.Details[idx] = exist;
-                  }
+                  var idx = this.data.Details.indexOf(exist);
+                  exist.Quantity += sewingInItem.Quantity;
+                  exist.SewingInQuantity += sewingInItem.Quantity;
+                  this.data.Details[idx] = exist;
                 }
               }
 
