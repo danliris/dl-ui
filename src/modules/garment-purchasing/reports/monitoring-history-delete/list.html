@@ -1,86 +1,147 @@
 <template>
-    <h4>MONITORING HISTORY DELETE DATA</h4>
-    <form class="form-horizontal">
-        <au-dropdown 
-              label="JENIS TRANSAKSI" 
-              value.bind="SearchItem"
-              items.bind="SearchItems"
-              options.bind="controlOptions" >
-      </au-dropdown>
-        <!-- <au-textbox label="Bon Penerimaan Unit BUM" value.bind="BUM" if.bind="SearchItem == 'No BC'"
-            options.bind="controlOptions">
-        </au-textbox>
-        <au-textbox label="Bon Penerimaan Unit BUK" value.bind="BUK" if.bind="SearchItem == 'No RO'"
-            options.bind="controlOptions">
-        </au-textbox> -->
-      <!--Menambahkan Search Tanggal-->
-        <au-datepicker label="Tanggal Awal Delete BUM" value.bind="tanggalAwalBUM" if.bind="SearchItem == 'Bon Penerimaan Unit BUM'"
-            options.bind="controlOptions">
-        </au-datepicker>
-        <au-datepicker label="Tanggal Awal Delete BUK" value.bind="tanggalAwalBUK" if.bind="SearchItem == 'Bon Penerimaan Unit BUK'"
-            options.bind="controlOptions">
-        </au-datepicker>
-      <!--Menamabah Serach Akhir Tanggal-->
-      <au-datepicker label="Tanggal Akhir Delete BUM" value.bind="tanggalAkhirBUM" if.bind="SearchItem == 'Bon Penerimaan Unit BUM'"
-            options.bind="controlOptions">
-      </au-datepicker>
-      <au-datepicker label="Tanggal Akhir Delete BUK" value.bind="tanggalAkhirBUK" if.bind="SearchItem == 'Bon Penerimaan Unit BUK'"
-            options.bind="controlOptions">
-      </au-datepicker>
-        <!---------------------------->
-        <div class="form-group">
-            <label for="contact" class="col-sm-5 control-label"></label>
-            <div class="col-sm-3">
-                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
-            </div>
-        </div>
-        <!-- <div slot="toolbar" class="btn-group">
-            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
-          </div> -->
-        <br>
+  <h4>MONITORING HISTORY DELETE DATA</h4>
+  <form class="form-horizontal">
+    <au-dropdown label="JENIS TRANSAKSI" value.bind="SearchItem" items.bind="SearchItems" change.delegate="reset()"
+      options.bind="controlOptions">
+    </au-dropdown>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="poReport">
-                <thead align="center">
-                    <tr>
-                      <td>NO</td>
-                      <td>TGL DELETE</td>
-                      <td>USER DELETE</td>
-                      <td>NO BON TERIMA</td>
-                      <td>TGL BON</td>
-                      <td>JENIS BON</td>
-                      <td>UNIT</td>
-                      <td>KODE SUPPLIER</td>
-                      <td>SUPPLIER</td>
-                      <td>SURAT JALAN</td>
-                      <td>BON KELUAR</td>
-                      <td>DRNO</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr repeat.for="item of data">
-                        <td>${$index + 1}</td>
-                        <td>${item.DeletedUtc}</td>
-                        <td>${item.DeletedBy}</td>
-                        <td>${item.UrnNo}</td>
-                        <td>${item.ReceiptDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${item.URNType}</td>
-                        <td>${item.UnitName}</td>
-                        <td>${item.SupplierCode}</td>
-                        <td>${item.SupplierName}</td>
-                        <td>${item.DoNo}</td>
-                        <td>${item.UENNo}</td>
-                        <td>${item.DRNo}</td>
-                    </tr>
+    <!-- Tanggal Awal Delete BUM hanya muncul saat memilih "Bon Penerimaan Unit" -->
+    <au-datepicker label="Tanggal Awal Delete BUM" value.bind="tanggalAwalBUM"
+      if.bind="SearchItem === 'Bon Penerimaan Unit'" options.bind="controlOptions">
+    </au-datepicker>
 
-                </tbody>
-            </table>
-        </div>
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
-            Tidak ada data.
-        </div>
-    </form>
+    <!-- Tanggal Awal Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
+    <au-datepicker label="Tanggal Awal Delete BUK" value.bind="tanggalAwalBUK"
+      if.bind="SearchItem === 'Bon Pengeluaran Unit'" options.bind="controlOptions">
+    </au-datepicker>
 
+    <!-- Tanggal Akhir Delete BUM hanya muncul saat memilih "Bon Penerimaan Unit" -->
+    <au-datepicker label="Tanggal Akhir Delete BUM" value.bind="tanggalAkhirBUM"
+      if.bind="SearchItem === 'Bon Penerimaan Unit'" options.bind="controlOptions">
+    </au-datepicker>
 
+    <!-- Tanggal Akhir Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
+    <au-datepicker label="Tanggal Akhir Delete BUK" value.bind="tanggalAkhirBUK"
+      if.bind="SearchItem === 'Bon Pengeluaran Unit'" options.bind="controlOptions">
+    </au-datepicker>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+        <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+      </div>
+    </div>
+
+    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Bon Penerimaan Unit'">
+      <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel BUM</button>
+    </div>
+    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Bon Pengeluaran Unit'">
+      <button class='btn btn-primary' click.delegate="ExportToExcel2()">Export To Excel BUK</button>
+    </div>
+    <br>
+
+    <!-- Tabel untuk Bon Penerimaan Unit -->
+    <div if.bind="SearchItem === 'Bon Penerimaan Unit'" class="table-responsive">
+      <table class="table table-bordered table-hover" border="1" id="poReport">
+        <!-- Isi tabel untuk Bon Penerimaan Unit -->
+        <!-- Kolom-kolom tabel -->
+        <thead align="center">
+          <tr>
+            <td>NO</td>
+            <td>TGL DELETE</td>
+            <td>USER DELETE</td>
+            <td>NO BON TERIMA</td>
+            <td>TGL BON</td>
+            <td>JENIS BON</td>
+            <td>UNIT</td>
+            <td>KODE SUPPLIER</td>
+            <td>SUPPLIER</td>
+            <td>SURAT JALAN</td>
+            <td>BON KELUAR</td>
+            <td>DRNO</td>
+            <td>NO RO</td>
+            <td>NO PO</td>
+            <td>BARANG</td>
+            <td>JUMLAH</td>
+            <td>SATUAN</td>
+            <!-- Sisipkan kolom-kolom lain sesuai kebutuhan -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="item of data">
+            <td>${$index + 1}</td>
+            <td>${item.deletedUtc | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.deletedBy}</td>
+            <td>${item.no}</td>
+            <td>${item.dateBon | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.urnType}</td>
+            <td>${item.unit}</td>
+            <td>${item.suplayerCd}</td>
+            <td>${item.supplier}</td>
+            <td>${item.doNo}</td>
+            <td>${item.uenNo}</td>
+            <td>${item.drnNo}</td>
+            <td>${item.roNo}</td>
+            <td>${item.POSrNo}</td>
+            <td>${item.PdName}</td>
+            <td>${item.RQuantity}</td>
+            <td>${item.UmUnt}</td>
+            <!-- Sisipkan data-data lain sesuai kebutuhan -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tabel untuk Bon Pengeluaran Unit -->
+    <div if.bind="SearchItem === 'Bon Pengeluaran Unit'" class="table-responsive">
+      <table class="table table-bordered table-hover" border="1" id="poReport">
+        <!-- Isi tabel untuk Bon Pengeluaran Unit -->
+        <!-- Kolom-kolom tabel -->
+        <thead align="center">
+          <tr>
+            <td>NO</td>
+            <td>TGL DELETE</td>
+            <td>USER DELET</td>
+            <td>NO BON KELUAR</td>
+            <td>UNIT</td>
+            <td>TGL PENGELUARAN</td>
+            <td>NO DO</td>
+            <td>JENIS PENGELUARAN</td>
+            <td>TUJUAN BARANG</td>
+            <td>NO RO</td>
+            <td>NO PO</td>
+            <td>BARANG</td>
+            <td>JUMLAH</td>
+            <td>SATUAN</td>
+            <!-- Sisipkan kolom-kolom lain sesuai kebutuhan -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="item of data">
+            <td>${$index + 1}</td>
+            <td>${item.deletedUtcEx | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.deletedByEx}</td>
+            <td>${item.uenNoEx}</td>
+            <td>${item.unitEx}</td>
+            <td>${item.expenditureDate | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.unitDoNoEx}</td>
+            <td>${item.expenditureType}</td>
+            <td>${item.expenditureToEx}</td>
+            <td>${item.roNoEx}</td>
+            <td>${item.poSerialNumber}</td>
+            <td>${item.productNameEx}</td>
+            <td>${item.quantityEx}</td>
+            <td>${item.uomUnitEx}</td>
+
+            <!-- Sisipkan data-data lain sesuai kebutuhan -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+      Tidak ada data.
+    </div>
+  </form>
 </template>
