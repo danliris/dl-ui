@@ -1,221 +1,152 @@
-import {
-  inject,
-  bindable
-} from 'aurelia-framework';
-import {
-  Service
-} from "./service";
-import {
-  Router
-} from 'aurelia-router';
+import {inject} from 'aurelia-framework';
+import {Service} from "./service";
+import {Router} from 'aurelia-router';
 import moment from 'moment';
-
-const OrderLoader = require("../../../loader/weaving-order-loader");
-const ConstructionLoader = require("../../../loader/weaving-constructions-loader");
-const UnitLoader = require('../../../loader/unit-loader');
+const UnitLoader = require('../../../loader/garment-units-loader');
 
 @inject(Router, Service)
 export class List {
+    constructor(router, service) {
+        this.service = service;
+        this.router = router;
 
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
-  context = ["detail"];
-
-  listDataFlag = false;
-
-  operationStatusItems = ["", "PROCESSING", "FINISH"];
-
-  columns = [{
-    field: "OrderProductionNumber",
-    title: "No. Order Produksi"
-  }, {
-    field: "ConstructionNumber",
-    title: "No. Konstruksi"
-  }, {
-    field: "WeavingUnit",
-    title: "Unit Weaving"
-  }, {
-    field: "WarpOrigin",
-    title: "Asal Lusi"
-  }, {
-    field: "WeftOrigin",
-    title: "Asal Pakan"
-  }, {
-    field: "PreparationDateMachine",
-    title: "Tanggal Pasang"
-  }, {
-    field: "LastModifiedTime",
-    title: "Waktu Terakhir Diubah"
-  }, {
-    field: "OperationStatus",
-    title: "Status Operasi Harian"
-  }];
-
-  controlOptions = {
-    label: {
-      length: 4
-    },
-    control: {
-      length: 6
     }
-  }
+    bind(context) {
+        this.context = context;
 
-  startPeriodOptions = {
-    label: {
-      length: 4
-    },
-    control: {
-      length: 6
+
+
     }
-  }
+    shiftOptions = [
+        { text: "", value: 0 },
+        { text: "I", value: 1 },
+        { text: "II", value: 2 },
+        { text: "III", value: 3 } 
+    ];
+    jenisMesinOptions = [
+        { text: "", value: 0 },
+        { text: "CRANK", value: 1 },
+        { text: "TAPPET", value: 2 },
+        { text: "DOBBY", value: 3 }, 
+        { text: "PICANOL", value: 4 }, 
+        { text: "TOYOTA", value: 1 },
+        { text: "TSUDAKOMA ZAX", value: 2 },
+        { text: "JAQUARD", value: 3 } 
+       
+    ];
+    namaBlokOptions = [
+        { text: "", value: 0 },
+        { text: "TIMUR", value: 1 },
+        { text: "BARAT", value: 2 }
+    ];
+    namaMtcOptions = [
+      { text: "", value: 0 },
+      { text: "SURAJI", value: 1 },
+      { text: "BAYU", value: 2 },
+      { text: "DAVID", value: 3 } 
+  ];
 
-  endPeriodOptions = {
-    control: {
-      length: 6
-    }
-  }
-
-  tableOptions = {
-    search: false,
-    showToggle: false,
-    showColumns: false,
-    pagination: true,
-    sortable: true,
-  }
-
-  loader = (info) => {
-    let order = {};
-    if (info.sort) order[info.sort] = info.order;
-
-    if (this.OrderProduction) {
-      var OrderProductionIdContainer = this.OrderProduction.Id;
-    }
-    if (this.FabricConstruction) {
-      var FabricConstructionContainer = this.FabricConstruction.Id;
-    }
-    if (this.OperationStatus) {
-      var OperationStatusContainer = this.OperationStatus;
-    }
-    if (this.WeavingUnit) {
-      var WeavingUnitIdContainer = this.WeavingUnit.Id;
-    }
-    if (this.StartDatePeriod) {
-      var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    }
-    if (this.EndDatePeriod) {
-      var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    }
-
-    var arg = {
-      orderId: OrderProductionIdContainer,
-      constructionId: FabricConstructionContainer,
-      operationStatus: OperationStatusContainer,
-      unitId: WeavingUnitIdContainer,
-      dateFrom: StartDatePeriodContainer,
-      dateTo: EndDatePeriodContainer,
-
-      page: parseInt(info.offset / info.limit, 10) + 1,
-      size: info.limit,
-      keyword: info.search,
-      order: order
-    };
-
-    return this.listDataFlag ? this.service.getReportData(arg).then(result => {
-      for (var datum of result.data) {
-        if (datum.PreparationDate) {
-          var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
-
-          datum.PreparationDateMachine = InstallationDate;
+    info={size:100, page:1}
+    searching() {
+        var info = {
+            shift : this.info.shift ? this.info.shift.text: "",
+            jenisMesin : this.info.jenisMesin ? this.info.jenisMesin.text: "",
+            namaBlok : this.info.namaBlok ? this.info.namaBlok.text: "",
+            namaMtc : this.info.namaMtc ? this.info.namaMtc.text: "",
+            operatornya : this.info.operatornya ? this.info.operatornya: "",
+            sp : this.info.sp ? this.info.sp: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD"),
+            page : this.info.page,
+            size : this.info.size
         }
-      }
-      return {
-        data: result.data,
-        total: result.info.count
-      };
-    }) : {
-      data: {},
-      total: 0
-    };
-  }
+        this.service.getReportData(info)
+            .then(result => {
+                var idx=(this.info.page-1) *100;
+                console.log(result.data)
+                this.AmountCMPX = 0;
+                this.AmountFrm=0;
+                this.AmountProduksiMeter = 0;
+                this.Amount100Produksi=0;
+                this.AmountEFF = 0;
+                this.AmountEFFmc2=0;
+                this.AmountFill = 0;
+                this.AmountWarp=0;
+                this.AmountRPM = 0;
+         
 
-  get orders() {
-    return OrderLoader;
-  }
+                for(var d of result.data){
+                    idx++;
+                    d.index=idx;
 
-  get constructions() {
-    return ConstructionLoader;
-  }
 
-  get units() {
-    return UnitLoader;
-  }
+                    d.periode=moment(d.periode).format("YYYY-MM-DD");
+                   // d.TotProduction=d.TotProduction.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  searchDailyOperationLooms() {
-    this.listDataFlag = true;
+                    //hitung grand total
+                    this.AmountCMPX += d.TotProductionCMPX;  
+                    this.AmountFrm += d.TotMCNo;  
+                    this.AmountProduksiMeter += d.TotProduction;  
+                    this.Amount100Produksi += d.TotProduction100;  
+                    this.AmountEFF += d.TotPercentEff;  
+                    this.AmountEFFmc2 += d.TotMC2Eff;  
+                    this.AmountFill += d.TotF;  
+                    this.AmountWarp += d.TotW;  
+                    this.AmountRPM += d.TotRPM;  
+                    
 
-    this.dailyOperationLoomsTable.refresh();
-  }
-
-  reset() {
-    this.listDataFlag = false;
-
-    this.OrderProduction = undefined;
-    this.FabricConstruction = undefined;
-    this.OperationStatus = null;
-    this.WeavingUnit = undefined;
-    this.StartDatePeriod = undefined;
-    this.EndDatePeriod = undefined;
-
-    this.OrderProductionContainer = undefined;
-    this.FabricConstructionContainer = undefined;
-    this.OperationStatusContainer = null;
-    this.WeavingUnitContainer = undefined;
-    this.StartDatePeriodContainer = undefined;
-    this.EndDatePeriodContainer = undefined;
-
-    this.dailyOperationLoomsTable.refresh();
-  }
-
-  exportToExcel() {
-    var OrderProductionContainer = this.OrderProduction;
-    var FabricConstructionContainer = this.FabricConstruction;
-    var OperationStatusContainer = this.OperationStatus;
-    var WeavingUnitContainer = this.WeavingUnit;
-    var StartDatePeriodContainer = this.StartDatePeriod ? moment(this.StartDatePeriod).format("DD MMM YYYY HH:mm") : null;
-    var EndDatePeriodContainer = this.EndDatePeriod ? moment(this.EndDatePeriod).format("DD MMM YYYY HH:mm") : null;
-
-    //Get All
-    return this.listDataFlag ? this.service.getReportXls(OrderProductionContainer, FabricConstructionContainer, OperationStatusContainer, WeavingUnitContainer, StartDatePeriodContainer, EndDatePeriodContainer).then(result => {
-      for (var datum of result) {
-        if (datum.PreparationDate) {
-          var InstallationDate = moment(datum.PreparationDate).format('DD/MM/YYYY');
-
-          datum.PreparationDateMachine = InstallationDate;
-        }
-      }
-      return {
-        data: result,
-        total: length
-      };
-    }) : {
-      data: {},
-      total: 0
-    };
-  }
-
-  contextCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    console.log(data.Id);
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("view", {
-          Id: data.Id
-        });
-        break;
+                    
+                
+                }
+                this.data= result.data;
+                 //tmbh ini
+                 this.info.total=result.info.total;
+                //utk total
+                 this.AmountCMPX = this.AmountCMPX.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountFrm = this.AmountFrm.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountProduksiMeter = this.AmountProduksiMeter.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.Amount100Produksi = this.Amount100Produksi.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountEFF = this.AmountEFF.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountEFFmc2 = this.AmountEFFmc2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountFill = this.AmountFill.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountWarp = this.AmountWarp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 this.AmountRPM = this.AmountRPM.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 
+            });
     }
-  }
+    
+    ExportToExcel() {
+        var info = {
+            shift : this.info.shift ? this.info.shift.text: "",
+            jenisMesin : this.info.jenisMesin ? this.info.jenisMesin.text: "",
+            namaBlok : this.info.namaBlok ? this.info.namaBlok.text: "",
+            namaMtc : this.info.namaMtc ? this.info.namaMtc.text: "",
+            operatornya : this.info.operatornya ? this.info.operatornya: "",
+            sp : this.info.sp ? this.info.sp: "",
+            fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+            
+        }
+        this.service.generateExcel(info);
+    }
+
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
+    }
+
+
+    reset() {
+        this.fromDate = null;
+        this.toDate = null;
+        this.info.shift = null;
+        this.info.jenisMesin = null;
+        this.info.namaBlok = null;
+        this.info.namaMtc= null;
+        this.info.operatornya= null;
+        this.info.sp= null;
+
+        this.info.page=1;
+    }
 }

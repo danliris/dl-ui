@@ -36,20 +36,27 @@ export class List {
         { text: "B", value: 2 },
         { text: "C", value: 3 } 
     ];
-  
+
+    info={size:100, page:1}
     searching() {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
             machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
             groupui : this.info.groupui ? this.info.groupui.text: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
-            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
+            toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD"),
+            page : this.info.page,
+            size : this.info.size
         }
         this.service.getReportData(info)
             .then(result => {
+                var idx=(this.info.page-1) *100;
                 console.log(result.data)
                 for(var d of result.data){
-              
+                    idx++;
+                    d.index=idx;
+
+
                     d.periode=moment(d.periode).format("YYYY-MM-DD");
                         //SPU
                         if (d.spu != null){
@@ -71,6 +78,8 @@ export class List {
                 
                 }
                 this.data= result.data;
+                 //tmbh ini
+                 this.info.total=result.info.total;
             });
     }
     
@@ -85,7 +94,13 @@ export class List {
         this.service.generateExcel(info);
     }
 
-  
+    changePage(e) {
+        var page = e.detail;
+        this.info.page = page;
+        this.searching();
+    }
+
+
     reset() {
         this.fromDate = null;
         this.toDate = null;
@@ -93,5 +108,6 @@ export class List {
         this.info.machineSizing = null;
         this.info.groupui = null;
     
+        this.info.page=1;
     }
 }
