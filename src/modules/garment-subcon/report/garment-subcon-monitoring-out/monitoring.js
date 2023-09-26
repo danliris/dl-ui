@@ -31,6 +31,8 @@ export class List {
         return `${buyerAgent.Code} - ${buyerAgent.Name}`
     }
 
+    
+
     activate() {
        
     }
@@ -76,9 +78,21 @@ export class List {
             }
         }
 
+        
+
         // this.itemOptions.isSubconCutting = this.data.SubconCategory == "SUBCON CUTTING SEWING"?true : false;
 
     }
+
+    get subconContractQuery()
+    {
+    
+        return{
+            ContractType: this.selectedContractType,
+            SubconCategory : this.selectedSubconCategory
+         }
+    
+    };
 
     // selectedSubconCategoryChanged(newValue) {
     //     if (newValue != this.data.SubconCategory) {
