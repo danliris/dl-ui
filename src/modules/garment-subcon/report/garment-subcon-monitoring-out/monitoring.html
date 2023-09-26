@@ -24,7 +24,8 @@
         <au-autocomplete value.bind="subconContract" error.bind="error.subconContract"
 						label="No Subcon Contract" loader.bind="subconContractLoader" text="ContractNo"
 						placeholder="No Subcon Contract"
-						options.bind="controlOptions">
+						options.bind="controlOptions"
+                        query.bind ="subconContractQuery">
 					</au-autocomplete>
  
         <!-- <au-dropdown label="Jenis Tanggal" value.bind="JnsInv" items.bind="OptionDate" options.bind="controlOptions">
