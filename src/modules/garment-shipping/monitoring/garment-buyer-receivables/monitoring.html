@@ -23,8 +23,8 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-datepicker label="Tanggal ETD Fessel Awal" value.bind="dateFrom"></au-datepicker>
-        <au-datepicker label="Tanggal ETD Fessel Akhir" value.bind="dateTo"></au-datepicker>
+        <au-datepicker label="Tanggal Trucking Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Trucking Akhir" value.bind="dateTo"></au-datepicker>
   
        <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
@@ -45,13 +45,17 @@
                     <td align="center" rowspan="2">INVOICE DATE</td>
                     <td align="center" rowspan="2">BUYER AGENT</td>                 
                     <td align="center" rowspan="2">AMOUNT TO BE PAID (US$)</td>
+                    <td align="center" rowspan="2">DHL CHARGES (US$)</td>
                     <td align="center" rowspan="2">ETD DATE</td>
                     <td align="center" rowspan="2">PAYMENT DUE</td>
                     <td align="center" rowspan="2">DUE DATE</td>
                     <td align="center" rowspan="2">PAYMENT DATE</td>
                     <td align="center" rowspan="2">PAYMENT AMOUNT (US$)</td>
-                    <td align="center" rowspan="2">BANK CHARGES</td>
-                    <td align="center" rowspan="2">OTHER CHARGES</td>                    
+                    <td align="center" rowspan="2">BANK COMISSION (US$)</td>
+                    <td align="center" rowspan="2">CREDIT INTEREST (US$)</td>
+                    <td align="center" rowspan="2">DISCREPANCY FEE (US$)</td>
+                    <td align="center" rowspan="2">BANK CHARGES (US$)</td>
+                    <td align="center" rowspan="2">OTHER CHARGES (US$)</td>                    
                     <td align="center" rowspan="2">AMOUNT RECEIPT (US$)</td>
                     <td align="center" rowspan="2">OUTSTANDING AMOUNT (US$)</td>
                     <td align="center" rowspan="2">BANK DETAIL</td>
@@ -65,13 +69,17 @@
                     <td>${item.invoiceNo}</td>
                     <td>${item.invoiceDate}</td>                       
                     <td>${item.buyerAgentName}</td>                  
-                     <td class="text-right"><strong>${item.toBePaid}</strong></td>
+                    <td class="text-right"><strong>${item.toBePaid}</strong></td>
+                    <td class="text-right"><strong>${item.dhlCharges}</strong></td>                     
                     <td>${item.sailingDate}</td>
                     <td>${item.paymentDue}</td>
                     <td>${item.dueDate}</td>
                     <td>${item.paymentDate}</td>
 
                     <td class="text-right"><strong>${item.paymentAmount}</strong></td>
+                    <td class="text-right"><strong>${item.bankComission}</strong></td>
+                    <td class="text-right"><strong>${item.creditInterest}</strong></td>
+                    <td class="text-right"><strong>${item.discrepancyFee}</strong></td>
                     <td class="text-right"><strong>${item.bankCharges}</strong></td>
                     <td class="text-right"><strong>${item.otherCharges}</strong></td>                    
                     <td class="text-right"><strong>${item.receiptAmount}</strong></td>

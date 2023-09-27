@@ -8,7 +8,7 @@ module.exports = function (keyword, filter) {
 	var config = Container.instance.get(Config);
 	var endpoint = config.getEndpoint("packing-inventory");
 
-	return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 20 })
+	return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 100 })
 		.then(results => {
 			return results.data;
 		});

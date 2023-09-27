@@ -1,0 +1,55 @@
+<template>
+    <h1 class="page-header">Detail Visualisasi Stock Beam</h1>
+    <require from="../../../lib/number-format-value-converter"></require>
+    <form class="form-horizontal">
+    <au-datepicker label="Tanggal Awal" value.bind="min" options.bind="controlOptions" ></au-datepicker>
+    <au-datepicker label="Tanggal Akhir" value.bind="max" options.bind="controlOptions" ></au-datepicker>
+    <au-dropdown   
+      label="Shift" 
+      value.bind="shift" 
+      key="value" text="text" 
+      items.bind="shiftOptions" 
+      options.bind="controlOptions">
+    </au-dropdown>
+    <div class="form-group">
+      <label for="contact" class="col-sm-6 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+      </div>
+    </div>
+  </form>
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="myTable">
+      <thead align="center">
+          <th>No</th>
+          <th>Tgl</th>
+          <th>Shift</th>
+          <th>Beam</th>
+          <th>Code</th>
+          <th>Sizing</th>
+          <th>Di Reaching</th>
+          <th>Reaching</th>
+          <th>Ket</th>
+      </thead>
+      <tbody>
+          <tr repeat.for="mr of data" >
+              <td class="text-center">${mr.index}</td>
+              <td class="text-left">${mr.Date}</td>
+              <td class="text-left">${mr.Shift}</td>
+              <td class="text-left">${mr.Beam}</td>
+              <td class="text-left">${mr.Code}</td>
+              <td class="text-left">${mr.Sizing}</td>
+              <td class="text-right">${mr.InReaching}</td>
+              <td class="text-left">${mr.Reaching}</td>
+              <td class="text-left">${mr.Information}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  <div slot="actions" class="btn-group">
+    <button class="btn btn-default" click.delegate="cancelCallback()">Kembali</button>
+  </div>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+  <hr/>
+</template>
+    

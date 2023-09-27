@@ -25,7 +25,7 @@
                     <th class="text-center">NO KWITANSI</th>
                     <th class="text-center">BANK DEVISA</th>
                     <th class="text-center">NO REK BANK</th>
-                    <th class="text-center">NO INVOICE</th>
+                    <th class="text-center">NO DEBIT NOTE</th>
                     <th class="text-center">CURRENCY</th>  
                     <th class="text-center">RATE</th>
                     <th class="text-center">AMOUNT VLS</th>
@@ -34,17 +34,20 @@
             </thead>
             <tbody>
                 <tr repeat.for="item of data">                                           
-                        <td>${item.dnDate}</td>
-                        <td>${item.buyerCode}</td>
-                        <td>${item.buyerName}</td>
-                        <td>${item.receiptNo}</td>
-                        <td>${item.bankName}</td>
-                        <td>${item.accountBankNo}</td>
-                        <td>${item.invoiceNo}</td>
-                        <td>${item.currencyCode}</td>
-                        <td class="text-right"><strong>${item.rate}</strong></td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.dnDate}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.buyerCode}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.buyerName}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.receiptNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.bankName}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.accountBankNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.invoiceNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.currencyCode}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.rate}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amount}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amountIDR}</td>
+                        <!-- <td class="text-right"><strong>${item.rate}</strong></td>
                         <td class="text-right"><strong>${item.amount}</strong></td>
-                        <td class="text-right"><strong>${item.amountIDR}</strong></td>
+                        <td class="text-right"><strong>${item.amountIDR}</strong></td> -->
                     </tr>                
             </tbody>
         </table>

@@ -1,181 +1,294 @@
 <template>
-    <h1 class="page-header">Edit Informasi Role</h1>
+  <h1 class="page-header">Edit Informasi Role</h1>
 
+  <form class="form-horizontal">
+    <textbox
+      label="Code"
+      value.bind="data.code"
+      error.bind="error.code"
+      read-only.bind="true"
+    ></textbox>
+    <textbox
+      label="Name"
+      value.bind="data.name"
+      error.bind="error.name"
+      read-only.bind="readOnly"
+    ></textbox>
+    <multiline
+      label="Description"
+      value.bind="data.description"
+      error.bind="error.description"
+      read-only.bind="readOnly"
+    ></multiline>
+    <!-- <role-permission-item-collection value.bind="data.permissions" error.bind="data.error" read-only.bind="readOnly"></role-permission-item-collection> -->
+  </form>
 
-        <form class="form-horizontal">
-            <textbox    label="Code"    value.bind="data.code"      error.bind="error.code"     read-only.bind="true"></textbox>
-            <textbox    label="Name"    value.bind="data.name"      error.bind="error.name"     read-only.bind="readOnly"></textbox> 
-            <multiline    label="Description"    value.bind="data.description"      error.bind="error.description"     read-only.bind="readOnly"></multiline> 
-            <!-- <role-permission-item-collection value.bind="data.permissions" error.bind="data.error" read-only.bind="readOnly"></role-permission-item-collection> -->
-        </form>
-    
-        <div class="col-sm-3">
-            <button click.delegate="loader()" class='btn btn-success'>Tampilkan Menu</button>
-        </div>
+  <div class="col-sm-3">
+    <button click.delegate="loader()" class="btn btn-success">
+      Tampilkan Menu
+    </button>
+  </div>
 
-        <hr/>
-        <div class="btn-group pull-right">
-            <button class="btn btn-default" click.delegate="list()">Kembali</button>
-            <button class="btn btn-danger" click.delegate="delete()">Hapus</button>
-            <button class="btn btn-success" click.delegate="save()">Simpan</button>
-        </div>
-    
-        <br>
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableAuth" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableMaster" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableProduction" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableSpinning" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tablePurchasing" class="table table-bordered table-hover" id="myTable2"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableSales" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableInventory" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGPurhcasing" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGMasterPlan" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGFinance" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableFinance" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableMD" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableWeaving" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableAccounting" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGProduction" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGShipping" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGSubcon" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGSample" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tablePSInvt" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableCustoms" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableGDas" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
-    
-        <div class="row">
-            <div class="table-responsive" >
-                <table ref="tableDash" class="table table-bordered table-hover" id="myTable"></table>
-            </div>
-        </div> 
-        <br>
+  <hr />
+  <div class="btn-group pull-right">
+    <button class="btn btn-default" click.delegate="list()">Kembali</button>
+    <button class="btn btn-danger" click.delegate="delete()">Hapus</button>
+    <button class="btn btn-success" click.delegate="save()">Simpan</button>
+  </div>
 
-       
+  <br />
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableAuth"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableMaster"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableProduction"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableSpinning"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tablePurchasing"
+        class="table table-bordered table-hover"
+        id="myTable2"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableSales"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableInventory"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGPurhcasing"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGMasterPlan"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGFinance"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableFinance"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableMD"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableWeaving"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableAccounting"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGProduction"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGShipping"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGSubcon"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGSample"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tablePSInvt"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableCustoms"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableGDas"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableDash"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="table-responsive">
+      <table
+        ref="tableItInv"
+        class="table table-bordered table-hover"
+        id="myTable"
+      ></table>
+    </div>
+  </div>
+  <br />
 </template>

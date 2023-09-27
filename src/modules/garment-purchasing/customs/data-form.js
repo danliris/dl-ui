@@ -231,12 +231,14 @@ export class DataForm {
       delete this.data.supplierId;
     }
     this.data.deliveryOrders = [];
+    this.data.deliveryOrderNonPO = [];
     delete this.data.currencyId;
     this.data.currency = {};
   }
 
   async currencyChange(e) {
     this.data.deliveryOrders = [];
+    this.data.deliveryOrderNonPO = [];
 
     if (this.data.currency && this.data.currency.Id) {
       this.data.currencyId = this.data.currency.Id;
@@ -255,8 +257,8 @@ export class DataForm {
           data["doId"] = a.Id;
           data["doDate"] = a.doDate;
           data["arrivalDate"] = a.arrivalDate;
-
           data["isView"] = !this.hasView ? true : false;
+          data["IsPO"] = true;
           var quantity = 0;
           var totPrice = 0;
           for (var b of a.items) {
@@ -271,6 +273,38 @@ export class DataForm {
           dataDelivery.push(data);
         }
         this.data.deliveryOrders = dataDelivery;
+
+        if (this.data.customType == "BC 262") {
+          var result = await this.service.searchDeliveryOrderNonPO({
+            supplier: `${this.data.supplier.Id}`,
+            currency: `${this.data.currency.code}`,
+            billNo: this.data.billNo,
+          });
+
+          var dataDeliveryNonPO = [];
+
+          for (var a of result.data) {
+            var data = a;
+            data["selected"] = false;
+            data["doNo"] = a.doNo;
+            data["doId"] = a.Id;
+            data["doDate"] = a.doDate;
+            data["arrivalDate"] = a.arrivalDate;
+            data["isView"] = !this.hasView ? true : false;
+            data["IsPO"] = false;
+            var quantity = 0;
+            var totPrice = 0;
+            for (var b of a.items) {
+              quantity += b.Quantity;
+              var priceTemp = b.Quantity * b.PricePerDealUnit;
+              totPrice += priceTemp;
+            }
+            data["quantity"] = quantity;
+            data["price"] = totPrice.toFixed(3);
+            dataDeliveryNonPO.push(data);
+          }
+          this.data.deliveryOrderNonPO = dataDeliveryNonPO;
+        }
       }
     } else {
       delete this.data.currencyId;
@@ -296,15 +330,16 @@ export class DataForm {
   get contractFilter() {
     if (this.data.supplier) {
       var filter = {
-        IsUsed: true,
+        // IsUsed: true,
         SupplierCode: this.data.supplier.code,
+        // IsCustoms:true,
       };
 
-      filter[
-        `DueDate >= ${JSON.stringify(
-          moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
-        )} `
-      ] = true;
+      // filter[
+      //   `DueDate >= ${JSON.stringify(
+      //     moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
+      //   )} `
+      // ] = true;
       return filter;
     }
   }
@@ -338,9 +373,13 @@ export class DataForm {
       });
       var QtyCustomIn = 0;
 
-      dataCusIN.data.forEach((item) => {
-        QtyCustomIn += item.QuantityContract;
+      dataCusIN.data.forEach((datas) => {
+        datas.items.forEach((item) => {
+          QtyCustomIn += item.quantity;
+        });
       });
+
+      console.log("QtyCustomIn", QtyCustomIn);
 
       //GetQuantityFromCustomsOutSubcok with same Contract ID
       const dataCusOUT = await this.garmentService.searchCustomsComplete({
@@ -350,10 +389,14 @@ export class DataForm {
         return x.Items.reduce((acc, cur) => (acc += cur.Quantity), 0);
       });
 
+      console.log("dataJumlahCustomsOut", dataJumlahCustomsOut);
+
       const QtyCustomOut = dataJumlahCustomsOut.reduce(
         (acc, cur) => (acc += cur),
         0
       );
+      console.log("QtyCustomOut", QtyCustomOut);
+
       this.data.QuantityContract = QtyCustomOut - QtyCustomIn;
     }
   }

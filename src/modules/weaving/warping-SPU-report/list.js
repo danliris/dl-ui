@@ -13,6 +13,9 @@ export class List {
     }
     bind(context) {
         this.context = context;
+
+
+
     }
     shiftOptions = [
         { text: "", value: 0 },
@@ -24,7 +27,8 @@ export class List {
         { text: "", value: 0 },
         { text: "SZ 1", value: 1 },
         { text: "SZ 2", value: 2 },
-        { text: "SZ 3", value: 3 } 
+        { text: "SZ 3", value: 3 }, 
+        { text: "SZ 4", value: 4 } 
     ];
     GROUPOptions = [
         { text: "", value: 0 },
@@ -45,8 +49,26 @@ export class List {
             .then(result => {
                 console.log(result.data)
                 for(var d of result.data){
-                    d.Date=moment(d.Date).format("YYYY-MM-DD");
-                    d.Efficiency= (d.Efficiency*100).toFixed(2);
+              
+                    d.periode=moment(d.periode).format("YYYY-MM-DD");
+                        //SPU
+                        if (d.spu != null){
+                            d.spu =d.spu.replaceAll(",",".")
+                            if (d.spu > -999999 ){
+                         //   console.log(d.spu)
+                            d.spu =(d.spu * 100).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            }
+                            else if (d.spu >= 0){
+                           // console.log(d.spu)
+                                d.spu =(d.spu * 100).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                            }
+            
+                        }
+                        else
+                        {
+                                d.spu = ""
+                        }
+                
                 }
                 this.data= result.data;
             });
@@ -56,9 +78,7 @@ export class List {
         var info = {
             shift : this.info.shift ? this.info.shift.text: "",
             machineSizing : this.info.machineSizing ? this.info.machineSizing.text: "",
-            sp: this.info.sp ? this.info.sp: "",
-            code: this.info.code ? this.info.code: "",
-            name : this.info.name ? this.info.name: "",
+            groupui: this.info.groupui ? this.info.groupui.text: "",
             fromDate : this.fromDate ? moment(this.fromDate).format("YYYY-MM-DD") : moment('0001-01-01').format("YYYY-MM-DD"),
             toDate : this.toDate ? moment(this.toDate).format("YYYY-MM-DD") :  moment(Date.now()).format("YYYY-MM-DD")
         }

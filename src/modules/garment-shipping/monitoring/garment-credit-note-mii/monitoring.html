@@ -1,0 +1,62 @@
+<template>
+    <h1 class="page-header">Monitoring Credit Note Untuk MII</h1>
+    <form class="form-horizontal">
+
+        <au-datepicker label="Tanggal Nota Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Nota Akhir" value.bind="dateTo"></au-datepicker>
+  
+       <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-danger'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>                        
+                    <th class="text-center">TANGGAL</th>
+                    <th class="text-center">KODE BUYER</th>                
+                    <th class="text-center">NAMA BUYER</th>
+                    <th class="text-center">NO KWITANSI</th>
+                    <th class="text-center">BANK DEVISA</th>
+                    <th class="text-center">NO REK BANK</th>
+                    <th class="text-center">NO CREDIT NOTE</th>
+                    <th class="text-center">CURRENCY</th>  
+                    <th class="text-center">RATE</th>
+                    <th class="text-center">AMOUNT VLS</th>
+                    <th class="text-center">AMOUNT IDR</th>
+                    <!-- <th class="text-center">JENIS ITEM</th>                 -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">                                           
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.dnDate}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.buyerCode}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.buyerName}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.receiptNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.bankName}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.accountBankNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.invoiceNo}</td>
+                        <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.currencyCode}</td>
+
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.rate}</td>
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amount}</td>
+                        <td class="text-right" style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.amountIDR}</td>
+                        <!-- <td class="text-right"><strong>${item.rate}</strong></td>
+                        <td class="text-right"><strong>${item.amount}</strong></td>
+                        <td class="text-right"><strong>${item.amountIDR}</strong></td> -->
+                        <!-- <td style="font-weight: ${item.header == 1? 'bold' : '' }" >${item.itemCreditNote}</td> -->
+                    </tr>                
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="item.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>

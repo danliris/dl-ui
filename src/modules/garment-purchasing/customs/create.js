@@ -18,7 +18,7 @@ export class Create {
 
     }
     bind() {
-        this.data = { deliveryOrders: [] };
+        this.data = { deliveryOrders: [] ,deliveryOrderNonPO:[]};
         this.error = {};
         this.item = "";
     }
@@ -51,6 +51,8 @@ export class Create {
         var items = [];
       
         var isSelectedData = false;
+
+        var totalQtyDO = 0;
         if(dataCustoms.deliveryOrders && dataCustoms.deliveryOrders.length > 0){
             this.item = "";
             for(var a of dataCustoms.deliveryOrders){
@@ -61,20 +63,53 @@ export class Create {
                     deliveryOrder.doDate=a.doDate;
                     deliveryOrder.totalAmount=a.totalAmount;
                     deliveryOrder.arrivalDate=a.arrivalDate;
+                    deliveryOrder.IsPO=a.IsPO;
                     items.push({deliveryOrder : deliveryOrder});
                     isSelectedData = true;
+                    totalQtyDO += a.quantity;
                 }
-                items.quantity=a.quantity;
+                // items.quantity=a.quantity;
+               
             }
+          
+        }
+        if(dataCustoms.deliveryOrderNonPO && dataCustoms.deliveryOrderNonPO.length > 0){
+            this.item = "";
+            for(var a of dataCustoms.deliveryOrderNonPO){
+                if(a && a.selected){
+                    var deliveryOrderNonPO={};
+                    deliveryOrderNonPO.doNo=a.doNo;
+                    deliveryOrderNonPO.Id=a.Id;
+                    deliveryOrderNonPO.doDate=a.doDate;
+                    deliveryOrderNonPO.totalAmount=a.totalAmount;
+                    deliveryOrderNonPO.arrivalDate=a.arrivalDate;
+                    deliveryOrderNonPO.IsPO=a.IsPO;
+                    items.push({deliveryOrder : deliveryOrderNonPO});
+                    isSelectedData = true;
+                    totalQtyDO += a.quantity;
+                }
+                // items.quantity=a.quantity;
+            }
+            // dataCustoms.items = items;
+        }
+
+        if(items.length > 0){
             dataCustoms.items = items;
-        }if(this.data.billNo.includes("BP"))
+           
+        }
+
+        if(dataCustoms.customType == "BC 262"){
+            dataCustoms.totalQtyDO = totalQtyDO;
+        }
+
+        if(this.data.billNo.includes("BP"))
         {
             dataCustoms.billNo=this.data.billNo;
         }else
         {
             dataCustoms.billNo="";
         }
-        
+      
         if(isSelectedData){
             this.service.create(dataCustoms)
                 .then(result => {

@@ -14,8 +14,10 @@ export class List {
             field: "date", title: "Tgl", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
             }
-        },
+        },   
         { field: "amount", title: "Amount" },
+        { field: "lessFabricCost", title: "Less Fabric Cost" },
+        { field: "dhlCharges", title: "DHL Charges" },
         { field: "amountToBePaid", title: "Amount To Be Paid" },
         { field: "buyerName", title: "Buyer" },
         { field: "bankAccountName", title: "Bank" },

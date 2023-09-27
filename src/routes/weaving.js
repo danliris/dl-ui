@@ -305,11 +305,11 @@ module.exports = [{
   }
 },
 {
-  route: "weaving/beam-monitoring-visualization",
-  name: "beam-monitoring-visualization",
-  moduleId: "./modules/weaving/beam-monitoring-visualization/index",
+  route: "weaving/stock-beam",
+  name: "stock-beam",
+  moduleId: "./modules/weaving/stock-beam-upload/index",
   nav: true,
-  title: "Visualisasi Pemantauan Beam",
+  title: "Visualisasi Stock Beam",
   auth: true,
   settings: {
     group: "weaving",
@@ -469,7 +469,7 @@ module.exports = [{
 {
   route: "weaving/daily-operation-sizing-report",
   name: "daily-operation-sizing",
-  moduleId: "./modules/weaving/daily-operation-sizing-report/index",
+  moduleId: "./modules/weaving/daily-operation-sizing-report-new/index",
   nav: true,
   title: "Laporan Operasional Mesin Harian Sizing",
   auth: true,
