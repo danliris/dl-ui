@@ -78,6 +78,8 @@ export class List {
                 for(var d of result.data){
                     idx++;
                     d.index=idx;
+                    //ini di bulatkan ke atas
+                    d.TotRPM = Math.round(d.TotRPM);
 
 
                     d.periode=moment(d.periode).format("YYYY-MM-DD");
