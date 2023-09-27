@@ -1,0 +1,20 @@
+<template>
+    <tr>
+      
+
+        <td class="col-sm-6">
+            <au-autocomplete value.bind="data.debitCreditNote" error.bind="error.debitCreditNote" loader.bind="debitCreditNoteLoader"
+                read-only.bind="readOnly" placeholder="pilih item" text.bind="creditNoteView" query.bind="cnQuery" >
+            </au-autocomplete>
+        </td>
+
+        <td class="col-sm-6">
+            <au-numeric value.bind="data.amount" error.bind="error.amountCN" read-only.bind="readOnly" >
+            </au-numeric>
+        </td>
+
+        <td if.bind="!readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

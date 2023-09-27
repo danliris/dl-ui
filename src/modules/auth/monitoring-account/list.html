@@ -1,0 +1,28 @@
+<template>
+
+    <h1 class="page-header">Monitoring Account</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+            value.bind="account" 
+            label="Username" 
+            placeholder="Pilih Username" 
+            filter.bind="filterAccount"
+            loader.one-time="accountLoader" 
+            key="_id"
+            text="username"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown options.bind="controlOptions" label="Menu" value.bind="menu" error.bind="error.Menu"
+        read-only.bind="readOnly" items.bind="menuList"></au-dropdown>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="ExportToExcel()" class='btn btn-success'>Excel</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+       
+    </form>
+</template>

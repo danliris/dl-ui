@@ -14,7 +14,7 @@ export class Service extends RestService {
         // let endpoint = `${uriGRC}`;
         // return super.list(endpoint, info);
         // console.log(info);
-        var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
+        var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&dateFromCreate=${info.dateFromCreate}&dateToCreate=${info.dateToCreate}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
         // return super.list(endpoint, info);
         return super.get(endpoint);
     }
@@ -22,6 +22,12 @@ export class Service extends RestService {
     xls(info) {
         console.log(info)
         let endpoint = `${uriGRC}/download-for-unit?${buildQueryString(info)}`;
+        return super.getXls(endpoint);
+    }
+
+    xlsMII(info) {
+        console.log(info)
+        let endpoint = `${uriGRC}/download-for-mii?${buildQueryString(info)}`;
         return super.getXls(endpoint);
     }
 }

@@ -19,11 +19,11 @@
             view-model.ref="beacukaiAU" options.bind="controlOptions">
         </au-autocomplete>
         <au-textbox label="Nomor Bea Cukai" value.bind="data.beacukaiNo" error.bind="error.beacukaiNo"
-            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL ||readOnly || isEdit" options.bind="controlOptions">
         </au-textbox>
 
         <au-dropdown label="Tipe Bea Cukai" value.bind="selectedCustomType" error.bind="error.customType"
-            read-only.bind="readOnlyBCDL " items.bind="typeCustoms" options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL || readOnly || isEdit" items.bind="typeCustoms" options.bind="controlOptions">
         </au-dropdown>
         <!--    
         <au-textbox 
@@ -34,7 +34,7 @@
         </au-textbox> -->
 
         <au-datepicker label="Tanggal Bea Cukai" value.bind="data.beacukaiDate" error.bind="error.beacukaiDate"
-            read-only.bind="readOnlyBCDL " options.bind="controlOptions">
+            read-only.bind="readOnlyBCDL  && readOnly || isEdit" options.bind="controlOptions">
         </au-datepicker>
 
         <au-datepicker label="Tanggal Kedatangan Barang" value.bind="data.arrivalDate" error.bind="error.arrivalDate"
@@ -60,7 +60,7 @@
         <au-autocomplete value.bind="selectedContract" error.bind="error.SubconContractId" label="No Subcon Contract"
             loader.bind="contractLoader" text="ContractNo" query.bind="contractFilter" placeholder="subcon contract"
             read-only.bind="readOnly|| isEdit" options.bind="controlOptions"
-            if.bind="data.customType == 'BC 262' || data.customType == 'BC 27'">
+            if.bind="data.customType == 'BC 262' ">
         </au-autocomplete>
 
         <div class="form-group has-error" if.bind="DueDate">
@@ -69,7 +69,7 @@
 
         <au-numeric label="Qty Sisa di Supplier" value.bind="data.QuantityContract" error.bind="error.QuantityContract"
             read-only.bind="true" options.bind="controlOptions"
-            if.bind="data.customType == 'BC 262' || data.customType == 'BC 27'">
+            if.bind="data.customType == 'BC 262'">
         </au-numeric>
 
         <!--text.bind="textFormatter"-->
@@ -136,5 +136,13 @@
             footer-template="modules/garment-purchasing/customs/template/delivery-order-footer"
             if.bind="data.customType == 'BC 262'">
         </au-collection>
+
+        <au-collection title="Surat Jalan Subcon" items.bind="data.deliveryOrderNonPO" errors.bind="error.deliveryOrderNonPO"
+        columns.bind="deliveryOrderColumns" options.bind="options" read-only.bind="true"
+        item-template="modules/garment-purchasing/customs/template/delivery-order-non-po"
+        header-template="modules/garment-purchasing/customs/template/delivery-order-header"
+        footer-template="modules/garment-purchasing/customs/template/delivery-order-footer"
+        if.bind="data.customType == 'BC 40' || data.customType == 'BC 27'">
+    </au-collection>
     </au-input-form>
 </template>

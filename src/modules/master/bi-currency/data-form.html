@@ -22,8 +22,7 @@
 
         <au-dropdown label="Bulan"
                      items.bind="monthOptions"
-                     value.bind="selectedMonth"
-                     text="label"
+                     value.bind="data.Month"
                      error.bind="error.Month"
                      options.bind="controlOptions"
                      read-only.bind="(readOnly || isEdit)">

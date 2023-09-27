@@ -158,7 +158,8 @@ export class List {
         if(Object.getOwnPropertyNames(this.error).length === 0){
             let args = {
                 no : this.internNote ? this.internNote.inNo : "",
-                supplierCode : this.supplier ? this.supplier.Code : "",
+                //supplierCode : this.supplier ? this.supplier.Code : "",
+                supplierCode : this.supplier ? this.supplier.code : "",
                 curencyCode: this.currency ? this.currency.Code  : "",
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",

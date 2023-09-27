@@ -1,0 +1,75 @@
+<template>
+
+    <h1 class="page-header">Monitoring Perubahan Harga Barang</h1>
+    <form class="form-horizontal">
+                <au-autocomplete 
+                    label="Nama Barang"
+                    value.bind="filter.dataProduct" 
+                    error.bind="error.product"
+                    loader.bind="productLoader"
+                    placeholder="cari barang" 
+                    key="code"
+                    query.bind="isPostedQuery"
+                    read-only.bind="options.readOnly"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+        
+            <au-datepicker label="Tanggal Awal" value.bind="filter.dateFrom" options.bind="controlOptions"></au-datepicker>
+            <au-datepicker label="Tanggal Akhir" value.bind="filter.dateTo" options.bind="controlOptions"></au-datepicker>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+        <div>
+            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="myTable">
+                <thead align="center">
+                    <tr>
+                        <td>Kode Barang</td>
+                        <td>Nama Barang</td>
+                        <td>Tanggal Input</td>
+                        <td>Satuan</td>
+                        <td>Mata Uang</td>
+                        <td>Harga Lama</td>
+                        <td>Harga Baru</td>
+                        <td>Selisih Harga</td>
+                        <td>Selisih %</td>
+                        <td>Alasan Perubahan</td>
+                        <td>Tanggal Perubahan</td>
+                        
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        
+                        <td class="text-left" if.bind="item.docspan" rowspan="${item.docspan}">${item.Code}</td>
+                        <td class="text-left">${item.Name}</td>
+                        <td class="text-left">${item.DateIn | dateFormat:'DD MMM YYYY'}</td>
+                        <td class="text-right">${item.UOMUnit}</td>
+                        <!-- <td class="text-right">${item.sppDate | dateFormat:'D MMM YYYY'}</td> -->
+                        <td class="text-right" if.bind="item.docspan" rowspan="${item.docspan}">${item.CurrencyCode}</td>
+                        <td class="text-right">${item.PriceOrigin}</td>
+                        <td class="text-right">${item.Price}</td>
+                        <td class="text-right">${item.DiffPrice}</td>
+                        <td class="text-right">${item.DiffPricePercentage} %</td>
+                        <td class="text-right">${item.EditReason}</td>
+                        <td class="text-right">${item.DateChange | dateFormat:'DD MMM YYYY'}</td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak ada perubahan data.
+        </div>
+        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
+        <hr/>
+    </form>
+</template>

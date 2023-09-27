@@ -66,7 +66,7 @@
               <tr>
                 <td>No</td>
                 <td>Tanggal</td>
-                <td>No MC</td>
+                <td>Mesin Sizing</td>
                 <td>Shift</td>
                 <td>SPU</td>
                 <td>Panjang</td>
@@ -79,7 +79,7 @@
               <require from="../../../lib/number-format-value-converter"></require>
               <div if.bind="data.length > 0">
                 <tr repeat.for="item of data">
-                  <td>${$index + 1}</td>
+                  <td>${item.index}</td>
                   <td class="text-center">${item.periode}</td>
                   <td class="text-center">${item.machineSizing}</td>
                   <td class="text-center">${item.shift}</td>
@@ -96,7 +96,8 @@
   <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
     Tidak ada data.
   </div>
-  <hr/>
+  <pagination if.bind="info.total>info.size"  info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
     </au-input-form>
     <div class="row"></div>
   </template>

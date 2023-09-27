@@ -1,0 +1,89 @@
+<template>
+  <au-input-form
+    title.bind="title"
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <!-- DESC -->
+    <div class="row">
+      <div class="row">
+        <div class="col-sm-6">
+          <au-autocomplete
+            value.bind="selectedLocalNote"
+            error.bind="error.LocalSalesNoteNo"
+            label="No Invoice"
+            loader.bind="localNoteLoader"
+            text.bind="LocalNoteView"
+            placeholder="No Invoice"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedLocalSalesNoteNoViewModel"
+          >
+          </au-autocomplete>
+
+          <au-datepicker
+            label="Tgl Invoice"
+            value.bind="data.localSalesNoteDate"
+            error.bind="error.LocalSalesNoteDate"
+            read-only="true"
+            options.bind="controlOptions"
+          >
+          </au-datepicker>
+
+          <au-textbox
+            label="Sales Contract"
+            value.bind="data.localSalesContractNo"
+            error.bind="error.LocalSalesContractNo"
+            read-only="true"
+            options.bind="controlOptions"
+          >
+          </au-textbox>
+        </div>
+
+        <div class="col-sm-6">
+          <au-autocomplete
+            value.bind="data.transactionType"
+            error.bind="error.TransactionType"
+            label="Jenis Transaksi"
+            text.bind="transactionTypeView"
+            read-only="true"
+            options.bind="controlOptions"
+          >
+          </au-autocomplete>
+
+          <au-autocomplete
+            value.bind="data.buyer"
+            error.bind="error.Buyer"
+            label="Buyer"
+            text.bind="buyerView"
+            read-only="true"
+            options.bind="controlOptions"
+          >
+          </au-autocomplete>
+        </div>
+      </div>
+      <div class="form-group has-error">
+        <p if.bind="error.ItemsCount" class="help-block text-center">
+          ${error.ItemsCount}
+        </p>
+      </div>
+      <!-- <div class="row">
+        <div class="tbl"> -->
+      <au-collection
+        items.bind="data.items"
+        errors.bind="error.Items"
+        columns.bind="itemsColumns"
+        read-only.bind="readOnly"
+        add.bind="addItems"
+        remove.bind="removeItems"
+        options.bind="itemOptions"
+        show.bind="selectedLocalNote"
+        item-template="modules/garment-receipt-subcon/garment-shipping/packing-list-items/template/detail-ro"
+      >
+      </au-collection>
+      <!-- </div>
+      </div> -->
+    </div>
+  </au-input-form>
+</template>

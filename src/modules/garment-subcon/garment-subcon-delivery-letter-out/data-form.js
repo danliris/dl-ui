@@ -63,6 +63,15 @@ export class DataForm {
       "Jumlah Keluar",
       "Satuan Keluar",
     ],
+    columnsCuttingSewing: [
+      "Kode Barang",
+      "Nama Barang",
+      "Keterangan Barang",
+      "Design/Color",
+      "Jumlah",
+      "Satuan",
+      "Tipe Fabric",
+    ],
     columnsCutting: ["RO", "No Cutting Out Subcon", "Plan PO", "Jumlah"],
     columnsServiceCutting: [
       "No Subcon Jasa Komponen",
@@ -484,8 +493,8 @@ export class DataForm {
 
                 if (uenItem.ProductName == "FABRIC") {
                   item.UomOut = {
-                    Id: 43,
-                    Unit: "PCS",
+                    Id: uenItem.UomId,
+                    Unit: uenItem.UomUnit,
                   };
                 } else {
                   item.UomOut = {
@@ -504,6 +513,7 @@ export class DataForm {
                 }
                 item.FabricType = uenItem.FabricType;
                 item.ContractQuantity = uenItem.Quantity;
+                item.Quantity = uenItem.Quantity;
                 item.UENNo = uenNo;
                 item.UENId = uenId;
                 dataArr.push(item);
