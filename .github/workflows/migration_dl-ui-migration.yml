@@ -20,7 +20,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.13.0'
+        node-version: '18.16.0'
     
     - name: npm install, build, and test
       run: |
