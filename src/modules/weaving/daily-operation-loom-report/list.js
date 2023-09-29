@@ -89,8 +89,11 @@ export class List {
                     this.AmountCMPX += d.TotProductionCMPX;  
                     this.AmountFrm += d.TotMCNo;  
                     this.AmountProduksiMeter += d.TotProduction;  
-                    this.Amount100Produksi += d.TotProduction100;  
-                    this.AmountEFF += d.TotPercentEff;  
+                    this.Amount100Produksi += d.TotProduction100; 
+                    
+                    this.AmountEFF += d.TotPercentEff 
+                    
+
                     this.AmountEFFmc2 += d.TotMC2Eff;  
                     this.AmountFill += d.TotF;  
                     this.AmountWarp += d.TotW;  
@@ -108,11 +111,22 @@ export class List {
                  this.AmountFrm = this.AmountFrm.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                  this.AmountProduksiMeter = this.AmountProduksiMeter.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                  this.Amount100Produksi = this.Amount100Produksi.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                 this.AmountEFF = this.AmountEFF.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                 this.AmountEFFmc2 = this.AmountEFFmc2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                 this.AmountFill = this.AmountFill.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                 this.AmountWarp = this.AmountWarp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                 this.AmountRPM = this.AmountRPM.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                
+                 //ini jml total
+                 //this.AmountEFF = this.AmountEFF.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                 //this.AmountEFFmc2 = this.AmountEFFmc2.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                // this.AmountFill = this.AmountFill.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                //this.AmountWarp = this.AmountWarp.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                //this.AmountRPM = this.AmountRPM.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+               //ini rata2
+                this.AmountEFF = (this.AmountEFF/idx).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountEFFmc2 = (this.AmountEFFmc2/idx).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountFill = (this.AmountFill/idx).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountWarp = (this.AmountWarp/idx).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                this.AmountRPM = Math.round((this.AmountRPM/idx));
+
+                //
                  
             });
     }
