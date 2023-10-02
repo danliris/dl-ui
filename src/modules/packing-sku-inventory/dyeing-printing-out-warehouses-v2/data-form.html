@@ -23,6 +23,10 @@
       error.bind="error.DestinationArea" read-only.bind="readOnly || isEdit" items.bind="destinationAreas">
     </au-dropdown>
 
+    <au-dropdown if.bind="!isAdj" options.bind="controlOptions" label="Grade" value.bind="grade"
+      error.bind="error.Grade" read-only.bind="readOnly || isEdit" items.bind="grades">
+    </au-dropdown>
+
 
     <au-autocomplete if.bind="!isAdj" options.bind="controlOptions" value.bind="selectedFilterSPP"
       label="Filter Nomor SPP" show.bind="!readOnly && !isEdit" read-only.bind="readOnly" loader.bind="filterSPPLoader"

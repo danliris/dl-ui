@@ -31,6 +31,7 @@ export class DataForm {
     },
   };
   destinationAreas = ["INSPECTION MATERIAL", "SHIPPING", "PACKING", "TRANSIT"];
+  grades = ["ALL", "A", "B", "C", "BS", "A1", "B1"];
   adjItemColumns = ["No. SPP", "Qty Order", "Jenis Order", "Material", "Unit", "Buyer", "Warna", "Motif", "Grade", "QTY Pack", "Satuan Pack", "Satuan", "QTY Satuan", "QTY Total", "No Dokumen"];
   itemColumns = [
     "No. SPP",
@@ -146,10 +147,11 @@ export class DataForm {
   }
 
   @bindable selectedFilterSPP;
+  @bindable grade;
   async selectedFilterSPPChanged(n, o) {
     // if (this.selectedFilterSPP) {
 
-      this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2ById(this.selectedFilterSPP.productionOrder.id);
+      this.data.displayWarehousesProductionOrders = await this.service.getProductionOrderInputv2ById(this.selectedFilterSPP.productionOrder.id, this.grade);
 
     // } else {
 
