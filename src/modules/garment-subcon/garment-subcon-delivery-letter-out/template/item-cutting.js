@@ -134,24 +134,24 @@ export class Item {
     if (this.DLType == "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
-        ExpenditureType: "SUBCON",
+        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
         StorageName: "GUDANG ACCESSORIES",
       };
     } else if (this.DLType == "PROSES" && this.orderType == "SAMPLE") {
       UENFilter = {
         IsPreparing: false,
-        ExpenditureType: "SUBCON",
+        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
         StorageName: "GUDANG ACCESSORIES",
         UnitRequestCode: "SMP1",
       };
     } else if (this.DLType != "PROSES" && this.orderType == "JOB ORDER") {
       UENFilter = {
-        ExpenditureType: "SUBCON",
+        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
         StorageName: "GUDANG ACCESSORIES",
       };
     } else if (this.DLType != "PROSES" && this.orderType == "SAMPLE") {
       UENFilter = {
-        ExpenditureType: "SUBCON",
+        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
         StorageName: "GUDANG ACCESSORIES",
         UnitRequestCode: "SMP1",
       };
