@@ -154,11 +154,6 @@ export class List {
         this.service.generateExcel(this.arg);
     }
 
-    ExportToExcel2() {
-        this.Values();
-        this.service.generateExcel2(this.arg);
-    }
-
     orderTypeChanged(newValue) {
         if (newValue) {
             this.filterOrder = {
