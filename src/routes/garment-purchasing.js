@@ -1164,7 +1164,7 @@ module.exports = [
     },
 
 
-  //COBA--MDP
+  //=====> monitoring-history-delete COBA--MDP
   {
     route: "monitoring-history-delete",
     name: "monitoring-history-delete",
@@ -1178,7 +1178,7 @@ module.exports = [
       group: "g-purchasing",
       subGroup: "monitoring",
       // permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
-      permission: { H39: 1 },
+      permission: { H63: 1 },
       iconClass: "fa fa-dashboard",
     },
   },

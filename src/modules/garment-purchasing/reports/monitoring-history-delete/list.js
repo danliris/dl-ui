@@ -23,16 +23,14 @@ export class List {
   };
 
   @bindable SearchItem;
-  tanggalAwalBUM = null; // Tanggal Awal Delet BUM
-  tanggalAwalBUK = null; // Tanggal Awal Delet BUK
+  tanggalAwalBUM = null;
   tanggalAkhirBUM = null;
+
+  tanggalAwalBUK = null;
   tanggalAkhirBUK = null;
 
 
-  //SearchItem = ['Bon Penerimaan Unit BUM', 'Bon Penerimaan Unit BUK'];
-
-  SearchItems = ['Bon Penerimaan Unit BUM', 'Bon Penerimaan Unit BUK'];
-  UnitItems = ['', 'KONFEKSI 2A', 'KONFEKSI 2B', 'KONFEKSI 2C', 'KONFEKSI 1A', 'KONFEKSI 1B'];
+  SearchItems = ['Bon Penerimaan Unit', 'Bon Pengeluaran Unit'];
 
   search() {
     this.info.page = 1;
@@ -40,60 +38,62 @@ export class List {
     this.searching();
   }
 
-  activate() {}
+  activate() { }
 
   tableData = [];
 
   searching() {
     var args = {
-      // ...
-      dateFrom: moment(this.tanggalAwalBUM).format('YYYY-MM-DD') ,
-       
-      dateTo:  moment(this.tanggalAkhirBUM).format('YYYY-MM-DD') ,
-      bonType : this.SearchItem
-      // // ...
-      // filter : this.filter ? this.filter : "",
-      //       //keyword : this.BCNo ? this.BCNo : this.pono ? this.pono : this.rono ? this.rono : "",
-      //       keyword : this.DeletedUtc ? this.DeletedUtc : this.URNNo ? this.URNNo : "",
+      filter: this.filter,
+      dateFrom: moment(this.tanggalAwalBUM).format('YYYY-MM-DD'),
+      dateTo: moment(this.tanggalAkhirBUM).format('YYYY-MM-DD'),
     };
 
-    this.service.search(args)
-      .then(result => {
-        this.data = [];
-        for (var _data of result) {
-          this.data.push(_data);
-        }
-      });
+    if (this.SearchItem === 'Bon Penerimaan Unit') {
+      // Logika pencarian untuk Bon Penerimaan Unit
+      args.bonType = 'Penerimaan';
+      args.dateFrom= moment(this.tanggalAwalBUM).format('YYYY-MM-DD');
+      args.dateTo= moment(this.tanggalAkhirBUM).format('YYYY-MM-DD');
+      this.service.search(args)
+        .then(result => {
+          this.data = result;
+        });
+    } else if (this.SearchItem === 'Bon Pengeluaran Unit') {
+      // Logika pencarian untuk Bon Pengeluaran Unit
+      args.bonType = 'Pengeluaran';
+      args.dateFrom= moment(this.tanggalAwalBUK).format('YYYY-MM-DD');
+      args.dateTo= moment(this.tanggalAkhirBUK).format('YYYY-MM-DD');
+      this.service.search2(args) // Ganti dengan metode yang sesuai untuk Bon Pengeluaran Unit
+        .then(result => {
+          this.data = result;
+        });
+    }
   }
 
   reset() {
     this.tanggalAwalBUM = null;
+    this.tanggalAkhirBUM = null;
     this.tanggalAwalBUK = null;
-    this.tanggalAkhirlBUM = null;
     this.tanggalAkhirBUK = null;
-    this.SearchItem = null;
-    this.dateFrom = '';
-    this.dateTo = '';
-    this.KtgrItem = '';
-    this.UnitItem = '';
+    this.filter = '';
+    this.data = [];
   }
 
-  SearchItemChanged(newvalue) {
-    if (newvalue) {
-      if (newvalue === 'Bon Penerimaan Unit BUM') {
-        this.filter = 'DeletedUtc';
-        this.pono = '';
-        this.rono = '';
-        this.data = [];
-      } else if (newvalue === 'URNNo') {
-        this.filter = 'URNNo';
-        this.BCNo = '';
-        this.pono = '';
-        this.data = [];
-      } else {
-        this.unit = '';
-        this.unitname = '';
-      }
+  ExportToExcel() {
+    let args = {
+      filter: this.filter,
+      dateFrom: moment(this.tanggalAwalBUM).format('YYYY-MM-DD'),
+      dateTo: moment(this.tanggalAkhirBUM).format('YYYY-MM-DD'),
+    };
+
+    if (this.SearchItem === 'Bon Penerimaan Unit') {
+      // Logika ekspor Excel untuk Bon Penerimaan Unit
+      args.bonType = 'Penerimaan';
+      this.service.generateExcel(args);
+    } else if (this.SearchItem === 'Bon Pengeluaran Unit') {
+      // Logika ekspor Excel untuk Bon Pengeluaran Unit
+      args.bonType = 'Pengeluaran';
+      this.service.generateExcel2(args); // Ganti dengan metode yang sesuai untuk Bon Pengeluaran Unit
     }
   }
 
@@ -101,5 +101,50 @@ export class List {
     var page = e.detail;
     this.info.page = page;
     this.searching();
+  }
+
+  // Implementasi untuk "Bon Pengeluaran Unit" dengan tambahan 2
+  searching2() {
+    var args = {
+      filter: this.filter,
+      dateFrom: moment(this.tanggalAwalBUK).format('YYYY-MM-DD'),
+      dateTo: moment(this.tanggalAkhirBUK).format('YYYY-MM-DD'),
+    };
+
+    if (this.SearchItem === 'Bon Pengeluaran Unit') {
+      // Logika pencarian untuk Bon Pengeluaran Unit
+      args.bonType = 'Pengeluaran';
+      this.service.search2(args)
+        .then(result => {
+          this.data = result;
+        });
+    }
+  }
+
+  reset2() {
+    this.tanggalAwalBUK = null;
+    this.tanggalAkhirBUK = null;
+    this.filter = '';
+    this.data = [];
+  }
+
+  ExportToExcel2() {
+    let args = {
+      filter: this.filter,
+      dateFrom: moment(this.tanggalAwalBUK).format('YYYY-MM-DD'),
+      dateTo: moment(this.tanggalAkhirBUK).format('YYYY-MM-DD'),
+    };
+
+    if (this.SearchItem === 'Bon Pengeluaran Unit') {
+      // Logika ekspor Excel untuk Bon Pengeluaran Unit
+      args.bonType = 'Pengeluaran';
+      this.service.generateExcel2(args);
+    }
+  }
+
+  changePage2(e) {
+    var page = e.detail;
+    this.info.page = page;
+    this.searching2();
   }
 }
