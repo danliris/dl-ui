@@ -135,7 +135,7 @@ export class DataForm {
     if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
       };
     } else if (
@@ -144,7 +144,7 @@ export class DataForm {
     ) {
       UENFilter = {
         IsPreparing: false,
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
         UnitRequestCode: "SMP1",
       };
@@ -153,7 +153,7 @@ export class DataForm {
       this.data.OrderType == "JOB ORDER"
     ) {
       UENFilter = {
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
       };
     } else if (
@@ -161,7 +161,7 @@ export class DataForm {
       this.data.OrderType == "SAMPLE"
     ) {
       UENFilter = {
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG BAHAN BAKU",
         UnitRequestCode: "SMP1",
       };
@@ -176,7 +176,7 @@ export class DataForm {
     if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
     } else if (
@@ -185,7 +185,7 @@ export class DataForm {
     ) {
       UENFilter = {
         IsPreparing: false,
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
         UnitRequestCode: "SMP1",
       };
@@ -194,7 +194,7 @@ export class DataForm {
       this.data.OrderType == "JOB ORDER"
     ) {
       UENFilter = {
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
       };
     } else if (
@@ -202,7 +202,7 @@ export class DataForm {
       this.data.OrderType == "SAMPLE"
     ) {
       UENFilter = {
-        'ExpenditureType == "SUBCON" || ExpenditureType == "TRANSFER SUBCON"': "true",
+        ExpenditureType: "SUBCON",
         StorageName: "GUDANG ACCESSORIES",
         UnitRequestCode: "SMP1",
       };
