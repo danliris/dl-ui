@@ -86,9 +86,11 @@ export class DataForm {
     };
 
     if (this.data.Id) {
-      this.data.ContractNo = this.selectedContract;
+      // this.data.ContractNo = this.selectedContract;
       this.selecteBCType = this.data.BCType;
-      this.selectedContract = this.data.ContractNo;
+      this.selectedContract = {
+        ContractNo : this.data.ContractNo
+      } 
       this.selectedSupplier = this.data.Supplier;
       this.selectedTypePO = this.data.POType;
     }
