@@ -1194,6 +1194,26 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  //=====> monitoring-history-delete COBA--MDP
+  {
+    route: "monitoring-history-delete",
+    name: "monitoring-history-delete",
+    moduleId:
+      //"./modules/garment-purchasing/reports/monitoring-flow-product/index",
+      "./modules/garment-purchasing/reports/monitoring-history-delete/index",
+    nav: true,
+    title: "Monitoring History Data Delete",
+    auth: true,
+    settings: {
+      group: "g-purchasing",
+      subGroup: "monitoring",
+      // permission: { "C9": 1, "PG": 1, "B9": 1, "B1": 1, "C1B": 1, "C1A": 1, "C2C": 1, "C2B": 1, "C2A": 1 },
+      permission: { H63: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  //
+
   {
     route: "/bcno-feature",
     name: "bcno-feature",
@@ -1207,8 +1227,27 @@ module.exports = [
       // permission: { "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "C9": 1 },
       permission: { H58: 1 },
       iconClass: "fa fa-dashboard",
+
+    }
     },
-  },
+    {
+        route: '/garment-do-items',
+        name: 'garment-do-items',
+        moduleId: './modules/garment-purchasing/garment-do-items/index',
+        nav: true,
+        title: 'Inventory Racking',
+        auth: true,
+        settings: {
+            group: "g-purchasing",
+            subGroup: "fitur",
+            permission: { "H60" :1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+
+
+    
+  
   {
     route: "/garment-do-items",
     name: "garment-do-items",
@@ -1224,3 +1263,4 @@ module.exports = [
     },
   },
 ];
+
