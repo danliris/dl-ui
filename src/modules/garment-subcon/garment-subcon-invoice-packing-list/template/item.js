@@ -30,8 +30,8 @@ export class Item {
         this.datas = context.context.options.datas;
         this.data.TotalNW = this.data.TotalNW;
         this.data.TotalGW = this.data.TotalGW;
-        console.log(this.data.TotalNW);
-        console.log(this.data.TotalGW);
+        // console.log(this.data.TotalNW);
+        // console.log(this.data.TotalGW);
 
         //console.log(this.datas);
         if(this.options.isCreate){
@@ -94,24 +94,29 @@ export class Item {
                 this.data.Product = item.Product;
 
                 this.data.DesignColor = item.DesignColor;
-                this.quantity += item.Quantity; 
+
+                if(this.DL.SubconCategory == "SUBCON BB SHRINKAGE/PANEL"){
+                  this.quantity += item.SmallQuantity; 
+
+                  this.data.TotalNW += this.datas.NW*item.SmallQuantity;
+                  this.data.TotalGW += this.datas.GW*item.SmallQuantity;
+                }else{
+                  this.quantity += item.Quantity; 
+
+                  this.data.TotalNW += this.datas.NW*item.Quantity;
+                  this.data.TotalGW += this.datas.GW*item.Quantity;
+                }
+
                 this.data.TotalPrice = this.datas.CIF*item.Quantity;
 
-                // this.data.NettWeight.push(this.data.NettWeight);
-                //this.data.NettWeight = this.datas.NettWeight*item.Quantity;
-                // console.log(this.datas)
-                this.data.TotalNW = this.datas.NW*item.Quantity;
-                this.data.TotalGW = this.datas.GW*item.Quantity;
-                console.log(this.data.TotalNW);
-                console.log(this.data.TotalGW);
+                // this.data.TotalNW += this.datas.NW*item.Quantity;
+                // this.data.TotalGW += this.datas.GW*item.Quantity;
+ 
                 UOM.push(item.Uom);
-                // this.TotalHarga = item.Quantity
             }
             this.UOM = UOM;
             this.data.Quantity = this.quantity;
 
-            console.log(this.data.Quantity);
-            //console.log(newValue);
         }
     }
 
@@ -138,7 +143,7 @@ export class Item {
                   console.log(item.Quantity);
                 return qty
                   .reduce((prev, curr, index) => { 
-                    console.log(prev)
+                    // console.log(prev)
                     return prev +  curr }, 0);
               }
               else {
