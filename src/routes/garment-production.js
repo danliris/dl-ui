@@ -1040,6 +1040,24 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+//============> MDP-monitoring-production-History-Deleted<===============//
+    {
+      route: '/garment-production/monitoring-production-history-deleted',
+      name: 'garment-production-monitoring-production-history-deleted',
+      moduleId: './modules/garment-production/monitoring-production-history-deleted/index',
+      nav: true,
+      title: 'Monitoring Productions History Delete',
+      auth: true,
+      settings: {
+          group: "g-production",
+          subGroup: "laporan",
+          // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+          permission: { "O40": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+    },
+//============> MDP-monitoring-production-History-Deleted<===============//
+
     {
         route: '/garment-production/monitoring-production-stock-flow-bookkeeping',
         name: 'garment-production-monitoring-production-stock-flow-bookkeeping',

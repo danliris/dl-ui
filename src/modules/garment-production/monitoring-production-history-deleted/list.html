@@ -1,0 +1,134 @@
+<template>
+  <h4>MONITORING PRODUCTIONS HISTORY DELETE DATA</h4>
+  <form class="form-horizontal">
+    <au-dropdown label="JENIS TRANSAKSI" value.bind="SearchItem" items.bind="SearchItems" change.delegate="reset()"
+      options.bind="controlOptions">
+    </au-dropdown>
+
+    <!-- Tanggal Awal Delete Monitoring Preparing hanya muncul saat memilih "Monitoring Preparing" -->
+    <au-datepicker label="Tanggal Awal Delete Preparing" value.bind="tglAwalPreparing"
+      if.bind="SearchItem === 'Monitoring Preparing'" options.bind="controlOptions">
+    </au-datepicker>
+    <!-- Tanggal Akhir Delete Monitoring Preparing hanya muncul saat memilih "Monitoring Preparing" -->
+    <au-datepicker label="Tanggal Akhir Delete Preparing" value.bind="tglAkhirPreparing"
+      if.bind="SearchItem === 'Monitoring Preparing'" options.bind="controlOptions">
+    </au-datepicker>
+    <!-- Tanggal Awal Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
+    <au-datepicker label="Tanggal Awal Delete Loading" value.bind="tglAwalLoading"
+      if.bind="SearchItem === 'Monitoring Loading'" options.bind="controlOptions">
+    </au-datepicker>
+    <!-- Tanggal Akhir Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
+    <au-datepicker label="Tanggal Akhir Delete Loading" value.bind="tglAkhirLoading"
+      if.bind="SearchItem === 'Monitoring Loading'" options.bind="controlOptions">
+    </au-datepicker>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+        <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+      </div>
+    </div>
+
+    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Monitoring Preparing'">
+      <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel Mon Pre</button>
+    </div>
+    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Monitoring Loading'">
+      <button class='btn btn-primary' click.delegate="ExportToExcel2()">Export To Excel Mon Load</button>
+    </div>
+    <br>
+
+    <!-- Tabel untuk Bon Penerimaan Unit -->
+    <div if.bind="SearchItem === 'Monitoring Preparing'" class="table-responsive">
+      <table class="table table-bordered table-hover" border="1" id="poReport">
+        <!-- Isi tabel untuk Bon Penerimaan Unit -->
+        <!-- Kolom-kolom tabel -->
+        <thead align="center">
+          <tr>
+            <td>NO</td>
+            <td>USER DELETE</td>
+            <td>TGL DELETE</td>
+            <td>UNIT</td>
+            <td>TGL PREPARING</td>
+            <td>NO BUK</td>
+            <td>NO RO</td>
+            <td>BUYER</td>
+            <td>KODE BARANG</td>
+            <td>JUMLAH</td>
+            <td>SATUAN</td>
+            <td>HARGA</td>
+            <!-- Sisipkan kolom-kolom lain sesuai kebutuhan -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="item of data">
+            <td>${$index + 1}</td>
+            <td>${item.deletedBy}</td>
+            <td>${item.deletedDate | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.unit}</td>
+            <td>${item.processDates | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.uenNO}</td>
+            <td>${item.RO}</td>
+            <td>${item.buyesNamed}</td>
+            <td>${item.produkCodes}</td>
+            <td>${item.kuantityes}</td>
+            <td>${item.uomUnits}</td>
+            <td>${item.basicPrieces}</td>
+            
+            <!-- Sisipkan data-data lain sesuai kebutuhan -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tabel untuk Monitoring Loading -->
+    <div if.bind="SearchItem === 'Monitoring Loading'" class="table-responsive">
+      <table class="table table-bordered table-hover" border="1" id="poReport">
+        <!-- Isi tabel untuk Monitoring Loading -->
+        <!-- Kolom-kolom tabel -->
+        <thead align="center">
+          <tr>
+            <td>NO</td>
+            <td>USER DELETE</td>
+            <td>TGL DELETE</td>
+            <td>NO LOADING</td>
+            <td>TGL LOADING</td>
+            <td>UNIT</td>
+            <td>NO RO</td>
+            <td>NO SEWING DO</td>
+            <td>KOMODITI</td>
+            <td>KODE BARANG</td>
+            <td>SIZE</td>
+            <td>JUMLAH SATUAN</td>
+            <td>WARNA</td>
+            <!-- Sisipkan kolom-kolom lain sesuai kebutuhan -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr repeat.for="item of data">
+            <td>${$index + 1}</td>
+            <td>${item.deletedUtcEx | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.deletedByEx}</td>
+            <td>${item.uenNoEx}</td>
+            <td>${item.unitEx}</td>
+            <td>${item.expenditureDate | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.unitDoNoEx}</td>
+            <td>${item.expenditureType}</td>
+            <td>${item.expenditureToEx}</td>
+            <td>${item.roNoEx}</td>
+            <td>${item.poSerialNumber}</td>
+            <td>${item.productNameEx}</td>
+            <td>${item.quantityEx}</td>
+            <td>${item.uomUnitEx}</td>
+
+            <!-- Sisipkan data-data lain sesuai kebutuhan -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+      Tidak ada data.
+    </div>
+  </form>
+</template>
