@@ -107,20 +107,18 @@
         <tbody>
           <tr repeat.for="item of data">
             <td>${$index + 1}</td>
-            <td>${item.deletedUtcEx | dateFormat:'DD MMMM YYYY'}</td>
-            <td>${item.deletedByEx}</td>
-            <td>${item.uenNoEx}</td>
-            <td>${item.unitEx}</td>
-            <td>${item.expenditureDate | dateFormat:'DD MMMM YYYY'}</td>
-            <td>${item.unitDoNoEx}</td>
-            <td>${item.expenditureType}</td>
-            <td>${item.expenditureToEx}</td>
-            <td>${item.roNoEx}</td>
-            <td>${item.poSerialNumber}</td>
-            <td>${item.productNameEx}</td>
-            <td>${item.quantityEx}</td>
-            <td>${item.uomUnitEx}</td>
-
+            <td>${item.deletedBys}</td>
+            <td>${item.deletedDates | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.loadingNos}</td>
+            <td>${item.loadingDates | dateFormat:'DD MMMM YYYY'}</td>
+            <td>${item.unitNames}</td>
+            <td>${item.roNos}</td>
+            <td>${item.sewingDoNos}</td>
+            <td>${item.commodityNames}</td>
+            <td>${item.productCodes}</td>
+            <td>${item.sizeNames}</td>
+            <td>${item.quantities}</td>
+            <td>${item.colors}</td>
             <!-- Sisipkan data-data lain sesuai kebutuhan -->
           </tr>
         </tbody>

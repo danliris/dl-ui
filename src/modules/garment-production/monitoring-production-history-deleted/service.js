@@ -3,6 +3,7 @@ import { RestService } from '../../../utils/rest-service';
 
 
 const serviceUri = 'preparings/deleted';
+const serviceUri2 = 'loadings/deleted';
 // const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
 // const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
 export class Service extends RestService {

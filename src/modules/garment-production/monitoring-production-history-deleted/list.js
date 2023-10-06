@@ -23,19 +23,24 @@ export class List {
     }
   };
 
-  @bindable SearchItem; 
-  tglAwalPreparing =null;
-  tglAkhirPreparing =null;
-  tglAwalLoading =null;
+  @bindable SearchItem;
+  tglAwalPreparing = null;
+  tglAkhirPreparing = null;
+  tglAwalLoading = null;
   tglAkhirLoading = null;
 
   // ini untuk melihat awal pertama search
-  SearchItems = [ 'Monitoring Preparing','Monitoring Loading'];
+  SearchItems = ['Monitoring Preparing', 'Monitoring Loading'];
 
   search() {
     this.info.page = 1;
     this.info.total = 0;
     this.searching();
+  }
+  search2() {
+    this.info.page = 1;
+    this.info.total = 0;
+    this.searching2();
   }
 
   activate() { }
@@ -49,14 +54,13 @@ export class List {
       dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : null,
       dateTo: this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format('YYYY-MM-DD') : null,
     };
-    console.log("tanggal 1", this.tglAwalPreparing);
+    // console.log("tanggal 1", this.tglAwalPreparing);
     if (this.SearchItem === 'Monitoring Preparing') {
       // Logika pencarian untuk Monitoring Preparing
       args.monType = 'Preparing';
-      
+
       args.dateFrom = this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : '1970-01-01',
-      args.dateTo = this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format('YYYY-MM-DD') : dateNow.format('YYYY-MM-DD'), // Anda mungkin ingin mengganti ini sesuai kebutuhan
-      console.log("arg", args);
+        args.dateTo = this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format('YYYY-MM-DD') : dateNow.format('YYYY-MM-DD'), // Anda mungkin ingin mengganti ini sesuai kebutuhan
       this.service.search(args) // Ganti dengan metode yang sesuai untuk Monitoring Preparing
         .then(result => {
           this.data = result;
@@ -64,8 +68,8 @@ export class List {
     } else if (this.SearchItem === 'Monitoring Loading') {
       // Logika pencarian untuk Monitoring Loading
       args.monType = 'Loading';
-      args.dateFrom= moment(this.tglAwalLoading).format('YYYY-MM-DD');
-      args.dateTo= moment(this.tglAkhirLoading).format('YYYY-MM-DD');
+      args.dateFrom = this.tglAwalLoading ? moment(this.tglAwalLoading).format('YYYY-MM-DD') : '1970-01-01';
+      args.dateTo = this.tglAkhirLoading ? moment(this.tglAkhirLoading).format('YYYY-MM-DD') : dateNow.format('YYYY-MM-DD');
       this.service.search2(args) // Ganti dengan metode yang sesuai untuk Monitoring Loading
         .then(result => {
           this.data = result;
@@ -86,7 +90,7 @@ export class List {
     let args = {
       filter: this.filter,
       dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : "",
-      dateTo:  this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format("YYYY-MM-DD") : ""
+      dateTo: this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format("YYYY-MM-DD") : ""
       // dateFrom: moment(this.tglAwalPreparing).format('YYYY-MM-DD'),
       // dateTo: moment(this.tglAkhirPreparing).format('YYYY-MM-DD'),
       // dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : '1970-01-01' ,
@@ -115,8 +119,8 @@ export class List {
   searching2() {
     var args = {
       filter: this.filter,
-      dateFrom: moment(this.tglAwalLoading).format('YYYY-MM-DD'),
-      dateTo: moment(this.tglAkhirLoading).format('YYYY-MM-DD'),
+      dateFrom: this.tglAwalLoading ? moment(this.tglAwalLoading).format("YYYY-MM-DD") : null,
+      dateTo: this.tglAkhirLoading ? moment(this.tglAkhirLoading).format("YYYY-MM-DD") : null,
     };
 
     if (this.SearchItem === 'Monitoring Loading') {
@@ -141,8 +145,8 @@ export class List {
   ExportToExcel2() {
     let args = {
       filter: this.filter,
-      dateFrom: moment(this.tglAwalLoading).format('YYYY-MM-DD'),
-      dateTo: moment(this.tglAkhirLoading).format('YYYY-MM-DD'),
+      dateFrom: this.tglAwalLoading ? moment(this.tglAwalLoading).format("YYYY-MM-DD") : "",
+      dateTo: this.tglAkhirLoading ? moment(this.tglAkhirLoading).format("YYYY-MM-DD") : ""
     };
 
     if (this.SearchItem === 'Monitoring Loading') {
