@@ -232,24 +232,24 @@ module.exports = [{
     iconClass: "fa fa-dashboard"
   }
 },
-{
-  route: "weaving/estimated-production",
-  name: "estimated-production",
-  moduleId: "./modules/weaving/estimated-production/index",
-  nav: true,
-  title: "Estimasi Produksi",
-  auth: true,
-  settings: {
-    group: "weaving",
-    // permission: {
-    //   W1: 1,
-    //   W2: 1,
-    //   "*": 1
-    // },
-    permission: { "M14": 1 },
-    iconClass: "fa fa-dashboard"
-  }
-},
+// {
+//   route: "weaving/estimated-production",
+//   name: "estimated-production",
+//   moduleId: "./modules/weaving/estimated-production/index",
+//   nav: true,
+//   title: "Estimasi Produksi",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     // permission: {
+//     //   W1: 1,
+//     //   W2: 1,
+//     //   "*": 1
+//     // },
+//     permission: { "M14": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
 {
   route: "weaving/order-production-report",
   name: "order-production-report",
@@ -358,6 +358,101 @@ module.exports = [{
     iconClass: "fa fa-dashboard"
   }
 },
+
+//GROUPING WEAVING
+{
+  route: "weaving/daily-operation-warping",
+  name: "daily-operation-warping",
+  moduleId: "./modules/weaving/daily-operation-warping/index",
+  nav: true,
+  title: "WARPING",
+  auth: true,
+  settings: {
+    group: "weaving",
+    subGroup: "PREPARATION",
+
+    permission: { "M20": 1 },
+    iconClass: "fa fa-dashboard"
+  }
+},
+{
+  route: "weaving/daily-operation-warping",
+  name: "daily-operation-warping",
+  moduleId: "./modules/weaving/daily-operation-warping/index",
+  nav: true,
+  title: "SIZING",
+  auth: true,
+  settings: {
+    group: "weaving",
+    subGroup: "PREPARATION",
+  
+    permission: { "M20": 1 },
+    iconClass: "fa fa-dashboard"
+  }
+},
+// {
+//   route: "weaving/daily-operation-warping",
+//   name: "daily-operation-warping",
+//   moduleId: "./modules/weaving/daily-operation-warping/index",
+//   nav: true,
+//   title: "Laporan Visualisasi Stock Beam",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     subGroup: "PREPARATION",
+//     subDetailGroup: "REACHING",
+    
+//     permission: { "M20": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
+{
+  route: "weaving/daily-operation-loom",
+  name: "weaving-daily-operation-loom",
+  moduleId: "./modules/weaving/daily-operation-loom-upload/index",
+  nav: true,
+  title: "Daily Operation Mesin Loom",
+  auth: true,
+  settings: {
+    group: "weaving",
+    subGroup: "PRODUKSI LOOM",
+  
+    permission: { "M29": 1 },
+    iconClass: "fa fa-dashboard"
+  }
+},
+{
+  route: "weaving/daily-operation-loom-report",
+  name: "weaving-daily-operation-loom-report",
+  moduleId: "./modules/weaving/daily-operation-loom-report/index",
+  nav: true,
+  title: "Laporan Operasional Mesin Harian Loom",
+  auth: true,
+  settings: {
+    group: "weaving",
+    subGroup: "PRODUKSI LOOM",
+  
+    permission: { "M30": 1 },
+    iconClass: "fa fa-dashboard"
+  }
+},
+{
+  route: "weaving/estimated-production",
+  name: "estimated-production",
+  moduleId: "./modules/weaving/estimated-production/index",
+  nav: true,
+  title: "Estimasi Produksi",
+  auth: true,
+  settings: {
+    group: "weaving",
+    subGroup: "PPIC",
+  
+    permission: { "M14": 1 },
+    iconClass: "fa fa-dashboard"
+  }
+},
+//--------------
+
 {
   route: "weaving/warping-productions-report",
   name: "warping-productions-report",
@@ -538,42 +633,42 @@ module.exports = [{
     iconClass: "fa fa-dashboard"
   }
 },
-{
-  route: "weaving/daily-operation-loom",
-  name: "weaving-daily-operation-loom",
-  moduleId: "./modules/weaving/daily-operation-loom-upload/index",
-  nav: true,
-  title: "Operasional Mesin Harian Loom",
-  auth: true,
-  settings: {
-    group: "weaving",
-    // permission: {
-    //   W1: 1,
-    //   W2: 1,
-    //   "*": 1
-    // },
-    permission: { "M29": 1 },
-    iconClass: "fa fa-dashboard"
-  }
-},
-{
-  route: "weaving/daily-operation-loom-report",
-  name: "weaving-daily-operation-loom-report",
-  moduleId: "./modules/weaving/daily-operation-loom-report/index",
-  nav: true,
-  title: "Laporan Operasional Mesin Harian Loom",
-  auth: true,
-  settings: {
-    group: "weaving",
-    // permission: {
-    //   W1: 1,
-    //   W2: 1,
-    //   "*": 1
-    // },
-    permission: { "M30": 1 },
-    iconClass: "fa fa-dashboard"
-  }
-},
+// {
+//   route: "weaving/daily-operation-loom",
+//   name: "weaving-daily-operation-loom",
+//   moduleId: "./modules/weaving/daily-operation-loom-upload/index",
+//   nav: true,
+//   title: "Operasional Mesin Harian Loom",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     // permission: {
+//     //   W1: 1,
+//     //   W2: 1,
+//     //   "*": 1
+//     // },
+//     permission: { "M29": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
+// {
+//   route: "weaving/daily-operation-loom-report",
+//   name: "weaving-daily-operation-loom-report",
+//   moduleId: "./modules/weaving/daily-operation-loom-report/index",
+//   nav: true,
+//   title: "Laporan Operasional Mesin Harian Loom",
+//   auth: true,
+//   settings: {
+//     group: "weaving",
+//     // permission: {
+//     //   W1: 1,
+//     //   W2: 1,
+//     //   "*": 1
+//     // },
+//     permission: { "M30": 1 },
+//     iconClass: "fa fa-dashboard"
+//   }
+// },
 {
   route: "weaving/production-results",
   name: "production-results",
