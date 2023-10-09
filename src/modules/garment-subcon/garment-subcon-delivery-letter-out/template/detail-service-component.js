@@ -8,5 +8,6 @@ export class Detail {
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
     this.readOnly = context.context.options.readOnly;
+    this.isCutSew = context.context.options.isCutSew;
   }
 }
