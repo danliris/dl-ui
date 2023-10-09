@@ -64,13 +64,14 @@ export class DataForm {
       "Satuan Keluar",
     ],
     columnsCuttingSewing: [
-      "Kode Barang",
-      "Nama Barang",
-      "Keterangan Barang",
-      "Design/Color",
-      "Jumlah",
-      "Satuan",
-      "Tipe Fabric",
+      "Nomor BUK",
+      "",
+      // "Nama Barang",
+      // "Keterangan Barang",
+      // "Design/Color",
+      // "Jumlah",
+      // "Satuan",
+      // "Tipe Fabric",
     ],
     columnsCutting: ["RO", "No Cutting Out Subcon", "Plan PO", "Jumlah"],
     columnsServiceCutting: [
@@ -238,36 +239,36 @@ export class DataForm {
 
     if (this.data.Id) {
       if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
-        if (this.isCreate || this.isEdit) {
-          //Mapping data Item Fabric
-          var itemFab = this.data.Items.find((x) => x.Product.Name == "FABRIC");
-          if (itemFab) {
-            var uen = await this.purchasingService.getUENById(itemFab.UENId);
-            this.selectedUEN = {
-              UENNo: itemFab.UENNo,
-              Id: itemFab.UENId,
-              UnitDOId: uen.UnitDOId,
-              Items: uen.Items,
-            };
-          }
+        // if (this.isCreate || this.isEdit) {
+        //   //Mapping data Item Fabric
+        //   var itemFab = this.data.Items.find((x) => x.Product.Name == "FABRIC");
+        //   if (itemFab) {
+        //     var uen = await this.purchasingService.getUENById(itemFab.UENId);
+        //     this.selectedUEN = {
+        //       UENNo: itemFab.UENNo,
+        //       Id: itemFab.UENId,
+        //       UnitDOId: uen.UnitDOId,
+        //       Items: uen.Items,
+        //     };
+        //   }
 
-          //Mapping data Item Acc
-          var itemAcc = this.data.Items.find((x) => x.Product.Name != "FABRIC");
-          console.log("itemAcc", itemAcc);
-          if (itemAcc) {
-            var uen = await this.purchasingService.getUENById(itemAcc.UENId);
-            this.selectedUENAcc = {
-              UENNo: itemAcc.UENNo,
-              Id: itemAcc.UENId,
-              UnitDOId: uen.UnitDOId,
-              Items: uen.Items,
-            };
-          } else {
-            this.selectedUENAcc = {
-              UENNo: "",
-            };
-          }
-        }
+        //   //Mapping data Item Acc
+        //   var itemAcc = this.data.Items.find((x) => x.Product.Name != "FABRIC");
+        //   console.log("itemAcc", itemAcc);
+        //   if (itemAcc) {
+        //     var uen = await this.purchasingService.getUENById(itemAcc.UENId);
+        //     this.selectedUENAcc = {
+        //       UENNo: itemAcc.UENNo,
+        //       Id: itemAcc.UENId,
+        //       UnitDOId: uen.UnitDOId,
+        //       Items: uen.Items,
+        //     };
+        //   } else {
+        //     this.selectedUENAcc = {
+        //       UENNo: "",
+        //     };
+        //   }
+        // }
         this.selectedPO = {
           PO_SerialNumber: this.data.PONo,
           Id: this.data.EPOItemId,
@@ -348,6 +349,7 @@ export class DataForm {
       this.data.UsedQty = 0;
       this.data.QtyUsed = 0;
       this.data.Items.splice(0);
+      this.data.ItemsAcc.splice(0);
       this.context.selectedContractViewModel.editorValue = "";
       this.data.ServiceType = "";
       this.selectedServiceType = null;
@@ -416,112 +418,112 @@ export class DataForm {
     return UENLoader;
   }
 
-  async selectedUENChanged(newValue, oldValue) {
-    if (newValue && (this.isCreate || this.isEdit)) {
-      if (this.data.Items.length > 0) {
-        this.data.Items.splice(0);
-      }
+  // async selectedUENChanged(newValue, oldValue) {
+  //   if (newValue && (this.isCreate || this.isEdit)) {
+  //     if (this.data.Items.length > 0) {
+  //       this.data.Items.splice(0);
+  //     }
 
-      this.GetUEN(newValue, this.data.Items, newValue.UENNo, newValue.Id);
-    } else {
-      this.context.selectedUENViewModel.editorValue = "";
-      this.data.Items.splice(0);
-    }
-  }
+  //     this.GetUEN(newValue, this.data.Items, newValue.UENNo, newValue.Id);
+  //   } else {
+  //     this.context.selectedUENViewModel.editorValue = "";
+  //     this.data.Items.splice(0);
+  //   }
+  // }
 
-  async selectedUENAccChanged(newValue, oldValue) {
-    if (newValue && (this.isCreate || this.isEdit)) {
-      if (this.data.ItemsAcc.length > 0) {
-        this.data.ItemsAcc.splice(0);
-      }
-      this.GetUEN(newValue, this.data.ItemsAcc, newValue.UENNo, newValue.Id);
-    } else {
-      this.context.selectedUENAccViewModel.editorValue = "";
-      this.data.ItemsAcc.splice(0);
-    }
-  }
+  // async selectedUENAccChanged(newValue, oldValue) {
+  //   if (newValue && (this.isCreate || this.isEdit)) {
+  //     if (this.data.ItemsAcc.length > 0) {
+  //       this.data.ItemsAcc.splice(0);
+  //     }
+  //     this.GetUEN(newValue, this.data.ItemsAcc, newValue.UENNo, newValue.Id);
+  //   } else {
+  //     this.context.selectedUENAccViewModel.editorValue = "";
+  //     this.data.ItemsAcc.splice(0);
+  //   }
+  // }
 
-  async GetUEN(newValue, dataArr, uenNo, uenId) {
-    this.purchasingService
-      .getUnitDeliveryOrderById(newValue.UnitDOId)
-      .then((deliveryOrder) => {
-        this.service
-          .searchComplete({
-            filter: JSON.stringify({ ContractNo: this.data.ContractNo }),
-          })
-          .then((contract) => {
-            var usedQty = 0;
-            if (contract.data.length > 0) {
-              for (var subcon of contract.data) {
-                if (subcon.Id != this.data.Id) {
-                  for (var subconItem of subcon.Items) {
-                    usedQty += subconItem.Quantity;
-                  }
-                } else {
-                  this.data.savedItems = subcon.Items;
-                }
-              }
-            }
+  // async GetUEN(newValue, dataArr, uenNo, uenId) {
+  //   this.purchasingService
+  //     .getUnitDeliveryOrderById(newValue.UnitDOId)
+  //     .then((deliveryOrder) => {
+  //       this.service
+  //         .searchComplete({
+  //           filter: JSON.stringify({ ContractNo: this.data.ContractNo }),
+  //         })
+  //         .then((contract) => {
+  //           var usedQty = 0;
+  //           if (contract.data.length > 0) {
+  //             for (var subcon of contract.data) {
+  //               if (subcon.Id != this.data.Id) {
+  //                 for (var subconItem of subcon.Items) {
+  //                   usedQty += subconItem.Quantity;
+  //                 }
+  //               } else {
+  //                 this.data.savedItems = subcon.Items;
+  //               }
+  //             }
+  //           }
 
-            this.data.QtyUsed = usedQty;
-            if (deliveryOrder) {
-              for (var uenItem of newValue.Items) {
-                var item = {};
-                item.UENItemId = uenItem._id || uenItem.Id;
-                if (this.data.savedItems) {
-                  var qty = this.data.savedItems.find(
-                    (a) => a.UENItemId == uenItem.Id
-                  );
-                  // if (this.isEdit) {
-                  //
-                  // }
-                  if (qty) {
-                    item.Quantity = qty.Quantity;
-                    item.Id = qty.Id;
-                  }
-                }
-                //item.UENItemId=uenItem.Id;
-                item.Product = {
-                  Name: uenItem.ProductName,
-                  Code: uenItem.ProductCode,
-                  Id: uenItem.ProductId,
-                };
-                item.Uom = {
-                  Id: uenItem.UomId,
-                  Unit: uenItem.UomUnit,
-                };
+  //           this.data.QtyUsed = usedQty;
+  //           if (deliveryOrder) {
+  //             for (var uenItem of newValue.Items) {
+  //               var item = {};
+  //               item.UENItemId = uenItem._id || uenItem.Id;
+  //               if (this.data.savedItems) {
+  //                 var qty = this.data.savedItems.find(
+  //                   (a) => a.UENItemId == uenItem.Id
+  //                 );
+  //                 // if (this.isEdit) {
+  //                 //
+  //                 // }
+  //                 if (qty) {
+  //                   item.Quantity = qty.Quantity;
+  //                   item.Id = qty.Id;
+  //                 }
+  //               }
+  //               //item.UENItemId=uenItem.Id;
+  //               item.Product = {
+  //                 Name: uenItem.ProductName,
+  //                 Code: uenItem.ProductCode,
+  //                 Id: uenItem.ProductId,
+  //               };
+  //               item.Uom = {
+  //                 Id: uenItem.UomId,
+  //                 Unit: uenItem.UomUnit,
+  //               };
 
-                if (uenItem.ProductName == "FABRIC") {
-                  item.UomOut = {
-                    Id: uenItem.UomId,
-                    Unit: uenItem.UomUnit,
-                  };
-                } else {
-                  item.UomOut = {
-                    Id: uenItem.UomId,
-                    Unit: uenItem.UomUnit,
-                  };
-                }
+  //               if (uenItem.ProductName == "FABRIC") {
+  //                 item.UomOut = {
+  //                   Id: uenItem.UomId,
+  //                   Unit: uenItem.UomUnit,
+  //                 };
+  //               } else {
+  //                 item.UomOut = {
+  //                   Id: uenItem.UomId,
+  //                   Unit: uenItem.UomUnit,
+  //                 };
+  //               }
 
-                item.ProductRemark = uenItem.ProductRemark;
-                var doItem = deliveryOrder.Items.find(
-                  (a) => a._id == uenItem.UnitDOItemId
-                );
+  //               item.ProductRemark = uenItem.ProductRemark;
+  //               var doItem = deliveryOrder.Items.find(
+  //                 (a) => a._id == uenItem.UnitDOItemId
+  //               );
 
-                if (doItem) {
-                  item.DesignColor = doItem.DesignColor;
-                }
-                item.FabricType = uenItem.FabricType;
-                item.ContractQuantity = uenItem.Quantity;
-                item.Quantity = uenItem.Quantity;
-                item.UENNo = uenNo;
-                item.UENId = uenId;
-                dataArr.push(item);
-              }
-            }
-          });
-      });
-  }
+  //               if (doItem) {
+  //                 item.DesignColor = doItem.DesignColor;
+  //               }
+  //               item.FabricType = uenItem.FabricType;
+  //               item.ContractQuantity = uenItem.Quantity;
+  //               item.Quantity = uenItem.Quantity;
+  //               item.UENNo = uenNo;
+  //               item.UENId = uenId;
+  //               dataArr.push(item);
+  //             }
+  //           }
+  //         });
+  //     });
+  // }
 
   async selectedContractChanged(newValue) {
     this.selectedUEN = null;
@@ -550,11 +552,26 @@ export class DataForm {
     var qty = 0;
     if (this.data.Items) {
       if (this.data.Items.length > 0) {
-        if (this.data.SubconCategory != "SUBCON BB SHRINKAGE/PANEL") {
+        if (
+          this.data.SubconCategory != "SUBCON BB SHRINKAGE/PANEL" &&
+          this.data.SubconCategory != "SUBCON CUTTING SEWING"
+        ) {
           for (var item of this.data.Items) {
             qty += item.Quantity;
           }
-        } else {
+        } else if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+          for (var item of this.data.Items) {
+            for (var detail of item.Details) {
+              qty += detail.Quantity;
+            }
+          }
+
+          for (var item of this.data.ItemsAcc) {
+            for (var detail of item.Details) {
+              qty += detail.Quantity;
+            }
+          }
+        } else if (this.data.SubconCategory == "SUBCON BB SHRINKAGE/PANEL") {
           for (var item of this.data.Items) {
             qty += item.SmallQuantity;
           }
@@ -604,6 +621,24 @@ export class DataForm {
   get removeItems() {
     return (event) => {
       this.error = null;
+    };
+  }
+
+  get addItemsCutSew() {
+    return (event) => {
+      this.data.Items.push({
+        DLType: this.data.DLType,
+        OrderType: this.data.OrderType,
+      });
+    };
+  }
+
+  get addItemsAccCutSew() {
+    return (event) => {
+      this.data.ItemsAcc.push({
+        DLType: this.data.DLType,
+        OrderType: this.data.OrderType,
+      });
     };
   }
 
