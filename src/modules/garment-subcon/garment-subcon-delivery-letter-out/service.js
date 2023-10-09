@@ -174,6 +174,12 @@ class PurchasingService extends RestService {
     var endpoint = `${garmentUENServiceUri}/${id}`;
     return super.get(endpoint);
   }
+
+  getUENByNo(info) {
+    var endpoint = `${garmentUENServiceUri}`;
+    return super.list(endpoint, info);
+  }
+
   getGarmentPR(info) {
     var endpoint = `${serviceUriPR}`;
     return super.list(endpoint, info);

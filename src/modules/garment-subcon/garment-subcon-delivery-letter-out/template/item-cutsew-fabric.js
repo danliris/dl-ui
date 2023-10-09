@@ -79,12 +79,11 @@ export class Item {
   // @computedFrom("data.DLType && data.OrderType")
   get UENFilter() {
     var UENFilter = {};
-    var UENFilter = {};
     if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        StorageName: "GUDANG BAHAN BAKU",
       };
     } else if (
       this.data.DLType == "PROSES" &&
@@ -93,7 +92,7 @@ export class Item {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        StorageName: "GUDANG BAHAN BAKU",
         UnitRequestCode: "SMP1",
       };
     } else if (
@@ -102,7 +101,7 @@ export class Item {
     ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        StorageName: "GUDANG BAHAN BAKU",
       };
     } else if (
       this.data.DLType != "PROSES" &&
@@ -110,7 +109,7 @@ export class Item {
     ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        StorageName: "GUDANG BAHAN BAKU",
         UnitRequestCode: "SMP1",
       };
     }
