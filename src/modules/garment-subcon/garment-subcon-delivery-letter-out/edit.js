@@ -25,6 +25,52 @@ export class View {
       this.selectedSubconCategory = this.data.SubconCategory;
       this.selectedOrderType = this.data.OrderType;
     }
+
+    if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+      //Mapping data Item Acc
+      // this.data.ItemsAcc = this.data.Items.filter(
+      //   (x) => x.Product.Name != "FABRIC"
+      // );
+      // if (this.data.ItemsAcc.length > 0) {
+      //   this.selectedUENAcc = {
+      //     UENNo: this.data.ItemsAcc[0].UENNo,
+      //   };
+      // } else {
+      //   this.selectedUENAcc = {
+      //     UENNo: "",
+      //   };
+      // }
+
+      let newItemFab = [];
+      let newItemAcc = [];
+      for (var item of this.data.Items) {
+        for (var detail of item.Details) {
+          detail.ContractQuantity = detail.Quantity;
+          if (detail.Product.Name == "FABRIC") {
+            var existFab = newItemFab.find((x) => x.UENNo == item.UENNo);
+            if (!existFab) {
+              newItemFab.push(item);
+            }
+          } else {
+            var existAcc = newItemAcc.find((x) => x.UENNo == item.UENNo);
+            if (!existAcc) {
+              newItemAcc.push(item);
+            }
+          }
+        }
+      }
+
+      this.data.Items = newItemFab;
+      this.data.ItemsAcc = newItemAcc;
+      // //Mapping data Item Fabric
+      // this.data.Items = this.data.Items.filter(
+      //   (x) => x.Product.Name == "FABRIC"
+      // );
+      // this.selectedUEN = {
+      //   UENNo: this.data.Items[0].UENNo,
+      // };
+    }
+
     this.getContractQty();
     await this.GetUEN();
   }
@@ -166,7 +212,8 @@ export class View {
 
   saveCallback(event) {
     if (this.data.SubconCategory == "SUBCON CUTTING SEWING")
-      this.data.UsedQty = this.data.ContractQty - this.data.QtyUsed;
+      // this.data.UsedQty = this.data.ContractQty - this.data.QtyUsed;
+      this.data.UsedQty = 0;
     else {
       this.data.UENId = 0;
       //this.data.UsedQty=this.data.ContractQty;

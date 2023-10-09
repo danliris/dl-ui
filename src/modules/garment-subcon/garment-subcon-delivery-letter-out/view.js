@@ -29,25 +29,47 @@ export class View {
 
       if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
         //Mapping data Item Acc
-        this.data.ItemsAcc = this.data.Items.filter(
-          (x) => x.Product.Name != "FABRIC"
-        );
-        if (this.data.ItemsAcc.length > 0) {
-          this.selectedUENAcc = {
-            UENNo: this.data.ItemsAcc[0].UENNo,
-          };
-        } else {
-          this.selectedUENAcc = {
-            UENNo: "",
-          };
+        // this.data.ItemsAcc = this.data.Items.filter(
+        //   (x) => x.Product.Name != "FABRIC"
+        // );
+        // if (this.data.ItemsAcc.length > 0) {
+        //   this.selectedUENAcc = {
+        //     UENNo: this.data.ItemsAcc[0].UENNo,
+        //   };
+        // } else {
+        //   this.selectedUENAcc = {
+        //     UENNo: "",
+        //   };
+        // }
+
+        let newItemFab = [];
+        let newItemAcc = [];
+        for (var item of this.data.Items) {
+          for (var detail of item.Details) {
+            detail.ContractQuantity = detail.Quantity;
+            if (detail.Product.Name == "FABRIC") {
+              var existFab = newItemFab.find((x) => x.UENNo == item.UENNo);
+              if (!existFab) {
+                newItemFab.push(item);
+              }
+            } else {
+              var existAcc = newItemAcc.find((x) => x.UENNo == item.UENNo);
+              if (!existAcc) {
+                newItemAcc.push(item);
+              }
+            }
+          }
         }
-        //Mapping data Item Fabric
-        this.data.Items = this.data.Items.filter(
-          (x) => x.Product.Name == "FABRIC"
-        );
-        this.selectedUEN = {
-          UENNo: this.data.Items[0].UENNo,
-        };
+
+        this.data.Items = newItemFab;
+        this.data.ItemsAcc = newItemAcc;
+        // //Mapping data Item Fabric
+        // this.data.Items = this.data.Items.filter(
+        //   (x) => x.Product.Name == "FABRIC"
+        // );
+        // this.selectedUEN = {
+        //   UENNo: this.data.Items[0].UENNo,
+        // };
       }
     }
   }
