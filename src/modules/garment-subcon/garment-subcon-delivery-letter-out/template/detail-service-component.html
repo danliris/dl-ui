@@ -32,8 +32,8 @@
       <au-numeric
         value.bind="data.Quantity"
         error.bind="error.Quantity"
-        read-only.bind="readOnly"
-        format="0"
+        read-only.bind="readOnly || isCutSew"
+        format="0.00"
       >
       </au-numeric>
     </td>
