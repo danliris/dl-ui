@@ -126,12 +126,8 @@
     </div>
 
     <!-- Cutting Sewing Fabric -->
-    <div
-      class="card"
-      style="background-color: transparent; color: black"
-      if.bind="data.SubconCategory=='SUBCON CUTTING SEWING'"
-    >
-      <div style="padding-top: 10px; max-width: 70%">
+    <div if.bind="data.SubconCategory=='SUBCON CUTTING SEWING'">
+      <!-- <div style="padding-top: 10px; max-width: 70%">
         <au-autocomplete
           value.bind="selectedUEN"
           error.bind="error.UENNo"
@@ -145,27 +141,26 @@
           view-model.ref="selectedUENViewModel"
         >
         </au-autocomplete>
-      </div>
-      <div style="padding-right: 1%; padding-left: 1%; padding-bottom: 0%">
-        <au-collection
-          items.bind="data.Items"
-          errors.bind="error.Items"
-          columns.bind="itemsInfo.columnsCuttingSewing"
-          read-only.bind="readOnly"
-          options.bind="itemOptions"
-          item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutsew-acc"
-        >
-        </au-collection>
-      </div>
+      </div> -->
+      <!-- <div style="padding-right: 1%; padding-left: 1%; padding-bottom: 0%"> -->
+      <au-collection
+        items.bind="data.Items"
+        errors.bind="error.Items"
+        columns.bind="itemsInfo.columnsCuttingSewing"
+        read-only.bind="readOnly"
+        options.bind="itemOptions"
+        item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutsew-fabric"
+        title="BUK Fabric"
+        remove.bind="removeItems"
+        add.bind="addItemsCutSew"
+      >
+      </au-collection>
+      <!-- </div> -->
     </div>
     <!-- ---------------------------->
     <!-- Cutting Sewing Acc -->
-    <div
-      class="card"
-      style="background-color: transparent; color: black"
-      if.bind="data.SubconCategory=='SUBCON CUTTING SEWING'"
-    >
-      <div style="padding-top: 10px; max-width: 70%">
+    <div if.bind="data.SubconCategory=='SUBCON CUTTING SEWING'">
+      <!-- <div style="padding-top: 10px; max-width: 70%">
         <au-autocomplete
           value.bind="selectedUENAcc"
           error.bind="error.UENAccNo"
@@ -179,18 +174,21 @@
           view-model.ref="selectedUENAccViewModel"
         >
         </au-autocomplete>
-      </div>
-      <div style="padding-right: 1%; padding-left: 1%; padding-bottom: 0%">
-        <au-collection
-          items.bind="data.ItemsAcc"
-          errors.bind="error.ItemsAcc"
-          columns.bind="itemsInfo.columnsCuttingSewing"
-          read-only.bind="readOnly"
-          options.bind="itemOptions"
-          item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutsew-acc"
-        >
-        </au-collection>
-      </div>
+      </div> -->
+      <!-- <div style="padding-right: 1%; padding-left: 1%; padding-bottom: 0%"> -->
+      <au-collection
+        items.bind="data.ItemsAcc"
+        errors.bind="error.ItemsAcc"
+        columns.bind="itemsInfo.columnsCuttingSewing"
+        read-only.bind="readOnly"
+        options.bind="itemOptions"
+        item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/item-cutsew-acc"
+        remove.bind="removeItems"
+        add.bind="addItemsAccCutSew"
+        title="BUK Accescories"
+      >
+      </au-collection>
+      <!-- </div> -->
     </div>
     <!-- ---------------------------->
     <au-collection
