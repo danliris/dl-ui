@@ -201,4 +201,22 @@ export class List {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
+
+    reset() {
+        
+        this.productionOrder = null;
+        this.buyer = null;
+        this.comodity = null;
+        this.dateFrom = null;
+        this.dateTo = null;
+        this.orderType = null;
+        this.processType = null;
+        this.account = null;
+        this.sdate = null;
+        this.edate = null;
+        this.filter = {};
+        this.listDataFlag = false;
+        this.table.refresh();
+    }
 }
+//belum bisa cuy//
