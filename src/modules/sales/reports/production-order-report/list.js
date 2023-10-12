@@ -183,6 +183,7 @@ processTypeChanged(newValue) {
     }
 
     reset() {
+        
         this.productionOrder = null;
         this.buyer = null;
         this.comodity = null;
@@ -194,6 +195,7 @@ processTypeChanged(newValue) {
         this.sdate = null;
         this.edate = null;
         this.filter = {};
+        this.listDataFlag = false;
         this.table.refresh();
     }
 }
