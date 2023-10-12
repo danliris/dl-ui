@@ -438,6 +438,21 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/shipping-note-credit-advice",
+        name: "garment-shipping/shipping-note-credit-advice",
+        moduleId: "modules/garment-shipping/shipping-note-credit-advice/index",
+        nav: true,
+        title: "Credit Advice - Debit Note Dan Credit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P84": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/garment-credit-advice",
         name: "garment-shipping/monitoring/garment-credit-advice",
         moduleId: "modules/garment-shipping/monitoring/garment-credit-advice/index",
