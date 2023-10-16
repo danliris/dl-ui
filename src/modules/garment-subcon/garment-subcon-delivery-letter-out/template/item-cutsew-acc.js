@@ -84,7 +84,9 @@ export class Item {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        // StorageName: "GUDANG ACCESSORIES",
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+          "true",
       };
     } else if (
       this.data.DLType == "PROSES" &&
@@ -93,7 +95,9 @@ export class Item {
       UENFilter = {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        // StorageName: "GUDANG ACCESSORIES",
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+          "true",
         UnitRequestCode: "SMP1",
       };
     } else if (
@@ -102,7 +106,9 @@ export class Item {
     ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        // StorageName: "GUDANG ACCESSORIES",
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+          "true",
       };
     } else if (
       this.data.DLType != "PROSES" &&
@@ -110,7 +116,9 @@ export class Item {
     ) {
       UENFilter = {
         ExpenditureType: "SUBCON",
-        StorageName: "GUDANG ACCESSORIES",
+        // StorageName: "GUDANG ACCESSORIES",
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+          "true",
         UnitRequestCode: "SMP1",
       };
     }
