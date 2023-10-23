@@ -49,9 +49,9 @@ export class DataForm {
     { header: "RONo" },
     { header: "SC No" },
     { header: "Buyer Brand" },
-    { header: "Total Qty PackOut" },
+    { header: "Qty CC" },
     { header: "Komoditi Description" },
-    { header: "Qty" },
+    { header: "Total Qty PackOut" },
     { header: "Satuan" },
     { header: "Price RO" },
     { header: "Mata Uang" },
@@ -232,6 +232,7 @@ export class DataForm {
     return (event) => {
       this.data.items.push({
         BuyerCode: this.data.buyer.Code || this.data.buyer.code,
+        IdNo:this.data.localSalesNoteId,
         details: [],
       });
     };
