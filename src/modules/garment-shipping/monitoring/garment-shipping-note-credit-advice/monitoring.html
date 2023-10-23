@@ -1,0 +1,110 @@
+<template>
+    <h1 class="page-header">Monitoring Credit Advice Untuk Credit Note Dan Debit Note</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+            label="Buyer Agent"
+            value.bind="buyerAgent"
+            error.bind="error.BuyerAgent"
+            loader.bind="garmentbuyerLoader"
+            text.bind = "buyerAgentView"
+            key="Code"
+            placeholder="Cari Buyer Agent"
+            options.bind="controlOptions">
+        </au-autocomplete>
+       
+        <au-dropdown 
+            label="Jenis Nota" 
+            value.bind="noteType"
+            items.bind="NoteTypeOptions"
+            options.bind="controlOptions" >
+        </au-dropdown>
+
+        <au-autocomplete label="Nomor Nota" value.bind="selectedShippingNoteCA"
+            error.bind="error.noteNo" text="noteNo" loader.bind="shippingNoteCALoader"
+            placeholder="No Nota" query.bind="filter" read-only.bind="readOnly" options.bind="controlOptions">
+        </au-autocomplete>
+
+        <au-dropdown 
+            label="Payment Term" 
+            value.bind="paymentTerm"
+            items.bind="PaymentTermOptions"
+            options.bind="controlOptions" >
+        </au-dropdown>
+
+        <au-datepicker label="Tanggal Payment Awal" value.bind="dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Payment Akhir" value.bind="dateTo"></au-datepicker>
+  
+       <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-danger'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>                
+                <tr>
+                    <td align="center" rowspan="2">No</td>
+                    <td align="center" rowspan="2">No Nota</td>
+                    <td align="center" rowspan="2">Tgl Nota</td>
+                    <td align="center" rowspan="2">Tgl Payment</td>
+                    
+                    <td align="center" rowspan="2">Buyer Name</td>
+                    <td align="center" rowspan="2">Bank Name</td>
+                    <td align="center" rowspan="2">Payment Term</td>
+                    <td align="center" rowspan="2">Amount</td>
+                    <td align="center" rowspan="2">Paid Amount</td>
+                    <td align="center" rowspan="2">Balance Amount</td>
+
+                    <td align="center" rowspan="2">Bank Comission</td>
+                    <td align="center" rowspan="2">Credit Interest</td>
+                    <td align="center" rowspan="2">Bank Charges</td>
+                    <td align="center" rowspan="2">Insurance Charges</td>
+                    <td align="center" rowspan="2">Nett Nego</td>
+                    </tr>
+            </thead>
+            <tbody>
+                 <template repeat.for="buyer of buyers">
+                    <tr repeat.for="data of buyer.data">
+                        <td class="text-center"> ${$index + 1}</td>                        
+                        <td>${data.noteNo}</td>
+                        <td>${data.date}</td>
+                        <td>${data.paymentDate}</td>                        
+                        <td>${data.buyerName}</td>
+                        <td>${data.bankName}</td>
+                        <td>${data.paymentTerm}</td>
+
+                        <td class="text-right"><strong>${data.amount}</strong></td>
+                        <td class="text-right"><strong>${data.paidAmount}</strong></td>
+                        <td class="text-right"><strong>${data.balanceAmount}</strong></td>
+
+                        <td class="text-right"><strong>${data.bankComission}</strong></td>
+                        <td class="text-right"><strong>${data.creditInterest}</strong></td>
+                        <td class="text-right"><strong>${data.bankCharge}</strong></td>
+                        <td class="text-right"><strong>${data.insuranceCharge}</strong></td>   
+                        <td class="text-right"><strong>${data.nettNego}</strong></td>
+                    </tr>
+                </template>
+                 <tr class="active">
+                        <td colspan="8" class="text-center"><strong>TOTAL :</strong></td>
+                        <td class="text-right"><strong>${Total1}</strong></td>
+                        <td class="text-center">.</td>
+                        <td class="text-right"><strong>${Total3}</strong></td>
+                        <td class="text-right"><strong>${Total4}</strong></td>                        
+                        <td class="text-right"><strong>${Total5}</strong></td>
+                        <td class="text-right"><strong>${Total6}</strong></td>                        
+                        <td class="text-right"><strong>${Total2}</strong></td>                        
+                    </tr>
+            </tbody>
+
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+    </form>
+</template>
