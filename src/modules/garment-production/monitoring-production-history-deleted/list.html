@@ -6,21 +6,12 @@
     </au-dropdown>
 
     <!-- Tanggal Awal Delete Monitoring Preparing hanya muncul saat memilih "Monitoring Preparing" -->
-    <au-datepicker label="Tanggal Awal Delete Preparing" value.bind="tglAwalPreparing"
-      if.bind="SearchItem === 'Monitoring Preparing'" options.bind="controlOptions">
+    <au-datepicker label="Tanggal Awal Delete" value.bind="tglAwal" options.bind="controlOptions">
     </au-datepicker>
     <!-- Tanggal Akhir Delete Monitoring Preparing hanya muncul saat memilih "Monitoring Preparing" -->
-    <au-datepicker label="Tanggal Akhir Delete Preparing" value.bind="tglAkhirPreparing"
-      if.bind="SearchItem === 'Monitoring Preparing'" options.bind="controlOptions">
+    <au-datepicker label="Tanggal Akhir Delete" value.bind="tglAkhir" options.bind="controlOptions">
     </au-datepicker>
-    <!-- Tanggal Awal Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
-    <au-datepicker label="Tanggal Awal Delete Loading" value.bind="tglAwalLoading"
-      if.bind="SearchItem === 'Monitoring Loading'" options.bind="controlOptions">
-    </au-datepicker>
-    <!-- Tanggal Akhir Delete BUK hanya muncul saat memilih "Bon Pengeluaran Unit" -->
-    <au-datepicker label="Tanggal Akhir Delete Loading" value.bind="tglAkhirLoading"
-      if.bind="SearchItem === 'Monitoring Loading'" options.bind="controlOptions">
-    </au-datepicker>
+   
 
     <div class="form-group">
       <label for="contact" class="col-sm-5 control-label"></label>
@@ -30,12 +21,10 @@
       </div>
     </div>
 
-    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Monitoring Preparing'">
-      <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel Mon Pre</button>
+    <div slot="toolbar" class="btn-group">
+      <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel </button>
     </div>
-    <div slot="toolbar" class="btn-group" if.bind="SearchItem === 'Monitoring Loading'">
-      <button class='btn btn-primary' click.delegate="ExportToExcel2()">Export To Excel Mon Load</button>
-    </div>
+   
     <br>
 
     <!-- Tabel untuk Bon Penerimaan Unit -->
@@ -124,6 +113,104 @@
         </tbody>
       </table>
     </div>
+
+ <!-- Tabel untuk Monitoring Cutting -->
+ <div if.bind="SearchItem === 'Monitoring Cutting In'" class="table-responsive">
+  <table class="table table-bordered table-hover" border="1" id="poReport">
+    <!-- Isi tabel untuk Monitoring Cutting -->
+    <!-- Kolom-kolom tabel -->
+    <thead align="center">
+      <tr>
+        <td>NO</td>
+        <td>USER DELETE</td>
+        <td>TGL DELETE</td>
+        <td>NO CUTTING IN</td>
+        <td>TGL CUTTING IN</td>
+        <td>UNIT</td>
+        <td>TIPE CUTTING</td>
+        <td>ASAL CUTTING</td>
+        <td>NO RO</td>
+        <td>KODE BARANG</td>
+        <td>JUMLAH PREPARING OUT</td>
+        <td>SATUAN</td>
+        <td>JUMLAH POTONG</td>
+        <td>SISA</td>
+        <td>SATUAN</td>
+        <td>HARGA</td>
+        <td>FC</td>
+        <!-- Sisipkan kolom-kolom lain sesuai kebutuhan -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="item of data">
+        <td>${$index + 1}</td>
+        <td>${item.deletedBy}</td>
+        <td>${item.deletedDate | dateFormat:'DD MMMM YYYY'}</td>
+        <td>${item.cuttingInNo}</td>
+        <td>${item.cuttingInDate | dateFormat:'DD MMMM YYYY'}</td>
+        <td>${item.unit}</td>
+        <td>${item.cuttingInType}</td>
+        <td>${item.cuttingFrom}</td>
+        <td>${item.RO}</td>
+        <td>${item.itemCode}</td>
+        <td>${item.preparingQty}</td>
+        <td>${item.uomUnitsPrep}</td>
+        <td>${item.cuttingInQty}</td>
+        <td>${item.remainingQty}</td>
+        <td>${item.uomUnitCuttingIn}</td>
+        <td>${item.basicPrice}</td>
+        <td>${item.fc}</td>
+        <!-- Sisipkan data-data lain sesuai kebutuhan -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div if.bind="SearchItem === 'Monitoring Cutting Out'" class="table-responsive">
+  <table class="table table-bordered table-hover" border="1" id="poReport">
+    <!-- Isi tabel untuk Monitoring Cutting -->
+    <!-- Kolom-kolom tabel -->
+    <thead align="center">
+      <tr>
+        <td>NO</td>
+        <td>USER DELETE</td>
+        <td>TGL DELETE</td>
+        <td>NO CUTTING OUT</td>
+        <td>TGL CUTTING OUT</td>
+        <td>UNIT</td>
+        <td>NO RO</td>
+        <td>KOMODITI</td>
+        <td>KODE BARANG</td>
+        <td>JUMLAH</td>
+        <td>UKURAN</td>
+        <td>JUMLAH POTONG</td>
+        <td>SATUAN POTONG</td>
+        <td>WARNA</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="item of data">
+        <td>${$index + 1}</td>
+        <td>${item.deletedBy}</td>
+        <td>${item.deletedDate | dateFormat:'DD MMMM YYYY'}</td>
+        <td>${item.cutOutNo}</td>
+        <td>${item.cuttingOutDate | dateFormat:'DD MMMM YYYY'}</td>
+        <td>${item.unit}</td>
+        <td>${item.RO}</td>
+        <td>${item.comodityCode}</td>
+        <td>${item.itemCode}</td>
+        <td>${item.totalCuttingOut}</td>
+        <td>${item.SizeName}</td>
+        <td>${item.cuttingOutQty}</td>
+        <td>${item.cuttingOutUomUnit}</td>
+        <td>${item.color}</td>
+       
+        <!-- Sisipkan data-data lain sesuai kebutuhan -->
+      </tr>
+    </tbody>
+  </table>
+</div>
 
     <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
       Tidak ada data.

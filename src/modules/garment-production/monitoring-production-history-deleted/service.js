@@ -4,6 +4,8 @@ import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'preparings/deleted';
 const serviceUri2 = 'loadings/deleted';
+const serviceUri3 = 'cutting-ins/deleted';
+const serviceUriCuttingOut = 'cutting-outs/deleted';
 // const unitDeliveryOrderUri = 'garment-unit-delivery-orders'
 // const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
 export class Service extends RestService {
@@ -39,6 +41,29 @@ export class Service extends RestService {
   
     generateExcel2(info) {
       var endpoint = `${serviceUri2}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&monType=${info.monType}`;
+      return super.getXls(endpoint);
+    }
+    searchCutting(info) {
+      let endpoint = `${serviceUri3}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&monType=${info.monType}`;
+      return super.get(endpoint);
+    }
+    //--Abis ini terus di taruk ke back end jadi sesuaikan kebutuhan//
+  
+  
+    generateExcelCutting(info) {
+      var endpoint = `${serviceUri3}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&monType=${info.monType}`;
+      return super.getXls(endpoint);
+    }
+
+    searchCuttingOut(info) {
+      let endpoint = `${serviceUriCuttingOut}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+      return super.get(endpoint);
+    }
+    //--Abis ini terus di taruk ke back end jadi sesuaikan kebutuhan//
+  
+  
+    generateExcelCuttingOut(info) {
+      var endpoint = `${serviceUriCuttingOut}/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
       return super.getXls(endpoint);
     }
 }
