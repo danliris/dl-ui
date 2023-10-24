@@ -30,7 +30,7 @@ export class List {
   tglAkhirLoading = null;
 
   // ini untuk melihat awal pertama search
-  SearchItems = ['Monitoring Preparing', 'Monitoring Loading'];
+  SearchItems = ['Monitoring Preparing', 'Monitoring Loading', 'Monitoring Cutting In','Monitoring Cutting Out'];
 
   search() {
     this.info.page = 1;
@@ -46,42 +46,45 @@ export class List {
   activate() { }
 
   tableData = [];
-
+ 
   searching() {
     let dateNow = moment();
     var args = {
       filter: this.filter,
-      dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : null,
-      dateTo: this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format('YYYY-MM-DD') : null,
+      dateFrom: this.tglAwal ? moment(this.tglAwal).format("YYYY-MM-DD") : null,
+      dateTo: this.tglAkhir ? moment(this.tglAkhir).format('YYYY-MM-DD') : null,
     };
     // console.log("tanggal 1", this.tglAwalPreparing);
     if (this.SearchItem === 'Monitoring Preparing') {
       // Logika pencarian untuk Monitoring Preparing
-      args.monType = 'Preparing';
-
-      args.dateFrom = this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : '1970-01-01',
-        args.dateTo = this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format('YYYY-MM-DD') : dateNow.format('YYYY-MM-DD'), // Anda mungkin ingin mengganti ini sesuai kebutuhan
-      this.service.search(args) // Ganti dengan metode yang sesuai untuk Monitoring Preparing
+       this.service.search(args) // Ganti dengan metode yang sesuai untuk Monitoring Preparing
         .then(result => {
           this.data = result;
         });
     } else if (this.SearchItem === 'Monitoring Loading') {
-      // Logika pencarian untuk Monitoring Loading
-      args.monType = 'Loading';
-      args.dateFrom = this.tglAwalLoading ? moment(this.tglAwalLoading).format('YYYY-MM-DD') : '1970-01-01';
-      args.dateTo = this.tglAkhirLoading ? moment(this.tglAkhirLoading).format('YYYY-MM-DD') : dateNow.format('YYYY-MM-DD');
-      this.service.search2(args) // Ganti dengan metode yang sesuai untuk Monitoring Loading
+         this.service.search2(args) // Ganti dengan metode yang sesuai untuk Monitoring Loading
         .then(result => {
           this.data = result;
         });
-    }
+    } else if (this.SearchItem === 'Monitoring Cutting In') {
+      // Logika pencarian untuk Monitoring Loading
+        this.service.searchCutting(args) // Ganti dengan metode yang sesuai untuk Monitoring Loading
+        .then(result => {
+          this.data = result;
+        });
+      }  else if (this.SearchItem === 'Monitoring Cutting Out') {
+        // Logika pencarian untuk Monitoring Loading
+          this.service.searchCuttingOut(args) // Ganti dengan metode yang sesuai untuk Monitoring Loading
+          .then(result => {
+            this.data = result;
+          });
+        }
   }
 
+
   reset() {
-    this.tglAwalPreparing = null;
-    this.tglAkhirPreparing = null;
-    this.tglAwalLoading = null;
-    this.tglAkhirLoading = null;
+    this.tglAwal = null;
+    this.tglAkhir= null;
     this.filter = '';
     this.data = [];
   }
@@ -89,76 +92,33 @@ export class List {
   ExportToExcel() {
     let args = {
       filter: this.filter,
-      dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : "",
-      dateTo: this.tglAkhirPreparing ? moment(this.tglAkhirPreparing).format("YYYY-MM-DD") : ""
-      // dateFrom: moment(this.tglAwalPreparing).format('YYYY-MM-DD'),
-      // dateTo: moment(this.tglAkhirPreparing).format('YYYY-MM-DD'),
-      // dateFrom: this.tglAwalPreparing ? moment(this.tglAwalPreparing).format("YYYY-MM-DD") : '1970-01-01' ,
-      // dateTo:  this.tglAkhirPreparing ? moment(this.tglAkhirPreparing): moment(new Date()).format("YYYY-MM-DD") ,
-      // this.date ? moment(this.date).format("YYYY-MM-DD") :  moment(new Date()).format("YYYY-MM-DD") ,
-    };
+      dateFrom: this.tglAwal ? moment(this.tglAwal).format("YYYY-MM-DD") : "",
+      dateTo: this.tglAkhir ? moment(this.tglAkhir).format("YYYY-MM-DD") : ""
+      };
 
     if (this.SearchItem === 'Monitoring Preparing') {
       // Logika ekspor Excel untuk Monitoring Preparing
-      args.monType = 'Preparing';
+       
       this.service.generateExcel(args);
     } else if (this.SearchItem === 'Monitoring Loading') {
       // Logika ekspor Excel untuk Monitoring Loading
-      args.monType = 'Loading';
+       
       this.service.generateExcel2(args); // Ganti dengan metode yang sesuai untuk Monitoring Loading
-    }
+    } else if (this.SearchItem === 'Monitoring Cutting In') {
+      // Logika ekspor Excel untuk Monitoring Loading
+      
+      this.service.generateExcelCutting(args); // Ganti dengan metode yang sesuai untuk Monitoring Loading
+    } else if (this.SearchItem === 'Monitoring Cutting Out') {
+    // Logika ekspor Excel untuk Monitoring Loading
+    
+    this.service.generateExcelCuttingOut(args); // Ganti dengan metode yang sesuai untuk Monitoring Loading
   }
+}
 
   changePage(e) {
     var page = e.detail;
     this.info.page = page;
     this.searching();
   }
-
-  // Implementasi untuk "Monitoring Loading" dengan tambahan 2
-  searching2() {
-    var args = {
-      filter: this.filter,
-      dateFrom: this.tglAwalLoading ? moment(this.tglAwalLoading).format("YYYY-MM-DD") : null,
-      dateTo: this.tglAkhirLoading ? moment(this.tglAkhirLoading).format("YYYY-MM-DD") : null,
-    };
-
-    if (this.SearchItem === 'Monitoring Loading') {
-      // Logika pencarian untuk Bon Pengeluaran Unit
-      args.monType = 'Loading';
-      this.service.search2(args)
-        .then(result => {
-          this.data = result;
-        });
-    }
-  }
-
-  reset2() {
-    this.tglAwalPreparing = null;
-    this.tglAkhirPreparing = null;
-    this.tglAwalLoading = null;
-    this.tglAkhirLoading = null;
-    this.filter = '';
-    this.data = [];
-  }
-
-  ExportToExcel2() {
-    let args = {
-      filter: this.filter,
-      dateFrom: this.tglAwalLoading ? moment(this.tglAwalLoading).format("YYYY-MM-DD") : "",
-      dateTo: this.tglAkhirLoading ? moment(this.tglAkhirLoading).format("YYYY-MM-DD") : ""
-    };
-
-    if (this.SearchItem === 'Monitoring Loading') {
-      // Logika ekspor Excel untuk Monitoring Loading
-      args.monType = 'Loading';
-      this.service.generateExcel2(args);
-    }
-  }
-
-  changePage2(e) {
-    var page = e.detail;
-    this.info.page = page;
-    this.searching2();
-  }
+ 
 }
