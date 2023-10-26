@@ -448,7 +448,9 @@ module.exports = [
             group: "g-shipping",
             subGroup: "transaksi",
             // permission: { "C9": 1, "SG": 1 },
+
             permission: { "P85": 1 },
+
             iconClass: "fa fa-dashboard"
         }
     },
