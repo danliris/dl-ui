@@ -99,7 +99,7 @@ module.exports = [
       group: "accounting",
       subGroup: "accounting garment",
       // permission: { "B1": 1, "C9": 1 },
-      permission: { "N47": 1 },
+      permission: { "N48": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
@@ -114,7 +114,7 @@ module.exports = [
       group: "accounting",
       subGroup: "accounting garment",
       // permission: { "B1": 1, "C9": 1 },
-      permission: { "N47": 1 },
+      permission: { "N49": 1 },
       iconClass: "fa fa-dashboard",
     }
   },
