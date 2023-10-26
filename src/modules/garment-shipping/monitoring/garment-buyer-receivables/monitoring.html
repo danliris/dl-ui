@@ -43,6 +43,7 @@
                     <td align="center" rowspan="2">NO.</td>
                     <td align="center" rowspan="2">INVOICE NO</td>
                     <td align="center" rowspan="2">INVOICE DATE</td>
+                    <td align="center" rowspan="2">TRUCKING DATE</td>                    
                     <td align="center" rowspan="2">BUYER AGENT</td>                 
                     <td align="center" rowspan="2">AMOUNT TO BE PAID (US$)</td>
                     <td align="center" rowspan="2">DHL CHARGES (US$)</td>
@@ -67,7 +68,8 @@
                 <tr repeat.for="item of data">
                     <td class="text-center"> ${$index + 1}</td>                        
                     <td>${item.invoiceNo}</td>
-                    <td>${item.invoiceDate}</td>                       
+                    <td>${item.invoiceDate}</td>       
+                    <td>${item.sailingDate}</td>                                           
                     <td>${item.buyerAgentName}</td>                  
                     <td class="text-right"><strong>${item.toBePaid}</strong></td>
                     <td class="text-right"><strong>${item.dhlCharges}</strong></td>                     
