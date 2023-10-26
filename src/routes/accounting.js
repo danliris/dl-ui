@@ -87,6 +87,38 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
+// ADD NEW ROUTE JURNAL PENGELUARAN KAS BANK
+    {
+    route: "garment-finance/report/local-dpp-vat-expenditure-note-journal",
+    name: "local-sales-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/local-dpp-vat-expenditure-note-montly-recap-report/index",
+    nav: true,
+    title: "Jurnal Pengeluaran Kas - IDR",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N47": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+    {
+    route: "garment-finance/report/valas-dpp-vat-expenditure-note-journal",
+    name: "local-sales-journal",
+    moduleId: "./modules/garment-finance/bank-cash/report/valas-dpp-vat-expenditure-note-montly-recap-report/index",
+    nav: true,
+    title: "Jurnal Pengeluaran Kas - Valas",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "accounting garment",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N47": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+
   {
     route: '/accounting/post-vb-transaction',
     name: 'journal-transaction-vb',

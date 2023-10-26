@@ -1,0 +1,141 @@
+<template>
+    <div class="row">
+        <div class="col-sm-12">
+            <au-input-form title.bind="title" with.bind="context">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <au-textbox label="No Kwitansi" value.bind="data.receiptNo" error.bind="error.receiptNo" read-only.bind="readOnly"
+                            placeholder="No Kwitansi" read-only.bind="readOnly || isEdit" options.bind="controlOptions"> 
+                        </au-textbox>
+                       
+                        <au-dropdown label="Jenis Nota" value.bind="data.noteType" error.bind="error.noteType"
+                            items.bind="noteTypeOptions" read-only.bind="readOnly"
+                            options.bind="controlOptions">
+                        </au-dropdown>
+
+                        <au-autocomplete label="Nomor Nota" value.bind="selectedShippingDebitNote"
+                            error.bind="error.noteNo" text="noteNo" loader.bind="shippingDebitNoteLoader"
+                            placeholder="No Nota Debit" read-only.bind="readOnly || isEdit" options.bind="controlOptions" 
+                            show.bind="data.noteType == 'NOTA DEBIT'">
+                        </au-autocomplete>
+
+                        <au-autocomplete label="Nomor Nota" value.bind="selectedShippingCreditNote"
+                            error.bind="error.noteNo" text="noteNo" loader.bind="shippingCreditNoteLoader"
+                            placeholder="No Nota Credit" read-only.bind="readOnly || isEdit" options.bind="controlOptions"
+                            show.bind="data.noteType == 'NOTA KREDIT'">
+                        </au-autocomplete>
+
+                        <au-datepicker label="Tanggal" value.bind="data.date" read-only="true"
+                            options.bind="controlOptions">
+                        </au-datepicker>
+
+                        <au-numeric label="Amount (US$)" value.bind="data.amount" read-only="readOnly"
+                            options.bind="controlOptions">
+                        </au-numeric>       
+                       
+                        <au-numeric label="Paid Amount (US$)" value.bind="data.paidAmount" read-only.bind="readOnly" 
+                            options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Balance Amount(US$)" value.bind="BalanceAmount" read-only="true"
+                            options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-dropdown label="Payment Term" value.bind="data.paymentTerm" error.bind="error.paymentTerm"
+                            items.bind="paymentTypeOptions" read-only.bind="readOnly"
+                            options.bind="controlOptions">
+                        </au-dropdown>
+
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="page-header">NEGOTIATION</h1>
+
+                        <au-datepicker label="Tgl. Pembayaran" value.bind="data.paymentDate"
+                            error.bind="error.paymentDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-datepicker>
+
+                        <au-numeric label="Nett Nego (US$)" value.bind="NETTNEGO"
+                            options.bind="controlOptions"
+                            read-only="disabled">
+                        </au-numeric>
+                        
+                        <!--<h1 class="page-header">BUYER</h1>
+
+                        <au-textbox label="Buyer" value.bind="data.buyer.name" read-only="true"
+                            options.bind="controlOptions">
+                        </au-textbox>
+
+                        <au-multiline label="" value.bind="data.buyer.address" read-only="true"
+                            options.bind="controlOptions">
+                        </au-multiline>-->
+
+                        <hr />
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <h1 class="page-header">BUYER</h1>
+
+                        <au-textbox label="Buyer" value.bind="data.buyer.name" read-only="true"
+                            options.bind="controlOptions">
+                        </au-textbox>
+
+                        <au-multiline label="" value.bind="data.buyer.address" read-only="true"
+                            options.bind="controlOptions">
+                        </au-multiline>
+
+                        <hr />
+                        <h1 class="page-header">BANK</h1>
+
+                        <au-textbox label="Bank" value.bind="data.bank.accountName" read-only="true"
+                            options.bind="controlOptions">
+                        </au-textbox>
+
+                        <au-multiline label="" value.bind="data.bank.bankAddress" read-only="true"
+                            options.bind="controlOptions">
+                        </au-multiline>
+
+                        <hr />
+                        <h1 class="page-header">BANK CHARGE</h1>
+
+                        <au-numeric label="Bank Commision" value.bind="data.bankComission"
+                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Credit Interest" value.bind="data.creditInterest"
+                            error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Bank Charge" value.bind="data.bankCharges" error.bind="error.bankCharges"
+                            read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Insurance Export" value.bind="data.insuranceCharge" error.bind="error.insuranceCharge"
+                            read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <hr />
+                        <h1 class="page-header">KETERANGAN</h1>
+
+                        <au-multiline label="Keterangan" value.bind="data.remark" error.bind="error.remark"
+                            placeholder="Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-multiline>
+
+                        <au-datepicker label="Tgl Kirim/Upload Dokumen" value.bind="data.documentSendDate"
+                            error.bind="error.documentSendDate" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-datepicker>
+                    </div>
+                </div>
+                <hr />
+
+            </au-input-form>
+        </div>
+    </div>
+
+</template>
