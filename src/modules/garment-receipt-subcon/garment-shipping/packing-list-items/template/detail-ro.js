@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import {
+  Service,
   SalesService,
   GarmentProductionService,
   CoreService,
@@ -9,12 +10,13 @@ var UomLoader = require("../../../../../loader/uom-loader");
 var UnitLoader = require("../../../../../loader/unit-loader");
 var SampleRequestLoader = require("../../../../../loader/garment-sample-request-loader");
 
-@inject(SalesService, GarmentProductionService, CoreService)
+@inject(Service,SalesService, GarmentProductionService, CoreService)
 export class Item {
   @bindable selectedPackingOut;
   @bindable uom;
 
-  constructor(salesService, garmentProductionService, coreService) {
+  constructor(service, salesService, garmentProductionService, coreService) {
+    this.service = service;
     this.salesService = salesService;
     this.garmentProductionService = garmentProductionService;
     this.coreService = coreService;
@@ -132,14 +134,18 @@ export class Item {
     if (newValue) {
       this.data.packingOutNo = newValue.PackingOutNo;
       this.data.totalQuantityPackingOut = newValue.TotalQuantity;
+      
+      console.log(this.data.IdNo);
 
       this.salesService.getCostCalculationByRO(newValue.RONo).then((result) => {
         this.salesService
           .getSalesContractById(result.SCGarmentId)
           .then((sc) => {
-            this.salesService
-              .getPreSalesContractById(result.PreSCId)
-              .then((psc) => {
+            // this.salesService
+            //   .getPreSalesContractById(result.PreSCId)
+                this.service
+                .searchLocalSalesNoteById(this.data.IdNo)
+                .then((psc) => {
                 this.data.roNo = result.RO_Number;
                 this.data.article = result.Article;
                 this.data.marketingName = result.MarketingName;
@@ -158,18 +164,20 @@ export class Item {
                 this.data.quantity = result.Quantity;
                 this.data.scNo = sc.SalesContractNo;
                 //this.data.amount=sc.Amount;
-                let avgPrice = 0;
-                if (sc.Price == 0) {
+                let avgPrice = 0;               
+                if (psc.items.length > 0) {
                   avgPrice =
-                    sc.Items.reduce((acc, cur) => (acc += cur.Price), 0) /
-                    sc.Items.length;
-                } else {
-                  avgPrice = sc.Price;
-                }
+                    psc.items.reduce((acc, cur) => (acc += cur.price), 0) /
+                    psc.items.length;
+                } 
+                // else {
+                //   avgPrice = psc.price;
+                // }
                 this.data.price = avgPrice;
                 this.data.priceRO = avgPrice;
                 this.data.comodity = result.Comodity;
-                this.data.amount = sc.Amount;
+                this.data.amount = this.data.totalQuantityPackingOut * this.data.priceRO;
+                //sc.Amount;
 
                 this.context.context.options.header.section = this.data.section;
               });
@@ -352,8 +360,8 @@ export class Item {
 
   get amount() {
     this.data.amount = 0;
-    if (this.data.quantity && this.data.price) {
-      this.data.amount = this.data.quantity * this.data.price;
+    if (this.data.totalQuantityPackingOut && this.data.priceRO) {
+      this.data.amount = this.data.totalQuantityPackingOut * this.data.priceRO;
     }
     return this.data.amount;
   }
