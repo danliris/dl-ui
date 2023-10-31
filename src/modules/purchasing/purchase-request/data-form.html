@@ -48,12 +48,24 @@
             options.bind="controlOptions">
         </au-autocomplete>
 
-        <au-autocomplete 
+        <!-- <au-autocomplete 
             value.bind="data.unit" 
             error.bind="error.unit"
             label="Unit" 
             change.delegate="unitChanged($event)" 
             query.bind="unitQuery"
+            loader.bind="unitLoader"
+            placeholder="cari unit" 
+            key="Code"
+            read-only.bind="(readOnly || isEdit)"
+            options.bind="controlOptions">
+        </au-autocomplete> -->
+
+        <au-autocomplete 
+            value.bind="data.unit" 
+            error.bind="error.unit"
+            label="Unit" 
+            change.delegate="unitChanged($event)" 
             loader.bind="unitLoader"
             placeholder="cari unit" 
             key="Code"
