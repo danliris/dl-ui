@@ -318,6 +318,10 @@ export class DataForm {
     unitView = (unit) => {
         return `${unit.Code} - ${unit.Name}`
     }
+    get unitsQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
 
     get unitLoader() {
         return UnitLoader;

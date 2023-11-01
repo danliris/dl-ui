@@ -362,6 +362,11 @@ export class DataForm {
     unitcolumns = [
         "Unit", "Amount"
     ];
+    get unitsQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
+
 
     get addUnitCosts() {
         return (event) => {
