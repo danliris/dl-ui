@@ -120,6 +120,11 @@ export class DataForm {
     get currencyLoader() {
         return CurrencyLoader;
     }
+    get unitQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
+
 
     constructor(service, vbRequestService) {
         this.service = service;

@@ -127,6 +127,11 @@ export class DataForm {
   get unitLoader() {
     return UnitLoader;
   }
+  get unitsQuery(){
+    var result = { "Active" : true }
+    return result;   
+  }
+
 
   // @bindable cardContentUnit;
   // cardContentUnitChanged(n, o) {
