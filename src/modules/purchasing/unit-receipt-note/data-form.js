@@ -264,6 +264,10 @@ export class DataForm {
     get deliveryOrderBySupplierLoader() {
         return DeliveryOrderBySupplierLoader;
     }
+    get unitQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
 
     unitView = (unit) => {
         return unit.division ?`${unit.division.name} - ${unit.name}` : `${unit.Division.Name} - ${unit.Name}`;
