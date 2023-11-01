@@ -142,6 +142,10 @@ export class DataForm {
     get unitLoader() {
         return UnitLoader;
     }
+    get unitQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
 
     selectedTypePurchasingChanged(e) {
         let type = (e.detail) ? e.detail : "";
