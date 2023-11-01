@@ -284,7 +284,10 @@ export class DataForm {
     return VatTaxLoader;
   }
 
-
+  get unitQuery(){
+    var result = { "Active" : true }
+    return result;   
+  }
   get addItems() {
     return (event) => {
       this.data.items.push({ purchaseRequest: { no: "" } })
