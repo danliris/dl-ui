@@ -24,11 +24,7 @@ export class List {
   };
 
   @bindable SearchItem;
-  tglAwalPreparing = null;
-  tglAkhirPreparing = null;
-  tglAwalLoading = null;
-  tglAkhirLoading = null;
-
+ 
   // ini untuk melihat awal pertama search
   SearchItems = ['Monitoring Preparing', 'Monitoring Loading', 'Monitoring Cutting In','Monitoring Cutting Out'];
 
@@ -51,9 +47,11 @@ export class List {
     let dateNow = moment();
     var args = {
       filter: this.filter,
-      dateFrom: this.tglAwal ? moment(this.tglAwal).format("YYYY-MM-DD") : null,
-      dateTo: this.tglAkhir ? moment(this.tglAkhir).format('YYYY-MM-DD') : null,
+      dateFrom: this.tglAwal ? moment(this.tglAwal).format("YYYY-MM-DD") : "",
+      dateTo: this.tglAkhir ? moment(this.tglAkhir).format('YYYY-MM-DD') : "",
     };
+    
+     
     // console.log("tanggal 1", this.tglAwalPreparing);
     if (this.SearchItem === 'Monitoring Preparing') {
       // Logika pencarian untuk Monitoring Preparing
@@ -79,12 +77,13 @@ export class List {
             this.data = result;
           });
         }
+      
   }
 
 
   reset() {
-    this.tglAwal = null;
-    this.tglAkhir= null;
+    this.tglAwal = "";
+    this.tglAkhir= "";
     this.filter = '';
     this.data = [];
   }
