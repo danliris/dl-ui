@@ -381,4 +381,18 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/customs/unpost-bc",
+    name: "unpost-bc",
+    moduleId: "./modules/customs/unpost-bc/index",
+    nav: true,
+    title: "Unpost Data TPB/PEB",
+    auth: true,
+    settings: {
+      group: "customs",
+      // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+      permission: { T27: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
