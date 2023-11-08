@@ -1,13 +1,14 @@
 import { inject, bindable } from "aurelia-framework";
-import { Service } from "./service";
+import { Service, PurchasingService } from "./service";
 
 import moment from "moment";
 
-@inject(Service)
+@inject(Service, PurchasingService)
 export class List {
   @bindable data = [];
-  constructor(service) {
+  constructor(service, purhasingService) {
     this.service = service;
+    this.purhasingService = purhasingService;
     this.error = {};
   }
 
@@ -81,26 +82,37 @@ export class List {
       .bootstrapTable(bootstrapTableOptions);
   }
 
-  delete() {
-    var dataToDelete = [];
-    this.data.forEach((s) => {
+  async delete() {
+    this.data.forEach(async (s) => {
       if (s.isEdit) {
         s.Jenis = this.jenis;
-        dataToDelete.push(s);
+
+        //Check from GarmentBeacukais
+        var GBeacukais = await this.purhasingService.searchBeacukai({
+          filter: JSON.stringify({
+            beacukaiNo: s.BCNo,
+            "beacukaiDate.Month >= DateTime.Now.Month - 2 && beacukaiDate.Year == DateTime.Now.Year": true,
+          }),
+        });
+
+        //if BCNo is Used in GBeacukai, data cant be deleted
+        if (GBeacukais.data.length == 0) {
+          this.service
+            .delete(this.data)
+            .then((result) => {
+              alert(`Data Nomor BC = ${s.BCNo} Berhasil Di Unpost`);
+              this.searching();
+            })
+            .catch((e) => {
+              this.error = e;
+            });
+        } else {
+          alert(
+            `Data Nomor BC = ${s.BCNo} tidak bisa Di Unpost, karena sudah di pakai di Garment Beacukai`
+          );
+        }
       }
     });
-
-    this.data = dataToDelete;
-
-    this.service
-      .delete(this.data)
-      .then((result) => {
-        alert("Data Berhasil Di Unpost");
-        this.searching();
-      })
-      .catch((e) => {
-        this.error = e;
-      });
   }
 
   reset() {
