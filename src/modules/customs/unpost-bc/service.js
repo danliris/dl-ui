@@ -4,7 +4,7 @@ import { RestService } from "../../../utils/rest-service";
 
 const serviceUri = "beacukaitemps";
 
-export class Service extends RestService {
+class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "customs-report");
   }
@@ -19,3 +19,17 @@ export class Service extends RestService {
     return super.put(endpoint, info);
   }
 }
+
+const BeacukaiUri = "garment-beacukai";
+class PurchasingService extends RestService {
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "purchasing-azure");
+  }
+
+  searchBeacukai(info) {
+    var endpoint = `${BeacukaiUri}`;
+    return super.list(endpoint, info);
+  }
+}
+
+export { Service, PurchasingService };
