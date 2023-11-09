@@ -3,6 +3,8 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
 
+const UnitLoader = require('../../../../loader/garment-units-loader');
+
 @inject(Router, Service)
 export class List {
     
@@ -15,32 +17,52 @@ export class List {
         moment.locale('id');        
     }    
 
-    paymenttype = "";
+    paymentType = "";
+    unit = null;
     dateFrom = null;
     dateTo = null;
     tableData = [];
-    @bindable patype;
+    @bindable paytype;
+    @bindable unit;
+    
 
-    PAYType = ['','FORWARDER', 'EMKL', 'COURIER'];
+    PayType = ['','FORWARDER', 'EMKL', 'COURIER', 'PERGUDANGAN'];
     
     paytypeChanged(newvalue) {
         if (newvalue) {
             if (newvalue === "FORWARDER") {
-                this.policytype = "FORWARDER";
+                this.paymentType = "FORWARDER";
             }
             else if (newvalue === "EMKL") {
-                this.policytype = "EMKL";
-            }         
-            else {
-                this.policytype = "COURIER"; 
+                this.paymentType = "EMKL";
+            }     
+            else if (newvalue === "COURIER") {
+                this.paymentType = "COURIER";
+            }        
+            else 
+                this.paymentType = "PERGUDANGAN"; 
             }
-        }
     }
+
+    get unitLoader() {
+        return UnitLoader;
+    }
+
+    unitView = (unit) => {
+        return `${unit.Code} - ${unit.Name}`
+    }
+
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
+    }
+
     
     searching() {
         {
         var info = {
-            paymenttype : this.paymenttype ? this.paymenttype : "",  
+            paymentType : this.paymentType ? this.paymentType : "", 
+            unit : this.unit ? this.unit.Code : "", 
             dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
             dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
         }
@@ -139,7 +161,8 @@ export class List {
     ExportToExcel() {
         {
             var info = {
-                paymenttype : this.paymenttype ? this.paymenttype : "",            
+                paymentType : this.paymentType ? this.paymentType : "",  
+                unit : this.unit ? this.unit.Code : "",          
                 dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
             }
@@ -154,12 +177,13 @@ export class List {
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
-        this.paymenttype = "";        
+        this.paymentType = "";  
+        this.unit = null;      
         this.buyers = [];
-        this.TotAmt = null;
-        this.TotPrm = null;
-        this.Tot1A = null;
-        this.Tot1B = null;
+        this.Total1 = 0;
+        this.Total2 = 0;
+        this.Total3 = 0;
+        this.Total4 = 0;
     }
 
     dateFromChanged(e) {

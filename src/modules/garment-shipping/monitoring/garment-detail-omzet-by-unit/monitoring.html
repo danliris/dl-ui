@@ -38,6 +38,7 @@
                        <th class="text-center">TGL PEB</th>
                        <th class="text-center">NAMA BUYER</th>
                        <th class="text-center">I  T  E  M</th>
+                       <th class="text-center">NO BON KIRIM</th>
                        <th class="text-center">NO RO</th>
                        <!--<th class="text-center">STYLE ORD / ARTICLE NO</th>-->
                        <th class="text-center">QUANTITY</th>
@@ -58,7 +59,8 @@
                            <td>${item.pebDate}</td>                                          
                            <td>${item.buyerAgentName}</td>
                            <td>${item.comodityName}</td>     
-                           <td>${item.roNumber}</td>                                    
+                           <td>${item.expenditureGoodNo}</td>     
+                           <td>${item.roNumber}</td>                                   
                            <!--<td>${item.articleStyle}</td>                       -->
                            <td align="right">
                                <strong>
@@ -84,6 +86,7 @@
                     </template>    
                        <tr class="active">
                            <td class="text-center" colspan="8"><strong>T O T A L . . . . . . :</strong></td>
+                           <td class="text-right"><strong>.</strong></td>    
                            <td class="text-right"><strong>${QtyTotal1}</strong></td>   
                            <td class="text-right"><strong>.</strong></td>    
                            <td class="text-right"><strong>${AmountTtlUSD}</strong></td>                                             
