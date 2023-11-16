@@ -9,6 +9,7 @@ var ProcessTypeLoader = require('../../../../loader/process-type-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
+var ConstructionLoader = require('../../../../loader/production-order-construction-loader');
 
 @inject(Router, Service)
 export class List {
@@ -39,6 +40,7 @@ export class List {
         this.arg.processTypeId = this.processType ? this.processType.Id : null;
         this.arg.buyerId = this.buyer ? this.buyer.Id : null;
         this.arg.accountId = this.account ? this.account._id : null;
+        this.arg.construction = this.construction ? this.construction.Code : null;
     }
 
     columns = [
@@ -89,7 +91,8 @@ export class List {
             orderTypeId : this.orderType ? this.orderType.Id : null,
             processTypeId : this.processType ? this.processType.Id : null,
             buyerId : this.buyer ? this.buyer.Id : null,
-            accountId : this.account ? this.account._id : null
+            accountId : this.account ? this.account._id : null,
+            construction : this.construction ? this.construction.Code : null,
         };
 
         return this.listDataFlag ? (
@@ -181,6 +184,9 @@ processTypeChanged(newValue) {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
+    get constructionLoader(){
+      return ConstructionLoader;
+    }
 
     reset() {
         
@@ -192,6 +198,7 @@ processTypeChanged(newValue) {
         this.orderType = null;
         this.processType = null;
         this.account = null;
+        this.construction = null;
         this.sdate = null;
         this.edate = null;
         this.filter = {};
