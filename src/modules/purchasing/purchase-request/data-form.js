@@ -72,7 +72,7 @@ export class DataForm {
     }
 
     get unitQuery(){
-        var result = { "_CreatedBy" : "router" }
+        var result = { "Active" : true }
         return result;   
     }
 

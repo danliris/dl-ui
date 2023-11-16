@@ -438,6 +438,23 @@ module.exports = [
         }
     },
     {
+        route: "garment-shipping/shipping-note-credit-advice",
+        name: "garment-shipping/shipping-note-credit-advice",
+        moduleId: "modules/garment-shipping/shipping-note-credit-advice/index",
+        nav: true,
+        title: "Credit Advice - Debit Note Dan Credit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "transaksi",
+            // permission: { "C9": 1, "SG": 1 },
+
+            permission: { "P85": 1 },
+
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
         route: "garment-shipping/monitoring/garment-credit-advice",
         name: "garment-shipping/monitoring/garment-credit-advice",
         moduleId: "modules/garment-shipping/monitoring/garment-credit-advice/index",
@@ -464,6 +481,36 @@ module.exports = [
             subGroup: "monitoring",
             // permission: { "C9": 1, "SG": 1, "B1": 1 },
             permission: { "P81": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+     {
+        route: "garment-shipping/monitoring/garment-shipping-note-credit-advice",
+        name: "garment-shipping/monitoring/garment-shipping-note-credit-advice",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipping-note-credit-advice/index",
+        nav: true,
+        title: "Monitoring Credit Advice Untuk Credit Note Dan Debit Note",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1 },
+            permission: { "P86": 1 },
+            iconClass: "fa fa-dashboard"
+        }
+    },
+    {
+        route: "garment-shipping/monitoring/garment-shipping-note-credit-advice-mii",
+        name: "garment-shipping/monitoring/garment-shipping-note-credit-advice-mii",
+        moduleId: "modules/garment-shipping/monitoring/garment-shipping-note-credit-advice-mii/index",
+        nav: true,
+        title: "Monitoring Credit Advice Untuk Credit Note Dan Debit Note - MII",
+        auth: true,
+        settings: {
+            group: "g-shipping",
+            subGroup: "monitoring",
+            // permission: { "C9": 1, "SG": 1, "B1": 1 },
+            permission: { "P87": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
