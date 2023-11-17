@@ -25,6 +25,7 @@ export class DataForm {
   @bindable account;
   @bindable nameCheck;
   @bindable POTypes;
+  @bindable UOmUnit;
 
   POTypes = [' ','SALES', 'UNIT']
 
@@ -36,7 +37,8 @@ export class DataForm {
 
   RUNOptions = ['Tanpa RUN', '1 RUN', '2 RUN', '3 RUN', '4 RUN'];
   rq = false;
-
+ 
+  UOMOptions = ["MTR", "PCS"];
 
 
   constructor(bindingEngine, element, service) {
@@ -64,12 +66,21 @@ export class DataForm {
   async bind() {
     // this.data = this.data || {};
     if (this.data.Uom) {
-      this.data.Uom.Unit = this.data.Uom.Unit;
+      this.UOmUnit = this.data.Uom.Unit;
+
+      // this.data.Details.map(x => 
+      //   {
+      //     x.Uom = {}
+      //     x.Uom.Unit = ["MTR", "PCS"]
+      //   }
+      // );
     }
     else {
       this.data.Uom = {};
-      // this.data.Uom.Unit = "MTR";
-      this.data.Uom.Unit = ["","MTR","PCS"];
+      this.data.Uom.Unit = "MTR";
+      // this.data.Uom.Unit = ["MTR", "PCS"];
+      // //this.UOMOptions = ["MTR", "PCS"];
+      // //this.data.Uom.Unit = this.UOMOptions[0];
     }
     if (this.data && this.data.Id) {
 
@@ -178,6 +189,13 @@ export class DataForm {
     return this.run;
   }
 
+  UOmChanged(e){
+    //console.log(e.srcElement.value);
+    this.data.Uom.Unit=e.srcElement.value;
+    for(var i of this.data.Details){
+      i.Uom.Unit=e.srcElement.value;
+    }
+  }
   SalesContractChanged(newVal, oldVal) {
     // console.log(newVal)
     if (newVal) {
@@ -199,11 +217,14 @@ export class DataForm {
       this.data.DesignMotive = this.data.FinishingPrintingSalesContract.DesignMotive;
       if (this.data.Uom) {
         this.data.Uom.Unit = this.data.Uom.Unit;
+        //this.data.Uom.Unit = this.data.Uom.Unit || "MTR";
       }
       else {
         this.data.Uom = {};
+        //this.UOMOptions = ["MTR", "PCS"];
         //this.data.Uom.Unit = "MTR";
-        this.data.Uom.Unit = ["","MTR","PCS"];
+        // this.data.Uom.Unit = ["MTR","PCS"];
+        //this.data.Uom.Unit = this.UOMOptions[0];
       }
       this.data.FinishWidth = this.SalesContract.MaterialWidth;
       this.data.BeforeQuantity = 0;
