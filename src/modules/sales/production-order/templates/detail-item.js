@@ -8,6 +8,7 @@ export class DetailItem {
   @bindable ColorType;
 
   activate(item) {
+    // console.log(item);
     this.data = item.data;
     this.error = item.error;
     this.options = item.options;

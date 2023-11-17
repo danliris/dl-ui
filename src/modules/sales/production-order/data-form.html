@@ -137,9 +137,26 @@
               <textbox label="Satuan" read-only="true"></textbox>
             </div>
 
-            <div class="col-sm-2">
-              <textbox value.bind="data.Uom.Unit" error.bind="error.Uom" read-only="true"></textbox>
+            <div class="col-sm-3" style="padding-left: 1%">
+              <!-- <select id="unitDropdown" value.bind="data.Uom.Unit" if.bind="!readOnly">
+                <option value="MTR">MTR</option>
+                <option value="PCS">PCS</option>
+              </select>
+              <textbox value.bind="data.Uom.Unit" error.bind="error.Uom" read-only.bind="readOnly" if.bind="readOnly"></textbox>
+            -->
+              <au-dropdown
+                value.bind="UOmUnit"
+                error.bind="error.Uom"
+                read-only.bind="(readOnly)"
+                items.bind="UOMOptions"
+                change.delegate="UOmChanged($event)"
+                >
+            </au-dropdown>   
+
             </div>
+            <!-- <div class="col-sm-2">
+              <textbox value.bind="data.Uom.Unit" error.bind="error.Uom" read-only="true"></textbox>
+            </div> -->
           </div>
 
           <numeric label="Toleransi Jumlah Kirim (%)" value.bind="data.ShippingQuantityTolerance"
@@ -217,21 +234,21 @@
         if.bind="data.OrderType.Name && data.Uom && isPrinting" columns.bind="detailHeader"
         item-template="modules/sales/production-order/templates/detail-item-printing"
         footer-template="modules/sales/production-order/templates/detail-footer-printing"
-        add.bind="addDetailPrintingYarnDyed" view-model.ref="ItemsCollection">
+        add.bind="addDetailPrintingYarnDyed" view-model.ref="ItemsCollection" option.bind="itemsOptions">
       </au-collection>
 
       <au-collection items.bind="data.Details" errors.bind="error.Details" read-only.bind="readOnly"
         if.bind="data.OrderType.Name && data.Uom && !isPrinting && !isYarnDyed" columns.bind="detailHeader"
         item-template="modules/sales/production-order/templates/detail-item"
         footer-template="modules/sales/production-order/templates/detail-footer" add.bind="addDetailnonPrinting"
-        view-model.ref="ItemsCollection">
+        view-model.ref="ItemsCollection" option.bind="itemsOptions">
       </au-collection>
 
       <au-collection items.bind="data.Details" errors.bind="error.Details" read-only.bind="readOnly"
         if.bind="data.OrderType && data.Uom && isYarnDyed" columns.bind="detailHeader"
         item-template="modules/sales/production-order/templates/detail-item-yarn-dyed"
         footer-template="modules/sales/production-order/templates/detail-footer-yarn-dyed"
-        add.bind="addDetailPrintingYarnDyed" view-model.ref="ItemsCollection">
+        add.bind="addDetailPrintingYarnDyed" view-model.ref="ItemsCollection" option.bind="itemsOptions">
       </au-collection>
 
       <div if.bind="error.LampStandards.toString()">
