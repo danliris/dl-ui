@@ -140,8 +140,9 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h4>File Gambar</h4>
-        <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" style="display: none;">
+        <h4>File Gambar </h4>
+        <h6>(Format Gambar Wajib JPEG atau JPG)</h6>
+        <input type="file" id="imageInput" value.bind="imageUpload" accept="image/jpeg" style="display: none;">
         <button type="button" if.bind="!readOnly" onclick="document.getElementById('imageInput').click()">Add
           Image</button>
         <br>
