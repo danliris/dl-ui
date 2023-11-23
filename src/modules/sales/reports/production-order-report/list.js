@@ -9,6 +9,7 @@ var ProcessTypeLoader = require('../../../../loader/process-type-loader');
 var BuyerLoader = require('../../../../loader/buyers-loader');
 var AccountLoader = require('../../../../loader/account-loader');
 var ProductionOrderLoader = require('../../../../loader/production-order-loader');
+var ConstructionLoader = require('../../../../loader/production-order-construction-loader');
 
 @inject(Router, Service)
 export class List {
@@ -49,6 +50,7 @@ export class List {
         this.arg.processTypeId = this.processType ? this.processType.Id : null;
         this.arg.buyerId = this.buyer ? this.buyer.Id : null;
         this.arg.accountId = this.account ? this.account._id : null;
+        this.arg.construction = this.construction ? this.construction.Code : null;
     }
 
     // columns = [
@@ -111,7 +113,16 @@ export class List {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
             keyword: info.search,
-            order: order
+            order: order,
+            dateFrom : this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null,
+            dateTo : this.edate ? moment(this.edate).format("YYYY-MM-DD") : null,
+            salesContractNo : this.salesContractNo ? this.salesContractNo : null,
+            orderNo : this.productionOrder ? this.productionOrder.OrderNo : null,
+            orderTypeId : this.orderType ? this.orderType.Id : null,
+            processTypeId : this.processType ? this.processType.Id : null,
+            buyerId : this.buyer ? this.buyer.Id : null,
+            accountId : this.account ? this.account._id : null,
+            construction : this.construction ? this.construction.Code : null,
         };
 
         return this.listDataFlag ? (
@@ -206,6 +217,9 @@ export class List {
     get productionOrderLoader() {
         return ProductionOrderLoader;
     }
+    get constructionLoader(){
+      return ConstructionLoader;
+    }
 
     reset() {
         
@@ -217,6 +231,7 @@ export class List {
         this.orderType = null;
         this.processType = null;
         this.account = null;
+        this.construction = null;
         this.sdate = null;
         this.edate = null;
         this.filter = {};

@@ -6,7 +6,7 @@
             }
         </style>
 
-        <h1 class="page-header">Laporan Rangkuman Order Finishing Printing</h1>
+        <h1 class="page-header">Monitoring Surat Perintah Produksi</h1>
         <div class="form-group">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
@@ -70,6 +70,16 @@
                     text="username">
                 </au-autocomplete>
 
+<!-- 'Konstruksi' -->
+                <au-autocomplete 
+                    value.bind="construction"
+                    label="Konstruksi" 
+                    placeholder="Cari Konstruksi" 
+                    loader.one-time="constructionLoader" 
+                    key="Code" 
+                    text="Code">
+                </au-autocomplete>
+                
                 <au-datepicker 
                     label="Tanggal Awal" 
                     value.bind="sdate">
