@@ -68,7 +68,8 @@ export class DataForm {
     }
     else {
       this.data.Uom = {};
-      this.data.Uom.Unit = "MTR";
+      // this.data.Uom.Unit = "MTR";
+      this.data.Uom.Unit = ["","MTR","PCS"];
     }
     if (this.data && this.data.Id) {
 
@@ -201,7 +202,8 @@ export class DataForm {
       }
       else {
         this.data.Uom = {};
-        this.data.Uom.Unit = "MTR";
+        //this.data.Uom.Unit = "MTR";
+        this.data.Uom.Unit = ["","MTR","PCS"];
       }
       this.data.FinishWidth = this.SalesContract.MaterialWidth;
       this.data.BeforeQuantity = 0;
