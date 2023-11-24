@@ -67,6 +67,10 @@ export class Service extends RestService {
             if (query === '') query = `dateTo=${info.dateTo}`;
             else query = `${query}&dateTo=${info.dateTo}`;
         }
+        if(info.construction){
+          if(query === '') query = `construction=${info.construction}`;
+          else query = `${query}&construction=${info.construction}`;
+        }
         if (query !== '')
             endpoint = `${serviceUri}/download?${query}`;
 
