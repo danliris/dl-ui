@@ -9,6 +9,8 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.data = {};
+        this.error = {};
     }
 
     async activate(params) {
