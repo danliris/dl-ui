@@ -32,13 +32,13 @@ export class Edit {
       size: this.info.size,
       order: order,
     };
-    console.log(arg);
+    // console.log(arg);
     var selectedCode = [];
-    console.log(this.data.permissions);
+    // console.log(this.data.permissions);
     this.data.permissions.forEach((e) => {
       selectedCode.push(e.Code);
     });
-    console.log(selectedCode);
+    // console.log(selectedCode);
     this.coreService.searchMenu(arg).then((result) => {
       this.master = [];
       this.auth = [];
@@ -63,6 +63,7 @@ export class Edit {
       this.gdash = [];
       this.dashdp = [];
       this.itinv = [];
+      this.gReceiptSub = [];
 
       this.menu = result.data;
       for (var data of this.menu) {
@@ -221,12 +222,18 @@ export class Edit {
             this.dashdp.push(data);
           }
         } else if (data.Menu === "IT-INVENTORY") {
-          //this.dashdp.push(data);
           if (selectedCode.includes(data.Code) === true) {
             data.isEdit = true;
             this.itinv.push(data);
           } else {
             this.itinv.push(data);
+          }
+        } else if (data.Menu === "G-RECEIPT-SUBCON") {
+          if (selectedCode.includes(data.Code) === true) {
+            data.isEdit = true;
+            this.gReceiptSub.push(data);
+          } else {
+            this.gReceiptSub.push(data);
           }
         }
       }
@@ -258,7 +265,37 @@ export class Edit {
       this.fillTableGDas();
       this.fillTableDash();
       this.fillTableItInve();
+      this.filltableGReceiptSub();
     });
+  }
+  filltableGReceiptSub() {
+    //PREPARING
+    let columns = [];
+    columns.push({ field: "Menu", title: "Menu", width: 200 });
+    columns.push({ field: "SubMenu", title: "SubMenu", width: 200 });
+    columns.push({
+      field: "isEdit",
+      title: "",
+      checkbox: true,
+      sortable: false,
+      width: 20,
+    });
+    columns.push({ field: "MenuName", title: "MenuName" });
+    // columns.push({ field: 'permission', value:1 });
+
+    var bootstrapTableOptions = {
+      columns: columns,
+      data: this.gReceiptSub,
+      fixedColumns: false,
+      fixedNumber: 1,
+    };
+    //bootstrapTableOptions.height = 150;
+
+    $(this.tableGReceiptSub)
+      .bootstrapTable("destroy")
+      .bootstrapTable(bootstrapTableOptions);
+
+    // console.log(bootstrapTableOptions);
   }
 
   fillTableItInve() {
@@ -290,7 +327,6 @@ export class Edit {
 
     // console.log(bootstrapTableOptions);
   }
-
   fillTableAuth() {
     //PREPARING
     let columns = [];

@@ -20,7 +20,7 @@ export class Item {
     this.hasEdit = context.context.options.hasEdit;
     this.hasView = context.context.options.hasView;
     this.items = this.context.context.items;
-console.log("  this.options",  this.options)
+
     this.itemOptions = {
       error: this.error,
       isCreate: this.isCreate,
@@ -49,8 +49,8 @@ console.log("  this.options",  this.options)
   uomView = (uom) => {
     return `${uom.Unit || uom.unit}`;
   };
-  
+
   removeItems = function () {
     this.bind();
-  }
+  };
 }

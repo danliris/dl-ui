@@ -1,0 +1,27 @@
+<template>
+  <require from="./data-form"></require>
+  <data-form title="Detail Packing List" read-only="true"></data-form>
+  <div class="btn-group pull-right">
+    <a click.delegate="cancel()" class="btn btn-default btn-sm">Kembali</a>
+    <!-- <a
+      click.delegate="edit()"
+      class="btn btn-success btn-sm"
+      if.bind="!data.isApproved && !isKasie"
+      >Edit</a
+    >
+    <a
+      click.delegate="unpost(data)"
+      class="btn btn-primary btn-sm"
+      if.bind="data.isApproved && isKasie"
+    >
+      UnApprove</a
+    >
+
+    <a
+      click.delegate="delete()"
+      class="btn btn-danger btn-sm"
+      if.bind="!data.isApproved && !isKasie"
+      >Hapus</a
+    > -->
+  </div>
+</template>

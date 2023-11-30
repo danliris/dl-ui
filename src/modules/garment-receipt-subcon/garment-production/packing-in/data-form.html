@@ -1,0 +1,134 @@
+<template>
+  <au-input-form
+    title.bind="title"
+    with.bind="context"
+    options.bind="formOptions"
+  >
+    <au-textbox
+      if.bind="data.PackingInNo"
+      value.bind="data.PackingInNo"
+      label="No Packing In"
+      read-only="true"
+      options.bind="controlOptions"
+    >
+    </au-textbox>
+
+    <au-autocomplete
+      value.bind="selectedUnit"
+      error.bind="error.Unit"
+      label="Unit Packing In"
+      loader.bind="unitLoader"
+      text.bind="unitView"
+      placeholder="Unit"
+      read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions"
+    >
+    </au-autocomplete>
+
+    <au-autocomplete
+      value.bind="selectedUnitFrom"
+      error.bind="error.UnitFrom"
+      label="Unit Asal"
+      loader.bind="unitLoader"
+      text.bind="unitView"
+      placeholder="Unit Asal"
+      read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions"
+    >
+    </au-autocomplete>
+
+    <!-- <au-dropdown
+      value.bind="data.PackingFrom"
+      label="Asal Packing In"
+      read-only="readOnly || isEdit"
+      items.bind="packingFromOptions"
+      options.bind="controlOptions"
+    >
+    </au-dropdown> -->
+
+    <au-dropdown
+      label="Asal Packing In"
+      value.bind="selectedPackingFrom"
+      read-only.bind="readOnly || isEdit"
+      items.bind="packingFromOptions"
+      options.bind="controlOptions"
+    >
+    </au-dropdown>
+
+    <au-autocomplete
+      value.bind="selectedRO"
+      error.bind="error.RONo"
+      label="No RO"
+      loader.bind="data.PackingFrom == 'FINISHING' ?  roLoaderFinishing : data.PackingFrom == 'SEWING' ? roLoaderSewing : roLoaderCutting "
+      show.bind="data.Unit && data.UnitFrom"
+      text.bind="ROView"
+      placeholder="nomor RO"
+      read-only.bind="readOnly || isEdit"
+      options.bind="controlOptions"
+      view-model.ref="selectedROViewModel"
+    >
+    </au-autocomplete>
+
+    <au-textbox
+      value.bind="data.Article"
+      error.bind="error.Article"
+      label="No Artikel"
+      read-only="true"
+      options.bind="controlOptions"
+    >
+    </au-textbox>
+
+    <au-textbox
+      value.bind="data.Comodity.Name"
+      label="Komoditi"
+      read-only="true"
+      options.bind="controlOptions"
+    >
+    </au-textbox>
+
+    <au-datepicker
+      label="Tanggal Packing In"
+      value.bind="data.PackingInDate"
+      error.bind="error.PackingInDate"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+    <div class="form-group has-error">
+      <p if.bind="error.ItemsCount" class="help-block text-center">
+        ${error.ItemsCount}
+      </p>
+      <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+    </div>
+
+    <au-collection
+      items.bind="data.Items"
+      errors.bind="error.Items"
+      columns.bind="itemsInfo.columns"
+      read-only.bind="readOnly"
+      options.bind="itemOptions"
+      item-template="modules/garment-receipt-subcon/garment-production/packing-in/template/item"
+      header-template="modules/garment-receipt-subcon/garment-production/packing-in/template/item-header"
+      if.bind="selectedRO && !readOnly"
+    >
+    </au-collection>
+
+    <au-collection
+      items.bind="data.Items"
+      errors.bind="error.Items"
+      columns.bind="itemsInfoView.columns"
+      read-only.bind="readOnly"
+      options.bind="itemOptions"
+      item-template="modules/garment-receipt-subcon/garment-production/packing-in/template/item-view"
+      header-template="modules/garment-receipt-subcon/garment-production/packing-in/template/item-view-header"
+      if.bind="selectedRO && readOnly"
+    >
+    </au-collection>
+
+    <p if.bind="data.Items">
+      <b>Jumlah Total Packing In : ${totalQuantity} PCS</b>
+    </p>
+  </au-input-form>
+  <div class="row"></div>
+</template>
