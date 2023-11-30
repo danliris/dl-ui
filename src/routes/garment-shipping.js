@@ -987,6 +987,7 @@ module.exports = [
             group: "g-shipping",
             subGroup: "laporan",
             // permission: { "C9": 1, "SG": 1 },
+            permission: { "P88": 1 },
             iconClass: "fa fa-dashboard"
         }
     },
