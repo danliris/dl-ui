@@ -32,7 +32,8 @@
                <thead>
                    <tr>
                        <th class="text-center">NO</th>
-                       <th class="text-center">KONFEKSI</th>                       
+                       <th class="text-center">KONFEKSI</th>    
+                       <th class="text-center">NO BON KIRIM</th>                                              
                        <th class="text-center">INVOICE NO</th>
                        <th class="text-center">TGL TRUCKING</th>
                        <th class="text-center">TGL PEB</th>
@@ -52,7 +53,8 @@
                         <template repeat.for="invoice of invoices">
                         <tr repeat.for="item of invoice.data">
                            <td class="text-center"> ${$index + 1}</td>  
-                           <td>${item.unitCode}</td>                                    
+                           <td>${item.unitCode}</td> 
+                           <td>${item.expenditureGoodNo}</td>                                                              
                            <td>${item.invoiceNo}</td>
                            <td>${item.truckingDate}</td>               
                            <td>${item.pebDate}</td>                                          
