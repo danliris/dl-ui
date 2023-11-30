@@ -1,15 +1,27 @@
 <template>
  <require from="../../../../au-components/form/input/_input"></require>
     <require from="../../../../lib/number-format-value-converter"></require>
-    <h1 class="page-header">Monitoring Disposisi Pembayaran Shipment | EMKL, FORWARDER, COURIER</h1>
+    <h1 class="page-header">Monitoring Disposisi Pembayaran Shipment | EMKL, FORWARDER, COURIER, PERGUDANGAN</h1>
     <form class="form-horizontal">
         
         <au-dropdown 
                 label="Tipe Pembayaran" 
                 value.bind="paytype"
-                items.bind="PAYType"
+                items.bind="PayType"
                 options.bind="controlOptions" >
         </au-dropdown>
+
+        <au-autocomplete 
+               label="Unit"
+               value.bind="unit"
+               error.bind="error.Unit"
+               loader.bind="unitLoader"
+               query.bind="unitQuery"
+               text.bind = "unitView"
+               key="Code"
+               placeholder="Cari Unit"
+               options.bind="controlOptions">
+        </au-autocomplete>
 
         <au-datepicker label="Tanggal Payment Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Payment Akhir" value.bind="dateTo"></au-datepicker>
@@ -68,7 +80,7 @@
                         <td>${data.invoiceNumber}</td>
                         <td>${data.invoiceDate}</td>
                         <td>${data.invoiceTaxNumber}</td>
-                        <td>${data.UnitCode}</td>
+                        <td>${data.unitCode}</td>
                         <td class="text-right"><strong>${data.unitPercentage}</strong></td>
                         <td class="text-right"><strong>${data.unitAmount}</strong></td>
                     </tr>
