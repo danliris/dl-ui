@@ -110,7 +110,8 @@ export class DataForm {
 
   preSalesContractFilter = {
     IsPosted: true,
-    SCType: "JOB ORDER"
+    "SCType == \"JOB ORDER\" || SCType == \"SUBCON\"": true
+    //SCType: "JOB ORDER"
   }
 
   constructor(router, bindingEngine, serviceEffeciency, rateService, element, serviceCore) {
