@@ -24,7 +24,7 @@ export class Create {
   }
   formOptions = {
     cancelText: "Kembali",
-    saveText: "Buat",
+    saveText: "Simpan",
   };
 
   controlOptions = {
