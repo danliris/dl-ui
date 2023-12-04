@@ -9,13 +9,15 @@ export class Service extends RestService {
     }
 
     search(info) { 
-        var endpoint = `${serviceUri}?paymenttype=${info.paymenttype}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        //var endpoint = `${serviceUri}?paymenttype=${info.paymenttype}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}?paymentType=${info.paymentType}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.get(endpoint);
         
     }
     
     xls(info) {
-        var endpoint = `${serviceUri}/download?paymenttype=${info.paymenttype}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        //var endpoint = `${serviceUri}/download?paymenttype=${info.paymenttype}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        var endpoint = `${serviceUri}/download?paymentType=${info.paymentType}&unit=${info.unit}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
         return super.getXls(endpoint);
     }
 }
