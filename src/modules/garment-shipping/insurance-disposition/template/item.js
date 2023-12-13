@@ -64,7 +64,8 @@ export class items {
             this.data.invoiceNo = newValue.invoiceNo;
             this.data.invoiceId = newValue.id;
             if (this.type != "Kargo") {
-                this.data.amount = newValue.totalAmount;
+                //this.data.amount = newValue.totalAmount;
+                this.data.amount = newValue.amountToBePaid;  // Updated on 13-Dec-2023               
             }
             var invoice = await this.service.getInvoiceById(this.data.invoiceId);
             for (var item of invoice.garmentShippingInvoiceUnits) {
