@@ -33,7 +33,7 @@
                    <tr>
                        <th class="text-center">NO</th>
                        <th class="text-center">KONFEKSI</th>    
-                       <th class="text-center">NO BON KIRIM</th>                                              
+                       <!--<th class="text-center">NO BON KIRIM</th>                                              -->
                        <th class="text-center">INVOICE NO</th>
                        <th class="text-center">TGL TRUCKING</th>
                        <th class="text-center">TGL PEB</th>
@@ -54,7 +54,7 @@
                         <tr repeat.for="item of invoice.data">
                            <td class="text-center"> ${$index + 1}</td>  
                            <td>${item.unitCode}</td> 
-                           <td>${item.expenditureGoodNo}</td>                                                              
+                           <!--<td>${item.expenditureGoodNo}</td>                                                              -->
                            <td>${item.invoiceNo}</td>
                            <td>${item.truckingDate}</td>               
                            <td>${item.pebDate}</td>                                          
@@ -85,7 +85,7 @@
                         </tr>  
                     </template>    
                        <tr class="active">
-                           <td class="text-center" colspan="9"><strong>T O T A L . . . . . . :</strong></td>
+                           <td class="text-center" colspan="8"><strong>T O T A L . . . . . . :</strong></td>
                            <td class="text-right"><strong>${QtyTotal1}</strong></td>   
                            <td class="text-right"><strong>.</strong></td>    
                            <td class="text-right"><strong>${AmountTtlUSD}</strong></td>                                             
