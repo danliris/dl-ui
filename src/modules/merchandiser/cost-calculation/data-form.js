@@ -370,6 +370,7 @@ export class DataForm {
       this.data.PreSCId = newValue.Id;
       this.data.PreSCNo = newValue.SCNo;
       this.data.Section = newValue.SectionCode;
+      this.data.CCType = newValue.SCType;
       console.log(this.data.Section);
       const section = await this.serviceCore.getSection(newValue.SectionId);
       this.data.SectionName = section.Name;
@@ -404,7 +405,8 @@ export class DataForm {
       this.data.ApprovalKadiv = null;
       this.data.Buyer = null;
       this.data.BuyerBrand = null;
-      this.selectedBookingOrder = null;      
+      this.selectedBookingOrder = null;
+      this.data.CCType = null;      
     }
 
     if ((oldValue && newValue) || (oldValue && !newValue)) {
