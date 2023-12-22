@@ -96,7 +96,7 @@ export class List {
 
     defaultFilter = {
         IsPosted: true,
-        "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
+        "PRType == \"MASTER\" || PRType == \"SAMPLE\" || PRType == \"SUBCON\"": true
     }
 
     get filter() {
