@@ -5,6 +5,7 @@ import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
 const serviceUri = "garment-subcon-delivery-orders";
+const serviceUriPR = "garment-purchase-requests";
 
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -34,6 +35,11 @@ class Service extends RestService {
   delete(data) {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);
+  }
+
+  getPR(info) {
+    var endpoint = `${serviceUriPR}/dynamic-subcon`;
+    return super.list(endpoint, info);
   }
 
   // getPurchaseOrderById(id, select) {
