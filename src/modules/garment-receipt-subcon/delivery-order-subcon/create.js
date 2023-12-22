@@ -2,6 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 import { activationStrategy } from "aurelia-router";
+import { forEach } from "../../../routes/general";
 
 @inject(Router, Service)
 export class Create {
@@ -17,7 +18,7 @@ export class Create {
   }
   activate(params) {}
   bind() {
-    this.data = { items: [] };
+    this.data = { items: [], itemsPR: [] };
     this.data.isCustoms = true;
     this.error = {};
   }
@@ -34,6 +35,12 @@ export class Create {
   }
 
   save(event) {
+    // // var newItems = this.data.items;
+    // if (this.data.itemsPR.length > 0) {
+    //   this.data.itemsPR.forEach((element) => {
+    //     this.data.items.push(element);
+    //   });
+    // }
     this.service
       .create(this.data)
       .then((result) => {
