@@ -58,6 +58,7 @@ export class PurchaseRequestItem {
 
   @computedFrom("data.Quantity", "data.BudgetPrice", "data.PriceConversion")
   get total() {
+    this.data.RemainingQuantity = this.data.Quantity;
     if (this.data.PriceConversion > 0) {
       let total = this.data.Quantity * this.data.BudgetPrice / this.data.PriceConversion;
       return numeral(total).format("0,000.00");

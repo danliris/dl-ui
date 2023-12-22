@@ -38,10 +38,34 @@ export class DataForm {
       { header: "Harga" },
       { header: "Mata Uang" },
     ],
+    columns2: [
+      { header: "Barang" },
+      { header: "Nomor PO" },
+      { header: "Keterangan" },
+      { header: "Qty PR Master" },
+      { header: "Qty SJ" },
+      { header: "Satuan" },
+      { header: "Harga" },
+      { header: "Mata Uang" },
+    ],
+    columns2Edit: [
+      { header: "Barang" },
+      { header: "Nomor PO" },
+      { header: "Keterangan" },
+      // { header: "Qty PR Master" },
+      { header: "Qty SJ" },
+      { header: "Satuan" },
+      { header: "Harga" },
+      { header: "Mata Uang" },
+    ],
 
     onAdd: function () {
       this.context.ItemsCollection.bind();
       this.data.items.push({});
+    }.bind(this),
+    onAdd2: function () {
+      this.context.ItemsCollection2.bind();
+      this.data.itemsPR.push({});
     }.bind(this),
   };
 
