@@ -9,7 +9,7 @@ export class Edit {
   hasView = false;
   hasCreate = false;
   isEdit = true;
-  
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -26,6 +26,11 @@ export class Edit {
     this.cc = {
       RO_Number: this.data.roNo,
     };
+
+    var newItems = this.data.items.filter((x) => x.PRItemId == 0);
+    this.data.itemsPR = this.data.items.filter((x) => x.PRItemId != 0);
+
+    this.data.items = newItems;
   }
 
   cancel(event) {

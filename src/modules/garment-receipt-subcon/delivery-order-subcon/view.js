@@ -9,7 +9,7 @@ export class View {
   hasView = true;
   hasCreate = false;
   hasEdit = false;
-  
+
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -27,6 +27,11 @@ export class View {
       this.hasDelete = true;
       this.hasEdit = true;
     }
+
+    var newItems = this.data.items.filter((x) => x.PRItemId == 0);
+    this.data.itemsPR = this.data.items.filter((x) => x.PRItemId != 0);
+
+    this.data.items = newItems;
   }
 
   cancel(event) {
