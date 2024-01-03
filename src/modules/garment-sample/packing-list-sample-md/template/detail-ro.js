@@ -170,7 +170,8 @@ export class Item {
                 this.garmentProductionService.getSampleRequestById(newValue.Id)
                     .then(async result => {
                         this.data.roNo = result.RONoSample;
-                        this.data.article = result.SampleProducts.map(x => x.Style).join(',');
+                        // this.data.article = result.SampleProducts.map(x => x.Style).join(',');
+                        this.data.article = result.SampleProducts[0].Style;
                         this.data.buyerBrand = result.Buyer;
                         var units = await this.coreService.getSampleUnit({ size: 1, keyword: 'SMP1', filter: JSON.stringify({ Code: 'SMP1' }) });
                         this.data.unit = units.data[0];
