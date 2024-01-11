@@ -93,7 +93,7 @@ export class Item {
         keyword: keyword,
         filter: JSON.stringify({
           CostCalculationGarmentId: this.CostCalculationId,
-          ProductCode: this.data.Product.Code,
+          CategoryName: this.data.Product.Name,
         }),
       };
       return this.salesService.getMatelialCCbyId(info).then((result) => {
