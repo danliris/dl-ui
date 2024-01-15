@@ -4,6 +4,7 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
+  isView = true;
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -20,9 +21,12 @@ export class View {
     this.data = await this.service.getById(id);
     var idx = 0;
 
-    this.selectedLocalNote = {
-      noteNo: this.data.localSalesNoteNo,
-    };
+    // this.selectedLocalNote = {
+    //   noteNo: this.data.localSalesNoteNo,
+    // };
+
+    this.supplier = this.data.buyer;
+
     if (this.data.items) {
       for (const item of this.data.items) {
         item.buyerAgent = this.data.buyerAgent;
