@@ -1,0 +1,86 @@
+<template>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <au-input-form title.bind="title" with.bind="context">
+                <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+
+                <au-textbox label="No Nota Penjualan" value.bind="data.noteNo" read-only="true"
+                    options.bind="controlOptions" if.bind="readOnly || isEdit">
+                </au-textbox>
+
+                <au-autocomplete label="No Sales Contract" placeholder="Pilih No Sales Contract"
+                    value.bind="selectedSalesContract" error.bind="error.salesContract"
+                    loader.bind="salesContractLoader" text="SalesContractNo" query.bind="filterSC"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-datepicker label="Tgl Penjualan" value.bind="data.date" error.bind="error.date"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-autocomplete label="Pemilik Barang" placeholder="Pilih Pemilik Barang" value.bind="data.buyer"
+                    error.bind="error.buyer" loader.bind="buyerLoader" text.bind="buyerView" read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-dropdown label="Jenis Pembayaran" value.bind="selectedPaymentType" error.bind="error.paymentType"
+                    read-only.bind="readOnly" items.bind="paymentTypeOptions" options.bind="controlOptions">
+                </au-dropdown>
+
+                <div class="row" show.bind="data.paymentType=='TEMPO'">
+                    <div class="col-sm-3">
+                        <p class="form-control-static text-right">Tempo Pembayaran</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <au-numeric value.bind="data.tempo" error.bind="error.tempo" format="0"
+                            read-only.bind="readOnly">
+                        </au-numeric>
+                    </div>
+                    <p class="form-control-static">Hari</p>
+                </div>
+
+                <au-datepicker label="Tgl Jatuh Tempo" value.to-view="dueDate" error.bind="error.dueDate"
+                    read-only="true" options.bind="controlOptions" show.bind="data.paymentType=='TEMPO'">
+                </au-datepicker>
+
+                <au-checkbox label="Apakah kena PPN ?" value.bind="data.useVat" error.bind="error.useVat"
+                    read-only.bind="readOnly" change.delegate="selectedVatTaxChanged($event)"
+                    options.bind="controlOptions">
+                </au-checkbox>
+
+                <au-textbox error.bind="error.vatRate" label="PPN" value.bind="data.vat.rate" placeholder="Vat Rate"
+                    key="" if.bind="data.useVat" read-only.bind="readOnly" options.bind="controlOptions">
+                </au-textbox>
+
+                <au-autocomplete label="Bank Detail" value.bind="selectedAccountBank" error.bind="error.AccountBank"
+                    read-only.bind="readOnly" loader.bind="accountBankLoader" text.bind="accountBankView" key="BankName"
+                    placeholder="Cari Bank" query.bind="bankFilter" options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-multiline label="Keterangan" value.bind="data.remark" placeholder="Keterangan"
+                    read-only.bind="readOnly" options.bind="controlOptions">
+                </au-multiline>
+
+                <au-textbox error.bind="error.itemsCount" read-only.bind="true" show.bind="error.itemsCount"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-collection columns.bind="items.columns" items.bind="data.items" errors.bind="error.items"
+                    read-only.bind="readOnly" options.bind="items.options"
+                    item-template="modules/garment-receipt-subcon/garment-shipping/local-sales-note/template/item"
+                    add.bind="items.onAdd" remove.bind="items.onRemove">
+                </au-collection>
+
+                <au-numeric value.to-view="subtotal" read-only.bind="true" options.bind="controlOptions"
+                    label="Sub Total">
+                </au-numeric>
+                <au-numeric value.to-view="ppn" read-only.bind="true" options.bind="controlOptions" label="PPN">
+                </au-numeric>
+                <au-numeric value.to-view="total" read-only.bind="true" options.bind="controlOptions" label="TOTAL">
+                </au-numeric>
+
+            </au-input-form>
+        </div>
+    </div>
+</template>
