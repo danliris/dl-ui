@@ -34,6 +34,10 @@ export class DataForm {
         IsUsed :false
     };
 
+    filterUnits={
+        Description :"GARMENT"
+    };
+
     constructor(service, inventoryService, bindingEngine, element) {
         this.service = service;
         this.bindingEngine = bindingEngine;

@@ -123,6 +123,7 @@
             text.bind="unitView"
             if.bind="isProcess"
             read-only.bind="true"
+            query.bind="filterUnits"
             options.bind="auInputOptions">
         </au-autocomplete>
         
@@ -172,6 +173,7 @@
             text.bind="unitView"
             if.bind="data.UnitFrom"
             read-only.bind="true"
+            query.bind="filterUnits"
             options.bind="auInputOptions">
         </au-autocomplete>
         
@@ -203,6 +205,7 @@
             error.bind="error.Unit"
             placeholder="cari unit"
             show.bind= "!isProcess || URNType=='GUDANG SISA' || URNType=='SISA SUBCON'"
+            query.bind="filterUnits"
             options.bind="auInputOptions">
         </au-autocomplete>
        
