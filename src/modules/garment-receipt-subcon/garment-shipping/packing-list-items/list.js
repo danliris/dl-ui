@@ -25,7 +25,7 @@ export class List {
         return "";
       },
     },
-    { field: "localSalesNoteNo", title: "No Invoice" },
+    { field: "invoiceNo", title: "No Invoice" },
     {
       field: "createdUtc",
       title: "Tgl Packing List",
