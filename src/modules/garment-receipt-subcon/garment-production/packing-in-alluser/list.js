@@ -28,7 +28,7 @@ export class List {
 
     if (!this.isKasie) {
       this.filter = {
-        CreatedBy: username,
+        // CreatedBy: username,
       };
     }
   }
