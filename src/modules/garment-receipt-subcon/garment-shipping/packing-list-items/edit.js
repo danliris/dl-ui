@@ -102,14 +102,18 @@ export class Edit {
   saveCallback(event) {
     for (var item of this.data.items) {
       var qty = 0;
+      var qtyCarton = 0;
       for (var detail of item.details) {
+        qtyCarton += (detail.cartonQuantity * detail.quantityPCS);
         for (var size of detail.sizes) {
           if (size.quantity > 0) {
             qty += size.quantity;
+            
           }
         }
       }
       item.totalQuantitySize = qty;
+      item.totalQuantityCarton = qtyCarton;
     }
 
     this.service
