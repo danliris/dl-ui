@@ -22,7 +22,7 @@ export class List {
       username = me.username;
     }
     this.filter = {
-      CreatedBy: username,
+      // CreatedBy: username,
     };
   }
 
