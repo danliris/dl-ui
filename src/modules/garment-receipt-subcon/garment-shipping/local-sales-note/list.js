@@ -24,7 +24,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
-        { field: "buyerCode", title: "Buyer" },
+        { field: "buyerCode", title: "Tujuan" },
         {
             field: "dueDate", title: "Tgl Jatuh Tempo", formatter: function (value) {
                 return moment(value).format("DD MMM YYYY");
