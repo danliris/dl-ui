@@ -1,0 +1,22 @@
+<template>
+    <tr>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.product.Code" error.bind="error.product" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.product.Name" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-numeric value.bind="data.quantity" error.bind="error.quantity" read-only.bind="true" format="0.00">
+            </au-numeric>
+        </td>
+
+        <td class="bg-primary">
+            <au-autocomplete value.bind="data.uom" error.bind="error.uom" read-only.bind="true" placeholder="Satuan"
+                text.bind="uomView">
+            </au-autocomplete>
+        </td>
+    </tr>
+</template>

@@ -1,0 +1,51 @@
+<template>
+    <div class="row">
+        <div class="col-sm-12">
+            <au-input-form title.bind="title" with.bind="context">
+                <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+
+                <au-textbox label="No BC Keluar" value.bind="data.bcNo" error.bind="error.BCNo"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-textbox>
+
+                <au-datepicker label="Tgl BC Keluar" value.bind="data.bcDate" error.bind="error.BCDate"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-dropdown label="Tipe BC" value.bind="data.bcType" error.bind="error.bcType"
+                    read-only.bind="readOnly" items.bind="bcTypeOptions" options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-autocomplete value.bind="supplier" error.bind="error.ProductOwner" text.bind="supplierView"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions" loader.bind="supplierLoader"
+                    label="Tujuan" placeholder="cari Pemilik Barang" key="code">
+                </au-autocomplete>
+
+                <au-dropdown label="Kategori Tujuan" value.bind="selectedCategory" error.bind="error.category"
+                    read-only.bind="readOnly || isEdit" items.bind="categoryOptions" options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-multiline label="Keterangan" value.bind="data.remark" placeholder="Keterangan"
+                    read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+                </au-multiline>
+
+                <au-textbox show.bind="error.itemscount" error.bind="error.itemscount" read-only="true">
+                </au-textbox>
+
+                <au-collection items.bind="data.items" errors.bind="error.Items"
+                    columns.bind="itemsInfo.columnsLeftOver" add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove"
+                    options.bind="options" read-only.bind="readOnly" if.bind="data.category == 'SISA'"
+                    item-template="modules/garment-receipt-subcon/customs/template/item-leftover"
+                    view-model.ref="ItemsCollection">
+                </au-collection>
+
+                <au-collection items.bind="data.items" errors.bind="error.Items" columns.bind="itemsInfo.columnsService"
+                    add.bind="itemsInfo.onAdd" remove.bind="itemsInfo.onRemove" options.bind="options"
+                    read-only.bind="readOnly" if.bind="data.category == 'JASA'"
+                    item-template="modules/garment-receipt-subcon/customs/template/item-service"
+                    view-model.ref="ItemsCollection">
+                </au-collection>
+            </au-input-form>
+        </div>
+    </div>
+</template>
