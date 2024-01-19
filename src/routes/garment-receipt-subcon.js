@@ -87,6 +87,21 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/unit-expenditure-note-all-user",
+    name: "unit-expenditure-note-all-user",
+    moduleId:
+      "./modules/garment-receipt-subcon/unit-expenditure-note-all/index",
+    nav: true,
+    title: "Bon Pengeluaran Unit (Semua User)",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "transaksi",
+      permission: { X38: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
   //Production
   {
     route: "/garment-receipt-subcon/preparing",
@@ -448,7 +463,7 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
-   {
+  {
     route: "/garment-receipt-subcon/omzet-by-unit-report",
     name: "garment-receipt-subcon-omzet-by-unit-report",
     moduleId:
@@ -460,6 +475,35 @@ module.exports = [
       group: "g-receipt-subcon",
       subGroup: "monittoring",
       permission: { X36: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/local-sales-note",
+    name: "garment-receipt-subcon-local-sales-note",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/local-sales-note/index",
+    nav: true,
+    title: "Nota Jual Lokal - Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X37: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/customs-user",
+    name: "receipt-subcon-customs-user",
+    moduleId: "./modules/garment-receipt-subcon/customs/index",
+    nav: true,
+    title: "BC Keluar - Terima Subkon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "transaksi",
+      permission: { X39: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
