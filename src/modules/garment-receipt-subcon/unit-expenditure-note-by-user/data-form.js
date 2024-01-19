@@ -22,7 +22,7 @@ export class DataForm {
   @bindable expenditureType;
 
   // expenditureTypeOptions = ['PROSES', 'TRANSFER', 'EXTERNAL', 'SISA', 'SUBCON','TRANSFER SUBCON', 'SAMPLE','TRANSFER SAMPLE'];
-  expenditureTypeOptions = ["PROSES", "SEWING", "FINISHING"];
+  expenditureTypeOptions = ["PROSES", "SEWING", "FINISHING",  "SISA PRODUKSI"];
   controlOptions = {
     label: {
       align: "right",
@@ -78,6 +78,9 @@ export class DataForm {
         break;
       case "FINISHING":
         this.data.ExpenditureTo = "FINISHING";
+        break;
+      case "SISA PRODUKSI":
+        this.data.ExpenditureTo = "SISA PRODUKSI";
         break;
       default:
         this.data.ExpenditureTo = "PROSES";
@@ -203,6 +206,9 @@ export class DataForm {
           break;
         case "FINISHING":
           this.data.ExpenditureTo = "FINISHING";
+          break;
+        case "SISA PRODUKSI":
+          this.data.ExpenditureTo = "SISA PRODUKSI";
           break;
         default:
           this.data.ExpenditureTo = "PROSES";

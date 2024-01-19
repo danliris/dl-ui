@@ -12,24 +12,13 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.selectedTransactionType = this.data.transactionType;
-    this.selectedSalesContract = {
-      SalesContractNo: this.data.salesContractNo,
-    };
+
+    this.supplier = this.data.productOwner;
+    this.selectedCategory = this.data.category;
+
     if (this.data.isUsed) {
       this.editCallback = null;
       this.deleteCallback = null;
-    }
-    if (this.data.isRejectedShipping) {
-      this.alertInfo =
-        "<strong>Alasan Reject oleh Shipping:</strong> " +
-        this.data.rejectedReason;
-    } else if (this.data.isRejectedFinance) {
-      this.alertInfo =
-        "<strong>Alasan Reject oleh Finance:</strong> " +
-        this.data.rejectedReason;
-    } else {
-      this.alertInfo = "";
     }
   }
 
@@ -38,7 +27,7 @@ export class View {
   }
 
   editCallback(event) {
-    this.router.navigateToRoute("edit", { id: this.data.id });
+    this.router.navigateToRoute("edit", { id: this.data.Id });
   }
 
   deleteCallback(event) {
