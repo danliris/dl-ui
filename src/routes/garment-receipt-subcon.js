@@ -463,21 +463,21 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
-  {
-    route: "/garment-receipt-subcon/omzet-by-unit-report",
-    name: "garment-receipt-subcon-omzet-by-unit-report",
-    moduleId:
-      "./modules/garment-receipt-subcon/garment-shipping/garment-receipt-subcon-omzet-by-unit-report/index",
-    nav: true,
-    title: "Monitoring Omzet Terima Subcon Per Unit",
-    auth: true,
-    settings: {
-      group: "g-receipt-subcon",
-      subGroup: "monittoring",
-      permission: { X36: 1 },
-      iconClass: "fa fa-dashboard",
-    },
-  },
+  // {
+  //   route: "/garment-receipt-subcon/omzet-by-unit-report",
+  //   name: "garment-receipt-subcon-omzet-by-unit-report",
+  //   moduleId:
+  //     "./modules/garment-receipt-subcon/garment-shipping/garment-receipt-subcon-omzet-by-unit-report/index",
+  //   nav: true,
+  //   title: "Monitoring Omzet Terima Subcon Per Unit",
+  //   auth: true,
+  //   settings: {
+  //     group: "g-receipt-subcon",
+  //     subGroup: "monittoring",
+  //     permission: { X36: 1 },
+  //     iconClass: "fa fa-dashboard",
+  //   },
+  // },
   {
     route: "/garment-receipt-subcon/local-sales-note",
     name: "garment-receipt-subcon-local-sales-note",
