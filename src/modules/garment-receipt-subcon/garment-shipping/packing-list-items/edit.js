@@ -18,9 +18,11 @@ export class Edit {
     this.data = await this.service.getById(id);
     this.error = {};
 
-    this.selectedLocalNote = {
-      noteNo: this.data.localSalesNoteNo,
-    };
+    // this.selectedLocalNote = {
+    //   noteNo: this.data.localSalesNoteNo,
+    // };
+
+    this.supplier = this.data.buyer;
 
     if (this.data.items && this.data.items.length > 0) {
       for (var item of this.data.items) {

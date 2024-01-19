@@ -41,6 +41,7 @@ export class DataForm {
 
   typeUnitDeliveryOrderOptions = [
     "PROSES",
+    "SISA PRODUKSI",
     // "TRANSFER",
     // "SISA",
     // "SUBCON",
@@ -97,7 +98,7 @@ export class DataForm {
         ).reduce((acc, curr) => acc && curr.IsSave, true);
       }
 
-      this.isProses = this.data.UnitDOType === "PROSES";
+      this.isProses = (this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SISA PRODUKSI");
       this.isTransfer = this.data.UnitDOType === "TRANSFER";
       this.isSample = this.data.UnitDOType === "SAMPLE";
       this.isRemain = this.data.UnitDOType === "SISA";
@@ -166,7 +167,7 @@ export class DataForm {
     if (selectedCategory) {
       this.data.UnitDOType = selectedCategory;
 
-      this.isProses = this.data.UnitDOType === "PROSES";
+      this.isProses = (this.data.UnitDOType === "PROSES" || this.data.UnitDOType === "SISA PRODUKSI");
       this.isTransfer = this.data.UnitDOType === "TRANSFER";
       this.isSample = this.data.UnitDOType === "SAMPLE";
       this.isRemain = this.data.UnitDOType === "SISA";

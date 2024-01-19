@@ -7,8 +7,9 @@ import {
 } from "aurelia-framework";
 import { Service } from "./service";
 
-var BuyerLoader = require("../../../../loader/garment-buyers-loader");
-var ShippingStaffLoader = require("../../../../loader/garment-shipping-staff-loader");
+// var BuyerLoader = require("../../../../loader/garment-buyers-loader");
+// var ShippingStaffLoader = require("../../../../loader/garment-shipping-staff-loader");
+var SupplierLoader = require("../../../../loader/garment-supplier-loader");
 
 @inject(Service)
 export class DataForm {
@@ -16,6 +17,7 @@ export class DataForm {
   @bindable title;
   @bindable selectedLocalNote;
   @bindable itemOptions = {};
+  @bindable supplier;
 
   constructor(service) {
     this.service = service;
@@ -173,11 +175,26 @@ export class DataForm {
     };
   }
 
-  buyerView = (buyer) => {
+  get supplierLoader() {
+    return SupplierLoader;
+  }
+
+  supplierView = (buyer) => {
     var buyerName = buyer.Name || buyer.name;
     var buyerCode = buyer.Code || buyer.code;
     return `${buyerCode} - ${buyerName}`;
   };
+
+  supplierChanged(newValue, oldValue) {
+    var selectedSupplier = newValue;
+    if (selectedSupplier) {
+      if (selectedSupplier.Id) {
+        this.data.buyer = selectedSupplier;
+      }
+    } else {
+      this.data.buyer = {};
+    }
+  }
 
   transactionTypeView = (type) => {
     return `${type.code} - ${type.name}`;
@@ -203,33 +220,34 @@ export class DataForm {
     }
   }
 
-  selectedLocalNoteChanged(newValue) {
-    if (newValue) {
-      this.data.localSalesNoteId = newValue.id;
-      this.data.localSalesNoteNo = newValue.noteNo;
-      this.data.localSalesNoteDate = newValue.date;
+  // selectedLocalNoteChanged(newValue) {
+  //   if (newValue) {
+  //     this.data.localSalesNoteId = newValue.id;
+  //     this.data.localSalesNoteNo = newValue.noteNo;
+  //     this.data.localSalesNoteDate = newValue.date;
 
-      this.data.localSalesContractId = newValue.localSalesContractId;
-      this.data.localSalesContractNo = newValue.salesContractNo;
+  //     this.data.localSalesContractId = newValue.localSalesContractId;
+  //     this.data.localSalesContractNo = newValue.salesContractNo;
 
-      this.data.transactionType = newValue.transactionType;
-      this.data.buyer = newValue.buyer;
-      this.data.paymentTerm = newValue.paymentType;
-    } else {
-      this.data.localSalesNoteId = null;
-      this.data.localSalesNoteNo = null;
-      this.data.localSalesNoteDate = null;
-      this.data.localSalesContractId = null;
-      this.data.localSalesContractNo = null;
-      this.data.transactionType = null;
-      this.data.buyer = null;
-      this.data.paymentTerm = null;
-      this.context.selectedLocalSalesNoteNoViewModel.editorValue = "";
-    }
-  }
+  //     this.data.transactionType = newValue.transactionType;
+  //     this.data.buyer = newValue.buyer;
+  //     this.data.paymentTerm = newValue.paymentType;
+  //   } else {
+  //     this.data.localSalesNoteId = null;
+  //     this.data.localSalesNoteNo = null;
+  //     this.data.localSalesNoteDate = null;
+  //     this.data.localSalesContractId = null;
+  //     this.data.localSalesContractNo = null;
+  //     this.data.transactionType = null;
+  //     this.data.buyer = null;
+  //     this.data.paymentTerm = null;
+  //     this.context.selectedLocalSalesNoteNoViewModel.editorValue = "";
+  //   }
+  // }
 
   get addItems() {
     return (event) => {
+      console.log("ok");
       this.data.items.push({
         BuyerCode: this.data.buyer.Code || this.data.buyer.code,
         IdNo:this.data.localSalesNoteId,

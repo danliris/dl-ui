@@ -10,7 +10,7 @@ var UomLoader = require("../../../../../loader/uom-loader");
 var UnitLoader = require("../../../../../loader/unit-loader");
 var SampleRequestLoader = require("../../../../../loader/garment-sample-request-loader");
 
-@inject(Service,SalesService, GarmentProductionService, CoreService)
+@inject(Service, SalesService, GarmentProductionService, CoreService)
 export class Item {
   @bindable selectedPackingOut;
   @bindable uom;
@@ -108,7 +108,7 @@ export class Item {
     this.readOnly = this.options.readOnly;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
-
+    console.log("ok2");
     this.itemOptions = {
       error: this.error,
       isCreate: this.isCreate,
@@ -134,7 +134,7 @@ export class Item {
     if (newValue) {
       this.data.packingOutNo = newValue.PackingOutNo;
       this.data.totalQuantityPackingOut = newValue.TotalQuantity;
-      
+
       console.log(this.data.IdNo);
 
       this.salesService.getCostCalculationByRO(newValue.RONo).then((result) => {
@@ -143,46 +143,45 @@ export class Item {
           .then((sc) => {
             // this.salesService
             //   .getPreSalesContractById(result.PreSCId)
-                this.service
-                .searchLocalSalesNoteById(this.data.IdNo)
-                .then((psc) => {
-                this.data.roNo = result.RO_Number;
-                this.data.article = result.Article;
-                this.data.marketingName = result.MarketingName;
-                this.data.buyerAgent = result.Buyer;
-                this.data.buyerBrand = result.BuyerBrand;
-                this.data.sectionName = result.SectionName;
-                // this.data.section = {
-                //   id: psc.SectionId,
-                //   code: result.Section,
-                // };
-                this.data.comodityDescription = (result.Comodity || {}).Name;
-                this.data.unit = result.Unit;
-                this.data.uom = result.UOM;
-                this.uom = result.UOM;
-                this.data.valas = "IDR";
-                this.data.quantity = result.Quantity;
-                this.data.scNo = sc.SalesContractNo;
-                //this.data.amount=sc.Amount;
-                let avgPrice = 0;               
-                if (psc.items.length > 0) {
-                  avgPrice =
-                    psc.items.reduce((acc, cur) => (acc += cur.price), 0) /
-                    psc.items.length;
-                } 
-                // else {
-                //   avgPrice = psc.price;
-                // }
-                this.data.price = avgPrice;
-                this.data.priceRO = avgPrice;
-                this.data.comodity = result.Comodity;
-                this.data.amount = this.data.totalQuantityPackingOut * this.data.priceRO;
-                //sc.Amount;
+            // this.service
+            // .searchLocalSalesNoteById(this.data.IdNo)
+            // .then((psc) => {
+            this.data.roNo = result.RO_Number;
+            this.data.article = result.Article;
+            this.data.marketingName = result.MarketingName;
+            this.data.buyerAgent = result.Buyer;
+            this.data.buyerBrand = result.BuyerBrand;
+            this.data.sectionName = result.SectionName;
+            // this.data.section = {
+            //   id: psc.SectionId,
+            //   code: result.Section,
+            // };
+            this.data.comodityDescription = (result.Comodity || {}).Name;
+            this.data.unit = result.Unit;
+            this.data.uom = result.UOM;
+            this.uom = result.UOM;
+            this.data.valas = "IDR";
+            this.data.quantity = result.Quantity;
+            this.data.scNo = sc.SalesContractNo;
+            //this.data.amount=sc.Amount;
+            let avgPrice = 0;
+            if (sc) {
+              avgPrice = sc.Amount / sc.Quantity;
+            }
+            // else {
+            //   avgPrice = psc.price;
+            // }
+            this.data.price = avgPrice;
+            this.data.priceRO = avgPrice;
+            this.data.comodity = result.Comodity;
+            this.data.amount =
+              this.data.totalQuantityPackingOut * this.data.priceRO;
+            //sc.Amount;
 
-                this.context.context.options.header.section = this.data.section;
-              });
+            this.context.context.options.header.section = this.data.section;
           });
       });
+      // });
     }
   }
 
