@@ -18,9 +18,11 @@ export class Edit {
     this.data = await this.service.getById(id);
     this.error = {};
 
-    this.selectedLocalNote = {
-      noteNo: this.data.localSalesNoteNo,
-    };
+    // this.selectedLocalNote = {
+    //   noteNo: this.data.localSalesNoteNo,
+    // };
+
+    this.supplier = this.data.buyer;
 
     if (this.data.items && this.data.items.length > 0) {
       for (var item of this.data.items) {
@@ -102,14 +104,18 @@ export class Edit {
   saveCallback(event) {
     for (var item of this.data.items) {
       var qty = 0;
+      var qtyCarton = 0;
       for (var detail of item.details) {
+        qtyCarton += (detail.cartonQuantity * detail.quantityPCS);
         for (var size of detail.sizes) {
           if (size.quantity > 0) {
             qty += size.quantity;
+            
           }
         }
       }
       item.totalQuantitySize = qty;
+      item.totalQuantityCarton = qtyCarton;
     }
 
     this.service

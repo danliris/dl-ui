@@ -106,7 +106,7 @@ export class Item {
     this.readOnly = this.options.readOnly;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
-
+    console.log("ok2");
     this.itemOptions = {
       error: this.error,
       isCreate: this.isCreate,
@@ -137,44 +137,47 @@ export class Item {
         this.salesService
           .getSalesContractById(result.SCGarmentId)
           .then((sc) => {
-            this.salesService
-              .getPreSalesContractById(result.PreSCId)
-              .then((psc) => {
-                this.data.roNo = result.RO_Number;
-                this.data.article = result.Article;
-                this.data.marketingName = result.MarketingName;
-                this.data.buyerAgent = result.Buyer;
-                this.data.buyerBrand = result.BuyerBrand;
-                this.data.sectionName = result.SectionName;
-                // this.data.section = {
-                //   id: psc.SectionId,
-                //   code: result.Section,
-                // };
-                this.data.comodityDescription = (result.Comodity || {}).Name;
-                this.data.unit = result.Unit;
-                this.data.uom = result.UOM;
-                this.uom = result.UOM;
-                this.data.valas = "IDR";
-                this.data.quantity = result.Quantity;
-                this.data.scNo = sc.SalesContractNo;
-                //this.data.amount=sc.Amount;
-                let avgPrice = 0;
-                if (sc.Price == 0) {
-                  avgPrice =
-                    sc.Items.reduce((acc, cur) => (acc += cur.Price), 0) /
-                    sc.Items.length;
-                } else {
-                  avgPrice = sc.Price;
-                }
-                this.data.price = avgPrice;
-                this.data.priceRO = avgPrice;
-                this.data.comodity = result.Comodity;
-                this.data.amount = sc.Amount;
+            // this.salesService
+            //   .getPreSalesContractById(result.PreSCId)
+            // this.service
+            // .searchLocalSalesNoteById(this.data.IdNo)
+            // .then((psc) => {
+            this.data.roNo = result.RO_Number;
+            this.data.article = result.Article;
+            this.data.marketingName = result.MarketingName;
+            this.data.buyerAgent = result.Buyer;
+            this.data.buyerBrand = result.BuyerBrand;
+            this.data.sectionName = result.SectionName;
+            // this.data.section = {
+            //   id: psc.SectionId,
+            //   code: result.Section,
+            // };
+            this.data.comodityDescription = (result.Comodity || {}).Name;
+            this.data.unit = result.Unit;
+            this.data.uom = result.UOM;
+            this.uom = result.UOM;
+            this.data.valas = "IDR";
+            this.data.quantity = result.Quantity;
+            this.data.scNo = sc.SalesContractNo;
+            //this.data.amount=sc.Amount;
+            let avgPrice = 0;
+            if (sc) {
+              avgPrice = sc.Amount / sc.Quantity;
+            }
+            // else {
+            //   avgPrice = psc.price;
+            // }
+            this.data.price = avgPrice;
+            this.data.priceRO = avgPrice;
+            this.data.comodity = result.Comodity;
+            this.data.amount =
+              this.data.totalQuantityPackingOut * this.data.priceRO;
+            //sc.Amount;
 
-                this.context.context.options.header.section = this.data.section;
-              });
+            this.context.context.options.header.section = this.data.section;
           });
       });
+      // });
     }
   }
 
