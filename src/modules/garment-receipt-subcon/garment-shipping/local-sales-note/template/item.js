@@ -58,6 +58,7 @@ export class Item {
         keyword: keyword,
         filter: JSON.stringify({
           IsUsed: false,
+          IsApproved: true,
         }),
       };
       return this.service.getPL(info).then((result) => {
