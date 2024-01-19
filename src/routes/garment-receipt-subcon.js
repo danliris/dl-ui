@@ -493,4 +493,18 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/customs-user",
+    name: "receipt-subcon-customs-user",
+    moduleId: "./modules/garment-receipt-subcon/customs/index",
+    nav: true,
+    title: "BC Keluar - Terima Subkon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "transaksi",
+      permission: { X39: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
