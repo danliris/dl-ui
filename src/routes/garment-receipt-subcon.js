@@ -507,4 +507,34 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/local-cover-letter",
+    name: "receipt-subcon-local-cover-letter",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/local-cover-letter/index",
+    nav: true,
+    title: "Surat Pengantar (Lokal) - Terima Subkon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X40: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/local-sales-do",
+    name: "receipt-subcon-local-sales-do",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/local-sales-do/index",
+    nav: true,
+    title: "DO Penjualan (Lokal) - Terima Subkon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X41: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
