@@ -1,4 +1,5 @@
 <template>
+  <require from="../../../lib/number-format-value-converter"></require>
   <au-input-form
     title.bind="title"
     with.bind="context"
@@ -105,6 +106,7 @@
                        item-template="modules/garment-finance/dpp-vata-bank-expenditure-note/templates/item-view">
         </au-collection> -->
 
+    TOTAL BAYAR DPP + PPN : ${grandTotal | numberFormat: '0,000.0000'} ${currency != null ? currency.Code : ""}
     <au-collection
       show.bind="supplier && currency && data.ItemType != 'MANUAL'"
       items.bind="data.Items"
