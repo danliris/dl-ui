@@ -301,4 +301,18 @@ export class DataForm {
       this.error = null;
     };
   }
+
+  get grandTotal() {
+    let viewResult = 0;
+    if (this.data.Items && this.data.Items.length > 0) {
+        for (let item of this.data.Items) {
+            if (item.InternalNote && item.InternalNote.Items.length > 0) {
+              for(let noteItem of item.InternalNote.Items)
+                if(noteItem.SelectInvoice)
+                  viewResult += (noteItem.Invoice.Amount);
+            }
+        }
+    }
+        return viewResult
+}
 }
