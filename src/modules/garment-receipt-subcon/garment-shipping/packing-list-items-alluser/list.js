@@ -13,17 +13,17 @@ export class List {
   dataToBePosted = [];
 
   columns = [
-    {
-      field: "isApproved",
-      title: "Approve",
-      checkbox: true,
-      sortable: false,
-      formatter: function (value, data, index) {
-        this.checkboxEnabled = !data.isApproved;
-        return "";
-      },
-    },
-    { field: "localSalesNoteNo", title: "No Invoice" },
+    // {
+    //   field: "isApproved",
+    //   title: "Approve",
+    //   checkbox: true,
+    //   sortable: false,
+    //   formatter: function (value, data, index) {
+    //     this.checkboxEnabled = !data.isApproved;
+    //     return "";
+    //   },
+    // },
+    { field: "invoiceNo", title: "No Invoice" },
     {
       field: "createdUtc",
       title: "Tgl Packing List",
