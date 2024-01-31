@@ -301,7 +301,7 @@ export class DataForm {
         if (item.Quantity > 0) {
           Items.UnitDOItemId = item.Id;
           Items.URNItemId = item.URNItemId;
-          Items.DODetailId = item.DODetailId;
+          Items.DOItemId = item.DOItemId;
           Items.POItemId = item.POItemId;
           Items.EPOItemId = item.EPOItemId;
           Items.PRItemId = item.PRItemId;
