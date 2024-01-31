@@ -1,0 +1,102 @@
+<template>
+    <h1 class="page-header">LAPORAN RISALAH BARANG JADI</h1>
+
+    <form class="form-horizontal">
+        <au-textbox label="No Invoice" value.bind="invoiceNo" options.bind="controlOptions">
+        </au-textbox>
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+        </div>
+        <br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="report">
+                <thead align="center">
+                    <tr>
+                        <!-- <td align="center">NO</td> -->
+                        <td align="center">INVOICE</td>
+                        <td align="center">RONO</td>
+                        <td align="center">NO DOKUMEN</td>
+                        <td align="center">JENIS DOKUMEN</td>
+                        <td align="center">TANGGAL DOKUMEN</td>
+                        <td align="center">QTY KIRIM</td>
+                        <td align="center">SATUAN KIRIM</td>
+                        <td align="center">BARANG JADI</td>
+                        <td align="center">BUYER</td>
+                        <td align="center">NO. NOTA JUAL LOKAL</td>
+                        <td align="center">DETAIL BARANG DIPAKAI</td>
+                        <td align="center">KODE BARANG</td>
+                        <td align="center">QTY</td>
+                        <td align="center">SATUAN PAKAI</td>
+                        <td align="center">ASAL SJ</td>
+                        <td align="center">SUPPLIER</td>
+                        <td align="center">QTY MASUK</td>
+                        <td align="center">SATUAN</td>
+                        <td align="center">NO BC MASUK</td>
+                        <td align="center">JENIS BC MASUK</td>
+                        <td align="center">TANGGAL BC MASUK</td>
+
+                    </tr>
+
+
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <!-- <td>${$index + 1}</td> -->
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.InvoiceNo}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.RONo}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.BCNo}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.BCType}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.BCDate | dateFormat:'DD MMMM YYYY'}
+                        </td>
+                        <td align="right" if.bind="item.nospan" rowspan="${item.nospan}">${item.SentQty}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.SentUomUnit}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.ComodityName}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.BuyerName}</td>
+                        <td if.bind="item.nospan" rowspan="${item.nospan}">${item.LocalSalesNote}</td>
+                        <td>${item.ProductName}</td>
+                        <td>${item.ProductCode}</td>
+                        <td align="right">${item.UsedQty}</td>
+                        <td>${item.UsedUomUnit}</td>
+                        <td>${item.DONo}</td>
+                        <td>${item.SupplierName}</td>
+                        <td align="right">${item.ReceiptQty}</td>
+                        <td>${item.ReceiptUomUnit}</td>
+                        <td>${item.ReceiptBCNo}</td>
+                        <td>${item.ReceiptBCType}</td>
+                        <td>${item.ReceiptBCDate | dateFormat:'DD MMMM YYYY'}</td>
+
+                    </tr>
+                    <!-- <tr class="active">
+                        <td class="text-center" colspan="8"><strong>T O T A L  . . . . . . . . . . . . . . .</strong></td>
+                        <td class="text-right"><strong>${AmountTotal1}</strong></td>
+                        <td></td>
+                        <td class="text-right"><strong>${AmountTotal2}</strong></td>
+                        <td class="text-right"><strong>${AmountTotal3}</strong></td>
+                        <td></td>
+                        <td class="text-right"><strong>${AmountTotal4}</strong></td>
+                        <td></td>
+                        <td class="text-right"><strong>${AmountTotal5}</strong></td>
+                        <td></td>
+                        <td></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr />
+    </form>
+
+
+</template>

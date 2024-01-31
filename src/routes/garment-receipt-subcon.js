@@ -537,4 +537,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/finished-goods-minutes",
+    name: "receipt-subcon-finished-goods-minutes",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-shipping/finished-goods-minutes/index",
+    nav: true,
+    title: "Laporan Risalah Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "shipping",
+      permission: { X42: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
