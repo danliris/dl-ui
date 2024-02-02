@@ -547,8 +547,23 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-receipt-subcon",
-      subGroup: "shipping",
+      subGroup: "laporan",
       permission: { X42: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/garment-stock-report",
+    name: "receipt-subcon-garment-stock-report",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/garment-stock-report/index",
+    nav: true,
+    title: "Laporan Stok Barang Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X43: 1 },
       iconClass: "fa fa-dashboard",
     },
   },
