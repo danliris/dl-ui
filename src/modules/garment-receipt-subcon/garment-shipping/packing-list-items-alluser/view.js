@@ -8,7 +8,7 @@ export class View {
     this.router = router;
     this.service = service;
   }
-
+  isView = true;
   formOptions = {
     cancelText: "Back",
     saveText: "Unpost",
@@ -20,9 +20,8 @@ export class View {
     this.data = await this.service.getById(id);
     var idx = 0;
 
-    this.selectedLocalNote = {
-      noteNo: this.data.localSalesNoteNo,
-    };
+    this.supplier = this.data.buyer;
+
     if (this.data.items) {
       for (const item of this.data.items) {
         item.buyerAgent = this.data.buyerAgent;
