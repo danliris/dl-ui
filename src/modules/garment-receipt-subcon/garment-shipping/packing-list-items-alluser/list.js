@@ -7,7 +7,7 @@ import { AuthService } from "aurelia-authentication";
 @inject(Router, Service, AuthService)
 export class List {
   @bindable isKasie = null;
-  context = ["Detail"];
+  context = ["Detail","Cetak"];
 
   options = {};
   dataToBePosted = [];
@@ -114,6 +114,9 @@ export class List {
           id: data.id,
           isKasie: this.isKasie,
         });
+        case "Cetak":
+          this.service.getPdfByFilterCarton(data.id);
+          break;
         break;
     }
   }
