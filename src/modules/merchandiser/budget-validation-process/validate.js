@@ -37,6 +37,8 @@ export class Create {
         { header: "Deskripsi Barang", value: "Description" },
         { header: "Qty", value: "BudgetQuantityString" },
         { header: "Satuan", value: "UOMPriceUnit" },
+        { header: "Harga", value: "Price" },
+        { header: "Total Harga", value: "PriceTotal" },
         { header: "Shipment", value: "DeliveryDate" },
         { header: "Seksi", value: "Section" },
         { header: "Staf Merchandiser", value: "CreatedBy" },     
@@ -118,6 +120,9 @@ export class Create {
                     material.BudgetQuantityString = material.BudgetQuantity.toFixed(2);
                     material.IsPRMaster = material.PRMasterId > 0;
                     material.Status = material.IsPRMaster ? "MASTER" : "JOB ORDER";
+                    material.PriceTotal = (material.Price * material.BudgetQuantity).toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    material.Price = material.Price.toLocaleString('en-EN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
                 });
             }
         }
