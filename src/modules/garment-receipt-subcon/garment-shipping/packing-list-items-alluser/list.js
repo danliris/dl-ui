@@ -114,7 +114,11 @@ export class List {
           id: data.id,
           isKasie: this.isKasie,
         });
-        break;
+      break;
+      case "Cetak":
+        this.service.getPdfByFilterCarton(data.id);
+      break;
+       
     }
   }
 

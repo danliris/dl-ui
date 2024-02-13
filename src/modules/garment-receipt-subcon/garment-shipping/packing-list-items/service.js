@@ -50,11 +50,10 @@ class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  searchLocalSalesNoteById(id) {
-        var endpoint = `${localSalesNoteUri}/${id}`;
-        return super.get(endpoint);
-  }
-
+  getPdfByFilterCarton(id) {
+    var endpoint = `${serviceUri}/${id}/carton`;
+    return super.getPdf(endpoint);
+}
 }
 
 const costCalculationServiceUri = "cost-calculation-garments";
