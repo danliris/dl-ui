@@ -186,6 +186,19 @@
                         <au-numeric label="Credit Interest" value.bind="data.creditInterest"
                             error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions"
                             show.bind="data.paymentTerm == 'LC'">
+                        </au-numeric>-->
+
+                        <au-numeric label="Discount" value.bind="data.bankComission"
+                            error.bind="error.bankComission" read-only.bind="readOnly" options.bind="controlOptions">
+                        </au-numeric>
+
+                        <au-numeric label="Discrepancy Fee / Postage" value.bind="data.discrepancyFee"
+                            error.bind="error.discrepancyFee" read-only.bind="readOnly" options.bind="controlOptions"
+                            show.bind="data.paymentTerm == 'LC'">
+                        </au-numeric>
+
+                        <au-numeric label="Credit Interest" value.bind="data.creditInterest"
+                            error.bind="error.creditInterest" read-only.bind="readOnly" options.bind="controlOptions">
                         </au-numeric>
 
                         <au-numeric label="Bank Charge" value.bind="data.bankCharges" error.bind="error.bankCharges"
