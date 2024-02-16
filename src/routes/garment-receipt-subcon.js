@@ -582,4 +582,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/production-flow-feature",
+    name: "receipt-subcon-production-flow-feature",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/production-flow-feature/index",
+    nav: true,
+    title: "Fitur Flow Barang Produksi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X45: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
