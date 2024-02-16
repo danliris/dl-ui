@@ -596,5 +596,5 @@ module.exports = [
       permission: { X45: 1 },
       iconClass: "fa fa-dashboard",
     },
-  },
+  }
 ];
