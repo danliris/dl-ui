@@ -567,4 +567,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/monitoring-delivery-order",
+    name: "receipt-subcon-monitoring-delivery-order",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/monitoring-delivery-order-all/index",
+    nav: true,
+    title: "Monitoring Surat Jalan",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X44: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
