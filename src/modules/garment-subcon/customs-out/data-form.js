@@ -1,7 +1,6 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { data } from "jquery";
 import { Service } from "./service";
-
 var moment = require("moment");
 
 const ContractLoader = require("../../../loader/garment-subcon-contract-loader");
@@ -99,6 +98,7 @@ export class DataForm {
       "Jumlah Kemasan",
       "Satuan Kemasan",
     ],
+    columnsCutSew: ["No SJ Keluar"],
   };
 
   async bind(context) {
@@ -112,6 +112,7 @@ export class DataForm {
       isView: this.context.isView,
       checkedAll: this.context.isCreate == true ? false : true,
       SCId: this.data.SubconContractId,
+      selectedSubconCategory: this.data.SubconCategory,
     };
 
     if (this.data && this.data.Id) {
@@ -142,13 +143,29 @@ export class DataForm {
           item.Quantity = 0;
           item.QtyPacking = 0;
           item.UomPacking = "";
+          item.Details = [];
           for (var a of dl.Items) {
-            item.Quantity += a.Quantity;
-            item.QtyPacking += a.QtyPacking;
-            item.UomPacking = a.UomSatuanUnit;
+            // item.Quantity += a.Quantity;
+            // item.QtyPacking += a.QtyPacking;
+            // item.UomPacking = a.UomSatuanUnit;
+
+            // this.data.RemainingQuantity += a.Quantity;
+            // this.data.Quantity += a.Quantity;
             item.IsSave = true;
-            this.data.RemainingQuantity += a.Quantity;
-            this.data.Quantity += a.Quantity;
+            if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+              a.Details.forEach((x) => {
+                item.Details.push(x);
+
+                this.data.Quantity += x.Quantity;
+                this.data.RemainingQuantity += x.Quantity;
+              });
+            } else {
+              item.Quantity += a.Quantity;
+              item.QtyPacking += a.QtyPacking;
+              item.UomPacking = a.UomSatuanUnit;
+              this.data.RemainingQuantity += a.Quantity;
+              this.data.Quantity += a.Quantity;
+            }
           }
           this.data.Items.push(item);
         }
@@ -170,6 +187,8 @@ export class DataForm {
 
   async selectedContractChanged(newValue) {
     if (newValue && !this.data.Id) {
+      this.data.Items.splice(0);
+
       this.data.SubconContractId = newValue.Id;
       this.data.SubconContractNo = newValue.ContractNo;
       this.data.BuyerStaff = newValue.CreatedBy;
@@ -177,6 +196,7 @@ export class DataForm {
       this.selectedSubconType = newValue.ContractType;
       this.selectedSubconCategory = newValue.SubconCategory;
       this.itemOptions.SCId = this.data.SubconContractId;
+      this.itemOptions.selectedSubconCategory = newValue.SubconCategory;
       this.data.RemainingQuantity = 0;
       this.data.Quantity = 0;
 
@@ -192,14 +212,25 @@ export class DataForm {
           item.Quantity = 0;
           item.QtyPacking = 0;
           item.UomPacking = "";
+          item.Details = [];
           for (var a of dl.Items) {
-            item.Quantity += a.Quantity;
-            item.QtyPacking += a.QtyPacking;
-            item.UomPacking = a.UomSatuanUnit;
+            if (newValue.SubconCategory == "SUBCON CUTTING SEWING") {
+              a.Details.forEach((x) => {
+                item.Details.push(x);
+                if (dl.IsUsed == false) {
+                  this.data.Quantity += x.Quantity;
+                  this.data.RemainingQuantity += x.Quantity;
+                }
+              });
+            } else {
+              item.Quantity += a.Quantity;
+              item.QtyPacking += a.QtyPacking;
+              item.UomPacking = a.UomSatuanUnit;
+              this.data.RemainingQuantity += a.Quantity;
 
-            this.data.RemainingQuantity += a.Quantity;
-            if (dl.IsUsed == false) {
-              this.data.Quantity += a.Quantity;
+              if (dl.IsUsed == false) {
+                this.data.Quantity += a.Quantity;
+              }
             }
           }
           if (dl.IsUsed == false) {
@@ -227,10 +258,24 @@ export class DataForm {
 
   get totalQuantity() {
     var qty = 0;
-    if (this.data.Items) {
+    if (
+      this.data.Items &&
+      this.selectedSubconCategory != "SUBCON CUTTING SEWING"
+    ) {
       for (var item of this.data.Items) {
         if (item.IsSave) {
           qty += item.Quantity;
+        }
+      }
+    } else if (
+      this.data.Items &&
+      this.selectedSubconCategory == "SUBCON CUTTING SEWING"
+    ) {
+      for (var item of this.data.Items) {
+        if (item.IsSave) {
+          item.Details.forEach((element) => {
+            qty += element.Quantity;
+          });
         }
       }
     }
