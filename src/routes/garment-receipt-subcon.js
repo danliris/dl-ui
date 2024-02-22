@@ -597,4 +597,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/monitoring-production-stock-flow",
+    name: "receipt-subcon-monitoring-production-stock-flow",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/monitoring-production-stock-flow/index",
+    nav: true,
+    title: "Monitoring Flow Stock Persediaan",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X46: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
