@@ -13,6 +13,7 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+  
     // {
     //     route: 'auth/roles',
     //     name: 'roles',
