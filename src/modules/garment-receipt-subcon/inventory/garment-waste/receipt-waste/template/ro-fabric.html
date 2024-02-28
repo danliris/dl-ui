@@ -1,0 +1,41 @@
+<template>
+    <tr>
+        <td>
+            <!-- <au-autocomplete value.bind="selectedRO" error.bind="error.RONo" 
+            loader.bind="roLoader"
+                read-only.bind="readOnly||isEdit" placeholder="Nomor RO" text="RONo">
+            </au-autocomplete> -->
+
+            <au-textbox value.bind="data.RONo" error.bind="error.RONo" read-only.bind="readOnly ||isEdit"
+                placeholder="Nomor RO" text="RONo">
+            </au-textbox>
+        </td>
+        <td>
+
+            <button class="btn btn-success" click.delegate="searchRONo()"
+                disabled.bind="readOnly || isEdit">Cari</button>
+        </td>
+        <!-- </div> -->
+        <!-- <div class ="col-sm-3" if.bind="!readOnly && !isEdit">
+            <button class="btn btn-success" click.delegate="searchRONo()"  if.bind="isTransfer" disabled.bind="!data.RONo">Cari</button>
+        </div> -->
+        <td>
+            <au-autocomplete value.bind="data.Article" error.bind="error.Article" read-only.bind="true"
+                placeholder="Article" text="Article">
+            </au-autocomplete>
+        </td>
+        <td if.bind="isCreate">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    <tr show.bind="data.FabricItems">
+        <td colspan="15">
+            <au-collection items.bind="data.FabricItems" errors.bind="error.Items" columns.bind="fabricColumns"
+                read-only.bind="readOnly" add.bind="addItems" remove.bind="removeItems" options.bind="itemOptions"
+                item-template="modules/garment-receipt-subcon/inventory/garment-waste/receipt-waste/template/fabric-item"
+                header-template="modules/garment-receipt-subcon/inventory/garment-waste/receipt-waste/template/fabric-item-header">
+            </au-collection>
+            <!-- <hr style="border: 5px solid #173250; border-radius: 0px 0px 5px 5px;"> -->
+        </td>
+    </tr>
+    </tr>
+</template>
