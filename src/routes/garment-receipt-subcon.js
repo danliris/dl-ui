@@ -612,4 +612,34 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "garment-receipt-subcon/inventory/garment-waste/receipt-waste",
+    name: "garment-receipt-subcon/inventory/garment-waste/receipt-waste",
+    moduleId:
+      "modules/garment-receipt-subcon/inventory/garment-waste/receipt-waste/index",
+    nav: true,
+    title: "Penerimaan Aval Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "aval",
+      permission: { X47: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "garment-receipt-subcon/inventory/garment-waste/expenditure-waste",
+    name: "garment-receipt-subcon/inventory/garment-waste/expenditure-waste",
+    moduleId:
+      "modules/garment-receipt-subcon/inventory/garment-waste/expenditure-waste/index",
+    nav: true,
+    title: "Pengeluaran Aval Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "aval",
+      permission: { X48: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
