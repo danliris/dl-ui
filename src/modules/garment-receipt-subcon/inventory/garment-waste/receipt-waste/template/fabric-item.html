@@ -1,0 +1,34 @@
+<template>
+    <tr>
+        <td align='center' if.bind="options.isCreate" class="bg-primary" class="col-sm-1">
+            <au-checkbox value.bind="data.IsSave" if.bind="options.isCreate" options.bind="controlOptions"
+                change.delegate="changeCheckBox()">
+            </au-checkbox>
+        </td>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.Product.Code" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.BCNo" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="bg-primary">
+            <au-datepicker value.bind="data.BCDate" read-only.bind="true">
+            </au-datepicker>
+        </td>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.BCType" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.Quantity" read-only.bind="readOnly">
+            </au-numeric>
+        </td>
+        <td class="bg-primary">
+            <au-textbox value.bind="data.Uom" read-only.bind="true">
+            </au-textbox>
+        </td>
+    </tr>
+
+</template>
