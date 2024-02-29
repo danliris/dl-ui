@@ -1,0 +1,45 @@
+<template>
+  <au-input-form title.bind="title" title.bind="title" with.bind="context" options.bind="formOptions">
+
+    <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+
+    <!-- DESC -->
+    <div class="row">
+      <div class="row">
+        <div class="col-sm-6">
+          <au-textbox value.bind="data.invoiceNo" label="No Invoice" read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions" show.bind="isView || isEdit">
+          </au-textbox>
+
+          <au-datepicker label="Tgl Invoice" value.bind="data.invoiceDate" error.bind="error.InvoiceDate"
+            read-only.bind="readOnly" options.bind="controlOptions">
+          </au-datepicker>
+
+          <au-autocomplete value.bind="supplier" error.bind="error.Buyer" text.bind="supplierView"
+            read-only.bind="readOnly" options.bind="controlOptions" loader.bind="supplierLoader" label="Pemilik Barang"
+            placeholder="cari Pemilik Barang" key="code">
+          </au-autocomplete>
+        </div>
+
+        <div class="col-sm-6">
+          <au-numeric value.bind="kurs" label="Kurs/Rate" options.bind="controlOptions"
+            read-only.bind="type == 'MD' ? false:true">
+          </au-numeric>
+
+          <au-multiline label="Keterangan" value.bind="remark" placeholder="Keterangan" options.bind="controlOptions"
+            read-only.bind="type == 'MD' ? false:true">
+          </au-multiline>
+        </div>
+
+      </div>
+
+
+      <au-collection items.bind="data.items" errors.bind="error.Items" columns.bind="itemsColumns"
+        read-only.bind="readOnly" add.bind="addItems" remove.bind="removeItems" options.bind="itemOptions"
+        show.bind="supplier"
+        item-template="modules/garment-receipt-subcon/garment-shipping/packing-list-items/template/detail-ro">
+      </au-collection>
+
+    </div>
+  </au-input-form>
+</template>
