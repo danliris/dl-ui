@@ -160,7 +160,7 @@ export class List {
       },
     },
     { field: "udoUom", title: "Satuan", sortable: false },
-    
+
     { field: "UENNo", title: "Nomor BUK", sortable: false },
     {
       field: "UENDate",
@@ -180,7 +180,6 @@ export class List {
       },
     },
     { field: "uenUom", title: "Satuan", sortable: false },
-   
   ];
 
   search() {
@@ -203,8 +202,7 @@ export class List {
   loader = (info) => {
     var order = {};
 
-    if (info.sort)
-        order[info.sort] = info.order;
+    if (info.sort) order[info.sort] = info.order;
 
     let args = {
       page: parseInt(info.offset / info.limit, 10) + 1,
@@ -251,7 +249,7 @@ export class List {
         select: JSON.stringify({
           DONo: "DONo",
           Id: "1",
-          supplierName: "SupplierName",
+          // supplierName: "SupplierName",
         }),
         search: JSON.stringify(["DONo"]),
         order: { DONo: "asc" },
