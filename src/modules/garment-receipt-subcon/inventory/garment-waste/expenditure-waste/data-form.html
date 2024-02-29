@@ -1,0 +1,54 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <au-datepicker label="Tgl Pengeluaran Gudang" value.bind="data.ExpenditureDate"
+            error.bind="error.ExpenditureDate" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-dropdown label="Tipe Aval" value.bind="data.WasteType" items.bind="wasteOptions"
+            error.bind="error.WasteType" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox label="Asal Barang" value.bind="sourceName" read-only="true" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown label="Tujuan Keluar" value.bind="data.ExpenditureTo" read-only.bind="readOnly"
+            items.bind="expenditureOptions" options.bind="controlOptions" error.bind="error.ExpenditureTo">
+        </au-dropdown>
+
+        <au-dropdown label="Tipe BC Keluar" value.bind="data.BCOutType" items.bind="bcTypeOptions"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-textbox label="Nomor BC Keluar" value.bind="data.BCOutNo" read-only.bind="readOnly"
+            options.bind="controlOptions" error.bind="error.BCOutNo">
+        </au-textbox>
+
+        <au-datepicker label="Tgl Nomor BC Keluar" value.bind="data.BCOutDate" error.bind="error.BCOutDate"
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-multiline label="Keterangan" placeholder="Masukkan Keterangan" value.bind="data.Description"
+            read-only.bind="readOnly" options.bind="controlOptions" error.bind="error.Description">
+        </au-multiline>
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+        </div>
+
+        <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="itemsColumns"
+            read-only.bind="readOnly" add.bind="addItems" remove.bind="removeItems" options.bind="Options"
+            item-template="modules/garment-receipt-subcon/inventory/garment-waste/expenditure-waste/template/item">
+        </au-collection>
+
+        <au-numeric label="TOTAL QUANTITY (KG)" value.one-way="totalQuantity" read-only.bind="true"
+            options.bind="footerOptions" error.bind="error.TotalAval">
+        </au-numeric>
+
+        <au-numeric label="TOTAL AKTUAL QUANTITY (KG)" value.bind="data.ActualQuantity"
+            error.bind="error.ActualQuantity" read-only.bind="readOnly" options.bind="footerOptions">
+        </au-numeric>
+
+
+    </au-input-form>
+</template>
