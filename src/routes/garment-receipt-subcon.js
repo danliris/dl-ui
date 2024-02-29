@@ -642,4 +642,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/shipment-local-sales-note",
+    name: "receipt-subcon-shipment-local-sales-note",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/shipment-local-sales-note/index",
+    nav: true,
+    title: "Laporan Shipment per Nota Jual Lokal - Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X49: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
