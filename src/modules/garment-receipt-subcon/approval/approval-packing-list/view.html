@@ -1,0 +1,12 @@
+<template>
+  <require from="./data-form"></require>
+  <data-form title="Detail Packing List" read-only="true"></data-form>
+  <div class="btn-group pull-right">
+    <a click.delegate="cancel()" class="btn btn-default btn-sm">Kembali</a>
+    <a click.delegate="approve()" class="btn btn-success btn-sm">Approve</a>
+    <a click.delegate="reject('MD')" class="btn btn-primary btn-sm" if.bind="type == 'SHIPPING'">
+      Reject MD</a>
+
+    <a click.delegate="reject('PACKING')" class="btn btn-danger btn-sm" if.bind="type == 'SHIPPING'">Reject Packing</a>
+  </div>
+</template>
