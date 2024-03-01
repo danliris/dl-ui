@@ -1,11 +1,10 @@
 import { RestService } from "../../../../utils/rest-service";
 
-const serviceUri = "subcon-packing-outs";
+const serviceUri = "subcon-expenditure-good-returns";
 const comodityPriceserviceUri = "comodity-prices";
-const packingInServiceUri = "subcon-packing-ins";
-const preparingServiceUri = "subcon-preparings";
-const serviceUriFinOut = "finishing-outs";
+const expenditureGoodServiceUri = "subcon-packing-outs";
 const finishedGoodServiceUri = "subcon-finished-good-stocks";
+
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "garment-production");
@@ -21,18 +20,13 @@ class Service extends RestService {
     return super.list(endpoint, info);
   }
 
-  getPackingIn(info) {
-    var endpoint = `${packingInServiceUri}/complete`;
+  getExpenditureGood(info) {
+    var endpoint = `${expenditureGoodServiceUri}/complete`;
     return super.list(endpoint, info);
   }
 
-  getPackingInByRo(info) {
-    var endpoint = `${packingInServiceUri}/get-by-ro`;
-    return super.list(endpoint, info);
-  }
-
-  getPreparingByRONo(info) {
-    var endpoint = `${preparingServiceUri}`;
+  getExpenditureGoodByNo(info) {
+    var endpoint = `${expenditureGoodServiceUri}`;
     return super.list(endpoint, info);
   }
 
@@ -56,24 +50,9 @@ class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  searchFinishingOut(info) {
-    var endpoint = `${serviceUriFinOut}`;
-    return super.list(endpoint, info);
-  }
-
-  getPdfById(id, buyer) {
-    var endpoint = `${serviceUri}/${id}/${buyer}`;
-    return super.getPdf(endpoint);
-  }
-
-  getFinishedGood(info) {
-    var endpoint = `${finishedGoodServiceUri}/list`;
-    return super.list(endpoint, info);
-  }
-
-  getFinishedGoodByRo(info) {
-    var endpoint = `${finishedGoodServiceUri}/get-by-ro`;
-    return super.list(endpoint, info);
+  getFinishedGoodById(id) {
+    var endpoint = `${finishedGoodServiceUri}/${id}`;
+    return super.get(endpoint);
   }
 }
 
@@ -95,15 +74,36 @@ class SalesService extends RestService {
   }
 }
 
-const shippingInvoiceServiceUri = "garment-shipping/invoices/packingListById";
-class PackingInventoryService extends RestService {
+const serviceUriPR = "garment-purchase-requests";
+const serviceUriURNDO = "garment-unit-receipt-notes/by-do";
+class PurchasingService extends RestService {
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "packing-inventory");
+    super(http, aggregator, config, "purchasing-azure");
   }
 
-  getDataByPackingLisId(id) {
-    var endpoint = `${shippingInvoiceServiceUri}/${id}`;
-    return super.get(endpoint);
+  getGarmentPR(info) {
+    var endpoint = `${serviceUriPR}`;
+    return super.list(endpoint, info);
+  }
+
+  getDOUrnBC(info) {
+    console.log(info);
+    var endpoint = `${serviceUriURNDO}`;
+    return super.list(endpoint, info);
   }
 }
-export { Service, SalesService, PackingInventoryService };
+
+const serviceUriBCNo = "customs-reports/getTemp/byBCNo";
+class CustomReportService extends RestService {
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "customs-report");
+  }
+
+  getBCNo(info) {
+    console.log(info);
+    var endpoint = `${serviceUriBCNo}`;
+    return super.list(endpoint, info);
+  }
+}
+
+export { Service, SalesService, PurchasingService, CustomReportService };
