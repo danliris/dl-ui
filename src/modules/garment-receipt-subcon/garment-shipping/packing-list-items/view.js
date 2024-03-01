@@ -34,6 +34,11 @@ export class View {
         this.sumSubTotal(item);
       }
     }
+
+    if (this.data.rejectTo == "PACKING")
+      this.alertInfo =
+        "<strong>Alasan Reject oleh Shipping: </strong> " +
+        this.data.rejectReason;
   }
 
   sumSubTotal(item) {

@@ -108,7 +108,7 @@ export class Item {
     this.readOnly = this.options.readOnly;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
-    console.log("ok2");
+
     this.itemOptions = {
       error: this.error,
       isCreate: this.isCreate,
