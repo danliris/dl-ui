@@ -689,4 +689,19 @@ module.exports = [
       type: "SHIPPING",
     },
   },
+  {
+    route: "/garment-receipt-subcon/packing-out-return",
+    name: "garment-receipt-subcon-packing-out-return",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/expenditure-good-return/index",
+    nav: true,
+    title: "Return Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X52: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
