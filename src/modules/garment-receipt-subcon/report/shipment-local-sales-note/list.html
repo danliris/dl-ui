@@ -1,0 +1,78 @@
+<template>
+    <h1 class="page-header">LAPORAN SHIPMENT PER NOTA JUAL LOKAL - TERIMA SUBCON</h1>
+    <form class="form-horizontal">
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"
+            error.bind="error.dateFrom"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"
+            error.bind="error.dateTo"></au-datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+        </div>
+        <br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <td align="center">No</td>
+                        <td align="center">No Surat Pengantar</td>
+                        <td align="center">Tgl Surat Pengantar</td>
+                        <td align="center">No BC</td>
+                        <td align="center">Nota Jual Lokal</td>
+                        <td align="center">Tgl Penjualan</td>
+                        <td align="center">Shipping Staff</td>
+                        <td align="center">No Invoice</td>
+                        <td align="center">Tgl Invoice</td>
+                        <td align="center">Buyer Agent</td>
+                        <td align="center">Unit</td>
+                        <td align="center">Kode Barang</td>
+                        <td align="center">Nama Barang</td>
+                        <td align="center">Quantity</td>
+                        <td align="center">Satuan</td>
+                        <td align="center">DPP</td>
+                        <td align="center">PPn</td>
+                        <td align="center">Total</td>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <td>${$index + 1}</td>
+                        <td>${item.localCoverLetterNo}</td>
+                        <td>${item.localCoverLetterDate}</td>
+                        <td>${item.bcNo}</td>
+                        <td>${item.localSalesNoteNo}</td>
+                        <td>${item.localSalesNoteDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.shippingStaff}</td>
+                        <td>${item.invoiceNo}</td>
+                        <td>${item.invoiceDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.buyerName}</td>
+                        <td>${item.unitName}</td>
+                        <td>${item.productCode}</td>
+                        <td>${item.productName}</td>
+                        <td align="right">${item.quantity}</td>
+                        <td>${item.uomUnit}</td>
+                        <td align="right">${item.dpp}</td>
+                        <td align="right">${item.pPn}</td>
+                        <td align="right">${item.total}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length === 0">
+            Tidak ada data.
+        </div>
+        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)"></pagination>
+        <hr />
+    </form>
+
+
+</template>

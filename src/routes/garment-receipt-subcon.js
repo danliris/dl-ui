@@ -642,4 +642,51 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/shipment-local-sales-note",
+    name: "receipt-subcon-shipment-local-sales-note",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/shipment-local-sales-note/index",
+    nav: true,
+    title: "Laporan Shipment per Nota Jual Lokal - Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X49: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/approval-packing-list-byMD",
+    name: "receipt-subcon-approval-packing-list-byMD",
+    moduleId:
+      "./modules/garment-receipt-subcon/approval/approval-packing-list/index",
+    nav: true,
+    title: "Approval Packing List By MD",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "approval",
+      permission: { X50: 1 },
+      iconClass: "fa fa-dashboard",
+      type: "MD",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/approval-packing-list-by-shipping",
+    name: "receipt-subcon-approval-packing-list-by-shipping",
+    moduleId:
+      "./modules/garment-receipt-subcon/approval/approval-packing-list/index",
+    nav: true,
+    title: "Approval Packing List By Shipping",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "approval",
+      permission: { X51: 1 },
+      iconClass: "fa fa-dashboard",
+      type: "SHIPPING",
+    },
+  },
 ];
