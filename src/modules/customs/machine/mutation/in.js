@@ -1,16 +1,9 @@
-import {
-  inject,
-  bindable,
-  computedFrom
-} from 'aurelia-framework';
-import {
-  Router
-} from 'aurelia-router';
-import {
-  Service
-} from './service';
-const BrandLoader = require('../../../../loader/machine-brand-loader');
-const CategoryLoader = require('../../../../loader/machine-category-loader');
+import { inject, bindable, computedFrom } from "aurelia-framework";
+import { Router } from "aurelia-router";
+import { Service } from "./service";
+const BrandLoader = require("../../../../loader/machine-brand-loader");
+const CategoryLoader = require("../../../../loader/machine-category-loader");
+const SuppierLoader = require("../../../../loader/garment-supplier-loader");
 
 @inject(Router, Service)
 export class In {
@@ -26,9 +19,13 @@ export class In {
   @bindable KlasItem;
   @bindable category;
   @bindable brand;
+  @bindable supplier;
+  @bindable type;
+  @bindable bcno;
 
-  SupItems = ['', 'LOKAL', 'IMPORT']
-  KlasItems = ['', 'Machine', 'Tools']
+  SupItems = ["", "LOKAL", "IMPORT"];
+  KlasItems = ["", "Machine", "Tools"];
+  typeItems = ["PEMBELIAN", "PEMINJAMAN"];
 
   constructor(router, service) {
     this.service = service;
@@ -38,37 +35,43 @@ export class In {
       cancelText: "Kembali",
       saveText: "Simpan",
     };
-
-
   }
 
   controlOptions = {
     label: {
       align: "left",
-      length: 4
+      length: 4,
     },
     control: {
       length: 5,
-      align: "right"
-    }
-  }
+      align: "right",
+    },
+  };
 
   get categoryLoader() {
     return CategoryLoader;
   }
 
-
   get brandLoader() {
     return BrandLoader;
   }
 
+  get supplierLoader() {
+    return SuppierLoader;
+  }
+
   categoryView = (cat) => {
     return `${cat.CategoryName}`;
-  }
+  };
 
   brandView = (brand) => {
     return `${brand.BrandName}`;
-  }
+  };
+
+  supplierView = (supplier) => {
+    if (!supplier.code) return `${supplier.Code} - ${supplier.Name}`;
+    else return `${supplier.code} - ${supplier.name}`;
+  };
 
   SupItemChanged(newvalue) {
     if (newvalue) {
@@ -81,6 +84,26 @@ export class In {
       }
     } else {
       this.data.SupplierType = "-";
+    }
+  }
+
+  typeChanged(newvalue) {
+    if (newvalue) {
+      this.data.Type = newvalue;
+      this.supplier = null;
+      this.data.Buyer = {};
+      this.data.BCNumber = "";
+      this.brand = null;
+      this.category = null;
+      this.data.MachineCategory = "";
+      this.data.MachineBrand = "";
+      this.data.IDNumber = "";
+      this.KlasItem = "";
+      this.data.MachineType = "";
+      this.data.UnitQuantity = "";
+      this.data.PurchaseYear = "";
+      this.data.SupplierType = "";
+      this.data.MachineID = "";
     }
   }
 
@@ -110,29 +133,38 @@ export class In {
     }
   }
 
+  supplierChanged(newValue, oldValue) {
+    var selectedSupplier = newValue;
+    if (selectedSupplier) {
+      if (selectedSupplier.Id) {
+        this.data.Buyer = selectedSupplier;
+      }
+    } else {
+      this.data.Buyer = {};
+    }
+  }
+
   save(event) {
     this.data.TransactionType = "IN";
-    this.service.createIN(this.data)
-      .then(result => {
+    this.service
+      .createIN(this.data)
+      .then((result) => {
         alert("Data berhasil dibuat");
-        this.router.navigateToRoute('in', {}, {
-          replace: true,
-          trigger: true
-        });
+        this.router.navigateToRoute("list");
       })
-      .catch(e => {
+      .catch((e) => {
         this.error = e;
-      })
+      });
   }
 
   cancel(event) {
-    this.router.navigateToRoute('list');
+    this.router.navigateToRoute("list");
   }
 
   bind(context) {
     this.context = context;
     this.data = {
-      items: []
+      items: [],
     };
     this.error = {};
     this.cancelCallback = this.context.cancelCallback;
@@ -141,4 +173,69 @@ export class In {
     this.saveCallback = this.context.saveCallback;
   }
 
+  bcOutView = (bc) => {
+    return `${bc.BCOutNumber} - ${bc.PurchaseYear}`;
+  };
+
+  get getBCNo() {
+    return (keyword) => {
+      var info = {
+        bcNo: keyword,
+      };
+      return this.service.MutationByBCNo(info).then((result) => {
+        var bcList = [];
+        for (var a of result.data) {
+          if (a.TransactionType == "OUT") {
+            if (bcList.length == 0) {
+              bcList.push(a);
+            } else {
+              var dup = bcList.find((d) => d.BCOutNumber == a.BCOutNumber);
+              if (!dup) {
+                bcList.push(a);
+              }
+            }
+          }
+        }
+        return bcList;
+      });
+    };
+  }
+
+  async bcnoChanged(newValue, oldValue) {
+    var selectedSupplier = newValue;
+    if (selectedSupplier) {
+      let qtyReturn = 0;
+      Promise.resolve(
+        this.service.MutationByBCNo({ machineId: newValue.MachineID })
+      ).then((result) => {
+        result.data.forEach((element) => {
+          if (element.TransactionType == "IN") {
+            qtyReturn += element.QtyOut;
+          }
+        });
+
+        this.data.QtyOut = newValue.QtyOut - qtyReturn;
+      });
+
+      this.supplier = newValue.Buyer;
+      this.data.Buyer = newValue.Buyer;
+      this.data.BCNumber = newValue.BCNumber;
+      this.brand = newValue.MachineBrand;
+      this.category = newValue.MachineCategory;
+      this.data.MachineCategory = newValue.MachineCategory;
+      this.data.MachineBrand = newValue.MachineBrand;
+
+      this.data.IDNumber = newValue.IDNumber;
+      this.KlasItem = newValue.Classification;
+
+      this.data.MachineType = newValue.MachineType;
+
+      this.data.UnitQuantity = newValue.UnitQuantity;
+      this.data.PurchaseYear = newValue.PurchaseYear;
+      this.data.SupplierType = newValue.SupplierType;
+      this.data.MachineID = newValue.MachineID;
+    } else {
+      this.data.Buyer = {};
+    }
+  }
 }

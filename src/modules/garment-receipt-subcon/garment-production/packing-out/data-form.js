@@ -82,11 +82,10 @@ export class DataForm {
         keyword: keyword,
         filter: JSON.stringify({
           UnitId: this.data.Unit.Id,
-          "GarmentSubconPackingInItem.Any(RemainingQuantity > 0)": true,
-          IsApproved: true,
+          "Quantity>0": true,
         }),
       };
-      return this.service.getPackingInByRo(info).then((result) => {
+      return this.service.getFinishedGoodByRo(info).then((result) => {
         var roList = [];
         for (var a of result.data) {
           if (roList.length == 0) {
@@ -221,63 +220,119 @@ export class DataForm {
       //     }
       //   }
       // }
-
+      this.data.colors = [];
       Promise.resolve(
         this.service.getPackingIn({
           filter: JSON.stringify({
             RONo: this.data.RONo,
             UnitId: this.data.Unit.Id,
-            "GarmentSubconPackingInItem.Any(RemainingQuantity > 0)": true,
+            // "GarmentSubconPackingInItem.Any(RemainingQuantity > 0)": true,
             IsApproved: true,
           }),
         })
       ).then((result) => {
         for (var packIn of result.data) {
           for (var packInItem of packIn.Items) {
-            if (packInItem.RemainingQuantity > 0) {
-              var item = {};
-              // if (this.sizes.length > 0) {
-              //   var duplicate = this.sizes.find(
-              //     (a) =>
-              //       a.Size.Id == packInItem.Size.Id && a.Uom.Id == packInItem.Uom.Id
-              //   );
+            // var item = {};
 
-              //   if (duplicate) {
-              //     var idx = this.data.Items.indexOf(duplicate);
-              //     //duplicate.Quantity+=packInItem.Quantity;
-              //     duplicate.StockQuantity += packInItem.Quantity;
-              //     duplicate.RemainingQuantity = duplicate.StockQuantity;
-              //     this.sizes[idx] = duplicate;
-              //   } else {
-              //     item.IsSave = true;
-              //     item.Size = packInItem.Size;
-              //     item.SizeName = packInItem.Size.Size;
-              //     item.StockQuantity = packInItem.Quantity;
-              //     item.RemainingQuantity = item.StockQuantity;
-              //     //item.Quantity=packInItem.Quantity;
-              //     item.Uom = packInItem.Uom;
-              //     item.colors = this.data.colors;
-              //     //this.data.Items.push(item);
-              //     this.sizes.push(item);
-              //   }
-              // } else
+            if (this.data.colors.length == 0) {
+              this.data.colors.push(packInItem.Color);
+            } else {
+              var dup = this.data.colors.find((a) => a == packInItem.Color);
+              if (!dup) {
+                this.data.colors.push(packInItem.Color);
+              }
+            }
+            // if (this.sizes.length > 0) {
+            //   var duplicate = this.sizes.find(
+            //     (a) =>
+            //       a.Size.Id == packInItem.Size.Id && a.Uom.Id == packInItem.Uom.Id
+            //   );
 
-              // {
+            //   if (duplicate) {
+            //     var idx = this.data.Items.indexOf(duplicate);
+            //     //duplicate.Quantity+=packInItem.Quantity;
+            //     duplicate.StockQuantity += packInItem.Quantity;
+            //     duplicate.RemainingQuantity = duplicate.StockQuantity;
+            //     this.sizes[idx] = duplicate;
+            //   } else {
+            //     item.IsSave = true;
+            //     item.Size = packInItem.Size;
+            //     item.SizeName = packInItem.Size.Size;
+            //     item.StockQuantity = packInItem.Quantity;
+            //     item.RemainingQuantity = item.StockQuantity;
+            //     //item.Quantity=packInItem.Quantity;
+            //     item.Uom = packInItem.Uom;
+            //     item.colors = this.data.colors;
+            //     //this.data.Items.push(item);
+            //     this.sizes.push(item);
+            //   }
+            // } else
+
+            // {
+            // item.IsSave = true;
+            // item.Size = packInItem.Size;
+            // item.SizeName = packInItem.Size.Size + " - " + packInItem.Color;
+            // item.StockQuantity = packInItem.RemainingQuantity;
+            // item.RemainingQuantity = packInItem.RemainingQuantity;
+            // item.Quantity = packInItem.Quantity;
+            // item.Uom = packInItem.Uom;
+            // item.Color = packInItem.Color;
+            // item.PackingInItemId = packInItem.Id;
+            // this.sizes.push(item);
+
+            // }
+          }
+        }
+        // this.sizes.sort((a, b) => a.SizeName.localeCompare(b.SizeName));
+      });
+
+      Promise.resolve(
+        this.service.getFinishedGood({
+          filter: JSON.stringify({
+            RONo: this.data.RONo,
+            UnitId: this.data.Unit.Id,
+          }),
+        })
+      ).then((result) => {
+        for (var finGood of result.data) {
+          var item = {};
+          if (finGood.Quantity > 0) {
+            if (this.sizes.length > 0) {
+              var duplicate = this.sizes.find(
+                (a) =>
+                  a.Size.Id == finGood.Size.Id && a.Uom.Id == finGood.Uom.Id
+              );
+
+              if (duplicate) {
+                var idx = this.data.Items.indexOf(duplicate);
+                duplicate.StockQuantity += finGood.Quantity;
+                duplicate.RemainingQuantity = duplicate.StockQuantity;
+                this.sizes[idx] = duplicate;
+              } else {
+                item.IsSave = true;
+                item.Size = finGood.Size;
+                item.SizeName = finGood.Size.Size;
+                item.StockQuantity = finGood.Quantity;
+                item.RemainingQuantity = item.StockQuantity;
+                item.Uom = finGood.Uom;
+                item.colors = this.data.colors;
+
+                this.sizes.push(item);
+              }
+            } else {
               item.IsSave = true;
-              item.Size = packInItem.Size;
-              item.SizeName = packInItem.Size.Size + " - " + packInItem.Color;
-              item.StockQuantity = packInItem.RemainingQuantity;
-              item.RemainingQuantity = packInItem.RemainingQuantity;
-              item.Quantity = packInItem.Quantity;
-              item.Uom = packInItem.Uom;
-              item.Color = packInItem.Color;
-              item.PackingInItemId = packInItem.Id;
+              item.Size = finGood.Size;
+              item.SizeName = finGood.Size.Size;
+              item.StockQuantity = finGood.Quantity;
+              item.RemainingQuantity = item.StockQuantity;
+              item.Uom = finGood.Uom;
+              item.colors = this.data.colors;
               this.sizes.push(item);
-
-              // }
             }
           }
         }
+        console.log(this.size);
         this.sizes.sort((a, b) => a.SizeName.localeCompare(b.SizeName));
       });
     } else {
@@ -319,7 +374,7 @@ export class DataForm {
     } else {
       let objData = {};
       var item = Object.assign(objData, this.selectedSize);
-      item.Description = this.selectedSize.Color;
+      item.Description = this.selectedColor;
       item.Quantity = this.selectedSize.Quantity;
       item.RemainingQuantity -= this.selectedSize.Quantity;
       item.PackingInItemId = this.selectedSize.PackingInItemId;

@@ -59,6 +59,7 @@ export class Item {
         filter: JSON.stringify({
           IsUsed: false,
           IsApproved: true,
+          IsValidatedShipping: true,
         }),
       };
       return this.service.getPL(info).then((result) => {

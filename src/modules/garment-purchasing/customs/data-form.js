@@ -370,11 +370,11 @@ export class DataForm {
         // IsCustoms:true,
       };
 
-      // filter[
-      //   `DueDate >= ${JSON.stringify(
-      //     moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
-      //   )} `
-      // ] = true;
+      filter[
+        `DueDate >= ${JSON.stringify(
+          moment(new Date()).subtract(17, "h").format("YYYY-MM-DD")
+        )} `
+      ] = true;
       return filter;
     }
   }

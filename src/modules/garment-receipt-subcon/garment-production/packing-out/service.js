@@ -5,7 +5,7 @@ const comodityPriceserviceUri = "comodity-prices";
 const packingInServiceUri = "subcon-packing-ins";
 const preparingServiceUri = "subcon-preparings";
 const serviceUriFinOut = "finishing-outs";
-
+const finishedGoodServiceUri = "subcon-finished-good-stocks";
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "garment-production");
@@ -64,6 +64,16 @@ class Service extends RestService {
   getPdfById(id, buyer) {
     var endpoint = `${serviceUri}/${id}/${buyer}`;
     return super.getPdf(endpoint);
+  }
+
+  getFinishedGood(info) {
+    var endpoint = `${finishedGoodServiceUri}/list`;
+    return super.list(endpoint, info);
+  }
+
+  getFinishedGoodByRo(info) {
+    var endpoint = `${finishedGoodServiceUri}/get-by-ro`;
+    return super.list(endpoint, info);
   }
 }
 

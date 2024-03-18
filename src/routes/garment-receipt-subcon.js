@@ -567,4 +567,141 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/monitoring-delivery-order",
+    name: "receipt-subcon-monitoring-delivery-order",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/monitoring-delivery-order-all/index",
+    nav: true,
+    title: "Monitoring Surat Jalan",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X44: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/production-flow-feature",
+    name: "receipt-subcon-production-flow-feature",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/production-flow-feature/index",
+    nav: true,
+    title: "Fitur Flow Barang Produksi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X45: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/monitoring-production-stock-flow",
+    name: "receipt-subcon-monitoring-production-stock-flow",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/monitoring-production-stock-flow/index",
+    nav: true,
+    title: "Monitoring Flow Stock Persediaan",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X46: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "garment-receipt-subcon/inventory/garment-waste/receipt-waste",
+    name: "garment-receipt-subcon/inventory/garment-waste/receipt-waste",
+    moduleId:
+      "modules/garment-receipt-subcon/inventory/garment-waste/receipt-waste/index",
+    nav: true,
+    title: "Penerimaan Aval Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "aval",
+      permission: { X47: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "garment-receipt-subcon/inventory/garment-waste/expenditure-waste",
+    name: "garment-receipt-subcon/inventory/garment-waste/expenditure-waste",
+    moduleId:
+      "modules/garment-receipt-subcon/inventory/garment-waste/expenditure-waste/index",
+    nav: true,
+    title: "Pengeluaran Aval Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "aval",
+      permission: { X48: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/shipment-local-sales-note",
+    name: "receipt-subcon-shipment-local-sales-note",
+    moduleId:
+      "./modules/garment-receipt-subcon/report/shipment-local-sales-note/index",
+    nav: true,
+    title: "Laporan Shipment per Nota Jual Lokal - Terima Subcon",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "laporan",
+      permission: { X49: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/approval-packing-list-byMD",
+    name: "receipt-subcon-approval-packing-list-byMD",
+    moduleId:
+      "./modules/garment-receipt-subcon/approval/approval-packing-list/index",
+    nav: true,
+    title: "Approval Packing List By MD",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "approval",
+      permission: { X50: 1 },
+      iconClass: "fa fa-dashboard",
+      type: "MD",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/approval-packing-list-by-shipping",
+    name: "receipt-subcon-approval-packing-list-by-shipping",
+    moduleId:
+      "./modules/garment-receipt-subcon/approval/approval-packing-list/index",
+    nav: true,
+    title: "Approval Packing List By Shipping",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "approval",
+      permission: { X51: 1 },
+      iconClass: "fa fa-dashboard",
+      type: "SHIPPING",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/packing-out-return",
+    name: "garment-receipt-subcon-packing-out-return",
+    moduleId:
+      "./modules/garment-receipt-subcon/garment-production/expenditure-good-return/index",
+    nav: true,
+    title: "Return Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "produksi",
+      permission: { X52: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];

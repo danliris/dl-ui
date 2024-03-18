@@ -7,7 +7,7 @@ import { AuthService } from "aurelia-authentication";
 @inject(Router, Service, AuthService)
 export class List {
   @bindable isKasie = null;
-  context = ["Detail"];
+  context = ["Detail", "Cetak"];
 
   options = {};
   dataToBePosted = [];
@@ -34,21 +34,10 @@ export class List {
       },
     },
     { field: "buyer.name", title: "Buyer Agent" },
-    { field: "transactionType.name", title: "Tipe Transaksi" },
-    { field: "localSalesContractNo", title: "No Local Sales Contrak" },
+    // { field: "transactionType.name", title: "Tipe Transaksi" },
+    // { field: "localSalesContractNo", title: "No Local Sales Contrak" },
     // {
-    //     field: "status", title: "Status", formatter: value => {
-    //         if (value == "CREATED") {
-    //             return "ON PROCESS";
-    //         } if (value == "REJECTED_SHIPPING_MD") {
-    //             return "APPROVED MD";
-    //         } if (value == "REJECTED_SHIPPING_UNIT") {
-    //             return "REJECTED SHIPPING";
-    //         } else {
-    //             return value.replaceAll("_", " ");
-    //         }
-    //     }
-    // },
+    { field: "status", title: "Status" },
   ];
 
   rowFormatter(data, index) {
@@ -79,6 +68,15 @@ export class List {
       for (let data of result.data) {
         data.buyerAgentName = (data.buyerAgent || {}).name;
         data.shippingStaffName = (data.shippingStaff || {}).name;
+        if (data.isValidatedMD && !data.rejectReason) {
+          data.status = "APPROVED_MD";
+        }
+        if (data.isValidatedShipping && !data.rejectReason) {
+          data.status = "APPROVED_SHIPPING";
+        }
+        if (data.rejectReason) {
+          data.status = "REJECT_BY_SHIPPING";
+        }
       }
 
       return {
@@ -123,6 +121,9 @@ export class List {
           id: data.id,
           isKasie: this.isKasie,
         });
+        break;
+      case "Cetak":
+        this.service.getPdfByFilterCarton(data.id);
         break;
     }
   }
