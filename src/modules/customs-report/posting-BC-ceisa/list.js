@@ -16,7 +16,7 @@ export class List {
 
     this.permissions = permissionHelper.getUser();
   }
-  typeOptions = ["", "40", "23", "261", "262", "30", "27", "41"];
+  typeOptions = ["", "40", "23", "261", "262", "30", "27", "41", "25"];
   controlOptions = {
     label: {
       length: 2,
