@@ -127,10 +127,16 @@ export class DataForm {
                 d.AvailableQuantity = d.Quantity - othersQuantity;
             });
         }
+        
+            const removeDuplicates = (arr) => {
+                return arr.filter((element, index) => {
+                  return arr.indexOf(element) === index;
+                });
+              };
 
-        let fabricItemsProductIds = items
-            .filter(i => i.Category.Name === "FABRIC")
-            .map(i => i.Product.Id);
+              let fabricItemsProductIds = removeDuplicates(items
+                  .filter(i => i.Category.Name === "FABRIC")
+                  .map(i => i.Product.Id));
 
         if (fabricItemsProductIds.length) {
             const garmentProducts = await this.coreService.getGarmentProductsByIds(fabricItemsProductIds);
