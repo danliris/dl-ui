@@ -128,9 +128,15 @@ export class PRMasterDialog {
                             d.AvailableQuantity = d.Quantity - othersQuantity;
                         });
 
-                        let fabricItemsProductIds = data
-                            .filter(i => i.Category.name === "FABRIC")
-                            .map(i => i.Product.Id);
+                        const removeDuplicates = (arr) => {
+                            return arr.filter((element, index) => {
+                              return arr.indexOf(element) === index;
+                            });
+                          };
+          
+                          let fabricItemsProductIds = removeDuplicates(data
+                              .filter(i => i.Category.Name === "FABRIC")
+                              .map(i => i.Product.Id));
 
                         if (fabricItemsProductIds.length) {
                             return this.coreService.getGarmentProductsByIds(fabricItemsProductIds)
