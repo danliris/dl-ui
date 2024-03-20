@@ -25,9 +25,15 @@ export class Edit {
             };
 
             if (this.data.Items) {
-                let fabricItemsProductIds = this.data.Items
-                    .filter(i => i.Category.Name === "FABRIC")
-                    .map(i => i.Product.Id);
+                const removeDuplicates = (arr) => {
+                    return arr.filter((element, index) => {
+                      return arr.indexOf(element) === index;
+                    });
+                  };
+  
+                  let fabricItemsProductIds = removeDuplicates(this.data.Items
+                      .filter(i => i.Category.Name === "FABRIC")
+                      .map(i => i.Product.Id));
 
                 if (fabricItemsProductIds.length > 0) {
                     const products = await this.coreService.getGarmentProductsByIds(fabricItemsProductIds);
