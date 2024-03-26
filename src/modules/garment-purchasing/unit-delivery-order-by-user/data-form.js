@@ -1,5 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
-import { Service, CoreService } from "./service";
+import { Service, CoreService,SalesService } from "./service";
 var StorageLoader = require('../../../loader/storage-loader');
 //var UnitLoader = require('../../../loader/garment-units-loader');
 var UnitSenderLoader = require('../../../loader/garment-sample-unit-loader');
@@ -8,7 +8,7 @@ var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-f
 import moment from 'moment';
 
 @containerless()
-@inject(Service, CoreService, BindingEngine)
+@inject(Service, CoreService, BindingEngine,SalesService)
 export class DataForm {
     @bindable readOnly = false;
     @bindable data = {};
@@ -46,10 +46,11 @@ export class DataForm {
         }
     }
 
-    constructor(service, coreService, bindingEngine) {
+    constructor(service, coreService, bindingEngine, salesService) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.coreService = coreService;
+        this.salesService = salesService;
     }
 
     bind(context) {
@@ -365,9 +366,13 @@ export class DataForm {
         this.dataItems = [];
         // var fInput = false;
         // var isFabric = false;
-
+        this.error = {};
         if (this.isTransfer) {
-            var filter = JSON.stringify({ RONo: this.RONoJob });
+            // var filter = JSON.stringify({ RONo: this.RONoJob });
+            var filter = JSON.stringify({
+                RO_Number: this.RONoJob,
+                IsApprovedKadivMD : true
+            });
 
             var info = {
                 keyword: this.RONoJob,
@@ -375,14 +380,22 @@ export class DataForm {
             };
             this.data.RONo = this.RONoJob;
             var ro = [];
-            this.service.getGarmentEPOByRONo(info)
-                .then((epo) => {
-                    for (var a of epo.data) {
-                        if (a.RONo == this.data.RONo) {
+            // this.service.getGarmentEPOByRONo(info)
+            this.salesService.GetArticleCC(info)
+                .then((cc) => {
+                    for (var a of cc.data) {
+                        if (a.RO_Number == this.data.RONo) {
                             ro.push(a); break;
                         }
                     }
-                    this.data.Article = ro[0].Article;
+                    if (ro.length) {
+                        this.data.Article = ro[0].Article;
+                        this.error.Article = null;
+                    } else {
+                        this.data.Article = null;
+                        this.error.Article = "Artikel tidak ditemukan."
+                    }
+                   
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitSender.Id, StorageId: this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id }) })
                         .then(result => {
                             if (result.data.length > 0) {
@@ -523,21 +536,34 @@ export class DataForm {
                         })
                 });
         } else {
-            var filter = JSON.stringify({ RONo: this.RONo });
+            // var filter = JSON.stringify({ RONo: this.RONoJob });
+            var filter = JSON.stringify({
+                RO_Number: this.RONo,
+                IsApprovedKadivMD : true
+            });
+
             var info = {
                 keyword: this.RONo,
                 filter: filter
             };
             this.data.RONo = this.RONo;
             var ro = [];
-            this.service.getGarmentEPOByRONo(info)
-                .then((epo) => {
-                    for (var a of epo.data) {
-                        if (a.RONo == this.data.RONo) {
+             // this.service.getGarmentEPOByRONo(info)
+            this.salesService.GetArticleCC(info)
+                .then((cc) => {
+                    for (var a of cc.data) {
+                        if (a.RO_Number == this.data.RONo) {
                             ro.push(a); break;
                         }
                     }
-                    this.data.Article = ro[0].Article;
+                    if (ro.length) {
+                        this.data.Article = ro[0].Article;
+                        this.error.Article = null;
+                    } else {
+                        this.data.Article = null;
+                        this.error.Article = "Artikel tidak ditemukan."
+                    }
+
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId: this.data.UnitSender.Id, StorageId: this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id }) })
                         .then(result => {
 
