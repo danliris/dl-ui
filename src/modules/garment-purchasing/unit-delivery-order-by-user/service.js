@@ -83,4 +83,19 @@ export class CoreService extends RestService {
         var endpoint = `${UnitServiceUri}`;
         return super.list(endpoint, info);
     }
+
 }
+
+const serviceUriCC = 'cost-calculation-garments';
+export class SalesService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "sales");
+    }
+
+    GetArticleCC(info) {
+        var endpoint = `${serviceUriCC}`;
+        return super.list(endpoint, info);
+    }
+
+}
+
