@@ -135,7 +135,7 @@ export class PRMasterDialog {
                           };
           
                           let fabricItemsProductIds = removeDuplicates(data
-                              .filter(i => i.Category.Name === "FABRIC")
+                              .filter(i => i.Category.name === "FABRIC")
                               .map(i => i.Product.Id));
 
                         if (fabricItemsProductIds.length) {
