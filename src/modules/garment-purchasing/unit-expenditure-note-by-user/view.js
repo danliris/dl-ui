@@ -57,10 +57,9 @@ export class View {
       }
     }
     if (this.data.ExpenditureType === "EXTERNAL") {
-      if (this.data.ExpenditureTo != "PENJUALAN" ) {
+      if (this.data.ExpenditureTo != "PENJUALAN") {
         this.hasDelete = false;
       }
-      if(this.data.ExpenditureTo == "PEMBELIAN") this.hasDelete = true;
       this.hasEdit = false;
     }
     if (this.data.IsPreparing) {
