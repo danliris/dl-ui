@@ -38,7 +38,6 @@
             columns.bind="selectedPolicyType=='Kargo' ? itemsColumnsCargo : itemsColumnsCredit"
             read-only.bind="readOnly || (selectedPolicyType!='Kargo' && data.rate==0)" add.bind="addItems"
             remove.bind="removeItems" options.bind="Options" change.delegate="itemChanged($event)"
-            footer-template="modules/garment-shipping/insurance-disposition/template/item-footer"
             item-template="modules/garment-shipping/insurance-disposition/template/item">
         </au-collection>
 
