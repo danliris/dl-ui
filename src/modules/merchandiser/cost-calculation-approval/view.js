@@ -133,9 +133,10 @@ export class View {
 
             this.approval.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment_Materials.filter(mtr => {
                 let processOrNot = mtr.Category.name.toUpperCase() !== "PROCESS";
+                let isNotProcessSubcon = mtr.Category.name.toUpperCase()!= "PROCESS SUBCON";
                 return true
                     && mtr.IsPosted !== true
-                    && processOrNot
+                    && processOrNot && isNotProcessSubcon
             });
 
             let no = 0;

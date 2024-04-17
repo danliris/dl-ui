@@ -101,11 +101,12 @@ export class Create {
 
                 this.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(mtr => {
                     let processOrNot = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS") : (mtr.Category.name.toUpperCase() !== "PROCESS");
+                    let isNotProcessSubcon = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS SUBCON") : (mtr.Category.name.toUpperCase() != "PROCESS SUBCON");
                     return true
                         && mtr.IsPosted !== true
                         // && mtr.Category.Name.toUpperCase() !== "PROCESS"
                         // && mtr.Category.Name.toUpperCase() === "PROCESS"
-                        && processOrNot
+                        && (processOrNot || isNotProcessSubcon)
                 });
                 /* FILTER MATERIALS */
 
