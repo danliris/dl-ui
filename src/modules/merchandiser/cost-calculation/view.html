@@ -59,6 +59,21 @@
         <div class="col-md-4">
           <au-textbox label="No Pre Sales Contract" options.bind="length4" value.bind="data.PreSCNo" read-only.bind="readOnly"></au-textbox>
           <au-textbox label="RO" options.bind="length4" value.bind="data.RO_Number" read-only.bind="readOnly"></au-textbox>
+          <au-textbox
+          label="Tipe Pre SC"
+          value.bind="data.CCType"
+          read-only="true"
+          options.bind="length4">
+      </au-textbox>
+
+      <au-textbox
+          label="Jenis Subcon"
+          value.bind="data.SubconType"
+          error.bind="error.SubconType"
+          options.bind="length4"
+          if.bind = "data.CCType == 'SUBCON KELUAR'"
+          read-only="true">
+      </au-textbox>
           <au-datepicker label="Tanggal" options.bind="length4" value.bind="data.CreatedUtc" read-only.bind="readOnly"></au-datepicker>
           <au-textbox label="Unit" options.bind="length4" value.bind="data.Unit.Name" read-only.bind="readOnly"></au-textbox>
         </div>
