@@ -94,7 +94,7 @@ export class DataForm {
     }
 
     this.filterCC = {
-      CCType: "SUBCON",
+      CCType: "TERIMA SUBCON",
       IsPosted: true,
       IsApprovedKadivMD: true,
     };

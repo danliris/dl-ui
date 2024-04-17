@@ -32,7 +32,8 @@ export class DataForm {
   @bindable isCopy = false;
   
   leadTimeList = ["", "25 hari", "40 hari"];
- 
+  subconTypes = ["SUBCON SEWING","SUBCON CUTTING SEWING","SUBCON CUTTING SEWING FINISHING"];
+  
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -94,7 +95,9 @@ export class DataForm {
         THR: this.data.THR,
         Wage: this.data.Wage,
         SMV_Total: this.data.SMV_Total,
-        Efficiency: this.data.Efficiency
+        Efficiency: this.data.Efficiency,
+        CCType: this.data.CCType,
+        SubconType: this.data.SubconType
       });
       this.data.CostCalculationGarment_Materials.forEach((m, i) => m.MaterialIndex = i);
     }.bind(this),
@@ -110,8 +113,8 @@ export class DataForm {
 
   preSalesContractFilter = {
     IsPosted: true,
-    "SCType == \"JOB ORDER\" || SCType == \"SUBCON\"": true
-    //SCType: "JOB ORDER"
+    // "SCType == \"JOB ORDER\" || SCType == \"SUBCON\"": true
+    "SCType == \"JOB ORDER\" || SCType == \"SUBCON\" || SCType == \"TERIMA SUBCON\" || SCType == \"SUBCON KELUAR\"": true
   }
 
   constructor(router, bindingEngine, serviceEffeciency, rateService, element, serviceCore) {
@@ -128,6 +131,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.selectedSubconType = this.data.SubconType ? this.data.SubconType : "";
     this.selectedSMV_Cutting = this.data.SMV_Cutting ? this.data.SMV_Cutting : 0;
     this.selectedSMV_Sewing = this.data.SMV_Sewing ? this.data.SMV_Sewing : 0;
     this.selectedSMV_Finishing = this.data.SMV_Finishing ? this.data.SMV_Finishing : 0;
@@ -213,7 +217,6 @@ export class DataForm {
     let rate;
     if (this.data.Rate) {
       rate = new Promise((resolve, reject) => {
-        console.log(resolve)
         resolve(this.data.Rate);
       });
     }
@@ -248,12 +251,13 @@ export class DataForm {
         item.Wage = this.data.Wage;
         item.SMV_Total = this.data.SMV_Total;
         item.Efficiency = this.data.Efficiency;
+        item.CCType = this.data.CCType;
+        item.SubconType = this.data.SubconType;
       })
     }
 
     this.costCalculationGarment_MaterialsInfo.options.CCId = this.data.Id;
     this.costCalculationGarment_MaterialsInfo.options.SCId = this.data.PreSCId;
-    console.log(context);
   }
 
   get preSalesContractLoader() {
@@ -270,7 +274,6 @@ export class DataForm {
         this.data.MarketingName = newValue.Name;
         this.data.ResponsibleName = newValue.ResponsibleName;
         
-        console.log(newValue);
        }
     else
        {
@@ -294,7 +297,6 @@ export class DataForm {
           this.selectedComodity = null;
           this.selectedBookingOrder = null;
     }
-    console.log(this.data.ComodityCode);    
   }
 
   garmentMarketingView = (garmentmarketing) => {                          
@@ -305,8 +307,7 @@ export class DataForm {
     return BookingOrderLoader;
   }
 
-  bookingOrderView = (bookingorder) => {   
-    console.log(bookingorder);                       
+  bookingOrderView = (bookingorder) => {                        
     return`${bookingorder.BookingOrderNo} | ${bookingorder.ComodityName} | ${bookingorder.Remark} | ${bookingorder.ConfirmQuantity} | ${moment(bookingorder.ConfirmDate).format("DD MMM YYYY")}`
   }
 
@@ -371,7 +372,6 @@ export class DataForm {
       this.data.PreSCNo = newValue.SCNo;
       this.data.CCType = newValue.SCType;
       this.data.Section = newValue.SectionCode;
-      console.log(this.data.Section);
       const section = await this.serviceCore.getSection(newValue.SectionId);
       this.data.SectionName = section.Name;
       this.data.ApprovalCC = section.ApprovalCC;
@@ -385,7 +385,6 @@ export class DataForm {
       };
       
       this.data.BuyerCode = this.data.Buyer.Code;
-      console.log(this.data.BuyerCode);
       this.data.BuyerBrand = {
         Id: newValue.BuyerBrandId,
         Code: newValue.BuyerBrandCode,
@@ -393,7 +392,6 @@ export class DataForm {
       };
 
       this.data.BuyerBrandCode = this.data.BuyerBrand.Code;
-      console.log(this.data.BuyerBrandCode);
 
     } else {
       this.data.PreSCId = 0;
@@ -532,6 +530,17 @@ export class DataForm {
       this.data.CostCalculationGarment_Materials.forEach(item => {
         item.AccessoriesAllowance = this.data.AccessoriesAllowance;
       })
+    }
+  }
+
+  @bindable selectedSubconType;
+  selectedSubconTypeChanged(newValue) {
+    this.data.SubconType = newValue;
+    if (this.data.CostCalculationGarment_Materials) {
+      this.data.CostCalculationGarment_Materials.forEach(item => {
+        item.SubconType = this.data.SubconType;
+      })
+      this.context.itemsCollection.bind()
     }
   }
 

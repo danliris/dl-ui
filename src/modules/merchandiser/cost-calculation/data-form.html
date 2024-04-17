@@ -22,6 +22,15 @@
                     options.bind="length4">
                 </au-textbox>
 
+                <au-dropdown
+                    label="Jenis Subcon"
+                    value.bind="selectedSubconType"
+                    error.bind="error.SubconType"
+                    items.bind="subconTypes"
+                    options.bind="length4"
+                    if.bind = "data.CCType == 'SUBCON KELUAR'">
+                </au-dropdown>
+
                 <au-textbox
                     label="Artikel"
                     placeholder="Nama Artikel"
