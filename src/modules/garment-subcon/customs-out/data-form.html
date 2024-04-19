@@ -58,9 +58,9 @@
 
                 </div>
                 <div class="col-lg-6" if.bind="data.SubconContractNo">
-                    <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.SubconCategory"
+                    <!-- <au-textbox options.bind="controlOptions" read-only="true" value.bind="dataSC.SubconCategory"
                         label="Kontrak No">
-                    </au-textbox>
+                    </au-textbox> -->
 
                     <au-datepicker options.bind="controlOptions" read-only="true" value.bind="dataSC.AgreementDate"
                         label="Tanggal Persetujuan">
@@ -96,7 +96,7 @@
                 </div>
 
                 <au-collection items.bind="data.Items" errors.bind="error.Items"
-                    columns.bind="selectedSubconCategory == 'SUBCON CUTTING SEWING' ? itemsInfo.columnsCutSew : itemsInfo.columns"
+                    columns.bind="(selectedSubconCategory == 'SUBCON CUTTING SEWING' || selectedSubconCategory == 'SUBCON CUTTING SEWING FINISHING')? itemsInfo.columnsCutSew : itemsInfo.columns"
                     read-only.bind="readOnly" if.bind="data.Items" options.bind="itemOptions"
                     header-template="modules/garment-subcon/customs-out/template/item-header"
                     item-template="modules/garment-subcon/customs-out/template/item">

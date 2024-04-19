@@ -26,7 +26,7 @@ export class View {
       this.selectedOrderType = this.data.OrderType;
     }
 
-    if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+    if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING") {
       //Mapping data Item Acc
       // this.data.ItemsAcc = this.data.Items.filter(
       //   (x) => x.Product.Name != "FABRIC"
@@ -211,7 +211,7 @@ export class View {
   }
 
   saveCallback(event) {
-    if (this.data.SubconCategory == "SUBCON CUTTING SEWING")
+    if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING")
       // this.data.UsedQty = this.data.ContractQty - this.data.QtyUsed;
       this.data.UsedQty = 0;
     else {

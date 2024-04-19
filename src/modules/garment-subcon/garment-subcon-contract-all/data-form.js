@@ -17,7 +17,7 @@ export class DataForm {
     @bindable selectedSubconCategory;
 
     ContractTypeOptions = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
-    SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING"];
+    SubconCategoryTypeOptions=["SUBCON CUTTING SEWING","SUBCON SEWING","SUBCON CUTTING SEWING FINISHING"];
     constructor(service) {
         this.service = service;
     }

@@ -5,6 +5,8 @@ import { Service } from './service';
 @inject(Router, Service)
 export class View {
     isView = true;
+    deleteCallback = false;
+    editCallback = false;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -23,23 +25,23 @@ export class View {
         this.router.navigateToRoute('list');
     }
 
-    editCallback(event) {
-        this.router.navigateToRoute('edit', { id: this.data.Id });
-    }
+    // editCallback(event) {
+    //     this.router.navigateToRoute('edit', { id: this.data.Id });
+    // }
 
-    deleteCallback(event) {
-        if (confirm(`Hapus ${this.data.SewingOutNo}?`))
-            this.service.delete(this.data)
-                .then(result => {
-                    this.cancelCallback();
-                })
-                .catch(e => {
-                    this.error = e;
-                    if (typeof (this.error) == "string") {
-                        alert(this.error);
-                    } else {
-                        alert("Missing Some Data");
-                    }
-                })
-    }
+    // deleteCallback(event) {
+    //     if (confirm(`Hapus ${this.data.SewingOutNo}?`))
+    //         this.service.delete(this.data)
+    //             .then(result => {
+    //                 this.cancelCallback();
+    //             })
+    //             .catch(e => {
+    //                 this.error = e;
+    //                 if (typeof (this.error) == "string") {
+    //                     alert(this.error);
+    //                 } else {
+    //                     alert("Missing Some Data");
+    //                 }
+    //             })
+    // }
 }
