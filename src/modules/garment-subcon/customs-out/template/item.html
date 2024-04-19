@@ -9,25 +9,25 @@
             <au-textbox value.bind="data.SubconDLOutNo" read-only.bind="true">
             </au-textbox>
         </td>
-        <td if.bind="selectedSubconCategory != 'SUBCON CUTTING SEWING'">
-            <au-textbox value.bind="data.Quantity" read-only.bind="true">
-            </au-textbox>
+        <td if.bind="selectedSubconCategory!== 'SUBCON CUTTING SEWING FINISHING' && selectedSubconCategory!== 'SUBCON CUTTING SEWING'">
+            <au-textbox value.bind="data.Quantity" read-only.bind="true"></au-textbox>
         </td>
-        <td if.bind="selectedSubconCategory != 'SUBCON CUTTING SEWING'">
+
+        <td if.bind="selectedSubconCategory !== 'SUBCON CUTTING SEWING FINISHING' && selectedSubconCategory !== 'SUBCON CUTTING SEWING'">
             <au-textbox value.bind="data.QtyPacking" read-only.bind="true">
             </au-textbox>
         </td>
-        <td if.bind="selectedSubconCategory != 'SUBCON CUTTING SEWING'">
+        <td if.bind="selectedSubconCategory !== 'SUBCON CUTTING SEWING' && selectedSubconCategory !== 'SUBCON CUTTING SEWING'">
             <au-textbox value.bind="data.UomPacking" read-only.bind="true">
             </au-textbox>
         </td>
-        <td class="col-sm-1" if.bind="selectedSubconCategory == 'SUBCON CUTTING SEWING'">
+        <td class="col-sm-1" if.bind="['SUBCON CUTTING SEWING', 'SUBCON CUTTING SEWING FINISHING'].includes(selectedSubconCategory)">
             <div>
                 <button class="btn btn-info pull-right" if.bind="data.Details" click.delegate="toggle()">i</button>
             </div>
         </td>
     </tr>
-    <tr show.bind="isShowing" if.bind="selectedSubconCategory == 'SUBCON CUTTING SEWING'">
+    <tr show.bind="isShowing" if.bind="['SUBCON CUTTING SEWING', 'SUBCON CUTTING SEWING FINISHING'].includes(selectedSubconCategory)">
 
         <td colspan="3">
             <au-collection items.bind="data.Details" errors.bind="error.Details" columns.bind=" itemsColumns"

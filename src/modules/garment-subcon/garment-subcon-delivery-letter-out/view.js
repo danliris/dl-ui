@@ -27,7 +27,7 @@ export class View {
       this.selectedSubconCategory = this.data.SubconCategory;
       this.selectedOrderType = this.data.OrderType;
 
-      if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+      if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING") {
         //Mapping data Item Acc
         // this.data.ItemsAcc = this.data.Items.filter(
         //   (x) => x.Product.Name != "FABRIC"

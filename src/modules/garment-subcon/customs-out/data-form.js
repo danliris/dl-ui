@@ -24,7 +24,7 @@ export class DataForm {
 
   customsOutTypeOptions = ["2.6.1", "2.7.Out"];
   subconTypeOptions = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
-  subconCategoryGarmentOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING"];
+  subconCategoryGarmentOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING","SUBCON CUTTING SEWING FINISHING"];
   subconCategoryBBOptions = [
     "SUBCON BB SHRINKAGE/PANEL",
     "SUBCON BB FABRIC WASH/PRINT",
@@ -152,7 +152,7 @@ export class DataForm {
             // this.data.RemainingQuantity += a.Quantity;
             // this.data.Quantity += a.Quantity;
             item.IsSave = true;
-            if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+            if (this.data.SubconCategory == "SUBCON CUTTING SEWING" || this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING" ) {
               a.Details.forEach((x) => {
                 item.Details.push(x);
 
@@ -214,7 +214,7 @@ export class DataForm {
           item.UomPacking = "";
           item.Details = [];
           for (var a of dl.Items) {
-            if (newValue.SubconCategory == "SUBCON CUTTING SEWING") {
+            if (newValue.SubconCategory == "SUBCON CUTTING SEWING" || newValue.SubconCategory == "SUBCON CUTTING SEWING FINISHING") {
               a.Details.forEach((x) => {
                 item.Details.push(x);
                 if (dl.IsUsed == false) {
@@ -257,31 +257,34 @@ export class DataForm {
   }
 
   get totalQuantity() {
-    var qty = 0;
-    if (
-      this.data.Items &&
-      this.selectedSubconCategory != "SUBCON CUTTING SEWING"
-    ) {
-      for (var item of this.data.Items) {
-        if (item.IsSave) {
-          qty += item.Quantity;
+    let qty = 0;
+
+    if (this.data.Items) {
+        if (
+            this.selectedSubconCategory!== "SUBCON CUTTING SEWING" &&
+            this.selectedSubconCategory!== "SUBCON CUTTING SEWING FINISHING"
+        ) {
+            qty = this.data.Items.reduce((acc, item) => {
+                if (item.IsSave) {
+                    return acc + item.Quantity;
+                }
+                return acc;
+            }, 0);
+        } else {
+            qty = this.data.Items.reduce((acc, item) => {
+                if (item.IsSave) {
+                    return acc + item.Details.reduce((accInner, element) => {
+                        return accInner + element.Quantity;
+                    }, 0);
+                }
+                return acc;
+            }, 0);
         }
-      }
-    } else if (
-      this.data.Items &&
-      this.selectedSubconCategory == "SUBCON CUTTING SEWING"
-    ) {
-      for (var item of this.data.Items) {
-        if (item.IsSave) {
-          item.Details.forEach((element) => {
-            qty += element.Quantity;
-          });
-        }
-      }
     }
+
     this.data.TotalQty = qty;
     return qty;
-  }
+}
 
   selectedSubconCategoryChanged(newValue, oldValue) {
     if (!this.data.Id) {

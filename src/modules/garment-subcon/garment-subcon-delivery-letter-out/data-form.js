@@ -40,7 +40,11 @@ export class DataForm {
   orderTypes = ["JOB ORDER", "SAMPLE"];
   dlTypes = ["PROSES", "RE PROSES"];
   contractTypes = ["SUBCON GARMENT", "SUBCON BAHAN BAKU", "SUBCON JASA"];
-  SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING", "SUBCON SEWING"];
+  SubconCategoryTypeOptions = [
+    "SUBCON CUTTING SEWING",
+    "SUBCON SEWING",
+    "SUBCON CUTTING SEWING FINISHING",
+  ];
   //serviceTypes=["SUBCON JASA KOMPONEN", "SUBCON JASA GARMENT WASH", "SUBCON JASA SHRINKAGE PANEL","SUBCON JASA FABRIC WASH"];
   controlOptions = {
     label: {
@@ -238,7 +242,10 @@ export class DataForm {
     };
 
     if (this.data.Id) {
-      if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+      if (
+        this.data.SubconCategory == "SUBCON CUTTING SEWING" ||
+        this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING"
+      ) {
         // if (this.isCreate || this.isEdit) {
         //   //Mapping data Item Fabric
         //   var itemFab = this.data.Items.find((x) => x.Product.Name == "FABRIC");
@@ -328,6 +335,7 @@ export class DataForm {
       this.SubconCategoryTypeOptions = [
         "SUBCON CUTTING SEWING",
         "SUBCON SEWING",
+        "SUBCON CUTTING SEWING FINISHING",
       ];
     } else {
       this.SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING"];
@@ -360,6 +368,7 @@ export class DataForm {
           this.SubconCategoryTypeOptions = [
             "SUBCON CUTTING SEWING",
             "SUBCON SEWING",
+            "SUBCON CUTTING SEWING FINISHING",
           ];
         } else {
           this.SubconCategoryTypeOptions = ["SUBCON CUTTING SEWING"];
@@ -554,12 +563,16 @@ export class DataForm {
       if (this.data.Items.length > 0) {
         if (
           this.data.SubconCategory != "SUBCON BB SHRINKAGE/PANEL" &&
-          this.data.SubconCategory != "SUBCON CUTTING SEWING"
+          this.data.SubconCategory != "SUBCON CUTTING SEWING" &&
+          this.data.SubconCategory != "SUBCON CUTTING SEWING FINISHING"
         ) {
           for (var item of this.data.Items) {
             qty += item.Quantity;
           }
-        } else if (this.data.SubconCategory == "SUBCON CUTTING SEWING") {
+        } else if (
+          this.data.SubconCategory == "SUBCON CUTTING SEWING" ||
+          this.data.SubconCategory == "SUBCON CUTTING SEWING FINISHING"
+        ) {
           for (var item of this.data.Items) {
             for (var detail of item.Details) {
               qty += detail.Quantity;
@@ -584,9 +597,16 @@ export class DataForm {
 
   get poLoader() {
     return (keyword) => {
+      var filter =
+        this.data.SubconCategory === "SUBCON CUTTING SEWING"
+          ? { ProductName: "PROCESS" }
+          : {
+              "(ProductName == \"PROCESS\" || ProductName == \"PROCESS SUBCON\")": true,
+          };
+
       var infoEPO = {
-        keyword: keyword,
-        filter: JSON.stringify({ ProductName: "PROCESS" }),
+        keyword:keyword,
+        filter: JSON.stringify(filter),
       };
       return this.purchasingService.getGarmentEPO(infoEPO).then((epo) => {
         return epo.data;
