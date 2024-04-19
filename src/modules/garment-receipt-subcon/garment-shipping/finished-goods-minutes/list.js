@@ -106,6 +106,7 @@ export class List {
           res.ReceiptBCNo = item.receiptBCNo;
           res.ReceiptBCType = item.receiptBCType;
           res.ReceiptBCDate = item.receiptBCDate;
+          res.PricePerDeal = item.pricePerDeal;
 
           this.data.push(res);
         }
