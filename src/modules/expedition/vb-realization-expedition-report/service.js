@@ -25,6 +25,11 @@ export class Service extends RestService {
     const divisionId = info.divisionId ? `divisionId=${info.divisionId}&` : "";
     const dateStart = info.dateStart ? `dateStart=${info.dateStart}&` : "";
     const dateEnd = info.dateEnd ? `dateEnd=${info.dateEnd}&` : "";
+    const approvalStart = info.approvalStart ? `approvalStart=${info.approvalStart}&` : "";
+    const approvalEnd = info.approvalEnd ? `approvalEnd=${info.approvalEnd}&` : "";
+    const clearanceStart = info.clearanceStart ? `clearanceStart=${info.clearanceStart}&` : "";
+    const clearanceEnd = info.clearanceEnd ? `clearanceEnd=${info.clearanceEnd}&` : "";
+    
     const status = info.status ? `status=${info.status}` : "";
 
     const query = `?${vbId}${vbRealizationId}${vbRequestName}${unitId}${divisionId}${dateStart}${dateEnd}${status}`;
