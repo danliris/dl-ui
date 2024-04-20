@@ -62,6 +62,14 @@ export class List {
       this.requestEndDate && this.requestEndDate != "Invalid Date"
         ? moment(this.requestEndDate).format("YYYY-MM-DD")
         : null;
+    this.arg.approvalDateFrom = 
+      this.approvalStartDate && this.approvalStartDate != "Invalid Date"
+        ? moment(this.approvalStartDate).format("YYYY-MM-DD")
+        : null;
+    this.arg.approvalDateTo =
+      this.approvalEndDate  && this.approvalEndDate != "Invalid Date"
+        ? moment(this.approvalEndDate).format("YYYY-MM-DD")
+        : null;
     this.arg.realizeDateFrom =
       this.realizeStartDate && this.realizeStartDate != "Invalid Date"
         ? moment(this.realizeStartDate).format("YYYY-MM-DD")
@@ -154,6 +162,9 @@ export class List {
       //     return moment.utc(value).local().format('DD MMM YYYY');
       // },
     },
+    { field: "TakenBy", title: "Nama Pengambil VB" },
+    { field: "PhoneNumber", title: "Nomor Telepon" },
+    { field: "Email", title: "Email Pembuat VB" },
     { field: "Status", title: "Status" },
   ];
 
@@ -205,6 +216,8 @@ export class List {
     this.selectedStatus = this.statusTypes[0];
     this.requestStartDate = null;
     this.requestEndDate = null;
+    this.approvalStartDate = null;
+    this.approvalEndDate = null;    
     this.realizeStartDate = null;
     this.realizeEndDate = null;
     this.clearanceStartDate = null;
