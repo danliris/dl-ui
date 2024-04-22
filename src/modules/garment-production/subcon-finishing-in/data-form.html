@@ -75,7 +75,7 @@
         <au-collection items.bind="data.Items" errors.bind="error.Items"
             columns.bind="subconDetailsCuttingSewing.columns" read-only.bind="readOnly"
             title="Detail Finishing In Subcon"
-            if.bind="selectedRONo && !readOnly && data.SubconType == 'CUTTING SEWING'"
+            if.bind="selectedRONo && !readOnly && data.SubconType != 'SEWING'"
             options.bind="subconDetailsCuttingSewing.options"
             header-template="modules/garment-production/subcon-finishing-in/template/subcon-detail-header"
             item-template="modules/garment-production/subcon-finishing-in/template/subcon-detail"
@@ -86,7 +86,7 @@
 
         <au-collection items.bind="data.ViewItems" columns.bind="subconDetailsCuttingSewing.viewColumns"
             read-only="true" title="Detail Finishing In Subcon"
-            if.bind="readOnly && data.SubconType == 'CUTTING SEWING'">
+            if.bind="readOnly && data.SubconType != 'SEWING'">
         </au-collection>
 
 

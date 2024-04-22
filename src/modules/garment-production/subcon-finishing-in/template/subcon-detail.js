@@ -43,7 +43,7 @@ export class SubconDetail {
             if (this.data.Product && this.data.SubconType == 'SEWING') {
                 this.selectedProduct = this.data.Product.Code;
             }
-            if (this.data.Product && this.data.SubconType == 'CUTTING SEWING') {
+            if (this.data.Product && this.data.SubconType != 'SEWING') {
                 this.selectedProductCS = {
                     ProductName: this.data.Product.Name,
                     ProductCode: this.data.Product.Code,
