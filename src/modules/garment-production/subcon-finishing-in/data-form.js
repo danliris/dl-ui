@@ -19,7 +19,7 @@ export class DataForm {
 
     dataDODetails = [];
     itemsRONo = [];
-    itemsSubconType = ["SEWING", "CUTTING SEWING"];
+    itemsSubconType = ["SEWING", "CUTTING SEWING","CUTTING SEWING FINISHING"];
 
     constructor(service, purchasingService, salesService) {
         this.service = service;
@@ -207,7 +207,9 @@ export class DataForm {
                     this.itemsRONo = [""];
                     for (var item of result.items) {
                         for (var detail of item.fulfillments) {
-                            if (this.itemsRONo.indexOf(detail.rONo) < 0 && detail.product.Code === "PRC001") {
+                            if (this.itemsRONo.indexOf(detail.rONo) < 0 && detail.product.Code === "PRC001" && this.data.SubconType == "SEWING") {
+                                this.itemsRONo.push(detail.rONo);
+                            } else if (this.itemsRONo.indexOf(detail.rONo) < 0 && detail.product.Code === "PRCS001" && this.data.SubconType != "SEWING") {
                                 this.itemsRONo.push(detail.rONo);
                             }
                         }
@@ -231,7 +233,9 @@ export class DataForm {
             let DODetailIds = [];
             for (var item of this.garmentDOData.items) {
                 for (var detail of item.fulfillments) {
-                    if (detail.rONo === newValue && detail.product.Code === "PRC001") {
+                    if (detail.rONo === newValue && detail.product.Code === "PRC001" && this.data.SubconType == "SEWING") {
+                        DODetailIds.push(detail.Id);
+                    } else if (detail.rONo === newValue && detail.product.Code === "PRCS001" && this.data.SubconType != "SEWING") {
                         DODetailIds.push(detail.Id);
                     }
                 }
@@ -249,7 +253,7 @@ export class DataForm {
 
             const subconCuttingInfo = {
                 filter: JSON.stringify({ RONo: newValue }),
-                size:300
+                size: 300
             };
 
             const costCalculationInfo = {
@@ -275,7 +279,16 @@ export class DataForm {
                                 }
                                 for (var item of this.garmentDOData.items) {
                                     for (var detail of item.fulfillments) {
-                                        if (detail.rONo === newValue && detail.product.Code === "PRC001") {
+                                        if (detail.rONo === newValue && detail.product.Code === "PRC001" && this.data.SubconType == "SEWING") {
+                                            this.dataDODetails.push({
+                                                ProductCode: detail.product.Code,
+                                                ProductName: detail.product.Name,
+                                                RONo: detail.rONo,
+                                                PlanPO: detail.poSerialNumber,
+                                                Quantity: quantityByDODetailId[detail.Id] || 0,
+                                                SmallUomUnit: detail.smallUom.Unit
+                                            });
+                                        } else if (detail.rONo === newValue && detail.product.Code === "PRCS001" && this.data.SubconType != "SEWING") {
                                             this.dataDODetails.push({
                                                 ProductCode: detail.product.Code,
                                                 ProductName: detail.product.Name,
@@ -288,53 +301,55 @@ export class DataForm {
                                     }
                                 }
                             }
-                            this.service.searchSubconCutting(subconCuttingInfo)
-                                .then(subconCuttingResult => {
-                                    if (subconCuttingResult.data) {
+                            if (this.data.SubconType == "SEWING") {
+                                this.service.searchSubconCutting(subconCuttingInfo)
+                                    .then(subconCuttingResult => {
+                                        if (subconCuttingResult.data) {
 
-                                        let basicPriceByProduct = {};
-                                        for (const data of subconCuttingResult.data) {
-                                            basicPriceByProduct[data.Product.Code] = basicPriceByProduct[data.Product.Code] || {
-                                                basicPrice: 0,
-                                                amount: 0
-                                            };
-                                            basicPriceByProduct[data.Product.Code].basicPrice += data.BasicPrice;
-                                            basicPriceByProduct[data.Product.Code].amount++;
-                                        }
-
-                                        for (const data of subconCuttingResult.data) {
-                                            const item = {
-                                                IsFromSubconCutting: true,
-                                                IsSave: true,
-                                                SubconCuttingId: data.Id,
-                                                Product: data.Product,
-                                                DesignColor: data.DesignColor,
-                                                Size: data.Size,
-                                                SizeName: data.Size.Size,
-                                                // Comodity: data.Comodity,
-                                                Comodity: this.data.Comodity,
-                                                Color: data.Remark,
-                                                CuttingOutQuantity: data.Quantity - data.FinishingInQuantity,
-                                                Quantity: data.Quantity - data.FinishingInQuantity,
-                                                RemainingQuantity: data.Quantity - data.FinishingInQuantity,
-                                                BasicPrice: data.BasicPrice,
-                                                Uom: this.uom,
-                                                SubconType: this.data.SubconType
-                                            };
-
-                                            if (this.data.SubconType == "SEWING") {
-                                                this.data.Items.push(item);
+                                            let basicPriceByProduct = {};
+                                            for (const data of subconCuttingResult.data) {
+                                                basicPriceByProduct[data.Product.Code] = basicPriceByProduct[data.Product.Code] || {
+                                                    basicPrice: 0,
+                                                    amount: 0
+                                                };
+                                                basicPriceByProduct[data.Product.Code].basicPrice += data.BasicPrice;
+                                                basicPriceByProduct[data.Product.Code].amount++;
                                             }
-                                            this.subconDetails.options.subconCuttingList[data.Product.Code] = {
-                                                Product: data.Product,
-                                                DesignColor: data.DesignColor,
-                                                BasicPrice: basicPriceByProduct[data.Product.Code].basicPrice / basicPriceByProduct[data.Product.Code].amount,
-                                            };
-                                        }
 
-                                        this.subconDetails.options.checkedAll = true;
-                                    }
-                                });
+                                            for (const data of subconCuttingResult.data) {
+                                                const item = {
+                                                    IsFromSubconCutting: true,
+                                                    IsSave: true,
+                                                    SubconCuttingId: data.Id,
+                                                    Product: data.Product,
+                                                    DesignColor: data.DesignColor,
+                                                    Size: data.Size,
+                                                    SizeName: data.Size.Size,
+                                                    // Comodity: data.Comodity,
+                                                    Comodity: this.data.Comodity,
+                                                    Color: data.Remark,
+                                                    CuttingOutQuantity: data.Quantity - data.FinishingInQuantity,
+                                                    Quantity: data.Quantity - data.FinishingInQuantity,
+                                                    RemainingQuantity: data.Quantity - data.FinishingInQuantity,
+                                                    BasicPrice: data.BasicPrice,
+                                                    Uom: this.uom,
+                                                    SubconType: this.data.SubconType
+                                                };
+
+                                                // if (this.data.SubconType == "SEWING") {
+                                                this.data.Items.push(item);
+                                                // }
+                                                this.subconDetails.options.subconCuttingList[data.Product.Code] = {
+                                                    Product: data.Product,
+                                                    DesignColor: data.DesignColor,
+                                                    BasicPrice: basicPriceByProduct[data.Product.Code].basicPrice / basicPriceByProduct[data.Product.Code].amount,
+                                                };
+                                            }
+
+                                            this.subconDetails.options.checkedAll = true;
+                                        }
+                                    });
+                            }
                         });
                     this.data.Items.sort((a, b) => a.Color.localeCompare(b.Color) || a.SizeName.localeCompare(b.SizeName));
                 });
