@@ -124,6 +124,8 @@ export class Create {
       align: "right",
     },
     { field: "CurrencyCode", title: "Mata Uang" },
+    { field: "TakenBy", title: "Nama Pengambil VB" },
+    { field: "PhoneNumber", title: "Nomor Telepon" }    
   ];
 
   //   rowFormatter(data, index) {

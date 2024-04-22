@@ -23,7 +23,7 @@ export class Service extends RestService {
     _getEndPoint(info) {
         var endpoint = `${serviceUri}/reports/xls?`;
         var query = '';
-
+        console.log(info);
         if (info.unitId) {
             if (query === '') query = `unitId=${info.unitId}`;
             else query = `${query}&unitId=${info.unitId}`;
@@ -53,6 +53,18 @@ export class Service extends RestService {
             if (query === '') query = `requestDateTo=${info.requestDateTo}`;
             else query = `${query}&requestDateTo=${info.requestDateTo}`;
         }
+
+
+        if (info.approvalDateFrom) {
+            if (query === '') query = `approvalDateFrom=${info.approvalDateFrom}`;
+            else query = `${query}&approvalDateFrom=${info.approvalDateFrom}`;
+        }
+
+        if (info.approvalDateTo) {
+            if (query === '') query = `approvalDateTo=${info.approvalDateTo}`;
+            else query = `${query}&approvalDateTo=${info.approvalDateTo}`;
+        }
+
 
         if (info.realizeDateFrom) {
             if (query === '') query = `realizeDateFrom=${info.realizeDateFrom}`;
