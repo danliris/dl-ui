@@ -14,6 +14,10 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "CostCalculationGarment.DeliveryDate", title: "Tgl. Delivery", formatter: function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
+            }
+        },
         { field: "BrandCode", title: "Kode Buyer" },
         { field: "BrandName", title: "Nama Buyer" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
