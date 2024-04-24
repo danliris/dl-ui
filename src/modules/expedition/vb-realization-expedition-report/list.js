@@ -188,6 +188,9 @@ export class List {
         return value ? moment.utc(value).local().format("DD MMM YYYY") : "-";
       },
     },
+    { field: "TakenBy", title: "Nama Pengambil VB" },
+    { field: "PhoneNumber", title: "Nomor Telepon" },
+    { field: "Email", title: "Email Pembuat VB" },
   ];
 
   controlOptions = {
