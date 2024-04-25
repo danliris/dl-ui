@@ -35,9 +35,19 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
+  nonActived(id) {
+    var endpoint = `${serviceUri}/nonactived/${id}`;
+    return super.put(endpoint);
+  }
+
   getByCode(code) {
     var endpoint = `${serviceUri}?keyword=${code}`;
     return super.get(endpoint);
   }
+
+  post(data) {
+    var endpoint = `${serviceUri}/posting`;
+    return super.put(endpoint, data);
+  } 
 
 }
