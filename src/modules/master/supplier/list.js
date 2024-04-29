@@ -17,8 +17,21 @@ export class List {
       formatter: function (value, row, index) {
         return value ? "YA" : "TIDAK";
       }
+    },
+    {
+      field: "IsPosted", title: "Active",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+      }
     }
   ];
+
+  rowFormatter(data, index) {
+    if (data.IsPosted)
+      return { classes: "success" }
+    else
+      return {}
+  }
 
   loader = (info) => {
     var order = {};
