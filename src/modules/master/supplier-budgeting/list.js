@@ -92,11 +92,11 @@ export class List {
     console.log(data);
     console.log(event);
     switch (arg.name) {
-      // case "detail":
-      //   this.router.navigateToRoute('view', { id: data.Id });
-      //   break;
+      case "detail":
+        this.router.navigateToRoute('view', { id: data._id });
+        break;
       case "detail ":
-        this.router.navigateToRoute('view', { id: data.Id });
+        this.router.navigateToRoute('view', { id: data._id });
         break;
       case "nonaktif":
         this.service.nonActived(data._id).then(result => {
