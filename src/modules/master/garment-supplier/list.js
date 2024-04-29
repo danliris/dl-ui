@@ -35,7 +35,13 @@ export class List {
       formatter: function (value, row, index) {
         return value ? "YA" : "TIDAK";
       }
-    },    
+    },
+    {
+      field: "IsPosted", title: "Active",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+      }
+    },
     // { field: "IncomeTaxes", title: "PPH", formatter: function (value, data, index) {
     //   if(data.IncomeTaxes.name == "" || data.IncomeTaxes.name == null && data.IncomeTaxes.rate == 0){
     //     return "-"
@@ -54,7 +60,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["code","name","address","import","NPWP","usevat"],
+      select:["code","name","address","import","NPWP","usevat", "IsPosted"],
       order: order
     }
 
@@ -65,6 +71,13 @@ export class List {
           data: result.data
         }
       });
+  }
+
+  rowFormatter(data, index) {
+    if (data.IsPosted)
+      return { classes: "success" }
+    else
+      return {}
   }
 
     constructor(router, service) {
