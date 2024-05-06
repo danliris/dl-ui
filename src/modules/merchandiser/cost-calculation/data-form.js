@@ -719,21 +719,59 @@ export class DataForm {
     return CommissionRate;
   }
 
-  @computedFrom("data.OTL1", "data.SMV_Total")
+  @computedFrom("data.OTL1", "data.SMV_Total", "data.SubconType")
   get calculatedRateOTL1() {
-    let calculatedRateOTL1 = this.data.SMV_Total
-      ? this.data.OTL1.Value * this.data.SMV_Total * 60
-      : 0;
+    // let calculatedRateOTL1 = this.data.SMV_Total ? this.data.OTL1.Value * this.data.SMV_Total * 60 : 0;
+    let calculatedRateOTL1 = 0;
+    if (this.data.CCType == "SUBCON KELUAR") {
+      switch (this.data.SubconType) {
+        case "SUBCON SEWING":
+          calculatedRateOTL1 = this.data.SMV_Total
+            ? this.data.OTL1.Value *
+              (this.data.SMV_Cutting + this.data.SMV_Finishing)
+            : 0;
+          break;
+        case "SUBCON CUTTING SEWING":
+          calculatedRateOTL1 = this.data.SMV_Total
+            ? this.data.OTL1.Value * this.data.SMV_Finishing
+            : 0;
+          break;
+      }
+    } else {
+      calculatedRateOTL1 = this.data.SMV_Total
+        ? this.data.OTL1.Value * this.data.SMV_Total
+        : 0;
+    }
+
     calculatedRateOTL1 = numeral(calculatedRateOTL1).format();
     this.data.OTL1.CalculatedValue = numeral(calculatedRateOTL1).value();
     return calculatedRateOTL1;
   }
 
-  @computedFrom("data.OTL2", "data.SMV_Total")
+  @computedFrom("data.OTL2", "data.SMV_Total", "data.SubconType")
   get calculatedRateOTL2() {
-    let calculatedRateOTL2 = this.data.SMV_Total
-      ? this.data.OTL2.Value * this.data.SMV_Total * 60
-      : 0;
+    // let calculatedRateOTL2 = this.data.SMV_Total ? this.data.OTL2.Value * this.data.SMV_Total * 60 : 0;
+    let calculatedRateOTL2 = 0;
+
+    if (this.data.CCType == "SUBCON KELUAR") {
+      switch (this.data.SubconType) {
+        case "SUBCON SEWING":
+          calculatedRateOTL2 = this.data.SMV_Total
+            ? this.data.OTL2.Value *
+              (this.data.SMV_Cutting + this.data.SMV_Finishing)
+            : 0;
+          break;
+        case "SUBCON CUTTING SEWING":
+          calculatedRateOTL2 = this.data.SMV_Total
+            ? this.data.OTL2.Value * this.data.SMV_Finishing
+            : 0;
+          break;
+      }
+    } else {
+      calculatedRateOTL2 = this.data.SMV_Total
+        ? this.data.OTL2.Value * this.data.SMV_Total
+        : 0;
+    }
     calculatedRateOTL2 = numeral(calculatedRateOTL2).format();
     this.data.OTL2.CalculatedValue = numeral(calculatedRateOTL2).value();
     return calculatedRateOTL2;
