@@ -2,18 +2,22 @@ import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { AuthService } from "aurelia-authentication";
+import { RejectDialog } from "./dialog/reject";
+import { Dialog } from "../../../au-components/dialog/dialog";
 
-@inject(Router, Service, AuthService)
+@inject(Router, Service, AuthService, Dialog)
 export class View {
     readOnly = true;
     hasApprove = true;
+    hasReject = false;
     // hasUnApprove = false;
 
 
-    constructor(router, service, authService) {
+    constructor(router, service, authService, dialog) {
         this.router = router;
         this.service = service;
         this.authService = authService;
+        this.dialog = dialog;
     }
 
     async activate(params, routeConfig, navigationInstruction) {
@@ -34,6 +38,7 @@ export class View {
                 this.saveCallback = () => {
                     this.service.getPdfById(id);
                 };
+                this.hasReject = true;
                 break;
             default: break;
         }
@@ -43,6 +48,12 @@ export class View {
         }
         else {
             this.me = null;
+        }
+
+        if (this.data.IsRejected) {
+            this.alertInfo =
+                "<strong>Alasan Reject: </strong> " +
+                this.data.RejectReason;
         }
 
     }
@@ -94,6 +105,33 @@ export class View {
                     this.error = e;
                 });
         }
+    }
+
+    rejectCallback(event) {
+        this.dialog
+        .show(RejectDialog, { title: `Alasan Reject ${event}` })
+        .then((response) => {
+          if (!response.wasCancelled) {
+            var info = {};
+  
+            info.id = this.data.Id;
+            info.rejectReason = response.output;
+  
+            this.service
+              .reject(info)
+              .then((result) => {
+                alert("RO berhasil diReject");
+                this.backToList();
+              })
+              .catch((error) => {
+                if (typeof error === "string") {
+                  alert(`Reject dibatalkan : ${error}`);
+                } else {
+                  alert(`Error : ${error.message}`);
+                }
+              });
+          }
+        });
     }
 
     // unapproveCallback(event) {

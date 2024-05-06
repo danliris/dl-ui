@@ -44,6 +44,12 @@ export class View {
             this.deleteCallback = null;
             this.saveCallback = null;
         }
+        
+        if (this.data.IsRejected) {
+            this.alertInfo =
+                "<strong>Alasan Reject: </strong> " +
+                this.data.RejectReason;
+        }
     }
 
     list() {

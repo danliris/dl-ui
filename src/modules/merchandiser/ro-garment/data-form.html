@@ -5,6 +5,9 @@
     }
   </style>
   <au-input-form title.bind="title" with.bind="context" options.bind="formOptions"> <!-- formOptions untuk ro-validation-ppic -->
+
+    <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+    
     <div class="row" if.bind="!readOnly">
       <div class="col-md-6">
         <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.CostCalculationGarment"
