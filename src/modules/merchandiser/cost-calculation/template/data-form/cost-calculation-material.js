@@ -176,21 +176,24 @@ export class CostCalculationMaterial {
         // let SewingFee = this.data.Wage.Value * this.data.SMV_Sewing * (100 / this.data.Efficiency.Value);
         let SewingFee = 0;
         let FinishingFee = 0;
+        let THR = 0;
         switch (this.data.SubconType) {
             //Jika tipe subcon Sewing maka ingore SMV_Sewing
             case "SUBCON SEWING":
                 CuttingFee = this.data.Wage.Value * this.data.SMV_Cutting * (100 / 70);
                 FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 92);
+                THR = this.data.THR.Value * (this.data.SMV_Cutting + this.data.SMV_Finishing);
                 break;
             //Jika tipe subcon Cutting Sewing maka ingore SMV_Sewing dan SMV_Cutting
             case "SUBCON CUTTING SEWING":
                 FinishingFee = this.data.Wage.Value * this.data.SMV_Finishing * (100 / 92);
+                THR = this.data.THR.Value * this.data.SMV_Finishing;
                 break
              //Jika tipe subcon Cutting Sewing Finishing maka ignore semua SMV
             default:
                 break;
         }
-        let THR = this.data.THR.Value * this.data.SMV_Total;
+        // let THR = this.data.THR.Value * this.data.SMV_Total;
         let result = CuttingFee + SewingFee + FinishingFee + THR;
         return numeral(numeral(result).format(rateNumberFormat)).value();
     }
@@ -470,19 +473,20 @@ uomView =(uom)=>{
         } else if (this.data.CCType == "SUBCON KELUAR" && this.data.Category) {
             //Calculated Item jika Category PROCESS SUBCON
             if (this.data.Category.name.toUpperCase() === "PROCESS SUBCON") {
-                total = this.data.Quantity && this.data.Conversion && parseFloat(this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity) : 0;
-                //total = numeral(total).format();
-                switch (this.data.SubconType) {
-                    case "SUBCON SEWING":
-                        total = total * (this.data.SMV_Sewing);
-                        break;
-                    case "SUBCON CUTTING SEWING":
-                        total = total * (this.data.SMV_Sewing + this.data.SMV_Cutting);
-                        break;
-                    case "SUBCON CUTTING SEWING FINISHING":
-                        total = total * (this.data.SMV_Sewing + this.data.SMV_Cutting + this.data.SMV_Finishing);
-                        break;
-                }
+                // total = this.data.Quantity && this.data.Conversion && parseFloat(this.data.Price) ? (parseFloat(this.data.Price) / this.data.Conversion * this.data.Quantity) : 0;
+                total =  this.data.Price ?  parseFloat(this.data.Price) : 0;
+                // //total = numeral(total).format();
+                // switch (this.data.SubconType) {
+                //     case "SUBCON SEWING":
+                //         total = total * (this.data.SMV_Sewing);
+                //         break;
+                //     case "SUBCON CUTTING SEWING":
+                //         total = total * (this.data.SMV_Sewing + this.data.SMV_Cutting);
+                //         break;
+                //     case "SUBCON CUTTING SEWING FINISHING":
+                //         total = total * (this.data.SMV_Sewing + this.data.SMV_Cutting + this.data.SMV_Finishing);
+                //         break;
+                // }
             
                 this.data.Total = numeral(total).value();
                 this.data.TotalTemp = numeral(total).value();;
