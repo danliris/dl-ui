@@ -8,6 +8,13 @@
       <div slot="actions" class="btn-group">
          <button class="btn btn-primary" click.delegate="context.approveCallback($event)"     if.one-way="context.hasApprove">Approve</button>
       </div>
+
+      <div slot="actions" class="btn-group">
+        <button class="btn btn-danger" click.delegate="context.rejectCallback('')" if.one-way="context.hasReject">Reject</button>
+     </div>
+
+     <div class="alert alert-info" role="alert" if.bind="alertInfo" innerhtml.bind="alertInfo"></div>
+     
       <div class="row" if.bind="!readOnly">
         <div class="col-md-6">
           <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationGarment" error.bind="error.CostCalculationGarment"
