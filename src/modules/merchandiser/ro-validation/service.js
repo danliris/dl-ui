@@ -74,4 +74,9 @@ export class Service extends RestService {
         var endpoint = `${costCalculationGarmentServiceUri}/isvalidate-ro-sample/${data.Id}`;
         return super.put(endpoint, data);
     }
+
+    reject(data) {
+        var endpoint = `${serviceUri}/reject-sample/${data.id}`;
+        return super.put(endpoint, data);
+    }
 }
