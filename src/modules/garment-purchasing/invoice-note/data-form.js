@@ -227,6 +227,11 @@ export class DataForm {
         return SupplierLoader;
     }
 
+    get supplierQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
+
     supplierView = (supplier) => {
         if(this.data.Id)
         {
