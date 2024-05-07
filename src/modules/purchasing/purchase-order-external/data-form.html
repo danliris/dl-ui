@@ -99,10 +99,11 @@
                      loader.bind="supplierLoader"
                      text.bind="supplierView"
                      placeholder="cari supplier"
+                     query.bind="supplierQuery"
                      key="code"
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
-    </au-autocomplete>
+    </au-autocomplete>    
 
     <au-autocomplete value.bind="selectedCurrency"
                      error.bind="error.currency"

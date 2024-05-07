@@ -64,6 +64,11 @@ export class DataForm {
         return SupplierLoader;
     }
 
+    get supplierQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
+
     supplierView = (supplier) => {
         var code=supplier.code? supplier.code : supplier.Code;
         var name=supplier.name? supplier.name : supplier.Name;
