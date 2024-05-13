@@ -31,10 +31,19 @@ export class List {
     ];
 
     rowFormatter(data, index) {
-        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROMD)
-            return { classes: "success" }
+        if (data.CostCalculationGarment.IsValidatedROSample && data.CostCalculationGarment.IsValidatedROMD) {
+            if (data.IsRejected) {
+                return { classes: "" }
+            } else {
+                return { classes: "success" }
+            }
+        }
         else
-            return { classes: "danger" }
+            if (data.IsRejected) {
+                return { classes: "" }
+            } else {
+                return { classes: "danger" }
+            }
     }
 
     loader = (info) => {
