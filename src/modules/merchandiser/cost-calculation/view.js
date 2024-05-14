@@ -75,7 +75,7 @@ export class View {
 
     var id = params.id;
     this.data = await this.service.getById(id);
-    console.log(this.data);
+
     if(this.data.ApprovalMD.IsApproved || this.data.SCGarmentId)
     {
       this.editCallback=null;
