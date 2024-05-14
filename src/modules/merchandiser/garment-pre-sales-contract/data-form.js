@@ -20,7 +20,7 @@ export class DataForm {
     @bindable section;
     @bindable BuyerId;
 
-    scTypes = ["JOB ORDER", "SAMPLE", "SUBCON"];
+    scTypes = ["JOB ORDER", "SAMPLE", "TERIMA SUBCON","SUBCON KELUAR"];
 
     filterBuyerBrand = {};
 
