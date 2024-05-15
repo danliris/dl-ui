@@ -1,6 +1,7 @@
+import { BindingEngine, bindable, computedFrom, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
+import { forEach } from '../../../routes/general';
 const costCalculationGarmentLoader = require('../../../loader/cost-calculation-garment-loader');
 
 @inject(Router, Service, BindingEngine)
@@ -142,6 +143,10 @@ export class DataForm {
         if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
           this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
           this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+          
+          this.oldFabric = this.CCG_M_Fabric;
+          this.oldAcc = this.CCG_M_Accessories;
+        
         }
       } else {
         this.costCalculationGarment = this.data.CostCalculationGarment;
@@ -156,8 +161,6 @@ export class DataForm {
   }
 
   async costCalculationGarmentChanged(newValue) {
-    this.isCopy = false;
-
     if (newValue && newValue.Id) {
       if (!this.isEdit) {
         this.data.CostCalculationGarment = await this.service.getCostCalculationGarmentById(newValue.Id);
@@ -165,10 +168,37 @@ export class DataForm {
         this.data.Total = this.data.CostCalculationGarment.Quantity;
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
-        this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
-        this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+        if (this.isCopy) {
+          this.newFab = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
+          this.newAcc = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+          
+          this.newFab.forEach(element => {
+            var exist = this.oldFabric.find(a => a.ProductId === element.ProductId && a.Description === element.Description);
+            if (exist) {
+              element.Information = exist.Information;
+            }
+          });
+
+          this.newAcc.forEach(element => {
+            var exist = this.oldAcc.find(a => a.ProductId === element.ProductId && a.Description === element.Description);
+            if (exist) {
+              element.Information = exist.Information;
+            }
+          })
+          this.CCG_M_Fabric = this.newFab;
+          this.CCG_M_Accessories = this.newAcc;
+
+          
+        } else {
+          this.CCG_M_Fabric = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
+          this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
+
+        }
+        this.isCopy = false;
+
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
+      
     }
     else {
       //this.data.CostCalculationGarment.CostCalculationGarment_Materials=[];
