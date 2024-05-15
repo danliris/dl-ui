@@ -37,11 +37,23 @@ export class DataForm {
   get salesContractFilter() {
     let filter = {
       IsPosted: true,
-      SCType: this.data.PRType == "MASTER" ? "JOB ORDER" : this.data.PRType,
+      // SCType: this.data.PRType == "MASTER" ? "JOB ORDER" : this.data.PRType,
     };
+
     if (this.data.PRType == "SAMPLE") {
       filter.IsPR = false;
+      filter.SCType = "SAMPLE";
+    } else if (this.data.PRType == "MASTER") {
+      filter.SCType = "JOB ORDER";
+    } else if (this.data.PRType == "SUBCON") {
+      let filterSubcon = {
+        IsPosted: true,
+        'SCType == "TERIMA SUBCON" || SCType == "SUBCON KELUAR" || SCType == "SUBCON"': true,
+      };
+
+      return filterSubcon;
     }
+
     return filter;
   }
 
