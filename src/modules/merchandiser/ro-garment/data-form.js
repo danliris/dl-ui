@@ -169,6 +169,7 @@ export class DataForm {
       }
       if (this.data.CostCalculationGarment.CostCalculationGarment_Materials.length !== 0) {
         if (this.isCopy) {
+          this.isCopy = false;
           this.newFab = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() === "FABRIC");
           this.newAcc = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
           
@@ -194,7 +195,6 @@ export class DataForm {
           this.CCG_M_Accessories = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.name.toUpperCase() !== "FABRIC");
 
         }
-        this.isCopy = false;
 
         // this.CCG_M_Rate = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
       }
