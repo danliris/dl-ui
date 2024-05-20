@@ -167,6 +167,11 @@ export class DataForm {
     get supplierLoader() {
         return SupplierLoader;
     }
+
+    get supplierQuery() {
+        var result = { "Active" : true}
+        return result;
+    }
     
     get currencyLoader() {
         return CurrencyLoader;
