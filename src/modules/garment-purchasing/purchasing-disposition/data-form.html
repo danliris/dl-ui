@@ -54,7 +54,8 @@
             label="Supplier" 
             loader.bind="supplierLoader"
             text.bind = "supplierView"
-            placeholder="cari supplier" 
+            placeholder="cari supplier"
+            query.bind="supplierQuery"
             key="code" 
             read-only.bind="(readOnly || isEdit)"
             options.bind="controlOptions">
