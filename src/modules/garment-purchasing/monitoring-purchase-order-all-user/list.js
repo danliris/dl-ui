@@ -86,8 +86,9 @@ export class List {
                 { field:'poSerialNumber', rowspan:'2', title:'NO REF PO',},
                 { field:'useInternalPO', rowspan:'2', title:'DIBUAT<br/>PO INTERNAL' },
                 { field:'ro', rowspan:'2', title:'NO RO'},
-                { field:'article', rowspan:'2', title:'ARTIKEL'},
-
+                { field: 'article', rowspan: '2', title: 'ARTIKEL' },
+                
+                { field:'codeRequirement', rowspan:'2', title:'BAGIAN'},
                 { title:'BUYER',colspan:2 },
 
                 { field:'shipmentDate', rowspan:2, title:'SHIPMENT'},
