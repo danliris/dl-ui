@@ -85,7 +85,7 @@ export class Item {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         // StorageName: "GUDANG ACCESSORIES",
-        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING" || StorageName == "GUDANG EMBALASE"':
           "true",
       };
     } else if (
@@ -96,7 +96,7 @@ export class Item {
         IsPreparing: false,
         ExpenditureType: "SUBCON",
         // StorageName: "GUDANG ACCESSORIES",
-        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING" || StorageName == "GUDANG EMBALASE"':
           "true",
         UnitRequestCode: "SMP1",
       };
@@ -107,7 +107,7 @@ export class Item {
       UENFilter = {
         ExpenditureType: "SUBCON",
         // StorageName: "GUDANG ACCESSORIES",
-        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING" || StorageName == "GUDANG EMBALASE"':
           "true",
       };
     } else if (
@@ -117,7 +117,7 @@ export class Item {
       UENFilter = {
         ExpenditureType: "SUBCON",
         // StorageName: "GUDANG ACCESSORIES",
-        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':
+        'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING" || StorageName == "GUDANG EMBALASE"':
           "true",
         UnitRequestCode: "SMP1",
       };
