@@ -88,7 +88,7 @@ export class List {
                 { field:'ro', rowspan:'2', title:'NO RO'},
                 { field: 'article', rowspan: '2', title: 'ARTIKEL' },
                 
-                { field:'codeRequirement', rowspan:'2', title:'BAGIAN'},
+                { field:'codeRequirement', rowspan:'2', title:'JENIS'},
                 { title:'BUYER',colspan:2 },
 
                 { field:'shipmentDate', rowspan:2, title:'SHIPMENT'},
