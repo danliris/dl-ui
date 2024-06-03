@@ -251,11 +251,11 @@ export class List {
     if (this.info.approvalTo)
       arg.approvalEnd = moment(this.info.approvalTo).format("YYYY-MM-DD");
 
-    if (this.info.clearanceFrom)
-      arg.clearanceStart = moment(this.info.clearanceFrom).format("YYYY-MM-DD");
+    // if (this.info.clearanceFrom)
+    //   arg.clearanceStart = moment(this.info.clearanceFrom).format("YYYY-MM-DD");
 
-    if (this.info.clearanceTo)
-      arg.clearanceEnd = moment(this.info.clearanceTo).format("YYYY-MM-DD");
+    // if (this.info.clearanceTo)
+    //   arg.clearanceEnd = moment(this.info.clearanceTo).format("YYYY-MM-DD");
 
     if (this.info.division && this.info.division.Id)
       arg.divisionId = this.info.division.Id;
@@ -301,13 +301,13 @@ export class List {
         (this.info.approvalTo && moment(this.info.approvalTo).format("YYYY-MM-DD")) ||
         undefined,
 
-      clearanceStart:
-        (this.info.clearanceFrom &&
-          moment(this.info.clearanceFrom).format("YYYY-MM-DD")) ||
-        undefined,
-      clearanceEnd:
-        (this.info.clearanceTo && moment(this.info.clearanceTo).format("YYYY-MM-DD")) ||
-        undefined,
+      // clearanceStart:
+      //   (this.info.clearanceFrom &&
+      //     moment(this.info.clearanceFrom).format("YYYY-MM-DD")) ||
+      //   undefined,
+      // clearanceEnd:
+      //   (this.info.clearanceTo && moment(this.info.clearanceTo).format("YYYY-MM-DD")) ||
+      //   undefined,
       status: this.info.status,
     };
 
@@ -331,8 +331,8 @@ export class List {
     this.info.dateTo = undefined;
     this.info.approvalFrom = undefined;
     this.info.approvalTo = undefined;
-    this.info.clearanceFrom = undefined;
-    this.info.clearanceTo = undefined;   
+    // this.info.clearanceFrom = undefined;
+    // this.info.clearanceTo = undefined;   
     this.info.division = 0;
     this.selectedDivision = null;
     this.tableList.refresh();
