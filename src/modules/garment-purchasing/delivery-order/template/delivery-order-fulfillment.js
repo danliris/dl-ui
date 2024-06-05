@@ -14,6 +14,7 @@ export class DeliveryOrderItem {
     this.data.dealQuantity = this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     // this.data.conversion = this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.data.doQuantity = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
+    this.data.doQuantityRemains = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","")
     this.error = context.error;
     this.options = context.options;
     this.hasView = this.context.context.options.hasView;
@@ -63,13 +64,20 @@ export class DeliveryOrderItem {
     if(!this.error){
       this.error={};
     }
+    console.log(this.data.doQuantityRemains);
     if (typeof newValue === "number" && !this.context.context.options.hasView) {
       if(newValue==0){
         this.error.doQuantity = "DoQuantity harus > 0";
         this.data.doQuantity = newValue;
         this.isWarning=false;
       } else {
-        if(this.data.dealQuantity<newValue){
+        // if(this.data.dealQuantity<newValue){
+        //   this.isWarning=true;
+        // } else {
+        //   this.isWarning=false;
+        // }
+
+        if(this.data.doQuantityRemains<newValue){
           this.isWarning=true;
         } else {
           this.isWarning=false;
