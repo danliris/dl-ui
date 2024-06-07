@@ -256,14 +256,13 @@
       
       <au-numeric
         label=" Down Payment (%)"
-        value.bind="data.PrecentageDP"
-        error.bind="error.PrecentageDP"
-        placeholder="Masukkan harga"
-        if.bind="data.DownPayments"
+        value.bind="data.precentageDP"
+        error.bind="error.precentageDP"
         read-only.bind="readOnly"
         options.bind="controlOptions">
         </au-numeric>
 
+       <!--if.bind="data.DownPayments"-->
       <!-- <au-numeric
       label="Pembayaran Down Payment"
       value.bind="data.PriceDP"
