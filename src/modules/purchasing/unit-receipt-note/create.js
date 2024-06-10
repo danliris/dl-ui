@@ -22,7 +22,7 @@ export class Create {
     save() {
         if(typeof this.data.date === 'object')
             this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
-        
+        console.log(this.data);
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");

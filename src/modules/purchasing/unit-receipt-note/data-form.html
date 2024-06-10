@@ -86,12 +86,19 @@
             error.bind="error.itemscount"
             read-only="true">
         </au-textbox>
+        <au-textbox
+            if.bind="deliveryOrder"
+            show.bind="error.countGroup"
+            error.bind="error.countGroup"
+            read-only="true">
+        </au-textbox>
         <au-collection 
             items.bind="data.items" 
             columns.bind="deliveryOrderItem.columns"
             errors.bind="error.items"
             read-only.bind="readOnly"
             item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item"
+            header-template="modules/purchasing/unit-receipt-note/template/header"
             show.bind="deliveryOrder">
         </au-collection>
     </form>
