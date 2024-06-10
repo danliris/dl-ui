@@ -47,16 +47,14 @@ export class DataForm {
     this.service = service;
   }
 
-  get filter() {
-    var filter = {};
-    filter = {
-              BuyerCode: this.data.BuyerCode,
+  // get filter() {
+  //   var filter = {};
+  //   filter = {
+  //             BuyerCode: this.data.BuyerCode,
               
-             };          
-    return filter;
-  }
-
-
+  //            };          
+  //   return filter;
+  // }
 
   bind(context) {
     this.context = context;
@@ -152,21 +150,19 @@ export class DataForm {
       this.data.DownPayments = null;
       this.data.Day = 0;
       this.data.PriceDP = 0;
-      this.data.PrecentageDP = 0;
+      this.data.precentageDP = 0;
       this.data.LatePayment = "";
       this.data.LateReturn = "";
       this.data.Claim = 0;
     }
   }
 
-    get filter() {
+  get filter() {
     var filter = {};
     filter = {
-              BuyerType: this.data.BuyerType,
-              
+              BuyerType: this.data.BuyerType,            
              };      
-    return filter;
-             
+    return filter;        
   }
 
   @bindable selectedUseIncomeTax = false;
