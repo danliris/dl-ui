@@ -1,5 +1,11 @@
 <template>
 	<tr>
+		<td show.bind="!readOnly" style="text-align: center;">
+			<au-checkbox value.bind="data.IsSave"
+						disabled.bind="readOnly"
+						change.delegate="clickCheckBox()">
+			</au-checkbox>
+    	</td>
 		<td>
 			<au-textbox
 				value.one-way="data.prNo"
@@ -10,6 +16,13 @@
 			<au-textbox
 				value.one-way="product"
 				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.categoryName"
+				read-only="true"
+				error.bind="error.category">
 			</au-textbox>
 		</td>
 		<td>
