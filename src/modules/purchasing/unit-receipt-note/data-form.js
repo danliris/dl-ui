@@ -35,16 +35,44 @@ export class DataForm {
 
         this.deliveryOrderItem = {
             columns: [
-                { header: "No PR" },
-                { header: "Barang" },
-                { header: "Jumlah" },
-                { header: "Satuan" },
-                { header: "Keterangan" }   
+                     "No PR",
+                    "Barang",
+                    "Kategori",
+                    "Jumlah" ,
+                    "Satuan",
+                    "Keterangan",
+                // { header: "No PR" },
+                // { header: "Barang" },
+                // { header: "Jumlah" },
+                // { header: "Satuan" },
+                // { header: "Keterangan" }   
             ],
             // onRemove: function() {
             //     this.bind();
             // }
         };
+
+        // itemColumns = [
+        //     "No PR",
+        //     "Barang",
+        //     "Jumlah" ,
+        //     "Satuan",
+        //     "Keterangan",
+        //     // "Qty Order",
+        //     // "Material",
+        //     // "Unit",
+        //     // "Buyer",
+        //     // "Warna",
+        //     // "Motif",
+        //     // "Qty Packaging",
+        //     // "Packaging",
+        //     // "Jenis",
+        //     // "Grade",
+        //     // "Satuan",
+        //     // "Qty Masuk",
+        //     // "Zona Asal",
+        //     ""
+        //   ];
     }
     @computedFrom("data.deliveryOrder" , "data.unit")
     get storageFilter(){
@@ -154,10 +182,13 @@ export class DataForm {
             
             var _items = [];
             var getEPO=[];
+            var getPR = [];
             for (var item of selectedItem) {
                 getEPO.push(this.service.getEPOById(item.purchaseOrderExternal._id));
                 for (var fulfillment of item.fulfillments) {
                     var _item = {};
+
+                    getPR.push(this.service.getPRById(fulfillment.purchaseOrder.purchaseRequest._id));
                     if (fulfillment.purchaseOrder.purchaseRequest.unit._id == this.data.unitId) {
                         _item.product = fulfillment.product;
                         _item.deliveredUom = fulfillment.purchaseOrderUom;
@@ -204,6 +235,21 @@ export class DataForm {
                     if(same){
                         item.epoNo= same.no;
                         item.incomeTaxBy=same.incomeTaxBy;
+                    }
+                }
+                this.data.items = _items;
+                console.log(this.data.items);
+            });
+
+            await Promise.all(getPR).then(result=>{
+                for(var item of _items){
+                    var same= result.find(a=>a.Id==item.prId);
+                    console.log(same);
+                    if(same){
+                        item.categoryId= same.category._id;
+                        item.categoryName = same.category.name;
+
+                        // item.incomeTaxBy=same.incomeTaxBy;
                     }
                 }
                 this.data.items = _items;

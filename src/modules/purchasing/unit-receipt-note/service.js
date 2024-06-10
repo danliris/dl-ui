@@ -5,7 +5,8 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUri = 'unit-receipt-notes/by-user';
-const EPOserviceUri ='external-purchase-orders'
+const EPOserviceUri ='external-purchase-orders';
+const PRserviceUri = 'purchase-requests/by-user';
 
 export class Service extends RestService {
 
@@ -56,6 +57,11 @@ export class Service extends RestService {
 
     getEPOById(id) {
         var endpoint = `${EPOserviceUri}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getPRById(id) {
+        var endpoint = `${PRserviceUri}/${id}`;
         return super.get(endpoint);
     }
 }
