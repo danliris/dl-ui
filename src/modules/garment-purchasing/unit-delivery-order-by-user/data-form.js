@@ -368,11 +368,11 @@ export class DataForm {
         // var isFabric = false;
         this.error = {};
         if (this.isTransfer) {
-            // var filter = JSON.stringify({ RONo: this.RONoJob });
-            var filter = JSON.stringify({
-                RO_Number: this.RONoJob,
-                IsApprovedKadivMD : true
-            });
+            var filter = JSON.stringify({ RONo: this.RONoJob });
+            // var filter = JSON.stringify({
+            //     RO_Number: this.RONoJob,
+            //     IsApprovedKadivMD : true
+            // });
 
             var info = {
                 keyword: this.RONoJob,
@@ -380,14 +380,16 @@ export class DataForm {
             };
             this.data.RONo = this.RONoJob;
             var ro = [];
-            // this.service.getGarmentEPOByRONo(info)
-            this.salesService.GetArticleCC(info)
+            this.service.getGarmentEPOByRONo(info)
+            // this.salesService.GetArticleCC(info)
                 .then((cc) => {
                     for (var a of cc.data) {
-                        if (a.RO_Number == this.data.RONo) {
+                        // if (a.RO_Number == this.data.RONo) {
+                        if (a.RONo == this.data.RONo) {
                             ro.push(a); break;
                         }
                     }
+                    console.log("length1",ro.length)
                     if (ro.length) {
                         this.data.Article = ro[0].Article;
                         this.error.Article = null;
@@ -536,11 +538,11 @@ export class DataForm {
                         })
                 });
         } else {
-            // var filter = JSON.stringify({ RONo: this.RONoJob });
-            var filter = JSON.stringify({
-                RO_Number: this.RONo,
-                IsApprovedKadivMD : true
-            });
+            var filter = JSON.stringify({ RONo: this.RONo });
+            // var filter = JSON.stringify({
+            //     RO_Number: this.RONo,
+            //     IsApprovedKadivMD : true
+            // });
 
             var info = {
                 keyword: this.RONo,
@@ -548,14 +550,16 @@ export class DataForm {
             };
             this.data.RONo = this.RONo;
             var ro = [];
-             // this.service.getGarmentEPOByRONo(info)
-            this.salesService.GetArticleCC(info)
-                .then((cc) => {
+             this.service.getGarmentEPOByRONo(info)
+            // this.salesService.GetArticleCC(info)
+                 .then((cc) => {
                     for (var a of cc.data) {
-                        if (a.RO_Number == this.data.RONo) {
+                        // if (a.RO_Number == this.data.RONo) {
+                        if (a.RONo == this.data.RONo) {
                             ro.push(a); break;
                         }
-                    }
+                     }
+                     
                     if (ro.length) {
                         this.data.Article = ro[0].Article;
                         this.error.Article = null;
