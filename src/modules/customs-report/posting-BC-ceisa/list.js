@@ -86,7 +86,7 @@ export class List {
 
   save() {
     this.error = {};
-    if ((!this.date || this.date == "Invalid Date") && this.type != "30")
+    if ((!this.date || this.date == "Invalid Date"))//&& this.type != "30")
       this.error.date = "Tanggal Datang harus diisi";
 
     if (Object.getOwnPropertyNames(this.error).length === 0) {
@@ -99,6 +99,7 @@ export class List {
     this.data.forEach((s) => {
       if (s.isEdit) {
         s.tglDatang = this.date ? moment(this.date).format("YYYY-MM-DD") : null;
+        s.TruckingDate = this.date ? moment(this.date).format("YYYY-MM-DD") : null;
         s.Type = this.type;
         dataIds.push(s);
       }
