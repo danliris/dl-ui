@@ -762,5 +762,20 @@ module.exports = [
       permission : {"S44" : 1},
       iconClass: 'fa fa-dashboard'
     }
-  }
+  },
+  {
+    route: 'packing-sku-inventory/master/product-rfid',
+    name: 'packing-sku-product-rfid',
+    moduleId: './modules/packing-sku-inventory/master/product-rfid/index',
+    nav: true,
+    title: 'Master RFID',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "master",
+      // permission: { "C9": 1, "F1": 1, "F2": 1 },
+      permission :{"S45":1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];
