@@ -91,7 +91,7 @@ export class DataForm {
                 this.itemColumns = ["No. DO", "No. SPP","Barcode", "Qty Order", "Buyer", "Material", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing","Panjang per Packing", "QTY Masuk", "Satuan"];       
             }else{
             //this.itemColumns = ["No. DO", "No. SPP", "Qty Order", "Buyer", "Material", "Nama Barang", "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
-            this.itemColumns = ["No. DO", "No. SPP", "Barcode","Qty Order", "Buyer", "Material",  "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan"];
+            this.itemColumns = ["No. DO", "No. SPP", "Barcode","Qty Order", "Buyer", "Material",  "Unit", "Warna", "Motif", "Grade", "QTY Packing", "Packing", "Panjang per Packing", "QTY Masuk", "Satuan",""];
             }
         }
 

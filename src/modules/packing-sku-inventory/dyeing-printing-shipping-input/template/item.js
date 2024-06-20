@@ -14,6 +14,7 @@ export class CartItem {
         this.options = context.options;
         this.contextOptions = context.context.options;
         this.dyeingPrintingAreaInputId = this.contextOptions.dyeingPrintingAreaInputId;
+
         this.isEdit = this.contextOptions.isEdit;
         this.type = this.contextOptions.type;
         console.log(this.data);
@@ -32,6 +33,9 @@ export class CartItem {
                 this.deliveryOrder.DOReturnNo = this.data.deliveryOrderRetur.no;
             }
         }
+        this.itemColumns = [
+            "RFID",
+          ];
 
 
         if (this.data.productionOrder && this.data.productionOrder.id) {
@@ -91,7 +95,12 @@ export class CartItem {
         }
 
     }
-
+    toggle() {
+        if (!this.isShowing) this.isShowing = true;
+        else this.isShowing = !this.isShowing;
+    }
+    
+    listOptions = {};
     changeCheckBox() {
         this.context.context.options.checkedAll = this.context.context.items.reduce((acc, curr) => acc && curr.data.IsSave, true);
     }

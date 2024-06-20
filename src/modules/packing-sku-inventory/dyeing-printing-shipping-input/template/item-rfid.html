@@ -1,0 +1,16 @@
+<template replace-part="rfidItem">
+    <style>
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  
+    <tr>
+      
+      <td class="text-center">
+        <au-textbox value.bind="data.rfid" read-only.bind="true" error.bind="error.packingCode"
+          options.bind="controlOptions">
+        </au-textbox>
+      </td>
+    </tr>
+  </template>
