@@ -92,8 +92,33 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
+        <td>
+            <button class="btn btn-info pull-right"
+                    click.delegate="toggle()">
+              i
+            </button>
+          </td>
         <td if.bind="!options.readOnly && (isEdit || isRetur)">
             <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
+
+    <tr if.bind="isShowing">
+        <!-- <td show.bind="!readOnly"></td> -->
+        <td colspan="14">
+          <au-collection columns.bind="itemColumns"
+                         items.bind="data.rfidList"
+                         read-only.bind="readOnly"
+                         errors.one-way="error.WarehouseList"
+                         options.bind="listOptions"
+                         item-template="modules/packing-sku-inventory/dyeing-printing-shipping-input/template/item-rfid"
+                         header-template="modules/packing-sku-inventory/dyeing-printing-shipping-input/template/item-rfid-header"
+     
+                         
+                         remove.bind="removeItems"
+                         copy.bind="removeItems">
+          </au-collection>
+          <!-- show.bind="isAval" -->
+        </td>
+      </tr>
 </template>
