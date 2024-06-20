@@ -66,7 +66,7 @@ export class Create {
             })
         }
         else{
-            alert("Terdapat No. PO yang Sama");
+            alert("Terdapat No. PO External yang Sama");
         }
         
     }
