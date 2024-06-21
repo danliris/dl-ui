@@ -1,7 +1,7 @@
 import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service } from "./service";
 
-const BuyerLoader = require('../../../../loader/garment-buyers-loader');
+const BuyerLoader = require('../../../../loader/garment-buyer-brands-loader');
 const ROCCLoader = require('../../../../loader/cost-calculation-garment-loader');
 const ComodityLoader = require("../../../../loader/garment-comodities-loader");
 const SectionLoader = require('../../../../loader/garment-sections-loader');
