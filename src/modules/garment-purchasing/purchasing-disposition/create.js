@@ -89,15 +89,25 @@ export class Create {
             // this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;
             this.data.Amount = parseFloat((this.data.DPP+vatCalculate+this.data.MiscAmount)-incomeTaxCalculate).toFixed(3);
             // this.data.IncomeTaxValue = this.data.IncomeTaxValueView;
-            // this.data.VatValue = this.data.VatValueView;
-            
+            // this.data.VatValue = this.data.VatValueView;   
         }
         
-        this.service.create(this.data)
+
+        let filledData = this.data.Items.filter(function (item) {
+            return item.EPONo != undefined;
+        });
+        var valueArr = filledData.map(function (item) { return item.EPONo });
+
+        var isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item, idx + 1) !== -1
+        });
+
+
+        if(!isDuplicate){
+            this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                console.log(this.data);
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
                 if (e.statusCode == 500) {
@@ -106,6 +116,27 @@ export class Create {
                     this.error = e;
                 }
             })
+        }
+        else{
+            alert("Terdapat No. PO External yang Sama");
+        }
+
+
+        // this.service.create(this.data)
+        //     .then(result => {
+        //         alert("Data berhasil dibuat");
+        //         console.log(this.data);
+        //         this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+        //     })
+        //     .catch(e => {
+        //         if (e.statusCode == 500) {
+        //             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+        //         } else {
+        //             this.error = e;
+        //         }
+        //     })
+
+
         // console.log(this.data);
     }
 }
