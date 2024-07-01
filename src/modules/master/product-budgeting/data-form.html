@@ -27,13 +27,14 @@
                          value.bind="Currency"
                          error.bind="error.currency"
                          loader.bind="currencyLoader"
-                         read-only.bind="(readOnly || isEdit)"
+                         read-only.bind="readOnly"
                          key="Symbol"
                          text="Code"></au-autocomplete>
 
         <!-- <au-numeric label="Harga"
                     value.bind="data.Price"
                     error.bind="error.price"
+                     read-only.bind="(readOnly || isEdit)"
                     read-only.bind="readOnly"></au-numeric> -->
                     
         <au-numeric label="Harga"
