@@ -2,7 +2,8 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
-var UnitLoader = require('../../../../loader/unit-loader');
+
+const UnitLoader = require('../../../../loader/garment-units-loader');
 
 @inject(Router, Service)
 export class List {
@@ -19,6 +20,11 @@ export class List {
       
     get unitLoader() {
         return UnitLoader;
+    }
+
+    get unitQuery(){
+        var result = { "Description" : "GARMENT" }
+        return result;   
     }
 
     activate() {
