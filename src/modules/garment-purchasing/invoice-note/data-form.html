@@ -15,7 +15,7 @@
         <au-datepicker label="Tgl. Invoice" value.bind="data.invoiceDate" error.bind="error.invoiceDate" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
-        <au-autocomplete value.bind="supplier" error.bind="error.supplier" label="Supplier" loader.bind="supplierLoader" text.bind="supplierView"
+        <au-autocomplete value.bind="supplier" error.bind="error.supplier" label="Supplier" loader.bind="supplierLoader" query.bind="supplierQuery" text.bind="supplierView"
             placeholder="cari supplier" key="code" read-only.bind="readO" options.bind="controlOptions"    read-only.bind="isReadOnly" >
         </au-autocomplete>
 

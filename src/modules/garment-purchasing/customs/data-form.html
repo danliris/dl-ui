@@ -53,7 +53,7 @@
 
 
         <au-autocomplete value.bind="data.supplier" error.bind="error.supplier" label="Supplier"
-            loader.bind="supplierLoader" placeholder="Cari Supplier" read-only.bind="readOnly || isEdit"
+            loader.bind="supplierLoader" query.bind="supplierQuery" placeholder="Cari Supplier" read-only.bind="readOnly || isEdit"
             change.delegate="supplierChange($event)" text.bind="supplierView" options.bind="controlOptions">
         </au-autocomplete>
 
