@@ -267,6 +267,11 @@ export class DataForm {
     return SupplierLoader;
   }
 
+  get supplierQuery(){
+    var result = { "Active" : true }
+    return result;   
+  }
+
   get unitLoader() {
     return UnitLoader;
   }

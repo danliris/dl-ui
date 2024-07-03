@@ -80,6 +80,11 @@ export class DataForm {
         return `${supplier.code} - ${supplier.name}`
     }
 
+    get supplierQuery(){
+       var result = { "Active" : true }
+       return result;   
+    }
+
     resetErrorItems() {
         if (this.error) {
             if (this.error.items) {
