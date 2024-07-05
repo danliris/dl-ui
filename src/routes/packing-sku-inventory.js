@@ -778,4 +778,20 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: 'packing-sku-inventory/dyeing-printing-shipping-output',
+    name: 'dyeing-printing-shipping-output',
+    moduleId: './modules/packing-sku-inventory/dyeing-printing-shipping-output/index',
+    nav: true,
+    title: 'Pengelurana Shipping DP - Penjualan & Buyer',
+    auth: true,
+    settings: {
+      group: "ps-inventory",
+      subGroup: "shipping",
+      // permission: { "C9": 1, "F1": 1, "F2": 1, "A2": 1, "W2": 1 },
+      //permission :{"S28":1},
+      permission : {"S46" : 1},
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ];
