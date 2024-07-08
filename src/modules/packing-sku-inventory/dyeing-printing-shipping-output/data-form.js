@@ -94,7 +94,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.type = this.context.type;
-    console.log(this.type);
+    console.log(this.data);
 
     this.data.area = "SHIPPING";
 
@@ -112,6 +112,9 @@ export class DataForm {
     if (this.data.destinationArea) {
       this.destinationArea = this.data.destinationArea;
     }
+
+    console.log(this.destinationArea);
+    console.log(this.isEdit);
 
     if (this.destinationArea !== "BUYER") {
 
@@ -244,6 +247,8 @@ export class DataForm {
         
       } else {
         if (this.isEdit) {
+
+          console.log("check");
           this.itemColumns = [
             "No. SPP",
             "Buyer",
@@ -265,6 +270,7 @@ export class DataForm {
             ""
           ];
         } else {
+          console.log("check1");
           this.itemColumns = [
             "No. SPP",
             "Buyer",
@@ -295,9 +301,10 @@ export class DataForm {
       type: this.type,
       destinationArea: this.destinationArea
     };
-  
+    console.log(this.data.type);
     if (this.data.type == "OUT") {
       if (this.data.shippingItems) {
+        console.log("masuk");
         this.data.displayShippingProductionOrders = this.data.shippingItems;
       }
     } else {
@@ -316,6 +323,8 @@ export class DataForm {
     if (this.ItemsCollection) {
       this.ItemsCollection.bind();
     }
+
+    console.log(this.data.displayShippingProductionOrders );
   }
   addItemCallback = (e) => {
     this.data.adjShippingProductionOrders =
@@ -442,7 +451,8 @@ export class DataForm {
                 "Panjang Packing",
                 "Qty Keluar",
                 "Berat (KG)",
-                "BonNo"
+                "BonNo",
+                ""
               ];
 
           }
@@ -532,7 +542,7 @@ export class DataForm {
               "Bale",
               "Net",
               "Gross",
-              ""
+              
             ];
           } else {
             this.itemColumns = [

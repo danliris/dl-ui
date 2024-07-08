@@ -13,15 +13,15 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.type = false;
+        this.data.type = "OUT";
         // if (this.data.type == "OUT") {
         //     this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
         // }
 
         //this.spp = await this.service.getSPPbySC(this.data.salesContractNo);
-        this.canEdit =  this.data.shippingProductionOrders.some(s => s.hasNextAreaDocument === false);
+        this.canEdit =  this.data.destinationArea == "BUYER" && this.data.updateBySales == false;
 
-        console.log(this.data.shippingProductionOrders);
+        console.log(this.data.shippingItems);
 
     }
 

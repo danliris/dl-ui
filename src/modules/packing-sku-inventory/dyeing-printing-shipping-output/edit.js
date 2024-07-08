@@ -13,9 +13,10 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if(this.data.type == "OUT"){
-            this.data.shippingProductionOrders = this.data.shippingProductionOrders.filter(s => s.hasNextAreaDocument === false);
-        }
+        this.data.type = "OUT";
+        // if(this.data.type == "OUT"){
+        //     this.data.shippingItems = this.data.shippingItems;
+        // }
         
     }
 
