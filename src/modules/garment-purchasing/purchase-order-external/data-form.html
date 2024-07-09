@@ -21,7 +21,7 @@
                 </au-textbox>
 
                 <au-autocomplete value.bind="selectedSupplier" error.bind="error.Supplier" label="Supplier"
-                    loader.bind="supplierLoader" text.bind="supplierView" placeholder="cari supplier" key="code"
+                    loader.bind="supplierLoader" query.bind="supplierQuery" text.bind="supplierView" placeholder="cari supplier" key="code"
                     read-only.bind="readOnly" options.bind="controlOptions">
                 </au-autocomplete>
 

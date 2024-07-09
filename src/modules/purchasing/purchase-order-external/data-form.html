@@ -81,7 +81,7 @@
                  read-only.bind="readOnly"
                  items.bind="termPaymentOptions"
                  change.delegate="paymentMethodChanged($event)"
-                 options.bind="controlOptions">
+                 options.bind="controlOptions">p
     </au-dropdown>
 
     <au-dropdown if.bind="data.paymentMethod=='CASH'"
@@ -99,6 +99,7 @@
                      loader.bind="supplierLoader"
                      text.bind="supplierView"
                      placeholder="cari supplier"
+                     query.bind="supplierQuery"
                      key="code"
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
