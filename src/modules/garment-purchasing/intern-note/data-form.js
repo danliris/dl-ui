@@ -130,6 +130,11 @@ export class DataForm {
         return SupplierLoader;
     }
 
+    get supplierQuery(){
+        var result = { "Active" : true }
+        return result;   
+    }
+
     currencyView = (currency) => {
         var code=currency.code? currency.code : currency.Code;
         return `${code}`
