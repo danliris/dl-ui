@@ -71,6 +71,10 @@ export class View {
         //   UENNo: this.data.Items[0].UENNo,
         // };
       }
+
+      if (this.data.SubconCategory == "SUBCON SEWING") {
+        this.editCallback = null;
+      }
     }
   }
 
