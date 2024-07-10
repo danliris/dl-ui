@@ -39,8 +39,6 @@ export class DataForm {
   async selectedFilterRolesChanged(n, o) {
     // if (this.selectedFilterSPP) {
 
-    console.log(n);
-    console.log(o);
     this.dataRoles = n;
     this.isStatus = true;
     this.loader();
@@ -96,6 +94,7 @@ export class DataForm {
       this.dashdp = [];
       this.itinv = [];
       this.gReceiptSub = [];
+      this.h2h = [];
 
       this.data.permissions.menu = result.data;
 
@@ -295,26 +294,15 @@ export class DataForm {
           } else {
             this.gReceiptSub.push(data);
           }
+        } else if (data.Menu === "H2H-CEISA") {
+          if (selectedCode.includes(data.Code) === true) {
+            data.isEdit = true;
+            this.h2h.push(data);
+          } else {
+            this.h2h.push(data);
+          }
         }
       }
-
-      // this.auth = auth;
-      // this.master = master;
-      // this.prod = prod;
-      // this.spin = spin;
-      // this.purch = purh;
-      // this.sale = sale;
-      // this.invt = invt;
-      // this.gpurh = gpurh;
-      // this.gmast = gmast;
-      // this.gfin = gfin;
-      // this.fin = fin;
-      // this.md = md;
-      // this.weav = weav;
-      // this.acc = acc;
-      // this.gprod = gprod;
-      // this.gshipp = gshipp;
-      // this.gsubc = gsubc;
 
       this.fillTableAuth();
       this.fillTableMaster();
@@ -340,7 +328,34 @@ export class DataForm {
       this.fillTableDash();
       this.fillTableItInve();
       this.filltableGReceiptSub();
+      this.filltableH2H();
     });
+  }
+
+  filltableH2H() {
+    //PREPARING
+    let columns = [];
+    columns.push({ field: "Menu", title: "Menu", width: 200 });
+    columns.push({ field: "SubMenu", title: "SubMenu", width: 200 });
+    columns.push({
+      field: "isEdit",
+      title: "",
+      checkbox: true,
+      sortable: false,
+      width: 20,
+    });
+    columns.push({ field: "MenuName", title: "MenuName" });
+
+    var bootstrapTableOptions = {
+      columns: columns,
+      data: this.h2h,
+      fixedColumns: false,
+      fixedNumber: 1,
+    };
+
+    $(this.tableH2H)
+      .bootstrapTable("destroy")
+      .bootstrapTable(bootstrapTableOptions);
   }
 
   filltableGReceiptSub() {
