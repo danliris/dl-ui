@@ -64,6 +64,7 @@ export class Edit {
       this.dashdp = [];
       this.itinv = [];
       this.gReceiptSub = [];
+      this.h2h = [];
 
       this.menu = result.data;
       for (var data of this.menu) {
@@ -235,6 +236,13 @@ export class Edit {
           } else {
             this.gReceiptSub.push(data);
           }
+        } else if (data.Menu === "H2H-CEISA") {
+          if (selectedCode.includes(data.Code) === true) {
+            data.isEdit = true;
+            this.h2h.push(data);
+          } else {
+            this.h2h.push(data);
+          }
         }
       }
 
@@ -266,8 +274,40 @@ export class Edit {
       this.fillTableDash();
       this.fillTableItInve();
       this.filltableGReceiptSub();
+      this.filltableH2H();
     });
   }
+
+  filltableH2H() {
+    //PREPARING
+    let columns = [];
+    columns.push({ field: "Menu", title: "Menu", width: 200 });
+    columns.push({ field: "SubMenu", title: "SubMenu", width: 200 });
+    columns.push({
+      field: "isEdit",
+      title: "",
+      checkbox: true,
+      sortable: false,
+      width: 20,
+    });
+    columns.push({ field: "MenuName", title: "MenuName" });
+    // columns.push({ field: 'permission', value:1 });
+
+    var bootstrapTableOptions = {
+      columns: columns,
+      data: this.h2h,
+      fixedColumns: false,
+      fixedNumber: 1,
+    };
+    //bootstrapTableOptions.height = 150;
+
+    $(this.tableH2H)
+      .bootstrapTable("destroy")
+      .bootstrapTable(bootstrapTableOptions);
+
+    // console.log(bootstrapTableOptions);
+  }
+
   filltableGReceiptSub() {
     //PREPARING
     let columns = [];
