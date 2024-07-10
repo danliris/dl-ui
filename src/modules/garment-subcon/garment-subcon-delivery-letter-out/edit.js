@@ -110,8 +110,10 @@ export class View {
 
   async GetUEN() {
     if (
-      (this.data.SubconCategory == "SUBCON JASA KOMPONEN" ||
-        this.data.SubconCategory == "SUBCON SEWING") &&
+      (this.data.SubconCategory == "SUBCON JASA KOMPONEN"
+        // ||
+        // this.data.SubconCategory == "SUBCON SEWING"
+      ) &&
       this.data.Items[0].Details.length > 0
     ) {
       this.purchasingService
@@ -232,6 +234,18 @@ export class View {
         }
       }
     }
+
+    if (this.data.SubconCategory == "SUBCON SEWING") {
+      this.data.Items.forEach(item => {
+        var details = [];
+        item.newDetailsss.forEach(detail => {
+          details.push(detail)
+        });
+
+        item.Details = details;
+      });
+    }
+
     this.service
       .update(this.data)
       .then((result) => {

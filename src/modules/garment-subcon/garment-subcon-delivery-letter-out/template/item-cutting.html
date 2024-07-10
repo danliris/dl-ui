@@ -82,10 +82,11 @@
     </td>
   </tr>
 
-  <tr show.bind="data.SubconId">
+  <tr show.bind="data.RONo">
     <td colspan="8">
-      <div class="card" style="background-color: transparent; color: black">
-        <div style="padding-top: 10px; padding-bottom: 10px; max-width: 70%">
+      <!-- <div class="card" style="background-color: transparent; color: black"> -->
+        <!-- OldCode -->
+        <!-- <div style="padding-top: 10px; padding-bottom: 10px; max-width: 70%">
           <au-autocomplete
             value.bind="selectedUENAcc"
             error.bind="error.UENAccNo"
@@ -109,8 +110,36 @@
             item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/detail-service-component"
           >
           </au-collection>
-        </div>
-      </div>
+        </div> -->
+
+        <au-collection
+        items.bind="data.Details"
+        errors.bind="error.Details"
+        columns.bind="columnsBUK"
+        read-only.bind="readOnly"
+        options.bind="itemOptions"
+        item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/detail-sew-acc"
+        remove.bind="removeItems"
+        add.bind="addItemsBUK"
+        title="BUK Accescories"
+        if.bind="isCreate"
+      >
+      </au-collection>
+
+        <au-collection
+        items.bind="newDetailsss"
+        errors.bind="error.Details"
+        columns.bind="columnsBUK"
+        read-only.bind="readOnly"
+        options.bind="itemOptions"
+        item-template="modules/garment-subcon/garment-subcon-delivery-letter-out/template/detail-sew-acc"
+        remove.bind="removeItems"
+        add.bind="addItemsBUK"
+        title="BUK Accescories"
+        if.bind="!isCreate"
+      >
+      </au-collection>
+      <!-- </div> -->
     </td>
   </tr>
 </template>
