@@ -49,7 +49,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Nama Supplier, Alamat, Komtak, PIC, Import, NPWP, Serial Number ");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Nama Supplier, Negara, Alamat, Komtak, PIC, Import, NPWP, Serial Number ");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");

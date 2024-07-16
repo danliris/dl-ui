@@ -49,7 +49,7 @@ export class Create {
                         this.list();
                     }
                     else if (response.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode, Nama Supplier, Alamat, Kontak, PIC, Import, Kena PPN, Kena PPH, Jenis PPH, Rate PPH, NPWP, Serial Number ");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format Kolom: Kode, Nama Supplier, Alamat, Negara, Kontak, PIC, Import, Kena PPN, Kena PPH, Jenis PPH, Rate PPH, NPWP, Serial Number ");
                     }
                     else if (response.status == 201) {
                         alert("Data Berhasil Diupload");
