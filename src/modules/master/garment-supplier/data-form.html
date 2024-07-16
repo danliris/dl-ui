@@ -93,6 +93,14 @@
               error.bind="error.address"
               read-only.bind="readOnly"
             ></au-multiline> 
+
+            <au-dropdown
+                label="Negara"
+                value.bind="data.country"
+                error.bind="error.country"
+                read-only.bind="readOnly"
+                items.bind="countries"
+            ></au-dropdown>
       </fieldset>
 
       <template replaceable part="actions"></template>
