@@ -8,12 +8,13 @@ export class Detail {
 
   async activate(context) {
     this.context = context;
-  
+
     this.data = context.data;
     this.error = context.error;
     this.isCreate = context.context.options.isCreate;
     this.isEdit = context.context.options.isEdit;
     this.itemOptions = context.context.options;
+    this.itemOptions.isCutSew = true;
     this.isShowing = false;
 
     if (this.data.Details) {
@@ -58,7 +59,9 @@ export class Detail {
       let uenNo = [];
 
       this.context.context.items.map((x) => {
-        x.data.Details.map((y) => { uenNo.push(y.UENNo);});
+        x.data.Details.map((y) => {
+          uenNo.push(y.UENNo);
+        });
       });
 
       return this.purchasingService.getUENByNo(info).then((result) => {
@@ -80,32 +83,41 @@ export class Detail {
   // @computedFrom("data.DLType && data.OrderType")
   get UENFilter() {
     var UENFilter = {};
-      if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
-        UENFilter = {
-          IsPreparing: false,
-          ExpenditureType: "SUBCON",
-          StorageName: "GUDANG ACCESSORIES",
-        };
-      } else if (this.data.DLType == "PROSES" && this.data.OrderType == "SAMPLE") {
-        UENFilter = {
-          IsPreparing: false,
-          ExpenditureType: "SUBCON",
-          StorageName: "GUDANG ACCESSORIES",
-          UnitRequestCode: "SMP1",
-        };
-      } else if (this.data.DLType != "PROSES" && this.data.OrderType == "JOB ORDER") {
-        UENFilter = {
-          ExpenditureType: "SUBCON",
-          StorageName: "GUDANG ACCESSORIES",
-        };
-      } else if (this.data.DLType != "PROSES" && this.data.OrderType == "SAMPLE") {
-        UENFilter = {
-          ExpenditureType: "SUBCON",
-          StorageName: "GUDANG ACCESSORIES",
-          UnitRequestCode: "SMP1",
-        };
-      }
-      return UENFilter;
+    if (this.data.DLType == "PROSES" && this.data.OrderType == "JOB ORDER") {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+      };
+    } else if (
+      this.data.DLType == "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        IsPreparing: false,
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "JOB ORDER"
+    ) {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+      };
+    } else if (
+      this.data.DLType != "PROSES" &&
+      this.data.OrderType == "SAMPLE"
+    ) {
+      UENFilter = {
+        ExpenditureType: "SUBCON",
+        StorageName: "GUDANG ACCESSORIES",
+        UnitRequestCode: "SMP1",
+      };
+    }
+    return UENFilter;
   }
 
   async selectedUENChanged(newValue) {
@@ -119,7 +131,7 @@ export class Detail {
       this.data.Details.splice(0);
     }
   }
-    
+
   async GetUEN(newValue, dataArr, uenNo, uenId) {
     this.purchasingService
       .getUnitDeliveryOrderById(newValue.UnitDOId)
@@ -165,7 +177,7 @@ export class Detail {
                   Id: uenItem.UomId,
                   Unit: uenItem.UomUnit,
                 };
-    
+
                 if (uenItem.ProductName == "FABRIC") {
                   item.UomOut = {
                     Id: 43,
@@ -177,17 +189,18 @@ export class Detail {
                     Unit: uenItem.UomUnit,
                   };
                 }
-    
+
                 item.ProductRemark = uenItem.ProductRemark;
                 var doItem = deliveryOrder.Items.find(
                   (a) => a._id == uenItem.UnitDOItemId
                 );
-    
+
                 if (doItem) {
                   item.DesignColor = doItem.DesignColor;
                 }
                 item.FabricType = uenItem.FabricType;
                 item.ContractQuantity = uenItem.Quantity;
+                item.Quantity = uenItem.Quantity;
                 item.UENNo = uenNo;
                 item.UENId = uenId;
                 item.DLType = this.data.DLType;
@@ -199,4 +212,3 @@ export class Detail {
       });
   }
 }
-
