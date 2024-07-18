@@ -11,6 +11,7 @@ export class List {
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
     { field: "address", title: "Alamat" },
+    { field: "country", title: "Negara" },
     { field: "NPWP", title: "NPWP" },
     {
       field: "import", title: "Import",
@@ -42,7 +43,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select:["code","name","address","import","NPWP"],
+      select:["code","name","address","country","import","NPWP"],
       order: order
     }
 
