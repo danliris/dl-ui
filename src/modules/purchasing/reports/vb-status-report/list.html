@@ -61,6 +61,20 @@
       </au-datepicker>
 
       <au-datepicker
+        label="Tanggal Awal Approval VB"
+        value.bind="approvalStartDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
+        label="Tanggal Akhir Approval VB"
+        value.bind="approvalEndDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
         label="Tanggal Awal Realisasi VB"
         value.bind="realizeStartDate"
         options.bind="controlOptions"
@@ -75,14 +89,14 @@
       </au-datepicker>
 
       <au-datepicker
-        label="Tanggal Awal Clearance VB"
+        label="Tanggal Awal Realisasi Kasir"
         value.bind="clearanceStartDate"
         options.bind="controlOptions"
       >
       </au-datepicker>
 
       <au-datepicker
-        label="Tanggal Akhir Clearance VB"
+        label="Tanggal Akhir Realisasi Kasir"
         value.bind="clearanceEndDate"
         options.bind="controlOptions"
       >
