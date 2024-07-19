@@ -57,6 +57,34 @@
       error.bind="error.dateTo"
     >
     </au-datepicker>
+    
+    <au-datepicker
+      value.bind="info.approvalFrom"
+      label="Tanggal Awal Realisasi Kasir"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+    <au-datepicker
+      value.bind="info.approvalTo"
+      label="Tanggal Akhir Realisasi Kasir"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+     <!--<au-datepicker
+        label="Tanggal Awal Clearance VB"
+        value.bind="clearanceFrom"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
+        label="Tanggal Akhir Clearance VB"
+        value.bind="clearanceTo"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>-->
 
     <au-autocomplete
       placeholder="pilih divisi"

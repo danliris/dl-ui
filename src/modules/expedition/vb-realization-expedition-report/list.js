@@ -65,6 +65,9 @@ export class List {
         return value ? moment(value).format("DD/MM/YYYY") : "-";
       },
     },
+    { field: "TakenBy", title: "Nama Pengambil VB" },
+    { field: "PhoneNumber", title: "Nomor Telepon" },
+    { field: "Email", title: "Email Pembuat VB" },
     // {
     //     field: 'SalesReceiptDate', title: 'Mata Uang VB',
     //     formatter: function (value, data, index) {
@@ -185,6 +188,9 @@ export class List {
         return value ? moment.utc(value).local().format("DD MMM YYYY") : "-";
       },
     },
+    { field: "TakenBy", title: "Nama Pengambil VB" },
+    { field: "PhoneNumber", title: "Nomor Telepon" },
+    { field: "Email", title: "Email Pembuat VB" },
   ];
 
   controlOptions = {
@@ -239,6 +245,18 @@ export class List {
     if (this.info.dateTo)
       arg.dateEnd = moment(this.info.dateTo).format("YYYY-MM-DD");
 
+    if (this.info.approvalFrom)
+      arg.approvalStart = moment(this.info.approvalFrom).format("YYYY-MM-DD");
+
+    if (this.info.approvalTo)
+      arg.approvalEnd = moment(this.info.approvalTo).format("YYYY-MM-DD");
+
+    // if (this.info.clearanceFrom)
+    //   arg.clearanceStart = moment(this.info.clearanceFrom).format("YYYY-MM-DD");
+
+    // if (this.info.clearanceTo)
+    //   arg.clearanceEnd = moment(this.info.clearanceTo).format("YYYY-MM-DD");
+
     if (this.info.division && this.info.division.Id)
       arg.divisionId = this.info.division.Id;
 
@@ -274,6 +292,22 @@ export class List {
       dateEnd:
         (this.info.dateTo && moment(this.info.dateTo).format("YYYY-MM-DD")) ||
         undefined,
+
+      approvalStart:
+        (this.info.approvalFrom &&
+          moment(this.info.approvalFrom).format("YYYY-MM-DD")) ||
+        undefined,
+      approvalEnd:
+        (this.info.approvalTo && moment(this.info.approvalTo).format("YYYY-MM-DD")) ||
+        undefined,
+
+      // clearanceStart:
+      //   (this.info.clearanceFrom &&
+      //     moment(this.info.clearanceFrom).format("YYYY-MM-DD")) ||
+      //   undefined,
+      // clearanceEnd:
+      //   (this.info.clearanceTo && moment(this.info.clearanceTo).format("YYYY-MM-DD")) ||
+      //   undefined,
       status: this.info.status,
     };
 
@@ -295,6 +329,10 @@ export class List {
     this.info.status = "Semua";
     this.info.dateFrom = undefined;
     this.info.dateTo = undefined;
+    this.info.approvalFrom = undefined;
+    this.info.approvalTo = undefined;
+    // this.info.clearanceFrom = undefined;
+    // this.info.clearanceTo = undefined;   
     this.info.division = 0;
     this.selectedDivision = null;
     this.tableList.refresh();

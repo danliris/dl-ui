@@ -35,7 +35,9 @@ export class Create {
         },
         { field: "CurrencyCode", title: "Mata Uang" },
         { field: "CreatedBy", title: "Pemohon" },
-        { field: "SuppliantUnitName", title: "Unit" }
+        { field: "SuppliantUnitName", title: "Unit" },
+        { field: "TakenBy", title: "Nama Pengambil VB" },
+        { field: "PhoneNumber", title: "Nomor Telepon" }
     ];
 
     tableOptions = {
