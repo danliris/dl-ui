@@ -35,6 +35,9 @@ export class List {
         this.filterAccount = {"roles.0.permissions.0.unit.name.toUpper()":"PENJUALAN FINISHING & PRINTING"};
     }
 
+    poTypes = null;
+    poTypes = ['SALES', 'UNIT'];
+
     tableOptions = {
         search: false,
         showToggle: false,
@@ -44,12 +47,13 @@ export class List {
     Values() {
         this.arg.dateFrom = this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null;
         this.arg.dateTo = this.edate ? moment(this.edate).format("YYYY-MM-DD") : null;
-        this.arg.salesContractNo = this.salesContractNo ? this.salesContractNo : null;
+        // this.arg.salesContractNo = this.salesContractNo ? this.salesContractNo : null;
+        this.arg.poType = this.poType ? this.poType : null;
         this.arg.orderNo = this.productionOrder ? this.productionOrder.OrderNo : null;
-        this.arg.orderTypeId = this.orderType ? this.orderType.Id : null;
-        this.arg.processTypeId = this.processType ? this.processType.Id : null;
-        this.arg.buyerId = this.buyer ? this.buyer.Id : null;
-        this.arg.accountId = this.account ? this.account._id : null;
+        this.arg.orderTypeId = this.orderType ? this.orderType.Name : null;
+        this.arg.processTypeId = this.processType ? this.processType.Name : null;
+        this.arg.buyerId = this.buyer ? this.buyer.Code : null;
+        this.arg.accountId = this.account ? this.account.username : null;
         this.arg.construction = this.construction ? this.construction.Code : null;
     }
 
@@ -116,14 +120,16 @@ export class List {
             order: order,
             dateFrom : this.sdate ? moment(this.sdate).format("YYYY-MM-DD") : null,
             dateTo : this.edate ? moment(this.edate).format("YYYY-MM-DD") : null,
-            salesContractNo : this.salesContractNo ? this.salesContractNo : null,
+           // salesContractNo : this.salesContractNo ? this.salesContractNo : null,
+            poType : this.poType ? this.poType : null,
             orderNo : this.productionOrder ? this.productionOrder.OrderNo : null,
-            orderTypeId : this.orderType ? this.orderType.Id : null,
-            processTypeId : this.processType ? this.processType.Id : null,
-            buyerId : this.buyer ? this.buyer.Id : null,
-            accountId : this.account ? this.account._id : null,
+            orderTypeId : this.orderType ? this.orderType.Name : null,
+            processTypeId : this.processType ? this.processType.Name : null,
+            buyerId : this.buyer ? this.buyer.Code : null,
+            accountId : this.account ? this.account.username : null,
             construction : this.construction ? this.construction.Code : null,
         };
+        console.log(this.arg);
 
         return this.listDataFlag ? (
             this.Values(),
@@ -145,7 +151,7 @@ export class List {
     reset() {
         this.sdate = null;
         this.edate = null;
-        this.salesContractNo = '';
+        this.poType = '';
         this.productionOrder = undefined;
         this.orderType = null;
         this.processType = null;
