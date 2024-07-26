@@ -22,6 +22,14 @@
                     placeholder="Pilih Nomor SPP">
                 </au-textbox> -->
 
+                <au-dropdown
+                   label="Jenis SPP"
+                   value.bind="poType"
+                   error.bind="error.poType"
+                   read-only.bind="readOnly"
+                   items.bind="poTypes">
+                </au-dropdown>  
+
                 <au-autocomplete 
                     value.bind="productionOrder" 
                     label="Nomor Order Produksi" 

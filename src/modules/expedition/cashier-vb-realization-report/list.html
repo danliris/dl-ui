@@ -1,0 +1,102 @@
+<template>
+  <h1 class="page-header">Laporan Kasir - Realisasi VB</h1>
+
+  <form class="form-horizontal">
+   
+     <au-dropdown
+        label="Divisi"
+        value.bind="divisionName"
+        error.bind="error.divisionName"
+        read-only.bind="readOnly"
+        items.bind="divisions"
+        options.bind="controlOptions">
+     </au-dropdown>
+
+      <au-datepicker
+        label="Tanggal Awal Approval VB"
+        value.bind="approvalStartDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
+        label="Tanggal Akhir Approval VB"
+        value.bind="approvalEndDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
+        label="Tanggal Awal Realisasi VB"
+        value.bind="realizeStartDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+      <au-datepicker
+        label="Tanggal Akhir Realisasi VB"
+        value.bind="realizeEndDate"
+        options.bind="controlOptions"
+      >
+      </au-datepicker>
+
+
+    <au-dropdown
+        label="VB / Realisasi"
+        value.bind="isInklaring"
+        error.bind="error.isInklaring"
+        read-only.bind="readOnly"
+        items.bind="inklaringTypes"
+        options.bind="controlOptions">
+     </au-dropdown>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="searching()" class="btn btn-success">Cari</button>
+        <button click.delegate="reset()" class="btn btn-success">Reset</button>
+      </div>
+    </div>
+
+     <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+     </div>
+        <br>
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <td align="center" rowspan="2">NO.</td>
+                    <td align="center" rowspan="2">TGL APPROVAL REALISASI VB</td>
+                    <td align="center" rowspan="2">NOMOR REALISASIU VB</td>
+                    <td align="center" rowspan="2">MATA UANG</td>
+                    <td align="center" rowspan="2">NOMINAL REALISASI VB</td>
+                    <td align="center" rowspan="2">KEPERLUAN REALISASI VB</td>
+                    <td align="center" rowspan="2">PEMBUAT REALISASI VB</td>
+                    <td align="center" rowspan="2">PENGAMBIL REALISASI VB</td>
+                    <td align="center" rowspan="2">NO. TELP</td>
+                    <td align="center" rowspan="2">EMAIL PEMBUAT REALISASI VB</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data">
+                    <td class="text-center"> ${$index + 1}</td>                        
+                    <td>${item.RealizationDate}</td>
+                    <td>${item.DocumentNo}</td>                  
+                    <td>${item.CurrencyCode}</td>
+                    <td>${item.Amount}</td>
+                    <td>${item.Remark}</td>
+                    <td>${item.CreateBy}</td>
+                    <td>${item.TakenBy}</td>
+                    <td>${item.PhoneNumber}</td>
+                    <td>${item.Email}</td>
+                </tr>                    
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+            Tidak Ada Data Yang Ditemukan.
+        </div>
+        <hr/>
+
+  </form>
+
+</template>
