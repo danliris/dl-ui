@@ -9,7 +9,12 @@ export class List {
     { field: "Code", title: "Kode Brand" },
     { field: "Name", title: "Nama Brand" },
     { field: "BuyerName", title: "Buyer Agent" },
-    
+    {
+      field: "IsPosted", title: "Active",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+    }
+    },
   ];
 
   loader = (info) => {
@@ -22,7 +27,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code", "Name","BuyerName"],
+      select: ["Code", "Name","BuyerName","IsPosted"],
       order: order
     }
 

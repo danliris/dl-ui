@@ -23,7 +23,6 @@ export class Service extends RestService {
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-    console.log(data);  
   }
 
   update(data) {
