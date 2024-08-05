@@ -35,10 +35,16 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/download`;
         var query = '';
 
-        if (info.salesContractNo) {
-            if (query === '') query = `salesContractNo=${info.salesContractNo}`;
-            else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        // if (info.salesContractNo) {
+        //     if (query === '') query = `salesContractNo=${info.salesContractNo}`;
+        //     else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        // }
+
+        if (info.poType) {
+            if (query === '') query = `poType=${info.poType}`;
+            else query = `${query}&poType=${info.poType}`;
         }
+
         if (info.orderNo) {
             if (query === '') query = `orderNo=${info.orderNo}`;
             else query = `${query}&orderNo=${info.orderNo}`;
@@ -80,9 +86,13 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/download2`;
         var query = '';
 
-        if (info.salesContractNo) {
-            if (query === '') query = `salesContractNo=${info.salesContractNo}`;
-            else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        // if (info.salesContractNo) {
+        //     if (query === '') query = `salesContractNo=${info.salesContractNo}`;
+        //     else query = `${query}&salesContractNo=${info.salesContractNo}`;
+        // }
+        if (info.poType) {
+            if (query === '') query = `poType=${info.poType}`;
+            else query = `${query}&poType=${info.poType}`;
         }
         if (info.orderNo) {
             if (query === '') query = `orderNo=${info.orderNo}`;
