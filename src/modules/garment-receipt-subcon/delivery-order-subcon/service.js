@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = "garment-subcon-delivery-orders";
 const serviceUriPR = "garment-purchase-requests";
+const serviceUriEPO = "garment-external-purchase-orders";
 
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -39,6 +40,11 @@ class Service extends RestService {
 
   getPR(info) {
     var endpoint = `${serviceUriPR}/dynamic-subcon`;
+    return super.list(endpoint, info);
+  }
+
+  getEPO(info) {
+    var endpoint = `${serviceUriEPO}/dynamic-subcon`;
     return super.list(endpoint, info);
   }
 

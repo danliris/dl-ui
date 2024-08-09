@@ -29,6 +29,7 @@ export class DataForm {
   };
   itemsInfo = {
     columns: [
+      { header: "No PO External" },
       { header: "Barang" },
       { header: "Nomor PO" },
       { header: "Keterangan" },
@@ -91,6 +92,8 @@ export class DataForm {
 
     if (this.data.Id) {
       this.options.CostCalculationId = this.data.costCalculationId;
+      this.options.RONo = this.data.roNo;
+      this.options.SupplierId = this.data.supplier.id || this.data.supplier.Id;
     }
 
     this.filterCC = {
@@ -100,16 +103,12 @@ export class DataForm {
     };
   }
 
-  // @computedFrom("data.Id")
-  // get isEdit() {
-  //   return (this.data.Id || "").toString() != "";
-  // }
-
   supplierChanged(newValue, oldValue) {
     var selectedSupplier = newValue;
     if (selectedSupplier) {
       if (selectedSupplier.Id) {
         this.data.supplier = selectedSupplier;
+        this.options.SupplierId = selectedSupplier.Id;
       }
     } else {
       this.data.supplier = {};
@@ -143,6 +142,7 @@ export class DataForm {
       this.data.article = selectedCC.Article;
       //inject CC id for Filter Item
       this.options.CostCalculationId = this.data.costCalculationId;
+      this.options.RONo = this.data.roNo;
     }
     this.data.items = [];
     this.resetErrorItems();
