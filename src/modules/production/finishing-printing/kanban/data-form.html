@@ -88,6 +88,14 @@
       options.bind="controlOptions">
     </au-textbox>
 
+    <au-textbox 
+      label="Standard Test" 
+      value.bind="data.ProductionOrder.StandardTestName"
+      read-only.bind="true"
+      if.bind="hasProductionOrder"
+      options.bind="controlOptions">
+    </au-textbox>
+
     <au-dropdown 
       label="Color" 
       value.bind="data.SelectedProductionOrderDetail" 
