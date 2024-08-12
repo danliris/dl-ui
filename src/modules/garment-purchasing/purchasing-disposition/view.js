@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import * as _ from 'underscore';
 
 
 @inject(Router, Service)
@@ -100,12 +101,44 @@ export class View {
                     CreatedUtc: item.CreatedUtc,
                     LastModifiedAgent: item.LastModifiedAgent,
                     LastModifiedBy: item.LastModifiedBy,
-                    LastModifiedUtc: item.LastModifiedUtc
+                    LastModifiedUtc: item.LastModifiedUtc,
+                    Invoice : item.Invoice
                 };
                 return mappingItem;
             });
+
+
+            var groupObj = _.groupBy(this.data.Items, 'Invoice');
+
+            var mappedGroup = _.map(groupObj);
+
+            var ItemGroups = [];
+
+            mappedGroup.forEach((element, index) => {
+                var headData = {};
+                element.forEach((x, i) => {
+                    
+                    if (i == 0) {
+                        
+                        headData = x;
+                        headData.Items = [];
+                        
+                    }
+                    
+                    if (headData.Items != undefined) {
+                        headData.Items.push(x);
+                    }
+                });
+                // var headData = element[0]
+                
+                //     headData.PackagingList = element;
+                ItemGroups.push(headData);
+            });
+
+            this.data.Items = ItemGroups;
+
         }
-        console.log("view by id", this.data);
+        //console.log("view by id", this.data);
         // this.data.Items
         // console.log("view",this.data);
     }
