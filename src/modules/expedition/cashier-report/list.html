@@ -54,8 +54,10 @@
                     <td align="center" rowspan="2">UMUR VB (HARI)</td>
                     <td align="center" rowspan="2">TGL APPROVAL VB</td>
                     <td align="center" rowspan="2">NOMOR VB</td>
+                    <td align="center" rowspan="2">NAMA APPROVE</td>
                     <td align="center" rowspan="2">MATA UANG</td>
                     <td align="center" rowspan="2">NOMINAL VB</td>
+                    <td align="center" rowspan="2">BANK</td>
                     <td align="center" rowspan="2">KEPERLUAN VB</td>
                     <td align="center" rowspan="2">PEMBUAT VB</td>
                     <td align="center" rowspan="2">PENGAMBIL VB</td>
@@ -68,9 +70,11 @@
                     <td class="text-center"> ${$index + 1}</td>                        
                     <td>${item.Aging}</td>
                     <td>${item.ApprovalDate}</td>
-                    <td>${item.DocumentNo}</td>                  
+                    <td>${item.DocumentNo}</td>     
+                    <td>${item.ApprovedBy}</td>  
                     <td>${item.CurrencyCode}</td>
                     <td>${item.Amount}</td>
+                    <td>${item.BankAccountName}</td>  
                     <td>${item.Purpose}</td>
                     <td>${item.CreateBy}</td>
                     <td>${item.TakenBy}</td>
