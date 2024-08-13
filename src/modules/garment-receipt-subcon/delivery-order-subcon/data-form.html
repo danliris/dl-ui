@@ -40,7 +40,7 @@
         <au-textbox show.bind="error.itemscount" error.bind="error.itemscount" read-only="true">
         </au-textbox>
 
-        <au-collection title="CC" items.bind="data.items" errors.bind="error.Items" columns.bind="itemsInfo.columns"
+        <!-- <au-collection title="CC" items.bind="data.items" errors.bind="error.Items" columns.bind="itemsInfo.columns"
             add.bind="itemsInfo.onAdd" remove.bind="removeItems" options.bind="options" read-only.bind="readOnly"
             if.bind="data.supplier" item-template="modules/garment-receipt-subcon/delivery-order-subcon/template/item"
             view-model.ref="ItemsCollection">
@@ -51,6 +51,13 @@
             remove.bind="removeItems" options.bind="options" read-only.bind="readOnly" if.bind="data.supplier"
             item-template="modules/garment-receipt-subcon/delivery-order-subcon/template/item-pr"
             view-model.ref="ItemsCollection2">
+        </au-collection> -->
+
+        
+        <au-collection title="Purchase Order External" items.bind="data.items" errors.bind="error.Items" columns.bind="itemsInfo.columns"
+            add.bind="itemsInfo.onAdd" remove.bind="removeItems" options.bind="options" read-only.bind="readOnly"
+            if.bind="data.supplier" item-template="modules/garment-receipt-subcon/delivery-order-subcon/template/item-pox"
+            view-model.ref="ItemsCollection">
         </au-collection>
 
     </au-input-form>
