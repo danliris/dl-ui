@@ -200,7 +200,7 @@
             read-only="true">
         </au-textbox>
 
-        <au-collection 
+        <!-- <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items" 
             columns.bind="itemsColumns" 
@@ -211,6 +211,20 @@
             change.delegate="itemsChanged($event)"
             if.bind="selectedSupplier && selectedCurrency && data.Category && data.PaymentType"
             item-template="modules/garment-purchasing/purchasing-disposition/template/item"
+            >
+        </au-collection> -->
+
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items" 
+            columns.bind="itemsColumns" 
+            add.bind="addItems" 
+            remove.bind="removeItems"
+            options.one-way="filter"
+            read-only.bind="readOnly"
+            change.delegate="itemsChanged($event)"
+            if.bind="selectedSupplier && selectedCurrency && data.Category && data.PaymentType"
+            item-template="modules/garment-purchasing/purchasing-disposition/template/head-item"
             >
         </au-collection>
   </au-input-form>
