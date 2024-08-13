@@ -35,14 +35,24 @@ export class PurchasingDispositionItem {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
-        this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ?
+        // this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ?
+        //     {
+        //         "supplierId": this.options.supplierId,
+        //         "currencyId": this.options.currencyId,
+        //         "divisionId": this.options.divisionId,
+        //         "categoryId": this.options.categoryId,
+        //         "currencyCode": this.options.currencyCode,
+        //         "incomeTaxBy": this.options.incomeTaxBy != null ? this.options.incomeTaxBy : ""
+        //     } : {};
+        this.filter = this.data.SupplierId && this.data.CurrencyId && this.data.CategoryId && this.data.DivisionId ?
             {
-                "supplierId": this.options.supplierId,
-                "currencyId": this.options.currencyId,
-                "divisionId": this.options.divisionId,
-                "categoryId": this.options.categoryId,
-                "currencyCode": this.options.currencyCode,
-                "incomeTaxBy": this.options.incomeTaxBy != null ? this.options.incomeTaxBy : ""
+                
+                "supplierId": this.options.SupplierId,
+                "currencyId": this.options.CurrencyId,
+                "divisionId": this.options.DivisionId,
+                "categoryId": this.options.CategoryId,
+                "currencyCode": this.options.CurrencyCode,
+                "incomeTaxBy": this.options.IncomeTaxBy != null ? this.data.IncomeTaxBy : ""
             } : {};
         if (this.data.Id == 0) {
             this.isOver = false
@@ -266,12 +276,21 @@ export class PurchasingDispositionItem {
 
     get epoLoader() {
         // console.log("loader",EPOLoader);
-        this.filter = this.data.SupplierId && this.data.CurrencyId && this.data.Category && this.data.PaymentType ?
+        // this.filter = this.data.SupplierId && this.data.CurrencyId && this.data.Category && this.data.PaymentType ?
+        //     {
+        //         "supplierId": this.data.SupplierId,
+        //         "currencyCode": this.data.CurrencyCode,
+        //         "category": this.data.Category,
+        //         "paymentType": this.data.PaymentType
+        //     } : {};
+        
+        this.filter1 = this.dataFilter.SupplierId && this.dataFilter.CurrencyId && this.dataFilter.Category && this.dataFilter.PaymentType ?
             {
-                "supplierId": this.data.SupplierId,
-                "currencyCode": this.data.CurrencyCode,
-                "category": this.data.Category,
-                "paymentType": this.data.PaymentType
+                
+                "supplierId": this.dataFilter.SupplierId,
+                "currencyCode": this.dataFilter.CurrencyCode,
+                "category": this.dataFilter.Category,
+                "paymentType": this.dataFilter.PaymentType
             } : {};
         // console.log("filter",this.filter);
         // console.log("filterData",this.data);
