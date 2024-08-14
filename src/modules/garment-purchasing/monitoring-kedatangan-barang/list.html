@@ -8,12 +8,13 @@
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
             <div class="col-sm-3">
-                <button click.delegate="search()" class='btn btn-success'>Cari</button>
-                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+                <button click.delegate="search()" class='btn btn-primary'>Cari</button>
+                <button click.delegate="reset()" class='btn btn-danger'>Reset</button>
             </div>
         </div>
         <div>
             <button click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</button>
+            <button click.delegate="ExportToExcelDetail()" class='btn btn-success'>Cetak Detail Excel</button>
         </div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover" border="1" id="prMonitor">
