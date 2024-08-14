@@ -50,7 +50,7 @@ searching() {
                   var datas = [];
                   for (var item of this.data){
 
-                      item.ApprovalDate=moment(item.ApprovalDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.ApprovalDate).format("DD MMM YYYY");
+                    //item.ApprovalDate=moment(item.ApprovalDate).format("DD MMM YYYY")=="01 Jan 1970" ? "-" : moment(item.ApprovalDate).format("DD MMM YYYY");
                 
                       item.Amount=item.Amount.toLocaleString('en-EN',{minimumFractionDigits: 2, maximumFractionDigits: 2});
               
