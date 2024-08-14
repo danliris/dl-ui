@@ -10,10 +10,13 @@ export class DeliveryOrderItem {
   activate(context) {
     this.context = context;
     this.data = context.data;
+    console.log(this.data);
     this.data.pricePerDealUnit = this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 }).replace(",","");
     this.data.dealQuantity = this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     // this.data.conversion = this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.data.doQuantity = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
+    this.data.doQuantityRemains = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","")
+    this.data.remark = this.data.productRemark;
     this.error = context.error;
     this.options = context.options;
     this.hasView = this.context.context.options.hasView;
