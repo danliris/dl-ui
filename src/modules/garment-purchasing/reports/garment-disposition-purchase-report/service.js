@@ -20,7 +20,7 @@ export class Service extends RestService {
         var supplierName = null;
         var dateFromString = null;
         var dateToString = null;
-
+        console.log("info",info);
         if(info.createdBy != null&& info.createdBy != undefined){
             username = info.createdBy.Username;
         }
@@ -41,6 +41,7 @@ export class Service extends RestService {
             dateFrom : dateFromString,
             dateTo : dateToString
         }
+        console.log("args",args);
         var endpoint = `${serviceUri}`;
         return super.list(endpoint, args);
 
@@ -52,6 +53,7 @@ export class Service extends RestService {
         var supplierId =0;
         var supplierName = null;
         var endpoint = `${serviceUri}/xlsx?`;
+        console.log("info",info);
         if(info.createdBy != null && info.createdBy != undefined){
             username = info.createdBy.Username;
             endpoint +=`username=${args.username}`;
@@ -65,9 +67,10 @@ export class Service extends RestService {
             username: username,
             supplierId : supplierId,
             supplierName : supplierName,
-            dateFrom : info.dateFrom,
-            dateTo : info.dateTo
+            dateFrom : moment(info.dateFrom).format("YYYY-MM-DD"),
+            dateTo : moment(info.dateTo).format("YYYY-MM-DD")
         }
+        console.log("args",args);
         endpoint += `&dateFrom=${args.dateFrom}&dateTo=${args.dateTo}`;
         // var endpoint = `${serviceUri}`;
         
