@@ -126,6 +126,15 @@ export class List {
         this.service.generateExcel(info)
     }
 
+    ExportToExcelDetail() {
+        var info = {
+            dateFrom : this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD"): "",
+            dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
+            category : this.category ? this.category: "",
+        }
+        this.service.generateExcelAll(info)
+    }
+
     dateFromChanged(e) {
         var _startDate = new Date(e.srcElement.value);
         var _endDate = new Date(this.dateTo);
