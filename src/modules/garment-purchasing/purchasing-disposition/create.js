@@ -39,7 +39,7 @@ export class Create {
 
     save() {
         // console.log("data atas",this.data);
-        // console.log("item atas",this.data.Items);
+        console.log("item atas",this.data.Items);
 
         var bodyRequest = {};
         bodyRequest.Amount = this.data.Amount;
@@ -93,6 +93,9 @@ export class Create {
                 itemDisp.VatValueView = item.VatValueView;
                 itemDisp.Details = item.Details;
                 itemDisp.Invoice = element.Invoice;
+                itemDisp.CurrencyCode = this.data.CurrencyCode;
+                itemDisp.CurrencyDate = this.data.CurrencyDate;
+                itemDisp.CurrencyId = this.data.CurrencyId;
                 bodyRequest.Items.push(itemDisp);
             });
         });
