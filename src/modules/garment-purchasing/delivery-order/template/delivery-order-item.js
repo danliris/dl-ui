@@ -191,7 +191,7 @@ export class DeliveryOrderItem {
           pricePerDealUnit : item.PricePerDealUnit,
           rONo : item.RONo,
           currency : newValue.Currency,
-          product : item.Product,
+          // product : item.Product,
           codeRequirment : codeRequirmentTemp,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
@@ -237,10 +237,11 @@ export class DeliveryOrderItem {
           pricePerDealUnit : item.PricePerDealUnit,
           rONo : item.RONo,
           currency : newValue.Currency,
-          product : item.Product,
+          // product : item.Product,
           codeRequirment : codeRequirmentTemp,
           smallUom : item.SmallUom,
           purchaseOrderUom : item.DealUom,
+          remark : item.Remark
         };
         this.data.fulfillments.push(fulfillment);
       }

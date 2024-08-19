@@ -6,6 +6,7 @@ import { Config } from "aurelia-api";
 
 const serviceUri = 'garment-delivery-orders/arrivalReport';
 const serviceUriDetail = 'garment-delivery-orders/arrivalReportDetail';
+const serviceUriDetailAll = 'garment-delivery-orders/arrivalReportDetail';
 
 export class Service extends RestService {
 
@@ -36,6 +37,11 @@ export class Service extends RestService {
 
     generateExcel2(info) {
         var endpoint = `${serviceUriDetail}/download?supplier=${info.supplierCode}&dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}&garmentCategory=${info.garmentCategory}&productCode=${info.productCode}`;
+        return super.getXls(endpoint);
+    }
+
+     generateExcelAll(info) {
+        var endpoint = `${serviceUriDetailAll}/downloadall?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&category=${info.category}`;
         return super.getXls(endpoint);
     }
 }
