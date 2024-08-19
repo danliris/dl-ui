@@ -69,12 +69,12 @@
                 <tbody>
                     <tr repeat.for="item of data">
                         <td>${$index+1}</td>
-                        <td>${item.StaffName}</td>
-                        <td>${item.DispositionNo}</td>
-                        <td>${item.DispositionDate | dateFormat:'D MMM YYYY'}</td>
-                        <td>${item.SupplierCode}</td>
-                        <td>${item.SupplierName}</td>
-                        <td>${item.Category}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.StaffName}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.DispositionNo}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.DispositionDate | dateFormat:'D MMM YYYY'}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.SupplierCode}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.SupplierName}</td>
+                        <td >${item.Category}</td>
                         <td>${item.PaymentType}</td>
                         <td>${item.InvoiceNo}</td>
                         <td>${item.DueDate| dateFormat:'D MMM YYYY'}</td>
