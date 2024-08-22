@@ -16,13 +16,17 @@ export class DeliveryOrderItem {
     // this.data.conversion = this.data.conversion.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.data.doQuantity = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","");
     this.data.doQuantityRemains = this.data.doQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 }).replace(",","")
-    this.data.remark = this.data.productRemark;
+    // this.data.remark = this.data.productRemark;
     this.error = context.error;
     this.options = context.options;
     this.hasView = this.context.context.options.hasView;
     this.hasEdit = this.context.context.options.hasEdit;
     this.hasCreate = this.context.context.options.hasCreate;
     this.hasEdit = this.context.context.options.hasEdit;
+
+    if (!this.hasCreate) {
+      this.data.remark = this.data.productRemark;
+      };
     // this.data.isSave=false;
     this.isEdit = this.context.context.options.isEdit || false;
     if (this.data) {
