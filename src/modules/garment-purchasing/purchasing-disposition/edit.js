@@ -251,6 +251,8 @@ export class Edit {
         bodyRequest.LastModifiedBy = this.data.LastModifiedBy;
         bodyRequest.LastModifiedUtc = this.data.LastModifiedUtc;
         bodyRequest.Id = this.data.Id;
+        bodyRequest.ConfirmationOrderNo = this.data.ConfirmationOrderNo;
+        bodyRequest.DispositionNo = this.data.DispositionNo;
         
         bodyRequest.Items = [];
         this.data.Items.forEach(element => {
