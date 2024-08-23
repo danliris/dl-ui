@@ -136,8 +136,8 @@ export class PurchasingDispositionItem {
             if (newValue.Id != (oldValue ? oldValue.Id : 0) || oldValue == null) {
                 var param = {
                     Id: newValue.Id,
-                    supplierId: this.data.SupplierId,
-                    currencyCode: this.data.CurrencyCode
+                    supplierId: this.dataFilter.SupplierId,
+                    currencyCode: this.dataFilter.CurrencyCode
                 }
                 this.selectedEPO = await this.service.getEPOById(param);
                 console.log(this.selectedEPO);
@@ -145,6 +145,7 @@ export class PurchasingDispositionItem {
             }
 
             if (this.selectedEPO.Id) {
+                console.log("selectedEPO", this.selectedEPO);
                 this.incomeTaxValue = 0;
                 this.incomeTaxValueView = 0;
                 this.vatValue = 0;

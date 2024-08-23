@@ -8,6 +8,7 @@ export class PurchasingDispositionDetail {
     this.error = context.error;
     this.options = context.options;
     this.readOnly = context.context.options.options.readOnly;
+    console.log("detail",this.data);
     // if(this.data.Product){
     //     this.data.Product.Name=this.data.Product.name || this.data.Product.Name;
     //     this.data.Product.Id=this.data.Product._id || this.data.Product.Id;
