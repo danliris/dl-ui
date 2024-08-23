@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 var moment = require('moment');
 
 const SupplierLoader = require("../../../../loader/garment-supplier-loader");
-var DispositionLoader = require('../../../../loader/garment-disposition-memo-detail-loader');
+var DispositionLoader = require('../../../../loader/garment-disposition-loader');
 @inject(Router, Service)
 export class List {
     info = { page: 1,size:75};
@@ -34,7 +34,7 @@ export class List {
             dateFromReceiptCashier : this.dateFromReceiptCashier ? moment(this.dateFromReceiptCashier).format("YYYY-MM-DD") : "",
             dateToReceiptCashier : this.dateToReceiptCashier ? moment(this.dateToReceiptCashier).format("YYYY-MM-DD") : "",
 
-            dispositionId : this.disposition ? this.disposition.DispositionId : "",
+            dispositionId : this.disposition ? this.disposition.Id : "",
             supplierId : this.supplier ? this.supplier.Id : "",
             page: this.info.page,
             size: this.info.size,
