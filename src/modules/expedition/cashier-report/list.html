@@ -27,13 +27,24 @@
       </au-datepicker>
 
     <au-dropdown
-        label="VB / Realisasi"
+        label="Inklaring"
         value.bind="isInklaring"
         error.bind="error.isInklaring"
         read-only.bind="readOnly"
         items.bind="inklaringTypes"
         options.bind="controlOptions">
      </au-dropdown>
+
+     <au-autocomplete 
+         value.bind="account" 
+         label="Nama Approve" 
+         loader.bind="accountLoader"
+         placeholder="Cari Account"
+         read-only.bind="readOnly" 
+         key="username" 
+         text="username"
+         options.bind="controlOptions">
+     </au-autocomplete>
 
     <div class="form-group">
       <label for="contact" class="col-sm-5 control-label"></label>
@@ -54,6 +65,8 @@
                     <td align="center" rowspan="2">UMUR VB (HARI)</td>
                     <td align="center" rowspan="2">TGL APPROVAL VB</td>
                     <td align="center" rowspan="2">NOMOR VB</td>
+                    <td align="center" rowspan="2">NOMOR REALISASI VB</td>
+                    <td align="center" rowspan="2">POSISI</td>
                     <td align="center" rowspan="2">NAMA APPROVE</td>
                     <td align="center" rowspan="2">MATA UANG</td>
                     <td align="center" rowspan="2">NOMINAL VB</td>
@@ -70,7 +83,9 @@
                     <td class="text-center"> ${$index + 1}</td>                        
                     <td>${item.Aging}</td>
                     <td>${item.ApprovalDate}</td>
-                    <td>${item.DocumentNo}</td>     
+                    <td>${item.DocumentNo}</td>   
+                    <td>${item.RealizedNo}</td>   
+                    <td>${item.Position}</td>                         
                     <td>${item.ApprovedBy}</td>  
                     <td>${item.CurrencyCode}</td>
                     <td>${item.Amount}</td>
