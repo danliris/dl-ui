@@ -42,13 +42,24 @@
 
 
     <au-dropdown
-        label="VB / Realisasi"
+        label="Inklaring"
         value.bind="isInklaring"
         error.bind="error.isInklaring"
         read-only.bind="readOnly"
         items.bind="inklaringTypes"
         options.bind="controlOptions">
      </au-dropdown>
+
+     <au-autocomplete 
+         value.bind="account" 
+         label="Nama Approve" 
+         loader.bind="accountLoader"
+         placeholder="Cari Account"
+         read-only.bind="readOnly" 
+         key="username" 
+         text="username"
+         options.bind="controlOptions">
+     </au-autocomplete>
 
     <div class="form-group">
       <label for="contact" class="col-sm-5 control-label"></label>
@@ -68,6 +79,7 @@
                     <td align="center" rowspan="2">NO.</td>
                     <td align="center" rowspan="2">TGL APPROVAL REALISASI VB</td>
                     <td align="center" rowspan="2">NOMOR REALISASI VB</td>
+                    <td align="center" rowspan="2">NOMOR VB</td>
                     <td align="center" rowspan="2">NAMA APPROVE</td>
                     <td align="center" rowspan="2">MATA UANG</td>
                     <td align="center" rowspan="2">NOMINAL REALISASI VB</td>
@@ -84,6 +96,7 @@
                     <td class="text-center"> ${$index + 1}</td>                        
                     <td>${item.RealizationDate}</td>
                     <td>${item.DocumentNo}</td>  
+                    <td>${item.NoVB}</td>                      
                     <td>${item.CompletedBy}</td>                       
                     <td>${item.CurrencyCode}</td>
                     <td>${item.Amount}</td>

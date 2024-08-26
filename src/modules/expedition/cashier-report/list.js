@@ -3,6 +3,8 @@ import moment from "moment";
 import numeral from "numeral";
 import { Service } from "./service";
 
+var AccountLoader = require('../../../loader/account-loader');
+
 @inject(Service)
 export class List {
 
@@ -18,8 +20,9 @@ export class List {
 
   divisions = null;
   inklaringTypes = null;
+  
 
-  divisions = ['GARMENT', 'TEXTILE']; 
+  divisions = ['','GARMENT', 'TEXTILE']; 
   inklaringTypes = ['', 'YA', 'TIDAK'];
 
   controlOptions = {
@@ -31,12 +34,14 @@ export class List {
     },
   };
 
+@bindable divisionName;
+
 searching() {
         {
         var info = {
             divisionName : this.divisionName ? this.divisionName : "",  
             isInklaring : this.isInklaring ? this.isInklaring : "",  
-                    
+            account: this.account ? this.account.username : "",   
             approvalDateFrom : this.approvalStartDate ? moment(this.approvalStartDate).format("YYYY-MM-DD") : "",
             approvalDateTo : this.approvalEndDate ? moment(this.approvalEndDate).format("YYYY-MM-DD") : ""
         }
@@ -66,6 +71,7 @@ searching() {
             var info = {
                 divisionName : this.divisionName ? this.divisionName : "",  
                 isInklaring : this.isInklaring ? this.isInklaring : "",      
+                account: this.account ? this.account.username : "",   
                 approvalDateFrom : this.approvalStartDate ? moment(this.approvalStartDate).format("YYYY-MM-DD") : "",
                 approvalDateTo : this.approvalEndDate ? moment(this.approvalEndDate).format("YYYY-MM-DD") : ""
             }
@@ -77,9 +83,14 @@ searching() {
         }
     }
 
- reset() {
+    get accountLoader() {
+        return AccountLoader;
+    }
+    
+    reset() {
         this.approvalStartDate = null;
         this.approvalEndDate = null;
+        this.account = null;
         this.divisionName = null;
         this.isInklaring = null; 
         this.data = []; 
