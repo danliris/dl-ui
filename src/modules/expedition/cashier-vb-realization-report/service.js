@@ -9,13 +9,13 @@ export class Service extends RestService {
   }
 
   search(info) { 
-       var endpoint = `${serviceUri}/reports?divisionName=${info.divisionName}&isInklaring=${info.isInklaring}&approvalDateFrom=${info.approvalDateFrom}&approvalDateTo=${info.approvalDateTo}&realizeDateFrom=${info.realizeDateFrom}&realizeDateTo=${info.realizeDateTo}`;
+       var endpoint = `${serviceUri}/reports?divisionName=${info.divisionName}&isInklaring=${info.isInklaring}&account=${info.account}&approvalDateFrom=${info.approvalDateFrom}&approvalDateTo=${info.approvalDateTo}&realizeDateFrom=${info.realizeDateFrom}&realizeDateTo=${info.realizeDateTo}`;
        return super.get(endpoint);
         
     }
     
   generateExcel(info) {
-       var endpoint = `${serviceUri}/reports/xls?divisionName=${info.divisionName}&isInklaring=${info.isInklaring}&approvalDateFrom=${info.approvalDateFrom}&approvalDateTo=${info.approvalDateTo}&realizeDateFrom=${info.realizeDateFrom}&realizeDateTo=${info.realizeDateTo}`;
+       var endpoint = `${serviceUri}/reports/xls?divisionName=${info.divisionName}&isInklaring=${info.isInklaring}&account=${info.account}&approvalDateFrom=${info.approvalDateFrom}&approvalDateTo=${info.approvalDateTo}&realizeDateFrom=${info.realizeDateFrom}&realizeDateTo=${info.realizeDateTo}`;
        return super.getXls(endpoint);
     }
 }
