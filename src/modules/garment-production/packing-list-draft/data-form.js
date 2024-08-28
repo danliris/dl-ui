@@ -101,6 +101,11 @@ export class DataForm {
         return `${buyerCode} - ${buyerName}`
     }
 
+    get buyerQuery(){
+    var result = { "Active" : true }
+    return result;   
+    }
+
     get shippingStaffLoader() {
         return ShippingStaffLoader;
     }

@@ -2,7 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service, SalesService, CoreService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
-var BuyerLoader = require('../../../loader/garment-buyer-brand-loader');
+var BuyerLoader = require('../../../loader/garment-buyer-brands-loader');
 const UomLoader = require("../../../loader/uom-loader");
 
 @inject(Service, SalesService, CoreService)
@@ -193,9 +193,17 @@ export class DataForm {
     get buyerLoader() {
         return BuyerLoader;
     }
+
     buyerView = (buyer) => {
         var buyerName = buyer.Name || buyer.name;
         var buyerCode = buyer.Code || buyer.code;
         return `${buyerCode} - ${buyerName}`
+    }
+
+    get buyerQuery(){
+        var result = { "Code!=BuyerName": true,
+                       "Active" : true 
+                     }
+    return result;   
     }
 }

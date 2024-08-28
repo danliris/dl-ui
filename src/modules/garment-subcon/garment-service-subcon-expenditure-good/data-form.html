@@ -21,7 +21,7 @@
     </au-datepicker>
 
     <au-autocomplete value.bind="data.Buyer" error.bind="error.Buyer" label="Buyer" loader.bind="buyerLoader"
-      text.bind="buyerView" placeholder="Cari Buyer" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+      query.bind="buyerQuery" text.bind="buyerView" placeholder="Cari Buyer" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
     </au-autocomplete>
 
     <au-numeric value.bind="data.QtyPacking" error.bind="error.QtyPacking" label="Jumlah Kemasan"
