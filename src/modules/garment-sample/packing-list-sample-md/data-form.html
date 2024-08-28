@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-sm-6">
                         <au-autocomplete value.bind="selectedBuyer" error.bind="error.BuyerAgent" label="Buyer Agent"
-                            loader.bind="buyerLoader" text.bind="buyerView" placeholder="cari buyer"
+                            loader.bind="buyerLoader" query.bind="buyerQuery" text.bind="buyerView" placeholder="cari buyer"
                             read-only.bind="readOnly || isInvoice" options.bind="controlOptions">
                         </au-autocomplete>
 
