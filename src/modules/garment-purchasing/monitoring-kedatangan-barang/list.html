@@ -38,13 +38,13 @@
                     <tr repeat.for="pr of data"  click.delegate="view(pr,dateFrom,dateTo,category)" >
                         <td>${$index + 1}</td>
                         <td>${pr.SupplierName}</td>
-                          <td>${pr.OKStatusPercentage}%</td>
+                        <td>${pr.OKStatusPercentage}%</td>
                         <td>${pr.Total}</td>
                   
                     </tr>
                 </tbody>
 
-                   <tfoot if.bind="data.length > 0">
+                <tfoot if.bind="data.length > 0">
                 <tr>
                     <td  colspan='2' class="text-left">Jumlah Total</td>
                     <td class="text-right">${tperOk}%</td>
@@ -56,6 +56,14 @@
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak ada data ditemukan.
         </div>
+
+        <template if.bind="data.length > 0">
+            <au-textbox label="KESIAPAN BAHAN BAKU / BAHAN PENDUKUNG" value="DENGAN LEAD TIME 30 HARI" read-only="true"></au-textbox>
+            <au-textbox label="Status OK" value="Perhitungan dari selisih Tgl Shipment dengan Tgl Kedatangan Barang >= 30 hari" read-only="true"></au-textbox>
+            <au-textbox label="Persentase Status OK" value="${tjumOk1}/${tjumcount} X 100% = ${tperOk} %" read-only="true"></au-textbox>
+            <au-textbox label="Status NOT OK" value="Perhitungan dari selisih Tgl Shipment dengan Tgl Kedatangan Barang < 30 hari" read-only="true"></au-textbox>
+            <au-textbox label="Persentase Status NOT OK" value="${tjumnotOk1}/${tjumcount} X 100% = ${tperNotOk} %" read-only="true"></au-textbox>
+        </template>
         <hr/>
     </form>
 </template>
