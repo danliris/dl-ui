@@ -112,7 +112,7 @@
                 <thead align="center">
                     <tr>
                         <td rowspan="2">NO</td>
-                        <td colspan="2">NOTA INTERN</td>
+                        <td colspan="4">NOTA INTERN</td>
                         <td colspan="2">SUPPLIER</td>
                         <td colspan="2">INVOICE</td>
                         <td colspan="2">SURAT JALAN</td>
@@ -133,6 +133,8 @@
                         <!--//>-->
                         <td>NOMOR</td>
                         <td>TGL</td>
+                        <td>JATUH TEMPO</td>
+                        <td>TERLAMBAT</td>
                         <td>KODE</td>
                         <td>NAMA</td>
                         <td>NOMOR</td>
@@ -149,6 +151,8 @@
                         <td>${$index + 1}</td>
                         <td>${IN.inNo}</td>
                         <td>${IN.iNDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${IN.dueDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${IN.diffDays}</td>
                         <td>${IN.supplierCode}</td>
                         <td>${IN.supplierName}</td>
                         <td>${IN.invoiceNo}</td>
