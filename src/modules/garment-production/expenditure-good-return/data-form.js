@@ -97,7 +97,8 @@ get EGLoader() {
         return (keyword) => {
             var info = {
               keyword: keyword,
-              filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
+            //   filter: JSON.stringify({UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"})
+              filter: JSON.stringify({UnitId: this.data.Unit.Id, "(ExpenditureType ==  \"EXPORT\" || ExpenditureType ==  \"LAIN-LAIN\")":true})
             };
             if (keyword.length >= 5)
             {
