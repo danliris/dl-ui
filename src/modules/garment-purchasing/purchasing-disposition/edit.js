@@ -289,6 +289,11 @@ export class Edit {
                 itemDisp.LastModifiedBy = item.LastModifiedBy;
                 itemDisp.LastModifiedUtc = item.LastModifiedUtc;
                 itemDisp.GarmentDispositionPurchaseId = item.GarmentDispositionPurchaseId;
+                itemDisp.IsDispositionCreated = item.IsDispositionCreated;
+                itemDisp.CurrencyCode = item.CurrencyCode;
+                itemDisp.CurrencyDate = item.CurrencyDate;
+                itemDisp.CurrencyId = item.CurrencyId;
+                
                 bodyRequest.Items.push(itemDisp);
             });
         });

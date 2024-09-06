@@ -66,6 +66,7 @@ export class Create {
         bodyRequest.SupplierName = this.data.SupplierName;
         bodyRequest.VatValue = this.data.VatValue;
         bodyRequest.VatValueView = this.data.VatValueView;
+        bodyRequest.ConfirmationOrderNo = this.data.ConfirmationOrderNo;
         bodyRequest.Items = [];
         this.data.Items.forEach(element => {
             element.Items.forEach(item =>{
