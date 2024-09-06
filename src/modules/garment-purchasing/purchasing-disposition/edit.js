@@ -40,6 +40,10 @@ export class Edit {
         // }
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        var nullInvoiceCount = this.data.Items.filter(item => item.Invoice !== null).length;
+        //console.log("Number of items with null invoice:", nullInvoiceCount);
+        this.data.proformaView = nullInvoiceCount > 0 ? true : false;
         
         if (this.data.Currency) {
             this.selectedCurrency = this.data.Currency;

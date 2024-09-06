@@ -60,7 +60,7 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
-        // console.log("bindForm",this.data)
+        console.log("bindForm",this.data)
     }
 
     @computedFrom("data.Id")
