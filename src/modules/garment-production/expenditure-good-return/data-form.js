@@ -256,7 +256,7 @@ get GDOLoader() {
             else{
                 this.data.Price=0;
             }
-            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ ExpenditureGoodNo: this.data.ExpenditureNo, UnitId: this.data.Unit.Id, ExpenditureType:"EXPORT"}) }))
+            Promise.resolve(this.service.getExpenditureGood({ filter: JSON.stringify({ ExpenditureGoodNo: this.data.ExpenditureNo, UnitId: this.data.Unit.Id, "(ExpenditureType ==  \"EXPORT\" || ExpenditureType ==  \"LAIN-LAIN\")":true}) }))
                     .then(result => {
                         for(var exGood of result.data){
                             for(var exGoodItem of exGood.Items){
