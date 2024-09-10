@@ -20,16 +20,17 @@
             <table class="table table-bordered table-hover" border="1" id="prMonitor">
                 <thead align="center">   
                     <tr if.bind="data.length > 0">
-                        <td>Total</td>
-                        <td></td>
-                        <td>${tperOk}%</td>                   
+                        <td colspan='2' class="text-center">Jumlah Total Data</td>
+                        <td>${tperOk}%</td>      
+                        <td>${tperNotOk}%</td>                 
                         <td>${tjumcount}</td>
                     
                     </tr>                
                     <tr>
                         <td>No</td>
                         <td>Supplier</td>
-                        <td>Kedatangan OK (%)</td>                   
+                        <td>Kedatangan OK (%)</td>        
+                        <td>Kedatangan Not OK (%)</td>                   
                         <td>Jumlah</td>
                     
                     </tr>
@@ -39,6 +40,7 @@
                         <td>${$index + 1}</td>
                         <td>${pr.SupplierName}</td>
                         <td>${pr.OKStatusPercentage}%</td>
+                        <td>${pr.NotOKStatusPercentage}%</td>
                         <td>${pr.Total}</td>
                   
                     </tr>
@@ -46,8 +48,9 @@
 
                 <tfoot if.bind="data.length > 0">
                 <tr>
-                    <td  colspan='2' class="text-left">Jumlah Total</td>
+                    <td colspan='2' class="text-center">Jumlah Total Data</td>
                     <td class="text-right">${tperOk}%</td>
+                    <td class="text-right">${tperNotOk}%</td>
                     <td class="text-right">${tjumcount}</td>
                 </tr>
             </tfoot>
