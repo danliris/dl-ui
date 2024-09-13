@@ -26,7 +26,7 @@ export class List {
     }
 
     activate(params) {
-        if ( params.dateTo != null || params.category != null) {
+        if ( params.dateFrom != null || params.dateTo != null || params.category != null) {
             this.dateFrom = params.dateFrom;
             this.dateTo = params.dateTo;
             this.category = params.category;
@@ -35,10 +35,18 @@ export class List {
                 dateTo : this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD"): "",
                 category : this.category ? this.category: "",
             }
+    
             this.tjumcount = 0;
-            this.tperOkCount = 0;
+            // this.tperOkCount = 0;
             this.tperOk = 0;
+            this.tpernotOk = 0;
+        
             this.tjumOk = 0;
+            this.tjumnotOk = 0;
+
+            this.tjumOk1 = 0;
+            this.tjumnotOk1 = 0; 
+            
             this.service.search(info)
                 .then(result => {
                 this.data = [];
@@ -47,11 +55,16 @@ export class List {
                     this.data.push(_data);
 
                     this.tjumOk += _data.OKStatusPercentage / 100 * _data.Total;
-                    this.tjumcount +=_data.Total;
-                }
+                    this.tjumnotOk += _data.NotOKStatusPercentage / 100 * _data.Total;
 
-                this.data = this.data.filter(datum => datum.Total > 0);
-                this.tperOk = Math.floor(this.tjumOk/this.tjumcount *100);
+                    this.tjumOk1 += _data.OKTotal;
+                    this.tjumnotOk1 += _data.NotOKTotal;
+
+                    this.tjumcount +=_data.Total;
+                    }
+                    this.data = this.data.filter(datum => datum.Total > 0);
+                    this.tperOk = (this.tjumOk1/this.tjumcount *100).toFixed(2);
+                    this.tperNotOk = (this.tjumnotOk1/this.tjumcount *100).toFixed(2);
             });
         } else {
         this.dateFrom='';
