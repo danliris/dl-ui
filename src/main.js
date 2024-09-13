@@ -31,7 +31,10 @@ export async function configure(aurelia) {
             }
 
             var core = "https://com-danliris-service-core-dev.azurewebsites.net/v1/";
-            var auth = "https://com-danliris-service-auth-dev.azurewebsites.net/v1/";
+            //var auth = "https://com-danliris-service-auth-dev.azurewebsites.net/v1/";
+            //var auth = "http://localhost:5263/v1/";
+            var auth = "https://com-danliris-service-auth-v8-dev.azurewebsites.net/v1/";
+
             var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
             var productionAzure = "https://com-danliris-service-finishing-printing-dev.azurewebsites.net/v1/";
             var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites-dev.net/v1/";
