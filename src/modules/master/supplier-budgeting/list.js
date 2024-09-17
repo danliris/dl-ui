@@ -16,6 +16,7 @@ export class List {
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
     { field: "address", title: "Alamat" },
+    { field: "bussinessType", title: "Jenis Bisnis" },
     { field: "country", title: "Negara" },
     { field: "NPWP", title: "NPWP" },
     {
