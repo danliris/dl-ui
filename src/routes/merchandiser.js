@@ -949,7 +949,7 @@ module.exports = [
     },
     {
         route: '/merchandiser/report-cost-calculation-cancel-approval',
-        name: 'report--cost-calculation-cancel-approval',
+        name: 'report-cost-calculation-cancel-approval',
         moduleId: './modules/merchandiser/report/cancel-approval-ccg-report/index',
         nav: true,
         title: 'Report Cancel Approval Cost Calculation',
@@ -958,6 +958,20 @@ module.exports = [
             group: "merchandiser",
             subGroup: "monitoring",
             permission : {'L61' : 1},
+            iconClass: 'fa fa-calculator',
+        }
+    },
+    {
+        route: '/merchandiser/reject-ro-garment-report',
+        name: 'reject-ro-garment-report',
+        moduleId: './modules/merchandiser/report/reject-ro-garment-report/index',
+        nav: true,
+        title: 'Report Reject RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            subGroup: "monitoring",
+            permission : {'L62' : 1},
             iconClass: 'fa fa-calculator',
         }
     },
