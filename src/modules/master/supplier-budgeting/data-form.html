@@ -4,6 +4,7 @@
             <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
                 <au-textbox label="Kode" value.bind="data.code" error.bind="error.code" read-only.bind="(readOnly || isEdit)"></au-textbox>
                 <au-textbox label="Nama" value.bind="data.name" error.bind="error.name" read-only.bind="readOnly"></au-textbox>
+                <au-textbox label="Jenis Bisnis" value.bind="data.bussinessType" error.bind="error.bussinessType" read-only.bind="readOnly"></au-textbox>              
                 <au-checkbox label="Import" value.bind="data.import" error.bind="error.import" read-only.bind="readOnly"></au-checkbox>
                 <fieldset>
                     <legend>Legal</legend>
@@ -14,6 +15,7 @@
                     <legend>Kontak</legend>
                     <au-textbox label="Kontak" value.bind="data.contact" error.bind="error.contact" read-only.bind="readOnly"></au-textbox>
                     <au-textbox label="PIC" value.bind="data.PIC" error.bind="error.PIC" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Email" value.bind="data.email" error.bind="error.email" read-only.bind="readOnly"></au-textbox>                   
                     <au-multiline label="Alamat" value.bind="data.address" error.bind="error.address" read-only.bind="readOnly">
                     </au-multiline>
                     <au-dropdown label="Negara" value.bind="data.country" error.bind="error.country" read-only.bind="readOnly" items.bind="countries">

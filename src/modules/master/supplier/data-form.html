@@ -20,6 +20,13 @@
         read-only.bind="readOnly"
       ></au-textbox>
 
+      <au-textbox 
+        label="Jenis Bisnis"
+        value.bind="data.bussinessType"
+        error.bind="error.bussinessType"
+        read-only.bind="readOnly"
+      ></au-textbox>
+
       <au-checkbox        
         label="Import"          
         value.bind="data.import"        
@@ -59,6 +66,13 @@
               error.bind="error.PIC"
               read-only.bind="readOnly"
             ></au-textbox>
+
+            <au-textbox 
+              label="Email"
+              value.bind="data.email"
+              error.bind="error.email"
+              read-only.bind="readOnly"
+            ></au-textbox>  
 
             <au-multiline
               label="Alamat"
