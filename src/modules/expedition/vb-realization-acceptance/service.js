@@ -56,6 +56,10 @@ export class Service extends RestService {
       .then((data) => data)
       .catch(() => null);
   }
+  postingClearance(data) {
+    let endpoint = `${serviceUri}/clearance-post`;
+    return super.post(endpoint, data);
+  }
 }
 
 // export class
