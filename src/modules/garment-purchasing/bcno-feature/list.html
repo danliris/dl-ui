@@ -38,12 +38,21 @@
                         <td >Tipe BC</td>
                         <td >No BC</td>
                         <td >Tanggal BC</td>
+                        <td >Bruto</td>
+                        <td >Netto</td>
                         <td >No Surat Jalan</td>
+                        <td >Supplier</td>
+                        <td >No BUM</td>
+                        <td >Tgl BUM</td>
                         <td >No PO</td>
-                        <td >Quantity</td>
                         <td >Kode Barang</td>
                         <td >Komposisi</td>
                         <td >Konstruksi</td>
+                        <td >Quantity BUM</td>
+                        <td >No BUK</td>
+                        <td >Tgl BUK</td>
+                        <td >Qty BUK</td>
+                        <td >Tipe BUK</td>
 
                     </tr>
                 </thead>
@@ -51,15 +60,24 @@
                     <tr repeat.for="item of data">
                         <td>${$index + 1}</td>
                         <td >${item.RONo}</td>
-                        <td >${item.BCNo}</td>
                         <td >${item.BCType}</td>
+                        <td >${item.BCNo}</td>
                         <td >${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.Bruto}</td>
+                        <td >${item.Netto}</td>
                         <td >${item.DONo}</td>
+                        <td >${item.SupplierName}</td>
+                        <td>${item.URNNo}</td>
+                        <td>${item.URNDate | dateFormat:'DD MMMM YYYY'}</td>
                         <td>${item.PO}</td>
-                        <td >${item.QtyBC}</td>
                         <td >${item.ProductCode}</td>
                         <td >${item.Composition}</td>
                         <td >${item.Construction}</td>
+                        <td >${item.QtyBC}</td>
+                        <td >${item.UENNo}</td>
+                        <td >${item.UENDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.QtyUEN}</td>
+                        <td >${item.UENType}</td>
                     </tr>
 
                 </tbody>
