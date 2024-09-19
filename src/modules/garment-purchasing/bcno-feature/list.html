@@ -38,28 +38,46 @@
                         <td >Tipe BC</td>
                         <td >No BC</td>
                         <td >Tanggal BC</td>
+                        <td >Bruto</td>
+                        <td >Netto</td>
                         <td >No Surat Jalan</td>
+                        <td >Supplier</td>
                         <td >No PO</td>
-                        <td >Quantity</td>
                         <td >Kode Barang</td>
                         <td >Komposisi</td>
                         <td >Konstruksi</td>
+                        <td >No BUM</td>
+                        <td >Tgl BUM</td>
+                        <td >Quantity BUM</td>
+                        <td >No BUK</td>
+                        <td >Tgl BUK</td>
+                        <td >Qty BUK</td>
+                        <td >Tipe BUK</td>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr repeat.for="item of data">
                         <td>${$index + 1}</td>
-                        <td >${item.RONo}</td>
-                        <td >${item.BCNo}</td>
-                        <td >${item.BCType}</td>
-                        <td >${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td >${item.DONo}</td>
-                        <td>${item.PO}</td>
-                        <td >${item.QtyBC}</td>
-                        <td >${item.ProductCode}</td>
-                        <td >${item.Composition}</td>
-                        <td >${item.Construction}</td>
+                        <td if.bind="item.rospan" rowspan="${item.rospan}">${item.RONo}</td>
+                        <td if.bind="item.bcnospan" rowspan="${item.bcnospan}">${item.BCType}</td>
+                        <td if.bind="item.bcnospan" rowspan="${item.bcnospan}">${item.BCNo}</td>
+                        <td if.bind="item.bcnospan" rowspan="${item.bcnospan}">${item.BCDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td if.bind="item.bcnospan" rowspan="${item.bcnospan}">${item.Bruto}</td>
+                        <td if.bind="item.bcnospan" rowspan="${item.bcnospan}">${item.Netto}</td>
+                        <td if.bind="item.donospan" rowspan="${item.donospan}">${item.DONo}</td>
+                        <td if.bind="item.donospan" rowspan="${item.donospan}">${item.SupplierName}</td>
+                        <td if.bind="item.ponospan" rowspan="${item.ponospan}">${item.PO}</td>
+                        <td if.bind="item.ponospan" rowspan="${item.ponospan}">${item.ProductCode}</td>
+                        <td if.bind="item.ponospan" rowspan="${item.ponospan}">${item.Composition}</td>
+                        <td if.bind="item.ponospan" rowspan="${item.ponospan}">${item.Construction}</td>
+                        <td if.bind="item.urnnospan" rowspan="${item.urnnospan}">${item.URNNo}</td>
+                        <td if.bind="item.urnnospan" rowspan="${item.urnnospan}">${item.URNDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td>${item.QtyBC}</td>
+                        <td >${item.UENNo}</td>
+                        <td >${item.UENDate | dateFormat:'DD MMMM YYYY'}</td>
+                        <td >${item.QtyUEN}</td>
+                        <td >${item.UENType}</td>
                     </tr>
 
                 </tbody>
