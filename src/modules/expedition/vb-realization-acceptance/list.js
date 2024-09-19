@@ -60,7 +60,10 @@ export class List {
       checkbox: true,
       sortable: false,
       formatter: function (value, data, index) {
-          this.checkboxEnabled = !data.IsPosted;
+        console.log(data.VBRealization.Header.IsCompleted);
+          this.checkboxEnabled = 
+          !data.IsPosted  &&
+            data.VBRealization.Header.IsCompleted;
           return ""
       }
      },
