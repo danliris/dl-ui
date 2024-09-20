@@ -101,6 +101,13 @@ export class List {
       },
       align: "right",
     },
+    {
+      field: "CleranceDate",
+      title: "Tanggal Clearance",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY"): "-";
+      },
+    },
   ];
 
   rowFormatter(data, index) {
