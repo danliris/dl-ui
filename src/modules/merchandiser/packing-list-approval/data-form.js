@@ -150,7 +150,10 @@ export class DataForm {
             //     .filter((value, index, self) => self.indexOf(value) === index);
             // console.log(ROs);
             let itemPromises = this.data.items.map((item) => {
-                return this.salesService.getCostCalculationByRO(item.roNo)
+                if (item.roNo.indexOf("M") != -1 || a.roNo.indexOf("S") != -1) {
+                   
+                } else {
+                    return this.salesService.getCostCalculationByRO(item.roNo)
                     .then((ccg) => {
                         if (ccg) {
                             var isFabricCM = false;
@@ -187,6 +190,7 @@ export class DataForm {
                             return Promise.resolve(item);
                         }
                     })
+                }
             });
             
             let items = await Promise.all(itemPromises);
