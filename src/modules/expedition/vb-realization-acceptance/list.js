@@ -10,6 +10,7 @@ import {
   CASHIER,
   ACCOUNTING,
 } from "../shared/permission-constants";
+import { AlertView } from './custom-dialog-view/alert-view';
 
 @inject(Router, Service, Dialog, PermissionHelper)
 export class List {
@@ -54,6 +55,19 @@ export class List {
 
   columns2 = [
     {
+      field: "toBeCancelled",
+      title: "toBeCancelled Checkbox",
+      checkbox: true,
+      sortable: false,
+      formatter: function (value, data, index) {
+        console.log(data.VBRealization.Header.IsCompleted);
+          this.checkboxEnabled = 
+          !data.IsPosted  &&
+            data.VBRealization.Header.IsCompleted;
+          return ""
+      }
+     },
+    {
       field: "CashierReceiptDate",
       title: "Tanggal Penerimaan Kasir",
       formatter: function (value, data, index) {
@@ -87,6 +101,13 @@ export class List {
       },
       align: "right",
     },
+    {
+      field: "CleranceDate",
+      title: "Tanggal Clearance",
+      formatter: function (value, data, index) {
+        return value ? moment(value).format("DD MMM YYYY"): "-";
+      },
+    },
   ];
 
   rowFormatter(data, index) {
@@ -106,7 +127,7 @@ export class List {
     // this.purchasingDocumentExpeditionService = purchasingDocumentExpeditionService;
     this.router = router;
     this.dialog = dialog;
-
+    this.selectedItems = [];
     this.permissions = permissionHelper.getUserPermissions();
     this.initPermission();
   }
@@ -176,6 +197,8 @@ export class List {
         };
       });
     });
+
+   // console.log(data);
   };
 
   contextClickCallback(event) {
@@ -204,5 +227,34 @@ export class List {
 
   create() {
     this.router.navigateToRoute("create");
+  }
+  posting() {
+    this.dialog.show(AlertView)
+        .then((response) => {
+            console.log(response)
+            var items = this.selectedItems.map(s => s.VBRealizationId);
+            var data = {};
+            
+            data.Ids = items;
+            data.ClearanceDate = response.output.Date;
+            console.log(data);
+            this.service.postingClearance(data)
+                .then(result => {
+                    alert("Data berhasil disimpan");
+                    this.error = {};
+                    this.tableList.refresh();
+                    this.selectedItems = [];
+                })
+                .catch(e => {
+                    if (e.message) {
+                        alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                    }
+                    this.error = e;
+                });
+        })
+        .catch(e => {
+            this.error = e;
+        })
+
   }
 }

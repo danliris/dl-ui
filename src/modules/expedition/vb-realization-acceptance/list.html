@@ -57,10 +57,16 @@
     context.bind="context"
     context-click.delegate="contextClickCallback($event)"
     row-formatter.bind="rowFormatter"
+    selections.bind="selectedItems" 
   >
     <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
+
+      <button class="btn btn-primary" disabled.bind="!selectedItems.length > 0"
+        click.delegate="posting()">Posting
+      </button>
     </div>
+  
   </au-table>
   <!-- <au-table
         view-model.ref="tableList"
