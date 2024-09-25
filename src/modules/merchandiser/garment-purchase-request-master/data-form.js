@@ -48,7 +48,7 @@ export class DataForm {
     } else if (this.data.PRType == "SUBCON") {
       let filterSubcon = {
         IsPosted: true,
-        'SCType == "TERIMA SUBCON" || SCType == "SUBCON KELUAR" || SCType == "SUBCON"': true,
+        'SCType == "SUBCON KELUAR" || SCType == "SUBCON"': true,
       };
 
       return filterSubcon;
