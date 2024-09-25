@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import * as _ from 'underscore';
 
 
 @inject(Router, Service)
@@ -39,6 +40,10 @@ export class Edit {
         // }
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        var nullInvoiceCount = this.data.Items.filter(item => item.Invoice !== null).length;
+        //console.log("Number of items with null invoice:", nullInvoiceCount);
+        this.data.proformaView = nullInvoiceCount > 0 ? true : false;
         
         if (this.data.Currency) {
             this.selectedCurrency = this.data.Currency;
@@ -135,12 +140,42 @@ export class Edit {
                     LastModifiedBy: item.LastModifiedBy,
                     LastModifiedUtc: item.LastModifiedUtc,
                     VatRate : item.VatRate,
-                    VatId : item.VatId
+                    VatId : item.VatId,
+                    Invoice : item.Invoice
                 };
                 return mappingItem;
             });
+
+            var groupObj = _.groupBy(this.data.Items, 'Invoice');
+
+            var mappedGroup = _.map(groupObj);
+
+            var ItemGroups = [];
+
+            mappedGroup.forEach((element, index) => {
+                var headData = {};
+                element.forEach((x, i) => {
+                    
+                    if (i == 0) {
+                        
+                        headData = x;
+                        headData.Items = [];
+                        
+                    }
+                    
+                    if (headData.Items != undefined) {
+                        headData.Items.push(x);
+                    }
+                });
+                // var headData = element[0]
+                
+                //     headData.PackagingList = element;
+                ItemGroups.push(headData);
+            });
+
+            this.data.Items = ItemGroups;
         }
-        console.log(this);
+       // console.log(this);
     }
 
     cancel(event) {
@@ -184,16 +219,104 @@ export class Edit {
         //   .catch(e => {
         //     this.error = e;
         //   })
-        if (this.data.Items) {
-            this.data.Amount = 0;
-            this.data.IncomeTaxValue = 0;
-            this.data.IncomeTaxValueView = 0;
-            this.data.DPP = 0;
-            this.data.VatValue = 0;
-            this.data.VatValueView = 0;
+
+        //console.log("data atas",this.data);
+        //console.log("item atas",this.data.Items);
+
+        var bodyRequest = {};
+        bodyRequest.Amount = this.data.Amount;
+        bodyRequest.Bank = this.data.Bank;
+        bodyRequest.Category = this.data.Category;
+        //bodyRequest.Currency = this.data.Currency;
+        bodyRequest.CurrencyCode = this.data.CurrencyCode;
+        bodyRequest.CurrencyDate = this.data.CurrencyDate;
+        bodyRequest.CurrencyId = this.data.CurrencyId;
+        bodyRequest.CurrencyName = this.data.CurrencyName;
+        bodyRequest.DPP = this.data.DPP;
+        bodyRequest.Id = this.data.Id;
+        bodyRequest.IncomeTaxValue = this.data.IncomeTaxValue;
+        bodyRequest.IncomeTaxValueView = this.data.IncomeTaxValueView;
+        bodyRequest.MiscAmount = this.data.MiscAmount;
+        bodyRequest.PaymentDueDate = this.data.PaymentDueDate;
+        bodyRequest.PaymentType = this.data.PaymentType;
+        bodyRequest.ProformaNo = this.data.ProformaNo;
+        bodyRequest.Remark = this.data.Remark;
+        //bodyRequest.Supplier = this.data.Supplier;
+        bodyRequest.SupplierCode = this.data.SupplierCode;
+        bodyRequest.SupplierId = this.data.SupplierId;
+        bodyRequest.SupplierIsImport = this.data.SupplierIsImport;
+        bodyRequest.SupplierName = this.data.SupplierName;
+        bodyRequest.VatValue = this.data.VatValue;
+        bodyRequest.VatValueView = this.data.VatValueView;
+        bodyRequest.CreatedAgent = this.data.CreatedAgent;
+        bodyRequest.CreatedBy = this.data.CreatedBy;
+        bodyRequest.CreatedUtc = this.data.CreatedUtc;
+        bodyRequest.LastModifiedAgent = this.data.LastModifiedAgent;
+        bodyRequest.LastModifiedBy = this.data.LastModifiedBy;
+        bodyRequest.LastModifiedUtc = this.data.LastModifiedUtc;
+        bodyRequest.Id = this.data.Id;
+        bodyRequest.ConfirmationOrderNo = this.data.ConfirmationOrderNo;
+        bodyRequest.DispositionNo = this.data.DispositionNo;
+        
+        bodyRequest.Items = [];
+        this.data.Items.forEach(element => {
+            element.Items.forEach(item =>{
+                var itemDisp ={};
+                itemDisp.CurrencyRate = item.CurrencyRate;
+                itemDisp.DPPValue = item.DPPValue;
+                itemDisp.DispositionAmountCreated = item.DispositionAmountCreated;
+                itemDisp.DispositionPaidCreated=item.DispositionPaidCreated;
+                itemDisp.EPOId = item.EPOId;
+                itemDisp.EPONo = item.EPONo;
+                itemDisp.IncomeTax = item.IncomeTax;
+                itemDisp.IncomeTaxId = item.IncomeTaxIdId;
+                itemDisp.IncomeTaxName = item.IncomeTaxName;
+                itemDisp.IncomeTaxRate = item.IncomeTaxRate;
+                itemDisp.IncomeTaxValue = item.IncomeTaxValue;
+                itemDisp.IncomeTaxValueView = item.IncomeTaxValueView;
+                itemDisp.IsIncomeTax = item.IsIncomeTax;
+                itemDisp.IsPayIncomeTax = item.IsPayIncomeTax;
+                itemDisp.IsPayVAT = item.IsPayVAT;
+                itemDisp.IsUseIncomeTax = item.IsUseIncomeTax;
+                itemDisp.IsUseVat = item.IsUseVat;
+                itemDisp.VatId = item.VatId;
+                itemDisp.VatRate = item.VatRate;
+                itemDisp.VatValue = item.VatValue;
+                itemDisp.VatValueView = item.VatValueView;
+                itemDisp.Details = item.Details;
+                itemDisp.Invoice = element.Invoice;
+                itemDisp.Id = item.Id;
+                itemDisp.CreatedAgent = item.CreatedAgent;
+                itemDisp.CreatedBy = item.CreatedBy;
+                itemDisp.CreatedUtc = item.CreatedUtc;
+                itemDisp.LastModifiedAgent = item.LastModifiedAgent;
+                itemDisp.LastModifiedBy = item.LastModifiedBy;
+                itemDisp.LastModifiedUtc = item.LastModifiedUtc;
+                itemDisp.GarmentDispositionPurchaseId = item.GarmentDispositionPurchaseId;
+                itemDisp.IsDispositionCreated = item.IsDispositionCreated;
+                itemDisp.CurrencyCode = item.CurrencyCode;
+                itemDisp.CurrencyDate = item.CurrencyDate;
+                itemDisp.CurrencyId = item.CurrencyId;
+                
+                bodyRequest.Items.push(itemDisp);
+            });
+        });
+
+
+        this.dataConv = bodyRequest;
+
+        //console.log(this.dataConv);
+
+        if (this.dataConv.Items) {
+            this.dataConv.Amount = 0;
+            this.dataConv.IncomeTaxValue = 0;
+            this.dataConv.IncomeTaxValueView = 0;
+            this.dataConv.DPP = 0;
+            this.dataConv.VatValue = 0;
+            this.dataConv.VatValueView = 0;
             var incomeTaxCalculate = 0;
             var vatCalculate = 0;
-            for (var item of this.data.Items) {
+            for (var item of this.dataConv.Items) {
                 // if(item.Details){
                 //     for(var detail of item.Details){
                 var pph = 0;
@@ -218,11 +341,11 @@ export class Edit {
                     // ppn=detail.PriceTotal*0.1;
                     ppnView = item.VatValueView ? item.VatValueView : item.VatValue;
                 }
-                this.data.IncomeTaxValue+=pphView;
-                this.data.IncomeTaxValueView +=pphView;                        
-                this.data.VatValue+=ppnView;
-                this.data.VatValueView+=ppnView;                        
-                this.data.DPP+=item.DPPValue;
+                this.dataConv.IncomeTaxValue+=pphView;
+                this.dataConv.IncomeTaxValueView +=pphView;                        
+                this.dataConv.VatValue+=ppnView;
+                this.dataConv.VatValueView+=ppnView;                        
+                this.dataConv.DPP+=item.DPPValue;
                 incomeTaxCalculate +=pph;
                 vatCalculate +=ppn;
                 // if(this.data.IncomeTaxBy=="Supplier"){
@@ -234,14 +357,14 @@ export class Edit {
                 // }
             }
             // this.data.Amount =(this.data.DPP+this.data.VatValue+this.data.MiscAmount)-this.data.IncomeTaxValue;
-            this.data.Amount = (this.data.DPP + vatCalculate + this.data.MiscAmount) - incomeTaxCalculate;
+            this.dataConv.Amount = (this.dataConv.DPP + vatCalculate + this.dataConv.MiscAmount) - incomeTaxCalculate;
             // this.data.IncomeTaxValue = this.data.IncomeTaxValueView;
             // this.data.VatValue = this.data.VatValueView;
 
 
         }
-        console.log("save edit", this.data);
-        this.service.update(this.data)
+        //console.log("save edit", this.dataConv);
+        this.service.update(this.dataConv)
             .then(result => {
                 alert("Data berhasil dibuat");
                 // this.router.navigateToRoute('create',{}, { replace: true, trigger: true });

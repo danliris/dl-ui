@@ -664,4 +664,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     }
   },
+  {
+    route: "/garment-finance/reports/garment-disposition-by-invoice-report",
+    name: "garment-disposition-by-invoice-report",
+    moduleId: "./modules/garment-finance/reports/garment-disposition-by-invoice-report/index",
+    nav: true,
+    title: "Laporan Disposisi Pembayaran per Invoice",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "report",
+      // permission: { "B13": 1, "C9": 1 , "B4": 1, "B11": 1, "B1": 1, "B12": 1},
+      permission: { "J47": 1 },
+      iconClass: 'fa fa-dashboard'
+    }
+  },
 ]

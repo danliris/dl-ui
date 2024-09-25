@@ -1,0 +1,92 @@
+<template>
+    <h1 class="page-header">LAPORAN DISPOSISI PEMBAYARAN PER INVOICE </h1>
+    <form class="form-horizontal">
+<!-- 
+            <input type="text" value.bind="unitcode"></input> -->
+
+        <au-autocomplete value.bind="disposition"
+            error.bind="error.DispositionId"
+            loader.bind="dispositionLoader"
+            label="Nomor Disposisi"
+            placeholder="Cari Disposisi"
+            text="DispositionNo"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <au-autocomplete value.bind="supplier"
+            error.bind="error.supplier"
+            label="Supplier"
+            loader.bind="supplierLoader"
+            text.bind="supplierView"
+            placeholder="Input Supplier"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-autocomplete>
+        <!-- <au-dropdown 
+              label="Unit" 
+              value.bind="UnitItem"
+              items.bind="UnitItems"
+              options.bind="controlOptions" >
+      </au-dropdown> -->
+     
+        <au-datepicker label="Tgl Awal Kirim ke Kasir" value.bind="dateFromSendCashier"></au-datepicker>
+        <au-datepicker label="Tgl Akhir Kirim ke Kasir" value.bind="dateToSendCashier"></au-datepicker>
+
+        <au-datepicker label="Tgl Awal Kasir Terima" value.bind="dateFromReceiptCashier"></au-datepicker>
+        <au-datepicker label="Tgl Akhir Kasir Terima" value.bind="dateToReceiptCashier"></au-datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="searching()" class='btn btn-success'>Cari Data</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+        <div slot="toolbar" class="btn-group">
+            <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+          </div>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    
+                    <tr>
+                            <td align="center">NO</td>
+                            <td align="center"> NO DISPOSISI</td> </td>
+                            <td align="center">PROFORMA INVOICE</td>
+                            <td align="center" >AMOUNT</td>
+                            <td align="center" >SUPPLIER</td>
+                            <td align="center" >MATA UANG</td>
+                            <td align="center" >TGL KIRIM KE KASIR</td>
+                            <td align="center">TGL KASIR TERIMA</td>
+                    </tr>
+
+                    
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                            <!-- <td >${$index + 1}</td>
+                            <td >${item.Invoice}</td>
+                            <td >${item.ExpenditureGoodId}</td> -->
+                        <td>${item.index}</td>
+                        <td if.bind="item.rowspan" rowspan="${item.rowspan}">${item.DispositionNo}</td>
+                        
+                        <td>${item.InvoiceNo}</td>
+                        <td>${item.Amount}</td>
+                        <td>${item.SupplierName}</td>
+                        <td>${item.CurrencyCode}</td>
+                        <td>${item.SendToCashierDate}</td>
+                        <td>${item.ReceiptCashierDate}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+                Tidak ada data ditemukan.
+            </div>
+            <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
+            <hr/>
+    </form>
+
+    
+</template>

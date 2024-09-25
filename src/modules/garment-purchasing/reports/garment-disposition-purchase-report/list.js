@@ -37,6 +37,36 @@ export class List {
         this.service.search(this.info)
         .then(result=> {
             // console.log(result);
+            
+            this.rowCount=[];
+                var rowDoc=[];
+                //this.info.total=result.info.total;    
+                  
+                for(var a of result.data.Data){
+                    //var bc=a.Invoice.toString();
+                    //var doc=a.ExpanditurGoodId;
+                    var dispoNo=a.DispositionNo.toString();
+                    
+                    if(!this.rowCount[dispoNo]){
+                        this.rowCount[dispoNo]=1;
+                    }
+                    else{
+                        this.rowCount[dispoNo]++;
+                    }
+ 
+                    
+                }
+                
+                for(var b of result.data.Data){
+                   
+                    let dispoc=result.data.Data.find(o=> o.DispositionNo ==b.DispositionNo);
+                    if(dispoc){
+                        dispoc.rowspan=this.rowCount[b.DispositionNo];
+                        //b.index = index++;
+                    }
+
+                    
+                }
             this.data = result.data.Data;
         });
         }

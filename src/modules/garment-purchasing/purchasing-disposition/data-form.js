@@ -36,15 +36,17 @@ export class DataForm {
 
     itemPaymentType = ["T/T AFTER", "FREE", "T/T BEFORE"];
     itemCategory = ["FABRIC", "ACCESSORIES"];
-    itemsColumns = [{ header: "Nomor External PO" },
-    { header: "Kena PPN" },
-    { header: "Nominal PPN" },
-    { header: "Kena PPH" },
-    { header: "PPH" },
-    { header: "Nominal PPH" },
-    { header: "Disposisi yang sudah dibuat" },
-    // { header: "Disposisi yang sudah dibayar"},
-    { header: "" }];
+    // itemsColumns = [{ header: "Nomor External PO" },
+    // { header: "Kena PPN" },
+    // { header: "Nominal PPN" },
+    // { header: "Kena PPH" },
+    // { header: "PPH" },
+    // { header: "Nominal PPH" },
+    // { header: "Disposisi yang sudah dibuat" },
+    // // { header: "Disposisi yang sudah dibayar"},
+    // { header: "" }];
+
+    itemsColumns = [{ header: "", header : "Invoice"}];
 
     constructor(service, bindingEngine) {
         this.service = service;
@@ -58,7 +60,7 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
-        // console.log("bindForm",this.data)
+        console.log("bindForm",this.data)
     }
 
     @computedFrom("data.Id")
