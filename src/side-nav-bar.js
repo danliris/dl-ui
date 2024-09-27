@@ -50,20 +50,31 @@ export class SideNavBar {
 
       var routePermission = route.config.settings.permission || {};
       var myPermission = me.permission;
-
+      var objmyPermission =JSON.parse(myPermission);
+      //var myPermission = JSON.Parse(me.permission); // Changed here
+      // console.log("paling atas")
+      // console.log(myPermission)
+      // console.log("-----------1")
+      // console.log(JSON.stringify(myPermission))
+      // console.log("-----------2")
+      // console.log(JSON.parse(myPermission))
+      // console.log("paling bawah")
       var routeKeys = Object.getOwnPropertyNames(routePermission);
 
       if (routeKeys.find((key) => key === "*")) return true;
 
       if (routeKeys.length == 0) return false;
 
-      var keys = Object.getOwnPropertyNames(myPermission);
+      var keys = Object.getOwnPropertyNames(objmyPermission);
+      // console.log("keys atas")
+      // console.log(keys)
+      // console.log("keys bawah")
 
       return keys.some((key) => {
         var keyFound = routeKeys.find((routeKey) => routeKey === key);
         if (keyFound) {
           var mod = routePermission[keyFound];
-          return mod <= myPermission[key];
+          return mod <= objmyPermission[key];
         }
 
         return false;
