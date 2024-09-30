@@ -26,7 +26,7 @@ export class List {
       permission = me.permission;
     }
 
-    let arrayPermission = Object.entries(permission);
+    permission = JSON.parse(me.permission);
     this.isKasie = arrayPermission.find(([key, value]) => key == "X19");
 
     if (!this.isKasie) {
