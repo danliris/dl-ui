@@ -111,7 +111,7 @@ export class List {
       const me = this.authService.getTokenPayload();
 
       username = me.username;
-      permission = me.permission;
+      permission = JSON.parse(me.permission);
     }
 
     let arrayPermission = Object.entries(permission);
