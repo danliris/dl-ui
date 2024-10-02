@@ -5,6 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUri = 'garment-invoices';
+const internNoteUri = 'garment-intern-notes';
 // const deliveryOrderUri = 'garment-delivery-orders/no-invoice';
 // const deliveryOrderUriRouter = 'garment-delivery-orders';
 
@@ -15,7 +16,7 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/merge`;
         return super.list(endpoint, info);
     }
 
@@ -52,5 +53,10 @@ export class Service extends RestService {
     getDeliveryOrder(info) {
         var endpoint = `${deliveryOrderUriRouter}`;
         return super.list(endpoint, info);
+    }
+
+    getPdfNotaInternById(id) {
+        var endpoint = `${internNoteUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
     }
 }
