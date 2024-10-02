@@ -24,7 +24,7 @@ export class DataForm {
     },
   };
 
-  prTypes = ["MASTER", "SAMPLE", "SUBCON"];
+  prTypes = ["MASTER", "SAMPLE", "SUBCON", "TERIMA SUBCON"];
 
   formOptions = {
     cancelText: "Kembali",
