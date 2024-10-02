@@ -5,9 +5,10 @@ import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
-    context = ["Rincian", "Cetak Nota Pajak Pph", "Cetak Nota Pajak Ppn"];
+    context = ["Rincian", "Cetak Nota Pajak Pph", "Cetak Nota Pajak Ppn", "Cetak Nota Intern"];
     columns = [
         { field: "invoiceNo", title: "Nomor Invoice" },
+        { field: "internNoteNo", title: "Nomor Nota Intern" },
         {
             field: "invoiceDate", title: "Tanggal Invoice", formatter: function (value, data, index) {
                 return moment(value).format("DD MMM YYYY");
@@ -71,6 +72,9 @@ export class List {
             case "Cetak Nota Pajak Ppn":
                 this.service.getPdfVatNote(data.Id);
                 break;
+            case "Cetak Nota Intern":
+                this.service.getPdfNotaInternById(data.internNoteId);
+                break;
         }
     }
 
@@ -80,12 +84,50 @@ export class List {
                 return data.useIncomeTax && data.isPayTax;
             case "Cetak Nota Pajak Ppn":
                 return data.useVat && data.isPayVat;
+            case "Cetak Nota Intern":
+                return this.checkStatus(data.items);    
             default:
                 return true;
+            
+            
         }
     }
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    checkStatus(items) {
+        var isCetak = true;
+        console.log(items);
+        var received=[];
+        for(var item of items)
+        {
+            console.log(item);
+            for(var deliveryOrder of item.deliveryOrder.items)
+            {
+                console.log(deliveryOrder);
+                for(var detail of deliveryOrder.fulfillments)
+                {
+                    console.log(detail);
+                    if(!received[detail.Id]){
+                        received[detail.Id]=detail.receiptQuantity;
+                    }
+                    else{
+                        received[detail.Id] +=detail.receiptQuantity;
+                    }
+                }
+            }
+
+        }
+
+        console.log(received);
+        for(var flag of received){
+            if(flag===0){
+                isCetak = false;
+                break;
+            }
+        }
+        return isCetak;
     }
 }

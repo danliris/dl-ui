@@ -77,6 +77,7 @@ export class List {
 
 	checkStatus(items) {
         var isCetak = true;
+        console.log(items);
         for(var item of items){
             for(var detail of item.details){
                 var receiptQuantityTotal = 0;
@@ -102,6 +103,8 @@ export class List {
                         }
                     }
                 }
+
+                console.log(received);
                 for(var flag of received){
                     if(flag===0){
                         isCetak = false;

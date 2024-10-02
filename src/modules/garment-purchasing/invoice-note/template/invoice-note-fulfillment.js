@@ -8,6 +8,10 @@ export class DeliveryOrderItem {
     this.options = context.options;
     this.pricePerDealUnit=(this.data.pricePerDealUnit).toLocaleString('en-EN', { maximumFractionDigits: 4,minimumFractionDigits:4});
     this.doQuantity=parseFloat(this.data.doQuantity).toFixed(2).toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+
+    this.status = this.data.receiptQuantity > 0 ? "Sudah" : "Belum";
+
+    console.log(this.data);
   }
 
   get product() {

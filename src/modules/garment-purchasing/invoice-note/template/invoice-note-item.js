@@ -16,7 +16,8 @@ export class DeliveryOrderItem {
     { header: "Jumlah" },
     { header: "Satuan" },
     { header: "Harga Satuan" },
-    { header: "Harga Total" }
+    { header: "Harga Total" },
+    { header: "Diterima Unit" }
   ]
 
   constructor(bindingEngine, service) {
@@ -35,6 +36,7 @@ export class DeliveryOrderItem {
     this.error = context.error;
     this.isShowing = false;
     this.options = context.context.options;
+    console.log(this.data);
     if(this.data.deliveryOrder){
       // this.data.deliveryOrder.totalAmount=this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
       this.totalAmount = this.data.deliveryOrder.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});

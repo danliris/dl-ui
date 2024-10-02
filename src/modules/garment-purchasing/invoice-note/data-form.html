@@ -12,6 +12,15 @@
             options.bind="controlOptions">
         </au-textbox>
 
+        <au-textbox 
+            label="Nomor Nota Intern" 
+            value.bind="data.internNoteNo" 
+            
+            read-only.bind="true"
+            if.bind="(readOnly || isEdit)"
+            options.bind="controlOptions">
+        </au-textbox>
+        
         <au-datepicker label="Tgl. Invoice" value.bind="data.invoiceDate" error.bind="error.invoiceDate" read-only.bind="readOnly" options.bind="controlOptions">
         </au-datepicker>
 
