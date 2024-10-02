@@ -311,6 +311,22 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+
+  {
+    route: "/garment/invoice-note-all",
+    name: "invoice-note-all",
+    moduleId: "./modules/garment-purchasing/invoice-note-all/index",
+    nav: true,
+    title: "Invoice All",
+    auth: true,
+    settings: {
+      group: "g-purchasing",
+      subGroup: "transaksi",
+      // permission: { "C9": 1, "APG": 1 },
+      permission: { H64: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
   {
     route: "/garment/monitoring-invoice-note",
     name: "monitoring-invoice-note",
