@@ -19,4 +19,9 @@ generateExcel(info) {
        return super.getXls(endpoint);
     }
 
+    postToBalance(data) {
+        var endpoint = `${serviceUri}/post-balance`;
+        return super.post(endpoint, data);
+    }
+
 }
