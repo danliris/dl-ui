@@ -769,4 +769,64 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: "accounting/upload-down-payment",
+    name: "upload-down-payment",
+    moduleId: "./modules/accounting/feature/upload-down-payment/index",
+    nav: true,
+    title: "Fitur Upload Uang Muka",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "fitur",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N20": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/upload-omzet-correction",
+    name: "upload-omzet-correction",
+    moduleId: "./modules/accounting/feature/upload-omzet-correction/index",
+    nav: true,
+    title: "Fitur Upload Omset Koreksi",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "fitur",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N20": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/upload-cmt",
+    name: "upload-cmt",
+    moduleId: "./modules/accounting/feature/upload-cmt/index",
+    nav: true,
+    title: "Fitur Upload CMT",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "fitur",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N20": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
+  {
+    route: "accounting/upload-cash-in-bank",
+    name: "upload-cash-in-bank",
+    moduleId: "./modules/accounting/feature/upload-cash-in-bank/index",
+    nav: true,
+    title: "Fitur Upload Cash In Bank",
+    auth: true,
+    settings: {
+      group: "accounting",
+      subGroup: "fitur",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { "N20": 1 },
+      iconClass: "fa fa-dashboard",
+    }
+  },
 ];

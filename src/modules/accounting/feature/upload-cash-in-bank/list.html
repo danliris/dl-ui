@@ -1,0 +1,74 @@
+<template>
+    <h1 class="page-header">AR_Cash In Bank</h1>
+   
+        <div slot="toolbar" class="btn-group">
+            <!-- <button class="btn btn-primary" click.delegate="download()">Download</button> -->
+            <button class="btn btn-primary" click.delegate="upload()">Upload</button>
+            <!-- <button class="btn btn-primary" click.delegate="createStock()">Tambah Stock</button> -->
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" border="1" id="poReport">
+                <thead align="center">
+                    <tr>
+                        <!-- <td align="center" rowspan="3">NO</td> -->
+                        <td align="center" rowspan="3">Tgl Kuitansi</td>
+                        <td align="center" rowspan="3">Bulan</td>
+                        <td align="center" rowspan="3">No Kuitansi</td>
+                        <td align="center" rowspan="3">Buyer</td>
+
+                        <td align="center" colspan="3">Jumlah Diterima</td>
+                        <td align="center" colspan="6">Piutang Export Garment</td>
+                        <td align="center" colspan="6">Biaya/Penghasilan Lain-Lain</td>
+
+                    </tr>
+                    <tr>
+                        <td align="center"  rowspan="2">US$</td>
+                        <td align="center" rowspan="2">Rp</td>
+                        <td align="center" rowspan="2">Kurs</td>
+                        <td align="center" rowspan="2">No Invoice</td>
+                        <td align="center" colspan="2">Jumlah Cair</td>
+                        <td align="center" colspan="2">Saldo Buku</td>
+                        <td align="center" rowspan="2">Selisih Kurs</td>
+                        <td align="center" rowspan="2">COA</td>
+                        <td align="center" rowspan="2">Konf</td>
+                        <td align="center" rowspan="2">Ketarangan</td>
+                        <td align="center" rowspan="2">Doc Pendukung</td>
+                        <td align="center" colspan="2">Nominal</td>
+                    </tr>
+                    <tr>
+                        <td align="center">US$</td>
+                        <td align="center">Rp</td>
+                        <td align="center">Kurs</td>
+                        <td align="center">Rp</td>
+                        <td align="center">US$</td>
+                        <td align="center">Rp</td>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data">
+                        <!-- <td>${$index}</td> -->
+                        <td>${item.receiptDate}</td>
+                        <td>${item.month}</td>
+                        <td>${item.receiptNo}</td>
+                        <td>${item.buyerCode}</td>
+                        <td>${item.receipt.receiptAmount}</td>
+                        <td>${item.receipt.receiptKurs}</td>
+                        <td>${item.receipt.receiptTotalAmount}</td>
+                        <td>${item.invoiceNo}</td>
+                        <td>${item.liquid.liquidAmount}</td>
+                        <td>${item.liquid.liquidTotalAmount}</td>
+                        <td>${item.bookBalance.bookBalanceKurs}</td>
+                        <td>${item.bookBalance.bookBalanceTotalAmount}</td>
+                        <td>${item.differenceKurs}</td>
+                        <td>${item.cost.coa}</td>
+                        <td>${item.cost.unitCode}</td>
+                        <td>${item.cost.remark}</td>
+                        <td>${item.cost.supportingDocument}</td>
+                        <td>${item.cost.amount}</td>
+                        <td>${item.cost.totalAmount}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+
+</template>

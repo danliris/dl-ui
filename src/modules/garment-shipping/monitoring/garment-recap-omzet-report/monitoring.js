@@ -133,6 +133,25 @@ export class List {
         }
     }
 
+    PostToBalance() {
+        {
+            var info = {
+                dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+                dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : ""
+            }
+
+            this.service.postToBalance(info)
+                .then(result => {
+                    alert("Data berhasil dipush");
+                    this.Sections = [];
+                    this.reset();
+                })
+                .catch(error => {
+                    this.error = error;
+                });
+        }
+    }
+
     reset() {
         this.dateFrom = null;
         this.dateTo = null;
