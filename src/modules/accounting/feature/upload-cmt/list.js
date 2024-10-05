@@ -31,7 +31,7 @@ export class List {
         },
         { field: "expenditureGoodNo", title: "Bon No" },
        
-        { field: "rONo", title: "RO" },
+        { field: "roNo", title: "RO" },
         { field: "amount", title: "US$" },
         { field: "kurs", title: "Kurs" },
         { field: "totalAmount", title: "Total Rp" },

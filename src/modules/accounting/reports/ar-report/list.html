@@ -1,0 +1,16 @@
+<template>
+    <h1 class="page-header">LAPORAN AR</h1>
+    <form class="form-horizontal">
+        <au-datepicker label="Tanggal Awal" value.bind="dateFrom" options.bind="controlOptions"></au-datepicker>
+        <au-datepicker label="Tanggal Akhir" value.bind="dateTo" options.bind="controlOptions"></au-datepicker>
+        <div class="form-group">
+            <label for="contact" class="col-sm-5 control-label"></label>
+            <div class="col-sm-3">
+                <button class='btn btn-primary' click.delegate="ExportToExcel()">Export To Excel</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset Data</button>
+            </div>
+        </div>
+    </form>
+
+
+</template>
