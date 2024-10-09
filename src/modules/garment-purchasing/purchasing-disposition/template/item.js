@@ -140,12 +140,12 @@ export class PurchasingDispositionItem {
                     currencyCode: this.dataFilter.CurrencyCode
                 }
                 this.selectedEPO = await this.service.getEPOById(param);
-                console.log(this.selectedEPO);
+                //console.log(this.selectedEPO);
 
             }
 
             if (this.selectedEPO.Id) {
-                console.log("selectedEPO", this.selectedEPO);
+                //console.log("selectedEPO", this.selectedEPO);
                 this.incomeTaxValue = 0;
                 this.incomeTaxValueView = 0;
                 this.vatValue = 0;
@@ -332,7 +332,7 @@ export class PurchasingDispositionItem {
                     ppn = parseFloat(detail.PaidPrice) * (this.data.Vat.Rate / 100);
                 }
                 if (this.data.IsUseVat) {
-                    console.log(this.selectedEPO);
+                    //console.log(this.selectedEPO);
                     ppnView = parseFloat(detail.PaidPrice) * (this.data.Vat.Rate / 100);
                 }
                 this.incomeTaxValue += pph;
@@ -348,11 +348,11 @@ export class PurchasingDispositionItem {
             this.data.VatValueView = this.vatValueView;
             this.data.DPPValue = this.dppValue;
         }
-        console.log("after gettax", this.data);
+        //console.log("after gettax", this.data);
     }
 
     detailChanged(e) {
-        console.log("detttailchanged");
+        //console.log("detttailchanged");
         this.GetTax();
     }
 
