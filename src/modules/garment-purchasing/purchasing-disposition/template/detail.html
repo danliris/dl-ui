@@ -87,7 +87,7 @@
 			</au-textbox>
 		</td>
         
-		<td if.bind="!readOnly">
+		<td if.bind="!readOnly && !data.Id">
 			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
 		</td>
     </tr>

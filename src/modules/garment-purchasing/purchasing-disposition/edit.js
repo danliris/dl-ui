@@ -317,6 +317,20 @@ export class Edit {
             var incomeTaxCalculate = 0;
             var vatCalculate = 0;
             for (var item of this.dataConv.Items) {
+                if(item.Details){
+                    for(var detail of item.Details){
+                        if(!poItem[item.EPONo]){
+                            poItem[item.EPONo]=detail.QTYRemains
+                        }
+                        else{
+                            if(poItem[item.EPONo]<=0){
+                                alert("QTY PO dengan nomor "+item.EPONo+" sudah melebihi alokasi.")
+                                break;
+                            }
+                            poItem[item.EPONo]-=detail.QTYPaid
+                        }
+                    }
+                }
                 // if(item.Details){
                 //     for(var detail of item.Details){
                 var pph = 0;
