@@ -70,6 +70,7 @@ export class Create {
         bodyRequest.Items = [];
         this.data.Items.forEach(element => {
             element.Items.forEach(item =>{
+                console.log(element)
                 var itemDisp ={};
                 itemDisp.CurrencyRate = item.CurrencyRate;
                 itemDisp.DPPValue = item.DPPValue;
@@ -101,12 +102,11 @@ export class Create {
             });
         });
 
-
         this.dataConv = bodyRequest;
 
         //console.log(this.dataConv);
 
-
+        var poItem=[];
         if(this.dataConv.Items){
             this.dataConv.Amount=0;
             this.dataConv.IncomeTaxValue=0;
@@ -117,8 +117,20 @@ export class Create {
             var incomeTaxCalculate = 0;
             var vatCalculate = 0;
             for(var item of this.dataConv.Items){
-                // if(item.Details){
-                //     for(var detail of item.Details){
+                if(item.Details){
+                    for(var detail of item.Details){
+                        if(!poItem[item.EPONo]){
+                            poItem[item.EPONo]=detail.QTYRemains
+                        }
+                        else{
+                            if(poItem[item.EPONo]<=0){
+                                alert("QTY PO dengan nomor "+item.EPONo+" sudah melebihi alokasi.")
+                                break;
+                            }
+                            poItem[item.EPONo]-=detail.QTYPaid
+                        }
+                    }
+                }
                         var pph=0;
                         var pphView=0;
                         var ppn=0;
@@ -247,7 +259,7 @@ export class Create {
 
 
 
-        if(!isDuplicate){
+        //if(!isDuplicate){
             this.service.create(this.dataConv)
             .then(result => {
                 alert("Data berhasil dibuat");
@@ -260,10 +272,10 @@ export class Create {
                     this.error = e;
                 }
             })
-        }
-        else{
-            alert("Terdapat No. PO External yang Sama");
-        }
+        // }
+        // else{
+        //     alert("Terdapat No. PO External yang Sama");
+        // }
 
 
         // this.service.create(this.data)

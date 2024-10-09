@@ -116,7 +116,17 @@
             options.bind="controlOptions">
         </au-multiline>
 
+        
         <au-textbox
+            value.bind="data.ProformaNo"
+            show.bind = "data.ProformaNo"
+            error.bind="error.ProformaNo"
+            label="No Proforma / Invoice" 
+            placeholder="no proforma"
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-textbox>
+        <!-- <au-textbox
             value.bind="data.ProformaNo"
             show.bind = "!data.proformaView"
             error.bind="error.ProformaNo"
@@ -124,7 +134,7 @@
             placeholder="no proforma"
             read-only.bind="readOnly"
             options.bind="controlOptions">
-        </au-textbox>
+        </au-textbox> -->
 
         <au-numeric
             value.bind="dppVal"
