@@ -51,4 +51,14 @@ export class Service extends RestService {
     return super.put(endpoint);
   }
 
+   getExcel(dateFrom, dateTo) {
+        var endpoint;
+        if (dateFrom && dateTo) {
+            endpoint = `${serviceUri}/download?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        } else {
+            endpoint = `${serviceUri}`;
+        }
+        return super.getXls(endpoint);
+    }
+
 }
