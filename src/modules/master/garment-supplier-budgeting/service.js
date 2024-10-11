@@ -23,7 +23,6 @@ export class Service extends RestService {
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-    console.log(data);  
   }
 
   update(data) {
@@ -51,5 +50,15 @@ export class Service extends RestService {
     var endpoint = `${serviceUri}/nonactived/${id}`;
     return super.put(endpoint);
   }
+
+   getExcel(dateFrom, dateTo) {
+        var endpoint;
+        if (dateFrom && dateTo) {
+            endpoint = `${serviceUri}/download?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+        } else {
+            endpoint = `${serviceUri}`;
+        }
+        return super.getXls(endpoint);
+    }
 
 }

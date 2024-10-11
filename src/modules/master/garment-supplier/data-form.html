@@ -94,6 +94,13 @@
               read-only.bind="readOnly"
             ></au-multiline> 
 
+            <au-multiline
+              label="Keterangan"
+              value.bind="data.description"
+              error.bind="error.description"
+              read-only.bind="readOnly"
+            ></au-multiline> 
+
             <au-dropdown
                 label="Negara"
                 value.bind="data.country"

@@ -140,4 +140,8 @@ export class List {
   upload() {
     this.router.navigateToRoute('upload');
   } 
+
+   download() {
+    this.router.navigateToRoute('download');
+  } 
 } 
