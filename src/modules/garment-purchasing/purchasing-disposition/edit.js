@@ -305,8 +305,8 @@ export class Edit {
 
         this.dataConv = bodyRequest;
 
-        //console.log(this.dataConv);
-
+        var isOver=false;
+        var poItem=[];
         if (this.dataConv.Items) {
             this.dataConv.Amount = 0;
             this.dataConv.IncomeTaxValue = 0;
@@ -317,6 +317,23 @@ export class Edit {
             var incomeTaxCalculate = 0;
             var vatCalculate = 0;
             for (var item of this.dataConv.Items) {
+                console.log(item)
+                if(item.Details){
+                    for(var detail of item.Details){
+                        if(!poItem[item.EPONo]){
+                            poItem[item.EPONo]=detail.QTYRemains;
+                        }
+                        else{
+                            if(poItem[item.EPONo]<=0){
+                                isOver=true;
+                                alert("QTY PO dengan nomor "+item.EPONo+" sudah melebihi alokasi.")
+                                break;
+                            }
+                            poItem[item.EPONo]-=detail.QTYPaid;
+                            detail.QTYRemains=poItem[item.EPONo];
+                        }
+                    }
+                }
                 // if(item.Details){
                 //     for(var detail of item.Details){
                 var pph = 0;
@@ -364,7 +381,8 @@ export class Edit {
 
         }
         //console.log("save edit", this.dataConv);
-        this.service.update(this.dataConv)
+        if(!isOver){
+            this.service.update(this.dataConv)
             .then(result => {
                 alert("Data berhasil dibuat");
                 // this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
@@ -378,6 +396,7 @@ export class Edit {
                     this.error = e;
                 }
             })
+        }
     }
 }
 

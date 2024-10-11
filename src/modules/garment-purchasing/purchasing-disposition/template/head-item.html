@@ -6,14 +6,14 @@
                 value.bind="data.Invoice"
                 placeholder="Input Invoice" 
                 read-only.bind="(readOnly || isEdit)"
-                error.bind="error.incomeTax">
+                error.bind="error.Invoice">
             </au-textbox>
         </td>
        
         <!-- <td class="col-sm-1">
             <button class="btn btn-info" click.delegate="toggle()">i</button> 
         </td> -->
-        <td class="col-sm-1" show.bind="!readOnly">
+        <td class="col-sm-1" show.bind="!readOnly  && !data.Id">
             <button class="btn btn-danger" click.delegate="onremove(data)" if.bind="!readOnly">-</button>
         </td>
     </tr>
