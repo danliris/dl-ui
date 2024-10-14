@@ -106,7 +106,8 @@ export class DataForm {
     }
 
     filterbuyer = {
-             "Code!=BuyerName": true
+             "Code!=BuyerName": true,
+             "Active" : true
              };
 
     comodityView = (comodity) => {

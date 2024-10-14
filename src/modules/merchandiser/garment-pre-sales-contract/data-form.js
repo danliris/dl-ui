@@ -106,8 +106,19 @@ export class DataForm {
     get garmentBuyerLoader() { 
         return GarmentBuyerLoader;
     }
+
+    get buyerQuery(){
+    var result = { "Active" : true }
+    return result;   
+    }
+
     get garmentBuyerBrandLoader() { 
         return GarmentBuyerBrandLoader;
+    }
+
+    get brandQuery(){
+    var result = { "Active" : true }
+    return result;   
     }
 
   controlOptions = {

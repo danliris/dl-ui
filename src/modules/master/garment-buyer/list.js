@@ -4,8 +4,15 @@ import {Router} from 'aurelia-router';
 
 @inject(Router, Service)
 export class List {
-    context = ["detail"];
+    context = ["detail","nonaktif", "detail "];
     columns = [
+    {
+      field: "isPosting", title: "Post", checkbox: true, sortable: false,
+      formatter: function (value, data, index) {
+        this.checkboxEnabled = !data.IsPosted;
+        return ""
+    }
+    },
     { field: "Code", title: "Kode" },
     { field: "Name", title: "Nama" },
     { field: "Address", title: "Alamat" },
@@ -13,7 +20,21 @@ export class List {
     { field: "Country", title: "Negara" },
     { field: "Contact", title: "Kontak" },
     { field: "Tempo", title: "Tempo" },
+    {
+      field: "IsPosted", title: "Active",
+      formatter: function (value, row, index) {
+        return value ? "SUDAH" : "BELUM";
+      }
+    },
   ];
+
+  dataToBePosted = [];
+  rowFormatter(data, index) {
+    if (data.IsPosted)
+      return { classes: "success" }
+    else
+      return {}
+  }
 
   loader = (info) => {
     var order = {};
@@ -24,7 +45,7 @@ export class List {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["Code", "Name", "Address", "City", "Country", "Contact", "Tempo"],
+      select: ["Code", "Name", "Address", "City", "Country", "Contact", "Tempo", "IsPosted"],
       order: order
     }
 
@@ -44,22 +65,56 @@ export class List {
         this.buyers = [];
     }
 
-    contextCallback(event) {
+   contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
     switch (arg.name) {
       case "detail":
         this.router.navigateToRoute('view', { id: data.Id });
         break;
+      case "detail ":
+        this.router.navigateToRoute('view', { id: data.Id });
+        break;
+      case "nonaktif":
+        this.service.nonActived(data.Id).then(result => {
+          this.table.refresh();
+        }).catch(e => {
+          this.error = e;
+        });
+        break;
+    }
+  }
+  
+  contextShowCallback(index, name, data) {
+    console.log(data);
+    
+    switch (name) {
+        case "detail ":
+        case "nonaktif":
+            return data.IsPosted;
+        case "detail":
+            return !data.IsPosted;
+        default:
+            return true;
+    }
+}
+  
+  posting() {
+    if (this.dataToBePosted.length > 0) {
+      this.service.post(this.dataToBePosted).then(result => {
+        this.table.refresh();
+      }).catch(e => {
+        this.error = e;
+      })
     }
   }
 
-    create() {
+  create() {
         this.router.navigateToRoute('create');
-    }
+  }
 
-    upload() {
+  upload() {
         this.router.navigateToRoute('upload');
-    } 
+  } 
 
 }
