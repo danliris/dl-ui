@@ -56,6 +56,7 @@ export async function configure(aurelia) {
             var dyeing = "https://dyeing-printing-etl-service.azurewebsites.net/api/";
             const garmentShipping = "https://garment-etl-service.azurewebsites.net/api/";
             var ItInven = "https://it-inventory-etl-service.azurewebsites.net/api/";
+            var danlirisReport = "https://com-danliris-service-it-inventory.azurewebsites.net/v1/";
 
             config.registerEndpoint('auth', auth);
             config.registerEndpoint('core', core);
@@ -80,6 +81,7 @@ export async function configure(aurelia) {
             config.registerEndpoint('dyeing', dyeing, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
             config.registerEndpoint('garment-shipping', garmentShipping, defaultConfig);
             config.registerEndpoint('ItInven', ItInven, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
+            config.registerEndpoint('dl-report', danlirisReport, defaultConfig);
         })
         .plugin("aurelia-authentication", baseConfig => {
             baseConfig.configure(authConfig);
