@@ -52,8 +52,30 @@ export class DataForm {
             itemData:this.data.items,
             data:this.data,
         }
+        this.uomList = [];
         this.isEdit = this.context.isEdit;
         this.isUpdated = this.context.isUpdated;
+        this.isView = this.context.isView;
+
+        //mapping data items with spesific uom
+        if ((this.isView || this.context.isEdit) && this.data.items.length > 0) {
+            //create dictionary uom witu key is uom.unit and value summary of quantity from data items
+       
+            var uomDictionary = {};
+            this.data.items.forEach(item => {
+                if (uomDictionary[item.uom.unit]) {
+                    uomDictionary[item.uom.unit] += item.quantity;
+                } else {
+                    uomDictionary[item.uom.unit] = item.quantity;
+                }
+            });
+      
+            //push uomDictionary to uomList
+            for (var key in uomDictionary) {
+                this.uomList.push({ unit: key, quantity: uomDictionary[key] });
+            }
+           
+        }
         
 
         if (this.data.id != undefined) {

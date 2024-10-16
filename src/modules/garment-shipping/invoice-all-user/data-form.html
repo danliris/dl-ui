@@ -147,6 +147,25 @@
                     item-template="modules/garment-shipping/invoice/template/garment-shipping-invoice-adjustment">
                 </au-collection>
             </div>
+
+            <div if.bind="isView || isEdit">
+                <div class="col-sm-2">
+                    <H5>Total Qty : </H5>
+                </div>
+        
+                <div class="col-sm-2">
+                    <table>
+                        <tbody>
+                            <tr repeat.for="data of uomList">
+                            <td>${data.quantity}</td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td>${data.unit}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
         <div class="row">
             <div class="col-md-6">
