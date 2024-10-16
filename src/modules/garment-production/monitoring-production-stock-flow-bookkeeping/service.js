@@ -8,7 +8,7 @@ const unitExpenditureNoteUri = 'garment-unit-expenditure-notes'
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-production");
+        super(http, aggregator, config, "dl-report");
     }
 
     search(info) {
