@@ -117,17 +117,17 @@ export class Create {
                 for(var item of this.dataConv.Items){
                     if(item.Details){
                         for(var detail of item.Details){
-                            if(!poItem[item.EPONo]){
-                                poItem[item.EPONo]=detail.QTYRemains;
+                            if(!poItem[detail.IPONo]){
+                                poItem[detail.IPONo]=detail.QTYRemains;
                             }
                             else{
-                                if(poItem[item.EPONo]<=0){
+                                if(poItem[detail.IPONo]<=0){
                                     isOver=true;
-                                    alert("QTY PO dengan nomor "+item.EPONo+" sudah melebihi alokasi.")
+                                    alert("QTY PO dengan nomor "+detail.IPONo+" sudah melebihi alokasi.")
                                     break;
                                 }
-                                poItem[item.EPONo]-=detail.QTYPaid;
-                                detail.QTYRemains=poItem[item.EPONo];
+                                poItem[detail.IPONo]-=detail.QTYPaid;
+                                detail.QTYRemains=poItem[detail.IPONo];
                             }
                         }
                     }
