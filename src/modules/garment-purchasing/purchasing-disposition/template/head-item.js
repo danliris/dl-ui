@@ -38,14 +38,12 @@ export class HeadItem {
 
     async activate(context) {
         this.context = context;
-        //console.log(context);
         this.items = context.context.items;
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
         this.filter = this.data;
         this.readOnly = context.options.readOnly;
-        //console.log(this.filter.SupplierId);
         // this.filter = this.options.supplierId && this.options.currencyId && this.options.categoryId && this.options.divisionId ?
         //     {
         //         "supplierId": this.options.supplierId,
@@ -89,27 +87,30 @@ export class HeadItem {
         return (event) => {
             this.data.Items.push(
                 {
+                    filter : this.data.Id ? this.options : null,
                    invoice: this.data.invoice
                 })
         };
     }
 
     get filter() {
-        var filter = {
-                
-
+        var filter={};
+        if(this.data.Id){
+            filter = this.options;
+        }
+        else{
+            filter = {
                 supplierId: this.filter.SupplierId,
-                    currencyId: this.filter.CurrencyId,
-                    categoryId: this.filter.CategoryId,
-                    currencyCode: this.filter.CurrencyCode,
+                currencyId: this.filter.CurrencyId,
+                categoryId: this.filter.CategoryId,
+                currencyCode: this.filter.CurrencyCode,
             }
-        
+        }
         return filter;
     }
 
     
     detailChanged(e) {
-        //console.log("detttailchanged");
         this.GetTax();
     }
 
