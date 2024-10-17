@@ -1323,4 +1323,36 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/customs/report-aval-garment',
+        name: 'report-aval-garment',
+        moduleId: './modules/garment-production/scrap-report-new/index',
+        nav: true,
+        title: 'Laporan Stock Aval Garment',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission: { "O77": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
+    {
+        route: '/customs/report-aval-flow',
+        name: 'report-aval-flow',
+        moduleId: './modules/garment-production/scrap-report-in-and-out/index',
+        nav: true,
+        title: 'Laporan Flow Aval',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "aval",
+            // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
+            permission: { "O78": 1 },
+            iconClass: 'fa fa-dashboard'
+        },
+
+    },
 ];
