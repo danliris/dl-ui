@@ -57,7 +57,7 @@
         </td>
         <td>
             <au-dropdown value.bind="data.shippingGrade" items.bind="gradeShippings"
-                read-only.bind="readOnly || !isSales" error.bind="error.GradeShipping" options.bind="controlOptions">
+                read-only.bind="isEdit" error.bind="error.GradeShipping" options.bind="controlOptions">
             </au-dropdown>
         </td>
         <td>
