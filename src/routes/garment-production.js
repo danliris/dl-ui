@@ -1334,7 +1334,7 @@ module.exports = [
             group: "g-production",
             subGroup: "aval",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission: { "O53": 1 },
+            permission: { "O77": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
@@ -1350,7 +1350,7 @@ module.exports = [
             group: "g-production",
             subGroup: "aval",
             // permission: {  "C9": 1,"PG": 1,"B1": 1 ,"C2A":1},
-            permission: { "O53": 1 },
+            permission: { "O78": 1 },
             iconClass: 'fa fa-dashboard'
         },
 
