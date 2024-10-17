@@ -60,7 +60,6 @@ export class DataForm {
         if (this.data.supplier) {
             this.selectedSupplier = this.data.supplier;
         }
-        console.log("bindForm",this.data)
     }
 
     @computedFrom("data.Id")
@@ -71,7 +70,22 @@ export class DataForm {
     @computedFrom("data.Supplier && data.Currency && data.Category")
     get filter() {
         var filter = {};
-        if (this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division) {
+        if(this.data.Id){
+            filter = {
+                supplierId: this.data.SupplierId,
+                currencyId: this.data.CurrencyId,
+                currencyCode: this.data.CurrencyCode,
+                category: this.data.Category,
+                paymentType: this.data.PaymentType,
+            }
+            for(var item of this.data.Items){
+                for(var detail of item.Items){
+                    detail.filter=filter;
+                }
+
+            }
+        }
+        else if (this.data.Supplier && this.data.Currency && this.data.Category && this.data.Division) {
             filter = {
                 supplierId: this.data.Supplier.Id || this.data.Supplier._id,
                 currencyId: this.data.Currency.Id || this.data.Currency._id,
@@ -122,7 +136,6 @@ export class DataForm {
     }
 
     selectedCurrencyChanged(newValue) {
-        console.log("selectedCurrency", newValue);
         this.data.Currency = {};
         if (this.data.Items)
             this.data.Items.splice(0);
@@ -183,8 +196,6 @@ export class DataForm {
     }
 
     itemsChanged(e) {
-        // console.log("BeforeitemChanged",this.data);
-        
         if (this.data.Items) {
             this.data.Amount = 0;
             this.data.IncomeTaxValue = 0;
@@ -197,7 +208,6 @@ export class DataForm {
                 for (var item of detail.Items) {
                 // if(item.Details){
                 //     for(var detail of item.Details){
-                // console.log("itemchange list item ",item);
                 var pph = 0;
                 var pphView = 0;
                 var ppn = 0;
