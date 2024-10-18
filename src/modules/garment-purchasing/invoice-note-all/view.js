@@ -32,19 +32,21 @@ export class View {
         this.totalData = this.items.length;
         var quantityCorrection = 0;
         console.log(this.data.items); 
-        for(var item of this.data.items)
-        { 
-            for(var detail of item.details  )
-            {
-                quantityCorrection += detail.correctionQuantity;
-                console.log(quantityCorrection);    
-            }
+        // for(var item of this.data.items)
+        // { 
+        //     for(var detail of item.details  )
+        //     {
+        //         quantityCorrection += detail.correctionQuantity;
+        //         console.log(quantityCorrection);    
+        //     }
             
-            //this.data.deliveryOrder.totalAmount=item.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
-        }
+        //     //this.data.deliveryOrder.totalAmount=item.totalAmount.toLocaleString('en-EN', { maximumFractionDigits: 2,minimumFractionDigits:2});
+        // }
 
         console.log(quantityCorrection);
-        if(quantityCorrection === 0)
+        var isCorection = this.data.items.filter(item => item.deliveryOrder.isCorrection === true).length;
+        //console.log()
+        if(isCorection === 0)
         {
             this.hasEdit = false;
             this.hasDelete = true;
