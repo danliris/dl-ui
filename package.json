@@ -161,6 +161,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "protractor": "^4.0.11",
+    "uglify-js": "^3.19.3",
     "wait-on": "^2.0.1",
     "webpack": "2.1.0-beta.27",
     "webpack-dev-server": "2.1.0-beta.12"

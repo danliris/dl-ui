@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - dl-ui-dev
 on:
   push:
     branches:
-      - dev
+      - dev-optimize
 
 jobs:
   build-and-deploy:
@@ -23,7 +23,8 @@ jobs:
     - name: npm install, build
       run: |
         npm install
-        npm run build
+        npm run build:prod
+        npx uglifyjs app.bundle.js -o app.bundle.js
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1
