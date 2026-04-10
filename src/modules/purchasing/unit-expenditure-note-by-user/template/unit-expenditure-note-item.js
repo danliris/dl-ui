@@ -46,6 +46,23 @@ export class UnitExpenditureNoteItem {
     this.data.IsSave = !!this.data.IsSave;
   }
 
+    removeItem() {
+    // reset validation errors for this item
+    if (this.error && typeof this.error === 'object') {
+      Object.keys(this.error).forEach(key => {
+        try {
+          this.error[key] = undefined;
+        } catch (e) {
+          try { delete this.error[key]; } catch (ee) {}
+        }
+      });
+    }
+
+    if (this.context && this.context.context && this.context.context.options && this.context.context.options.remove) {
+      this.context.context.options.remove(this.data);
+    }
+  }
+
    @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || '').toString() != '';
@@ -107,6 +124,9 @@ unitPRChanged(e) {
     this.data.ProductName = item.ProductName;
     this.data.ProductRemark = item.ProductRemark;
     this.data.RemainingQuantity = item.RemainingQuantity;
+    this.data.CategoryId = item.CategoryId;
+    this.data.CategoryName = item.CategoryName;
+    this.data.CategoryCode = item.CategoryCode;
     this.data.Uom = item.Uom;
     this.data.UomId = item.UomId;
     this.data.PricePerDealUnit = item.PricePerDealUnit; 

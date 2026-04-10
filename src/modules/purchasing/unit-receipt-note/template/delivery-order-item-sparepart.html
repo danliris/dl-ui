@@ -1,0 +1,167 @@
+<template>
+	<tr>
+		<td  style="text-align: center;">
+			<au-checkbox value.bind="data.IsSave"
+						disabled.bind="readOnly"
+						change.delegate="clickCheckBox()">
+			</au-checkbox>
+    	</td>
+		<td>
+			<au-textbox
+				value.one-way="data.prNo"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="product"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.categoryName"
+				read-only="true"
+				error.bind="error.category">
+			</au-textbox>
+		</td>
+		<td>
+			<au-numeric
+				value.bind="data.deliveredQuantity"
+				read-only.bind="true"
+				format = "0,0.00"
+				error.bind="error.deliveredQuantity">
+			</au-numeric>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.deliveredUom.unit"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.bind="data.productRemark"
+				read-only.bind="readOnly">
+			</au-textbox>
+		</td>
+		<td if.bind="!isStorage">
+            <au-textbox 
+                value.bind="data.Line"
+                error.bind="error.Line"
+                read-only.bind="context.context.options.readOnly">
+            </au-textbox>
+        </td>
+        <td if.bind="!isStorage">
+            <au-textbox 
+                value.bind="data.Area"
+                error.bind="error.Area"
+                read-only.bind="context.context.options.readOnly">
+            </au-textbox>
+        </td>
+        <td if.bind="!isStorage">
+            <au-textbox 
+                value.bind="data.Section"
+                error.bind="error.Section"
+                read-only.bind="context.context.options.readOnly">
+            </au-textbox>
+        </td>
+        <td if.bind="!isStorage" class="bg-light" align="center">
+            <div>
+                <button class="btn btn-info btn-sm" click.delegate="toggle()">
+                    <i class="fa" class.bind="isShowing ? 'i' : 'i'">i</i>
+                </button>
+            </div>
+        </td>
+		<!--<td if.bind="!readOnly">
+			<button class="btn btn-danger pull-right" click.delegate="onremove(data)">-</button>
+		</td>-->
+	</tr>
+    <tr show.bind="isShowing && !isStorage">
+        <td colspan="15" style="border:none; padding-left: 50px; padding-right: 65px; padding-bottom: 20px;">
+            <table class="table table-bordered" style="margin:0;">
+                <thead>
+                    <tr>
+                        <th style="width:9.1%;">Inventory Number</th>
+                        <th style="width:9.1%;">Machine Type</th>
+                        <th style="width:8.1%;">Brand</th>
+                        <th style="width:8.1%;">Model</th>
+                        <th style="width:8.1%;">Serial Number</th>
+                        <th style="width:8.1%;">Part Number</th>
+                        <th style="width:8.1%;">Item Part</th>
+                        <th style="width:8.1%;">Repair Description</th>
+                        <th style="width:8.1%;">Repair Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <au-textbox
+                                value.bind="data.InventoryNumber"
+                                error.bind="error.InventoryNumber"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.MachineType"
+                                error.bind="error.MachineType"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.Brand"
+                                error.bind="error.Brand"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.Model"
+                                error.bind="error.Model"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.SerialNumber"
+                                error.bind="error.SerialNumber"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.PartNumber"
+                                error.bind="error.PartNumber"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.ItemPart"
+                                error.bind="error.ItemPart"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.RepairDescription"
+                                error.bind="error.RepairDescription"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                        <td>
+                            <au-textbox
+                                value.bind="data.RepairResult"
+                                error.bind="error.RepairResult"
+                                read-only.bind="context.context.options.readOnly">
+                            </au-textbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+</template>

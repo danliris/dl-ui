@@ -8,7 +8,15 @@
             if.bind="readOnly || isEdit"
             options.bind="auInputOptions">
         </au-textbox>
-
+        <au-dropdown 
+            label="Jenis Bon Penerimaan Unit"
+            value.bind="TypeUrn"
+            error.bind="error.TypeUrn"
+            read-only.bind="readOnly || isEdit"
+            items.bind="urnTypes"
+            change.delegate="urnTypeChanged($event)"
+            options.bind="auInputOptions">
+        </au-dropdown>
         <au-datepicker
             label="Tgl. Bon Unit"
             value.bind="data.date"
@@ -57,7 +65,7 @@
             value.bind="data.isStorage" 
             error.bind="error.isStorage" 
             change.delegate="isStorageChanged($event)"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || isEdit"
             options.bind="auInputOptions">
         </au-checkbox>
 
@@ -73,6 +81,42 @@
             text.bind="storageView">
         </au-autocomplete> -->
 
+        <au-textbox
+            label="NPK ID"
+            value.bind="data.NPKNo"
+            error.bind="error.NPKNo"
+            read-only.bind="readOnly"
+            if.bind="showNpk && !data.isStorage && !readOnly && !isEdit"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox
+            label="Nama Penerima"
+            value.bind="data.ReceiptName"
+            error.bind="error.ReceiptName"
+            read-only.bind="readOnly"
+            if.bind="!data.isStorage && !readOnly && !isEdit"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-autocomplete 
+            value.bind="selectedAccount" 
+            error.bind="error.WarehouseStaff" label="Petugas Gudang" 
+            loader.bind="accountLoader" text="username"
+            placeholder="cari user name" key="username" read-only.bind=" readOnly" 
+            if.bind="showWarehouseStaff && !data.isStorage && !readOnly && !isEdit"
+            options.bind="auInputOptions" >
+        </au-autocomplete>
+
+         <au-textbox
+            label="Nama Mekanik"
+            value.bind="data.MechanicName"
+            error.bind="error.MechanicName"
+            read-only.bind="readOnly"
+            if.bind="showMechanicName && !data.isStorage && !readOnly && !isEdit"
+            options.bind="auInputOptions">
+        </au-textbox>
+            
         <au-multiline 
             label="Keterangan"
             value.bind="data.remark"
@@ -93,14 +137,44 @@
             error.bind="error.countGroup"
             read-only="true">
         </au-textbox>
+        <!-- Saat view (readOnly), hanya tampilkan default columns. Saat create/edit, tetap sesuai TypeUrn -->
         <au-collection 
             items.bind="data.items" 
-            columns.bind="deliveryOrderItem.columns"
+            columns.bind="deliveryOrderItemColumns"
             errors.bind="error.items"
             read-only.bind="readOnly"
             item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item"
             header-template="modules/purchasing/unit-receipt-note/template/header"
-            show.bind="deliveryOrder">
+            show.bind="deliveryOrder && (readOnly || isEdit)">
+        </au-collection>
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="deliveryOrderItemColumns"
+            errors.bind="error.items"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item"
+            header-template="modules/purchasing/unit-receipt-note/template/header"
+            show.bind="deliveryOrder && !readOnly && !isEdit && TypeUrn === 'Umum Garment'">
+        </au-collection>
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="deliveryOrderItemUnitColumns"
+            errors.bind="error.items"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item-unit"
+            header-template="modules/purchasing/unit-receipt-note/template/header-unit"
+            show.bind="deliveryOrder && !readOnly && !isEdit && TypeUrn === 'Unit Umum Garment'"
+            options.one-way="{ isStorage: data.isStorage }">
+        </au-collection>
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="deliveryOrderItemSparepartColumns"
+            errors.bind="error.items"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item-sparepart"
+            header-template="modules/purchasing/unit-receipt-note/template/header-sparepart"
+            show.bind="deliveryOrder && !readOnly && !isEdit && TypeUrn === 'Sparepart'"
+            options.one-way="{ isStorage: data.isStorage }">
         </au-collection>
     </form>
 </template>

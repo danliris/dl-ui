@@ -21,7 +21,12 @@ export class DataForm {
   @bindable options = {};
   @bindable unitDeliveryOrder;
   @bindable unit;
+  @bindable TypeUen;
+  @bindable selectedAccount;
+  @bindable selectedMechanic;
 
+
+  uenTypes = [" ","Umum Garment", "Unit Umum Garment", "Sparepart"];
   controlOptions = {
     label: {
       align: "right",
@@ -44,6 +49,26 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.isItem = false;
+
+    this.TypeUen = this.data.TypeUen || "";
+    this.isItem = !!this.TypeUen;
+    this.isItemSparepart = this.TypeUen === "Sparepart";
+    this.isItemUnit = this.TypeUen === "Unit Umum Garment";
+
+    // initialize visibility flags based on existing TypeUen (so view/edit shows correct fields)
+    this.showNpk = this.TypeUen === "Unit Umum Garment" || this.TypeUen === "Sparepart";
+    this.showWarehouseStaff = this.showNpk;
+    this.showMechanicName = this.TypeUen === "Sparepart";
+
+    this.selectedAccount = {
+    _id: this.data.WarehouseStaffId,
+    username: this.data.WarehouseStaff
+  };
+
+    this.selectedMechanic = {
+      _id: this.data.MechanicId,
+      username: this.data.MechanicName
+    };
 
     if (!this.data.Items) {
       this.data.Items = [];
@@ -89,22 +114,81 @@ export class DataForm {
     
   }
 
+  uenTypeChanged(event) {
+  
+    this.data.TypeUen = this.TypeUen;
+
+    this.unit = null;
+    this.data.unit = null;
+    this.data.unitId = null;
+    this.options.unitId = null;
+    this.options.divisionId = null;
+    this.data.MechanicName = null;
+    this.data.WarehouseStaffId = null;
+    this.data.WarehouseStaff = null;
+    this.selectedAccount = null;
+    this.data.UnitReceipt = null;
+    this.data.ReceiptName = null;
+    this.data.NPKNo = null;
+   
+ 
+    // determine which additional fields to show
+    this.showNpk = false;
+    this.showWarehouseStaff = false;
+    this.showMechanicName = false;
+
+    if (this.TypeUen === "Unit Umum Garment") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+    } else if (this.TypeUen === "Sparepart") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+      this.showMechanicName = true;
+    }
+
+    if (!this.showNpk) this.data.NPKNo = undefined;
+    if (!this.showWarehouseStaff) this.data.WarehouseStaff = undefined;
+    if (!this.showMechanicName) this.data.MechanicName = undefined;
+
+    // set isItem based on whether a type was selected
+  }
+
   unitChanged(newValue, oldValue) {
         var _selectedUnit = newValue;
 
         if (_selectedUnit) {
             this.data.unit = _selectedUnit;
-            this.data.unit._id = _selectedUnit.Id;
-            this.data.unit.name = _selectedUnit.Name;
-            this.data.unit.code = _selectedUnit.Code;
-            this.data.unitId = _selectedUnit.Id ? _selectedUnit.Id : "";
-            this.data.unit.division=_selectedUnit.Division;
-            this.data.unit.division._id=_selectedUnit.Division.Id;
-            this.data.unit.division.name=_selectedUnit.Division.Name;
-            this.data.unit.division.code=_selectedUnit.Division.Code;
-            this.options.divisionId = _selectedUnit.Division ? _selectedUnit.Division.Id : null;
-            this.options.unitId = _selectedUnit.Id;
-            this.isItem = true;
+            
+            this.data.unit._id = _selectedUnit.Id || _selectedUnit._id;
+            this.data.unit.name = _selectedUnit.Name || _selectedUnit.name;
+            this.data.unit.code = _selectedUnit.Code || _selectedUnit.code;
+            this.data.unitId = _selectedUnit.Id || _selectedUnit._id || "";
+            
+            var division = _selectedUnit.Division || _selectedUnit.division;
+            if (division) {
+                this.data.unit.division = division;
+                this.data.unit.division._id = division.Id || division._id;
+                this.data.unit.division.name = division.Name || division.name;
+                this.data.unit.division.code = division.Code || division.code;
+                this.options.divisionId = division.Id || division._id;
+            } else {
+                this.options.divisionId = null;
+            }
+            this.options.unitId = _selectedUnit.Id || _selectedUnit._id;
+            if (this.TypeUen === "Sparepart") {
+              this.isItemSparepart = true;
+              this.isItem = false;
+              this.isItemUnit = false;
+            } else if (this.TypeUen === "Unit Umum Garment")  
+              {
+              this.isItemUnit = true;
+              this.isItem = false;
+              this.isItemSparepart = false;
+            } else {
+              this.isItem = true;
+              this.isItemSparepart = false;
+              this.isItemUnit = false;
+            }
         }
         else {
             this.data.unitId = null;
@@ -112,17 +196,11 @@ export class DataForm {
             this.options.unitId = null;
 
             this.isItem = false;
+            this.isItemSparepart = false;
+            this.isItemUnit = false;
         }
 
-        if (this.deliveryOrderAU) {
-            this.deliveryOrderAU.editorValue = "";
-        }
-        // this.data.deliveryOrderId = undefined;
-        // this.data.storageId=undefined;
-        // this.storage=null;
-        // this.data.isInventory=false;
     }
-  
 
   get filterUnitDeliveryOrder() {
     var unitDeliveryOrderFilter = {
@@ -140,16 +218,57 @@ export class DataForm {
   }
  
 
-  get items() {
+    get items() {
     if (this.isItem) {
       return {
         columns: [
           "No PR",
           "Barang",
+          "Kategori",
           "Stock",
           "Jumlah Keluar",
           "Satuan",
           "Keterangan",
+        ],
+      };
+    }
+
+    return { columns: [] };
+  }
+
+   get itemsUnit() {
+    if (this.isItemUnit) {
+      return {
+        columns: [
+          "No PR",
+          "Barang",
+          "Kategori",
+          "Stock",
+          "Jumlah Keluar",
+          "Satuan",
+          "Keterangan",
+          "Area",
+        ],
+      };
+    }
+
+    return { columns: [] };
+  }
+
+  get itemsSparepart() {
+    if (this.isItemSparepart) {
+      return {
+        columns: [
+          "No PR",
+          "Barang",
+          "Kategori",
+          "Stock",
+          "Jumlah Keluar",
+          "Satuan",
+          "Keterangan",
+          "Line",
+          "Area",
+          "Section",
         ],
       };
     }

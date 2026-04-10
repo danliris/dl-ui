@@ -46,7 +46,7 @@ export class UnitExpenditureNoteItem {
     this.data.IsSave = !!this.data.IsSave;
   }
 
-    removeItem() {
+  removeItem() {
     // reset validation errors for this item
     if (this.error && typeof this.error === 'object') {
       Object.keys(this.error).forEach(key => {

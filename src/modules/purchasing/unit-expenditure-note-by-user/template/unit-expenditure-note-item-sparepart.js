@@ -1,8 +1,14 @@
-import { bindable, computedFrom } from 'aurelia-framework'
+import { bindable, computedFrom, inject, BindingEngine } from 'aurelia-framework'
 import { Service } from "../service";
 var PRLoader = require("../../../../loader/unit-receipt-loader");
 
+@inject(BindingEngine)
 export class UnitExpenditureNoteItem {
+
+  constructor(bindingEngine) {
+    this.bindingEngine = bindingEngine;
+    this.subscription = null;
+  }
 
   async activate(context) {
     this.context = context;
@@ -21,7 +27,33 @@ export class UnitExpenditureNoteItem {
     if (this.isEdit && this.data.URNItemId) {
       await this.loadRemainingQuantity();
     }
+
+    this.isShowing = false;
+
+    // Expand if there are initial validation errors
+    if (this.error && Object.keys(this.error).some(k => this.error[k])) {
+      this.isShowing = true;
+    }
+
+    // Simple observer: watch the `error` reference and auto-expand when any error appears
+    this.subscription = this.bindingEngine.propertyObserver(this, 'error')
+      .subscribe((newVal) => {
+        if (newVal && Object.keys(newVal).some(k => newVal[k])) {
+          this.isShowing = true;
+        }
+      });
   }
+
+  unbind() {
+    if (this.subscription && this.subscription.dispose) {
+      this.subscription.dispose();
+      this.subscription = null;
+    }
+  }
+
+  toggle() {
+		this.isShowing = !this.isShowing;
+	}
 
    async loadRemainingQuantity() {
       try {
@@ -46,7 +78,7 @@ export class UnitExpenditureNoteItem {
     this.data.IsSave = !!this.data.IsSave;
   }
 
-    removeItem() {
+  removeItem() {
     // reset validation errors for this item
     if (this.error && typeof this.error === 'object') {
       Object.keys(this.error).forEach(key => {
@@ -58,6 +90,7 @@ export class UnitExpenditureNoteItem {
       });
     }
 
+    // call parent remove if exists
     if (this.context && this.context.context && this.context.context.options && this.context.context.options.remove) {
       this.context.context.options.remove(this.data);
     }

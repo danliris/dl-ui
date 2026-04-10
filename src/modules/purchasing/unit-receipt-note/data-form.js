@@ -3,6 +3,7 @@ import { Service } from "./service";
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/supplier-loader');
 var DeliveryOrderBySupplierLoader = require('../../../loader/delivery-order-by-supplier-loader');
+var AccountLoader = require('../../../loader/account-signature-loader');
 var StorageLoader = require('../../../loader/storage-loader');
 var moment = require('moment');
 
@@ -15,6 +16,11 @@ export class DataForm {
     @bindable supplier;
     @bindable deliveryOrder;
     @bindable storage;
+    @bindable TypeUrn;
+    @bindable selectedAccount;
+    @bindable selectedMechanic;
+
+    urnTypes = [" ","Umum Garment", "Unit Umum Garment", "Sparepart"];
 
     constructor(bindingEngine, element, service) {
         this.bindingEngine = bindingEngine;
@@ -33,47 +39,149 @@ export class DataForm {
             }
         };
 
-        this.deliveryOrderItem = {
-            columns: [
-                     "No PR",
-                    "Barang",
-                    "Kategori",
-                    "Jumlah" ,
-                    "Satuan",
-                    "Keterangan",
-                // { header: "No PR" },
-                // { header: "Barang" },
-                // { header: "Jumlah" },
-                // { header: "Satuan" },
-                // { header: "Keterangan" }   
-            ],
-            // onRemove: function() {
-            //     this.bind();
-            // }
-        };
+        // this.deliveryOrderItem = {
+        //     columns: [
+        //              "No PR",
+        //             "Barang",
+        //             "Kategori",
+        //             "Jumlah" ,
+        //             "Satuan",
+        //             "Keterangan",
+        //         // { header: "No PR" },
+        //         // { header: "Barang" },
+        //         // { header: "Jumlah" },
+        //         // { header: "Satuan" },
+        //         // { header: "Keterangan" }   
+        //     ],
+        //     // onRemove: function() {
+        //     //     this.bind();
+        //     // }
+        // };
 
-        // itemColumns = [
-        //     "No PR",
-        //     "Barang",
-        //     "Jumlah" ,
-        //     "Satuan",
-        //     "Keterangan",
-        //     // "Qty Order",
-        //     // "Material",
-        //     // "Unit",
-        //     // "Buyer",
-        //     // "Warna",
-        //     // "Motif",
-        //     // "Qty Packaging",
-        //     // "Packaging",
-        //     // "Jenis",
-        //     // "Grade",
-        //     // "Satuan",
-        //     // "Qty Masuk",
-        //     // "Zona Asal",
-        //     ""
-        //   ];
+        //  this.deliveryOrderItemUnit = {
+        //     columns: [
+        //              "No PR",
+        //             "Barang",
+        //             "Kategori",
+        //             "Jumlah" ,
+        //             "Satuan",
+        //             "Keterangan",
+        //             "Area", 
+        //     ],
+        // };
+
+        // this.deliveryOrderItemSparepart = {
+        //     columns: [
+        //              "No PR",
+        //             "Barang",
+        //             "Kategori",
+        //             "Jumlah" ,
+        //             "Satuan",
+        //             "Keterangan",
+        //             "Line",
+        //             "Area",
+        //             "Section",
+        //             "Inventory Number",
+        //             "Machine",  
+        //             "Brand",
+        //             "Model",
+        //             "Serial Number",
+        //             "Part Number",
+        //             "Item Part",
+        //             "Repair Description",
+        //             "Repair Result", 
+        //     ],
+        // };
+
+        // // itemColumns = [
+        // //     "No PR",
+        // //     "Barang",
+        // //     "Jumlah" ,
+        // //     "Satuan",
+        // //     "Keterangan",
+        // //     // "Qty Order",
+        // //     // "Material",
+        // //     // "Unit",
+        // //     // "Buyer",
+        // //     // "Warna",
+        // //     // "Motif",
+        // //     // "Qty Packaging",
+        // //     // "Packaging",
+        // //     // "Jenis",
+        // //     // "Grade",
+        // //     // "Satuan",
+        // //     // "Qty Masuk",
+        // //     // "Zona Asal",
+        // //     ""
+        // //   ];
+
     }
+
+    @computedFrom("data.isStorage")
+get deliveryOrderItemColumns() {
+    return [
+        "No PR",
+        "Barang",
+        "Kategori",
+        "Jumlah",
+        "Satuan",
+        "Keterangan"
+    ];
+}
+
+    @computedFrom("data.isStorage")
+get deliveryOrderItemUnitColumns() {
+    let isStorage = this.data && this.data.isStorage;
+
+    let cols = [
+        "No PR",
+        "Barang",
+        "Kategori",
+        "Jumlah",
+        "Satuan",
+        "Keterangan"
+    ];
+
+    if (!isStorage) {
+        cols.push("Area");
+    }
+
+    return cols;
+}
+
+   @computedFrom("data.isStorage")
+get deliveryOrderItemSparepartColumns() {
+    let isStorage = this.data && this.data.isStorage;
+
+    let cols = [
+        "No PR",
+        "Barang",
+        "Kategori",
+        "Jumlah",
+        "Satuan",
+        "Keterangan"
+    ];
+
+    if (!isStorage) {
+        cols.push(
+            "Line",
+            "Area",
+            "Section",
+            // "Inventory Number",
+            // "Machine",
+            // "Brand",
+            // "Model",
+            // "Serial Number",
+            // "Part Number",
+            // "Item Part",
+            // "Repair Description",
+            // "Repair Result"
+        );
+    }
+
+    return cols;
+}
+
     @computedFrom("data.deliveryOrder" , "data.unit")
     get storageFilter(){
          var storageFilter={};
@@ -119,6 +227,26 @@ export class DataForm {
             this.storage=this.data.storage;
         }
 
+        if (this.data.isStorage === undefined) {
+        this.data.isStorage = false;
+        }
+
+         this.TypeUrn = this.data.typeUrn || "";
+
+        this.showNpk = this.TypeUrn === "Unit Umum Garment" || this.TypeUrn === "Sparepart";
+        this.showWarehouseStaff = this.showNpk;
+        this.showMechanicName = this.TypeUrn === "Sparepart";
+
+        this.selectedAccount = {
+        _id: this.data.WarehouseStaffId,
+        username: this.data.WarehouseStaff
+            };
+
+        this.selectedMechanic = {
+        _id: this.data.MechanicId,
+        username: this.data.MechanicName
+            };
+
         // if (this.data.isInventory) {
         //     this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
         //     this.data.storage =this.storage;
@@ -144,6 +272,69 @@ export class DataForm {
         this.data.deliveryOrderId = undefined;
         this.storage=null;
         this.data.isInventory=false;
+    }
+
+    urnTypeChanged(event) {
+  
+    this.data.typeUrn = this.TypeUrn;
+
+    this.unit = null;
+    this.data.unit = null;
+    this.data.unitId = null;
+    this.supplier = null;
+    this.data.supplier = null;
+    this.data.supplierId = null;
+    this.data.MechanicName = null;
+    this.data.WarehouseStaffId = null;
+    this.data.WarehouseStaff = null;
+    this.selectedAccount = null;
+    this.data.UnitReceipt = null;
+    this.data.ReceiptName = null;
+    this.data.NPKNo = null;
+
+
+    this.showNpk = false;
+    this.showWarehouseStaff = false;
+    this.showMechanicName = false;
+
+    if (this.TypeUrn === "Unit Umum Garment") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+    } else if (this.TypeUrn === "Sparepart") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+      this.showMechanicName = true;
+    }
+
+    if (!this.showNpk) this.data.NPKNo = undefined;
+    if (!this.showWarehouseStaff) this.data.WarehouseStaff = undefined;
+    if (!this.showMechanicName) this.data.MechanicName = undefined;
+  }
+
+  selectedAccountChanged(newValue, oldValue){
+        var selectedAccount = newValue;
+        if (selectedAccount) {
+            if (selectedAccount._id) {
+                this.data.WarehouseStaffId = selectedAccount._id;
+                this.data.WarehouseStaff = selectedAccount.username;
+            }
+        } else {
+            this.data.WarehouseStaffId = 0;
+            this.data.WarehouseStaff = "";
+        }
+    }
+
+    selectedMechanicChanged(newValue, oldValue){
+        var selectedMechanic = newValue;
+        if (selectedMechanic) {
+            if (selectedMechanic._id) {
+                this.data.MechanicId = selectedMechanic._id;
+                this.data.MechanicName = selectedMechanic.username;
+            }
+        } else {
+            this.data.MechanicId = 0;
+            this.data.MechanicName = "";
+        }
     }
 
     unitChanged(newValue, oldValue) {
@@ -247,6 +438,7 @@ export class DataForm {
                     console.log(same);
                     if(same){
                         item.categoryId= same.category._id;
+                        item.categoryCode= same.category.code;
                         item.categoryName = same.category.name;
 
                         // item.incomeTaxBy=same.incomeTaxBy;
@@ -270,8 +462,33 @@ export class DataForm {
             this.storage=null;
             this.data.storage =null;
             this.data.storageId = null;
+            this.data.MechanicName = null;
+            this.data.WarehouseStaffId = null;
+            this.data.WarehouseStaff = null;
+            this.selectedAccount = null;
+            this.data.UnitReceipt = null;
+            this.data.ReceiptName = null;
+            this.data.NPKNo = null;
             console.log(this.data.storage)
+        } else {
+           this.data.NPKNo = null;
+            this.data.ReceiptName = null;
+            this.data.WarehouseStaffId = null;
+            this.data.WarehouseStaff = null;
+            this.selectedAccount = null;
+            this.data.MechanicName = null;
+            this.selectedMechanic = null;
         }
+
+        this.deliveryOrderChanged(this.data.deliveryOrder);
+    }
+
+    get accountLoader() {
+            return AccountLoader;
+        }
+          
+    get MechanicLoader() {
+        return AccountLoader;
     }
 
     storageChanged(newValue, oldValue) {

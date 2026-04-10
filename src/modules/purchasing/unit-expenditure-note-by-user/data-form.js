@@ -8,6 +8,7 @@ import {
 import { Service } from "./service";
 import { AuthService } from "aurelia-authentication";
 var UnitLoader = require('../../../loader/unit-loader');
+var AccountLoader = require('../../../loader/account-signature-loader');
 import moment from "moment";
 
 @containerless()
@@ -20,7 +21,12 @@ export class DataForm {
   @bindable options = {};
   @bindable unitDeliveryOrder;
   @bindable unit;
+  @bindable TypeUen;
+  @bindable selectedAccount;
+  @bindable selectedMechanic;
 
+
+  uenTypes = [" ","Umum Garment", "Unit Umum Garment", "Sparepart"];
   controlOptions = {
     label: {
       align: "right",
@@ -43,8 +49,27 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.isItem = false;
-    
+    this.TypeUen = this.data.TypeUen || "";
+    this.isItem = !!this.TypeUen;
+    this.isItemSparepart = this.TypeUen === "Sparepart";
+    this.isItemUnit = this.TypeUen === "Unit Umum Garment";
 
+    // initialize visibility flags based on existing TypeUen (so view/edit shows correct fields)
+    this.showNpk = this.TypeUen === "Unit Umum Garment" || this.TypeUen === "Sparepart";
+    this.showWarehouseStaff = this.showNpk;
+    this.showMechanicName = this.TypeUen === "Sparepart";
+
+    this.selectedAccount = {
+    _id: this.data.WarehouseStaffId,
+    username: this.data.WarehouseStaff
+  };
+
+    this.selectedMechanic = {
+      _id: this.data.MechanicId,
+      username: this.data.MechanicName
+    };
+
+   
     this.isEdit = this.data.Id ? true : false;
 
     if (!this.data.Items) {
@@ -84,9 +109,72 @@ export class DataForm {
       this.options.unitId = this.data.unit._id || this.data.unit.Id || this.data.unitId;
     }
    
-  
   }
 
+  uenTypeChanged(event) {
+  
+    this.data.TypeUen = this.TypeUen;
+
+    this.unit = null;
+    this.data.unit = null;
+    this.data.unitId = null;
+    this.options.unitId = null;
+    this.options.divisionId = null;
+    this.data.MechanicName = null;
+    this.data.WarehouseStaffId = null;
+    this.data.WarehouseStaff = null;
+    this.selectedAccount = null;
+    this.data.UnitReceipt = null;
+    this.data.ReceiptName = null;
+    this.data.NPKNo = null;
+   
+ 
+    // determine which additional fields to show
+    this.showNpk = false;
+    this.showWarehouseStaff = false;
+    this.showMechanicName = false;
+
+    if (this.TypeUen === "Unit Umum Garment") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+    } else if (this.TypeUen === "Sparepart") {
+      this.showNpk = true;
+      this.showWarehouseStaff = true;
+      this.showMechanicName = true;
+    }
+
+    if (!this.showNpk) this.data.NPKNo = undefined;
+    if (!this.showWarehouseStaff) this.data.WarehouseStaff = undefined;
+    if (!this.showMechanicName) this.data.MechanicName = undefined;
+
+    // set isItem based on whether a type was selected
+  }
+
+  selectedAccountChanged(newValue, oldValue){
+        var selectedAccount = newValue;
+        if (selectedAccount) {
+            if (selectedAccount._id) {
+                this.data.WarehouseStaffId = selectedAccount._id;
+                this.data.WarehouseStaff = selectedAccount.username;
+            }
+        } else {
+            this.data.WarehouseStaffId = 0;
+            this.data.WarehouseStaff = "";
+        }
+    }
+
+    selectedMechanicChanged(newValue, oldValue){
+        var selectedMechanic = newValue;
+        if (selectedMechanic) {
+            if (selectedMechanic._id) {
+                this.data.MechanicId = selectedMechanic._id;
+                this.data.MechanicName = selectedMechanic.username;
+            }
+        } else {
+            this.data.MechanicId = 0;
+            this.data.MechanicName = "";
+        }
+    }
 
   unitChanged(newValue, oldValue) {
         var _selectedUnit = newValue;
@@ -110,7 +198,20 @@ export class DataForm {
                 this.options.divisionId = null;
             }
             this.options.unitId = _selectedUnit.Id || _selectedUnit._id;
-            this.isItem = true;
+            if (this.TypeUen === "Sparepart") {
+              this.isItemSparepart = true;
+              this.isItem = false;
+              this.isItemUnit = false;
+            } else if (this.TypeUen === "Unit Umum Garment")  
+              {
+              this.isItemUnit = true;
+              this.isItem = false;
+              this.isItemSparepart = false;
+            } else {
+              this.isItem = true;
+              this.isItemSparepart = false;
+              this.isItemUnit = false;
+            }
         }
         else {
             this.data.unitId = null;
@@ -118,15 +219,10 @@ export class DataForm {
             this.options.unitId = null;
 
             this.isItem = false;
+            this.isItemSparepart = false;
+            this.isItemUnit = false;
         }
 
-        if (this.deliveryOrderAU) {
-            this.deliveryOrderAU.editorValue = "";
-        }
-        // this.data.deliveryOrderId = undefined;
-        // this.data.storageId=undefined;
-        // this.storage=null;
-        // this.data.isInventory=false;
     }
   
 
@@ -140,10 +236,51 @@ export class DataForm {
         columns: [
           "No PR",
           "Barang",
+          "Kategori",
           "Stock",
           "Jumlah Keluar",
           "Satuan",
           "Keterangan",
+        ],
+      };
+    }
+
+    return { columns: [] };
+  }
+
+   get itemsUnit() {
+    if (this.isItemUnit) {
+      return {
+        columns: [
+          "No PR",
+          "Barang",
+          "Kategori",
+          "Stock",
+          "Jumlah Keluar",
+          "Satuan",
+          "Keterangan",
+          "Area",
+        ],
+      };
+    }
+
+    return { columns: [] };
+  }
+
+  get itemsSparepart() {
+    if (this.isItemSparepart) {
+      return {
+        columns: [
+          "No PR",
+          "Barang",
+          "Kategori",
+          "Stock",
+          "Jumlah Keluar",
+          "Satuan",
+          "Keterangan",
+          "Line",
+          "Area",
+          "Section",
         ],
       };
     }
@@ -167,6 +304,13 @@ export class DataForm {
     return items.every(i => i && (i.IsStorage === true || i.isStorage === true));
 }
 
+ get accountLoader() {
+        return AccountLoader;
+    }
+  
+   get MechanicLoader() {
+        return AccountLoader;
+    }
 
  unitView = (unit) => {
         if (!unit) return "";
