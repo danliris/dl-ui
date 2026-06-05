@@ -31,7 +31,7 @@ export class Create {
         } else {
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'master/upload-suppliers';
+            var endpoint = 'master/upload-suppliers/csvUpload';
             var request = {
                 method: 'POST',
                 headers: {
@@ -40,7 +40,16 @@ export class Create {
             };
 
             this.service.endpoint.client.fetch(endpoint, request)
-                .then(response => {
+                .then(async response => {
+                    console.log(response);
+                    if (response.status == 400) {
+
+                        const result = await response.json();
+
+                        alert(result.message);
+
+                        return;
+                    }
                     if (response.status == 200) {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
