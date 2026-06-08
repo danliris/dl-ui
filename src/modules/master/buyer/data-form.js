@@ -1,8 +1,10 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+var TOPLoader = require('../../../loader/term-of-payments-new-loader');
 
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable top;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -31,6 +33,30 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+
+        if (this.data.TermOfPaymentD365) {
+            this.top = {
+                Code: this.data.TermOfPaymentD365,
+                Days: this.data.Tempo,
+            };
+        }
     }
 
+    get topLoader() {
+        return TOPLoader;
+    }
+
+    topLoaderView = (item) => {
+        return [item.Code, item.Description]
+            .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+            .join(" - ");
+    }
+
+    topChanged(newValue, oldValue) {
+        var selectedTop = newValue;
+        if (selectedTop) {
+            this.data.TermOfPaymentD365 = selectedTop.Code;
+            this.data.Tempo = selectedTop.Days;
+        }
+    }
 }

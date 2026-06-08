@@ -868,6 +868,21 @@ module.exports = [
   },
 
   {
+    route: "term-of-payment-new",
+    name: "term-of-payment-new",
+    moduleId: "./modules/master/term-of-payment-new/index",
+    nav: true,
+    title: "Term of Payment New",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 ,B1: 1, B12: 1},
+      permission :{"B59":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
+
+  {
     route: "comodity",
     name: "comodity",
     moduleId: "./modules/master/comodity/index",

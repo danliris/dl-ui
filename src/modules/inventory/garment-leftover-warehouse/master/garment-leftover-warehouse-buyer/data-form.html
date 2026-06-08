@@ -9,7 +9,7 @@
                 </au-textbox>
 
                 <au-textbox label="Nama" placeholder="Nama" value.bind="data.Name" error.bind="error.Name"
-                    read-only.bind="readOnly">
+                    read-only.bind="(readOnly || isEdit)">
                 </au-textbox>
 
                 <au-multiline label="Alamat" placeholder="Alamat" value.bind="data.Address" error.bind="error.Address"
@@ -32,8 +32,19 @@
                     read-only.bind="readOnly">
                 </au-textbox>
 
+                <au-autocomplete label="Term of Payment" value.bind="top" error.bind="error.TermOfPaymentD365"
+                read-only.bind="readOnly" loader.bind="topLoader" text.bind="topLoaderView" placeholder="Cari Term of Payment">
+                </au-autocomplete>
+
+                <au-numeric label="Tempo" value.bind="data.Tempo" error.bind="error.Tempo" format="0"
+                read-only.bind="true"></au-numeric>
+
                 <au-dropdown label="Status Buyer" value.bind="data.KaberType" error.bind="error.kaberType" items.bind="KaberTypes"
                    read-only.bind="readOnly">
+                </au-dropdown>
+
+                <au-dropdown label="Jenis Buyer" value.bind="data.CustomerGroupD365" error.bind="error.CustomerGroupD365" items.bind="CustomerGroupD365"
+                   read-only.bind="(readOnly || isEdit)">
                 </au-dropdown>
 
             </au-input-form>

@@ -26,7 +26,7 @@
           label="Nama Buyer"
           value.bind="data.Name"
           error.bind="error.name"
-          read-only.bind="readOnly"
+          read-only.bind="(readOnly || isEdit)"
         ></au-textbox>
 
         <au-textbox 
@@ -65,12 +65,21 @@
           read-only.bind="readOnly"
         ></au-textbox>
 
+        <au-autocomplete 
+          label="Term of Payment" 
+          value.bind="top" 
+          error.bind="error.term"
+          read-only.bind="readOnly" 
+          loader.bind="topLoader" 
+          text.bind="topLoaderView" 
+          placeholder="Cari Term of Payment">
+        </au-autocomplete>
+
         <au-numeric
           label="Tempo"
           value.bind="data.Tempo"
           error.bind="error.tempo"
-          format="0"
-          read-only.bind="readOnly"
+          read-only.bind="true"
         ></au-numeric>
 
         <au-textbox 
@@ -84,7 +93,7 @@
           label="Jenis Buyer"
           value.bind="data.Type"
           error.bind="error.type"
-          read-only.bind="readOnly"
+          read-only.bind="(readOnly || isEdit)"
           items.bind="types"
         ></au-dropdown>
 

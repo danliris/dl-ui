@@ -1,10 +1,12 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 var AccountBankLoader = require('../../../loader/account-banks-loader');
+var TOPLoader = require('../../../loader/term-of-payments-new-loader');
 
 export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable bankAccount;
+    @bindable top;
 
     formOptions = {
         cancelText: "Kembali",
@@ -41,6 +43,14 @@ export class DataForm {
             this.bankAccount =
                 this.data.BankAccount
         }
+
+        if (this.data.TermOfPaymentD365) {
+            this.top = {
+                Code: this.data.TermOfPaymentD365,
+                Days: this.data.Tempo,
+            };
+        }
+
     }
 
 
@@ -56,6 +66,24 @@ export class DataForm {
         var selectedAccount = newValue;
         if (selectedAccount) {
             this.data.BankAccount = selectedAccount;
+        }
+    }
+
+    get topLoader() {
+        return TOPLoader;
+    }
+
+    topLoaderView = (item) => {
+        return [item.Code, item.Description]
+            .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+            .join(" - ");
+    }
+
+    topChanged(newValue, oldValue) {
+        var selectedTop = newValue;
+        if (selectedTop) {
+            this.data.TermOfPaymentD365 = selectedTop.Code;
+            this.data.Tempo = selectedTop.Days;
         }
     }
 }
