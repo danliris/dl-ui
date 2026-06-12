@@ -19,6 +19,7 @@ export class DataForm {
   @bindable selectedVatTax;
   @bindable selectedUnit;
   @bindable options = { useVat: false };
+  @bindable supplierType;
 
   IncomeTaxByOptions = ["Supplier", "Dan Liris"];
   poCashTypeOption = ["", "Disposisi", "VB"]
@@ -50,6 +51,8 @@ export class DataForm {
 
     if (this.data.supplier) {
       this.selectedSupplier = this.data.supplier;
+      this.supplierType = this.data.supplier.import ? "Import" : "Lokal";
+      console.log(this.data.supplier.import);
     }
     if (this.data.unit) {
       this.selectedUnit = this.data.unit;
@@ -187,6 +190,7 @@ export class DataForm {
     if (_selectedSupplier._id) {
       this.data.supplier = _selectedSupplier;
       this.data.supplierId = _selectedSupplier._id ? _selectedSupplier._id : "";
+      this.supplierType = _selectedSupplier.impor ? "Import" : "Lokal";
     }
   }
 

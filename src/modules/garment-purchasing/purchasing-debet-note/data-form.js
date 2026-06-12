@@ -158,6 +158,7 @@ export class DataForm {
             this.data.Supplier.Name = _selectedSupplier.name || _selectedSupplier.Name;
             this.data.Supplier.Id = _selectedSupplier.Id || _selectedSupplier.id;
             this.data.Supplier.Address = _selectedSupplier.address || _selectedSupplier.Address;
+            this.data.Supplier.CodeD365 = _selectedSupplier.codeD365 || _selectedSupplier.CodeD365;
         } else {
             this.data.Supplier = null;
         }

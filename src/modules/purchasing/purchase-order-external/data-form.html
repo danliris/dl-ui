@@ -104,6 +104,9 @@
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
     </au-autocomplete>
+    
+    <au-textbox label="Jenis Supplier" value.bind="supplierType" read-only.bind="true" options.bind="controlOptions">
+    </au-textbox>
 
     <au-autocomplete value.bind="selectedCurrency"
                      error.bind="error.currency"
