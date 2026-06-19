@@ -1064,6 +1064,20 @@ module.exports = [
     },
   },
   {
+    route: "country",
+    name: "country",
+    moduleId: "./modules/master/country/index",
+    nav: true,
+    title: "Negara",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 },
+      permission :{"B60":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "tariffCostCalculation",
     name: "tariffCostCalculation",
     moduleId: "./modules/master/garment-rate/index",
@@ -1073,10 +1087,9 @@ module.exports = [
     settings: {
       group: "master",
       // permission: { "*": 1 },
-      permission :{"B59":1},
+      permission :{"B61":1},
       iconClass: "fa fa-dashboard",
     },
   },
-
   
 ];
