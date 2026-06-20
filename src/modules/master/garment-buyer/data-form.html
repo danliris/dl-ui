@@ -14,8 +14,12 @@
 
         <au-textbox label="Kota" value.bind="data.City" error.bind="error.City" read-only.bind="readOnly"></au-textbox>
 
-        <au-dropdown label="Negara" value.bind="data.Country" error.bind="error.Country" read-only.bind="readOnly"
-          items.bind="countries"></au-dropdown>
+        <!-- <au-dropdown label="Negara" value.bind="data.Country" error.bind="error.Country" read-only.bind="readOnly"
+          items.bind="countries"></au-dropdown> -->
+
+        <au-autocomplete label="Negara" value.bind="country" error.bind="error.Country"
+          read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara">
+        </au-autocomplete>
 
         <au-textbox label="Kontak" value.bind="data.Contact" error.bind="error.Contact"
           read-only.bind="readOnly"></au-textbox>
@@ -26,6 +30,10 @@
 
         <au-numeric label="Tempo" value.bind="data.Tempo" error.bind="error.Tempo" format="0"
           read-only.bind="true"></au-numeric>
+
+        <au-autocomplete label="Mata Uang" value.bind="currency" error.bind="error.Currency"
+          loader.one-time="currencyLoader" text="Code" read-only.bind="readOnly" placeholder="Cari Mata Uang">
+        </au-autocomplete>
 
         <au-autocomplete label="Bank Detail" value.bind="bankAccount" error.bind="error.BankAccount"
           read-only.bind="readOnly" loader.bind="accountBankLoader" text.bind="accountBankView" placeholder="Cari Bank">

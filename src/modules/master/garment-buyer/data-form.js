@@ -1,12 +1,15 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 var AccountBankLoader = require('../../../loader/account-banks-loader');
 var TOPLoader = require('../../../loader/term-of-payments-new-loader');
+var CountryLoader = require('../../../loader/country-loader');
+var CurrencyLoader = require('../../../loader/currency-loader');
 
 export class DataForm {
     @bindable title;
     @bindable readOnly;
     @bindable bankAccount;
     @bindable top;
+    @bindable country;
 
     formOptions = {
         cancelText: "Kembali",
@@ -51,6 +54,20 @@ export class DataForm {
             };
         }
 
+        if (this.data.Country) {
+            this.country = {
+                Code: this.data.CountryCode,
+                Name: this.data.Country
+            };
+        }
+
+        if (this.data.CurrencyCode) {
+            this.currency = {
+                Code: this.data.CurrencyCode,
+                Id: this.data.CurrencyId
+            };
+        }
+
     }
 
 
@@ -86,4 +103,37 @@ export class DataForm {
             this.data.Tempo = selectedTop.Days;
         }
     }
+
+     get countryLoader() {
+        return CountryLoader;
+    }
+
+    countryLoaderView = (item) => {
+        return [item.Code, item.Name]
+            .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+            .join(" - ");
+    }
+
+    countryChanged(newValue, oldValue) {
+        var selectedCountry = newValue;
+        if (selectedCountry) {
+            this.data.CountryCode = selectedCountry.Code;
+            this.data.Country = selectedCountry.Name;
+        }
+    }
+
+    @bindable currency;
+    currencyChanged(n, o) {
+        if (this.currency) {
+            this.data.CurrencyId = this.currency.Id;
+            this.data.CurrencyCode = this.currency.Code;
+        } else {
+            this.data.CurrencyId = null;
+            this.data.CurrencyCode = null;
+        }
+    }
+
+    get currencyLoader() {
+              return CurrencyLoader;
+          }
 }

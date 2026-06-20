@@ -50,13 +50,24 @@
           read-only.bind="readOnly"
         ></au-textbox>
 
-        <au-dropdown
+        <!-- <au-dropdown
           label="Negara"
           value.bind="data.Country"
           error.bind="error.country"
           read-only.bind="readOnly"
           items.bind="countries"
-        ></au-dropdown>
+        ></au-dropdown> -->
+
+        <au-autocomplete 
+          label="Negara" 
+          value.bind="country" 
+          error.bind="error.Country"
+          read-only.bind="readOnly" 
+          loader.bind="countryLoader" 
+          text.bind="countryLoaderView" 
+          placeholder="Cari Negara">
+        </au-autocomplete>
+
 
         <au-textbox 
           label="Kontak"
@@ -81,6 +92,16 @@
           error.bind="error.tempo"
           read-only.bind="true"
         ></au-numeric>
+
+        <au-autocomplete 
+          label="Mata Uang" 
+          value.bind="currency" 
+          error.bind="error.Currency"
+          loader.one-time="currencyLoader" 
+          text="Code" 
+          read-only.bind="readOnly" 
+          placeholder="Cari Mata Uang">
+        </au-autocomplete>
 
         <au-textbox 
           label="NPWP"
