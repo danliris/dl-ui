@@ -30,10 +30,18 @@
                     <au-textbox label="PIC" value.bind="data.PIC" error.bind="error.PIC" read-only.bind="readOnly"></au-textbox>
                     <au-multiline label="Alamat" value.bind="data.address" error.bind="error.address" read-only.bind="readOnly"></au-multiline>
                     <au-multiline label="Keterangan" value.bind="data.description" error.bind="error.description" read-only.bind="readOnly"></au-multiline>
-                    <au-dropdown label="Negara" value.bind="data.country" error.bind="error.country" read-only.bind="readOnly" items.bind="countries"></au-dropdown>
+                    <!--<au-dropdown label="Negara" value.bind="data.country" error.bind="error.country" read-only.bind="readOnly" items.bind="countries"></au-dropdown>-->
+                    <au-autocomplete label="Negara" value.bind="country" error.bind="error.country" read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara"></au-autocomplete>
                 </fieldset>
                 <fieldset>
                     <legend>Bank Detail</legend>
+                    <au-autocomplete label="Mata Uang" value.bind="currency" 
+                        error.bind="error.currency"
+                        loader.one-time="currencyLoader" 
+                        text="Code" 
+                        read-only.bind="readOnly" 
+                        placeholder="Cari Mata Uang">
+                    </au-autocomplete>
                     <au-multiline label="Bank Tujuan" value.bind="data.bankDetail" 
                         error.bind="error.bankDetail" placeholder="Bank Detail" 
                         read-only.bind="readOnly">

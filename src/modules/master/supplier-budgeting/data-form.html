@@ -18,8 +18,11 @@
                     <au-textbox label="Email" value.bind="data.email" error.bind="error.email" read-only.bind="readOnly"></au-textbox>                   
                     <au-multiline label="Alamat" value.bind="data.address" error.bind="error.address" read-only.bind="readOnly">
                     </au-multiline>
-                    <au-dropdown label="Negara" value.bind="data.country" error.bind="error.country" read-only.bind="readOnly" items.bind="countries">
-                    </au-dropdown>
+                    <!-- <au-dropdown label="Negara" value.bind="data.country" error.bind="error.country" read-only.bind="readOnly" items.bind="countries">
+                    </au-dropdown> -->
+                    <au-autocomplete label="Negara" value.bind="country" error.bind="error.country" read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara"></au-autocomplete>
+                    <au-autocomplete label="Mata Uang" value.bind="currency" error.bind="error.currency" loader.one-time="currencyLoader" text="Code" read-only.bind="readOnly" placeholder="Cari Mata Uang">
+                    </au-autocomplete>
                 </fieldset>
                 <template replaceable part="actions"></template>
             </au-input-form>
