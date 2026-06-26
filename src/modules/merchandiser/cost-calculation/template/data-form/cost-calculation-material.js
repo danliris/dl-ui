@@ -301,18 +301,24 @@ export class CostCalculationMaterial {
             // this.
             this.productCode = newVal.Code;
             this.data.Product.Width = newVal.Width;
+            this.data.Product.ItemCodeD365 = newVal.ItemCodeD365;
+            this.data.Product.ItemGroupD365 = newVal.ItemGroupD365;
+
             this.filterProductQuery=(newVal.Width);
 
             
             if (this.selectedComposition.Composition) {
                 this.data.Product.Composition = this.selectedComposition.Composition;
+                this.data.Product.ItemCodeD365 = this.selectedComposition.ItemCodeD365;
+                this.data.Product.ItemGroupD365 = this.selectedComposition.ItemGroupD365;
             }
 
             if (this.selectedConstruction.Const.length > 0) {
                 this.data.Product.Const = this.selectedConstruction.Const;
                 this.data.Product.Yarn = this.selectedYarn.Yarn;
                 this.data.Product.Width = this.selectedWidth.Width;
-                 
+                this.data.Product.ItemCodeD365 = this.selectedWidth.ItemCodeD365;
+                this.data.Product.ItemGroupD365 = this.selectedWidth.ItemGroupD365;
             }
 
         } else if (!newVal) {
