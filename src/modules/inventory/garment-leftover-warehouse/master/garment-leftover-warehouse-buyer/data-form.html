@@ -20,7 +20,17 @@
                     read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara">
                 </au-autocomplete>
 
-                <au-textbox label="No Telepon" placeholder="No Telepon" value.bind="data.PhoneNumber" error.bind="error.PhoneNumber"
+                <small class="text-danger">*Minimal Pilih Salah Satu (PIC/ Email/ No. Telp)</small>
+
+                <au-textbox label="PIC" placeholder="PIC" value.bind="data.PIC" error.bind="error.Contact"
+                    read-only.bind="readOnly">
+                </au-textbox>
+
+                <au-textbox label="Email" placeholder="Email" value.bind="data.Email" error.bind="error.Contact"
+                    read-only.bind="readOnly">
+                </au-textbox>
+
+                <au-textbox label="No Telepon" placeholder="No Telepon" value.bind="data.PhoneNumber" error.bind="error.Contact"
                     read-only.bind="readOnly">
                 </au-textbox>
 

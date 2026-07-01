@@ -19,9 +19,17 @@
 
         <au-autocomplete label="Negara" value.bind="country" error.bind="error.Country"
           read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara">
-        </au-autocomplete>
+        </au-autocomplete> 
 
-        <au-textbox label="Kontak" value.bind="data.Contact" error.bind="error.Contact"
+        <small class="text-danger">*Minimal Pilih Salah Satu (PIC/ Email/ No. Telp)</small>
+        
+        <au-textbox label="PIC" value.bind="data.PIC" error.bind="error.Contact"
+          read-only.bind="readOnly"></au-textbox>
+
+        <au-textbox label="Email" value.bind="data.Email" error.bind="error.Contact"
+          read-only.bind="readOnly"></au-textbox>
+
+        <au-textbox label="No.Telp" value.bind="data.Contact" error.bind="error.Contact"
           read-only.bind="readOnly"></au-textbox>
 
         <au-autocomplete label="Term of Payment" value.bind="top" error.bind="error.TermOfPaymentD365"

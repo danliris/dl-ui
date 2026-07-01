@@ -68,9 +68,24 @@
           placeholder="Cari Negara">
         </au-autocomplete>
 
+        <small class="text-danger">*Minimal Pilih Salah Satu (PIC/ Email/ No. Telp)</small>
+        
+        <au-textbox 
+          label="PIC"
+          value.bind="data.PIC"
+          error.bind="error.contact"
+          read-only.bind="readOnly"
+        ></au-textbox>
 
         <au-textbox 
-          label="Kontak"
+          label="Email"
+          value.bind="data.Email"
+          error.bind="error.contact"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
+        <au-textbox
+          label="No. Telp"
           value.bind="data.Contact"
           error.bind="error.contact"
           read-only.bind="readOnly"
