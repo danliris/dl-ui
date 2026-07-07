@@ -83,10 +83,30 @@ export class View {
       }
       this.hasEdit = false;
     }
-    if (this.data.IsPreparing) {
-      this.hasDelete = false;
-      this.hasEdit = false;
+
+    if(this.data.ExpenditureType === "PROSES"){
+      const result = await this.productionService.getPreparingById(this.data.Id);
+
+      let allValid = false;
+
+      if (result && result[0].Items && result[0].Items.length > 0) {
+        allValid = true;
+
+        for (const item of result[0].Items) {
+          if (item.RemainingQuantity !== item.Quantity) {
+            allValid = false;
+            break;
+          }
+        }
+      }
+
+      this.hasEdit = allValid;
+      this.hasDelete = allValid;
     }
+    // if (this.data.IsPreparing) {
+    //   this.hasDelete = false;
+    //   this.hasEdit = false;
+    // }
 
     if (this.data.IsTransfered) {
       this.hasEdit = false;

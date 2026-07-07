@@ -69,6 +69,7 @@ class Service extends RestService {
 }
 
 const resource = 'delivery-returns';
+const preparingResource = 'preparings';
 class ProductionService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "garment-production");
@@ -76,6 +77,10 @@ class ProductionService extends RestService {
     getGarmentDR(info) {
         var endpoint = `${resource}`;
         return super.list(endpoint, info);
+    }
+    getPreparingById(id) {
+        var endpoint = `${preparingResource}?size=1&filter=${JSON.stringify({ UENId: id })}`;
+        return super.get(endpoint);
     }
 }
 
