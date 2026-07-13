@@ -1375,4 +1375,19 @@ module.exports = [
         },
 
     },
+  {
+        route: '/garment-production/close-order',
+        name: 'garment-production-close-order',
+        moduleId: './modules/garment-production/close-order/index',
+        nav: true,
+        title: 'Close Order',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "fitur",
+            // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "O82": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
