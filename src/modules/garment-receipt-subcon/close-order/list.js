@@ -39,7 +39,7 @@ export class List {
         return {
           total: result.data.info.total,
           data: result.data.data
-        }
+        };
       });
   }
 

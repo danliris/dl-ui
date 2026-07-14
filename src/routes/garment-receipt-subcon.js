@@ -704,4 +704,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/close-order",
+    name: "garment-receipt-subcon-close-order",
+    moduleId:
+      "./modules/garment-receipt-subcon/close-order/index",
+    nav: true,
+    title: "Close Order",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      //subGroup: "close-order",
+      permission: { X53: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
