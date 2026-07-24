@@ -1091,5 +1091,18 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
-  
+  {
+    route: "sales-tax-group",
+    name: "sales-tax-group",
+    moduleId: "./modules/master/sales-tax-group/index",
+    nav: true,
+    title: "Sales Tax Group",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 },
+      permission :{"B62":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
