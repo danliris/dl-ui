@@ -66,13 +66,14 @@
                     if.bind="!supplierIsImport">
                 </au-dropdown>
 
-                <numeric label="Tempo Pembayaran" value.bind="data.PaymentDueDays" error.bind="error.PaymentDueDays"
-                    format="0" read-only.bind="true" post-fix="hari"
-                    if.bind="data.PaymentType=='CASH' || data.PaymentType=='T/T BEFORE'" options.bind="controlOptions">
-                </numeric>
+                <au-autocomplete label="Term of Payment" value.bind="top" error.bind="error.TermOfPayment"
+                    read-only.bind="readOnly" loader.bind="topLoader" text.bind="topLoaderView" if.bind="data.PaymentType =='T/T AFTER'" 
+                    placeholder="Cari Term of Payment" options.bind="controlOptions">
+                </au-autocomplete>
 
                 <numeric label="Tempo Pembayaran" value.bind="data.PaymentDueDays" error.bind="error.PaymentDueDays"
-                    format="0" read-only.bind="readOnly" post-fix="hari" if.bind="data.PaymentType =='T/T AFTER'" options.bind="controlOptions">
+                    format="0" read-only.bind="true" post-fix="hari"
+                    if.bind="data.PaymentType=='CASH'||data.PaymentType=='T/T BEFORE'||data.PaymentType =='T/T AFTER'" options.bind="controlOptions">
                 </numeric>
 
                 <au-autocomplete value.bind="selectedCurrency" error.bind="error.Currency" label="Mata Uang"
@@ -84,51 +85,86 @@
                     read-only.bind="true" options.bind="controlOptions">
                 </numeric>
 
-                <au-checkbox label="Apakah kena Pph?" value.bind="data.Supplier.usetax" read-only.bind="true"
-                    if.bind="data.SupplierId" options.bind="controlOptions">
+
+                <au-checkbox
+                    label="Apakah kena Pph?"
+                    value.bind="data.IsIncomeTax"
+                    read-only.bind="true"
+                    if.bind="data.Supplier && data.Supplier.Id"
+                    options.bind="controlOptions">
                 </au-checkbox>
 
-                <au-autocomplete 
-                    value.bind="selectedIncomeTax" 
-                    error.bind="error.incomeTax"
-                    label="Pph" 
-                    loader.bind="incomeTaxLoader"
-                    text.bind = "incomeTaxView"
-                    placeholder="cari pph" 
-                    key=""                    
+                <au-checkbox
+                    label="Apakah kena Ppn?"
+                    value.bind="data.IsUseVat"
+                    error.bind="error.IsUseVat"
+                    read-only.bind="true"
+                    if.bind="data.Supplier && data.Supplier.Id"
+                    options.bind="controlOptions">
+                </au-checkbox>
+
+                <au-autocomplete
+                    value.bind="selectedSalesTaxGroup"
+                    error.bind="error.SalesTaxGroup"
+                    label="Sales Tax Group"
+                    loader.bind="salesTaxLoader"
+                    query.bind="salesTaxQuery"
+                    text.bind="salesTaxView"
+                    placeholder="Cari Sales Tax Group"
+                    key="Code"
+                    read-only.bind="readOnly"
+                    if.bind="data.SupplierId && salesTaxCategory"
+                    view-model.ref="selectedSalesTaxGroupViewModel"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <numeric
+                    label="Rate Ppn"
+                    value.bind="data.VatRate"
+                    error.bind="error.VatRate"
+                    format="0.00"
+                    read-only.bind="true"
+                    post-fix="%"
+                    if.bind="data.IsUseVat"
+                    options.bind="controlOptions">
+                </numeric>
+
+                <au-textbox
+                    label="Pasal PPH"
+                    value.bind="data.IncomeTaxName"
+                    error.bind="error.IncomeTaxRate"
+                    read-only.bind="true"
+                    if.bind="data.IsIncomeTax"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <numeric
+                    label="Rate Pph"
+                    value.bind="data.IncomeTaxRate"
+                    error.bind="error.IncomeTaxRate"
+                    format="0.00"
+                    read-only.bind="true"
+                    post-fix="%"
+                    if.bind="data.IsIncomeTax"
+                    options.bind="controlOptions">
+                </numeric>
+
+                <au-checkbox
+                    label="Apakah bayar PPN?"
+                    value.bind="data.IsPayVAT"
+                    error.bind="error.IsPayVAT"
+                    read-only.bind="readOnly"
+                    if.bind="data.Supplier.usevat"
+                    options.bind="controlOptions">
+                </au-checkbox>
+
+                <au-checkbox
+                    label="Apakah bayar PPh?"
+                    value.bind="data.IsPayIncomeTax"
+                    error.bind="error.IsPayIncomeTax"
                     read-only.bind="readOnly"
                     if.bind="data.Supplier.usetax"
                     options.bind="controlOptions">
-                </au-autocomplete>
-
-                <!--<au-textbox label="Pph" value.bind="data.IncomeTax.Name" read-only.bind="true"
-                    if.bind="data.Supplier.usetax" options.bind="controlOptions">
-                </au-textbox>-->
-
-                <numeric label="Rate Pph" value.bind="data.IncomeTaxRate" error.bind="error.IncomeTaxRate"
-                    if.bind="data.Supplier.usetax" format="0" read-only.bind="true" post-fix="%">
-                </numeric>
-
-                <au-checkbox label="Apakah kena Ppn?" value.bind="data.Supplier.usevat" error.bind="error.IsUseVat"
-                    read-only.bind="true" change.delegate="useVatChanged($event)" if.bind="data.SupplierId"
-                    options.bind="controlOptions">
-                </au-checkbox>
-
-                <au-autocomplete value.bind="selectedVatTax" error.bind="error.Vat" label="Ppn" 
-                    if.bind="data.Supplier.usevat" loader.bind="vatTaxLoader" text.bind = "vatTaxView"
-                    placeholder="cari ppn" key="rate" read-only.bind="readOnly" post-fix="%" options.bind="controlOptions">
-                </au-autocomplete>
-
-                <!-- <numeric label="Rate Ppn" value.bind="data.Vat.Rate" error.bind="error.VatRate"
-                    if.bind="data.Supplier.usevat" format="0" read-only.bind="(readOnly||isEdit)" post-fix="%">
-                </numeric> -->
-
-                <au-checkbox label="Apakah bayar PPN?" value.bind="data.IsPayVAT" error.bind="error.IsPayVAT"
-                    read-only.bind="readOnly" if.bind="data.Supplier.usevat" options.bind="controlOptions">
-                </au-checkbox>
-
-                <au-checkbox label="Apakah bayar PPh?" value.bind="data.IsPayIncomeTax" error.bind="error.IsPayIncomeTax"
-                    read-only.bind="readOnly" if.bind="data.Supplier.usetax" options.bind="controlOptions">
                 </au-checkbox>
 
                 <au-dropdown label="Kategori" value.bind="data.Category" error.bind="error.category"

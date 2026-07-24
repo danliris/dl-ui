@@ -166,6 +166,14 @@
                     read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-autocomplete>-->
+                <au-textbox 
+                    label="Sales Tax Group" 
+                    value.bind="data.SalesTaxGroup.Code"
+                    read-only.bind="true"
+                    if.bind="data.Supplier.usetax || data.Supplier.usevat"
+                    options.bind="controlOptions">
+                </au-textbox>
+
                 <au-checkbox 
                     label="Apakah kena Pph?" 
                     value.bind="data.Supplier.usetax"  
