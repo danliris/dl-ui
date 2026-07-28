@@ -4,6 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 
 
 const serviceUri = 'master/income-taxes';
+const serviceUriSalesTax = 'master/sales-tax-groups';
 
 export class Service extends RestService {
 
@@ -29,6 +30,11 @@ export class Service extends RestService {
   downloadTemplate() {
     var endpoint = `${serviceUri}/download-template`;
     return super.getXls(endpoint);
-  } 
+  }  
+
+  getSalesTaxById(id) {
+    var endpoint = `${serviceUriSalesTax}/GetSalesTaxIncome/${id}`;
+    return super.get(endpoint);
+  }
 
 }

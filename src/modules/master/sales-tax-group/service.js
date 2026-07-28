@@ -4,6 +4,7 @@ import {RestService} from '../../../utils/rest-service';
 
 
 const serviceUri = 'master/sales-tax-groups';
+const serviceUriEPO = 'garment-external-purchase-orders'; 
 
 export class Service extends RestService {
 
@@ -52,3 +53,15 @@ export class Service extends RestService {
   }
 
 }
+
+export class PurchasingService extends RestService {
+
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "purchasing-azure");
+    }
+
+    getEPOById(id) {
+        var endpoint = `${serviceUriEPO}/SalesTax/${id}`;
+        return super.get(endpoint);
+    }
+  }
