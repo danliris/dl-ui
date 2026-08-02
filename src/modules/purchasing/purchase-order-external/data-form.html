@@ -126,6 +126,18 @@
              read-only.bind="true">
     </numeric>
 
+    <au-autocomplete 
+        label="Term of Payment" 
+        value.bind="top" 
+        error.bind="error.TermOfPayment"
+        read-only.bind="readOnly" 
+        loader.bind="topLoader" 
+        text.bind="topLoaderView" 
+        if.bind="data.paymentMethod!='CASH'" 
+        placeholder="Cari Term of Payment" 
+        options.bind="controlOptions">
+    </au-autocomplete>
+
     <numeric label="Tempo Pembayaran"
              value.bind="data.paymentDueDays"
              error.bind="error.paymentDueDays"
@@ -144,7 +156,7 @@
              if.bind="data.paymentMethod!='CASH'">
     </numeric>
 
-    <au-autocomplete value.bind="selectedIncomeTax"
+    <!-- <au-autocomplete value.bind="selectedIncomeTax"
                      error.bind="error.incomeTax"
                      label="Pph"
                      loader.bind="incomeTaxLoader"
@@ -153,9 +165,28 @@
                      key=""
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
+    </au-autocomplete> -->
+
+    <au-autocomplete
+        value.bind="selectedSalesTaxGroup"
+        error.bind="error.SalesTaxGroup"
+        label="Sales Tax Group"
+        loader.bind="salesTaxLoader"
+        query.bind="salesTaxQuery"
+        text.bind="salesTaxView"
+        placeholder="Cari Sales Tax Group"
+        key="Code"
+        read-only.bind="readOnly"
+        view-model.ref="selectedSalesTaxGroupViewModel"
+        options.bind="controlOptions">
     </au-autocomplete>
 
-    
+    <au-textbox
+        label="Apakah kena PPN?"
+        value.bind="data.useVat ? 'Ya' : 'Tidak'"
+        read-only.bind="true"
+        options.bind="controlOptions">
+    </au-textbox>
 
     <numeric label="Rate Pph"
              value.bind="data.incomeTaxRate"
@@ -174,14 +205,14 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-checkbox label="Apakah kena Ppn?"
+    <!-- <au-checkbox label="Apakah kena Ppn?"
                  value.bind="data.useVat"
                  error.bind="error.useVat"
                  read-only.bind="readOnly"
                  change.delegate="useVatChanged($event)"
                  options.bind="controlOptions">
-    </au-checkbox>
-    <au-autocomplete value.bind="selectedVatTax"
+    </au-checkbox> -->
+    <!-- <au-autocomplete value.bind="selectedVatTax"
                      error.bind="error.vatTax"
                      label="PPN"
                      loader.bind="vatTaxLoader"
@@ -192,7 +223,7 @@
                      
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
-    </au-autocomplete>
+    </au-autocomplete> -->
 
     
 

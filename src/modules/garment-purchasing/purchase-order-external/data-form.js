@@ -153,6 +153,13 @@ export class DataForm {
             originalOnRemove.call(this);
             self.updateOverBudgetStatus();
         };
+
+        if (this.data.TermOfPaymentD365) {
+        this.top = {
+            Code: this.data.TermOfPaymentD365,
+            Days: this.data.PaymentDueDays,
+        };
+    }
     }
 
     @computedFrom("data.Id")
@@ -404,11 +411,12 @@ export class DataForm {
             this.data.SalesTaxGroup = {};
             this.data.VatRate = 0;
             this.data.IncomeTaxRate = 0;
+            this.data.IncomeTaxName = '';
             this.data.UseIncomeTax = false;
             this.data.Vat = {};
             this.data.IncomeTax = {};
         }
-    }
+    } 
 
     async selectedCurrencyChanged(newValue) {
         this.data.Items = [];
@@ -503,6 +511,21 @@ export class DataForm {
         }
     }
 
+    resetTermOfPaymentD365() {
+        this.top = null;
+        this.data.TermOfPaymentD365 = "";
+        this.data.PaymentDueDays = 0;
+
+        if (this.topLoaderViewModel) {
+            this.topLoaderViewModel.editorValue = "";
+        }
+
+        if (this.error) {
+            this.error.TermOfPayment = "";
+            this.error.PaymentDueDays = "";
+        }
+    }
+
     resetIsOverBudget() {
         if (this.data.Items) {
             this.data.Items.map(items => {
@@ -523,6 +546,9 @@ export class DataForm {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
             this.data.PaymentType = selectedPayment;
+
+            this.resetTermOfPaymentD365();
+
             if (this.data.PaymentType == "CASH" || this.data.PaymentType == "T/T BEFORE") {
                 this.data.PaymentDueDays = 0;
             }
@@ -954,11 +980,25 @@ export class DataForm {
             .join(" - ");
     }
 
+    // topChanged(newValue, oldValue) {
+    //     var selectedTop = newValue;
+    //     if (selectedTop) {
+    //         this.data.TermOfPaymentD365 = selectedTop.Code;
+    //         this.data.PaymentDueDays = selectedTop.Days;
+    //     }
+    // }
+
     topChanged(newValue, oldValue) {
-        var selectedTop = newValue;
-        if (selectedTop) {
-            this.data.TermOfPaymentD365 = selectedTop.Code;
-            this.data.PaymentDueDays = selectedTop.Days;
+    if (newValue && newValue.Code) {
+        this.data.TermOfPaymentD365 = newValue.Code;
+        this.data.PaymentDueDays = Number(newValue.Days || 0);
+    } else {
+            this.data.TermOfPaymentD365 = "";
+            this.data.PaymentDueDays = 0;
+
+            if (this.topLoaderViewModel) {
+                this.topLoaderViewModel.editorValue = "";
+            }
         }
     }
 

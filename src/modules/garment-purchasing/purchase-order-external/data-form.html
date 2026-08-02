@@ -73,7 +73,7 @@
 
                 <numeric label="Tempo Pembayaran" value.bind="data.PaymentDueDays" error.bind="error.PaymentDueDays"
                     format="0" read-only.bind="true" post-fix="hari"
-                    if.bind="data.PaymentType=='CASH'||data.PaymentType=='T/T BEFORE'||data.PaymentType =='T/T AFTER'" options.bind="controlOptions">
+                    if.bind="data.PaymentType=='CASH'||data.PaymentType=='T/T BEFORE'||data.PaymentType =='T/T AFTER'" view-model.ref="topLoaderViewModel" options.bind="controlOptions">
                 </numeric>
 
                 <au-autocomplete value.bind="selectedCurrency" error.bind="error.Currency" label="Mata Uang"

@@ -84,8 +84,9 @@ export class PurchaseOrderItem {
 
   updatePrice() {
     if (this.data.includePpn) {
+       var vatRate = this.context.context.options.vatRate || 0;
 //    this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / 110;
-      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / (100 + parseFloat(this.data.vatTax.rate));       
+      this.data.pricePerDealUnit = (100 * parseFloat(this.data.priceBeforeTax)) / (100 + parseFloat(vatRate));       
     } else {
       this.data.pricePerDealUnit = parseFloat(this.data.priceBeforeTax);
     }

@@ -3,8 +3,10 @@ import { Service } from "./service";
 var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var UnitLoader = require('../../../loader/unit-loader');
-var IncomeTaxLoader = require('../../../loader/income-tax-loader');
-var VatTaxLoader = require('../../../loader/vat-tax-loader');
+// var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+// var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var SalesTaxLoader = require('../../../loader/sales-tax-group-loader');
+var TOPLoader = require('../../../loader/term-of-payments-new-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -15,11 +17,13 @@ export class DataForm {
   @bindable title;
   @bindable selectedSupplier;
   @bindable selectedCurrency;
-  @bindable selectedIncomeTax;
-  @bindable selectedVatTax;
+  // @bindable selectedIncomeTax;
+  // @bindable selectedVatTax;
   @bindable selectedUnit;
   @bindable options = { useVat: false };
   @bindable supplierType;
+  @bindable selectedSalesTaxGroup;
+  @bindable top;
 
   IncomeTaxByOptions = ["Supplier", "Dan Liris"];
   poCashTypeOption = ["", "Disposisi", "VB"]
@@ -62,19 +66,78 @@ export class DataForm {
       this.selectedCurrency = this.data.currency;
       this.data.currencyRate = this.data.currency.rate;
     }
-    if (this.data.incomeTax) {
-      this.selectedIncomeTax = this.data.incomeTax;
-      this.data.incomeTaxRate = this.data.incomeTax.rate;
-    }
-    if (this.data.vatTax) {
-      this.selectedVatTax = this.data.vatTax;
-      this.options.useVat = true;
-    }
-    if (this.data.useVat) {
-      this.options.useVat = true;
+
+    if (this.data.TermOfPaymentD365) {
+        this.top = {
+            Code: this.data.TermOfPaymentD365,
+            Days: this.data.paymentDueDays,
+        };
     }
 
-    
+    //30 Juli 2026
+    // if (this.data.incomeTax) {
+    //   this.selectedIncomeTax = this.data.incomeTax;
+    //   this.data.incomeTaxRate = this.data.incomeTax.rate;
+    // }
+    // if (this.data.vatTax) {
+    //   this.selectedVatTax = this.data.vatTax;
+    //   this.options.useVat = true;
+    // }
+    // if (this.data.useVat) {
+    //   this.options.useVat = true;
+    // }
+
+
+      if (this.data.SalesTaxGroup &&(this.data.SalesTaxGroup.Id ||this.data.SalesTaxGroup._id)) {
+        var vatRate = 0;
+        var incomeTaxRate = 0;
+
+        if (this.data.vatTax &&this.data.vatTax.rate != null) {
+          vatRate = Number(this.data.vatTax.rate
+          );
+        } else if (
+          this.data.vat &&this.data.vat.rate != null
+        ) {
+          vatRate = Number(this.data.vat.rate
+          );
+        } else if (
+          this.data.vatRate != null
+        ) {
+          vatRate = Number(this.data.vatRate
+          );
+        }
+
+        if (
+          this.data.incomeTaxRate != null
+        ) {
+          incomeTaxRate = Number(this.data.incomeTaxRate
+          );
+        } else if (
+          this.data.incomeTax &&this.data.incomeTax.rate != null
+        ) {
+          incomeTaxRate = Number(this.data.incomeTax.rate
+          );
+        }
+        this.data.incomeTaxRate = incomeTaxRate;
+        this.selectedSalesTaxGroup = {
+          Id : this.data.SalesTaxGroup.Id,
+          Code:this.data.SalesTaxGroup.Code,
+          Description:this.data.SalesTaxGroup.Description,
+          UseVat:Boolean(this.data.useVat),
+          VatId: this.data.vatTax._id ||0,
+          VatRate:vatRate,
+          UseIncomeTax:Boolean(this.data.useIncomeTax),
+          IncomeTaxId:this.data.incomeTax._id ||0,
+          IncomeTaxName:this.data.incomeTax.name ||"",
+          IncomeTaxRate:incomeTaxRate,
+          IncomeTaxBy :this.data.incomeTaxBy ||"Supplier"
+        };
+        this.options.useVat =Boolean(this.data.useVat);
+      }
+
+    this.options.useVat =Boolean(this.data.useVat);
+
+  
     this.setupObservers();
     this.evaluateShowPriceReductionReason();
 
@@ -242,6 +305,7 @@ export class DataForm {
     var selectedPayment = e.srcElement.value;
     if (selectedPayment) {
       this.data.paymentMethod = selectedPayment;
+      this.resetTermOfPaymentD365();
       if (this.data.paymentMethod == "CASH") {
         this.data.paymentDueDays = 0;
       }
@@ -250,97 +314,100 @@ export class DataForm {
       }
     }
   }
+  //30 Juli 2026
+  // selectedIncomeTaxChanged(newValue) {
+  //   var _selectedIncomeTax = newValue;
 
-  selectedIncomeTaxChanged(newValue) {
-    var _selectedIncomeTax = newValue;
+  //   if (!_selectedIncomeTax) {
+  //     this.data.incomeTaxRate = 0;
+  //     this.data.useIncomeTax = false;
+  //     this.data.incomeTax = {};
+  //     this.data.incomeTaxBy = "";
+  //   } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
+  //     this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
+  //     this.data.useIncomeTax = true;
+  //     this.data.incomeTax = _selectedIncomeTax;
+  //     this.data.incomeTax._id = _selectedIncomeTax.Id || _selectedIncomeTax._id;
+  //   }
+  // }
 
-    if (!_selectedIncomeTax) {
-      this.data.incomeTaxRate = 0;
-      this.data.useIncomeTax = false;
-      this.data.incomeTax = {};
-      this.data.incomeTaxBy = "";
-    } else if (_selectedIncomeTax._id || _selectedIncomeTax.Id) {
-      this.data.incomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
-      this.data.useIncomeTax = true;
-      this.data.incomeTax = _selectedIncomeTax;
-      this.data.incomeTax._id = _selectedIncomeTax.Id || _selectedIncomeTax._id;
-    }
-  }
 
-  async useVatChanged(e) {
-    var selectedUseVat = e.srcElement.checked || false;
-    if (!selectedUseVat) {
-      this.data.useVat = selectedUseVat;
-      this.data.vatTax = {};
-      this.options.useVat = false;
-      for (var po of this.data.items) {
-        for (var poItem of po.items) {
-          poItem.useVat = false;
-          poItem.pricePerDealUnit = poItem.priceBeforeTax;
-        }
-      }
-      if (this.data.items) {
-        for (var item of this.data.items) {
-          if (item.details)
-            for (var detail of item.details) {
-              detail.includePpn = false;
-            }
-        }
-      }
+  // 30 Juli 2026
+  // async useVatChanged(e) {
+  //   var selectedUseVat = e.srcElement.checked || false;
+  //   if (!selectedUseVat) {
+  //     this.data.useVat = selectedUseVat;
+  //     this.data.vatTax = {};
+  //     this.options.useVat = false;
+  //     for (var po of this.data.items) {
+  //       for (var poItem of po.items) {
+  //         poItem.useVat = false;
+  //         poItem.pricePerDealUnit = poItem.priceBeforeTax;
+  //       }
+  //     }
+  //     if (this.data.items) {
+  //       for (var item of this.data.items) {
+  //         if (item.details)
+  //           for (var detail of item.details) {
+  //             detail.includePpn = false;
+  //           }
+  //       }
+  //     }
 
-    } else {
+  //   } else {
      
-      this.options.useVat = true;
-      this.data.useVat = selectedUseVat;
+  //     this.options.useVat = true;
+  //     this.data.useVat = selectedUseVat;
 
-        if(this.data.useVat){
+  //       if(this.data.useVat){
 
-          let info = {
-              keyword:'',
-              order: '{ "Rate" : "desc" }',
-              size: 1,
-          };
+  //         let info = {
+  //             keyword:'',
+  //             order: '{ "Rate" : "desc" }',
+  //             size: 1,
+  //         };
 
-          var defaultVat = await this.service.getDefaultVat(info);
-          console.log(defaultVat);
+  //         var defaultVat = await this.service.getDefaultVat(info);
+  //         console.log(defaultVat);
 
-          if(defaultVat.length > 0){
-              if(defaultVat[0]){
-                  if(defaultVat[0].Id){
-                     // this.data.vatTax = defaultVat[0];
+  //         if(defaultVat.length > 0){
+  //             if(defaultVat[0]){
+  //                 if(defaultVat[0].Id){
+  //                    // this.data.vatTax = defaultVat[0];
                       
                       
-                      this.selectedVatTax = defaultVat[0];
-                      console.log(this.selectedVatTax);
-                      //this.data.vatTax = this.selectedVatTax;
-                      this.data.vatTax= {
-                        _id : this.selectedVatTax.Id || this.selectedVatTax._id,
-                        rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
-                      } 
+  //                     this.selectedVatTax = defaultVat[0];
+  //                     console.log(this.selectedVatTax);
+  //                     //this.data.vatTax = this.selectedVatTax;
+  //                     this.data.vatTax= {
+  //                       _id : this.selectedVatTax.Id || this.selectedVatTax._id,
+  //                       rate : this.selectedVatTax.Rate || this.selectedVatTax.rate
+  //                     } 
 
-                      console.log(this.data.vatTax);
-                      //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
-                  }
-              }
-          }
-     }
+  //                     console.log(this.data.vatTax);
+  //                     //this.data.vatTax.rate = this.selectedVatTax.Rate || this.selectedVatTax.rate;
+  //                 }
+  //             }
+  //         }
+  //    }
 
-    }
-  }
+  //   }
+  // }
 
-  selectedVatTaxChanged(newValue) {
-    console.log(newValue);
+//30 Juli 2026
+//   selectedVatTaxChanged(newValue) {
+//     console.log(newValue);
     
-    var _selectedVatTax = newValue;
-    if (_selectedVatTax) {
-      this.data.vatTax= {
-        _id : _selectedVatTax.Id || _selectedVatTax._id,
-        rate : _selectedVatTax.Rate || _selectedVatTax.rate
-      } 
-    } else {
-        this.data.vatTax = {};
-    }
-}
+//     var _selectedVatTax = newValue;
+//     if (_selectedVatTax) {
+//       this.data.vatTax= {
+//         _id : _selectedVatTax.Id || _selectedVatTax._id,
+//         rate : _selectedVatTax.Rate || _selectedVatTax.rate
+//       } 
+//     } else {
+//         this.data.vatTax = {};
+//     }
+// }
 
   // selectedVatTaxChanged(newValue) {
   //   var _selectedVatTax = newValue;
@@ -393,13 +460,157 @@ export class DataForm {
     return CurrencyLoader;
   }
 
-  get incomeTaxLoader() {
-    return IncomeTaxLoader;
+  // 30 Juli 2026
+  // get incomeTaxLoader() {
+  //   return IncomeTaxLoader;
+  // }
+
+  // 30 Juli 2026
+  // get vatTaxLoader() {
+  //   return VatTaxLoader;
+  // }
+
+   salesTaxView = (salesTaxGroup) => {
+        var code = salesTaxGroup.Code;
+        var description = salesTaxGroup.Description;
+
+        if (description) {
+            return `${code} - ${description}`;
+        }
+        return code;
+    }
+
+
+    get salesTaxLoader() {
+      return SalesTaxLoader;
+    }
+
+    get salesTaxQuery() {
+    return {
+      TransactionType: "PURCHASE"
+    };
   }
 
-  get vatTaxLoader() {
-    return VatTaxLoader;
+    selectedSalesTaxGroupChanged(newValue) {
+      var salesTaxGroup = newValue;
+
+      if (salesTaxGroup && (salesTaxGroup.Id || salesTaxGroup._id)) {
+          var salesTaxGroupId =salesTaxGroup.Id ||0;
+          var vatId =salesTaxGroup.VatId ||0;
+          var vatRate = Number(salesTaxGroup.VatRate != null? salesTaxGroup.VatRate:0);
+          var incomeTaxId =salesTaxGroup.IncomeTaxId ||0;
+          var incomeTaxRate = Number(salesTaxGroup.IncomeTaxRate != null? salesTaxGroup.IncomeTaxRate:0);
+          var incomeTaxName =salesTaxGroup.IncomeTaxName || '';
+
+          this.data.SalesTaxGroup = {
+              Id: salesTaxGroupId,
+              Code:salesTaxGroup.Code,
+              Description:salesTaxGroup.Description,
+
+          };
+          var useVat =salesTaxGroup.UseVat != null
+                  ? salesTaxGroup.UseVat === true
+                  : vatRate > 0;
+
+          this.data.useVat = useVat;
+          this.options.useVat = useVat;
+          this.options.vatRate = vatRate;
+
+          if (useVat) {this.data.vatRate = vatRate;
+              this.data.vatTax = {
+                  _id: vatId,
+                  rate: vatRate
+              };
+
+              this.data.vat = {
+                  _id: vatId,
+                  rate: vatRate
+              };
+          } else {
+              this.clearVatFromSalesTaxGroup();
+          }
+
+          var useIncomeTax = incomeTaxRate > 0;
+
+          this.data.useIncomeTax = useIncomeTax;
+          if (useIncomeTax) {
+              this.data.incomeTaxRate = incomeTaxRate;
+              this.data.incomeTaxName = incomeTaxName;
+              this.data.incomeTaxBy =salesTaxGroup.incomeTaxBy ||"Supplier";
+              this.data.incomeTax = {
+                  _id: incomeTaxId,
+                  name: incomeTaxName,
+                  rate: incomeTaxRate
+              };
+          } else {
+              this.clearIncomeTaxFromSalesTaxGroup();
+          }
+      } else {
+          if (
+              this.context &&
+              this.context.selectedSalesTaxGroupViewModel
+          ) {
+              this.context
+                  .selectedSalesTaxGroupViewModel
+                  .editorValue = "";
+          }
+
+          this.data.SalesTaxGroup = {};
+          this.clearVatFromSalesTaxGroup();
+          this.clearIncomeTaxFromSalesTaxGroup();
+      }
   }
+
+  clearVatFromSalesTaxGroup() {
+    this.data.useVat = false;
+    this.options.useVat = false;
+    this.options.vatRate = 0;
+
+    this.data.vatRate = 0;
+    this.data.vat = {};
+    this.data.vatTax = {};
+
+    if (!Array.isArray(this.data.items)) {
+        return;
+    }
+
+    for (var po of this.data.items) {
+        if (!po) {
+            continue;
+        }
+
+        if (Array.isArray(po.items)) {
+            for (var poItem of po.items) {
+                if (!poItem) {
+                    continue;
+                }
+                poItem.useVat = false;
+                poItem.includePpn = false;
+                poItem.pricePerDealUnit =poItem.priceBeforeTax;
+            }
+        }
+
+        if (Array.isArray(po.details)) {
+            for (var detail of po.details) {
+                if (!detail) {
+                    continue;
+                }
+                detail.useVat = false;
+                detail.includePpn = false;
+                detail.pricePerDealUnit =detail.priceBeforeTax;
+            }
+        }
+    }
+}
+
+clearIncomeTaxFromSalesTaxGroup() {
+    this.data.useIncomeTax = false;
+    this.data.incomeTaxRate = 0;
+    this.data.incomeTaxName = "";
+    this.data.incomeTaxBy = "";
+    this.data.incomeTax = {};
+}
+
 
   get unitQuery(){
     var result = { "Active" : true }
@@ -423,13 +634,53 @@ export class DataForm {
     return currency.Code ? currency.Code : currency.code;
   }
 
-  incomeTaxView = (incomeTax) => {
-    return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
-  }
+  get topLoader() {
+              return TOPLoader;
+          }
+      
+      topLoaderView = (item) => {
+          return [item.Code, item.Description]
+              .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+              .join(" - ");
+      }
 
-  vatTaxView = (vatTax) => {
-    console.log(vatTax);
-    return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
-  }
+  topChanged(newValue, oldValue) {
+    if (newValue && newValue.Code) {
+        this.data.TermOfPaymentD365 = newValue.Code;
+        this.data.paymentDueDays = Number(newValue.Days || 0);
+    } else {
+            this.data.TermOfPaymentD365 = "";
+            this.data.paymentDueDays = 0;
+
+            if (this.topLoaderViewModel) {
+                this.topLoaderViewModel.editorValue = "";
+            }
+        }
+    }
+
+    resetTermOfPaymentD365() {
+        this.top = null;
+        this.data.TermOfPaymentD365 = "";
+        this.data.paymentDueDays = 0;
+
+        if (this.topLoaderViewModel) {
+            this.topLoaderViewModel.editorValue = "";
+        }
+
+        if (this.error) {
+            this.error.TermOfPayment = "";
+            this.error.paymentDueDays = "";
+        }
+    }
+
+  //30 Juli 2026
+  // incomeTaxView = (incomeTax) => {
+  //   return incomeTax.name ? `${incomeTax.name} - ${incomeTax.rate}` : "";
+  // }
+
+  // vatTaxView = (vatTax) => {
+  //   console.log(vatTax);
+  //   return vatTax.rate ? `${vatTax.rate}` : `${vatTax.Rate}`;
+  // }
 
 } 
