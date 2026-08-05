@@ -75,14 +75,34 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-dropdown label="Term Pembayaran"
-                 value.bind="data.paymentMethod"
-                 error.bind="error.paymentMethod"
-                 read-only.bind="readOnly"
-                 items.bind="termPaymentOptions"
-                 change.delegate="paymentMethodChanged($event)"
-                 options.bind="controlOptions">p
-    </au-dropdown>
+    <au-textbox
+            if.bind="readOnly"
+            label="Term Pembayaran"
+            value.one-way="data.paymentMethod"
+            error.bind="error.paymentMethod"
+            read-only.bind="true"
+            options.bind="controlOptions">
+    </au-textbox>
+
+    <au-autocomplete 
+            if.bind="!readOnly"
+            label="Term Pembayaran" 
+            value.bind="top" 
+            error.bind="error.TermOfPayment"
+            read-only.bind="readOnly" 
+            loader.bind="topLoader" 
+            text.bind="topLoaderView" 
+            placeholder="Cari Term Pembayaran" 
+            options.bind="controlOptions">
+    </au-autocomplete>
+
+    <!-- <numeric label="Tempo Pembayaran"
+             value.bind="data.paymentDueDays"
+             error.bind="error.paymentDueDays"
+             format="0"
+             read-only.bind="true"
+             post-fix="hari">
+    </numeric> -->
 
     <au-dropdown if.bind="data.paymentMethod=='CASH'"
                  label="Jenis PO Cash"
@@ -126,35 +146,14 @@
              read-only.bind="true">
     </numeric>
 
-    <au-autocomplete 
-        label="Term of Payment" 
-        value.bind="top" 
-        error.bind="error.TermOfPayment"
-        read-only.bind="readOnly" 
-        loader.bind="topLoader" 
-        text.bind="topLoaderView" 
-        if.bind="data.paymentMethod!='CASH'" 
-        placeholder="Cari Term of Payment" 
-        options.bind="controlOptions">
-    </au-autocomplete>
-
-    <numeric label="Tempo Pembayaran"
-             value.bind="data.paymentDueDays"
-             error.bind="error.paymentDueDays"
-             format="0"
-             read-only.bind="true"
-             post-fix="hari"
-             if.bind="data.paymentMethod=='CASH'">
-    </numeric>
-
-    <numeric label="Tempo Pembayaran"
+    <!-- <numeric label="Tempo Pembayaran"
              value.bind="data.paymentDueDays"
              error.bind="error.paymentDueDays"
              format="0"
              read-only.bind="readOnly"
              post-fix="hari"
              if.bind="data.paymentMethod!='CASH'">
-    </numeric>
+    </numeric> -->
 
     <!-- <au-autocomplete value.bind="selectedIncomeTax"
                      error.bind="error.incomeTax"

@@ -67,10 +67,11 @@ export class DataForm {
       this.data.currencyRate = this.data.currency.rate;
     }
 
-    if (this.data.TermOfPaymentD365) {
+    if (!this.readOnly && this.data.TermOfPaymentD365) {
         this.top = {
             Code: this.data.TermOfPaymentD365,
-            Days: this.data.paymentDueDays,
+            Description: this.data.paymentMethod,
+            Days: Number(this.data.paymentDueDays || 0)
         };
     }
 
@@ -648,9 +649,11 @@ clearIncomeTaxFromSalesTaxGroup() {
     if (newValue && newValue.Code) {
         this.data.TermOfPaymentD365 = newValue.Code;
         this.data.paymentDueDays = Number(newValue.Days || 0);
+        this.data.paymentMethod = newValue.Description;;
     } else {
             this.data.TermOfPaymentD365 = "";
             this.data.paymentDueDays = 0;
+            this.data.paymentMethod = "";
 
             if (this.topLoaderViewModel) {
                 this.topLoaderViewModel.editorValue = "";
@@ -662,6 +665,7 @@ clearIncomeTaxFromSalesTaxGroup() {
         this.top = null;
         this.data.TermOfPaymentD365 = "";
         this.data.paymentDueDays = 0;
+        this.data.paymentMethod = "";
 
         if (this.topLoaderViewModel) {
             this.topLoaderViewModel.editorValue = "";
@@ -670,6 +674,7 @@ clearIncomeTaxFromSalesTaxGroup() {
         if (this.error) {
             this.error.TermOfPayment = "";
             this.error.paymentDueDays = "";
+            this.error.paymentMethod = "";
         }
     }
 
