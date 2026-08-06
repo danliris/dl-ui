@@ -33,8 +33,10 @@ export class DataForm {
     salesTaxQuery = {};
     @bindable top;
 
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    //termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'SAMPLE'];
+    //termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'SAMPLE'];
     typePaymentOptions = ['T/T AFTER', 'FREE', 'CASH', 'T/T BEFORE'];
     typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
