@@ -30,12 +30,6 @@ export class List {
         { field: "Items.BudgetPrice", title: "Harga" , formatter: function (value) { return value.toFixed(2) }},
 
         { field: "CreatedBy", title: "Staff Pembelian" },
-        {
-            field: "IsPosted", title: "Posted",
-            formatter: function (value, row, index) {
-                return value ? "SUDAH" : "BELUM";
-            }
-        }
     ];
 
     loader = (info) => {
@@ -51,23 +45,21 @@ export class List {
         }
 
         return this.service.search(arg)
-            .then(result => {
+        .then(result => {
+            const filteredData = result.data.filter(x => x.IsClosedPO === true);
+            for (var _data of filteredData) {
+                _data.BuyerName = _data.Buyer.Name;
+                _data.Items.ProductName = _data.Items[0].Product.Name;
+                _data.Items.Quantity = _data.Items[0].Quantity;
+                _data.Items.UomUnit = _data.Items[0].Uom.Unit;
+                _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
+            }
 
-                const filteredData = result.data.filter(x => x.IsClosedPO === false);
-
-                for (var _data of filteredData) {
-                    _data.BuyerName = _data.Buyer.Name;
-                    _data.Items.ProductName = _data.Items[0].Product.Name;
-                    _data.Items.Quantity = _data.Items[0].Quantity;
-                    _data.Items.UomUnit = _data.Items[0].Uom.Unit;
-                    _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
-                }
-
-                return {
-                    total: filteredData.length,
-                    data: filteredData
-                };
-            });
+            return {
+                total: filteredData.length,
+                data: filteredData
+            };
+        });
     }
 
     constructor(router, service) {
