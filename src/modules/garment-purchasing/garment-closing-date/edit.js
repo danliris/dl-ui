@@ -1,51 +1,35 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { Base64Helper } from '../../../utils/base-64-coded-helper';
 
 @inject(Router, Service)
-export class Create {
-    hasCancel = true;
+export class Edit {
+  constructor(router, service) {
+    this.router = router;
+    this.service = service;
+  }
 
-    constructor(router, service) {
-        this.router = router;
-        this.service = service;
-    }
-    
-    async activate(params) {
-        var past = await this.service.search();
-        if(past.data.length==0){
-            this.data = { };
-        }
-        else{
-            this.data = past.data[0];
-        }
-    }
+  async activate(params) {
+    const decoded = Base64Helper.decode(params.id);
+    var id = decoded;
 
-    async bind() {
-        this.error = {};
-    }
+    this.data = await this.service.getById(id);
+  }
 
-    cancelCallback(event) {
-        this.router.navigateToRoute('list');
-    }
+  cancelCallback(data) {
+    const encoded = Base64Helper.encode(this.data.Id);
+    this.router.navigateToRoute('view', { id: encoded });
+  }
 
-    determineActivationStrategy() {
-        return activationStrategy.replace;
-    }
-
-    saveCallback(event) {
-        this.service.create(this.data)
-            .then(result => {
-                alert("Data berhasil disimpan");
-                this.cancelCallback();;
-            })
-            .catch(e => {
-                if (e.statusCode === 500) {
-                    alert("Gagal menyimpan, silakan coba lagi!");
-                } else {
-                    this.error = e;
-                }
-            })
-    }
+  saveCallback(event) {
+    this.service.update(this.data)
+      .then(result => {
+        const encoded = Base64Helper.encode(this.data.Id);
+        this.router.navigateToRoute('view', { id: encoded });
+      })
+      .catch(e => {
+        this.error = e;
+      })
+  }
 }
