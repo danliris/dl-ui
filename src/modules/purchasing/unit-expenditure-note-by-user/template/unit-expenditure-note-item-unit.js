@@ -131,7 +131,7 @@ unitPRChanged(e) {
     this.data.UomId = item.UomId;
     this.data.PricePerDealUnit = item.PricePerDealUnit; 
     this.data.IsStorage = item.IsStorage;
-
+    this.data.ManufactureType = item.ManufactureType;
     delete this.data.selectedPRItem;
 }
 }
