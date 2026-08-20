@@ -74,6 +74,30 @@
         </td>
         <td>
             <au-textbox 
+                value.bind="data.Lot"
+                error.bind = "error.Lot"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.NoPackage"
+                error.bind = "error.NoPackage"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.HandlingUnit"
+                error.bind = "error.HandlingUnit"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
                 value.bind="data.Rack"
                 read-only.bind="true"
                 options.bind="controlOptions">

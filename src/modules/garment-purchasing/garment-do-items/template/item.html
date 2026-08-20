@@ -4,6 +4,7 @@
 		<td>
 			<au-textbox 
                 value.bind="data.Colour" 
+				error.bind="error.Colour"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-textbox>
@@ -15,6 +16,33 @@
                 options.bind="controlOptions">
 			</au-numeric>
 		</td>
+		<td>
+			<au-textbox 
+                value.bind="data.Lot" 
+				error.bind="error.Lot"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox 
+                value.bind="data.NoPackage"
+				error.bind="error.NoPackage"
+                read-only.bind="readOnly || (isEdit && data.Id)"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+		<td>
+            <au-autocomplete 
+                value.bind="dataUom" 
+                error.bind="error.HandlingUnit"
+                loader.bind="uomLoader"
+                placeholder="cari satuan" 
+                text="Unit"
+                key="Id"
+                read-only.bind="readOnly || (isEdit && data.Id)">
+            </au-autocomplete>
+        </td>
 		<td>
 			<au-dropdown 
                 value.bind="data.Rack" 

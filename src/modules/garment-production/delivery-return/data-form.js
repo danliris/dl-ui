@@ -331,6 +331,10 @@ export class DataForm {
                     Colour: unitDOItem ? unitDOItem.Colour : null,
                     Area: unitDOItem ? unitDOItem.Area : null,
                     IsCMT: unitDOItem ? unitDOItem.IsCMT : null,
+                    Lot : unitDOItem ? unitDOItem.Lot : null,
+                    NoPackage: unitDOItem ? unitDOItem.NoPackage : null,
+                    HandlingUnitId: unitDOItem ? unitDOItem.HandlingUnitId : null,
+                    HandlingUnit : unitDOItem ? unitDOItem.HandlingUnit : null,
                 }
 
                 if (itemUEN.ProductName == "FABRIC") {
@@ -421,6 +425,9 @@ export class DataForm {
             "Jumlah",
             "Satuan",
             "Warna",
+            "Lot",
+            "No Package",
+            "Handling Unit",
             "Rak",
             "Box",
             "Level",

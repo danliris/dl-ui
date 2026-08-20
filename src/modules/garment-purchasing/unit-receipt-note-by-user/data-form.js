@@ -84,6 +84,9 @@ export class DataForm {
                 { header: "Satuan" },
                 { header: "Design/Color" },
                 { header: "Warna" },
+                { header: "Lot" },
+                { header: "No Package" },
+                { header: "Handling Unit" },
                 { header: "Rak" },
                 { header: "Box" },
                 { header: "Level" },
@@ -301,7 +304,11 @@ export class DataForm {
                         DRItem.Box = dritem.Box,
                         DRItem.Colour= dritem.Colour,
                         DRItem.Area = dritem.Area,
-                        DRItem.IsCMT = dritem.IsCMT,    
+                        DRItem.IsCMT = dritem.IsCMT, 
+                        DRItem.Lot = dritem.Lot,
+                        DRItem.NoPackage = dritem.NoPackage,
+                        DRItem.HandlingUnitId = dritem.HandlingUnitId,
+                        DRItem.HandlingUnit = dritem.HandlingUnit,
                         DRItems.push(DRItem)
                     }
                 }

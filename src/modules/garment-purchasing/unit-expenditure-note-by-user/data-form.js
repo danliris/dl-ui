@@ -296,6 +296,10 @@ export class DataForm {
           Items.Colour = item.Colour;
           Items.Area = item.Area;
           Items.IsCMT = item.IsCMT;
+          Items.Lot = item.Lot;
+          Items.NoPackage = item.NoPackage;
+          Items.HandlingUnit = item.HandlingUnit;
+          Items.HandlingUnitId = item.HandlingUnitId;
 
           this.data.Items.push(Items);
         }
@@ -340,6 +344,9 @@ export class DataForm {
       "Satuan",
       "Tipe Fabric",
       "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
       "Rak",
       "Box",
       "Level",

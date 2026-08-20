@@ -1,5 +1,6 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { concat, forEach } from "../../../../routes/general";
+var UomLoader = require('../../../../loader/uom-loader');
 import { Service } from "../service";
 
 
@@ -7,6 +8,7 @@ import { Service } from "../service";
 @inject(Service)
 export class Item {
     @bindable selectedDL;
+    @bindable dataUom;
 
     constructor(service) {
         this.service = service;
@@ -40,7 +42,16 @@ export class Item {
         //     this.filter ={
         //     ContractNo:this.options.selectedContract
         //     } 
-        // } 
+        // }
+        
+        if (this.data.HandlingUnit) {
+        this.dataUom = {
+            Id: this.data.HandlingUnitId,
+            Unit: this.data.HandlingUnit
+        };
+        } else {
+            this.dataUom = null;
+        }
 
 
 
@@ -50,6 +61,25 @@ export class Item {
         if (!this.isShowing) this.isShowing = true;
         else this.isShowing = !this.isShowing;
     }
+
+    dataUomChanged(newValue) {
+    if (newValue) {
+        this.data.HandlingUnit = newValue.Unit;
+        this.data.HandlingUnitId = newValue.Id;
+
+        if (this.error) {
+            this.error.HandlingUnit = null;
+        }
+    } else {
+        this.data.HandlingUnit = null;
+        this.data.HandlingUnitId = null;
+    }
+}
+
+    
+     get uomLoader() {
+        return UomLoader;
+      }
 
 
 }

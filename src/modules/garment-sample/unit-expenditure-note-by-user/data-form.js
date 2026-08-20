@@ -250,6 +250,10 @@ export class DataForm {
                     Items.Colour = item.Colour;
                     Items.Area = item.Area;
                     Items.IsCMT = item.IsCMT;
+                    Items.Lot = item.Lot;
+                    Items.NoPackage = item.NoPackage;
+                    Items.HandlingUnitId = item.HandlingUnitId;
+                    Items.HandlingUnit = item.HandlingUnit;
                     this.data.Items.push(Items);
                 }
             }
@@ -279,6 +283,15 @@ export class DataForm {
             "Design / Color",
             "Jumlah Keluar",
             "Satuan",
-            "Tipe Fabric"],
+            "Tipe Fabric",
+            "Warna",
+            "Lot",
+            "No Package",
+            "Handling Unit",
+            "Rak",
+            "Box",
+            "Level",
+            "Area"
+        ],
     };
 }

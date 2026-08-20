@@ -32,6 +32,9 @@ export class DataForm {
   columns= [
     "Warna",
     "Quantity",
+    "Lot",
+    "No Package",
+    "Handling Unit",
     "Rack",
     "Level",
     "Box",
@@ -55,6 +58,10 @@ export class DataForm {
       item.Level = this.data.Level;
       item.Area = this.data.Area;
       item.Quantity = this.data.RemainingQuantity;
+      item.Lot = this.data.Lot;
+      item.HandlingUnitId = this.data.HandlingUnitId;
+      item.HandlingUnit = this.data.HandlingUnit;
+      item.NoPackage = this.data.NoPackage;
       this.data.Items.push(item);
     }
 

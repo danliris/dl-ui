@@ -99,6 +99,9 @@ export class DataForm {
         "Satuan",
         "Tipe Fabric",
         "Warna",
+        "Lot",
+        "No Package",
+        "Handling Unit",
         "Rak",
         "Box",
         "Level",
@@ -463,6 +466,10 @@ export class DataForm {
                   Items.Colour = item.Colour;
                   Items.Area = item.Area;
                   Items.IsCMT = item.IsCMT;
+                  Items.Lot = item.Lot;
+                  Items.NoPackage = item.NoPackage;
+                  Items.HandlingUnit = item.HandlingUnit;
+                  Items.HandlingUnitId = item.HandlingUnitId;
 
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
@@ -560,6 +567,10 @@ export class DataForm {
                 Items.Colour = item.Colour;
                 Items.Area = item.Area;
                 Items.IsCMT = item.IsCMT;
+                Items.Lot = item.Lot;
+                Items.NoPackage = item.NoPackage;
+                Items.HandlingUnit = item.HandlingUnit;
+                Items.HandlingUnitId = item.HandlingUnitId;
                 // if(item.Colour == null || item.Colour.trim() === '')
                 // {
                 //     fInput = true;
@@ -662,6 +673,10 @@ export class DataForm {
                   Items.Colour = item.Colour;
                   Items.Area = item.Area;
                   Items.IsCMT = item.IsCMT;
+                  Items.Lot = item.Lot;
+                  Items.NoPackage = item.NoPackage;
+                  Items.HandlingUnit = item.HandlingUnit;
+                  Items.HandlingUnitId = item.HandlingUnitId;
 
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
@@ -881,6 +896,10 @@ export class DataForm {
           this.newProduct.Colour = selectedROHeader.Colour;
           this.newProduct.Area = selectedROHeader.Area;
           this.newProduct.IsCMT = selectedROHeader.IsCMT;
+          this.newProduct.Lot = selectedROHeader.Lot;
+          this.newProduct.NoPackage = selectedROHeader.NoPackage;
+          this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
+          this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
         });
     }
     // this.context.error.Items = [];
@@ -950,6 +969,9 @@ export class DataForm {
       "Satuan",
       "Tipe Fabric",
       "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
       "Rak",
       "Box",
       "Level",

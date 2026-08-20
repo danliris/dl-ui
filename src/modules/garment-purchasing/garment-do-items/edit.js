@@ -35,7 +35,50 @@ export class Edit {
         this.router.navigateToRoute('list');
     }
 
+    validate() {
+    let isValid = true;
+
+    this.error = {
+        Items: []
+    };
+
+    if (!this.data.Items || this.data.Items.length === 0) {
+        return true;
+    }
+
+    this.data.Items.forEach((item, index) => {
+        let itemError = {};
+
+        if (!item.Colour || !item.Colour.trim()) {
+            itemError.Colour = "Warna harus diisi";
+            isValid = false;
+        }
+
+        if (!item.Lot || !item.Lot.trim()) {
+            itemError.Lot = "Lot harus diisi";
+            isValid = false;
+        }
+
+        if (!item.NoPackage || !item.NoPackage.trim()) {
+            itemError.NoPackage = "Package harus diisi";
+            isValid = false;
+        }
+
+        if (!item.HandlingUnit || !item.HandlingUnit.trim()) {
+            itemError.HandlingUnit = "Handling Unit harus diisi";
+            isValid = false;
+        }
+
+        this.error.Items[index] = itemError;
+    });
+
+    return isValid;
+}
+
     save(event) {
+        if (!this.validate()) {
+        return;
+    }
         var itemQtySUm = 0;
 
 

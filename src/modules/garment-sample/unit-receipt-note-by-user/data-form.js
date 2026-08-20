@@ -83,6 +83,14 @@ export class DataForm {
                 { header: "Jumlah" },
                 { header: "Satuan" },
                 { header: "Design/Color" },
+                {header: "Warna"},
+                {header: "Lot"},
+                {header: "No Package"},
+                {header: "Handling Unit"},
+                {header: "Rak"},
+                {header: "Box"},
+                {header: "Level"},
+                {header: "Area"},
             ],
             onRemove: function () {
                 this.bind();
@@ -277,6 +285,15 @@ export class DataForm {
                         DRItem.OrderQuantity = 0;
                         DRItem.DOCurrencyRate = dup.DOCurrency.Rate;
                         DRItem.IsCMT = dup.IsCMT;
+                        DRItem.Colour = dup.Colour;
+                        DRItem.Area = dup.Area;
+                        DRItem.Rack = dup.Rack;
+                        DRItem.Box = dup.Box;
+                        DRItem.Level = dup.Level;
+                        DRItem.Lot = dup.Lot;
+                        DRItem.NoPackage = dup.NoPackage;
+                        DRItem.HandlingUnitId = dup.HandlingUnitId;
+                        DRItem.HandlingUnit = dup.HandlingUnit;
                         DRItems.push(DRItem)
                     }
                 }

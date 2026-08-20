@@ -82,7 +82,15 @@ export class DataForm {
                 "Jumlah DO Awal",
                 "Jumlah DO",
                 "Satuan",
-                "Tipe Fabric"
+                "Tipe Fabric",
+                "Warna",
+                "Lot",
+                "No Package",
+                "Handling Unit",
+                "Rak",
+                "Box",
+                "Level",
+                "Area"
             ];
         }
 
@@ -315,6 +323,10 @@ export class DataForm {
                     this.newProduct.Colour = selectedROHeader.Colour;
                     this.newProduct.Area = selectedROHeader.Area;
                     this.newProduct.IsCMT = selectedROHeader.IsCMT;
+                    this.newProduct.Lot = selectedROHeader.Lot;
+                    this.newProduct.NoPackage = selectedROHeader.NoPackage;
+                    this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
+                    this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
                 });
 
         }
@@ -364,7 +376,15 @@ export class DataForm {
             "RO Asal",
             "Jumlah DO Awal",
             "Satuan",
-            "Tipe Fabric"
+            "Tipe Fabric",
+            "Warna",
+            "Lot",
+            "No Package",
+            "Handling Unit",
+            "Rak",
+            "Box",
+            "Level",
+            "Area"
         ],
     };
 
@@ -434,6 +454,10 @@ export class DataForm {
                                 Items.Colour = item.Colour;
                                 Items.Area = item.Area;
                                 Items.IsCMT = item.IsCMT;
+                                Items.Lot = item.Lot;
+                                Items.NoPackage = item.NoPackage;
+                                Items.HandlingUnitId = item.HandlingUnitId;
+                                Items.HandlingUnit = item.HandlingUnit;
 
                                 this.dataItems.push(Items);
                             }

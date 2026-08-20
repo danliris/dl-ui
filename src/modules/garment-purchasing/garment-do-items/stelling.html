@@ -9,13 +9,16 @@
         <table class="table table-bordered table-hover" border="1" id="poReport">
           <thead align="center">
             <tr>
-              <td colspan="8" align="center">DATA PENERIMAAN</td>
+              <td colspan="11" align="center">DATA PENERIMAAN</td>
             </tr>
             <tr>
               <td align="center">Nomor PO</td>
               <td align="center">QTY</td>
               <td align="center">Satuan</td>
               <td align="center">Warna</td>
+              <td align="center">Lot</td>
+              <td align="center">No Package</td>
+              <td align="center">Handling Unit</td>
               <td align="center">Rak</td>
               <td align="center">Level</td>
               <td align="center">Box</td>
@@ -28,9 +31,12 @@
               <td>${item.Quantity}</td>
               <td>${item.Uom}</td>
               <td>${item.Colour}</td>
+              <td>${item.Lot}</td>
+              <td>${item.NoPackage}</td>
+              <td>${item.HandlingUnit}</td>
               <td>${item.Rack}</td>
-              <td>${item.Box}</td>
               <td>${item.Level}</td>
+              <td>${item.Box}</td>
               <td>${item.Area}</td>
             </tr>
           </tbody>
