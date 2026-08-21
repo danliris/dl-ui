@@ -301,7 +301,7 @@
             if.bind="deliveryOrder && data.URNType!='GUDANG SISA' && data.URNType!='SISA SUBCON'" >
         </au-collection>
 
-        <au-collection 
+        <!-- <au-collection 
             items.bind="data.DRItems" 
             columns.bind="deliveryReturnItem.columns"
             remove.bind="deliveryReturnItem.onRemove"
@@ -310,7 +310,7 @@
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item"
             if.bind="deliveryReturn && data.Storage.name !=  'GUDANG BAHAN BAKU'"
             show.bind="isProcess && data.Storage.name !=  'GUDANG BAHAN BAKU'">
-        </au-collection>
+        </au-collection> -->
 
           <au-collection 
             items.bind="data.DRItems" 
@@ -319,8 +319,8 @@
             errors.bind="error.Items"
             read-only.bind="readOnly || isEdit"
             item-template="modules/garment-purchasing/unit-receipt-note-by-user/template/delivery-return-item-fabric"
-            if.bind="deliveryReturn && data.Storage.name ==  'GUDANG BAHAN BAKU'"
-            show.bind="isProcess && data.Storage.name ==  'GUDANG BAHAN BAKU'">
+            if.bind="deliveryReturn"
+            show.bind="isProcess">
         </au-collection>
 
 

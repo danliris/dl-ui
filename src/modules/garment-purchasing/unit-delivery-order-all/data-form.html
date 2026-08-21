@@ -237,7 +237,7 @@
 
         <au-textbox if.bind="error.ItemsCount" error.bind="error.ItemsCount" read-only.bind="true"></au-textbox>
 
-        <au-collection 
+        <!-- <au-collection 
             items.bind="data.Items" 
             errors.bind="error.Items"
             columns.bind="items.columns"
@@ -247,7 +247,7 @@
             view-model.ref="ItemsCollection"
             header-template="modules/garment-purchasing/unit-delivery-order-all/template/unit-delivery-order-header"
             item-template="modules/garment-purchasing/unit-delivery-order-all/template/unit-delivery-order-item">
-        </au-collection>
+        </au-collection> -->
 
         <au-collection 
         items.bind="data.Items" 
@@ -255,7 +255,7 @@
         columns.bind="itemsFabric.columns"
         options.bind="options"
         read-only.bind="readOnly" 
-        show.bind="data.Items && data.Items.length > 0 && data.Storage.name == 'GUDANG BAHAN BAKU'"
+        show.bind="data.Items && data.Items.length > 0"
         view-model.ref="ItemsCollection"
         header-template="modules/garment-purchasing/unit-delivery-order-all/template/unit-delivery-order-header"
         item-template="modules/garment-purchasing/unit-delivery-order-all/template/unit-delivery-order-item-fabric"

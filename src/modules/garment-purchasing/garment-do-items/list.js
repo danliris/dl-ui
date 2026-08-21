@@ -8,9 +8,14 @@ import { Base64Helper } from '../../../utils/base-64-coded-helper';
 // const MachineLoader = require('../../../../loader/machine-custom-loader');
 // const MachineTypeLoader = require('../../../../loader/machine-custom-type-loader');
 // const BrandLoader = require('../../../../loader/machine-brand-loader');
+var StorageLoader = require("../../../loader/storage-loader");
 
 @inject(Router, Service)
 export class List {
+  @bindable storage;
+
+
+
   context = ["Update Racking", "Kartu Stelling", "Cetak Barcode"];
 
   columns = [
@@ -22,6 +27,9 @@ export class List {
     { field: "RemainingQuantity", title: "Quantity", align: "right" },
     { field: "SmallUomUnit", title: "Satuan" },
     { field: "Colour", title: "Warna" },
+    { field: "Lot", title: "Lot" },
+    { field: "NoPackage", title: "No Package" },
+    { field: "HandlingUnit", title: "Handling Unit" },
     { field: "Rack", title: "Rak" },
     { field: "Level", title: "Level" },
     { field: "Box", title: "Box" },
@@ -50,6 +58,8 @@ export class List {
     "R8",
     "R9",
     "R10",
+    "R11",
+    "R12",
     "R13",
     "R14",
     "R15",
@@ -57,6 +67,17 @@ export class List {
     "R17",
     "R18",
     "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29",
+    "R30",
     "R31",
     "R32",
     "R33",
@@ -70,9 +91,12 @@ export class List {
     "R41",
     "R42",
   ];
+  storageOptions = ["GUDANG BAHAN BAKU", "GUDANG ACCESSORIES", "GUDANG EMBALASE"];
+
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    this.error = {};
   }
 
   tableOptions = {
@@ -82,20 +106,35 @@ export class List {
     sortable: false,
   };
 
+
   loader = (info) => {
+
+  if (!this.flag) {
+    return { data: [] };
+  }
+
+  // Validasi Storage
+  if (!this.storage || !(this.storage.name || this.storage.Name)) {
+      this.error.storage = "Gudang harus diisi";
+      return { data: [] };
+    }
+
+    let storageName = this.storage.name
+      ? this.storage.name
+      : this.storage.Name;
+
     let params = {
       po: this.po ? this.po : "",
       rack: this.rack ? this.rack : "",
       productcode: this.code ? this.code : "",
+      storage: storageName,
     };
 
-    return this.flag
-      ? this.service.search(params).then((result) => {
-          return {
-            data: result.data,
-          };
-        })
-      : { data: [] };
+    return this.service.search(params).then((result) => {
+      return {
+        data: result.data,
+      };
+    });
   };
 
   search() {
@@ -137,10 +176,22 @@ export class List {
   }
 
   ExportToExcel() {
+    this.error = {};
+
+    if (!this.storage || !(this.storage.name || this.storage.Name)) {
+      this.error.storage = "Gudang harus diisi";
+      return;
+    }
+
+    let storageName = this.storage.name
+      ? this.storage.name
+      : this.storage.Name;
+
     let args = {
       po: this.po ? this.po : "",
       rack: this.rack ? this.rack : "",
       productcode: this.code ? this.code : "",
+      storage: storageName,
     };
 
     this.service.generateExcel(args);
@@ -148,10 +199,60 @@ export class List {
 
   reset() {
     this.po = null;
+    this.rack = null;
+    this.code = null;
     this.unit = null;
     this.productcode = null;
+    this.storage = "";
     this.data = [];
     this.flag = false;
     this.tableList.refresh();
   }
+
+  get storageLoader() {
+  return (...args) => {
+    return StorageLoader(...args).then((result) => {
+      if (!Array.isArray(result)) {
+        console.log("StorageLoader result:", result);
+        return [];
+      }
+
+      const uniqueStorage = new Map();
+
+      result.forEach(item => {
+        if (!item || !item.name) {
+          return;
+        }
+
+        const key = item.name.trim().toLowerCase();
+
+        if (!uniqueStorage.has(key)) {
+          uniqueStorage.set(key, item);
+        }
+      });
+
+      return Array.from(uniqueStorage.values());
+    });
+  };
+}
+
+
+  storageView = (storage) => {
+    var name = storage.name ? storage.name : storage.Name;
+    return `${name}`;
+  };
+
+  storageChanged(newValue) {
+  if (newValue) {
+    this.storage = newValue;
+
+    if (this.error) {
+      this.error.storage = null;
+    }
+  } else {
+    this.storage = null;
+  }
+}
+
+
 }
