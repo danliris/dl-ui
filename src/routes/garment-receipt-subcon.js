@@ -719,4 +719,18 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/subcon-inventory-racking",
+    name: "subcon-inventory-racking",
+    moduleId: "./modules/garment-receipt-subcon/inventory-racking/index",
+    nav: true,
+    title: "Inventory Racking",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X54: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];

@@ -87,6 +87,14 @@ export class DataForm {
         "Jumlah DO",
         "Satuan",
         "Tipe Fabric",
+        "Warna",
+        "Lot",
+        "No Package",
+        "Handling Unit",
+        "Rak",
+        "Level",
+        "Box",
+        "Area",
       ];
     }
 
@@ -461,6 +469,14 @@ export class DataForm {
       "Jumlah DO Awal",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 }

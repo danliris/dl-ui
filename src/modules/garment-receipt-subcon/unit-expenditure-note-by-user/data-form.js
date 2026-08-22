@@ -324,6 +324,15 @@ export class DataForm {
           Items.BeacukaiNo = item.BeacukaiNo;
           Items.BeacukaiType = item.BeacukaiType;
           Items.BeacukaiDate = item.BeacukaiDate;
+          Items.Colour = item.Colour;
+          Items.Lot = item.Lot;
+          Items.NoPackage = item.NoPackage;
+          Items.HandlingUnitId = item.HandlingUnitId;
+          Items.HandlingUnit = item.HandlingUnit;
+          Items.Rack = item.Rack;
+          Items.Level = item.Level;
+          Items.Box = item.Box;
+          Items.Area = item.Area;
 
           Items.IsSave = Items.Quantity > 0;
           Items.IsDisabled = !(Items.Quantity > 0);
@@ -357,6 +366,14 @@ export class DataForm {
       "Jumlah Keluar",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 

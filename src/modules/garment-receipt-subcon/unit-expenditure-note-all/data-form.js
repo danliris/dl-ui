@@ -351,6 +351,14 @@ export class DataForm {
       "Jumlah Keluar",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 

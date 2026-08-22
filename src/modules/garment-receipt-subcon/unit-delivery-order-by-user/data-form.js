@@ -88,6 +88,14 @@ export class DataForm {
         "Jumlah DO",
         "Satuan",
         "Tipe Fabric",
+        "Warna",
+        "Lot",
+        "No Package",
+        "Handling Unit",
+        "Rak",
+        "Level",
+        "Box",
+        "Area",
       ];
     }
 
@@ -347,6 +355,15 @@ export class DataForm {
             Items.BeacukaiNo = item.BeacukaiNo;
             Items.BeacukaiDate = item.BeacukaiDate;
             Items.BeacukaiType = item.BeacukaiType;
+            Items.Colour = item.Colour;
+            Items.Lot = item.Lot;
+            Items.NoPackage = item.NoPackage;
+            Items.HandlingUnitId = item.HandlingUnitId;
+            Items.HandlingUnit = item.HandlingUnit;
+            Items.Rack = item.Rack;
+            Items.Level = item.Level;
+            Items.Box = item.Box;
+            Items.Area = item.Area;
 
             Items.IsSave = Items.Quantity > 0;
             Items.IsDisabled = !(Items.Quantity > 0);
@@ -411,6 +428,15 @@ export class DataForm {
           this.newProduct.BeacukaiNo = selectedROHeader.BeacukaiNo;
           this.newProduct.BeacukaiDate = selectedROHeader.BeacukaiDate;
           this.newProduct.BeacukaiType = selectedROHeader.BeacukaiType;
+          this.newProduct.Colour = selectedROHeader.Colour;
+          this.newProduct.Lot = selectedROHeader.Lot;
+          this.newProduct.NoPackage = selectedROHeader.NoPackage;
+          this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
+          this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
+          this.newProduct.Rack = selectedROHeader.Rack;
+          this.newProduct.Level = selectedROHeader.Level;
+          this.newProduct.Box = selectedROHeader.Box;
+          this.newProduct.Area = selectedROHeader.Area;
           this.newProduct.IsSave = this.newProduct.Quantity > 0;
           this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
         });
@@ -462,6 +488,14 @@ export class DataForm {
       "Jumlah DO Awal",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 }
