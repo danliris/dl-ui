@@ -31,6 +31,10 @@ export class View {
             this.hasRejected = false;
             this.hasRevised = !this.data.IsRevised;
         }
+        const isSuccess = (this.data.StatusD365 === "Success");
+        if (isSuccess) {
+            this.hasRevised = null;
+        }
     }
 
     cancelCallback(event) {

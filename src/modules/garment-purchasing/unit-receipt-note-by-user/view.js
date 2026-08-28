@@ -5,6 +5,7 @@ import { activationStrategy } from 'aurelia-router';
 import { Dialog } from '../../../components/dialog/dialog';
 import { AlertView } from './custom-dialog-view/alert-view';
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
+import { StatusHelper } from '../../../utils/disable-update';
 
 @inject(Router, Service, Dialog)
 export class View {
@@ -42,7 +43,6 @@ export class View {
                 }
             }
         }
-
         this.unit = this.data.Unit;
         this.supplier = {Id: this.data.Supplier.Id, code: this.data.Supplier.Code, name: this.data.Supplier.Name};
         this.deliveryOrder = { Id: this.data.DOId, doNo: this.data.DONo };
@@ -107,7 +107,9 @@ export class View {
                 }
             }
         }
-        
+
+        const isSuccess = (this.data.StatusGRND365 === "Success");
+        StatusHelper.disableEditDelete(this, isSuccess);
     }
 
     cancel(event) {
