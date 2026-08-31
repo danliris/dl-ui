@@ -1,5 +1,6 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service, InventoryService } from "./service";
+import moment from 'moment';
 var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var StorageLoader = require('../../../loader/storage-loader');
@@ -9,7 +10,7 @@ var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditu
 var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
 var UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
 
-var moment = require('moment');
+//var moment = require('moment');
 
 @inject(Service,InventoryService, BindingEngine, Element)
 export class DataForm {
@@ -85,6 +86,7 @@ export class DataForm {
                 { header: "Design/Color" },
                 { header: "Warna" },
                 { header: "Lot" },
+                { header: "Batch" },
                 { header: "No Package" },
                 { header: "Handling Unit" },
                 { header: "Rak" },
@@ -171,6 +173,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+            item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+        }
         if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
@@ -309,6 +316,8 @@ export class DataForm {
                         DRItem.NoPackage = dritem.NoPackage,
                         DRItem.HandlingUnitId = dritem.HandlingUnitId,
                         DRItem.HandlingUnit = dritem.HandlingUnit,
+                        DRItem.Batch = dritem.Batch,
+                        DRItem.BatchView = dritem.Batch ? moment.parseZone(dritem.Batch).utcOffset(7).format("YYYY-MM-DD") : null,        
                         DRItems.push(DRItem)
                     }
                 }

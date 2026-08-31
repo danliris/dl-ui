@@ -62,7 +62,11 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-
+    if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+          item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+      }
     this.options = {
       readOnly: this.readOnly,
       isEdit: this.isEdit,
@@ -91,6 +95,7 @@ export class DataForm {
         "Tipe Fabric",
         "Warna",
         "Lot",
+        "Batch",
         "No Package",
         "Handling Unit",
         "Rak",

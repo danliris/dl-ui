@@ -5,6 +5,7 @@ const UnitLoader = require('../../../loader/garment-units-loader');
 const StorageLoader = require('../../../loader/storage-loader');
 const UnitDOLoader = require('../../../loader/garment-unit-delivery-order-loader');
 const UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
+import moment from 'moment';
 
 @inject(BindingEngine, Service, PurchasingService, CoreService)
 export class DataForm {
@@ -62,6 +63,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+            item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+        } 
         this.itemOptions = {
             isCreate: this.context.isCreate,
             isEdit: this.context.isEdit,
@@ -339,6 +345,8 @@ export class DataForm {
                         NoPackage: unitDOItem ? unitDOItem.NoPackage : null,
                         HandlingUnitId: unitDOItem ? unitDOItem.HandlingUnitId : null,
                         HandlingUnit: unitDOItem ? unitDOItem.HandlingUnit : null,
+                        Batch: unitDOItem ? unitDOItem.Batch : null,
+                        BatchView: unitDOItem ? moment.parseZone(unitDOItem.Batch).utcOffset(7).format("YYYY-MM-DD") : null,
                     }
     
                     if (itemUEN.ProductName == "FABRIC") {
@@ -430,6 +438,7 @@ export class DataForm {
             "Satuan",
             "Warna",
             "Lot",
+            "Batch",
             "No Package",
             "Handling Unit",
             "Rak",

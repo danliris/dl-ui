@@ -1,4 +1,5 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from "aurelia-framework";
+import moment from "moment";
 import { Service, PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
@@ -58,6 +59,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Items) {
+                this.data.Items.forEach(item => {
+                  item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                });
+              }
         this.itemOptions = {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,

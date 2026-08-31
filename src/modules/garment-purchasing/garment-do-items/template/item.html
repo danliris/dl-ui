@@ -19,33 +19,40 @@
 		<td>
 			<au-textbox 
                 value.bind="data.Lot" 
-				error.bind="error.Lot"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-textbox>
 		</td>
 		<td>
 			<au-textbox 
-                value.bind="data.NoPackage"
-				error.bind="error.NoPackage"
-                read-only.bind="readOnly || (isEdit && data.Id)"
+                value.bind="data.Batch" 
+				error.bind="error.Batch"
+                read-only.bind="true"
                 options.bind="controlOptions">
 			</au-textbox>
 		</td>
 		<td>
-            <au-autocomplete 
-                value.bind="dataUom" 
-                error.bind="error.HandlingUnit"
-                loader.bind="uomLoader"
-                placeholder="cari satuan" 
-                text="Unit"
-                key="Id"
-                read-only.bind="readOnly || (isEdit && data.Id)">
-            </au-autocomplete>
-        </td>
+			<au-textbox 
+                value.bind="data.NoPackage"
+                read-only.bind="true"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+		<td>
+		<au-autocomplete 
+			value.bind="dataUom" 
+			error.bind="error.HandlingUnit"
+			loader.bind="uomLoader"
+			placeholder="cari satuan" 
+			text="Unit"
+			key="Id"
+			read-only.bind="readOnly || (isEdit && data.Id) || (data.ProductName && data.ProductName.toUpperCase() === 'FABRIC')">
+		</au-autocomplete>
+		</td>	
 		<td>
 			<au-dropdown 
                 value.bind="data.Rack" 
+				error.bind="error.Rack"
 				items.bind = "rackOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
@@ -54,6 +61,7 @@
 		<td>
 			<au-dropdown 
                 value.bind="data.Level" 
+				error.bind="error.Level"
 				items.bind = "levelOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
@@ -62,6 +70,7 @@
 		 <td>
 			<au-dropdown 
                 value.bind="data.Box" 
+				error.bind="error.Box"
 				items.bind = "boxOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">

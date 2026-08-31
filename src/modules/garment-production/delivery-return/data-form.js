@@ -5,6 +5,7 @@ const UnitLoader = require('../../../loader/garment-units-loader');
 const StorageLoader = require('../../../loader/storage-loader');
 const UnitDOLoader = require('../../../loader/garment-unit-delivery-order-loader');
 const UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
+import moment from "moment";
 
 @inject(BindingEngine, Service, PurchasingService)
 export class DataForm {
@@ -61,6 +62,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Items) {
+                this.data.Items.forEach(item => {
+                  item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                });
+              }
         this.itemOptions = {
             isCreate : this.context.isCreate,
             isEdit: this.context.isEdit,
@@ -123,11 +129,24 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            // this.context.UnitViewModel.editorValue = "";
+            // this.context.StoragesViewModel.editorValue = "";
+            // this.context.StoragesViewModel._suggestions = [];
+            // this.context.selectedUnitDOViewModel.editorValue = "";
+            // this.context.selectedUnitDOViewModel._suggestions = [];
+            if (this.context.UnitViewModel) {
             this.context.UnitViewModel.editorValue = "";
-            this.context.StoragesViewModel.editorValue = "";
-            this.context.StoragesViewModel._suggestions = [];
-            this.context.selectedUnitDOViewModel.editorValue = "";
-            this.context.selectedUnitDOViewModel._suggestions = [];
+            }
+
+            if (this.context.StoragesViewModel) {
+                this.context.StoragesViewModel.editorValue = "";
+                this.context.StoragesViewModel._suggestions = [];
+            }
+
+            if (this.context.selectedUnitDOViewModel) {
+                this.context.selectedUnitDOViewModel.editorValue = "";
+                this.context.selectedUnitDOViewModel._suggestions = [];
+            }
             this.data.Items = [];
         } else if(newValue != this.data.Unit && this.context.isCreate){
             this.data.Unit = newValue;
@@ -143,10 +162,20 @@ export class DataForm {
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
             this.data.Items = [];
+            // this.context.StoragesViewModel.editorValue = "";
+            // this.context.StoragesViewModel._suggestions = [];
+            // this.context.selectedUnitDOViewModel.editorValue = "";
+            // this.context.selectedUnitDOViewModel._suggestions = [];
+
+            if (this.context.StoragesViewModel) {
             this.context.StoragesViewModel.editorValue = "";
             this.context.StoragesViewModel._suggestions = [];
-            this.context.selectedUnitDOViewModel.editorValue = "";
-            this.context.selectedUnitDOViewModel._suggestions = [];
+            }
+
+            if (this.context.selectedUnitDOViewModel) {
+                this.context.selectedUnitDOViewModel.editorValue = "";
+                this.context.selectedUnitDOViewModel._suggestions = [];
+            }
         }
     }
 
@@ -160,8 +189,12 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            // this.context.StoragesViewModel.editorValue = "";
+            // this.context.StoragesViewModel._suggestions = [];
+            if (this.context.StoragesViewModel) {
             this.context.StoragesViewModel.editorValue = "";
             this.context.StoragesViewModel._suggestions = [];
+            }
             this.data.Items = [];
         } else if(newValue && this.context.isCreate){
             this.data.Storage = {};
@@ -178,8 +211,12 @@ export class DataForm {
             this.data.UnitDOId = null;
             this.data.UnitDONo = null;
             this.data.PreparingId = null;
+            // this.context.selectedUnitDOViewModel.editorValue = "";
+            // this.context.selectedUnitDOViewModel._suggestions = [];
+            if (this.context.selectedUnitDOViewModel) {
             this.context.selectedUnitDOViewModel.editorValue = "";
             this.context.selectedUnitDOViewModel._suggestions = [];
+            }
             this.data.Items = [];
         }
     }
@@ -335,6 +372,8 @@ export class DataForm {
                     NoPackage: unitDOItem ? unitDOItem.NoPackage : null,
                     HandlingUnitId: unitDOItem ? unitDOItem.HandlingUnitId : null,
                     HandlingUnit : unitDOItem ? unitDOItem.HandlingUnit : null,
+                    Batch: unitDOItem ? unitDOItem.Batch : null,
+                    BatchView: unitDOItem ? moment.parseZone(unitDOItem.Batch).utcOffset(7).format("YYYY-MM-DD") : null,
                 }
 
                 if (itemUEN.ProductName == "FABRIC") {
@@ -426,6 +465,7 @@ export class DataForm {
             "Satuan",
             "Warna",
             "Lot",
+            "Batch",
             "No Package",
             "Handling Unit",
             "Rak",

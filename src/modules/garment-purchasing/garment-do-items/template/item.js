@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { concat, forEach } from "../../../../routes/general";
 var UomLoader = require('../../../../loader/uom-loader');
 import { Service } from "../service";
+import moment from "moment";
 
 
 
@@ -14,14 +15,13 @@ export class Item {
         this.service = service;
     }
 
-    rackOptions =['-','R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','R11','R12','R13','R14','R15','R16','R17','R18','R19','R20','R21','R22','R23','R24','R25','R26','R27','R28','R29','R30','R31','R32','R33','R34','R35','R36','R37','R38','R39','R40','R41','R42'];
-    levelOptions =['-','L1','L2','L3','L4','L5','L6','L7','L8','L9','L10','L11','L12','L13','L14','L15','L16','L17','L18','L19'];
-    boxOptions = ['-','B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15','B16','B17','B18','B19','B20','B21','B22','B23','B24','B25','B26','B27','B28','B29','B30','B31','B32','B33','B34','B35','B36','B37','B38','B39','B40','B41','B42','B43','B44','B45','B46','B47','B48','B49','B50','B51','B52'];
+    rackOptions =['','R1','R2','R3','R4','R5','R6','R7','R8','R9','R10','R11','R12','R13','R14','R15','R16','R17','R18','R19','R20','R21','R22','R23','R24','R25','R26','R27','R28','R29','R30','R31','R32','R33','R34','R35','R36','R37','R38','R39','R40','R41','R42'];
+    levelOptions =['','L1','L2','L3','L4','L5','L6','L7','L8','L9','L10','L11','L12','L13','L14','L15','L16','L17','L18','L19'];
+    boxOptions = ['','B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15','B16','B17','B18','B19','B20','B21','B22','B23','B24','B25','B26','B27','B28','B29','B30','B31','B32','B33','B34','B35','B36','B37','B38','B39','B40','B41','B42','B43','B44','B45','B46','B47','B48','B49','B50','B51','B52'];
     areaOptions = ['-','A1','A2','A3','A4','A5','B.ZONE'];
     activate(context) {
         this.context = context;
         this.data = context.data;
-        console.log("dataitem", this.data);
         
         this.error = context.error;
 
@@ -44,17 +44,26 @@ export class Item {
         //     } 
         // }
         
+       const isFabric =
+        this.data.ProductName &&
+        this.data.ProductName.trim().toUpperCase() === "FABRIC";
+
         if (this.data.HandlingUnit) {
-        this.dataUom = {
-            Id: this.data.HandlingUnitId,
-            Unit: this.data.HandlingUnit
-        };
-        } else {
-            this.dataUom = null;
+
+            this.dataUom = {
+                Id: this.data.HandlingUnitId,
+                Unit: this.data.HandlingUnit
+            };
+
         }
+        else if (isFabric) {
+            this.setFabricHandlingUnit();
+        }
+        else {
 
+            this.dataUom = null;
 
-
+        }
     }
 
     toggle() {
@@ -80,6 +89,27 @@ export class Item {
      get uomLoader() {
         return UomLoader;
       }
+
+
+    setFabricHandlingUnit() {
+    UomLoader("ROLL", {})
+            .then(results => {
+                const roll = results.filter(x => x.Unit === "ROLL")[0];
+
+                if (roll) {
+                    this.dataUom = {
+                        Id: roll.Id,
+                        Unit: roll.Unit
+                    };
+                    this.data.HandlingUnit = roll.Unit;
+                    this.data.HandlingUnitId = roll.Id;
+                }
+            });
+
+    if (this.error) {
+        this.error.HandlingUnit = null;
+    }
+}
 
 
 }

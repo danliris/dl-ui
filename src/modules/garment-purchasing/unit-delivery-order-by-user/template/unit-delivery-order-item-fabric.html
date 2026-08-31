@@ -81,6 +81,14 @@
             </au-textbox>
         </td>
         <td>
+			<au-textbox 
+                value.bind="data.BatchView" 
+				error.bind="error.Batch"
+                read-only.bind="true"
+                options.bind="controlOptions">
+			</au-textbox>
+		</td>
+        <td>
             <au-textbox 
                 value.bind="data.NoPackage"
                 error.bind = "error.NoPackage"

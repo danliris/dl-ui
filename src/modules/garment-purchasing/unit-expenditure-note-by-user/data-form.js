@@ -50,6 +50,12 @@ export class DataForm {
     this.isExternal = false;
     this.options.isExternal = false;
 
+    if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+          item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+      }
+
     this.items.columns = this.items.columns.filter((c) => c != "Status Barang");
     if (this.data.ExpenditureType === "TRANSFER") {
       this.data.ExpenditureTo = "GUDANG LAIN";
@@ -300,6 +306,8 @@ export class DataForm {
           Items.NoPackage = item.NoPackage;
           Items.HandlingUnit = item.HandlingUnit;
           Items.HandlingUnitId = item.HandlingUnitId;
+          Items.Batch = item.Batch;
+          Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
 
           this.data.Items.push(Items);
         }
@@ -345,6 +353,7 @@ export class DataForm {
       "Tipe Fabric",
       "Warna",
       "Lot",
+      "Batch",
       "No Package",
       "Handling Unit",
       "Rak",

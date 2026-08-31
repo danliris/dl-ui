@@ -63,7 +63,11 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-    console.log(this.data);
+    if (this.data && this.data.Items) {
+    this.data.Items.forEach(item => {
+      item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+    });
+  }
     this.error = this.context.error;
 
     this.options = {
@@ -100,6 +104,7 @@ export class DataForm {
         "Tipe Fabric",
         "Warna",
         "Lot",
+        "Batch",
         "No Package",
         "Handling Unit",
         "Rak",
@@ -228,7 +233,6 @@ export class DataForm {
         filter: JSON.stringify(filter),
       };
       return this.service.searchMoreDOItems(info).then((result) => {
-        console.log(result);
         let itemIds = this.data.Items.map((i) => i.DOItemsId);
         // let colorLIst = this.data.Items.map(i => i.Colour);
         // console.log('urn',itemIds);
@@ -314,7 +318,6 @@ export class DataForm {
 
   storageChanged(newValue) {
     var selectedStorage = newValue;
-    console.log(newValue);
     if (selectedStorage) {
       this.data.Storage = selectedStorage;
     } else {
@@ -411,7 +414,6 @@ export class DataForm {
               break;
             }
           }
-          console.log("length1", ro.length);
           if (ro.length) {
             this.data.Article = ro[0].Article;
             this.error.Article = null;
@@ -470,6 +472,8 @@ export class DataForm {
                   Items.NoPackage = item.NoPackage;
                   Items.HandlingUnit = item.HandlingUnit;
                   Items.HandlingUnitId = item.HandlingUnitId;
+                  Items.Batch = item.Batch;
+                  Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
 
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
@@ -571,6 +575,8 @@ export class DataForm {
                 Items.NoPackage = item.NoPackage;
                 Items.HandlingUnit = item.HandlingUnit;
                 Items.HandlingUnitId = item.HandlingUnitId;
+                Items.Batch = item.Batch;
+                Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
                 // if(item.Colour == null || item.Colour.trim() === '')
                 // {
                 //     fInput = true;
@@ -677,7 +683,8 @@ export class DataForm {
                   Items.NoPackage = item.NoPackage;
                   Items.HandlingUnit = item.HandlingUnit;
                   Items.HandlingUnitId = item.HandlingUnitId;
-
+                  Items.Batch = item.Batch;
+                  Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
                   //     fInput = true;
@@ -863,7 +870,6 @@ export class DataForm {
         })
         .then((result) => {
           var selectedROHeader = result.data[0];
-          console.log(selectedROHeader);
           this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
           this.newProduct.URNItemId = selectedROHeader.URNItemId;
           this.newProduct.URNNo = selectedROHeader.URNNo;
@@ -900,6 +906,8 @@ export class DataForm {
           this.newProduct.NoPackage = selectedROHeader.NoPackage;
           this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
           this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
+          this.newProduct.Batch = selectedROHeader.Batch;
+          this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
         });
     }
     // this.context.error.Items = [];
@@ -969,6 +977,7 @@ export class DataForm {
       "Satuan",
       "Tipe Fabric",
       "Warna",
+      "Batch",
       "Lot",
       "No Package",
       "Handling Unit",

@@ -29,6 +29,12 @@ export class List {
     { field: "Colour", title: "Warna" },
     { field: "Lot", title: "Lot" },
     { field: "NoPackage", title: "No Package" },
+    { field: "Batch",title: "Batch",
+      formatter: value =>
+        value
+          ? moment.parseZone(value).utcOffset(7).format("YYYY-MM-DD")
+          : "-"
+    },
     { field: "HandlingUnit", title: "Handling Unit" },
     { field: "Rack", title: "Rak" },
     { field: "Level", title: "Level" },
@@ -213,7 +219,6 @@ export class List {
   return (...args) => {
     return StorageLoader(...args).then((result) => {
       if (!Array.isArray(result)) {
-        console.log("StorageLoader result:", result);
         return [];
       }
 
