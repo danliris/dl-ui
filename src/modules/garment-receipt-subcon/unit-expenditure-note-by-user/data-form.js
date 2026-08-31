@@ -49,6 +49,11 @@ export class DataForm {
     this.data.ExpenditureTo = "PROSES";
     this.isExternal = false;
     this.options.isExternal = false;
+    if (this.data && this.data.Items) {
+      this.data.Items.forEach(item => {
+        item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+      });
+    }
 
     this.items.columns = this.items.columns.filter((c) => c != "Status Barang");
     // if(this.data.ExpenditureType === "TRANSFER"){
@@ -333,6 +338,8 @@ export class DataForm {
           Items.Level = item.Level;
           Items.Box = item.Box;
           Items.Area = item.Area;
+          Items.Batch = item.Batch;
+          Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
 
           Items.IsSave = Items.Quantity > 0;
           Items.IsDisabled = !(Items.Quantity > 0);
@@ -368,6 +375,7 @@ export class DataForm {
       "Tipe Fabric",
       "Warna",
       "Lot",
+      "Batch",
       "No Package",
       "Handling Unit",
       "Rak",

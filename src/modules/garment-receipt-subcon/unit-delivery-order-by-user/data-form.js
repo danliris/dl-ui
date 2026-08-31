@@ -69,8 +69,13 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-    console.log(this.data);
     this.error = this.context.error;
+
+     if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+          item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+      }
 
     this.options = {
       readOnly: this.readOnly,
@@ -90,6 +95,7 @@ export class DataForm {
         "Tipe Fabric",
         "Warna",
         "Lot",
+        "Batch",
         "No Package",
         "Handling Unit",
         "Rak",
@@ -364,6 +370,8 @@ export class DataForm {
             Items.Level = item.Level;
             Items.Box = item.Box;
             Items.Area = item.Area;
+            Items.Batch = item.Batch;
+            Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
 
             Items.IsSave = Items.Quantity > 0;
             Items.IsDisabled = !(Items.Quantity > 0);
@@ -437,6 +445,8 @@ export class DataForm {
           this.newProduct.Level = selectedROHeader.Level;
           this.newProduct.Box = selectedROHeader.Box;
           this.newProduct.Area = selectedROHeader.Area;
+          this.newProduct.Batch = selectedROHeader.Batch;
+          this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
           this.newProduct.IsSave = this.newProduct.Quantity > 0;
           this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
         });
@@ -490,6 +500,7 @@ export class DataForm {
       "Tipe Fabric",
       "Warna",
       "Lot",
+      "Batch",
       "No Package",
       "Handling Unit",
       "Rak",

@@ -75,6 +75,14 @@
         <td>
             <au-textbox 
                 value.bind="data.Lot"
+                error.bind = "error.Lot"
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td>
+            <au-textbox 
+                value.bind="data.BatchView"
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-textbox>

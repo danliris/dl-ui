@@ -54,18 +54,23 @@ export class Edit {
             isValid = false;
         }
 
-        if (!item.Lot || !item.Lot.trim()) {
-            itemError.Lot = "Lot harus diisi";
-            isValid = false;
-        }
-
-        if (!item.NoPackage || !item.NoPackage.trim()) {
-            itemError.NoPackage = "Package harus diisi";
-            isValid = false;
-        }
-
         if (!item.HandlingUnit || !item.HandlingUnit.trim()) {
             itemError.HandlingUnit = "Handling Unit harus diisi";
+            isValid = false;
+        }
+
+         if (!item.Rack || !item.Rack.trim()) {
+            itemError.Rack = "Rack harus diisi";
+            isValid = false;
+        }
+
+        if (!item.Level || !item.Level.trim()) {
+            itemError.Level = "Level harus diisi";
+            isValid = false;
+        }
+
+        if (!item.Box || !item.Box.trim()) {
+            itemError.Box = "Box harus diisi";
             isValid = false;
         }
 
