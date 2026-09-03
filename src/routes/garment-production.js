@@ -1390,4 +1390,34 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+      route: "/garment-production/garment-finished-goods-stock",
+      name: "garment-production/garment-finished-goods-stock",
+      moduleId: "./modules/garment-production/garment-finished-goods-stock/index",
+      nav: true,
+      title: "Inventory Racking Barang Jadi",
+      auth: true,
+      settings: {
+          group: "g-production",
+          subGroup: "fitur",
+          // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
+          permission: { "O83": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+  },
+    {
+      route: "/garment-production/monitoring-garment-finished-goods-stock",
+      name: "garment-production/monitoring-garment-finished-goods-stock",
+      moduleId: "./modules/garment-production/monitoring-garment-finished-goods-stock/index",
+      nav: true,
+      title: "Posisi Racking Barang Jadi",
+      auth: true,
+      settings: {
+          group: "g-production",
+          subGroup: "fitur",
+          // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
+          permission: { "O84": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+  }
 ];

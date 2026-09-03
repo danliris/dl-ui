@@ -1,0 +1,37 @@
+<template>
+  <tr>
+    <td>
+      <au-numeric
+        value.bind="data.Quantity"
+        error.bind="error.Quantity"
+        read-only.bind="readOnly">
+      </au-numeric>
+    </td>
+
+    <td>
+      <au-textbox
+        value.bind="data.Box"
+        error.bind="error.Box"
+        read-only.bind="readOnly">
+      </au-textbox>
+    </td>
+
+    <td>
+      <au-dropdown
+        value.bind="data.Rack"
+        items.bind="rackOptions"
+        error.bind="error.Rack"
+        read-only.bind="readOnly">
+      </au-dropdown>
+    </td>
+
+    <td if.bind="!readOnly" class="bg-light">
+      <button
+        type="button"
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(data, $event)">
+        -
+      </button>
+    </td>
+  </tr>
+</template>
