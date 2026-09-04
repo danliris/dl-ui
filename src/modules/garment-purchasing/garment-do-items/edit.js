@@ -28,7 +28,6 @@ export class Edit {
         id = decoded;
         this.data = await this.service.getById(id);
         this.data.isEdit = true;
-
     }
 
     cancel(event) {
@@ -36,49 +35,89 @@ export class Edit {
     }
 
     validate() {
-    let isValid = true;
+        let isValid = true;
 
-    this.error = {
-        Items: []
-    };
+        this.error = {
+            Items: []
+        };
 
-    if (!this.data.Items || this.data.Items.length === 0) {
-        return true;
+        if (!this.data.Items || this.data.Items.length === 0) {
+            return true;
+        }
+
+        this.data.Items.forEach((item, index) => {
+            let itemError = {};
+
+            const lot = item.Lot ? item.Lot.trim() : "";
+            const area = item.Area ? item.Area.trim().toUpperCase() : "";
+            const qty = parseFloat(item.Quantity);
+            const rack = item.Rack ? item.Rack.trim() : "";
+            const level = item.Level ? item.Level.trim() : "";
+            const box = item.Box ? item.Box.trim() : "";
+
+            if (isNaN(qty) || qty <= 0) {
+                    itemError.Quantity = "Quantity harus lebih dari 0";
+                    isValid = false;
+                }
+
+            if (!item.HandlingUnit || !item.HandlingUnit.trim()) {
+                    itemError.HandlingUnit = "Handling Unit harus diisi";
+                    isValid = false;
+                }
+
+            if (!item.Colour || !item.Colour.trim()) {
+                    itemError.Colour = "Warna harus diisi";
+                    isValid = false;
+                }
+
+
+            if (area === "GREEN ZONE") {
+
+                if (isNaN(qty) || qty <= 0) {
+                    itemError.Quantity = "Quantity harus lebih dari 0";
+                    isValid = false;
+                }
+
+                if (!item.Rack || !item.Rack.trim()) {
+                    itemError.Rack = "Rack harus diisi";
+                    isValid = false;
+                }
+
+                if (!item.Level || !item.Level.trim()) {
+                    itemError.Level = "Level harus diisi";
+                    isValid = false;
+                }
+
+                if (!item.Box || !item.Box.trim()) {
+                    itemError.Box = "Box harus diisi";
+                    isValid = false;
+                }
+
+                if (!item.Lot || !item.Lot.trim()) {
+                    itemError.Lot = "Lot harus diisi";
+                    isValid = false;
+                }
+            }
+
+            if (area === "BLUE ZONE" && rack) {
+                itemError.Rack = "Rack tidak boleh diisi jika Area BLUE ZONE";
+                itemError.Area = "BLUE ZONE tidak boleh memiliki Rack, Level, dan Box";
+                isValid = false;
+            } else if (area === "BLUE ZONE" && level) {
+                itemError.Area = "BLUE ZONE tidak boleh memiliki Rack, Level, dan Box";
+                itemError.Level = "Level tidak boleh diisi jika Area BLUE ZONE";
+                isValid = false;
+            } else if (area === "BLUE ZONE" && box) {
+                itemError.Area = "BLUE ZONE tidak boleh memiliki Rack, Level, dan Box";
+                itemError.Box = "Box tidak boleh diisi jika Area BLUE ZONE";
+                isValid = false;
+            }
+
+            this.error.Items[index] = itemError;
+        });
+
+        return isValid;
     }
-
-    this.data.Items.forEach((item, index) => {
-        let itemError = {};
-
-        if (!item.Colour || !item.Colour.trim()) {
-            itemError.Colour = "Warna harus diisi";
-            isValid = false;
-        }
-
-        if (!item.HandlingUnit || !item.HandlingUnit.trim()) {
-            itemError.HandlingUnit = "Handling Unit harus diisi";
-            isValid = false;
-        }
-
-         if (!item.Rack || !item.Rack.trim()) {
-            itemError.Rack = "Rack harus diisi";
-            isValid = false;
-        }
-
-        if (!item.Level || !item.Level.trim()) {
-            itemError.Level = "Level harus diisi";
-            isValid = false;
-        }
-
-        if (!item.Box || !item.Box.trim()) {
-            itemError.Box = "Box harus diisi";
-            isValid = false;
-        }
-
-        this.error.Items[index] = itemError;
-    });
-
-    return isValid;
-}
 
     save(event) {
         if (!this.validate()) {
