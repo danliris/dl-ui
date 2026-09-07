@@ -21,22 +21,22 @@ export class PurchaseRequestItem {
   }
 
   get compositionLoader() {
-    return (keyword) => this.coreService.getGarmentProductsDistinctDescription(keyword, JSON.stringify({ Name: "FABRIC" })).then(result => {
-      result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
+    return (keyword) => this.coreService.getGarmentProductsDistinctDescription(keyword, JSON.stringify({ Name: "FABRIC", ManufactureType: this.isCMT ? "CMT" : "FOB", OriginType: this.isImport ? "IMPORT" : "LOKAL" })).then(result => {
+      // result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
       return result;
     });
   }
 
   get constLoader() {
     return (keyword) => this.coreService.getGarmentProductConsts(keyword, JSON.stringify(this.constFilter)).then(result => {
-      result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
+      // result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
       return result;
     });
   }
 
   get yarnLoader() {
     return (keyword) => this.coreService.getGarmentProductYarns(keyword, JSON.stringify(this.yarnFilter)).then(result => {
-      result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
+      // result = result.filter(item => item.OriginType === (this.isImport ? "IMPORT" : "LOKAL") && item.ManufactureType === (this.isCMT ? "CMT" : "FOB"));
       return result;
     });
   }
@@ -83,11 +83,15 @@ export class PurchaseRequestItem {
 
   @computedFrom("data.Composition")
   get constFilter() {
-    let filter = { Name: "FABRIC" };
+    let filter = { Name: "FABRIC", ManufactureType: this.isCMT ? "CMT" : "FOB", OriginType: this.isImport ? "IMPORT" : "LOKAL" };
     if (this.data.Composition) {
       filter.Composition = this.data.Composition.Composition;
+      filter.OriginType = this.isImport ? "IMPORT" : "LOKAL";
+      filter.ManufactureType = this.isCMT ? "CMT" : "FOB";
     } else {
       filter.Composition = "this.data.Composition.Composition";
+      filter.OriginType = this.isImport ? "IMPORT" : "LOKAL";
+      filter.ManufactureType = this.isCMT ? "CMT" : "FOB";
     }
     return filter;
   }

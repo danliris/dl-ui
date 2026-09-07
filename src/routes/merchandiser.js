@@ -1023,7 +1023,7 @@ module.exports = [
         name: 'approve-purchase-request-non-job',
         moduleId: './modules/merchandiser/approve-pr-non-job/index',
         nav: true,
-        title: 'Approval PR Non-Job - Kasie MD',
+        title: 'Approval PR Non-Job - Kasie Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -1055,7 +1055,7 @@ module.exports = [
         name: 'approve-purchase-request-non-job',
         moduleId: './modules/merchandiser/approve-pr-non-job/index',
         nav: true,
-        title: 'Approval PR Non-Job - Kabag MD',
+        title: 'Approval PR Non-Job - Kabag Md',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -1150,7 +1150,7 @@ module.exports = [
         name: 'cost-calculation-approval-kadivmd-new',
         moduleId: './modules/merchandiser/cost-calculation-approval-new/index',
         nav: true,
-        title: 'Cost Calculation Approval - Kadiv MD (NEW)',
+        title: 'Cost Calculation Approval - Kadiv Md (NEW)',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -1231,7 +1231,7 @@ module.exports = [
         name: 'ro-validation-kasiemd-new',
         moduleId: './modules/merchandiser/ro-validation-new/index',
         nav: true,
-        title: 'Validasi RO - Kasie MD (NEW)',
+        title: 'Validasi RO - Kasie Md (NEW)',
         auth: true,
         settings: {
             group: "merchandiser",
