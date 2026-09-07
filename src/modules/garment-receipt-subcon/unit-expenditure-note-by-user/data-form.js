@@ -340,7 +340,7 @@ export class DataForm {
           Items.Area = item.Area;
           Items.Batch = item.Batch;
           Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
-
+          Items.LocationCode = item.LocationCode;
           Items.IsSave = Items.Quantity > 0;
           Items.IsDisabled = !(Items.Quantity > 0);
 

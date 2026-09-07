@@ -347,6 +347,7 @@ export class DataForm {
                         HandlingUnit: unitDOItem ? unitDOItem.HandlingUnit : null,
                         Batch: unitDOItem ? unitDOItem.Batch : null,
                         BatchView: unitDOItem ? moment.parseZone(unitDOItem.Batch).utcOffset(7).format("YYYY-MM-DD") : null,
+                        LocationCode: unitDOItem ? unitDOItem.LocationCode : null,
                     }
     
                     if (itemUEN.ProductName == "FABRIC") {
