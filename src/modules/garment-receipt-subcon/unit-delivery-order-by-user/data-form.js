@@ -372,6 +372,7 @@ export class DataForm {
             Items.Area = item.Area;
             Items.Batch = item.Batch;
             Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+            Items.LocationCode = item.LocationCode;
 
             Items.IsSave = Items.Quantity > 0;
             Items.IsDisabled = !(Items.Quantity > 0);
@@ -447,6 +448,7 @@ export class DataForm {
           this.newProduct.Area = selectedROHeader.Area;
           this.newProduct.Batch = selectedROHeader.Batch;
           this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+          this.newProduct.LocationCode = selectedROHeader.LocationCode;
           this.newProduct.IsSave = this.newProduct.Quantity > 0;
           this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
         });
