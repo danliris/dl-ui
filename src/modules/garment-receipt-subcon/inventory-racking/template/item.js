@@ -27,6 +27,7 @@ export class Item {
         this.error = context.error;
 
         this.options = context.context.options;
+        this.isUsedInUnitDO = this.options.isUsedInUnitDO === true;
 
         this.isShowing = true;
 

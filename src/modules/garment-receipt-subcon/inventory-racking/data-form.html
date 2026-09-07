@@ -55,7 +55,7 @@
 
       <div class="table-responsive">
         <au-collection items.bind="data.Items" errors.bind="error.Items" columns.bind="columns"
-          read-only.bind="readOnly" remove.bind="removeItems" add.bind="addItems" if.bind="isItems"
+          read-only.bind="readOnly" remove.bind="removeItems" add.bind="isUsedInUnitDO ? null : addItems" if.bind="isItems" if.bind="isItems"
           options.bind="itemOptions" item-template="modules/garment-receipt-subcon/inventory-racking/template/item">
         </au-collection>
       </div>

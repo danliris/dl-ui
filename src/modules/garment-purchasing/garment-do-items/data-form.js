@@ -6,6 +6,7 @@ export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable tipe;
+  @bindable isUsedInUnitDO;
 
   tipeitems= ['','IN','OUT'] 
 
@@ -47,7 +48,6 @@ export class DataForm {
    
     this.context = context;
     this.data = this.context.data;
-    
     this.data.Items=[];
     if(this.data)
     {
@@ -75,7 +75,7 @@ export class DataForm {
 
     this.cancelCallback = this.context.cancelCallback;
     this.saveCallback = this.context.saveCallback;
-
+    this.isUsedInUnitDO = this.context.isUsedInUnitDO === true;
     this.isItems=true;
 
     this.itemOptions = {
@@ -84,6 +84,7 @@ export class DataForm {
       isView: this.context.isView,
       checkedAll: this.context.isCreate == true ? false : true,
       isEdit: this.data.isEdit,
+      isUsedInUnitDO: this.isUsedInUnitDO,
     };
   }
 

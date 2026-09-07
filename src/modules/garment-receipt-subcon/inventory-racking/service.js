@@ -1,5 +1,5 @@
 import { RestService } from "../../../utils/rest-service";
-
+const UnitDOserviceUri = "garment-subcon-unit-delivery-orders";
 const serviceUri = "subcon-inventory-racking";
 
 class Service extends RestService {
@@ -36,6 +36,10 @@ class Service extends RestService {
   getBarcodeById(id) {
     var endpoint = `${serviceUri}/barcode/${id}`;
     return super.getPdf(endpoint);
+  }
+  getURNId(id) {
+      var endpoint = `${UnitDOserviceUri}/URN/${id}`;
+      return super.get(endpoint);
   }
 }
 

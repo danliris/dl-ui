@@ -15,6 +15,7 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isUsedInUnitDO = false;
     }
 
     bind() {
@@ -28,6 +29,8 @@ export class Edit {
         id = decoded;
         this.data = await this.service.getById(id);
         this.data.isEdit = true;
+        const result = await this.service.getURNId(id);
+        this.isUsedInUnitDO = result === true;  
 
     }
 
