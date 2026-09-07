@@ -92,7 +92,7 @@
             placeholder="Artikel"
             value.bind="data.Article"
             error.bind="error.Article"
-            read-only.bind="readOnly"
+            read-only.bind="readOnly || !(data.PRType == 'STOCK' || data.PRType == 'SAMPLE')"
             options.bind="controlOptions">
         </au-textbox>
 

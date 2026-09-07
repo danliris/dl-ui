@@ -254,18 +254,19 @@ export class PurchaseRequestItem {
 
       if (this.data.Category.Name !== "FABRIC") {
         this.coreService.getProductByName(this.data.Category.Name)
-          .then(product => {
+          .then(products => {
               
               var dataIsImport = this.data.IsImport ? "IMPORT" : "LOKAL";
               var dataManufacture = this.data.IsCMT ? "CMT" : "FOB";
 
-              if (
-                  product &&
-                  product.OriginType === dataIsImport &&
-                  product.ManufactureType === dataManufacture
-              ) {
+              var product = products && products.find(x =>
+                  x.OriginType === dataIsImport &&
+                  x.ManufactureType === dataManufacture
+              );
+
+              if (product) {
                   this.data.Product = product;
-              } else {
+              }else {
                   this.data.Product = {
                       IsError: true,
                       ErrorMessage:

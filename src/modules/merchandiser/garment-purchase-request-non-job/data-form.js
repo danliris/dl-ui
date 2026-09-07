@@ -209,6 +209,7 @@ export class DataForm {
     if(this.isEdit || this.readOnly) return;
     if (newValue) {
       this.data.SourceRO = newValue.RO_Number;
+      this.data.Article = newValue.Article;
       this.data.Buyer = {
         Id: newValue.BuyerBrand.Id,
         Code: newValue.BuyerBrand.Code,
