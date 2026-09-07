@@ -19,6 +19,7 @@ export class List {
   context = ["Update Racking", "Kartu Stelling", "Cetak Barcode"];
 
   columns = [
+    { field: "NoPackage", title: "No Package" },
     { field: "ProductCode", title: "Kode Barang" },
     { field: "POSerialNumber", title: "Nomor PO" },
     { field: "RO", title: "Nomor RO" },
@@ -28,7 +29,6 @@ export class List {
     { field: "SmallUomUnit", title: "Satuan" },
     { field: "Colour", title: "Warna" },
     { field: "Lot", title: "Lot" },
-    { field: "NoPackage", title: "No Package" },
     { field: "Batch",title: "Batch",
       formatter: value =>
         value

@@ -12,6 +12,7 @@
 		<td>
 			<au-numeric 
                 value.bind="data.Quantity" 
+				error.bind="error.Quantity" 
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-numeric>
@@ -19,6 +20,7 @@
 		<td>
 			<au-textbox 
                 value.bind="data.Lot" 
+				error.bind="error.Lot"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-textbox>
@@ -55,6 +57,7 @@
 				error.bind="error.Rack"
 				items.bind = "rackOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
+				change.delegate="rackChanged()"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>
@@ -64,6 +67,7 @@
 				error.bind="error.Level"
 				items.bind = "levelOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
+				change.delegate="levelChanged()"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>
@@ -73,6 +77,7 @@
 				error.bind="error.Box"
 				items.bind = "boxOptions"
                 read-only.bind="readOnly || (isEdit && data.Id)"
+				change.delegate="boxChanged()"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>
