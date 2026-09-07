@@ -318,6 +318,7 @@ export class DataForm {
                         DRItem.HandlingUnit = dritem.HandlingUnit,
                         DRItem.Batch = dritem.Batch,
                         DRItem.BatchView = dritem.Batch ? moment.parseZone(dritem.Batch).utcOffset(7).format("YYYY-MM-DD") : null,        
+                        DRItem.LocationCode = dritem.LocationCode;
                         DRItems.push(DRItem)
                     }
                 }

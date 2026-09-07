@@ -474,7 +474,7 @@ export class DataForm {
                   Items.HandlingUnitId = item.HandlingUnitId;
                   Items.Batch = item.Batch;
                   Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
-
+                  Items.LocationCode = item.LocationCode;
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
                   //     fInput = true;
@@ -577,6 +577,7 @@ export class DataForm {
                 Items.HandlingUnitId = item.HandlingUnitId;
                 Items.Batch = item.Batch;
                 Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                Items.LocationCode = item.LocationCode;
                 // if(item.Colour == null || item.Colour.trim() === '')
                 // {
                 //     fInput = true;
@@ -685,6 +686,7 @@ export class DataForm {
                   Items.HandlingUnitId = item.HandlingUnitId;
                   Items.Batch = item.Batch;
                   Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                  Items.LocationCode = item.LocationCode;
                   // if(item.Colour == null || item.Colour.trim() === '')
                   // {
                   //     fInput = true;
@@ -908,6 +910,7 @@ export class DataForm {
           this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
           this.newProduct.Batch = selectedROHeader.Batch;
           this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+          this.newProduct.LocationCode = selectedROHeader.LocationCode;
         });
     }
     // this.context.error.Items = [];
