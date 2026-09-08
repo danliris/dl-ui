@@ -13,7 +13,7 @@ class Service extends RestService {
   }
 
   generateExcel(args) {
-    var endpoint = `${serviceUri}/by-ro/download?&ro=${args.ro}&rack=${args.rack}`;
+    var endpoint = `${serviceUri}/by-ro/download?&ro=${args.ro}&pallet=${args.pallet}&warehouse=${args.warehouse}&area=${args.area}&line=${args.line}`;
     return super.getXls(endpoint);
   }
 }
