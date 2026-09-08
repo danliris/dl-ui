@@ -10,6 +10,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable supplier;
+    @bindable isSparepartOrMachine = false;
 
     controlOptions = {
         label: {
@@ -37,7 +38,9 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
+        if(this.data.bcNo || this.data.bcDate) {
+            this.isSparepartOrMachine = true;
+        }
         if(this.data.supplier)
             this.data.supplierId = this.data.supplier._id;
     }
@@ -90,6 +93,13 @@ export class DataForm {
             if (this.error.items) {
                 this.error.items = [];
             }
+        }
+    }
+
+    isSparepartOrMachineChanged(newValue, oldValue) {
+        if (!newValue) {
+            this.data.bcNo = "";
+            this.data.bcDate = null;
         }
     }
 } 
