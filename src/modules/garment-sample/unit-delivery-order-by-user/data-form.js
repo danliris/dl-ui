@@ -334,6 +334,7 @@ export class DataForm {
                     this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
                     this.newProduct.Batch = selectedROHeader.Batch;
                     this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                    this.newProduct.LocationCode = selectedROHeader.LocationCode;
                 });
 
         }
@@ -468,7 +469,7 @@ export class DataForm {
                                 Items.HandlingUnit = item.HandlingUnit;
                                 Items.Batch = item.Batch;
                                 Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
-
+                                Items.LocationCode = item.LocationCode;
                                 this.dataItems.push(Items);
                             }
                         }
