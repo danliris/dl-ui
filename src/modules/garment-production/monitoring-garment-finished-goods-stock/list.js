@@ -17,43 +17,17 @@ export class List {
     { field: "Colour", title: "Warna" },
     { field: "Quantity", title: "Quantity", align: "right" },
     { field: "Uom.Unit", title: "Satuan" },
-    { field: "Box", title: "Box" },
-    { field: "Rack", title: "Rak" },
+    { field: "WarehouseCode", title: "Kode Gudang" },
+    { field: "Area", title: "Area" },
+    { field: "LineCode", title: "Kode Line" },
+    { field: "PalletCode", title: "Kode Pallet" },
   ];
 
-  rackOptions = [
-    "",
-    "-",
-    "R1",
-    "R2",
-    "R3",
-    "R4",
-    "R5",
-    "R6",
-    "R7",
-    "R8",
-    "R9",
-    "R10",
-    "R13",
-    "R14",
-    "R15",
-    "R16",
-    "R17",
-    "R18",
-    "R19",
-    "R31",
-    "R32",
-    "R33",
-    "R34",
-    "R35",
-    "R36",
-    "R37",
-    "R38",
-    "R39",
-    "R40",
-    "R41",
-    "R42",
-  ];
+  warehouseOptions =['','G01', 'G02'];
+  areaOptions =['','A','B','C','D'];
+  lineOptions =['','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17'];
+  palletOptions =['','P01','P02','P03','P04','P05'];
+
   constructor(router, service) {
     this.service = service;
     this.router = router;
@@ -68,10 +42,13 @@ export class List {
 
   loader = (info) => {
     let params = {
+      warehouse: this.warehouse ? this.warehouse : "",
+      area: this.area ? this.area : "",
+      line: this.line ? this.line : "",
+      pallet: this.pallet ? this.pallet : "",
       ro: this.ro ? this.ro : "",
-      rack: this.rack ? this.rack : "",
     };
-
+    
     return this.flag
       ? this.service.search(params).then((result) => {
           return {
@@ -95,16 +72,19 @@ export class List {
 
   UnitItemChanged(newvalue) {
     if (newvalue) {
-      this.rack = newvalue;
+      this.pallet = newvalue;
     } else {
-      this.rack = null;
+      this.pallet = null;
     }
   }
 
   ExportToExcel() {
     let args = {
       ro: this.ro ? this.ro : "",
-      rack: this.rack ? this.rack : "",
+      pallet: this.pallet ? this.pallet : "",
+      warehouse: this.warehouse ? this.warehouse : "",
+      area: this.area ? this.area : "",
+      line: this.line ? this.line : "",
     };
 
     this.service.generateExcel(args);
@@ -112,7 +92,12 @@ export class List {
 
   reset() {
     this.ro = null;
-    this.rack = null;
+    this.pallet = null;
+    this.warehouse = null;
+    this.area = null;
+    this.line = null;
+    this.pallet = null;
+    this.ro = null;
     this.data = [];
     this.flag = false;
     this.tableList.refresh();

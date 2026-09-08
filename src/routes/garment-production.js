@@ -1441,7 +1441,7 @@ module.exports = [
       name: "garment-production/garment-finished-goods-stock",
       moduleId: "./modules/garment-production/garment-finished-goods-stock/index",
       nav: true,
-      title: "Inventory Racking Barang Jadi",
+      title: "Location Racking Barang Jadi",
       auth: true,
       settings: {
           group: "g-production",
@@ -1456,7 +1456,7 @@ module.exports = [
       name: "garment-production/monitoring-garment-finished-goods-stock",
       moduleId: "./modules/garment-production/monitoring-garment-finished-goods-stock/index",
       nav: true,
-      title: "Posisi Racking Barang Jadi",
+      title: "Monitoring Location Racking Barang Jadi",
       auth: true,
       settings: {
           group: "g-production",
