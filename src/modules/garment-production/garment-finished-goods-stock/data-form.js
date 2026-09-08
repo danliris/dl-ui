@@ -57,8 +57,10 @@ export class DataForm {
           FinishedGoodStockNo: item.FinishedGoodStockNo,
           Colour: item.Colour || '',
           Quantity: currentQuantity,
-          Box: item.Box || '',
-          Rack: item.Rack || '',
+          WarehouseCode: item.WarehouseCode || '',
+          Area: item.Area || '',
+          LineCode: item.LineCode || '',
+          PalletCode: item.PalletCode || '',
           StockQuantity: originalQuantity,
           IsSplitChild: !!item.IsSplitChild
         }];

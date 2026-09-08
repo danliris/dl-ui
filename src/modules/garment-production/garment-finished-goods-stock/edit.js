@@ -55,8 +55,10 @@ export class Edit {
               FinishedGoodStockNo: item.FinishedGoodStockNo,
               Colour: item.Colour || '',
               Quantity: stockQuantity,
-              Box: item.Box || '',
-              Rack: item.Rack || '',
+              WarehouseCode: item.WarehouseCode || '',
+              Area: item.Area || '',
+              LineCode: item.LineCode || '',
+              PalletCode: item.PalletCode || '',
               StockQuantity: stockQuantity,
               IsSplitChild: false
             }
@@ -98,13 +100,23 @@ export class Edit {
         const detailError = {};
         const quantity = parseFloat(detail.Quantity) || 0;
 
-        if (!detail.Box || !detail.Box.trim()) {
-          detailError.Box = 'Box harus diisi';
+        if (!detail.WarehouseCode || !detail.WarehouseCode.trim()) {
+          detailError.WarehouseCode = 'Warehouse Code harus diisi';
           isValid = false;
         }
 
-        if (!detail.Rack || !detail.Rack.trim()) {
-          detailError.Rack = 'Rack harus diisi';
+        if (!detail.Area || !detail.Area.trim()) {
+          detailError.Area = 'Area harus diisi';
+          isValid = false;
+        }
+
+        if (!detail.LineCode || !detail.LineCode.trim()) {
+          detailError.LineCode = 'Line Code harus diisi';
+          isValid = false;
+        }
+
+        if (!detail.PalletCode || !detail.PalletCode.trim()) {
+          detailError.PalletCode = 'Pallet Code harus diisi';
           isValid = false;
         }
 
@@ -151,9 +163,11 @@ export class Edit {
           FinishedGoodStockNo:detail.FinishedGoodStockNo || parent.FinishedGoodStockNo,
           Size: parent.Size,
           Colour: parent.Colour || '',
-          Quantity: parseFloat(detail.Quantity) || 0,
-          Box: detail.Box || '',
-          Rack: detail.Rack || '',     
+          Quantity: parseFloat(detail.Quantity) || 0,   
+          WarehouseCode: detail.WarehouseCode || '',
+          Area: detail.Area || '',
+          LineCode: detail.LineCode || '',
+          PalletCode: detail.PalletCode || '',
           IsSplitChild: !!detail.IsSplitChild
         });
       });
