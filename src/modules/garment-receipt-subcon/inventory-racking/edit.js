@@ -52,6 +52,10 @@ export class Edit {
         this.data.Items.forEach((item, index) => {
             let itemError = {};
 
+            const isFabric =
+            item.ProductName &&
+            item.ProductName.trim().toUpperCase() === "FABRIC";
+
             const lot = item.Lot ? item.Lot.trim() : "";
             const area = item.Area ? item.Area.trim().toUpperCase() : "";
             const qty = parseFloat(item.Quantity);
@@ -97,7 +101,7 @@ export class Edit {
                     isValid = false;
                 }
 
-                if (!item.Lot || !item.Lot.trim()) {
+                if (isFabric && (!item.Lot || !item.Lot.trim())) {
                     itemError.Lot = "Lot harus diisi";
                     isValid = false;
                 }
