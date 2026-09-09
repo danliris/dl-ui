@@ -70,6 +70,13 @@
         >
         </au-autocomplete>
 
+        <au-textbox
+          label="Kode D365"
+          value.bind="data.CodeD365"
+          error.bind="error.CodeD365"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
         <template replaceable part="actions"></template>
       </au-input-form>
     </div>

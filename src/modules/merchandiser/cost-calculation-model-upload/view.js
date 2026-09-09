@@ -46,6 +46,7 @@ export class View {
       { header: "Deskripsi", value: "Description" },
       { header: "Detail Barang", value: "ProductRemark" },
       { header: "Kuantitas", value: "Quantity" },
+      { header: "Rincian Quantity", value: "QuantityBreakdown" },
       { header: "Allowance (%)", value: "Allowance" },
       { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
       { header: "Total (Rp)", value: "Total" }

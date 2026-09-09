@@ -19,6 +19,7 @@ export class DataForm {
     @bindable OriginType;
     @bindable OriginTypeLists = ['IMPORT', 'LOKAL'];
     @bindable ManufactureTypeLists = ['FOB', 'CMT'];
+    @bindable itemTypes = ['Item', 'Service'];
     
     formOptions = {
         cancelText: "Kembali",
@@ -73,6 +74,7 @@ export class DataForm {
             this.ManufactureType = this.data.ManufactureType;
             this.OriginType = this.data.OriginType;
             //this.isActive = this.data.IsPosted;
+            // this.itemTypes = this.data.ItemType;
         }
 
        
@@ -209,6 +211,7 @@ export class DataForm {
             this.data.Category.Id = this.data.Category._id;
             this.data.Category.Code = (this.data.Category.code || "").trim();
             this.data.Category.Name = this.data.Category.name || "";
+            this.data.ItemGroupD365 = this.data.Category.CodeD365;
 
             this.generateCode();
         }
