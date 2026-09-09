@@ -12,17 +12,17 @@
 		<td>
 			<au-numeric 
                 value.bind="data.Quantity" 
-				error.bind="error.Quantity" 
+				error.bind="error.Quantity"
                 read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-numeric>
 		</td>
-		<td>
-			<au-textbox 
-                value.bind="data.Lot" 
+		<td if.bind="data.ProductName && data.ProductName.trim().toUpperCase() === 'FABRIC'">
+			<au-textbox
+				value.bind="data.Lot"
 				error.bind="error.Lot"
-                read-only.bind="readOnly || (isEdit && data.Id)"
-                options.bind="controlOptions">
+				read-only.bind="readOnly || (isEdit && data.Id)"
+				options.bind="controlOptions">
 			</au-textbox>
 		</td>
 		<td>
@@ -56,8 +56,8 @@
                 value.bind="data.Rack" 
 				error.bind="error.Rack"
 				items.bind = "rackOptions"
-                read-only.bind="readOnly || (isEdit && data.Id)"
 				change.delegate="rackChanged()"
+                read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>
@@ -66,8 +66,8 @@
                 value.bind="data.Level" 
 				error.bind="error.Level"
 				items.bind = "levelOptions"
-                read-only.bind="readOnly || (isEdit && data.Id)"
 				change.delegate="levelChanged()"
+                read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>
@@ -76,8 +76,8 @@
                 value.bind="data.Box" 
 				error.bind="error.Box"
 				items.bind = "boxOptions"
-                read-only.bind="readOnly || (isEdit && data.Id)"
 				change.delegate="boxChanged()"
+                read-only.bind="readOnly || (isEdit && data.Id)"
                 options.bind="controlOptions">
 			</au-dropdown>
 		</td>

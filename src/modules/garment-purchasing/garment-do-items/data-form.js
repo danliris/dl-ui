@@ -31,31 +31,47 @@ export class DataForm {
     }
   }
 
-  columns= [
-    "Warna",
-    "Quantity",
-    "Lot",
-    "Batch",
-    "No Package",
-    "Handling Unit",
-    "Rack",
-    "Level",
-    "Box",
-    "Area",
-];
+  columns= [];
 
   bind(context) {
-   
     this.context = context;
     this.data = this.context.data;
-    this.data.Items=[];
-    if(this.data)
-    {
-      const isFabric =
-      this.data.ProductName &&
-      this.data.ProductName.toUpperCase() === "FABRIC";
 
-      var item ={};
+    this.isFabric =
+      this.data &&
+      this.data.ProductName &&
+      this.data.ProductName.trim().toUpperCase() === "FABRIC";
+
+    this.columns = this.isFabric
+      ? [
+          "Warna",
+          "Quantity",
+          "Lot",
+          "Batch",
+          "No Package",
+          "Handling Unit",
+          "Rack",
+          "Level",
+          "Box",
+          "Area",
+        ]
+      : [
+          "Warna",
+          "Quantity",
+          "Batch",
+          "No Package",
+          "Handling Unit",
+          "Rack",
+          "Level",
+          "Box",
+          "Area",
+        ];
+
+    this.data.Items = [];
+
+    if (this.data) {
+      var item = {};
+
       item.ProductName = this.data.ProductName;
       item.Rack = this.data.Rack;
       item.Box = this.data.Box;
@@ -64,10 +80,17 @@ export class DataForm {
       item.Area = this.data.Area;
       item.Quantity = this.data.RemainingQuantity;
       item.Lot = this.data.Lot;
-      item.Batch = this.data.Batch? moment.parseZone(this.data.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+
+      item.Batch = this.data.Batch
+        ? moment.parseZone(this.data.Batch)
+            .utcOffset(7)
+            .format("YYYY-MM-DD")
+        : null;
+
       item.HandlingUnitId = this.data.HandlingUnitId;
       item.HandlingUnit = this.data.HandlingUnit;
       item.NoPackage = this.data.NoPackage;
+
       this.data.Items.push(item);
     }
 
@@ -75,11 +98,14 @@ export class DataForm {
 
     this.cancelCallback = this.context.cancelCallback;
     this.saveCallback = this.context.saveCallback;
-    this.isUsedInUnitDO = this.context.isUsedInUnitDO === true;
-    this.isItems=true;
+
+    this.isUsedInUnitDO =
+      this.context.isUsedInUnitDO === true;
+
+    this.isItems = true;
 
     this.itemOptions = {
-      datas : this.data,
+      datas: this.data,
       isCreate: this.context.isCreate,
       isView: this.context.isView,
       checkedAll: this.context.isCreate == true ? false : true,
