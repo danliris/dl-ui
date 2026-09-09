@@ -13,6 +13,10 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        if(this.data && this.data.Active) {
+            this.editCallback = null;
+            this.deleteCallback = null;
+        }
     }
 
     list() {

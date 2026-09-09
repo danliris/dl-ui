@@ -96,7 +96,7 @@ export class Create {
                 this.validationType = (isAnyPostedMaterials === true) ? "Process" : "Non Process";
 
                 this.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(mtr => {
-                    let processOrNot = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS") : (mtr.Category.name.toUpperCase() !== "PROCESS");
+                    let processOrNot = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS" || mtr.Category.name.toUpperCase() === "PROCESS SEWING" || mtr.Category.name.toUpperCase() === "PROCESS CUTTING" || mtr.Category.name.toUpperCase() === "PROCESS FINISHING") : (mtr.Category.name.toUpperCase() !== "PROCESS");
                     return true
                         && mtr.IsPosted !== true
                         // && mtr.Category.Name.toUpperCase() !== "PROCESS"

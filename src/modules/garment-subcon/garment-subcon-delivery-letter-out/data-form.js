@@ -595,7 +595,7 @@ export class DataForm {
         keyword: keyword,
         // filter: JSON.stringify({ ProductName: "PROCESS" }),
         filter: JSON.stringify({
-          'ProductName == "PROCESS" || ProductName == "PROCESS SUBCON"': true,
+          'ProductName == "PROCESS" || ProductName == "PROCESS SEWING" || ProductName == "PROCESS CUTTING" || ProductName == "PROCESS FINISHING" || ProductName == "PROCESS SUBCON"': true,
         }),
       };
       return this.purchasingService.getGarmentEPO(infoEPO).then((epo) => {
