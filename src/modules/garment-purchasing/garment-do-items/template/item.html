@@ -17,12 +17,12 @@
                 options.bind="controlOptions">
 			</au-numeric>
 		</td>
-		<td>
-			<au-textbox 
-                value.bind="data.Lot" 
-				error.bind="error.Lot" 
-                read-only.bind="readOnly || (isEdit && data.Id)"
-                options.bind="controlOptions">
+		<td if.bind="data.ProductName && data.ProductName.trim().toUpperCase() === 'FABRIC'">
+			<au-textbox
+				value.bind="data.Lot"
+				error.bind="error.Lot"
+				read-only.bind="readOnly || (isEdit && data.Id)"
+				options.bind="controlOptions">
 			</au-textbox>
 		</td>
 		<td>
