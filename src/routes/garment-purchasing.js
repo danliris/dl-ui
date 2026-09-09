@@ -1545,4 +1545,20 @@ module.exports = [
         }
     },
   
+    {
+      route: "/garment/garment-purchase-request-non-job",
+      name: "purchase-request-non-job",
+      moduleId: "./modules/merchandiser/garment-purchase-request-non-job/index",
+      nav: true,
+      title: "PR Non-Job (Semua User)",
+      auth: true,
+      settings: {
+        group: "g-purchasing",
+        subGroup: "transaksi",
+        // permission: { "PG": 1 },
+        permission: { H83: 1 },
+        iconClass: "fa fa-calculator",
+        byUser: false,
+      },
+    },
 ];
