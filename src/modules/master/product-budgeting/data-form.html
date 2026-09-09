@@ -65,7 +65,13 @@
                     value.bind="Price"
                     error.bind="error.price"
                     read-only.bind="(readOnly ||(!isActive &&isEdit ))"></au-numeric>
-
+        <au-dropdown label="Tipe Barang"
+                     value.bind="data.ItemType"
+                     error.bind="error.ItemType"
+                     items.bind="itemTypes"
+                     read-only.bind="readOnly"
+                     >
+        </au-dropdown>
         <au-multiline label="Tags"
                       value.bind="data.Tags"
                       error.bind="error.tags"
@@ -86,6 +92,7 @@
                        item-template="modules/master/product-budgeting/template/mapping-category">
         </au-collection>
 
+        
         <template replaceable
                   part="actions"></template>
 
