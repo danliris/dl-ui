@@ -92,7 +92,7 @@ class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garmentProducts/distinct-product-const';
+        const resource = 'master/garmentProducts/distinct-product-const-old';
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;
@@ -102,7 +102,7 @@ class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garmentProducts/distinct-product-width';
+        const resource = 'master/garmentProducts/distinct-product-width-old';
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;
@@ -112,7 +112,7 @@ class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garmentProducts/distinct-product-yarn';
+        const resource = 'master/garmentProducts/distinct-product-yarn-old';
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {
                 return results.data;
@@ -123,7 +123,7 @@ class Service extends RestService {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
 
-        const resource = 'master/garmentProducts/distinct-product-description';
+        const resource = 'master/garmentProducts/distinct-product-description-old';
 
         return endpoint.find(resource, { keyword: keyword, filter: filter })
             .then(results => {

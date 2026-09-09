@@ -64,7 +64,7 @@ class CoreService extends RestService {
     }
 
     getProductByName(name) {
-        var endpoint = `${serviceMasterGarmentProductUri}/byName?name=${name}`;
+        var endpoint = `${serviceMasterGarmentProductUri}/byNameOld?name=${name}`;
         return super.get(endpoint);
     }
 
@@ -81,25 +81,25 @@ class CoreService extends RestService {
     }
 
     getGarmentProductsDistinctDescription(keyword, filter) {
-        const resource = `${serviceMasterGarmentProductUri}/distinct-product-description`;
+        const resource = `${serviceMasterGarmentProductUri}/distinct-product-description-old`;
         return super.list(resource, { keyword: keyword, filter: filter })
             .then((result) => result.data);
     }
 
     getGarmentProductConsts(keyword, filter) {
-        const resource = `${serviceMasterGarmentProductUri}/distinct-product-const`;
+        const resource = `${serviceMasterGarmentProductUri}/distinct-product-const-old`;
         return super.list(resource, { keyword: keyword, filter: filter })
             .then((result) => result.data);
     }
 
     getGarmentProductYarns(keyword, filter) {
-        const resource = `${serviceMasterGarmentProductUri}/distinct-product-yarn`;
+        const resource = `${serviceMasterGarmentProductUri}/distinct-product-yarn-old`;
         return super.list(resource, { keyword: keyword, filter: filter })
             .then((result) => result.data);
     }
 
     getGarmentProductWidths(keyword, filter) {
-        const resource = `${serviceMasterGarmentProductUri}/distinct-product-width`;
+        const resource = `${serviceMasterGarmentProductUri}/distinct-product-width-old`;
         return super.list(resource, { keyword: keyword, filter: filter })
             .then((result) => result.data);
     }
