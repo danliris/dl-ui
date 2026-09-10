@@ -74,7 +74,7 @@ export class List {
               for (const data of datas) {
                   data.BuyerCode = data.Buyer.Code;
                   data.BuyerName = data.Buyer.Name;
-                  if (data.PRType == "MASTER" || data.PRType == "SAMPLE") {
+                  if (data.PRType == "MASTER" || data.PRType == "STOCK" || data.PRType == "OB" || data.PRType == "MOQ" || data.PRType == "SAMPLE") {
                     data.Status = (data.IsValidatedMD1 && data.IsValidatedMD2 && data.IsValidatedPurchasing) ? "SUDAH" : "BELUM";
                     if (data.Status === "SUDAH") {
                       data.Date = data.ValidatedMD2Date;
