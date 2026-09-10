@@ -80,14 +80,15 @@ export class List {
           this.table.refresh();
         }).catch(e => {
           this.error = e;
+          if(this.error && this.error.ErrorPost) {
+              alert(this.error.ErrorPost);
+          }
         });
         break;
     }
   }
   
   contextShowCallback(index, name, data) {
-    console.log(data);
-    
     switch (name) {
         case "detail ":
         case "nonaktif":
