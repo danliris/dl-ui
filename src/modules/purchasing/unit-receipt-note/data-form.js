@@ -39,83 +39,20 @@ export class DataForm {
             }
         };
 
-        // this.deliveryOrderItem = {
-        //     columns: [
-        //              "No PR",
-        //             "Barang",
-        //             "Kategori",
-        //             "Jumlah" ,
-        //             "Satuan",
-        //             "Keterangan",
-        //         // { header: "No PR" },
-        //         // { header: "Barang" },
-        //         // { header: "Jumlah" },
-        //         // { header: "Satuan" },
-        //         // { header: "Keterangan" }   
-        //     ],
-        //     // onRemove: function() {
-        //     //     this.bind();
-        //     // }
-        // };
-
-        //  this.deliveryOrderItemUnit = {
-        //     columns: [
-        //              "No PR",
-        //             "Barang",
-        //             "Kategori",
-        //             "Jumlah" ,
-        //             "Satuan",
-        //             "Keterangan",
-        //             "Area", 
-        //     ],
-        // };
-
-        // this.deliveryOrderItemSparepart = {
-        //     columns: [
-        //              "No PR",
-        //             "Barang",
-        //             "Kategori",
-        //             "Jumlah" ,
-        //             "Satuan",
-        //             "Keterangan",
-        //             "Line",
-        //             "Area",
-        //             "Section",
-        //             "Inventory Number",
-        //             "Machine",  
-        //             "Brand",
-        //             "Model",
-        //             "Serial Number",
-        //             "Part Number",
-        //             "Item Part",
-        //             "Repair Description",
-        //             "Repair Result", 
-        //     ],
-        // };
-
-        // // itemColumns = [
-        // //     "No PR",
-        // //     "Barang",
-        // //     "Jumlah" ,
-        // //     "Satuan",
-        // //     "Keterangan",
-        // //     // "Qty Order",
-        // //     // "Material",
-        // //     // "Unit",
-        // //     // "Buyer",
-        // //     // "Warna",
-        // //     // "Motif",
-        // //     // "Qty Packaging",
-        // //     // "Packaging",
-        // //     // "Jenis",
-        // //     // "Grade",
-        // //     // "Satuan",
-        // //     // "Qty Masuk",
-        // //     // "Zona Asal",
-        // //     ""
-        // //   ];
-
     }
+
+    @computedFrom("data.isStorage")
+get deliveryOrderItemSparepartViewColumns() {
+    return [
+        "No PR",
+        "Barang",
+        "Kategori",
+        "Jumlah",
+        "Satuan",
+        "Serial Number",
+        "Keterangan"
+    ];
+}
 
     @computedFrom("data.isStorage")
 get deliveryOrderItemColumns() {
@@ -159,6 +96,7 @@ get deliveryOrderItemSparepartColumns() {
         "Kategori",
         "Jumlah",
         "Satuan",
+        "Serial Number",
         "Keterangan"
     ];
 

@@ -277,6 +277,7 @@ export class DataForm {
           "Stock",
           "Jumlah Keluar",
           "Satuan",
+          "Serial Number",
           "Keterangan",
           "Line",
           "Area",

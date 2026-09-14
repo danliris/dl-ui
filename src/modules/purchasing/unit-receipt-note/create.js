@@ -20,9 +20,17 @@ export class Create {
     }
 
     save() {
-        if(typeof this.data.date === 'object')
-            this.data.date.setHours(this.data.date.getHours() - this.data.date.getTimezoneOffset() / 60);
-        this.service.create(this.data)
+        let payload = Object.assign({}, this.data);
+            if (this.data.date instanceof Date) {
+                let date = new Date(this.data.date.getTime());
+
+                date.setHours(
+                    date.getHours() - date.getTimezoneOffset() / 60
+                );
+
+                payload.date = date;
+            }
+        this.service.create(payload)
             .then(result => {
                 alert("Data berhasil dibuat");
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });

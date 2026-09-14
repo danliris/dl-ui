@@ -165,6 +165,7 @@ unitPRChanged(e) {
     this.data.PricePerDealUnit = item.PricePerDealUnit; 
     this.data.IsStorage = item.IsStorage;
     this.data.ManufactureType = item.ManufactureType;
+    this.data.SerialNumber = item.SerialNumber;
     delete this.data.selectedPRItem;
 }
 }
