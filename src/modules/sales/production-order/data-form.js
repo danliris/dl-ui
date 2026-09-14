@@ -99,18 +99,22 @@ export class DataForm {
     if (this.data && this.data.Id) {
       this.OrderType = this.data.OrderType;
 
+    if (this.data.ImagePath) {
+      this.imageSrc = "https://danlirisstoragedev.blob.core.windows.net" + this.data.ImagePath;
+    }
+
       this.SalesContract = {
-        SalesContractNo: this.data.SalesContractNo,
-        Buyer: this.data.Buyer
+           SalesContractNo: this.data.SalesContractNo,
+           Buyer: this.data.Buyer
       };
 
       this.account = {
-        username: this.data.Account.UserName,
-        profile: {
-          firstname: this.data.Account.FirstName,
-          lastname: this.data.Account.LastName,
-        }
+           username: this.data.Account.UserName,
+           profile: {
+           firstname: this.data.Account.FirstName,
+           lastname: this.data.Account.LastName,
       }
+    }  
       this.data.Details = this.data.Details || [];
       this.data.LampStandards = this.data.LampStandards || [];
       this.data.BeforeQuantity = this.data.OrderQuantity;
@@ -597,4 +601,15 @@ export class DataForm {
     return `${data.profile.firstname} - ${data.profile.lastname}`
   }
 
+  @bindable imageUpload;
+  @bindable imageSrc;
+  imageUploadChanged(newValue) {
+    let imageInput = document.getElementById("imageInput");
+    let reader = new FileReader();
+    reader.onload = (event) => {
+      let base64Image = event.target.result;
+      this.imageSrc = this.data.ImageFile = base64Image;
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+  }
 }
