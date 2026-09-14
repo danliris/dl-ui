@@ -18,7 +18,7 @@ export class DataForm {
     @bindable itemOptions = {};
     @bindable selectedSewingTo;
 
-    sewingToOptions = ['FINISHING','SEWING', 'CUTTING'];
+    sewingToOptions = ['FINISHING', 'CUTTING'];
 
     constructor(service,purchasingService) {
         this.service = service;
@@ -192,6 +192,8 @@ export class DataForm {
                                     item.BasicPrice=sewingInItem.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
                                     item.SewingInDate= sewingIn.SewingInDate;
+                                    item.NoPackage= sewingInItem.NoPackage;
+                                    item.LocationCode = sewingInItem.LocationCode;
                                     this.data.Items.push(item);
                                 }
                             }

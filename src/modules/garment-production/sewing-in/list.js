@@ -65,7 +65,7 @@ export class List {
         .then(result => {
             this.totalQuantity=result.info.totalQty;
             var data = {};
-            //console.log(result.data);
+            console.log(result.data);
             data.total = result.info.total;
             data.data = result.data;
             //Enhance Jason Aug 2021
@@ -112,9 +112,11 @@ export class List {
     }
 
     contextClickCallback(event) {
+        console.log(event);
         var arg = event.detail;
         var data = arg.data;
-        var idEncoded = Base64Helper.encode(data.Id);
+        console.log(data);
+        var idEncoded = Base64Helper.encode(data.Identity);
         switch (arg.name) {
             case "Rincian":
                 this.router.navigateToRoute('view', { id: idEncoded });

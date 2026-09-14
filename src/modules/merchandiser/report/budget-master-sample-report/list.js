@@ -14,7 +14,7 @@ export class List {
     }
 
     garmentPurchaseRequestFilter = {
-        "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
+        "PRType == \"MASTER\" || PRType == \"MOQ\" || PRType == \"STOCK\" || PRType == \"OB\" || PRType == \"SAMPLE\"": true
     }
 
     get garmentPurchaseRequestLoader() {
