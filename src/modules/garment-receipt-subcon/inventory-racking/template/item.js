@@ -15,11 +15,37 @@ export class Item {
         this.service = service;
     }
 
-    rackOptions =['','R01','R02','R03','R04','R05','R06','R07','R08','R09','R10','R11','R12','R13','R14','R15','R16','R17','R18','R19','R20','R21','R22','R23','R24','R25','R26','R27','R28','R29','R30','R31','R32','R33','R34','R35','R36','R37','R38','R39','R40','R41','R42'];
-    levelOptions =['','L01','L02','L03','L04','L05','L06','L07','L08','L09','L10','L11','L12','L13','L14','L15','L16','L17','L18','L19'];
-    boxOptions = ['','B01','B02','B03','B04','B05','B06','B07','B08','B09','B10','B11','B12','B13','B14','B15','B16','B17','B18','B19','B20','B21','B22','B23','B24','B25','B26','B27','B28','B29','B30','B31','B32','B33','B34','B35','B36','B37','B38','B39','B40','B41','B42','B43','B44','B45','B46','B47','B48','B49','B50','B51','B52'];
+    rackOptions = [];
+    levelOptions = [];
+    boxOptions = [];
     //areaOptions = ['-','A1','A2','A3','A4','A5','B.ZONE'];
     areaOptions = ['BLUE ZONE', 'RED ZONE', 'GREEN ZONE'];
+
+    static storageLocationLimits = {
+        'GUDANG BAHAN BAKU': { rack: 42, level: 13, box: 10 },
+        'GUDANG ACCESSORIES': { rack: 28, level: 6, box: 6 },
+        'GUDANG EMBALASE': { rack: 22, level: 3, box: 10 }
+    };
+
+    static defaultLocationLimits = { rack: 42, level: 13, box: 10 };
+
+    generateLocationOptions(prefix, max) {
+        const options = [''];
+        for (let i = 1; i <= max; i++) {
+            options.push(prefix + i.toString().padStart(2, '0'));
+        }
+        return options;
+    }
+
+    setLocationOptions(storageName) {
+        const key = storageName ? storageName.trim().toUpperCase() : '';
+        const limits = Item.storageLocationLimits[key] || Item.defaultLocationLimits;
+
+        this.rackOptions = this.generateLocationOptions('R', limits.rack);
+        this.levelOptions = this.generateLocationOptions('L', limits.level);
+        this.boxOptions = this.generateLocationOptions('B', limits.box);
+    }
+
     activate(context) {
         this.context = context;
         this.data = context.data;
@@ -28,6 +54,8 @@ export class Item {
 
         this.options = context.context.options;
         this.isUsedInUnitDO = this.options.isUsedInUnitDO === true;
+
+        this.setLocationOptions(this.options.datas && this.options.datas.StorageName);
 
         this.isShowing = true;
 
@@ -45,6 +73,7 @@ export class Item {
         //     ContractNo:this.options.selectedContract
         //     } 
         // }
+
         
        const isFabric =
         this.data.ProductName &&
