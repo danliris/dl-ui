@@ -67,7 +67,7 @@
                     options.bind="controlOptions">
                 </au-autocomplete>
 
-                <au-dropdown
+                <!-- <au-dropdown
                     label="Term Pembayaran"
                     value.bind="data.paymentMethod"
                     error.bind="error.paymentMethod"
@@ -75,7 +75,30 @@
                     items.bind="termPaymentOptions"
                     change.delegate="paymentMethodChanged($event)" 
                     options.bind="controlOptions">
-                </au-dropdown>
+                </au-dropdown> -->
+
+                <!-- VIEW / EDIT -->
+                <au-textbox
+                    if.bind="readOnly || isEdit"
+                    label="Term Pembayaran"
+                    value.one-way="data.paymentMethod"
+                    error.bind="error.paymentMethod"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <!-- CREATE -->
+                <au-autocomplete
+                    if.bind="!readOnly && !isEdit"
+                    label="Term Pembayaran"
+                    value.bind="top"
+                    error.bind="error.paymentMethod"
+                    loader.bind="topLoader"
+                    text.bind="topLoaderView"
+                    placeholder="Cari Term Pembayaran"
+                    view-model.ref="topLoaderViewModel"
+                    options.bind="controlOptions">
+                </au-autocomplete>
 
                 <au-autocomplete 
                     value.bind="selectedCurrency" 
