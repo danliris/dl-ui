@@ -82,7 +82,7 @@ export class Create {
                 if (this.data.CostCalculationGarment.PreSCId) {
                     const info = {
                         select: JSON.stringify({ Id: 1, PRNo: 1, SCId: 1, SCNo: 1, "Items.ProductId": 1, "Items.ProductCode": 1 }),
-                        filter: JSON.stringify({ SCId: this.data.CostCalculationGarment.PreSCId, PRType: "MASTER" })
+                        filter: JSON.stringify({ SCId: this.data.CostCalculationGarment.PreSCId, "PRType == \"MASTER\" || PRType == \"MOQ\" || PRType == \"STOCK\" || PRType == \"OB\"": true })
                     };
                     let purchaseRequest = await this.purchaseRequestService.getProducts(info);
 
@@ -103,7 +103,8 @@ export class Create {
                 this.validationType = (isAnyPostedMaterials === true) ? "Process" : "Non Process";
 
                 this.data.CostCalculationGarment_Materials = this.data.CostCalculationGarment.CostCalculationGarment_Materials.filter(mtr => {
-                    let processOrNot = (isAnyPostedMaterials === true) ? (mtr.Category.name.toUpperCase() === "PROCESS") : (mtr.Category.name.toUpperCase() !== "PROCESS");
+                    const listProcess = ["PROCESS","PROCESS CUTTING","PROCESS SEWING","PROCESS FINISHING"];
+                    let processOrNot = (isAnyPostedMaterials === true) ? listProcess.includes(mtr.Category.name.toUpperCase()) : !listProcess.includes(mtr.Category.name.toUpperCase());
                     return true
                         && mtr.IsPosted !== true
                         // && mtr.Category.Name.toUpperCase() !== "PROCESS"
