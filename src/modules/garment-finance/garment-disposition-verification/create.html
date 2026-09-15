@@ -7,6 +7,100 @@
         .col-sm-12 {
             margin-top: 0px !important;
         }
+
+        /* Resizable Modal Styles */
+    #pdfPreviewModal .modal-dialog {
+      position: relative;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 90%;
+    }
+
+    .resize-handle {
+      position: absolute;
+      z-index: 10;
+    }
+
+    .resize-handle.resize-e {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      cursor: ew-resize;
+    }
+
+    .resize-handle.resize-w {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      cursor: ew-resize;
+    }
+
+    .resize-handle.resize-s {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 10px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.resize-n {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 10px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.resize-se {
+      right: 0;
+      bottom: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nwse-resize;
+    }
+
+    .resize-handle.resize-sw {
+      left: 0;
+      bottom: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.resize-ne {
+      right: 0;
+      top: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.resize-nw {
+      left: 0;
+      top: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nwse-resize;
+    }
+
+    .resize-handle:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .preview-size-indicator {
+      position: absolute;
+      top: 10px;
+      right: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      pointer-events: none;
+      z-index: 1060;
+    }
     </style>
     <au-input-form title="Buat Verifikasi Disposisi"
                    options.bind="formOptions">
@@ -115,6 +209,74 @@
                     format="0.00"
                     options.bind="controlOptions">
         </au-numeric>
+
+    <div if.bind="selectedExpedition">
+        <br>
+
+    <div class="panel panel-default" style="margin-left:20px; margin-top:10px;">
+      <div class="panel-body">
+        <h4>File Dokumen</h4>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <th class="col-md-11">File</th>
+          </thead>
+          <tbody>
+            <tr if.bind="!dispositionNote.DocumentsFileName || dispositionNote.DocumentsFileName.length < 1">
+              <td colspan="2">
+                Tidak ada file
+              </td>
+            </tr>
+            <tr if.bind="dispositionNote.DocumentsFileName" repeat.for="doc of dispositionNote.DocumentsFileName">
+              <td>
+                <button class="btn btn-primary justify-content-center"
+                  click.delegate="downloadDocument($index)">${doc}</button>
+                  <button type="button" class="btn btn-info ml-2"
+                click.delegate="previewDocument($index)">Preview</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PDF Preview Modal -->
+      <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          
+            <div class="resize-handle resize-n" data-direction="n"></div>
+            <div class="resize-handle resize-s" data-direction="s"></div>
+            <div class="resize-handle resize-e" data-direction="e"></div>
+            <div class="resize-handle resize-w" data-direction="w"></div>
+            <div class="resize-handle resize-ne" data-direction="ne"></div>
+            <div class="resize-handle resize-nw" data-direction="nw"></div>
+            <div class="resize-handle resize-se" data-direction="se"></div>
+            <div class="resize-handle resize-sw" data-direction="sw"></div>
+            
+            <div class="modal-header">
+              <h5 class="modal-title" id="previewModalLabel">Preview</h5>
+              <span class="preview-size-indicator">
+                Lebar: ${previewWidth}% | Tinggi: ${previewHeight}px
+              </span>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <embed id="pdfEmbed" width="100%" type="application/pdf" style="display: none;" css="height: ${previewHeight}px">
+              <div id="excelTable" style="display: none; overflow-y: auto;" css="max-height: ${previewHeight}px"></div>
+              <img id="imagePreview" style="display: none; max-width: 100%;" css="max-height: ${previewHeight}px">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    </div>
+    
 
         <!-- <au-collection items.bind="data.Items"
                        errors.bind="error.Items"

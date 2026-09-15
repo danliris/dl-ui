@@ -7,6 +7,7 @@ import { Dialog } from '../../../components/dialog/dialog';
 const ExpeditionLoader = require('../shared/disposition-expedition-loader');
 import { CreateSubmit } from './dialog-template/create-submit';
 import { PurchasingService } from '../shared/purchasing-service';
+import FileHelper  from '../../../utils/file-helper';
 
 @inject(Router, Service, Dialog, PurchasingService)
 export class Create {
@@ -33,6 +34,8 @@ export class Create {
         this.data = {};
         this.error = {};
         this.verificationDate = new Date();
+        this.previewWidth = 60;
+        this.previewHeight = 600;
 
         // this.collection = {
         //     columns: ['No. Disposisi', 'Tanggal Disposisi', 'Tanggal Jatuh Tempo', 'Supplier', 'PPN', 'PPh', 'Total Bayar', 'Mata Uang', 'Keterangan'],
@@ -72,6 +75,10 @@ export class Create {
             this.dispositionNote = dispositionNote;
             console.log(dispositionNote);
             this.items = dispositionNote.Items;
+
+            this.dispositionNote.DocumentsFile = this.dispositionNote.DocumentsFile || [];
+            this.dispositionNote.DocumentsFileName = this.dispositionNote.DocumentsFileName || [];
+            this.documentsPathTemp = [].concat(this.dispositionNote.DocumentsPath);
         } else {
             this.items = [];
             this.dispositionNote = null;
@@ -146,5 +153,13 @@ export class Create {
                     }
                 })
         }
+    }
+
+    downloadDocument(index) {
+        FileHelper.downloadDocument(this.dispositionNote.DocumentsFile, this.dispositionNote.DocumentsFileName, index);
+    }
+
+    previewDocument(index) {
+        FileHelper.previewDocument(this, this.dispositionNote.DocumentsFile, this.dispositionNote.DocumentsFileName, index);
     }
 }
