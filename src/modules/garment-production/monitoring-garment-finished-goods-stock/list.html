@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-header">Inventory Racking</h1>
+  <h1 class="page-header">Monitoring Location Racking Barang Jadi</h1>
   <form class="form-horizontal">
     <div class="form-group">
       <div class="col-sm-3"></div>
@@ -8,8 +8,18 @@
         <au-textbox value.bind="ro" label="Nomor RO" placeholder="Masukan Nomor RO">
         </au-textbox>
 
-        <au-dropdown label="Rack" value.bind="rack" items.bind="rackOptions" options.bind="controlOptions">
+        <au-dropdown label="Kode Gudang" value.bind="warehouse" items.bind="warehouseOptions" options.bind="controlOptions">
         </au-dropdown>
+
+        <au-dropdown label="Area" value.bind="area" items.bind="areaOptions" options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown label="Kode Line" value.bind="line" items.bind="lineOptions" options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown label="Kode Pallet" value.bind="pallet" items.bind="palletOptions" options.bind="controlOptions">
+        </au-dropdown>
+
 
         <div class="form-group">
           <label for="contact" class="col-sm-6 control-label"></label>

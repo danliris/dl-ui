@@ -35,7 +35,7 @@ export class Monitoring {
     ]
 
     garmentPurchaseRequestFilter = {
-        "PRType == \"MASTER\" || PRType == \"SAMPLE\"": true
+        "PRType == \"MASTER\" || PRType == \"MOQ\" || PRType == \"STOCK\" || PRType == \"OB\" || PRType == \"SAMPLE\"": true
     }
 
     costCalculationFilter = {}

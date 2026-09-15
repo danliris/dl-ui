@@ -15,6 +15,7 @@ export class Edit {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isUsedInUnitDO = false;
     }
 
     bind() {
@@ -28,6 +29,8 @@ export class Edit {
         id = decoded;
         this.data = await this.service.getById(id);
         this.data.isEdit = true;
+        const result = await this.service.getUnitDOById(id);
+        this.isUsedInUnitDO = result === true;    
     }
 
     cancel(event) {
@@ -47,6 +50,10 @@ export class Edit {
 
         this.data.Items.forEach((item, index) => {
             let itemError = {};
+
+            const isFabric =
+            item.ProductName &&
+            item.ProductName.trim().toUpperCase() === "FABRIC";
 
             const lot = item.Lot ? item.Lot.trim() : "";
             const area = item.Area ? item.Area.trim().toUpperCase() : "";
@@ -93,7 +100,7 @@ export class Edit {
                     isValid = false;
                 }
 
-                if (!item.Lot || !item.Lot.trim()) {
+                if (isFabric && (!item.Lot || !item.Lot.trim())) {
                     itemError.Lot = "Lot harus diisi";
                     isValid = false;
                 }

@@ -68,8 +68,12 @@ export class Item {
         SourceId: this.data.Id,
         FinishedGoodStockNo:source.FinishedGoodStockNo ||this.data.FinishedGoodStockNo,
         Quantity: null,
-        Box: source.Box || '',
-        Rack: source.Rack || '',
+        // Box: source.Box || '',
+        // Rack: source.Rack || '',
+        WarehouseCode: source.WarehouseCode || '',
+        Area: source.Area || '',
+        LineCode: source.LineCode || '',
+        PalletCode: source.PalletCode || '',
         StockQuantity: originalQuantity,
         IsSplitChild: true
       });
@@ -128,7 +132,9 @@ export class Item {
 
   detailsColumns = [
     { header: 'Quantity' },
-    { header: 'Box' },
-    { header: 'Rack' }
+    { header: 'Kode Gudang' },
+    { header: 'Area' },
+    { header: 'Kode Line' },
+    { header: 'Kode Pallet' }
   ];
 }

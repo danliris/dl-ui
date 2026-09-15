@@ -18,6 +18,9 @@ export class DataForm {
     }
     tarifOptions = [
             { text: "-- Pilih Tarif --", value: "" },
+            { text: "OL", value: {Name : "OL", Code : "OL" } },
+            { text: "THR", value: {Name : "THR", Code : "THR" } },
+            { text: "USD", value: {Name : "USD", Code : "USD" } },
             { text: "Beban Penjualan", value: {Name : "Beban Penjualan", Code : "BP" } },
             { text: "Beban Umum dan Administrasi", value: {Name : "Beban Umum dan Administrasi", Code : "BUA" } },
             { text: "Beban (Pendapatan) Diluar Usaha", value: {Name : "Beban (Pendapatan) Diluar Usaha", Code : "BDU" } },

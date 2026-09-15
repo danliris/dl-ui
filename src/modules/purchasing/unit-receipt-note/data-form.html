@@ -138,6 +138,20 @@
             read-only="true">
         </au-textbox>
         <!-- Saat view (readOnly), hanya tampilkan default columns. Saat create/edit, tetap sesuai TypeUrn -->
+        <!-- EDIT / VIEW SPAREPART -> PAKAI COLLECTION ATAS -->
+        <au-collection 
+            items.bind="data.items" 
+            columns.bind="deliveryOrderItemSparepartViewColumns"
+            errors.bind="error.items"
+            read-only.bind="readOnly"
+            item-template="modules/purchasing/unit-receipt-note/template/sparepart-view/delivery-order-item-sparepart"
+            header-template="modules/purchasing/unit-receipt-note/template/header"
+            show.bind="deliveryOrder && (readOnly || isEdit) && TypeUrn === 'Sparepart'"
+            options.one-way="{ isStorage: data.isStorage }">
+        </au-collection>
+
+
+        <!-- EDIT / VIEW SELAIN SPAREPART -> PAKAI COLLECTION BAWAH -->
         <au-collection 
             items.bind="data.items" 
             columns.bind="deliveryOrderItemColumns"
@@ -145,7 +159,7 @@
             read-only.bind="readOnly"
             item-template="modules/purchasing/unit-receipt-note/template/delivery-order-item"
             header-template="modules/purchasing/unit-receipt-note/template/header"
-            show.bind="deliveryOrder && (readOnly || isEdit)">
+            show.bind="deliveryOrder && (readOnly || isEdit) && TypeUrn !== 'Sparepart'">
         </au-collection>
         <au-collection 
             items.bind="data.items" 

@@ -49,6 +49,12 @@
         </td>
         <td>
             <au-textbox 
+                value.bind="data.SerialNumber"
+                read-only.bind="true" >
+            </au-textbox>                    
+        </td>
+        <td>
+            <au-textbox 
                 value.bind="data.ProductRemark"
                 read-only.bind="true" >
             </au-textbox>
@@ -99,7 +105,6 @@
                         <th style="width:9.1%;">Machine Type</th>
                         <th style="width:8.1%;">Brand</th>
                         <th style="width:8.1%;">Model</th>
-                        <th style="width:8.1%;">Serial Number</th>
                         <th style="width:8.1%;">Part Number</th>
                         <th style="width:8.1%;">Item Part</th>
                         <th style="width:8.1%;">Repair Description</th>
@@ -133,13 +138,6 @@
                             <au-textbox
                                 value.bind="data.Model"
                                 error.bind="error.Model"
-                                read-only.bind="context.context.options.readOnly">
-                            </au-textbox>
-                        </td>
-                        <td>
-                            <au-textbox
-                                value.bind="data.SerialNumber"
-                                error.bind="error.SerialNumber"
                                 read-only.bind="context.context.options.readOnly">
                             </au-textbox>
                         </td>

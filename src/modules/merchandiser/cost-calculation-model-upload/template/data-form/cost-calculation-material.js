@@ -185,13 +185,13 @@ export class CostCalculationMaterial {
             total = this.data.QuantityBreakdown && this.data.Conversion && parseFloat(this.data.Price) && this.data.QuantityOrder && this.data.Quantity ? (((this.data.QuantityBreakdown / this.data.QuantityOrder) * (this.data.Quantity + allowance)) / this.data.Conversion * (parseFloat(this.data.Price))): 0 ; 
             if (this.data.isFabricCM) {
                 // this.data.Total = 0;
-                this.data.Total = numeral(total).value();
+                this.data.Total = 0;
                 this.data.TotalTemp = numeral(total).value();
                 this.data.CM_Price = numeral(total).value();
             }
             else {
                 this.data.Total = numeral(total).value();
-                this.data.TotalTemp = numeral(total).value();;
+                this.data.TotalTemp = numeral(total).value();
                 this.data.CM_Price = null;
             }
         } else if (this.data.CCType == "SUBCON KELUAR" && this.data.Category) {
@@ -205,7 +205,7 @@ export class CostCalculationMaterial {
                 total = this.data.QuantityBreakdown && this.data.Conversion && parseFloat(this.data.Price) && this.data.QuantityOrder && this.data.Quantity ? (((this.data.QuantityBreakdown / this.data.QuantityOrder) * (this.data.Quantity + allowance)) / this.data.Conversion * (parseFloat(this.data.Price))): 0 ; 
                 if (this.data.isFabricCM) {
                     //this.data.Total = 0; // sepertinya ini tetap ambil dari total yang dihitung di atas
-                    this.data.Total = numeral(total).value();
+                    this.data.Total = 0;
                     this.data.TotalTemp = numeral(total).value();
                     this.data.CM_Price = numeral(total).value();
                 }

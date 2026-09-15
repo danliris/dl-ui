@@ -990,7 +990,7 @@ async pushDataExcel(value) {
     SatuanBarang: (row["Satuan Barang"] || "").toString().trim(),
     Description: (row["Keterangan"] || "").toString(),
     ProductRemark: row["Detil Barang"] && row["Detil Barang"].toString().trim() !== "" ? row["Detil Barang"].toString() : "-",
-    QuantityBreakdown: parseFloat(row["Rincian qty"]) == 0 ? this.data.Quantity : parseFloat(row["Rincian qty"]),
+    QuantityBreakdown: !row["Rincian qty"] || parseFloat(row["Rincian qty"]) === 0 ? this.data.Quantity : parseFloat(row["Rincian qty"]),
     Quantity: parseFloat(row["Usage per pcs"]) || 0,
     Price: parseFloat(row["Harga"]) || 0,
     Conversion: parseFloat(row["Konversi"]) || 0,

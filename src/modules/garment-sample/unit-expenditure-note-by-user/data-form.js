@@ -262,6 +262,7 @@ export class DataForm {
                     Items.HandlingUnit = item.HandlingUnit;
                     Items.Batch = item.Batch;
                     Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                    Items.LocationCode = item.LocationCode;
                     this.data.Items.push(Items);
                 }
             }

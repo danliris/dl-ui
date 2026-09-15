@@ -45,8 +45,16 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-autocomplete>
+        <au-checkbox 
+            label="Apakah barang SPARE PART MESIN?" 
+            value.bind="isSparepartOrMachine" 
+            error.bind="error.isSparepartOrMachine" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-checkbox>
 
         <au-textbox 
+            if.bind="isSparepartOrMachine"
             label="Nomor BC" 
             value.bind="data.bcNo" 
             error.bind="error.bcNo" 
@@ -56,6 +64,7 @@
         </au-textbox>
 
         <au-datepicker 
+            if.bind="isSparepartOrMachine"
             label="Tgl. BC" 
             value.bind="data.bcDate" 
             error.bind="error.bcDate" 
