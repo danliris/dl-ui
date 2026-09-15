@@ -38,20 +38,21 @@ export class View {
     };
 
     costCalculationGarment_MaterialsInfo = {
-        columns: [
-            { header: "Kategori", value: "Category" },
-            { header: "Kode Barang", value: "Product.code" },
-            { header: "Komposisi", value: "Product.composition" },
-            { header: "Konstruksi", value: "Product.const" },
-            { header: "Yarn", value: "Product.yarn" },
-            { header: "Width", value: "Product.width" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Detail Barang", value: "ProductRemark" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
-            { header: "Total (Rp)", value: "Total" }
-        ]
-    };
+    columns: [
+      { header: "No.", value: "MaterialIndex" },
+      { header: "Kategori", value: "Category" },
+      { header: "Kode Barang", value: "Product.code" },
+      { header: "Komposisi", value: "Product.composition" },
+      { header: "Konstruksi", value: "Product.const" },
+      { header: "Yarn", value: "Product.yarn" },
+      { header: "Width", value: "Product.width" },
+      { header: "Deskripsi", value: "Description" },
+      { header: "Detail Barang", value: "ProductRemark" },
+      { header: "Kuantitas", value: "Quantity" },
+      { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+      { header: "Total (Rp)", value: "Total" }
+    ]
+  };
 
     priceInfo = {
         columns: [
