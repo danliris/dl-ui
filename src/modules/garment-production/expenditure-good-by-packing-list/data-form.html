@@ -1,0 +1,133 @@
+<template>
+    <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <div class="row">
+            <div class="col-md-6">
+                <au-textbox
+                    if.bind="data.ExpenditureGoodNo"
+                    value.bind="data.ExpenditureGoodNo"
+                    label="No Bon Pengeluaran"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-autocomplete
+                    value.bind="selectedUnit"
+                    error.bind="error.Unit"
+                    label="Unit Pengeluaran"
+                    loader.bind="unitLoader"
+                    text.bind="unitView"
+                    placeholder="Unit"
+                    read-only.bind="readOnly || isEdit"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+
+                <au-dropdown
+                    label="Tipe Pengeluaran"
+                    value.bind="data.ExpenditureType"
+                    error.bind="error.ExpenditureType"
+                    read-only.bind="readOnly || isEdit"
+                    items.bind="expenditureTypes"
+                    options.bind="controlOptions">
+                </au-dropdown>
+
+                <au-datepicker
+                    label="Tanggal Proses"
+                    value.bind="data.ExpenditureDate"
+                    error.bind="error.ExpenditureDate"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-datepicker>
+
+                <au-textbox
+                    value.bind="data.BuyerView"
+                    label="Buyer"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+            </div>
+
+            <div class="col-md-6">
+                <au-autocomplete
+                    if.bind="isCreate"
+                    label="Packing List"
+                    value.bind="packinglists"
+                    error.bind="error.PackingList"
+                    read-only.bind="readOnly || isEdit"
+                    loader.bind="packingListLoader"
+                    text.bind="packingListView"
+                    placeholder="Cari Invoice Packing List"
+                    options.bind="controlOptions"
+                    show.bind="data.Unit">
+                </au-autocomplete>
+
+                <au-textbox
+                    if.bind="!isCreate"
+                    value.bind="data.Invoice"
+                    label="Packing List / Invoice"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-textbox
+                    if.bind="isCreate && data.Invoice"
+                    value.bind="data.Invoice"
+                    label="Invoice Packing List"
+                    read-only="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+
+                <au-numeric
+                    value.bind="data.Carton"
+                    error.bind="error.Carton"
+                    label="Karton"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions"
+                    format="0">
+                </au-numeric>
+
+                <au-multiline
+                    value.bind="data.Description"
+                    error.bind="error.Description"
+                    label="Keterangan"
+                    read-only.bind="readOnly"
+                    options.bind="controlOptions">
+                </au-multiline>
+            </div>
+        </div>
+
+        <hr>
+
+        <p if.bind="isLoadingPackingList">
+            <b>Menghitung sisa Packing List dan mengambil Finished Goods Stock...</b>
+        </p>
+
+        <div class="alert alert-info" if.bind="packingListMessage">
+            ${packingListMessage}
+        </div>
+
+        <div class="form-group has-error">
+            <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
+            <p if.bind="error.Price" class="help-block text-center">${error.Price}</p>
+        </div>
+
+        <au-collection
+            if.bind="roGroups && roGroups.length"
+            items.bind="roGroups"
+            columns.bind="roGroupColumns"
+            options.bind="roGroupOptions"
+            read-only.bind="readOnly"
+            header-template="modules/garment-production/expenditure-good-by-packing-list/template/item-header"
+            item-template="modules/garment-production/expenditure-good-by-packing-list/template/item">
+        </au-collection>
+
+        <p if.bind="data.Items && data.Items.length" style="margin-top: 15px;">
+            <b>Jumlah Total Pengeluaran Barang Jadi : ${totalQuantity} PCS</b>
+        </p>
+    </au-input-form>
+
+    <div class="row"></div>
+</template>

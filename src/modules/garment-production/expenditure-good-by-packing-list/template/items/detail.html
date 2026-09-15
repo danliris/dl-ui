@@ -1,0 +1,50 @@
+<template>
+    <tr>
+        <td if.bind="data.ShowPackingList"
+            rowspan.bind="data.PackingListRowSpan"
+            class="text-center"
+            style="vertical-align: middle;">
+            <strong>${data.SizeName || '-'}</strong>
+        </td>
+
+        <td if.bind="data.ShowPackingList"
+            rowspan.bind="data.PackingListRowSpan"
+            class="text-right"
+            style="vertical-align: middle;">
+            ${data.PackingListQuantity !== null && data.PackingListQuantity !== undefined ? data.PackingListQuantity : '-'}
+        </td>
+
+        <td if.bind="data.ShowPartialColumns && data.ShowPackingList"
+            rowspan.bind="data.PackingListRowSpan"
+            class="text-right"
+            style="vertical-align: middle;">
+            ${data.IssuedQuantity !== null && data.IssuedQuantity !== undefined ? data.IssuedQuantity : 0}
+        </td>
+
+        <td if.bind="data.ShowPartialColumns && data.ShowPackingList"
+            rowspan.bind="data.PackingListRowSpan"
+            class="text-right"
+            style="vertical-align: middle; font-weight: bold;">
+            ${data.RemainingQuantity !== null && data.RemainingQuantity !== undefined ? data.RemainingQuantity : 0}
+        </td>
+
+        <td class="text-right" style="vertical-align: middle;">
+            ${data.StockQuantity !== null && data.StockQuantity !== undefined ? data.StockQuantity : '-'}
+        </td>
+
+        <td style="min-width: 110px; vertical-align: middle;">
+            <au-numeric
+                value.bind="quantity"
+                error.bind="quantityError"
+                read-only.bind="quantityReadOnly"
+                format="0">
+            </au-numeric>
+        </td>
+
+        <td style="vertical-align: middle;">${data.Colour || '-'}</td>
+        <td style="vertical-align: middle;">${data.WarehouseCode || '-'}</td>
+        <td style="vertical-align: middle;">${data.Area || '-'}</td>
+        <td style="vertical-align: middle;">${data.LineCode || '-'}</td>
+        <td style="vertical-align: middle;">${data.PalletCode || '-'}</td>
+    </tr>
+</template>
