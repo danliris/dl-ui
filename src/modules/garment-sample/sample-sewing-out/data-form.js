@@ -198,6 +198,8 @@ export class DataForm {
                                     item.BasicPrice=sewingInItem.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
                                     item.SewingInDate= sewingIn.SewingInDate;
+                                    item.NoPackage = sewingInItem.NoPackage;
+                                    item.LocationCode = sewingInItem.LocationCode;
                                     this.data.Items.push(item);
                                 }
                             }
