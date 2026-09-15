@@ -26,18 +26,21 @@ function initResizable(source) {
     handles.forEach(handle => {
         handle.addEventListener('mousedown', (e) => {
             e.preventDefault();
-            this.isResizing = true;
-            this.resizeDirection = handle.dataset.direction;
-            this.startX = e.clientX;
-            this.startY = e.clientY;
+            source.isResizing = true;
+            source.resizeDirection = handle.dataset.direction;
+            source.startX = e.clientX;
+            source.startY = e.clientY;
 
             const modalDialog = modal.querySelector('.modal-dialog');
             const rect = modalDialog.getBoundingClientRect();
-            this.startWidth = rect.width;
-            this.startHeight = source.previewHeight;
+            source.startWidth = rect.width;
+            source.startHeight = source.previewHeight;
 
-            document.addEventListener('mousemove', (event) => handleResize(source, event));
-            document.addEventListener('mouseup', () => stopResize(source));
+            source._handleResize = (event) => handleResize(source, event);
+            source._handleStopResize = () => stopResize(source);
+
+            document.addEventListener('mousemove', source._handleResize);
+            document.addEventListener('mouseup', source._handleStopResize);
 
             modalDialog.style.transition = 'none';
         });
@@ -45,33 +48,33 @@ function initResizable(source) {
 }
 
 function handleResize(source, e) {
-    if (!this.isResizing) return;
+    if (!source.isResizing) return;
 
-    const deltaX = e.clientX - this.startX;
-    const deltaY = e.clientY - this.startY;
+    const deltaX = e.clientX - source.startX;
+    const deltaY = e.clientY - source.startY;
     const modalDialog = document.querySelector('#pdfPreviewModal .modal-dialog');
 
-    if (this.resizeDirection.includes('e')) {
-        const newWidth = this.startWidth + deltaX;
+    if (source.resizeDirection.includes('e')) {
+        const newWidth = source.startWidth + deltaX;
         const windowWidth = window.innerWidth;
         const widthPercent = Math.max(30, Math.min(100, (newWidth / windowWidth) * 100));
         source.previewWidth = Math.round(widthPercent);
     }
 
-    if (this.resizeDirection.includes('w')) {
-        const newWidth = this.startWidth - deltaX;
+    if (source.resizeDirection.includes('w')) {
+        const newWidth = source.startWidth - deltaX;
         const windowWidth = window.innerWidth;
         const widthPercent = Math.max(30, Math.min(100, (newWidth / windowWidth) * 100));
         source.previewWidth = Math.round(widthPercent);
     }
 
-    if (this.resizeDirection.includes('s')) {
-        const newHeight = this.startHeight + deltaY;
+    if (source.resizeDirection.includes('s')) {
+        const newHeight = source.startHeight + deltaY;
         source.previewHeight = Math.max(300, Math.min(1000, Math.round(newHeight)));
     }
 
-    if (this.resizeDirection.includes('n')) {
-        const newHeight = this.startHeight - deltaY;
+    if (source.resizeDirection.includes('n')) {
+        const newHeight = source.startHeight - deltaY;
         source.previewHeight = Math.max(300, Math.min(1000, Math.round(newHeight)));
     }
 
@@ -79,17 +82,17 @@ function handleResize(source, e) {
 }
 
 function stopResize(source) {
-    if (this.isResizing) {
-        this.isResizing = false;
-        this.resizeDirection = null;
+    if (source.isResizing) {
+        source.isResizing = false;
+        source.resizeDirection = null;
 
         const modalDialog = document.querySelector('#pdfPreviewModal .modal-dialog');
         if (modalDialog) {
             modalDialog.style.transition = '';
         }
 
-        document.removeEventListener('mousemove', (event) => handleResize(source, event));
-        document.removeEventListener('mouseup', () => stopResize(source));
+        document.removeEventListener('mousemove', source._handleResize);
+        document.removeEventListener('mouseup', source._handleStopResize);
     }
 }
 
