@@ -737,4 +737,18 @@ module.exports = [
       iconClass: 'fa fa-dashboard'
     }
   },
+  {
+    route: "garment-finance/finance-disposition-approval",
+    name: "garment-finance/finance-disposition-approval",
+    moduleId: "modules/garment-finance/finance-disposition-approval/index",
+    nav: true,
+    title: "Disposisi Pembayaran Approval - Direktur",
+    auth: true,
+    settings: {
+      group: "g-finance",
+      subGroup: "approval",
+      permission: { "J56": 1 },
+      iconClass: "fa fa-dashboard"
+    }
+  },
 ]

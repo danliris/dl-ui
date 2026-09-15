@@ -1,0 +1,393 @@
+<template>
+    <style>
+/* Resizable Modal Styles */
+    #pdfPreviewModal .modal-dialog {
+      position: relative;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 90%;
+    }
+
+    .resize-handle {
+      position: absolute;
+      z-index: 10;
+    }
+
+    .resize-handle.resize-e {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      cursor: ew-resize;
+    }
+
+    .resize-handle.resize-w {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      cursor: ew-resize;
+    }
+
+    .resize-handle.resize-s {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 10px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.resize-n {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 10px;
+      cursor: ns-resize;
+    }
+
+    .resize-handle.resize-se {
+      right: 0;
+      bottom: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nwse-resize;
+    }
+
+    .resize-handle.resize-sw {
+      left: 0;
+      bottom: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.resize-ne {
+      right: 0;
+      top: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nesw-resize;
+    }
+
+    .resize-handle.resize-nw {
+      left: 0;
+      top: 0;
+      width: 15px;
+      height: 15px;
+      cursor: nwse-resize;
+    }
+
+    .resize-handle:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .preview-size-indicator {
+      position: absolute;
+      top: 10px;
+      right: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      pointer-events: none;
+      z-index: 1060;
+    }
+
+</style>
+
+<require from="../../../lib/number-format-value-converter.js"></require>
+<require from="../../../lib/date-format-value-converter.js"></require>
+
+<au-input-form 
+      title="Rincian Disposisi Pembayaran Approval - Direktur" 
+      with.bind="context" 
+      options.bind="formOptions" 
+      edit.call="editCallback($event)" 
+      delete.call="deleteCallback($event)">
+
+      <div class="row">
+      <div class="col-md-6">
+        <au-textbox 
+            label="No Disposisi" 
+            value.bind="data.DispositionNo" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+        
+        <au-textbox 
+            label="Kategori" 
+            value.bind="data.Category" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Kode Supplier" 
+            value.bind="data.SupplierCode" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Nama Supplier" 
+            value.bind="data.SupplierName" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+        
+        <au-textbox 
+            label="Mata Uang"
+            value.bind="data.CurrencyCode"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-multiline
+            value.bind="data.Bank"
+            label="Bank Tujuan" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-textbox
+            value.bind="data.ConfirmationOrderNo"
+            label="No Order Confirmation" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Tipe Pembayaran" 
+            value.bind="data.PaymentType" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="Tanggal Jatuh Tempo" 
+            value.bind="data.PaymentDueDate | dateFormat:'DD MMMM YYYY'" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+                
+        <au-multiline 
+            label="Keterangan" 
+            value.bind="data.Remark"
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-multiline>
+
+        <au-textbox
+            value.bind="data.ProformaNo"
+            label="No Proforma / Invoice" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-numeric
+            value.bind="data.DPP"
+            label="DPP"
+            read-only.bind="true"
+            format="0,0.00"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            value.bind="data.VatValueView"
+            label="PPN"
+            read-only.bind="true"
+            format="0,0.00"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            value.bind="data.IncomeTaxValueView"
+            label="PPH"
+            read-only.bind="true"
+            format="0,0.00"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            value.bind="data.MiscAmount"
+            label="Biaya Lain-Lain"
+            read-only.bind="true"
+            format="0,0.00"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-numeric
+            value.bind="data.Amount"
+            label="Total Amount"
+            read-only.bind="true"
+            format="0,0.00"
+            options.bind="controlOptions">
+        </au-numeric>
+
+        <au-textbox 
+            label="Manager Approval" 
+            value.bind="data.ApprovedManagerBy" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-textbox 
+            label="General Manager Approval" 
+            value.bind="data.ApprovedGeneralManagerBy" 
+            read-only.bind="true"
+            options.bind="controlOptions">
+        </au-textbox>
+
+      </div>
+    </div>
+
+    <br>
+
+    <div class="panel panel-default" style="margin-left:20px; margin-top:10px;">
+      <div class="panel-body">
+        <h4>File Dokumen</h4>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <th class="col-md-11">File</th>
+          </thead>
+          <tbody>
+            <tr if.bind="!data.DocumentsFileName || data.DocumentsFileName.length < 1">
+              <td colspan="2">
+                Tidak ada file
+              </td>
+            </tr>
+            <tr if.bind="data.DocumentsFileName" repeat.for="doc of data.DocumentsFileName">
+              <td>
+                <button class="btn btn-primary justify-content-center"
+                  click.delegate="downloadDocument($index)">${doc}</button>
+                  <button type="button" class="btn btn-info ml-2"
+                click.delegate="previewDocument($index)">Preview</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PDF Preview Modal -->
+      <div class="modal fade" id="pdfPreviewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          
+            <div class="resize-handle resize-n" data-direction="n"></div>
+            <div class="resize-handle resize-s" data-direction="s"></div>
+            <div class="resize-handle resize-e" data-direction="e"></div>
+            <div class="resize-handle resize-w" data-direction="w"></div>
+            <div class="resize-handle resize-ne" data-direction="ne"></div>
+            <div class="resize-handle resize-nw" data-direction="nw"></div>
+            <div class="resize-handle resize-se" data-direction="se"></div>
+            <div class="resize-handle resize-sw" data-direction="sw"></div>
+            
+            <div class="modal-header">
+              <h5 class="modal-title" id="previewModalLabel">Preview</h5>
+              <span class="preview-size-indicator">
+                Lebar: ${previewWidth}% | Tinggi: ${previewHeight}px
+              </span>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <embed id="pdfEmbed" width="100%" type="application/pdf" style="display: none;" css="height: ${previewHeight}px">
+              <div id="excelTable" style="display: none; overflow-y: auto;" css="max-height: ${previewHeight}px"></div>
+              <img id="imagePreview" style="display: none; max-width: 100%;" css="max-height: ${previewHeight}px">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+<div class="panel panel-default" style="margin-left:20px; margin-top:5px;">
+  <div class="panel-body">
+    <h4>Detail</h4>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>No External PO</th>
+          <th>Invoice</th>
+          <th>Kena PPN</th>
+          <th>Nominal PPN</th>
+          <th>Kena PPH</th>
+          <th>PPH</th>
+          <th>Nominal PPH</th>
+          <th>Disposisi yang<br>
+            sudah dibuat</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <template repeat.for="item of data.Items">
+          <tr>
+            <td>${item.EPONo}</td>
+            <td>${item.Invoice || '-'}</td>
+            <td>${item.IsUseVat ? 'Ya' : 'Tidak'}</td>
+            <td>${item.VatValue | numberFormat:'0,0.00'}</td>
+            <td>${item.IsUseIncomeTax ? 'Ya' : 'Tidak'}</td>
+            <td>${item.IncomeTaxName} (${item.IncomeTaxRate}%)</td>
+            <td>${item.IncomeTaxValue | numberFormat:'0,0.00'}</td>
+            <td>${item.DispositionAmountCreated | numberFormat:'0,0.00'}</td>
+          </tr>
+          <tr>
+            <td colspan="8">
+              <div class="panel panel-default" style="margin-top:10px;">
+                <div class="panel-heading">
+                  <strong>Detail Items</strong>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <th>No Ro</th>
+                        <th>PO Internal</th>
+                        <th>Barang</th>
+                        <th>Unit</th>
+                        <th>Qty Dipesan</th>
+                        <th>Satuan</th>
+                        <th>Qty Sisa</th>
+                        <th>Harga Satuan</th>
+                        <th>Harga Total</th>
+                        <th>QTY Dibayar</th>
+                        <th>Harga Dibayar</th>
+                        <th>% Over QTY</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr repeat.for="detail of item.Details">
+                        <td>${detail.RONo}</td>
+                        <td>${detail.IPONo}</td>
+                        <td>${detail.ProductName}</td>
+                        <td>${detail.UnitName}</td>
+                        <td>${detail.QTYOrder | numberFormat:'0,0.00'}</td>
+                        <td>${detail.QTYUnit}</td>
+                        <td>${detail.QTYRemains | numberFormat:'0,0.00'}</td>
+                        <td>${detail.PricePerQTY | numberFormat:'0,0.00'}</td>
+                        <td>${detail.PriceTotal | numberFormat:'0,0.00'}</td>
+                        <td>${detail.QTYPaid | numberFormat:'0,0.00'}</td>
+                        <td>${detail.PaidPrice | numberFormat:'0,0.00'}</td>
+                        <td>${detail.PercentageOverQTY | numberFormat:'0,0.00'}%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</au-input-form>
+
+</template>

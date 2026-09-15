@@ -24,6 +24,11 @@ export class Service extends RestService {
         return super.put(endpoint, {});
     }
 
+    sendToDirector(id) {
+        let endpoint = `${uri}/send-to-director/${id}`;
+        return super.put(endpoint, {});
+    }
+
     search(info) {
         var endpoint = `${uri}/verified`;
         return super.list(endpoint, info);
