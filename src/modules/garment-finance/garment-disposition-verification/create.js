@@ -96,8 +96,8 @@ export class Create {
             this.dialog.show(CreateSubmit, this.submitContext)
                 .then((response) => {
                     if (!response.wasCancelled) {
-                        if (response.output.context == 'Cashier') {
-                            this.service.sendToCashier(this.selectedExpedition.Id)
+                        if (response.output.context == 'Director') {
+                            this.service.sendToDirector(this.selectedExpedition.Id)
                                 .then(result => {
                                     alert("Data berhasil dibuat");
                                     this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
