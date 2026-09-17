@@ -12,7 +12,7 @@ module.exports = function (keyword, filter) {
         .then(results => {
             return results.data.map(category => {
                 category.toString = function () {
-                    return [this.code, this.name]
+                    return [this.code, this.name, this.CodeD365]
                         .filter((item, index) => {
                             return item && item.toString().trim().length > 0;
                         }).join(" - ");

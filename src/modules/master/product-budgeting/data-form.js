@@ -13,7 +13,6 @@ export class DataForm {
     @bindable UOM;
     @bindable Price;
     @bindable ManufactureType;
-    
     @bindable Code;
     @bindable Name;
     @bindable OriginType;
@@ -142,15 +141,15 @@ export class DataForm {
 
         if (manufactureType === "FOB") {
             if (originType === "IMPORT") {
-                this.Code = `FUI-${categoryCode}`;
+                this.Code = `GFUI-${categoryCode}`;
             } else if (originType === "LOKAL") {
-                this.Code = `FUL-${categoryCode}`;
+                this.Code = `GFUL-${categoryCode}`;
             }
         } else if (manufactureType === "CMT") {
             if (originType === "IMPORT") {
-                this.Code = `CUI-${categoryCode}`;
+                this.Code = `GCUI-${categoryCode}`;
             } else if (originType === "LOKAL") {
-                this.Code = `CUL-${categoryCode}`;
+                this.Code = `GCUL-${categoryCode}`;
             }
         }
 
