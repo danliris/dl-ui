@@ -227,6 +227,13 @@ export class DataForm {
         return !leftUnit || !rightUnit || leftUnit === rightUnit;
     }
 
+    _sameColour(left, right) {
+        const leftColour = String(left || "").trim().toUpperCase();
+        const rightColour = String(right || "").trim().toUpperCase();
+
+        return leftColour === rightColour;
+    }
+
     selectedUnitChanged(newValue) {
         this.selectedUnit = newValue || null;
         this.data.Unit = newValue || null;
@@ -305,6 +312,7 @@ export class DataForm {
 
             for (const detail of details) {
                 const packingListDetailId = Number(this._getId(detail) || 0) || null;
+                const detailColour = this._getValue(detail, "Colour", "colour") || "";
                 const sizes = this._getValue(detail, "Sizes", "sizes") || [];
 
                 for (const packingSize of sizes) {
@@ -323,6 +331,7 @@ export class DataForm {
                         PackingListSizeId: packingListSizeId,
                         Size: size,
                         Uom: packingUom,
+                        Colour: detailColour,
                         PackingListQuantity: packingListQuantity,
                         IssuedQuantity: issuedQuantity,
                         RemainingQuantity: remainingQuantity
@@ -359,6 +368,7 @@ export class DataForm {
             PackingListQuantity: packingSize.PackingListQuantity,
             IssuedQuantity: packingSize.IssuedQuantity,
             RemainingQuantity: packingSize.RemainingQuantity,
+            PackingListColour: packingSize.Colour || "",
             ShowPartialColumns: true,
             ShowPackingList: showPackingList,
             PackingListRowSpan: rowSpan || 1,
@@ -369,7 +379,9 @@ export class DataForm {
             StockQuantity: finGood ? Number(this._getValue(finGood, "Quantity", "quantity") || 0) : null,
             Quantity: 0,
 
-            Colour: finGood ? (this._getValue(finGood, "Colour", "colour") || "") : "",
+            Colour: finGood
+                ? (this._getValue(finGood, "Colour", "colour") || "")
+                : (packingSize.Colour || ""),
             WarehouseCode: finGood ? (this._getValue(finGood, "WarehouseCode", "warehouseCode") || "") : "",
             Area: finGood ? (this._getValue(finGood, "Area", "area") || "") : "",
             LineCode: finGood ? (this._getValue(finGood, "LineCode", "lineCode") || "") : "",
@@ -472,10 +484,15 @@ export class DataForm {
                 const rows = [];
 
                 for (const packingSize of roGroup.Sizes) {
-                    const matching = stocks.filter(stock =>
-                        this._sameSize(packingSize.Size, this._getFinishedGoodSize(stock)) &&
-                        this._sameUom(packingSize.Uom, this._getFinishedGoodUom(stock))
-                    );
+                    const matching = stocks.filter(stock => {
+                        const stockColour = this._getValue(stock, "Colour", "colour") || "";
+
+                        return (
+                            this._sameSize(packingSize.Size, this._getFinishedGoodSize(stock)) &&
+                            this._sameUom(packingSize.Uom, this._getFinishedGoodUom(stock)) &&
+                            this._sameColour(packingSize.Colour, stockColour)
+                        );
+                    });
 
                     if (matching.length) {
                         matching.forEach((stock, index) => {

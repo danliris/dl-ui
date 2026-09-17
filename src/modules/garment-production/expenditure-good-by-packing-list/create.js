@@ -69,25 +69,27 @@ export class Create {
         return Number(item.UomId || item.uomId || 0);
     }
 
+    _getColour(item) {
+        return String(
+            item.PackingListColour || item.Colour || ''
+        ).trim().toUpperCase();
+    }
+
     _getPackingListGroupKey(item) {
         const packingListSizeId = Number(item.PackingListSizeId || 0);
 
         if (packingListSizeId)
             return `PLSIZE:${packingListSizeId}`;
 
-        return `FALLBACK:${item.RONo || ''}:${this._getSizeId(item)}:${this._getUomId(item)}`;
+        return `FALLBACK:${item.RONo || ''}:${this._getSizeId(item)}:${this._getUomId(item)}:${this._getColour(item)}`;
     }
 
 
-    _getOverRemainingGroups() {
+    _getPackingListQuantityMismatchGroups() {
         const groups = new Map();
 
         for (const item of this.data.Items || []) {
-            if (!item || !item.FinishedGoodStockId)
-                continue;
-
-            const quantity = Number(item.Quantity || 0);
-            if (quantity <= 0)
+            if (!item)
                 continue;
 
             const key = this._getPackingListGroupKey(item);
@@ -98,16 +100,23 @@ export class Create {
                     PackingListSizeId: Number(item.PackingListSizeId || 0) || null,
                     RONo: item.RONo || '-',
                     SizeName: this._getSizeName(item),
+                    Colour: item.PackingListColour || item.Colour || '-',
                     RemainingQuantity: Number(item.RemainingQuantity || 0),
                     Quantity: 0
                 });
             }
 
-            groups.get(key).Quantity += quantity;
+            if (item.FinishedGoodStockId) {
+                groups.get(key).Quantity += Number(item.Quantity || 0);
+            }
         }
 
+        const tolerance = 0.000001;
+
         return Array.from(groups.values())
-            .filter(group => group.Quantity > group.RemainingQuantity);
+            .filter(group =>
+                Math.abs(group.Quantity - group.RemainingQuantity) > tolerance
+            );
     }
 
     _getInvalidStockItems() {
@@ -122,16 +131,17 @@ export class Create {
         });
     }
 
-    _buildOverRemainingMessage(groups) {
+    _buildPackingListQuantityMismatchMessage(groups) {
         const details = groups.map(group => {
-            const over = group.Quantity - group.RemainingQuantity;
-
-            return `RO ${group.RONo} size ${group.SizeName}`;
+            return (
+                `RO ${group.RONo} Size ${group.SizeName} Warna ${group.Colour}: ` +
+                `QTY Ambil ${group.Quantity}, Sisa Packing List ${group.RemainingQuantity}`
+            );
         }).join('\n');
 
         return (
-            `Quantity melebihi sisa packing list:\n\n${details}` +
-            `\n\nApakah Anda yakin ingin tetap melanjutkan?`
+            `Total QTY Ambil harus sama dengan Sisa Packing List:\n\n${details}` +
+            `\n\nData tidak dapat disimpan.`
         );
     }
 
@@ -207,22 +217,20 @@ export class Create {
             return;
         }
 
-        const overRemainingGroups = this._getOverRemainingGroups();
-
-        if (overRemainingGroups.length) {
-            const confirmed = confirm(
-                this._buildOverRemainingMessage(overRemainingGroups)
-            );
-
-            if (!confirmed)
-                return;
-        }
-
         const invalidStockItems = this._getInvalidStockItems();
 
         if (invalidStockItems.length) {
             alert(
                 this._buildStockErrorMessage(invalidStockItems)
+            );
+            return;
+        }
+
+        const quantityMismatchGroups = this._getPackingListQuantityMismatchGroups();
+
+        if (quantityMismatchGroups.length) {
+            alert(
+                this._buildPackingListQuantityMismatchMessage(quantityMismatchGroups)
             );
             return;
         }
