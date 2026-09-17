@@ -103,8 +103,8 @@ export class DataForm {
     get productGarmentLoader() {
         return (keyword) => {
             const filter = {
-                [`ManufactureType == "FOB"`]: true,
-                [`OriginType == "${this.data.OriginType}"`]: true,
+                [`ManufactureType == "FOB" || ManufactureType == "CMT"`]: true,
+                [`OriginType == "LOKAL" || OriginType == "IMPORT"`]: true,
                 [`ProductType == "${this.data.ProductType}"`]: true,
                 [`CategoryType == "${this.data.CategoryType}"`]: true
             };
@@ -272,22 +272,22 @@ export class DataForm {
 
         if (code.startsWith("FI-")) {
             if(this.OriginType == "IMPORT" || this.data.OriginType == "IMPORT") {
-                this.data.Code = code.replace(/^FI-/, "AI-");
+                this.data.Code = code.replace(/^FI-/, "GAI-");
             }else{
-                this.data.Code = code.replace(/^FI-/, "AL-");
+                this.data.Code = code.replace(/^FI-/, "GAL-");
             }
         }
         else if (code.startsWith("FL-")) {
             if(this.OriginType == "IMPORT" || this.data.OriginType == "IMPORT") {
-                this.data.Code = code.replace(/^FL-/, "AI-");
+                this.data.Code = code.replace(/^FL-/, "GAI-");
             }else{
-                this.data.Code = code.replace(/^FL-/, "AL-");
+                this.data.Code = code.replace(/^FL-/, "GAL-");
             }    
         }
         else {
             const prefix = this.data.OriginType === "IMPORT"
-                ? "AI-"
-                : "AL-";
+                ? "GAI-"
+                : "GAL-";
             this.data.Code = `${prefix}${code}`;
         }
     }

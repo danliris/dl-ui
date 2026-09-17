@@ -39,12 +39,15 @@ export class DataForm {
 
     }
 
-    itemsColumns = [
-        { header: "Barang", value: "product" },
-        { header: "Jumlah", value: "quantity" },
-        { header: "Satuan", value: "product.uom" },
-        { header: "Keterangan", value: "remark" }
-    ]
+    itemsColumns = {
+        columns: [
+            { header: "Barang", value: "product" },
+            { header: "Jumlah", value: "quantity" },
+            { header: "Satuan", value: "product.uom" },
+            { header: "Keterangan", value: "remark" }
+        ],
+        options:{}
+    }
 
     unitChanged(e) {
         if (this.data.unit)
@@ -63,8 +66,16 @@ export class DataForm {
     }
 
     categoryChanged(e) {
-        if (this.data.category)
+        if (this.data.category) {
             this.data.categoryId = this.data.category._id ? this.data.category._id : {};
+            this.itemsColumns.options.categoryCode = this.data.category ? this.data.category.code : "";
+            this.data.items.splice(0, this.data.items.length);
+        } else {
+            this.data.categoryId = {};
+            this.itemsColumns.options.categoryCode = "";
+
+            this.data.items.splice(0, this.data.items.length);
+        }
     }
 
     // prInternalChanged(e){
