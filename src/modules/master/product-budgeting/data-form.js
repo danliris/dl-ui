@@ -19,7 +19,7 @@ export class DataForm {
     @bindable OriginTypeLists = ['IMPORT', 'LOKAL'];
     @bindable ManufactureTypeLists = ['FOB', 'CMT'];
     @bindable itemTypes = ['Item', 'Service'];
-    
+    @bindable Categorydata;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -46,6 +46,7 @@ export class DataForm {
         return false;
     }
 
+    
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
@@ -63,6 +64,7 @@ export class DataForm {
             this.data.Category.code =this.data.Category.Code || this.data.Category.code || "";
             this.data.Category.name =this.data.Category.Name || this.data.Category.name || "";
         }
+        this.Categorydata = this.data.Category;
         if (this.data.Id) {
             this.Currency = this.data.Currency;
             this.UOM = this.data.UOM;
@@ -75,7 +77,7 @@ export class DataForm {
             //this.isActive = this.data.IsPosted;
             // this.itemTypes = this.data.ItemType;
         }
-
+        
        
 
         this.error = this.context.error;
@@ -84,6 +86,12 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+    }
+
+    CategoryView = (category) => {
+        if(category&&category.CodeD365)
+            return category ? `${category.code} - ${category.name} - ${category.CodeD365}` : "";
+        return category ? `${category.code} - ${category.name}` : "";
     }
 
     ManufactureTypeChanged(newValue) {
