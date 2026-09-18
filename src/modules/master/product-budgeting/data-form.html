@@ -18,13 +18,14 @@
         </au-dropdown>
 
         <au-autocomplete 
-                    value.bind="data.Category" 
+                    value.bind="Categorydata" 
                     error.bind="error.category"
                     label="Kategori" 
                     change.delegate="categoryChanged($event)" 
                     loader.bind="categoryLoader"
                     placeholder="cari kategori" 
                     key="code"
+                    text.bind="CategoryView"
                     read-only.bind="(readOnly || isEdit)">
       </au-autocomplete>
 
