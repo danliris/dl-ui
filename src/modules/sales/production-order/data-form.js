@@ -96,6 +96,10 @@ export class DataForm {
     if (this.data && this.data.Id) {
       this.OrderType = this.data.OrderType;
 
+    if (this.data.ImagePath) {
+      this.imageSrc = "https://danlirisstoragedev.blob.core.windows.net" + this.data.ImagePath;
+    }
+
       this.SalesContract = {
         SalesContractNo: this.data.SalesContractNo,
         Buyer: this.data.Buyer
@@ -584,4 +588,15 @@ export class DataForm {
     return `${data.profile.firstname} - ${data.profile.lastname}`
   }
 
+  @bindable imageUpload;
+  @bindable imageSrc;
+  imageUploadChanged(newValue) {
+    let imageInput = document.getElementById("imageInput");
+    let reader = new FileReader();
+    reader.onload = (event) => {
+      let base64Image = event.target.result;
+      this.imageSrc = this.data.ImageFile = base64Image;
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+  }
 }
