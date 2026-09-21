@@ -163,6 +163,7 @@ export class ItemPOX {
       //this.data.PricePerDealUnit = newValue.PricePerDealUnit * newValue.CurrencyRate;
       this.data.PricePerDealUnit = newValue.PricePerDealUnit;
       this.data.Uom = newValue.Uom;
+      this.data.Product = newValue.Product;
       //this.data.CurrencyCode = "IDR";
       this.data.CurrencyCode = newValue.CurrencyCode;
       this.data.EPOItemId = newValue.EPOItemId;

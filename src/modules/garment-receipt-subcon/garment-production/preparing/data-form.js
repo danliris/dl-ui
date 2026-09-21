@@ -103,30 +103,28 @@ export class DataForm {
     }
   }
 
-  uenNoChanged(newValue) {
+  async uenNoChanged(newValue, oldValue) {
+    if (newValue === oldValue) {
+      return;
+    }
     var selectedUEN = newValue;
     if (selectedUEN && this.options.isCreate) {
       this.data.ExpenditureDate = selectedUEN.ExpenditureDate;
-      // if(!this.options.isView){
-      //     this.data.Unit.Id = selectedUEN.UnitRequestId;
-      //     this.data.Unit.Name = selectedUEN.UnitRequestName;
-      //     this.data.Unit.Code = selectedUEN.UnitRequestCode;
-      // } else {
-      //     this.data.Unit.Id = selectedUEN.UnitRequest.Id;
-      //     this.data.Unit.Name = selectedUEN.UnitRequest.Name;
-      //     this.data.Unit.Code = selectedUEN.UnitRequest.Code;
-      // }
       this.data.UENId = selectedUEN.Id;
       this.data.UENNo = selectedUEN.UENNo;
-      this.data.Items = selectedUEN.Items;
+      this.data.Items = selectedUEN.Items.map(item => ({
+        ...item,
+        UENItemId: item.UENItemId || item.Id,
+        OriginalUENItemId: item.UENItemId || item.Id
+      }));
       this.purchasingService
         .getUnitDeliveryOrderById(selectedUEN.UnitDOId)
-        .then((deliveryOrder) => {
+        .then(async (deliveryOrder) => {
           if (deliveryOrder) {
             this.data.Article = deliveryOrder.Article;
             this.data.RONo = deliveryOrder.RONo;
 
-            this.purchasingService
+          await this.purchasingService
               .getUnitReceiptNote({
                 size: 1,
                 // filter: JSON.stringify({ RONo: this.data.RONo }),
@@ -140,6 +138,7 @@ export class DataForm {
                     this.data.Buyer.Code + "-" + this.data.Buyer.Name;
                 }
                 for (var item of this.data.Items) {
+                  item.UENItemId = item.UENItemId || item.OriginalUENItemId;
                   item.Product = {};
                   item.Uom = {};
                   item.Product.Id = item.ProductId;
