@@ -72,7 +72,7 @@
         <au-textbox label="Description" value.bind="data.CostCalculationGarment.CommodityDescription" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-textbox>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <!--<au-numeric label="Quantity RO" value.bind="total" read-only.bind="disabled" options.bind="length4" show.bind="hasCostCalculationGarment"></au-numeric>-->
         <div class="row">
           <div class="col-md-4">
@@ -88,7 +88,17 @@
         
         <au-datepicker label="Delivery Date" value.bind="data.CostCalculationGarment.DeliveryDate" read-only.bind="disabled" options.bind="length4"
           show.bind="hasCostCalculationGarment"></au-datepicker>
+        <au-textbox label="Sample" value.bind="data.CostCalculationGarment.IsSample ? 'Ya' : 'Tidak'" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationGarment"></au-textbox>
+        <au-textbox label="Sample Description" value.bind="data.CostCalculationGarment.SampleDescription" read-only.bind="disabled" options.bind="length4" 
+          show.bind="hasCostCalculationGarment && data.CostCalculationGarment.IsSample"></au-textbox> 
+        
       </div>
+      <div class="col-md-2" if.bind="hasCostCalculationGarment">
+        <img src.bind="data.CostCalculationGarment.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
+          class="center-block" height="auto" width="60%">
+        <br>
+    </div>
     </div>
     <div class="row" if.bind="readOnly">
       <div class="col-md-4">
