@@ -104,6 +104,35 @@ export class DataForm {
             this.generateCode();
         }
     }
+    CategorydataChanged(newValue) {
+        if (this.readOnly || this.isEdit) {
+            return;
+        }
+
+        if (!newValue) {
+            this.data.Category = null;
+            this.Code = "";
+            this.data.Code = "";
+            return;
+        }
+
+        this.data.Category = newValue;
+
+        this.data.Category.Id =
+            this.data.Category.Id || this.data.Category._id;
+
+        this.data.Category.Code =
+            (this.data.Category.Code || this.data.Category.code || "").trim();
+
+        this.data.Category.Name =
+            this.data.Category.Name || this.data.Category.name || "";
+
+        this.data.ItemGroupD365 = this.data.Category.CodeD365;
+
+        console.log("Category:", this.data.Category);
+
+        this.generateCode();
+    }
 
     NameChanged(newValue) {
         if (this.readOnly || this.isEdit) {
@@ -122,21 +151,23 @@ export class DataForm {
         this.generateCode();
     }
 
-    generateNameCode() {
-        return this.data.Name
-            ? this.data.Name
-                .trim()
-                .split(/\s+/)
-                .filter(word => /^[A-Za-z0-9]/.test(word))
-                .map(word => word.charAt(0).toUpperCase())
-                .join("")
-                .substring(0, 4)
-            : "";
-    }
+    // generateNameCode() {
+    //     return this.data.Name
+    //         ? this.data.Name
+    //             .trim()
+    //             .split(/\s+/)
+    //             .filter(word => /^[A-Za-z0-9]/.test(word))
+    //             .map(word => word.charAt(0).toUpperCase())
+    //             .join("")
+    //             .substring(0, 4)
+    //         : "";
+    // }
 
     
     generateCode() {
-        const categoryCode =this.data.Category && this.data.Category.Code? this.data.Category.Code.trim(): "";
+        console.log("Generating code...", this.data);
+        const categoryCode = this.data.Category || this.Categorydata ? ((this.data.Category.Code || this.data.Category.code || this.Categorydata.Code || this.Categorydata.code || "").trim()) : "";
+        console.log(categoryCode);
         const manufactureType =this.ManufactureType || this.data.ManufactureType;
         const originType =this.OriginType || this.data.OriginType;
 
@@ -186,7 +217,8 @@ export class DataForm {
             this.data.Price = this.Price;
             this.data.originPrice = this.originPrice;
         } else {
-            this.Currency = {};
+            this.Price = 0;
+            this.data.Price = 0;
         }
     }
 
@@ -200,29 +232,7 @@ export class DataForm {
         this.generateCode();
     }
 
-    categoryChanged(e) {
-        if (this.readOnly || this.isEdit) {
-            return;
-        }
-
-        if (e && e.target && !e.target.value) {
-            this.data.Category = null;
-
-            this.Code = "";
-            this.data.Code = "";
-            return;
-        }
-
-        if (this.data.Category && this.data.Category._id) {
-
-            this.data.Category.Id = this.data.Category._id;
-            this.data.Category.Code = (this.data.Category.code || "").trim();
-            this.data.Category.Name = this.data.Category.name || "";
-            this.data.ItemGroupD365 = this.data.Category.CodeD365;
-
-            this.generateCode();
-        }
-    }
+    
 
     get currencyLoader() {
         return CurrencyLoader;
