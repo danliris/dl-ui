@@ -1069,9 +1069,9 @@ async pushDataExcel(value) {
           IsFromUpload: item.IsFromUpload
         };
 
-    if (material && material.isFabricCM) {
-      material.ShippingFeePortion = 0;
-    }
+    // if (material && material.isFabricCM) {
+    //   material.ShippingFeePortion = 0;
+    // }
     allMaterials.push(material);
   }
 
