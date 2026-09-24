@@ -1,14 +1,19 @@
 import { inject } from 'aurelia-framework';
+import { Dialog } from '../../../components/dialog/dialog';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
+import { DownloadDialog } from './template/download-dialog';
 
-@inject(Router, Service)
+@inject(Dialog, Router, Service)
 export class List {
     dataToBeCompleted = [];
-
-    constructor(router, service) {
+    dateFrom = moment().format("YYYY-MM-DD");
+    dateTo = moment().format("YYYY-MM-DD");
+    
+    constructor(dialog, router, service) {
+        this.dialog = dialog;
         this.service = service;
         this.router = router;
     }
@@ -96,4 +101,10 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    showDownloadForm() {
+            this.dialog.show(DownloadDialog, { dateFrom: this.dateFrom, dateTo: this.dateTo });
+    }
+
+    
 }

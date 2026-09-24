@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Bea Cukai</h1> 
+    <h1 class="page-header">Bea Cukai</h1>
     <au-table 
         view-model.ref="table" 
         data.bind="loadData" 
@@ -10,7 +10,10 @@
         context-click.delegate="contextClickCallback($event)"
         context-show.call="contextShowCallback(index, context, data)">
         <div slot="toolbar" class="btn-group">
-            <button class="btn btn-success" click.delegate="create()">Buat</button>
-        </div>
+            <div class="gap-3">
+                <button class="btn btn-success" click.delegate="create()">Buat</button>
+                <button class="btn btn-primary" click.delegate="showDownloadForm()">Download Laporan</button>
+            </div>
+        </div>    
     </au-table>
 </template>

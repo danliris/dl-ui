@@ -47,6 +47,10 @@ class Service extends RestService {
         return super.get(endpoint);
     }
 
+    downloadExcelReport(info) {
+        var endpoint = `${serviceUri}/downloadExcelReport?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}`;
+        return super.getXls(endpoint);
+    }
     searchDeliveryOrder(info) {
         var endpoint = `${deliveryOrderForCustoms}`;
 
