@@ -8,11 +8,14 @@ import { push } from "../../../routes/general";
 // import { json } from "../../../../node_modules/aurelia-fetch-client/dist/aurelia-fetch-client";
 import { HttpClient, json } from "aurelia-fetch-client";
 import { PermissionHelper } from "../../../utils/permission-helper";
-@inject(Router, Service, PermissionHelper)
+import { DownloadDialog } from "./download-dialog";
+import { Dialog } from '../../../components/dialog/dialog';
+@inject(Router, Service, PermissionHelper, Dialog)
 export class List {
-  constructor(router, service, permissionHelper) {
+  constructor(router, service, permissionHelper, dialog) {
     this.service = service;
     this.router = router;
+    this.dialog = dialog;
 
     this.permissions = permissionHelper.getUser();
   }
@@ -194,4 +197,8 @@ export class List {
       }
     }
   }
+
+  showDownloadForm() {
+              this.dialog.show(DownloadDialog, { dateFrom: this.dateFrom, dateTo: this.dateTo });
+      }
 }
