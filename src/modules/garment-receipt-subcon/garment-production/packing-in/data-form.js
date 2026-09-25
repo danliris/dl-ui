@@ -359,8 +359,6 @@ export class DataForm {
                       (sewingOutItem.BasicPrice +
                         (this.data.Price * 75) / 100) *
                       sewingOutItem.Quantity;
-                    item.LocationCode = sewingOutItem.LocationCode;
-                    item.NoPackage = sewingOutItem.NoPackage;
                     this.data.Items.push(item);
                   }
                 }
@@ -417,8 +415,6 @@ export class DataForm {
                         (finishingOutItem.BasicPrice +
                           (this.data.Price * 75) / 100) *
                         finishingOutDetail.Quantity;
-                      item.LocationCode = finishingOutItem.LocationCode;
-                      item.NoPackage = finishingOutItem.NoPackage;
                       this.data.Items.push(item);
                     }
                   } else {
@@ -438,8 +434,6 @@ export class DataForm {
                       (finishingOutItem.BasicPrice +
                         (this.data.Price * 75) / 100) *
                       finishingOutItem.Quantity;
-                    item.LocationCode = finishingOutItem.LocationCode;
-                    item.NoPackage = finishingOutItem.NoPackage;
                     this.data.Items.push(item);
                   }
                 }
