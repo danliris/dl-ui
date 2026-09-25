@@ -963,33 +963,23 @@ module.exports = [
       iconClass: "fa fa-clone",
     },
   },
-  // {
-  //   route: "garment-purchase-order/purchase-book-report",
-  //   name: "garment-purchasing-book-report",
-  //   moduleId: "./modules/garment-purchasing/purchase-book-report/index",
-  //   nav: true,
-  //   title: "Laporan Buku Pembelian Bahan Baku, Embalace, Umum",
-  //   auth: true,
-  //   settings: {
-  //     group: "g-purchasing",
-  //     subGroup: "laporan",
-  //     //            permission: {"B1": 1, "C9": 1},
-  //     iconClass: "fa fa-dashboard",
-  //   },
-  // },
-  // {
-  //   route: "accounting/accounting-stock-report",
-  //   name: "accounting-stock-report",
-  //   moduleId: "./modules/accounting/reports/accounting-stock-report/index",
-  //   nav: true,
-  //   title: "Laporan Stok Pembukuan",
-  //   auth: true,
-  //   settings: {
-  //     group: "g-purchasing",
-  //     //   permission: {"B1": 1, "C9": 1},
-  //     iconClass: "fa fa-dashboard",
-  //   },
-  // },
+  {
+    route: "garment-daily-purchase-order-new/reports",
+    name: "garment-daily-purchase-order-report-new",
+    moduleId:
+      "./modules/accounting/reports/garment-daily-purchase-report-new/index",
+    nav: true,
+    title: "Laporan Buku Harian Pembelian - New| Garment",
+    auth: true,
+    settings: {
+      group: "g-purchasing",
+      subGroup: "laporan",
+      // permission: { "B1": 1, "C9": 1 },
+      permission: { H49: 1 },
+      iconClass: "fa fa-clone",
+    },
+  },
+
   // {
   //   route: 'garment-purchase-order/purchase-book-report',
   //   name: 'garment-purchasing-book-report',
