@@ -32,9 +32,12 @@
     <block>
         <hr />
         <div class="btn-group pull-right">
-            <!-- <button class="btn btn-default" click.delegate="reset()" options.bind="controlOptions">Kembali</button> -->
-            <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()"
-                options.bind="controlOptions">Tampilkan Data</button>
+            <div class="gap-3">
+                <!-- <button class="btn btn-default" click.delegate="reset()" options.bind="controlOptions">Kembali</button> -->
+                <button class="btn btn-success" disabled.bind="disabled" click.delegate="saveCallback()"
+                    options.bind="controlOptions">Tampilkan Data</button>
+                <button class="btn btn-primary" click.delegate="showDownloadForm()">Download Laporan</button>
+            </div>
         </div>
     </block>
     <br>

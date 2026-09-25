@@ -1,0 +1,39 @@
+<template>
+    <ai-dialog>
+        <ai-dialog-header>
+            Download Laporan
+        </ai-dialog-header>
+        <ai-dialog-body>
+            <div style="width:750px; padding: 12px;">
+                <div class="row">
+                    <div class="col-md-10" style="display: flex; flex-direction: column; gap: 10px;">
+                        <au-dropdown 
+                            value.bind="type" 
+                            error.bind="error.type" 
+                            items.bind="typeOptions"
+                            label="Tipe BC">
+                        </au-dropdown>
+                        <au-datepicker
+                            label="Tanggal Awal"
+                            value.bind="dateFrom">
+                        </au-datepicker>
+
+                        <au-datepicker
+                            label="Tanggal Akhir"
+                            value.bind="dateTo">
+                        </au-datepicker>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <div class="btn-group">
+                <div class="gap-3" style="padding: 12px;">
+                    <button class="btn btn-primary" click.delegate="downloadReport()">Download</button>
+                    <button class="btn btn-danger" click.trigger="controller.cancel()">Batal</button>
+                </div>
+            </div>
+
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
