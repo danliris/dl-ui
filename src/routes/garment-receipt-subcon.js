@@ -733,4 +733,32 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/garment-subcon-finished-goods-stock",
+    name: "garment-receipt-subcon/garment-subcon-finished-goods-stock",
+    moduleId: "./modules/garment-receipt-subcon/garment-finished-goods-stock/index",
+    nav: true,
+    title: "Location Racking Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X55: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/monitoring-garment-finished-goods-stock",
+    name: "garment-receipt-subcon/monitoring-garment-finished-goods-stock",
+    moduleId: "./modules/garment-receipt-subcon/monitoring-garment-finished-goods-stock/index",
+    nav: true,
+    title: "Monitoring Location Racking Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X56: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  }
 ];
