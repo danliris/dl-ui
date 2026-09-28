@@ -25,6 +25,7 @@ export class DataForm {
     this.service = service;
     this.salesService = salesService;
   }
+
   expenditureTypes = ["LOKAL"];
 
   formOptions = {
@@ -50,16 +51,19 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     this.isCreate = this.context.isCreate;
+
     this.itemOptions = {
       isEdit: this.context.isEdit,
       checkedAll: true,
       isCreate: this.context.isCreate,
     };
+
     if (this.data && this.data.Items) {
       this.data.Items.forEach((item) => {
         item.IsSave = true;
       });
     }
+
     if (this.data.PackingListId) {
       this.selectedInvoice = {
         invoiceNo: this.data.Invoice,
@@ -67,6 +71,7 @@ export class DataForm {
       };
       // this.manual=false;
     }
+
     // else{
     //     this.manual=true;
     // }
@@ -85,18 +90,22 @@ export class DataForm {
           "Quantity>0": true,
         }),
       };
+
       return this.service.getFinishedGoodByRo(info).then((result) => {
         var roList = [];
+
         for (var a of result.data) {
           if (roList.length == 0) {
             roList.push(a);
           } else {
             var dup = roList.find((d) => d.RONo == a.RONo);
+
             if (!dup) {
               roList.push(a);
             }
           }
         }
+
         return roList;
       });
     };
@@ -128,6 +137,7 @@ export class DataForm {
     this.data.Buyer = null;
     this.data.ContractNo = null;
     this.data.Description = "";
+
     if (newValue) {
       this.data.Unit = newValue;
     } else {
@@ -153,16 +163,20 @@ export class DataForm {
     this.sizes.splice(0);
     this.data.Price = 0;
     this.data.Description = "";
+
     if (newValue) {
       this.context.error.Items = [];
       this.data.RONo = newValue.RONo;
       this.data.Article = newValue.Article;
       this.data.Comodity = newValue.Comodity;
+
       var items = [];
 
       let pr = await this.service.getPreparingByRONo({
         size: 1,
-        filter: JSON.stringify({ RONo: this.data.RONo }),
+        filter: JSON.stringify({
+          RONo: this.data.RONo,
+        }),
       });
 
       if (pr.data.length > 0) {
@@ -173,18 +187,26 @@ export class DataForm {
 
       let noResult = await this.salesService.getCostCalculationByRONo({
         size: 1,
-        filter: JSON.stringify({ RO_Number: this.data.RONo }),
+        filter: JSON.stringify({
+          RO_Number: this.data.RONo,
+        }),
       });
+
       if (noResult.data.length > 0) {
         this.data.Description = noResult.data[0].CommodityDescription;
       }
 
-      let salesContractResult = await this.salesService.getSalesContractByRONo({
-        size: 1,
-        filter: JSON.stringify({ RONumber: this.data.RONo }),
-      });
+      let salesContractResult =
+        await this.salesService.getSalesContractByRONo({
+          size: 1,
+          filter: JSON.stringify({
+            RONumber: this.data.RONo,
+          }),
+        });
+
       if (salesContractResult.data.length > 0) {
-        this.data.ContractNo = salesContractResult.data[0].SalesContractNo;
+        this.data.ContractNo =
+          salesContractResult.data[0].SalesContractNo;
       }
 
       let priceResult = await this.service.getComodityPrice({
@@ -194,6 +216,7 @@ export class DataForm {
           IsValid: true,
         }),
       });
+
       if (priceResult.data.length > 0) {
         this.data.Price = priceResult.data[0].Price;
       } else {
@@ -220,7 +243,9 @@ export class DataForm {
       //     }
       //   }
       // }
+
       this.data.colors = [];
+
       Promise.resolve(
         this.service.getPackingIn({
           filter: JSON.stringify({
@@ -238,11 +263,15 @@ export class DataForm {
             if (this.data.colors.length == 0) {
               this.data.colors.push(packInItem.Color);
             } else {
-              var dup = this.data.colors.find((a) => a == packInItem.Color);
+              var dup = this.data.colors.find(
+                (a) => a == packInItem.Color
+              );
+
               if (!dup) {
                 this.data.colors.push(packInItem.Color);
               }
             }
+
             // if (this.sizes.length > 0) {
             //   var duplicate = this.sizes.find(
             //     (a) =>
@@ -284,6 +313,7 @@ export class DataForm {
             // }
           }
         }
+
         // this.sizes.sort((a, b) => a.SizeName.localeCompare(b.SizeName));
       });
 
@@ -293,48 +323,80 @@ export class DataForm {
             RONo: this.data.RONo,
             UnitId: this.data.Unit.Id,
           }),
-          size:1000
+          size: 1000,
         })
       ).then((result) => {
         for (var finGood of result.data) {
-          var item = {};
           if (finGood.Quantity > 0) {
-            if (this.sizes.length > 0) {
-              var duplicate = this.sizes.find(
-                (a) =>
-                  a.Size.Id == finGood.Size.Id && a.Uom.Id == finGood.Uom.Id
-              );
+            var item = {};
 
-              if (duplicate) {
-                var idx = this.data.Items.indexOf(duplicate);
-                duplicate.StockQuantity += finGood.Quantity;
-                duplicate.RemainingQuantity = duplicate.StockQuantity;
-                this.sizes[idx] = duplicate;
-              } else {
-                item.IsSave = true;
-                item.Size = finGood.Size;
-                item.SizeName = finGood.Size.Size;
-                item.StockQuantity = finGood.Quantity;
-                item.RemainingQuantity = item.StockQuantity;
-                item.Uom = finGood.Uom;
-                item.colors = this.data.colors;
+            item.IsSave = true;
+            item.FinishedGoodStockId = finGood.Id;
+            item.FinishedGoodStockNo = finGood.FinishedGoodStockNo;
+            item.Size = finGood.Size;
+            item.SizeName =finGood.Size.Size +" - " +finGood.Colour +" - " +(finGood.LocationCode || "BELUM RACKING");
+            item.StockQuantity = finGood.Quantity;
+            item.RemainingQuantity = finGood.Quantity;
+            item.Quantity = 0;
+            item.Uom = finGood.Uom;
+            item.Color = finGood.Colour;
+            item.BasicPrice = finGood.BasicPrice;
+            item.WarehouseCode = finGood.WarehouseCode;
+            item.Area = finGood.Area;
+            item.LineCode = finGood.LineCode;
+            item.PalletCode = finGood.PalletCode;
+            item.LocationCode = finGood.LocationCode;
+            item.ReferenceFinishedGoodStockNo =finGood.ReferenceFinishedGoodStockNo;
+            item.colors = this.data.colors;
+            item.PackingInItemId = finGood.PackingInItemId;
 
-                this.sizes.push(item);
-              }
-            } else {
-              item.IsSave = true;
-              item.Size = finGood.Size;
-              item.SizeName = finGood.Size.Size;
-              item.StockQuantity = finGood.Quantity;
-              item.RemainingQuantity = item.StockQuantity;
-              item.Uom = finGood.Uom;
-              item.colors = this.data.colors;
-              this.sizes.push(item);
-            }
+            this.sizes.push(item);
           }
         }
-        console.log(this.size);
-        this.sizes.sort((a, b) => a.SizeName.localeCompare(b.SizeName));
+
+        this.sizes.sort((a, b) => {
+          var sizeCompare = a.Size.Size.localeCompare(b.Size.Size);
+
+          if (sizeCompare !== 0) {
+            return sizeCompare;
+          }
+
+          var colorCompare = (a.Color || "").localeCompare(
+            b.Color || ""
+          );
+
+          if (colorCompare !== 0) {
+            return colorCompare;
+          }
+
+          var warehouseCompare = (a.WarehouseCode || "").localeCompare(
+            b.WarehouseCode || ""
+          );
+
+          if (warehouseCompare !== 0) {
+            return warehouseCompare;
+          }
+
+          var areaCompare = (a.Area || "").localeCompare(
+            b.Area || ""
+          );
+
+          if (areaCompare !== 0) {
+            return areaCompare;
+          }
+
+          var lineCompare = (a.LineCode || "").localeCompare(
+            b.LineCode || ""
+          );
+
+          if (lineCompare !== 0) {
+            return lineCompare;
+          }
+
+          return (a.PalletCode || "").localeCompare(
+            b.PalletCode || ""
+          );
+        });
       });
     } else {
       this.context.selectedROViewModel.editorValue = "";
@@ -348,8 +410,25 @@ export class DataForm {
       this.data.Description = "";
     }
   }
+
+  selectedSizeChanged(newValue) {
+    if (newValue) {
+      this.selectedColor = newValue.Color;
+      newValue.Quantity = 0;
+    }
+  }
+
   itemsInfo = {
-    columns: ["Size", "Jumlah Keluar", "Satuan", "Keterangan"],
+    columns: [
+      "Size",
+      "Warehouse",
+      "Area",
+      "Line",
+      "Pallet",
+      "Jumlah Keluar",
+      "Satuan",
+      "Keterangan",
+    ],
   };
 
   ROView = (ro) => {
@@ -358,11 +437,15 @@ export class DataForm {
 
   get totalQuantity() {
     var qty = 0;
+
     if (this.data.Items) {
       for (var item of this.data.Items) {
-        if (item.IsSave) qty += item.Quantity;
+        if (item.IsSave) {
+          qty += item.Quantity;
+        }
       }
     }
+
     return qty;
   }
 
@@ -375,29 +458,41 @@ export class DataForm {
     } else {
       let objData = {};
       var item = Object.assign(objData, this.selectedSize);
-      item.Description = this.selectedColor;
+
+      item.Description = this.selectedSize.Color;
       item.Quantity = this.selectedSize.Quantity;
       item.RemainingQuantity -= this.selectedSize.Quantity;
       item.PackingInItemId = this.selectedSize.PackingInItemId;
+
       this.data.Items.push(item);
 
-      this.selectedSize.RemainingQuantity -= this.selectedSize.Quantity;
-      this.selectedSize.Quantity = this.selectedSize.RemainingQuantity;
+      this.selectedSize.RemainingQuantity -=
+        this.selectedSize.Quantity;
+
+      this.selectedSize.Quantity = 0;
     }
   }
 
   get removeItems() {
     return (event) => {
-      if (this.selectedSize.PackingInItemId == event.detail.PackingInItemId) {
-        this.selectedSize.RemainingQuantity += event.detail.Quantity;
-      } else {
-        var item = this.sizes.find(
-          (a) => a.PackingInItemId == event.detail.PackingInItemId
-        );
+      var item = this.sizes.find(
+        (a) =>
+          a.FinishedGoodStockId ==
+          event.detail.FinishedGoodStockId
+      );
+
+      if (item) {
         var idx = this.sizes.indexOf(item);
+
         item.RemainingQuantity += event.detail.Quantity;
+
+        if (item.RemainingQuantity > item.StockQuantity) {
+          item.RemainingQuantity = item.StockQuantity;
+        }
+
         this.sizes[idx] = item;
       }
+
       this.error = null;
     };
   }
@@ -413,10 +508,13 @@ export class DataForm {
   //     this.data.PackingListId = 0;
   //   }
   // }
+
   manualChanged(newValue) {
     if (!this.readOnly) {
-      if (this.context.selectedInvoiceViewModel)
+      if (this.context.selectedInvoiceViewModel) {
         this.context.selectedInvoiceViewModel.editorValue = "";
+      }
+
       this.selectedInvoice = null;
       this.data.Invoice = "";
       this.data.PackingListId = 0;
