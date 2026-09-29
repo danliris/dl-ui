@@ -73,6 +73,11 @@ class Service extends RestService {
         return super.list(endpoint, info);
     }
 
+    hasExpenditure(id) {
+    var endpoint = `${serviceUri}/${id}/has-expenditure-good`;
+    return super.get(endpoint);
+  }
+
 }
 
 class PurchasingService extends RestService {

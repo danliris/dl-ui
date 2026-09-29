@@ -42,6 +42,10 @@ export class View {
                 }
             }
         }
+        this.hasExpenditure = await this.service.hasExpenditure(this.data.Id);
+        if(this.hasExpenditure){    
+            this.deleteCallback = null;
+        }
         const isSuccess = (this.data.StatusITFD365 === "Success" || this.data.StatusBOMD365 === "Success");
         StatusHelper.disableEditDelete(this, isSuccess);
     }
