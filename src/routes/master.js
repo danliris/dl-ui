@@ -361,7 +361,7 @@ module.exports = [
   {
     route: "products/budgeting",
     name: "products/budgeting",
-    moduleId: "./modules/master/product-budgeting/index",
+    moduleId: "./modules/master/product-budgeting-new/index",
     nav: true,
     title: "Barang",
     auth: true,
