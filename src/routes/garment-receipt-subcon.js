@@ -704,4 +704,61 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+  {
+    route: "/garment-receipt-subcon/close-order",
+    name: "garment-receipt-subcon-close-order",
+    moduleId:
+      "./modules/garment-receipt-subcon/close-order/index",
+    nav: true,
+    title: "Close Order",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X53: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/subcon-inventory-racking",
+    name: "subcon-inventory-racking",
+    moduleId: "./modules/garment-receipt-subcon/inventory-racking/index",
+    nav: true,
+    title: "Inventory Racking",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X54: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/garment-subcon-finished-goods-stock",
+    name: "garment-receipt-subcon/garment-subcon-finished-goods-stock",
+    moduleId: "./modules/garment-receipt-subcon/garment-finished-goods-stock/index",
+    nav: true,
+    title: "Location Racking Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X55: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "/garment-receipt-subcon/monitoring-garment-finished-goods-stock",
+    name: "garment-receipt-subcon/monitoring-garment-finished-goods-stock",
+    moduleId: "./modules/garment-receipt-subcon/monitoring-garment-finished-goods-stock/index",
+    nav: true,
+    title: "Monitoring Location Racking Barang Jadi",
+    auth: true,
+    settings: {
+      group: "g-receipt-subcon",
+      subGroup: "fitur",
+      permission: { X56: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  }
 ];

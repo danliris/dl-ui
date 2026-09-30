@@ -9,14 +9,28 @@
                 </au-textbox>
 
                 <au-textbox label="Nama" placeholder="Nama" value.bind="data.Name" error.bind="error.Name"
-                    read-only.bind="readOnly">
+                    read-only.bind="(readOnly || isEdit)">
                 </au-textbox>
 
                 <au-multiline label="Alamat" placeholder="Alamat" value.bind="data.Address" error.bind="error.Address"
                     read-only.bind="readOnly">
                 </au-multiline>
 
-                <au-textbox label="No Telepon" placeholder="No Telepon" value.bind="data.PhoneNumber" error.bind="error.PhoneNumber"
+                <au-autocomplete label="Negara" value.bind="country" error.bind="error.CountryName"
+                    read-only.bind="readOnly" loader.bind="countryLoader" text.bind="countryLoaderView" placeholder="Cari Negara">
+                </au-autocomplete>
+
+                <small class="text-danger">*Minimal Pilih Salah Satu (PIC/ Email/ No. Telp)</small>
+
+                <au-textbox label="PIC" placeholder="PIC" value.bind="data.PIC" error.bind="error.Contact"
+                    read-only.bind="readOnly">
+                </au-textbox>
+
+                <au-textbox label="Email" placeholder="Email" value.bind="data.Email" error.bind="error.Contact"
+                    read-only.bind="readOnly">
+                </au-textbox>
+
+                <au-textbox label="No Telepon" placeholder="No Telepon" value.bind="data.PhoneNumber" error.bind="error.Contact"
                     read-only.bind="readOnly">
                 </au-textbox>
 
@@ -32,8 +46,23 @@
                     read-only.bind="readOnly">
                 </au-textbox>
 
+                <au-autocomplete label="Term of Payment" value.bind="top" error.bind="error.TermOfPaymentD365"
+                read-only.bind="readOnly" loader.bind="topLoader" text.bind="topLoaderView" placeholder="Cari Term of Payment">
+                </au-autocomplete>
+
+                <au-numeric label="Tempo" value.bind="data.Tempo" error.bind="error.Tempo" format="0"
+                read-only.bind="true"></au-numeric>
+
+                <au-autocomplete label="Mata Uang" value.bind="currency" error.bind="error.Currency"
+                loader.one-time="currencyLoader" text="Code" read-only.bind="readOnly" placeholder="Cari Mata Uang">
+                </au-autocomplete>
+
                 <au-dropdown label="Status Buyer" value.bind="data.KaberType" error.bind="error.kaberType" items.bind="KaberTypes"
                    read-only.bind="readOnly">
+                </au-dropdown>
+
+                <au-dropdown label="Jenis Buyer" value.bind="data.CustomerGroupD365" error.bind="error.CustomerGroupD365" items.bind="CustomerGroupD365"
+                   read-only.bind="(readOnly || isEdit)">
                 </au-dropdown>
 
             </au-input-form>

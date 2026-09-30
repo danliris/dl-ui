@@ -230,7 +230,7 @@ export class DataForm {
       this.data.Supplier.Id = newValue.Id || newValue.id;
       this.data.Supplier.Address = newValue.address || newValue.Address;
       this.data.Supplier.NPWP = newValue.NPWP;
-     
+      this.data.Supplier.CodeD365 = newValue.codeD365 || newValue.CodeD365;
       if (oldValue) {
         this.data.VatNo = null;
         this.invoice = null;

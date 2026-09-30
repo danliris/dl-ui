@@ -125,6 +125,7 @@ export class Item {
                         const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
 
                         this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
+                        this.data.Product = result.data.map(x => x.Product).find(product => product);
                         // this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
                         this.selectedUom = this.data.Stocks.map(d => (d.Uom || {}).Unit);
                       }

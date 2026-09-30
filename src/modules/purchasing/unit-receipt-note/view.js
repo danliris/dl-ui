@@ -49,6 +49,7 @@ export class View {
 
     canEditOrDelete() {
         const d = this.data || {};
+        if (d.StatusGRND365 === "Success") {return false;}
         if (d.isPaid || this.isLocked) return false;
 
         const items = Array.isArray(d.items) ? d.items : [];

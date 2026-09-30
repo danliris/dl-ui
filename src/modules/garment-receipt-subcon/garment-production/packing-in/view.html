@@ -7,14 +7,14 @@
       <a
         click.delegate="unpost(data)"
         class="btn btn-primary btn-sm"
-        if.bind="data.IsApproved && isKasie && same"
+        if.bind="data.IsApproved && isKasie && same && !hasPackingOut"
       >
         UnApprove</a
       >
       <a
         click.delegate="delete()"
         class="btn btn-danger btn-sm"
-        if.bind="!data.IsApproved && !isKasie && same"
+        if.bind="!data.IsApproved && !isKasie && same && !hasPackingOut"
         >Hapus</a
       >
     </div>

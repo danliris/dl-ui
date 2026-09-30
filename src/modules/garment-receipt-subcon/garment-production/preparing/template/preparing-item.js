@@ -9,7 +9,7 @@ export class GarmentPreparingItem {
         this.readOnly = this.options.readOnly;
         this.data.Currency = "IDR";
         this.isView=this.options.isView;
-        this.data.UENItemId = this.data.Id;
+        this.data.UENItemId = this.data.UENItemId || this.data.OriginalUENItemId || this.data.Id;
         if(this.options.isCreate){
             delete this.data.Id;
             this.data.RemainingQuantity = this.data.Quantity;

@@ -1,0 +1,56 @@
+<template>
+	<tr>
+		<td  style="text-align: center;">
+			<au-checkbox value.bind="data.IsSave"
+						disabled.bind="readOnly"
+						change.delegate="clickCheckBox()">
+			</au-checkbox>
+    	</td>
+		<td>
+			<au-textbox
+				value.one-way="data.prNo"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="product"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.categoryName"
+				read-only="true"
+				error.bind="error.category">
+			</au-textbox>
+		</td>
+		<td>
+			<au-numeric
+				value.bind="data.deliveredQuantity"
+				read-only.bind="true"
+				format = "0,0.00"
+				error.bind="error.deliveredQuantity">
+			</au-numeric>
+		</td>
+		<td>
+			<au-textbox
+				value.one-way="data.deliveredUom.unit"
+				read-only="true">
+			</au-textbox>
+		</td>
+		<td>
+			<au-textbox
+				value.bind="data.productRemark"
+				read-only.bind="readOnly">
+			</au-textbox>
+		</td>
+		<td if.bind="!isStorage">
+			<au-textbox
+				value.bind="data.area"
+				error.bind="error.Area"
+				read-only.bind="readOnly">
+			</au-textbox>
+		</td>
+	</tr>
+</template>

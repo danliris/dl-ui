@@ -8,11 +8,14 @@ export class PurchaseRequestItem {
   constructor(bindingEngine) {
     this.bindingEngine = bindingEngine;
   }
-
+  @bindable categoryCode;
+  @bindable isPostedQuery;
   activate(context) {
+    this.context = context;
     this.data = context.data;
     this.error = context.error;
-    this.options = context.options; 
+    this.options = context.options;
+    this.categoryCode = this.context.context.options.categoryCode;
     if (!this.data.productId) {
       this.data.productId = {};
     }
@@ -24,13 +27,15 @@ export class PurchaseRequestItem {
       this.updateTotalPrice();
     });
 
+    this.isPostedQuery = {
+    "Active": true,
+    [`CategoryCode == "${this.categoryCode}"`]: true
+  };
+
   }
 
   get productLoader() {
     return ProductLoader;
-  }
-  isPostedQuery = {
-    "Active": true
   }
 
   dataProductChanged(newValue) {

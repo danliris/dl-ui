@@ -69,8 +69,13 @@ export class DataForm {
   bind(context) {
     this.context = context;
     this.data = this.context.data;
-    console.log(this.data);
     this.error = this.context.error;
+
+     if (this.data && this.data.Items) {
+        this.data.Items.forEach(item => {
+          item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+        });
+      }
 
     this.options = {
       readOnly: this.readOnly,
@@ -88,6 +93,15 @@ export class DataForm {
         "Jumlah DO",
         "Satuan",
         "Tipe Fabric",
+        "Warna",
+        "Lot",
+        "Batch",
+        "No Package",
+        "Handling Unit",
+        "Rak",
+        "Level",
+        "Box",
+        "Area",
       ];
     }
 
@@ -347,6 +361,18 @@ export class DataForm {
             Items.BeacukaiNo = item.BeacukaiNo;
             Items.BeacukaiDate = item.BeacukaiDate;
             Items.BeacukaiType = item.BeacukaiType;
+            Items.Colour = item.Colour;
+            Items.Lot = item.Lot;
+            Items.NoPackage = item.NoPackage;
+            Items.HandlingUnitId = item.HandlingUnitId;
+            Items.HandlingUnit = item.HandlingUnit;
+            Items.Rack = item.Rack;
+            Items.Level = item.Level;
+            Items.Box = item.Box;
+            Items.Area = item.Area;
+            Items.Batch = item.Batch;
+            Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+            Items.LocationCode = item.LocationCode;
 
             Items.IsSave = Items.Quantity > 0;
             Items.IsDisabled = !(Items.Quantity > 0);
@@ -411,6 +437,18 @@ export class DataForm {
           this.newProduct.BeacukaiNo = selectedROHeader.BeacukaiNo;
           this.newProduct.BeacukaiDate = selectedROHeader.BeacukaiDate;
           this.newProduct.BeacukaiType = selectedROHeader.BeacukaiType;
+          this.newProduct.Colour = selectedROHeader.Colour;
+          this.newProduct.Lot = selectedROHeader.Lot;
+          this.newProduct.NoPackage = selectedROHeader.NoPackage;
+          this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
+          this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
+          this.newProduct.Rack = selectedROHeader.Rack;
+          this.newProduct.Level = selectedROHeader.Level;
+          this.newProduct.Box = selectedROHeader.Box;
+          this.newProduct.Area = selectedROHeader.Area;
+          this.newProduct.Batch = selectedROHeader.Batch;
+          this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+          this.newProduct.LocationCode = selectedROHeader.LocationCode;
           this.newProduct.IsSave = this.newProduct.Quantity > 0;
           this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
         });
@@ -462,6 +500,15 @@ export class DataForm {
       "Jumlah DO Awal",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "Batch",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 }

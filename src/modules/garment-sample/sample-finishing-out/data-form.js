@@ -194,7 +194,8 @@ export class DataForm {
                                     item.DesignColor=finishingInItem.DesignColor;
                                     item.BasicPrice=finishingInItem.BasicPrice;
                                     item.ComodityPrice=this.data.Price;
-
+                                    item.NoPackage = finishingInItem.NoPackage;
+                                    item.LocationCode = finishingInItem.LocationCode;
                                     this.data.Items.push(item);
                                 }
                             }

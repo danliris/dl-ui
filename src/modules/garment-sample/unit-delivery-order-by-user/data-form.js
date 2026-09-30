@@ -5,7 +5,7 @@ var ROLoader = require('../../../loader/garment-sample-request-loader');
 var UnitSenderLoader = require('../../../loader/garment-sample-unit-loader');
 var UnitRequestLoader = require('../../../loader/garment-sample-unit-loader');
 var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
-import moment from 'moment';
+import moment from 'moment'; 
 
 @containerless()
 @inject(Service, CoreService, ProductionService, BindingEngine)
@@ -57,7 +57,11 @@ export class DataForm {
         this.data = this.context.data;
         // console.log(this.data);
         this.error = this.context.error;
-
+        if (this.data && this.data.Items) {
+            this.data.Items.forEach(item => {
+              item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+            });
+          } 
         this.options = {
             readOnly: this.readOnly,
             isEdit: this.isEdit
@@ -82,7 +86,16 @@ export class DataForm {
                 "Jumlah DO Awal",
                 "Jumlah DO",
                 "Satuan",
-                "Tipe Fabric"
+                "Tipe Fabric",
+                "Warna",
+                "Lot",
+                "Batch",
+                "No Package",
+                "Handling Unit",
+                "Rak",
+                "Box",
+                "Level",
+                "Area"
             ];
         }
 
@@ -315,6 +328,13 @@ export class DataForm {
                     this.newProduct.Colour = selectedROHeader.Colour;
                     this.newProduct.Area = selectedROHeader.Area;
                     this.newProduct.IsCMT = selectedROHeader.IsCMT;
+                    this.newProduct.Lot = selectedROHeader.Lot;
+                    this.newProduct.NoPackage = selectedROHeader.NoPackage;
+                    this.newProduct.HandlingUnitId = selectedROHeader.HandlingUnitId;
+                    this.newProduct.HandlingUnit = selectedROHeader.HandlingUnit;
+                    this.newProduct.Batch = selectedROHeader.Batch;
+                    this.newProduct.BatchView = selectedROHeader.Batch? moment.parseZone(selectedROHeader.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                    this.newProduct.LocationCode = selectedROHeader.LocationCode;
                 });
 
         }
@@ -364,7 +384,16 @@ export class DataForm {
             "RO Asal",
             "Jumlah DO Awal",
             "Satuan",
-            "Tipe Fabric"
+            "Tipe Fabric",
+            "Warna",
+            "Lot",
+            "Batch",
+            "No Package",
+            "Handling Unit",
+            "Rak",
+            "Box",
+            "Level",
+            "Area"
         ],
     };
 
@@ -434,7 +463,13 @@ export class DataForm {
                                 Items.Colour = item.Colour;
                                 Items.Area = item.Area;
                                 Items.IsCMT = item.IsCMT;
-
+                                Items.Lot = item.Lot;
+                                Items.NoPackage = item.NoPackage;
+                                Items.HandlingUnitId = item.HandlingUnitId;
+                                Items.HandlingUnit = item.HandlingUnit;
+                                Items.Batch = item.Batch;
+                                Items.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                                Items.LocationCode = item.LocationCode;
                                 this.dataItems.push(Items);
                             }
                         }

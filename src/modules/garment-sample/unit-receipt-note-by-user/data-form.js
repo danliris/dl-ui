@@ -8,8 +8,8 @@ var DeliveryReturnLoader = require('../../../loader/garment-sample-delivery-retu
 var FabricLoader = require('../../../loader/garment-leftover-warehouse-expenditure-fabric-loader');
 var AccLoader = require('../../../loader/garment-leftover-warehouse-expenditure-accessories-loader');
 var UENLoader = require('../../../loader/garment-unit-expenditure-note-loader');
+import moment from 'moment';
 
-var moment = require('moment');
 
 @inject(Service, InventoryService, BindingEngine, Element)
 export class DataForm {
@@ -83,6 +83,15 @@ export class DataForm {
                 { header: "Jumlah" },
                 { header: "Satuan" },
                 { header: "Design/Color" },
+                {header: "Warna"},
+                {header: "Batch"},
+                {header: "Lot"},
+                {header: "No Package"},
+                {header: "Handling Unit"},
+                {header: "Rak"},
+                {header: "Box"},
+                {header: "Level"},
+                {header: "Area"},
             ],
             onRemove: function () {
                 this.bind();
@@ -148,6 +157,11 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data && this.data.Items) {
+            this.data.Items.forEach(item => {
+                item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+            });
+        }
         if (!this.readOnly && !this.isEdit) {
             this.deliveryOrderItem.columns.push({ header: "" });
         }
@@ -277,6 +291,18 @@ export class DataForm {
                         DRItem.OrderQuantity = 0;
                         DRItem.DOCurrencyRate = dup.DOCurrency.Rate;
                         DRItem.IsCMT = dup.IsCMT;
+                        DRItem.Colour = dup.Colour;
+                        DRItem.Area = dup.Area;
+                        DRItem.Rack = dup.Rack;
+                        DRItem.Box = dup.Box;
+                        DRItem.Level = dup.Level;
+                        DRItem.Lot = dup.Lot;
+                        DRItem.NoPackage = dup.NoPackage;
+                        DRItem.HandlingUnitId = dup.HandlingUnitId;
+                        DRItem.HandlingUnit = dup.HandlingUnit;
+                        DRItem.Batch = dup.Batch;
+                        DRItem.BatchView = dup.Batch? moment.parseZone(dup.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+                        DRItem.LocationCode = dup.LocationCode;
                         DRItems.push(DRItem)
                     }
                 }

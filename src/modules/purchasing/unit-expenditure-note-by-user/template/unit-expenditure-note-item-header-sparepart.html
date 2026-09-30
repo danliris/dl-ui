@@ -1,0 +1,9 @@
+<template >
+    <tr>
+        <th></th>
+        <th repeat.for="column of columns">
+            <label>${column}</label>
+        </th>
+        <th if.bind="!readOnly" style="width: 100px; text-align:center;" ><button type="button" click.delegate="context.options.add && context.options.add($event)" class="btn btn-success pull-center">+</button></th>
+    </tr>
+</template>

@@ -24,6 +24,9 @@ export class View {
       }
     }
 
+     this.hasPackingOut =
+    await this.service.hasPackingOut(this.data.Id);
+
     this.selectedUnit = this.data.Unit;
     this.selectedUnitFrom = this.data.UnitFrom;
     this.selectedRO = {

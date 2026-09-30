@@ -26,7 +26,7 @@
           label="Nama Buyer"
           value.bind="data.Name"
           error.bind="error.name"
-          read-only.bind="readOnly"
+          read-only.bind="(readOnly || isEdit)"
         ></au-textbox>
 
         <au-textbox 
@@ -50,28 +50,73 @@
           read-only.bind="readOnly"
         ></au-textbox>
 
-        <au-dropdown
+        <!-- <au-dropdown
           label="Negara"
           value.bind="data.Country"
           error.bind="error.country"
           read-only.bind="readOnly"
           items.bind="countries"
-        ></au-dropdown>
+        ></au-dropdown> -->
+
+        <au-autocomplete 
+          label="Negara" 
+          value.bind="country" 
+          error.bind="error.Country"
+          read-only.bind="readOnly" 
+          loader.bind="countryLoader" 
+          text.bind="countryLoaderView" 
+          placeholder="Cari Negara">
+        </au-autocomplete>
+
+        <small class="text-danger">*Minimal Pilih Salah Satu (PIC/ Email/ No. Telp)</small>
+        
+        <au-textbox 
+          label="PIC"
+          value.bind="data.PIC"
+          error.bind="error.contact"
+          read-only.bind="readOnly"
+        ></au-textbox>
 
         <au-textbox 
-          label="Kontak"
+          label="Email"
+          value.bind="data.Email"
+          error.bind="error.contact"
+          read-only.bind="readOnly"
+        ></au-textbox>
+
+        <au-textbox
+          label="No. Telp"
           value.bind="data.Contact"
           error.bind="error.contact"
           read-only.bind="readOnly"
         ></au-textbox>
 
+        <au-autocomplete 
+          label="Term of Payment" 
+          value.bind="top" 
+          error.bind="error.term"
+          read-only.bind="readOnly" 
+          loader.bind="topLoader" 
+          text.bind="topLoaderView" 
+          placeholder="Cari Term of Payment">
+        </au-autocomplete>
+
         <au-numeric
           label="Tempo"
           value.bind="data.Tempo"
           error.bind="error.tempo"
-          format="0"
-          read-only.bind="readOnly"
+          read-only.bind="true"
         ></au-numeric>
+
+        <au-autocomplete 
+          label="Mata Uang" 
+          value.bind="currency" 
+          error.bind="error.Currency"
+          loader.one-time="currencyLoader" 
+          text="Code" 
+          read-only.bind="readOnly" 
+          placeholder="Cari Mata Uang">
+        </au-autocomplete>
 
         <au-textbox 
           label="NPWP"
@@ -84,7 +129,7 @@
           label="Jenis Buyer"
           value.bind="data.Type"
           error.bind="error.type"
-          read-only.bind="readOnly"
+          read-only.bind="(readOnly || isEdit)"
           items.bind="types"
         ></au-dropdown>
 

@@ -131,9 +131,11 @@
         </au-textbox>
 
         <au-collection 
+            if.bind="data.category"
             items.bind="data.items" 
             errors.bind="error.items" 
-            columns.bind="itemsColumns" 
+            columns.bind="itemsColumns.columns"
+            options.bind="itemsColumns.options" 
             add.bind="addItems" 
             remove.bind="removeItems"
             read-only.bind="readOnly" 

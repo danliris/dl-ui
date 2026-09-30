@@ -365,6 +365,7 @@ export class DataForm {
         _item.Unit = this.data.Unit;
         _item.RONoMaster = item.RONoMaster;
         _item.Article = item.Article;
+        _item.EPOItemId = item.EPOItemId;
         _items.push(_item);
       }
       this.data.Items = _items;

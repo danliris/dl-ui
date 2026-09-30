@@ -12,7 +12,6 @@ export class UnitExpenditureNoteItem {
     this.options = (this.context && this.context.context && this.context.context.options) || this.context.options || {};
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
     this.data.selectedPRItem = this.data.PRNo;
-    console.log("DATA ITEM",this.data);
     this.data.IsSave = !!this.data.IsSave;
 
     if (this.data.RemainingQuantity === undefined || this.data.RemainingQuantity === null) {
@@ -47,6 +46,23 @@ export class UnitExpenditureNoteItem {
     this.data.IsSave = !!this.data.IsSave;
   }
 
+    removeItem() {
+    // reset validation errors for this item
+    if (this.error && typeof this.error === 'object') {
+      Object.keys(this.error).forEach(key => {
+        try {
+          this.error[key] = undefined;
+        } catch (e) {
+          try { delete this.error[key]; } catch (ee) {}
+        }
+      });
+    }
+
+    if (this.context && this.context.context && this.context.context.options && this.context.context.options.remove) {
+      this.context.context.options.remove(this.data);
+    }
+  }
+
    @computedFrom("data.Id")
   get isEdit() {
     return (this.data.Id || '').toString() != '';
@@ -63,11 +79,28 @@ export class UnitExpenditureNoteItem {
 
   get prLoader() {
     return async (keyword) => {
-      const result = await PRLoader(keyword);
+      // Build filter based on DivisionId and UnitId from Unit input
+      const filter = {};
+      
+      if (this.options.divisionId) {
+        filter.DivisionId = String(this.options.divisionId);
+      }
+      if (this.options.unitId) {
+        filter.UnitId = String(this.options.unitId);
+      }
+
+      console.log("PR Loader Filter:", filter);
+
+      const result = await PRLoader(keyword, filter);
       const usedPR = this.usedPR;
+      
+      // Filter locally based on DivisionId and UnitId if backend doesn't filter
       this.filteredPRItems = result.filter(item => {
-        return !usedPR.includes(item.Id);
+        const matchDivision = !filter.DivisionId || item.DivisionId === filter.DivisionId;
+        const matchUnit = !filter.UnitId || item.UnitId === filter.UnitId;
+        return matchDivision && matchUnit && !usedPR.includes(item.Id);
       });
+      
       return this.filteredPRItems;
     }
   }
@@ -91,9 +124,13 @@ unitPRChanged(e) {
     this.data.ProductName = item.ProductName;
     this.data.ProductRemark = item.ProductRemark;
     this.data.RemainingQuantity = item.RemainingQuantity;
+    this.data.CategoryId = item.CategoryId;
+    this.data.CategoryName = item.CategoryName;
+    this.data.CategoryCode = item.CategoryCode;
     this.data.Uom = item.Uom;
     this.data.UomId = item.UomId;
     this.data.PricePerDealUnit = item.PricePerDealUnit; 
+    this.data.IsStorage = item.IsStorage;
 
     delete this.data.selectedPRItem;
 }

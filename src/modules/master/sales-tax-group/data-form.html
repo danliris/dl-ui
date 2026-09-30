@@ -1,0 +1,81 @@
+<template>
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <div if.bind="errorMessage" class="alert alert-danger">
+          ${errorMessage}
+      </div>
+
+        <au-textbox 
+          label="Code" 
+          value.bind="data.Code" 
+          error.bind="error.Code" 
+          read-only.bind="true"        
+          if.bind="(readOnly || isEdit)" 
+          options.bind="controlOptions">
+        </au-textbox>
+
+        <au-dropdown
+          value.bind="data.Category"
+          label="Kategori"
+          error.bind="error.Category"
+          read-only.bind="readOnly"
+          items.bind="categoryOptions"
+          change.delegate="categoryChanged()">
+        </au-dropdown>
+
+        <au-autocomplete
+          value.bind="vatTax"
+          label="PPN"
+          error.bind="error.VatRate"
+          read-only.bind="readOnly"
+          loader.bind="vatTaxLoader"
+          text.bind="vatTaxLoaderView"
+          placeholder="Cari PPN"
+          if.bind="data.Category !== 'PPH ONLY'">
+        </au-autocomplete>
+
+        <au-autocomplete 
+          label="PPH" 
+          value.bind="incomeTax" 
+          error.bind="error.IncomeTaxName"
+          read-only.bind="readOnly" 
+          loader.bind="incomeTaxLoader" 
+          text.bind="incomeTaxLoaderView" 
+          placeholder="Cari PPH"
+          if.bind="data.Category !== 'PPN ONLY'">
+        </au-autocomplete> 
+
+        <au-numeric
+          value.bind="data.IncomeTaxRate"
+          label="Tarif PPH"
+          error.bind="error.IncomeTaxRate"
+          if.bind="data.Category !== 'PPN ONLY'"
+          read-only.bind="true">
+        </au-numeric>
+
+        <au-dropdown
+          value.bind="data.TransactionType"
+          label="Tipe Transaksi"
+          error.bind="error.TransactionType"
+          read-only.bind="readOnly"
+          items.bind="transactionTypeOptions">
+        </au-dropdown>
+
+        <au-textbox
+          value.bind="data.Description"
+          label="Deskripsi"
+          error.bind="error.Description"
+          read-only.bind="readOnly">
+        </au-textbox>
+
+        <template replaceable part="actions"></template>
+
+      </au-input-form>
+    </div>
+  </div>
+</template>

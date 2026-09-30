@@ -1,0 +1,93 @@
+<template>
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form
+        title.bind="title"
+        with.bind="context"
+        options.bind="formOptions">
+
+        <au-textbox
+          value.bind="data.RoNo"
+          label="No. RO"
+          error.bind="error.RoNo"
+          read-only.bind="readOnly || showDetail || isSearching">
+        </au-textbox>
+
+        <template if.bind="showDetail">
+
+          <au-textbox
+            value.bind="data.Article"
+            label="Artikel"
+            error.bind="error.Article"
+            read-only.bind="true">
+          </au-textbox>
+
+          <au-textbox
+            value.bind="data.Comodity"
+            label="Komoditi"
+            error.bind="error.Comodity"
+            read-only.bind="true">
+          </au-textbox>
+
+          <au-textbox
+            value.bind="data.Buyer"
+            label="Buyer"
+            error.bind="error.Buyer"
+            read-only.bind="true">
+          </au-textbox>
+
+          <au-textbox
+            value.bind="data.BuyerBrand"
+            label="Buyer Brand"
+            error.bind="error.BuyerBrand"
+            read-only.bind="true">
+          </au-textbox>
+
+          <au-textbox
+            value.bind="data.Quantity"
+            label="Jumlah Order"
+            error.bind="error.Quantity"
+            read-only.bind="true">
+          </au-textbox>
+
+          <au-textbox
+            value.bind="data.DeliveryDate"
+            label="Tanggal Kirim"
+            error.bind="error.DeliveryDate"
+            read-only.bind="true">
+          </au-textbox>
+
+        </template>
+
+        <div class="form-group" if.bind="!readOnly">
+          <label class="col-sm-6 control-label"></label>
+
+          <div class="col-sm-6">
+            <button
+              type="button"
+              click.delegate="searching()"
+              disabled.bind="isSearching || showDetail"
+              if.bind="!showDetail"
+              class="btn btn-success">
+
+              ${isSearching ? "Mencari..." : "Cari"}
+            </button>
+
+            <button
+              type="button"
+              click.delegate="reset()"
+              disabled.bind="isSearching"
+              if.bind="showDetail"
+              class="btn btn-default">
+
+              RO Lain
+            </button>
+          </div>
+        </div>
+
+        <template replaceable part="actions"></template>
+
+      </au-input-form>
+    </div>
+  </div>
+</template>

@@ -75,14 +75,34 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-dropdown label="Term Pembayaran"
-                 value.bind="data.paymentMethod"
-                 error.bind="error.paymentMethod"
-                 read-only.bind="readOnly"
-                 items.bind="termPaymentOptions"
-                 change.delegate="paymentMethodChanged($event)"
-                 options.bind="controlOptions">p
-    </au-dropdown>
+    <au-textbox
+            if.bind="readOnly"
+            label="Term Pembayaran"
+            value.one-way="data.paymentMethod"
+            error.bind="error.paymentMethod"
+            read-only.bind="true"
+            options.bind="controlOptions">
+    </au-textbox>
+
+    <au-autocomplete 
+            if.bind="!readOnly"
+            label="Term Pembayaran" 
+            value.bind="top" 
+            error.bind="error.TermOfPayment"
+            read-only.bind="readOnly" 
+            loader.bind="topLoader" 
+            text.bind="topLoaderView" 
+            placeholder="Cari Term Pembayaran" 
+            options.bind="controlOptions">
+    </au-autocomplete>
+
+    <!-- <numeric label="Tempo Pembayaran"
+             value.bind="data.paymentDueDays"
+             error.bind="error.paymentDueDays"
+             format="0"
+             read-only.bind="true"
+             post-fix="hari">
+    </numeric> -->
 
     <au-dropdown if.bind="data.paymentMethod=='CASH'"
                  label="Jenis PO Cash"
@@ -104,6 +124,9 @@
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
     </au-autocomplete>
+    
+    <au-textbox label="Jenis Supplier" value.bind="supplierType" read-only.bind="true" options.bind="controlOptions">
+    </au-textbox>
 
     <au-autocomplete value.bind="selectedCurrency"
                      error.bind="error.currency"
@@ -123,25 +146,16 @@
              read-only.bind="true">
     </numeric>
 
-    <numeric label="Tempo Pembayaran"
-             value.bind="data.paymentDueDays"
-             error.bind="error.paymentDueDays"
-             format="0"
-             read-only.bind="true"
-             post-fix="hari"
-             if.bind="data.paymentMethod=='CASH'">
-    </numeric>
-
-    <numeric label="Tempo Pembayaran"
+    <!-- <numeric label="Tempo Pembayaran"
              value.bind="data.paymentDueDays"
              error.bind="error.paymentDueDays"
              format="0"
              read-only.bind="readOnly"
              post-fix="hari"
              if.bind="data.paymentMethod!='CASH'">
-    </numeric>
+    </numeric> -->
 
-    <au-autocomplete value.bind="selectedIncomeTax"
+    <!-- <au-autocomplete value.bind="selectedIncomeTax"
                      error.bind="error.incomeTax"
                      label="Pph"
                      loader.bind="incomeTaxLoader"
@@ -150,9 +164,28 @@
                      key=""
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
+    </au-autocomplete> -->
+
+    <au-autocomplete
+        value.bind="selectedSalesTaxGroup"
+        error.bind="error.SalesTaxGroup"
+        label="Sales Tax Group"
+        loader.bind="salesTaxLoader"
+        query.bind="salesTaxQuery"
+        text.bind="salesTaxView"
+        placeholder="Cari Sales Tax Group"
+        key="Code"
+        read-only.bind="readOnly"
+        view-model.ref="selectedSalesTaxGroupViewModel"
+        options.bind="controlOptions">
     </au-autocomplete>
 
-    
+    <au-textbox
+        label="Apakah kena PPN?"
+        value.bind="data.useVat ? 'Ya' : 'Tidak'"
+        read-only.bind="true"
+        options.bind="controlOptions">
+    </au-textbox>
 
     <numeric label="Rate Pph"
              value.bind="data.incomeTaxRate"
@@ -171,14 +204,14 @@
                  options.bind="controlOptions">
     </au-dropdown>
 
-    <au-checkbox label="Apakah kena Ppn?"
+    <!-- <au-checkbox label="Apakah kena Ppn?"
                  value.bind="data.useVat"
                  error.bind="error.useVat"
                  read-only.bind="readOnly"
                  change.delegate="useVatChanged($event)"
                  options.bind="controlOptions">
-    </au-checkbox>
-    <au-autocomplete value.bind="selectedVatTax"
+    </au-checkbox> -->
+    <!-- <au-autocomplete value.bind="selectedVatTax"
                      error.bind="error.vatTax"
                      label="PPN"
                      loader.bind="vatTaxLoader"
@@ -189,7 +222,7 @@
                      
                      read-only.bind="readOnly"
                      options.bind="controlOptions">
-    </au-autocomplete>
+    </au-autocomplete> -->
 
     
 

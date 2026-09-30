@@ -868,6 +868,21 @@ module.exports = [
   },
 
   {
+    route: "term-of-payment-new",
+    name: "term-of-payment-new",
+    moduleId: "./modules/master/term-of-payment-new/index",
+    nav: true,
+    title: "Term of Payment New",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 ,B1: 1, B12: 1},
+      permission :{"B62":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
+
+  {
     route: "comodity",
     name: "comodity",
     moduleId: "./modules/master/comodity/index",
@@ -1062,6 +1077,32 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
-
-  
+  {
+    route: "country",
+    name: "country",
+    moduleId: "./modules/master/country/index",
+    nav: true,
+    title: "Negara",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 },
+      permission :{"B60":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
+    route: "sales-tax-group",
+    name: "sales-tax-group",
+    moduleId: "./modules/master/sales-tax-group/index",
+    nav: true,
+    title: "Sales Tax Group",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 },
+      permission :{"B61":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];

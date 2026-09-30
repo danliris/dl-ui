@@ -244,6 +244,8 @@ export class DataForm {
                   item.Price =
                     (sewingOutItem.BasicPrice + (this.data.Price * 75) / 100) *
                     sewingOutDetail.Quantity;
+                  item.LocationCode = sewingOutItem.LocationCode;
+                  item.NoPackage = sewingOutItem.NoPackage;
                   this.data.Items.push(item);
                 }
               } else {
@@ -263,6 +265,8 @@ export class DataForm {
                 item.Price =
                   (sewingOutItem.BasicPrice + (this.data.Price * 75) / 100) *
                   sewingOutItem.Quantity;
+                item.LocationCode = sewingOutItem.LocationCode;
+                item.NoPackage = sewingOutItem.NoPackage;
                 this.data.Items.push(item);
               }
             }

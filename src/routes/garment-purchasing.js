@@ -102,6 +102,21 @@ module.exports = [
   //   },
   // },
   {
+    route: "/garment/close-po",
+    name: "close-purchase-order",
+    moduleId: "./modules/garment-purchasing/close-purchase-order/index",
+    nav: true,
+    title: "Close Purchase Order",
+    auth: true,
+    settings: {
+      group: "g-purchasing",
+      subGroup: "transaksi",
+      // permission: { "C9": 1, "PG": 1, },
+      permission: { H85: 1 },
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "/garment/po-internal",
     name: "purchase-order-internal",
     moduleId: "./modules/garment-purchasing/purchase-order-internal/index",

@@ -189,6 +189,8 @@ export class DataForm {
             a.RemainingQuantity = detail.CuttingOutQuantity;
             a.BasicPrice = detail.BasicPrice;
             a.ComodityPrice = this.data.Price;
+            a.LocationCode = item.LocationCode;
+            a.NoPackage = item.NoPackage;
             this.data.Items.push(a);
           }
         }

@@ -64,6 +64,7 @@ export class Create {
         bodyRequest.SupplierId = this.data.SupplierId;
         bodyRequest.SupplierIsImport = this.data.SupplierIsImport;
         bodyRequest.SupplierName = this.data.SupplierName;
+        bodyRequest.VendorAccountD365 = this.data.VendorAccountD365;
         bodyRequest.VatValue = this.data.VatValue;
         bodyRequest.VatValueView = this.data.VatValueView;
         bodyRequest.ConfirmationOrderNo = this.data.ConfirmationOrderNo;

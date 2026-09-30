@@ -52,17 +52,21 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                for (var _data of result.data) {
+
+                const filteredData = result.data.filter(x => x.IsClosedPO === false);
+
+                for (var _data of filteredData) {
                     _data.BuyerName = _data.Buyer.Name;
                     _data.Items.ProductName = _data.Items[0].Product.Name;
                     _data.Items.Quantity = _data.Items[0].Quantity;
                     _data.Items.UomUnit = _data.Items[0].Uom.Unit;
                     _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
                 }
+
                 return {
-                    total: result.info.total,
-                    data: result.data
-                }
+                    total: filteredData.length,
+                    data: filteredData
+                };
             });
     }
 

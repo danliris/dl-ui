@@ -1375,4 +1375,65 @@ module.exports = [
         },
 
     },
+  {
+        route: '/garment-production/close-order',
+        name: 'garment-production-close-order',
+        moduleId: './modules/garment-production/close-order/index',
+        nav: true,
+        title: 'Close Order',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "fitur",
+            // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "O79": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+      route: "/garment-production/garment-finished-goods-stock",
+      name: "garment-production/garment-finished-goods-stock",
+      moduleId: "./modules/garment-production/garment-finished-goods-stock/index",
+      nav: true,
+      title: "Location Racking Barang Jadi",
+      auth: true,
+      settings: {
+          group: "g-production",
+          subGroup: "fitur",
+          // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
+          permission: { "O80": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+  },
+    {
+      route: "/garment-production/monitoring-garment-finished-goods-stock",
+      name: "garment-production/monitoring-garment-finished-goods-stock",
+      moduleId: "./modules/garment-production/monitoring-garment-finished-goods-stock/index",
+      nav: true,
+      title: "Monitoring Location Racking Barang Jadi",
+      auth: true,
+      settings: {
+          group: "g-production",
+          subGroup: "fitur",
+          // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
+          permission: { "O81": 1 },
+          iconClass: 'fa fa-dashboard'
+      }
+  },
+  {
+        route: '/garment-production/expenditure-good-by-packing-list',
+        name: 'garment-production-expenditure-good-by-packing-list',
+        moduleId: './modules/garment-production/expenditure-good-by-packing-list/index',
+        nav: true,
+        title: 'Pengeluaran Barang Jadi By Packing List',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "transaksi",
+            // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "O82": 1 },
+            // permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];

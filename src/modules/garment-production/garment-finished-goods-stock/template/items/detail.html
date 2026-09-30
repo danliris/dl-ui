@@ -1,0 +1,55 @@
+<template>
+  <tr>
+    <td>
+      <au-numeric
+        value.bind="data.Quantity"
+        error.bind="error.Quantity"
+        read-only.bind="readOnly">
+      </au-numeric>
+    </td>
+    <td>
+      <au-dropdown
+        value.bind="data.WarehouseCode"
+        items.bind="warehouseOptions"
+        error.bind="error.WarehouseCode"
+        read-only.bind="readOnly">
+      </au-dropdown>
+    </td>
+
+    <td>
+      <au-dropdown
+        value.bind="data.Area"
+        items.bind="areaOptions"
+        error.bind="error.Area"
+        read-only.bind="readOnly">
+      </au-dropdown>
+    </td>
+
+    <td>
+      <au-dropdown
+        value.bind="data.LineCode"
+        items.bind="lineOptions"
+        error.bind="error.LineCode"
+        read-only.bind="readOnly">
+      </au-dropdown>
+    </td>
+
+    <td>
+      <au-dropdown
+        value.bind="data.PalletCode"
+        items.bind="palletOptions"
+        error.bind="error.PalletCode"
+        read-only.bind="readOnly">
+      </au-dropdown>
+    </td>
+
+    <td if.bind="!readOnly" class="bg-light">
+      <button
+        type="button"
+        class="btn btn-danger pull-right"
+        click.delegate="onremove(data, $event)">
+        -
+      </button>
+    </td>
+  </tr>
+</template>

@@ -49,7 +49,11 @@ export class DataForm {
     this.data.ExpenditureTo = "PROSES";
     this.isExternal = false;
     this.options.isExternal = false;
-
+    if (this.data && this.data.Items) {
+      this.data.Items.forEach(item => {
+        item.BatchView = item.Batch? moment.parseZone(item.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
+      });
+    }
     this.items.columns = this.items.columns.filter((c) => c != "Status Barang");
     // if(this.data.ExpenditureType === "TRANSFER"){
     //     this.data.ExpenditureTo = "GUDANG LAIN";
@@ -351,6 +355,15 @@ export class DataForm {
       "Jumlah Keluar",
       "Satuan",
       "Tipe Fabric",
+      "Warna",
+      "Lot",
+      "Batch",
+      "No Package",
+      "Handling Unit",
+      "Rak",
+      "Level",
+      "Box",
+      "Area",
     ],
   };
 

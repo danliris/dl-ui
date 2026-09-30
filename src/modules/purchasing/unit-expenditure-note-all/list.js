@@ -18,6 +18,7 @@ export class List {
                 return moment(value).format("DD MMM YYYY");
             }
         },
+        { field: "TypeUen", title: "Jenis Pengeluaran" },
         { field: "ReceiptName", title: "Nama Penerima" },
         { field: "UnitName", title: "Bagian" },
         { field: "CreatedBy", title: "User" },

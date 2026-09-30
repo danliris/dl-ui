@@ -3,17 +3,17 @@ import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
-// import { any } from 'bluebird';
-// const CategoryLoader = require('../../../../loader/machine-category-loader');
-// const MachineLoader = require('../../../../loader/machine-custom-loader');
-// const MachineTypeLoader = require('../../../../loader/machine-custom-type-loader');
-// const BrandLoader = require('../../../../loader/machine-brand-loader');
 
 @inject(Router, Service)
 export class List {
+  @bindable storage;
+
+
+
   context = ["Update Racking", "Kartu Stelling", "Cetak Barcode"];
 
   columns = [
+    { field: "NoPackage", title: "No Package" },
     { field: "ProductCode", title: "Kode Barang" },
     { field: "POSerialNumber", title: "Nomor PO" },
     { field: "RO", title: "Nomor RO" },
@@ -22,6 +22,14 @@ export class List {
     { field: "RemainingQuantity", title: "Quantity", align: "right" },
     { field: "SmallUomUnit", title: "Satuan" },
     { field: "Colour", title: "Warna" },
+    { field: "Lot", title: "Lot" },
+    { field: "Batch",title: "Batch",
+      formatter: value =>
+        value
+          ? moment.parseZone(value).utcOffset(7).format("YYYY-MM-DD")
+          : "-"
+    },
+    { field: "HandlingUnit", title: "Handling Unit" },
     { field: "Rack", title: "Rak" },
     { field: "Level", title: "Level" },
     { field: "Box", title: "Box" },
@@ -40,16 +48,18 @@ export class List {
   rackOptions = [
     "",
     "-",
-    "R1",
-    "R2",
-    "R3",
-    "R4",
-    "R5",
-    "R6",
-    "R7",
-    "R8",
-    "R9",
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
     "R10",
+    "R11",
+    "R12",
     "R13",
     "R14",
     "R15",
@@ -57,6 +67,17 @@ export class List {
     "R17",
     "R18",
     "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29",
+    "R30",
     "R31",
     "R32",
     "R33",
@@ -70,9 +91,12 @@ export class List {
     "R41",
     "R42",
   ];
+  storageOptions  = ["GUDANG BAHAN BAKU", "GUDANG INTERLINING","GUDANG ACCESSORIES", "GUDANG EMBALASE"];
+
   constructor(router, service) {
     this.service = service;
     this.router = router;
+    this.error = {};
   }
 
   tableOptions = {
@@ -82,20 +106,25 @@ export class List {
     sortable: false,
   };
 
+
   loader = (info) => {
+
+  if (!this.flag) {
+      return { data: [] };
+    }
+
     let params = {
       po: this.po ? this.po : "",
       rack: this.rack ? this.rack : "",
       productcode: this.code ? this.code : "",
+      storage: this.storage
     };
 
-    return this.flag
-      ? this.service.search(params).then((result) => {
-          return {
-            data: result.data,
-          };
-        })
-      : { data: [] };
+    return this.service.search(params).then((result) => {
+      return {
+        data: result.data
+      };
+    });
   };
 
   search() {
@@ -137,21 +166,27 @@ export class List {
   }
 
   ExportToExcel() {
-    let args = {
-      po: this.po ? this.po : "",
-      rack: this.rack ? this.rack : "",
-      productcode: this.code ? this.code : "",
-    };
+  this.error = {};
 
-    this.service.generateExcel(args);
-  }
+  let args = {
+    po: this.po ? this.po : "",
+    rack: this.rack ? this.rack : "",
+    productcode: this.code ? this.code : "",
+    storage: this.storage
+  };
+
+  this.service.generateExcel(args);
+}
 
   reset() {
-    this.po = null;
-    this.unit = null;
-    this.productcode = null;
-    this.data = [];
-    this.flag = false;
-    this.tableList.refresh();
-  }
+  this.po = null;
+  this.rack = null;
+  this.code = null;
+  this.data = [];
+  this.flag = false;
+
+  this.tableList.refresh();
+}
+
+
 }

@@ -2,6 +2,7 @@ import { inject, Lazy } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service, ProductionService } from "./service";
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
+import { StatusHelper } from '../../../utils/disable-update';
 
 @inject(Router, Service, ProductionService)
 export class View {
@@ -83,10 +84,59 @@ export class View {
       }
       this.hasEdit = false;
     }
-    if (this.data.IsPreparing) {
-      this.hasDelete = false;
-      this.hasEdit = false;
+
+    // if(this.data.ExpenditureType === "PROSES"){
+    //   const result = await this.productionService.getPreparingById(this.data.Id);
+
+    //   let allValid = false;
+
+    //   if (result && result[0].Items && result[0].Items.length > 0) {
+    //     allValid = true;
+
+    //     for (const item of result[0].Items) {
+    //       if (item.RemainingQuantity !== item.Quantity) {
+    //         allValid = false;
+    //         break;
+    //       }
+    //     }
+    //   }
+
+    //   this.hasEdit = allValid;
+    //   this.hasDelete = allValid;
+    // }
+
+    if (this.data.ExpenditureType === "PROSES") {
+      const result = await this.productionService.getPreparingById(this.data.Id);
+
+      console.log("getPreparingById result:", result);
+
+      let allValid = false;
+
+      if (
+        result &&
+        result.length > 0 &&
+        result[0] &&
+        result[0].Items &&
+        result[0].Items.length > 0
+      ) {
+        allValid = true;
+
+        for (const item of result[0].Items) {
+          if (item.RemainingQuantity !== item.Quantity) {
+            allValid = false;
+            break;
+          }
+        }
+      }
+
+      this.hasEdit = allValid;
+      this.hasDelete = allValid;
     }
+
+    // if (this.data.IsPreparing) {
+    //   this.hasDelete = false;
+    //   this.hasEdit = false;
+    // }
 
     if (this.data.IsTransfered) {
       this.hasEdit = false;
@@ -150,6 +200,9 @@ export class View {
       this.hasEdit = false;
       this.hasDelete = false;
     }
+
+    const isSuccess = (this.data.StatusD365 === "Success");
+    StatusHelper.disableEditDelete(this, isSuccess);
   }
 
   cancel(event) {

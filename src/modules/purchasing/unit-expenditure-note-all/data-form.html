@@ -5,9 +5,6 @@
 
         <div slot="actions" class="btn-group">
             <button type="button" class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
-            <button type="button" class="btn btn-primary" click.delegate="context.edit($event)"    if.bind="context.hasEdit && canEditOrDelete()">Ubah</button>
-            <button type="button" class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button type="button" class="btn btn-danger"  click.delegate="context.delete($event)"   if.bind="context.hasDelete && canEditOrDelete()">Hapus</button>
         </div>
 
         <div class="row">
@@ -18,7 +15,7 @@
                     options.bind="controlOptions">
                 </au-textbox>
                 
-                <au-textbox 
+               <au-textbox 
                     label="Nomor Bon Pengeluaran Unit" 
                     value.bind="data.UENNo" 
                     error.bind="error.UENNo" 
@@ -26,51 +23,92 @@
                     if.bind="(readOnly || isEdit)"
                     options.bind="controlOptions">
                 </au-textbox>
-
+                <au-dropdown 
+                    label="Jenis Bon Pengeluaran Unit"
+                    value.bind="TypeUen"
+                    error.bind="error.TypeUen"
+                    read-only.bind="(readOnly || isEdit)" 
+                    items.bind="uenTypes"
+                    change.delegate="uenTypeChanged($event)"
+                    options.bind="controlOptions">
+                </au-dropdown>
                 <au-datepicker 
                     label="Tgl. Pengeluaran" 
                     value.bind="data.ExpenditureDate" 
                     error.bind="error.ExpenditureDate" 
-                    read-only.bind="readOnly || isEdit"
+                    read-only.bind="readOnly"
                     options.bind="controlOptions">
                 </au-datepicker>
-
+                <au-textbox
+                    label="NPK ID"
+                    value.bind="data.NPKNo"
+                    error.bind="error.NPKNo"
+                    read-only.bind="readOnly"
+                    if.bind="showNpk"
+                    options.bind="controlOptions">
+                </au-textbox>
                 <au-textbox
                     label="Nama Penerima Barang"
                     value.bind="data.ReceiptName"
                     error.bind="error.ReceiptName"
-                    read-only.bind="readOnly || isEdit" 
+                    read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
                 <au-textbox
                     label="Bagian Penerima"
                     value.bind="data.UnitReceipt"
                     error.bind="error.UnitReceipt"
-                    read-only.bind="readOnly || isEdit" 
+                    read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
                 <au-autocomplete 
                     value.bind="unit"
-                    label="Diambil Dari" 
+                    label="Unit" 
                     query.bind="unitQuery"
                     loader.one-time="unitLoader" 
                     text.bind="unitView"
-                    read-only.bind="readOnly  || isEdit"
-                    error.bind="error.unitId"
+                    read-only.bind="readOnly || isEdit"
+                    error.bind="error.unit"
                     options.bind="controlOptions">
                 </au-autocomplete>
+                
+                <au-autocomplete 
+                    value.bind="selectedAccount" 
+                    error.bind="error.WarehouseStaff" label="Petugas Gudang" 
+                    loader.bind="accountLoader" text="username"
+                    placeholder="cari user name" key="username" read-only.bind=" readOnly" 
+                    if.bind="showWarehouseStaff"
+                    options.bind="controlOptions" >
+                </au-autocomplete>
+
+                <au-textbox
+                    label="Nama Mekanik"
+                    value.bind="data.MechanicName"
+                    error.bind="error.MechanicName"
+                    read-only.bind="readOnly"
+                    if.bind="showMechanicName"
+                    options.bind="controlOptions">
+                </au-textbox>
+                
+                <!-- <au-autocomplete 
+                    value.bind="selectedMechanic" 
+                    error.bind="error.MechanicName" label="Nama Mekanik" 
+                    loader.bind="MechanicLoader" text="username"
+                    placeholder="cari user name" key="username" read-only.bind=" readOnly" 
+                    if.bind="showMechanicName"
+                    options.bind="controlOptions" >
+                </au-autocomplete> -->
                  <au-textbox
                     label="Keterangan"
                     value.bind="data.Remark"
                     error.bind="error.Remark"
-                    read-only.bind="readOnly || isEdit" 
+                    read-only.bind="readOnly" 
                     options.bind="controlOptions">
                 </au-textbox>
-               
             </div>
     </div>
 
-        <au-textbox error.bind="error.ItemsCount" read-only.bind="true"></au-textbox>
+       <au-textbox error.bind="error.ItemsCount" read-only.bind="true"></au-textbox>
 
         <au-collection 
             items.bind="data.Items" 
@@ -80,8 +118,30 @@
             read-only.bind="readOnly" 
             show.bind="isItem"
             add.bind="addItems"
-            header-template="modules/purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item-header"
-            item-template="modules/purchasing/unit-expenditure-note-by-user/template/unit-expenditure-note-item">
+            header-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-header"
+            item-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item">
+        </au-collection>
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items"
+            columns.bind="itemsSparepart.columns"
+            options.bind="options"
+            read-only.bind="readOnly" 
+            show.bind="isItemSparepart"
+            add.bind="addItems"
+            header-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-header-sparepart"
+            item-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-sparepart">
+        </au-collection>
+        <au-collection 
+            items.bind="data.Items" 
+            errors.bind="error.Items"
+            columns.bind="itemsUnit.columns"
+            options.bind="options"
+            read-only.bind="readOnly" 
+            show.bind="isItemUnit"
+            add.bind="addItems"
+            header-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-header-unit"
+            item-template="modules/purchasing/unit-expenditure-note-all/template/unit-expenditure-note-item-unit">
         </au-collection>
   </au-input-form>
 </template>

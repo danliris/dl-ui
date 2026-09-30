@@ -1,0 +1,36 @@
+<template>
+	<div class="row">
+		<div class="col-md-6">
+			<au-input-form
+				title.bind="title"
+				with.bind="context"
+				options.bind="formOptions">
+
+				<au-textbox   
+					label="Term of Payment"
+					placeholder="Term of Payment"
+					value.bind="data.Code"
+					error.bind="error.Code"
+					read-only.bind="readOnly">
+				</au-textbox>
+				<au-numeric  
+					label="Days"
+					value.bind="data.Days"
+					error.bind="error.Days"
+					format="0"
+					read-only.bind="readOnly">
+				</au-numeric>
+				<au-textbox   
+					label="Deskripsi"
+					placeholder="Deskripsi"
+					value.bind="data.Description"
+					error.bind="error.Description"
+					read-only.bind="readOnly">
+				</au-textbox>
+
+				<template replaceable part="actions"></template>
+
+			</au-input-form>
+		</div>
+	</div>
+</template>

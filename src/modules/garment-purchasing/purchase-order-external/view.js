@@ -60,10 +60,12 @@ export class View {
         if(this.data.IncomeTax){
             this.selectedIncomeTax=this.data.IncomeTax;
             this.data.IncomeTaxRate= this.data.IncomeTax.Rate;
+            this.data.IncomeTaxName= this.data.IncomeTax.Name;
         }
 
         if(this.data.Vat){
             this.selectedVatTax=this.data.Vat;
+            this.data.VatRate= this.data.Vat.Rate;
         }
 
         if (!this.data.IsPosted && !isUsedSJ && !this.data.IsApprovedManager && !this.data.IsApprovedOther) {

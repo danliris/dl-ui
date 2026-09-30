@@ -3,9 +3,10 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var IncomeTaxLoader = require('../../../loader/income-tax-loader');
-var VatTaxLoader = require('../../../loader/vat-tax-loader');
+//var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var SalesTaxLoader = require('../../../loader/sales-tax-group-loader');
 var accountSignatureLoader = require('../../../loader/garment-account-signature-loader');
+var TOPLoader = require('../../../loader/term-of-payments-new-loader');
 import moment from 'moment';
 
 @containerless()
@@ -18,8 +19,8 @@ export class DataForm {
     @bindable title;
     @bindable selectedSupplier;
     @bindable selectedCurrency;
-    @bindable selectedIncomeTax;
-    @bindable selectedVatTax;
+    //@bindable selectedIncomeTax;
+    //@bindable selectedVatTax;
     @bindable options = { isUseIncomeTax: false };
     keywords = ''
     filterKeywords = ''
@@ -27,9 +28,15 @@ export class DataForm {
     @bindable IsApprovedManager;
     @bindable IsApprovedOther;
     @bindable hasOverBudgetItems = false;
+    @bindable selectedSalesTaxGroup;
+    salesTaxCategory = '';
+    salesTaxQuery = {};
+    @bindable top;
 
-    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
-    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    //termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentImportOptions = ['T/T PAYMENT', 'CMT', 'SAMPLE'];
+    //termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'FREE FROM BUYER', 'SAMPLE'];
+    termPaymentLocalOptions = ['DAN LIRIS', 'CMT', 'SAMPLE'];
     typePaymentOptions = ['T/T AFTER', 'FREE', 'CASH', 'T/T BEFORE'];
     typePaymentStorageOptions = ['EX MASTER FREE', 'EX MASTER BELI', 'EX MASTER GUDANG'];
     categoryOptions = ['FABRIC', 'ACCESSORIES']
@@ -56,6 +63,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.initializeSalesTaxGroup();
         this.isItem = false;
         this.ISEDIT = this.context.ISEDIT;
         if (!this.data.OrderDate) {
@@ -147,6 +155,13 @@ export class DataForm {
             originalOnRemove.call(this);
             self.updateOverBudgetStatus();
         };
+
+        if (this.data.TermOfPaymentD365) {
+        this.top = {
+            Code: this.data.TermOfPaymentD365,
+            Days: this.data.PaymentDueDays,
+        };
+    }
     }
 
     @computedFrom("data.Id")
@@ -206,44 +221,204 @@ export class DataForm {
             return false
     }
 
-    async selectedSupplierChanged(newValue) {
-        var _selectedSupplier = newValue;
-        if (_selectedSupplier.Id) {
-            this.data.Supplier = _selectedSupplier;
-            this.data.Supplier.Import = _selectedSupplier.import;
-            this.data.Supplier.Code = _selectedSupplier.code;
-            this.data.Supplier.Name = _selectedSupplier.name;
-            this.data.Supplier.Id = _selectedSupplier.Id;
-            this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
-            this.data.IsUseVat = _selectedSupplier.usevat;
-            this.data.Vat = {};
-            this.data.IsIncomeTax = _selectedSupplier.usetax;
+    // async selectedSupplierChanged(newValue) {
+    //     var _selectedSupplier = newValue;
+    //     if (_selectedSupplier.Id) {
+    //         this.data.Supplier = _selectedSupplier;
+    //         this.data.Supplier.Import = _selectedSupplier.import;
+    //         this.data.Supplier.Code = _selectedSupplier.code;
+    //         this.data.Supplier.Name = _selectedSupplier.name;
+    //         this.data.Supplier.Id = _selectedSupplier.Id;
+    //         this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
+    //         this.data.IsUseVat = _selectedSupplier.usevat;
+    //         this.data.Vat = {};
+    //         this.data.IsIncomeTax = _selectedSupplier.usetax;
 
-            if (this.data.IsUseVat) {
+    //         if (this.data.IsUseVat) {
 
-                let info = {
-                    keyword: '',
-                    order: '{ "Rate" : "desc" }',
-                    size: 1,
-                };
+    //             let info = {
+    //                 keyword: '',
+    //                 order: '{ "Rate" : "desc" }',
+    //                 size: 1,
+    //             };
 
-                var defaultVat = await this.service.getDefaultVat(info);
+    //             var defaultVat = await this.service.getDefaultVat(info);
 
-                if (defaultVat.length > 0) {
-                    if (defaultVat[0]) {
-                        if (defaultVat[0].Id) {
-                            this.data.Vat = defaultVat[0];
-                            this.selectedVatTax = defaultVat[0];
-                        }
-                    }
+    //             if (defaultVat.length > 0) {
+    //                 if (defaultVat[0]) {
+    //                     if (defaultVat[0].Id) {
+    //                         this.data.Vat = defaultVat[0];
+    //                         this.selectedVatTax = defaultVat[0];
+    //                     }
+    //                 }
+    //             }
+    //         } else {
+    //             this.data.Vat = {};
+    //             this.selectedVatTax = {};
+
+    //         }
+    //     }
+    // }
+
+    selectedSupplierChanged(newValue) {
+        var supplier = newValue;
+
+        if (supplier && supplier.Id) {
+            this.data.Supplier = supplier;
+            this.data.Supplier.Id = supplier.Id;
+            this.data.Supplier.Import =
+                supplier.import !== undefined
+                    ? supplier.import
+                    : supplier.Import;
+            this.data.Supplier.Code =supplier.code || supplier.Code || '';
+            this.data.Supplier.Name =supplier.name || supplier.Name || '';
+            this.data.SupplierId = supplier.Id;
+
+            var useVat =
+                supplier.usevat === true ||
+                supplier.UseVat === true;
+
+            var useIncomeTax =
+                supplier.usetax === true ||
+                supplier.UseTax === true;
+
+            this.data.Supplier.usevat = useVat;
+            this.data.Supplier.usetax = useIncomeTax;
+            this.data.IsUseVat = useVat;
+            this.data.IsIncomeTax = useIncomeTax;
+            this.options.isUseVat = useVat;
+            this.options.isIncomeTax = useIncomeTax;
+            this.setSalesTaxFilter(useVat, useIncomeTax);
+            this.clearSalesTaxGroup();
+
+            if (!useVat && Array.isArray(this.data.Items)) {
+                for (var item of this.data.Items) {
+                    item.UseVat = false;
                 }
-            } else {
-                this.data.Vat = {};
-                this.selectedVatTax = {};
-
             }
+        } else {
+            this.data.Supplier = {};
+            // this.data.SupplierId = '';
+
+            this.data.IsUseVat = false;
+            this.data.IsIncomeTax = false;
+
+            this.options.isUseVat = false;
+            this.options.isIncomeTax = false;
+
+            this.setSalesTaxFilter(false, false);
+            this.clearSalesTaxGroup();
         }
     }
+
+    setSalesTaxFilter(useVat, useIncomeTax) {
+        if (useVat && useIncomeTax) {
+            this.salesTaxCategory = 'PPN & PPH';
+        } else if (useVat) {
+            this.salesTaxCategory = 'PPN ONLY';
+        } else if (useIncomeTax) {
+            this.salesTaxCategory = 'PPH ONLY';
+        } else {
+            this.salesTaxCategory = '';
+        }
+
+        if (this.salesTaxCategory) {
+            this.salesTaxQuery = {
+                Category: this.salesTaxCategory,
+                TransactionType: 'PURCHASE'
+            };
+        } else {
+            this.salesTaxQuery = {};
+        }
+    }
+
+    initializeSalesTaxGroup() {
+        var supplier = this.data.Supplier || {};
+
+        var useVat =
+            supplier.usevat === true ||
+            supplier.UseVat === true ||
+            this.data.IsUseVat === true;
+
+        var useIncomeTax =
+            supplier.usetax === true ||
+            supplier.UseTax === true ||
+            this.data.IsIncomeTax === true;
+
+        this.setSalesTaxFilter(useVat, useIncomeTax);
+
+        if (
+            this.data.SalesTaxGroup &&
+            this.data.SalesTaxGroup.Id
+        ) {
+            this.selectedSalesTaxGroup =
+                this.data.SalesTaxGroup;
+        } else {
+            this.selectedSalesTaxGroup = null;
+        }
+    }
+
+    clearSalesTaxGroup() {
+        this.selectedSalesTaxGroup = null;
+        this.data.SalesTaxGroup = {};
+        this.data.SalesTaxGroupId = 0;
+        this.data.SalesTaxGroupCode = '';
+        this.data.VatRate = 0;
+        this.data.IncomeTaxRate = 0;
+        this.data.UseIncomeTax = false;
+        this.data.Vat = {};
+        this.data.IncomeTax = {};
+        this.data.IncomeTaxId = 0;
+    }
+
+    selectedSalesTaxGroupChanged(newValue) {
+        var salesTaxGroup = newValue;
+
+        if (salesTaxGroup && salesTaxGroup.Id) {
+            //this.data.SalesTaxGroup = salesTaxGroup;
+        
+            this.data.SalesTaxGroup = {
+                Id: salesTaxGroup.Id || 0,
+                Code: salesTaxGroup.Code || '',
+                Description: salesTaxGroup.Description || '',
+            }
+
+
+            // Hanya update jika property tersedia
+            if (salesTaxGroup.VatRate != null) {
+                this.data.VatRate = Number(salesTaxGroup.VatRate);
+
+                this.data.Vat = {
+                    Id: salesTaxGroup.VatId || 0,
+                    Rate: this.data.VatRate
+                };
+            }
+
+
+            if (salesTaxGroup.IncomeTaxRate != null || salesTaxGroup.IncomeTaxName != null) {
+            this.data.IncomeTaxRate = Number(salesTaxGroup.IncomeTaxRate);
+            this.data.IncomeTaxName = salesTaxGroup.IncomeTaxName || '';
+
+            this.data.IncomeTax = {
+                Id: salesTaxGroup.IncomeTaxId || 0,
+                Name: this.data.IncomeTaxName || '',
+                Rate: this.data.IncomeTaxRate
+            };
+        }
+
+            this.data.UseIncomeTax =
+                this.data.IncomeTaxRate > 0;
+        } else {
+            (this.context.selectedSalesTaxGroupViewModel || {}).editorValue = "";
+            this.data.SalesTaxGroup = {};
+            this.data.VatRate = 0;
+            this.data.IncomeTaxRate = 0;
+            this.data.IncomeTaxName = '';
+            this.data.UseIncomeTax = false;
+            this.data.Vat = {};
+            this.data.IncomeTax = {};
+        }
+    } 
 
     async selectedCurrencyChanged(newValue) {
         this.data.Items = [];
@@ -277,13 +452,17 @@ export class DataForm {
         }
     }
 
-    selectedVatTaxChanged(newValue) {
-        var _selectedVatTax = newValue;
-        if (_selectedVatTax) {
-            this.data.Vat = _selectedVatTax;
-        } else {
-            this.data.Vat = {};
-        }
+    // selectedVatTaxChanged(newValue) {
+    //     var _selectedVatTax = newValue;
+    //     if (_selectedVatTax) {
+    //         this.data.Vat = _selectedVatTax;
+    //     } else {
+    //         this.data.Vat = {};
+    //     }
+    // }
+
+    get salesTaxLoader() {
+        return SalesTaxLoader;
     }
 
     categoryChanged(e) {
@@ -334,6 +513,21 @@ export class DataForm {
         }
     }
 
+    resetTermOfPaymentD365() {
+        this.top = null;
+        this.data.TermOfPaymentD365 = "";
+        this.data.PaymentDueDays = 0;
+
+        if (this.topLoaderViewModel) {
+            this.topLoaderViewModel.editorValue = "";
+        }
+
+        if (this.error) {
+            this.error.TermOfPayment = "";
+            this.error.PaymentDueDays = "";
+        }
+    }
+
     resetIsOverBudget() {
         if (this.data.Items) {
             this.data.Items.map(items => {
@@ -354,6 +548,9 @@ export class DataForm {
         var selectedPayment = e.srcElement.value;
         if (selectedPayment) {
             this.data.PaymentType = selectedPayment;
+
+            this.resetTermOfPaymentD365();
+
             if (this.data.PaymentType == "CASH" || this.data.PaymentType == "T/T BEFORE") {
                 this.data.PaymentDueDays = 0;
             }
@@ -378,19 +575,19 @@ export class DataForm {
         }
     }
 
-    selectedIncomeTaxChanged(newValue) {
-        var _selectedIncomeTax = newValue;
-        if (!_selectedIncomeTax) {
-            this.data.IncomeTaxRate = 0;
-            this.data.UseIncomeTax = false;
-            this.data.IncomeTax = {};
-        } else if (_selectedIncomeTax.Id) {
-            this.data.IncomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
-            this.data.UseIncomeTax = true;
-            this.data.IncomeTax = _selectedIncomeTax;
-            this.data.IncomeTaxId = _selectedIncomeTax.Id;
-        }
-    }
+    // selectedIncomeTaxChanged(newValue) {
+    //     var _selectedIncomeTax = newValue;
+    //     if (!_selectedIncomeTax) {
+    //         this.data.IncomeTaxRate = 0;
+    //         this.data.UseIncomeTax = false;
+    //         this.data.IncomeTax = {};
+    //     } else if (_selectedIncomeTax.Id) {
+    //         this.data.IncomeTaxRate = _selectedIncomeTax.rate ? _selectedIncomeTax.rate : 0;
+    //         this.data.UseIncomeTax = true;
+    //         this.data.IncomeTax = _selectedIncomeTax;
+    //         this.data.IncomeTaxId = _selectedIncomeTax.Id;
+    //     }
+    // }
 
     useVatChanged(e) {
         var selectedUseVat = e.srcElement.checked || false;
@@ -417,13 +614,13 @@ export class DataForm {
         return CurrencyLoader;
     }
 
-    get incomeTaxLoader() {
-        return IncomeTaxLoader;
-    }
+    // get incomeTaxLoader() {
+    //     return IncomeTaxLoader;
+    // }
 
-    get vatTaxLoader() {
-        return VatTaxLoader;
-    }
+    // get vatTaxLoader() {
+    //     return VatTaxLoader;
+    // }
 
     supplierView = (supplier) => {
         var code = supplier.code ? supplier.code : supplier.Code;
@@ -436,15 +633,25 @@ export class DataForm {
         return code;
     }
 
-    incomeTaxView = (incomeTax) => {
-        var rate = incomeTax.rate ? incomeTax.rate : incomeTax.Rate;
-        var name = incomeTax.name ? incomeTax.name : incomeTax.Name;
-        return `${name} - ${rate}`
-    }
+    // incomeTaxView = (incomeTax) => {
+    //     var rate = incomeTax.rate ? incomeTax.rate : incomeTax.Rate;
+    //     var name = incomeTax.name ? incomeTax.name : incomeTax.Name;
+    //     return `${name} - ${rate}`
+    // }
 
-    vatTaxView = (vatTax) => {
-        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
-        return `${rate}`
+    // vatTaxView = (vatTax) => {
+    //     var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+    //     return `${rate}`
+    // }
+
+    salesTaxView = (salesTaxGroup) => {
+        var code = salesTaxGroup.Code;
+        var description = salesTaxGroup.Description;
+
+        if (description) {
+            return `${code} - ${description}`;
+        }
+        return code;
     }
 
     async search() {
@@ -764,5 +971,37 @@ export class DataForm {
         get showManagerApproval() {
             return this.hasOverBudgetItems && this.options.checkOverBudget;
         }
+
+    get topLoader() {
+            return TOPLoader;
+        }
+    
+    topLoaderView = (item) => {
+        return [item.Code, item.Description]
+            .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+            .join(" - ");
+    }
+
+    // topChanged(newValue, oldValue) {
+    //     var selectedTop = newValue;
+    //     if (selectedTop) {
+    //         this.data.TermOfPaymentD365 = selectedTop.Code;
+    //         this.data.PaymentDueDays = selectedTop.Days;
+    //     }
+    // }
+
+    topChanged(newValue, oldValue) {
+    if (newValue && newValue.Code) {
+        this.data.TermOfPaymentD365 = newValue.Code;
+        this.data.PaymentDueDays = Number(newValue.Days || 0);
+    } else {
+            this.data.TermOfPaymentD365 = "";
+            this.data.PaymentDueDays = 0;
+
+            if (this.topLoaderViewModel) {
+                this.topLoaderViewModel.editorValue = "";
+            }
+        }
+    }
 
 }

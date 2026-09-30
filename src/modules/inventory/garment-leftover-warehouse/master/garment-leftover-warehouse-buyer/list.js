@@ -15,6 +15,7 @@ export class List {
         { field: "NPWP", title: "No. NPWP", width: "10%" },
         { field: "WPName", title: "Nama Wajib Pajak", width: "15%" },
         { field: "KaberType", title: "Status Buyer", width: "10%" }, 
+        { field: "CustomerGroupD365", title: "Jenis Buyer", width: "10%" }
     ];
 
     loader = (info) => {

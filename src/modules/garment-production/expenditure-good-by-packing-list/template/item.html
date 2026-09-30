@@ -1,0 +1,46 @@
+<template>
+    <tr>
+        <td style="text-align: center; vertical-align: middle;">
+            <strong>${data.RONo || '-'}</strong>
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            ${data.SCNo || '-'}
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            ${data.BuyerBrandName || '-'}
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            ${data.Article || '-'}
+        </td>
+
+        <td style="text-align: center; vertical-align: middle;">
+            ${data.ComodityName || '-'}
+        </td>
+
+        <td class="bg-light" style="text-align: center; vertical-align: middle;">
+            <button
+                type="button"
+                class="btn btn-info btn-sm"
+                click.delegate="toggle()"
+                title="Lihat detail barang">
+                i
+            </button>
+        </td>
+    </tr>
+
+    <tr show.bind="isShowing">
+        <td colspan="6" style="border: none; padding: 8px 20px;">
+            <au-collection
+                items.bind="data.Rows"
+                columns.bind="detailsColumns"
+                options.bind="detailOptions"
+                read-only.bind="readOnly"
+                header-template="modules/garment-production/expenditure-good-by-packing-list/template/item-header"
+                item-template="modules/garment-production/expenditure-good-by-packing-list/template/items/detail">
+            </au-collection>
+        </td>
+    </tr>
+</template>

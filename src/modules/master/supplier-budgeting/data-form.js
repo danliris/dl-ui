@@ -1,8 +1,11 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
+var CountryLoader = require('../../../loader/country-loader');
+var CurrencyLoader = require('../../../loader/currency-loader');
 
 export class DataForm {
     @bindable title;
     @bindable readOnly;
+    @bindable country;
     formOptions = {
         cancelText: "Kembali",
         saveText: "Simpan",
@@ -23,10 +26,58 @@ export class DataForm {
         this.deleteCallback = this.context.deleteCallback;
         this.editCallback = this.context.editCallback;
         this.saveCallback = this.context.saveCallback;
+
+         if (this.data.country) {
+            this.country = {
+                Code: this.data.CountryCode,
+                Name: this.data.country
+            };
+        }
+
+        if (this.data.CurrencyCode) {
+            this.currency = {
+                Code: this.data.CurrencyCode,
+                Id: this.data.CurrencyId
+            };
+        }
     }
 
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
     }
+
+    get countryLoader() {
+        return CountryLoader;
+    }
+    
+    countryLoaderView = (item) => {
+        return [item.Code, item.Name]
+            .filter(value => value !== undefined && value !== null && value.toString().trim().length > 0)
+            .join(" - ");
+    }
+    
+    countryChanged(newValue, oldValue) {
+        var selectedCountry = newValue;
+        if (selectedCountry) {
+            this.data.CountryCode = selectedCountry.Code;
+            this.data.Country = selectedCountry.Name;
+        }
+    }
+    
+    @bindable currency;
+    currencyChanged(n, o) {
+        if (this.currency) {
+            this.data.CurrencyId = this.currency.Id;
+            this.data.CurrencyCode = this.currency.Code;
+        } else {
+            this.data.CurrencyId = null;
+            this.data.CurrencyCode = null;
+        }
+    }
+
+    get currencyLoader() {
+        return CurrencyLoader;
+    }
+    
 } 

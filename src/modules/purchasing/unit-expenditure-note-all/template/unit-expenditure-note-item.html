@@ -25,6 +25,9 @@
             </au-textbox>
         </td>
         <td>
+            <au-textbox value.bind="data.CategoryName" read-only.bind="true">
+            </au-textbox>
+        <td>
             <au-numeric 
                 value.bind="data.RemainingQuantity"
                 read-only.bind="true">
@@ -50,7 +53,7 @@
             </au-textbox>
         </td>
         <td if.bind="!options.readOnly">
-            <button type="button" class="btn btn-danger" click.delegate="context.context.options.remove && context.context.options.remove(data)">-</button>
-        </td>
+            <button type="button"class="btn btn-danger btn-sm" click.delegate="removeItem()">-</button>
+       </td>
     </tr>
 </template>

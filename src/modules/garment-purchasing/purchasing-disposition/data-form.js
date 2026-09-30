@@ -132,12 +132,14 @@ export class DataForm {
         if (this.data.Items)
             this.data.Items.splice(0);
         var _selectedSupplier = newValue;
+        console.log(newValue);
         if (_selectedSupplier.Id || _selectedSupplier._id) {
             this.data.Supplier = _selectedSupplier;
             this.data.SupplierId = _selectedSupplier.Id || _selectedSupplier._id;
             this.data.SupplierName = _selectedSupplier.name;
             this.data.SupplierCode = _selectedSupplier.code;
             this.data.SupplierIsImport = _selectedSupplier.import;
+            this.data.VendorAccountD365 = _selectedSupplier.codeD365 || _selectedSupplier.CodeD365;
             this.data.Bank = _selectedSupplier.bankDetail
             // this.data.Supplier._id=_selectedSupplier.Id;
             // this.data.Supplier.code=_selectedSupplier.Code;

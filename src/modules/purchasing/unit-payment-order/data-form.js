@@ -6,6 +6,7 @@ var IncomeTaxLoader = require('../../../loader/income-tax-loader');
 var DivisionLoader = require('../../../loader/division-loader');
 var CategoryLoader = require('../../../loader/category-loader');
 var VatTaxLoader = require('../../../loader/vat-tax-loader');
+var TOPLoader = require('../../../loader/term-of-payments-new-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -21,9 +22,10 @@ export class DataForm {
     @bindable selectedDivision;
     @bindable selectedCategory;
     @bindable isImport = false;
+    @bindable top;
 
     IncomeTaxByOptions = ["", "Supplier", "Dan Liris"];
-    termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
+    //termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
     importInfo = ['', 'CIF', 'FOB', 'CNF', 'DDU', 'DDP', 'EX WORK', 'OTHERS'];
     controlOptions = {
         label: {
@@ -60,6 +62,12 @@ export class DataForm {
             this.isImport = this.data.import;
         }
         //console.log(this.context);
+
+         if (this.data && this.data.TermOfPaymentD365) {
+            this.top = {
+                Description: this.data.paymentMethod,
+            };
+    }
     }
 
     @computedFrom("data._id")
@@ -113,13 +121,13 @@ export class DataForm {
         this.resetErrorItems();
     }
 
-    paymentMethodChanged(e) {
-        var selectedPayment = e.srcElement.value;
-        if (selectedPayment) {
-            this.data.paymentMethod = selectedPayment ? selectedPayment : "";
-        }
-        this.resetErrorItems();
-    }
+    // paymentMethodChanged(e) {
+    //     var selectedPayment = e.srcElement.value;
+    //     if (selectedPayment) {
+    //         this.data.paymentMethod = selectedPayment ? selectedPayment : "";
+    //     }
+    //     this.resetErrorItems();
+    // }
 
     selectedCurrencyChanged(newValue) {
         var _selectedCurrency = newValue;
@@ -280,7 +288,41 @@ export class DataForm {
         return VatTaxLoader;
     }
 
+    get topLoader() {
+    return TOPLoader;
+    }
+
+    topLoaderView = (item) => {
+        return [item.Code, item.Description]
+            .filter(value =>
+                value !== undefined &&
+                value !== null &&
+                value.toString().trim().length > 0
+            )
+            .join(" - ");
+    }
+
+    topChanged(newValue, oldValue) {
+
+        var oldCode = oldValue && oldValue.Code? oldValue.Code: "";
+        var newCode = newValue && newValue.Code? newValue.Code: "";
+
+        if (newValue && newValue.Code) 
+            {
+            this.data.paymentMethod = newValue.Description || "";
+
+        } else {
+            this.data.paymentMethod = "";
+        }
+
+        if (oldCode && oldCode !== newCode) {
+            this.resetErrorItems();
+        }
+    }
+
     addItems = (e) => {
         this.data.items.push({ unitReceiptNote: { no: "" } })
     };
+
+    
 }

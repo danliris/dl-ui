@@ -1,6 +1,7 @@
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'master/vat';
+const serviceUriSalesTax = 'master/sales-tax-groups';
 
 export class Service extends RestService {
 
@@ -35,6 +36,11 @@ export class Service extends RestService {
     
       getByCode(code) {
         var endpoint = `${serviceUri}?keyword=${code}`;
+        return super.get(endpoint);
+      }
+
+      getSalesTaxById(id) {
+        var endpoint = `${serviceUriSalesTax}/GetSalesTaxVat/${id}`;
         return super.get(endpoint);
       }
 
