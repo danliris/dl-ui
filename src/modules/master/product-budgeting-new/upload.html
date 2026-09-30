@@ -1,0 +1,57 @@
+<template>
+    <h1 class="page-header">Unggah Data Barang</h1>
+    <div class="form-group ${error.file ? 'has-error':''}">
+        <label for="dataFile" class="col-sm-2 control-label">
+            File Path
+        </label>
+
+        <div class="col-sm-10">
+            <input type="file" id="fileCsv"name="fileUpload"disabled.bind="isLoading">
+            <span class="help-block">
+                ${error.file}
+            </span>
+        </div>
+    </div>
+
+    <block>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="cancelCallback()"disabled.bind="isLoading">Kembali</button>
+            <button class="btn btn-success" click.delegate="saveCallback()" disabled.bind="isLoading"> Simpan</button>
+        </div>
+    </block>
+
+    <div class="loading-overlay" if.bind="isLoading">
+        <i class="fa fa-spinner fa-spin fa-3x"></i>
+    </div>
+    <style>
+        .loading-overlay {
+            position: fixed;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            margin: 0;
+            padding: 0;
+            border: none;
+
+            width: 100vw;
+            height: 100vh;
+
+            background: rgba(0, 0, 0, 0.30);
+
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #222;
+
+            cursor: wait;
+        }
+
+    </style>
+</template>
