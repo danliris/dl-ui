@@ -1386,7 +1386,7 @@ module.exports = [
             group: "g-production",
             subGroup: "fitur",
             // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-            permission: { "O82": 1 },
+            permission: { "O79": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -1401,7 +1401,7 @@ module.exports = [
           group: "g-production",
           subGroup: "fitur",
           // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
-          permission: { "O83": 1 },
+          permission: { "O80": 1 },
           iconClass: 'fa fa-dashboard'
       }
   },
@@ -1416,7 +1416,7 @@ module.exports = [
           group: "g-production",
           subGroup: "fitur",
           // permission: { "C9": 1, "PG": 1, "B1": 1 ,"C2A":1},
-          permission: { "O84": 1 },
+          permission: { "O81": 1 },
           iconClass: 'fa fa-dashboard'
       }
   },
@@ -1431,7 +1431,7 @@ module.exports = [
             group: "g-production",
             subGroup: "transaksi",
             // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
-            permission: { "O85": 1 },
+            permission: { "O82": 1 },
             // permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }

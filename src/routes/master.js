@@ -877,7 +877,7 @@ module.exports = [
     settings: {
       group: "master",
       // permission: { "*": 1 ,B1: 1, B12: 1},
-      permission :{"B59":1},
+      permission :{"B62":1},
       iconClass: "fa fa-dashboard",
     },
   },
@@ -1064,6 +1064,20 @@ module.exports = [
     },
   },
   {
+    route: "tariffCostCalculation",
+    name: "tariffCostCalculation",
+    moduleId: "./modules/master/garment-rate/index",
+    nav: true,
+    title: "Tarif Cost Calculation",
+    auth: true,
+    settings: {
+      group: "master",
+      // permission: { "*": 1 },
+      permission :{"B59":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
+  {
     route: "country",
     name: "country",
     moduleId: "./modules/master/country/index",
@@ -1078,20 +1092,6 @@ module.exports = [
     },
   },
   {
-    route: "tariffCostCalculation",
-    name: "tariffCostCalculation",
-    moduleId: "./modules/master/garment-rate/index",
-    nav: true,
-    title: "Tarif Cost Calculation",
-    auth: true,
-    settings: {
-      group: "master",
-      // permission: { "*": 1 },
-      permission :{"B61":1},
-      iconClass: "fa fa-dashboard",
-    },
-  },
-  {
     route: "sales-tax-group",
     name: "sales-tax-group",
     moduleId: "./modules/master/sales-tax-group/index",
@@ -1101,7 +1101,7 @@ module.exports = [
     settings: {
       group: "master",
       // permission: { "*": 1 },
-      permission :{"B62":1},
+      permission :{"B61":1},
       iconClass: "fa fa-dashboard",
     },
   },

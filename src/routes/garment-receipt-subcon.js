@@ -714,7 +714,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "g-receipt-subcon",
-      //subGroup: "close-order",
+      subGroup: "fitur",
       permission: { X53: 1 },
       iconClass: "fa fa-dashboard",
     },
