@@ -1,0 +1,68 @@
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../../utils/rest-service'; 
+
+const serviceUri = 'master/products';
+
+export class Service extends RestService {
+
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
+  }
+
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
+  }
+
+  getById(id) {
+    var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+  }
+
+  create(data) {
+    var endpoint = `${serviceUri}/createProduct`;
+    return super.post(endpoint, data);
+  }
+
+  update(data) {
+    var endpoint = `${serviceUri}/${data.Id}`;
+    return super.put(endpoint, data);
+  }
+
+  updateProduct(data) {
+    var endpoint = `${serviceUri}/update/${data.Id}`;
+    return super.put(endpoint, data);
+  }
+
+  delete(data) {
+    var endpoint = `${serviceUri}/${data.Id}`;
+    return super.delete(endpoint, data);
+  }
+
+  nonActived(id) {
+    var endpoint = `${serviceUri}/nonactived/${id}`;
+    return super.put(endpoint);
+  }
+
+  getByCode(code) {
+    var endpoint = `${serviceUri}?keyword=${code}`;
+    return super.get(endpoint);
+  }
+  download()
+  {
+      var endpoint = `${serviceUri}/download`;
+      return super.getXls(endpoint);
+  }
+
+  downloadTemplate()
+  {
+      var endpoint = `${serviceUri}/download-template`;
+      return super.getXls(endpoint);
+  }
+
+  post(data) {
+    var endpoint = `${serviceUri}/posting`;
+    return super.put(endpoint, data);
+}
+}

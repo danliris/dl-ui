@@ -63,12 +63,20 @@
         <au-autocomplete
           value.bind="accountingCategory.Name"
           loader.bind="accountingCategoryLoader"
+          error.bind="error.AccountingCategoryId"
           label="Kategori Pembukuan"
           placeholder="cari kategori pembukuan"
           read-only.bind="readOnly"
           change.delegate="accountingCategoryChanged($event)"
         >
         </au-autocomplete>
+
+        <au-textbox
+          label="Kode D365"
+          value.bind="data.CodeD365"
+          error.bind="error.CodeD365"
+          read-only.bind="readOnly"
+        ></au-textbox>
 
         <template replaceable part="actions"></template>
       </au-input-form>
