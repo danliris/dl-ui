@@ -41,13 +41,16 @@ export class List {
             size: info.limit,
             keyword: info.search,
             // select: ["purchaseRequest.no", "purchaseRequest.roNo", "shipmentDate", "buyer.name","_createdBy", "isPosted", "items.defaultQuantity","items.defaultUom.unit","items.product.name"],
-            order: order
+            order: order,
+            filter: JSON.stringify({
+                IsClosedPO: "true"
+            })
         }
 
         return this.service.search(arg)
-        .then(result => {
-            const filteredData = result.data.filter(x => x.IsClosedPO === true);
-            for (var _data of filteredData) {
+            .then(result => {
+
+            for (var _data of result.data) {
                 _data.BuyerName = _data.Buyer.Name;
                 _data.Items.ProductName = _data.Items[0].Product.Name;
                 _data.Items.Quantity = _data.Items[0].Quantity;
@@ -56,8 +59,8 @@ export class List {
             }
 
             return {
-                total: filteredData.length,
-                data: filteredData
+                total: result.info.total,
+                data: result.data
             };
         });
     }

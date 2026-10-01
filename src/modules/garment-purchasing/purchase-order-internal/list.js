@@ -47,27 +47,26 @@ export class List {
             size: info.limit,
             keyword: info.search,
             // select: ["purchaseRequest.no", "purchaseRequest.roNo", "shipmentDate", "buyer.name","_createdBy", "isPosted", "items.defaultQuantity","items.defaultUom.unit","items.product.name"],
-            order: order
+            order: order,
+            filter: JSON.stringify({
+                IsClosedPO: "false"
+            })
         }
 
         return this.service.search(arg)
             .then(result => {
-
-                const filteredData = result.data.filter(x => x.IsClosedPO === false);
-
-                for (var _data of filteredData) {
-                    _data.BuyerName = _data.Buyer.Name;
-                    _data.Items.ProductName = _data.Items[0].Product.Name;
-                    _data.Items.Quantity = _data.Items[0].Quantity;
-                    _data.Items.UomUnit = _data.Items[0].Uom.Unit;
-                    _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
-                }
-
-                return {
-                    total: filteredData.length,
-                    data: filteredData
-                };
-            });
+            for (var _data of result.data) {
+                _data.BuyerName = _data.Buyer.Name;
+                _data.Items.ProductName = _data.Items[0].Product.Name;
+                _data.Items.Quantity = _data.Items[0].Quantity;
+                _data.Items.UomUnit = _data.Items[0].Uom.Unit;
+                _data.Items.BudgetPrice = _data.Items[0].BudgetPrice;
+            }
+            return {
+                total: result.info.total,
+                data: result.data
+            };
+        });
     }
 
     constructor(router, service) {
