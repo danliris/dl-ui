@@ -12,6 +12,7 @@ export class List {
     { field: "code", title: "Kode" },
     { field: "name", title: "Nama" },
     { field: "AccountingCategory.Name", title: "Kategori Pembukuan" },
+    { field: "CodeD365", title: "Kode D365" }
   ];
 
   /*
