@@ -71,12 +71,22 @@
         >
         </au-autocomplete>
 
-        <au-textbox
+        <!-- <au-textbox
           label="Kode D365"
           value.bind="data.CodeD365"
           error.bind="error.CodeD365"
           read-only.bind="readOnly"
-        ></au-textbox>
+        ></au-textbox> -->
+
+        <au-dropdown
+          label="Kode D365"
+          value.bind="CodeD365"
+          error.bind="error.CodeD365"
+          read-only.bind="readOnly"
+          items.bind="CodeD365List"
+          text="Name"
+          key="Code"
+        ></au-dropdown>
 
         <template replaceable part="actions"></template>
       </au-input-form>
