@@ -85,9 +85,7 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
-    this.CodeD365 = this.CodeD365List.find(
-        item => item.Code === this.data.CodeD365
-    );
+    this.CodeD365 = this.data.CodeD365;
     this.cancelCallback = this.context.cancelCallback;
     this.deleteCallback = this.context.deleteCallback;
     this.editCallback = this.context.editCallback;
