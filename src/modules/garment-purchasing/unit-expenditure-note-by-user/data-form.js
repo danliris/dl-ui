@@ -220,6 +220,7 @@ export class DataForm {
       this.data.UnitSender = null;
       this.data.Storage = null;
       this.data.StorageRequest = null;
+      this.data.IsPreparing = false;
       this.isItem = false;
       this.data.UnitDOId = null;
       this.data.UnitDONo = "";
@@ -257,6 +258,13 @@ export class DataForm {
           })
           .join(" - ");
       };
+      console.log(this.data.Storage);
+      if((this.data.Storage.name == "GUDANG BAHAN BAKU" || this.data.Storage.Name == "GUDANG BAHAN BAKU") && this.data.ExpenditureType == "PROSES"){
+          this.data.IsPreparing = true;
+      }else{
+          this.data.IsPreparing = false;
+      }
+
       this.data.StorageRequest = selectedUnitDeliveryOrder.StorageRequest;
       this.data.StorageRequest.toString = function () {
         return [this.code, this.name]
