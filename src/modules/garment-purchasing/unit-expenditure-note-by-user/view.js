@@ -105,7 +105,12 @@ export class View {
     //   this.hasDelete = allValid;
     // }
 
-    if (this.data.ExpenditureType === "PROSES") {
+    if (
+    this.data.ExpenditureType === "PROSES" &&
+    this.data.Storage &&
+    this.data.Storage.name &&
+    this.data.Storage.name.trim().toUpperCase() === "GUDANG BAHAN BAKU"
+    ) {
       const result = await this.productionService.getPreparingById(this.data.Id);
 
       console.log("getPreparingById result:", result);
