@@ -255,6 +255,18 @@
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
+                 <au-textbox 
+                    label="Lot" 
+                    value.bind="newProduct.Lot" 
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+                 <au-textbox 
+                    label="Nomer Package" 
+                    value.bind="newProduct.NoPackage" 
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-textbox>
                 <div class="form-group">
                     <div class="col-sm-5 col-sm-offset-4">
                         <button class="btn btn-success" click.delegate="addProduct()" disabled.bind="!RONoHeader || newProduct.IsDisabled">Tambah Barang</button>

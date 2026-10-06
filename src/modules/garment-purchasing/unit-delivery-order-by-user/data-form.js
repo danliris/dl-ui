@@ -926,7 +926,7 @@ export class DataForm {
   }
 
   roNoView = (rono) => {
-    return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity} - ${rono.Colour}`;
+    return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity} - ${rono.Colour} - ${rono.Lot} - ${rono.NoPackage}`;
   };
 
   unitRequestView = (unitRequest) => {
