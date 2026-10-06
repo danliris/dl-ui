@@ -55,14 +55,24 @@ export class Service extends RestService {
       return super.getXls(endpoint);
   }
 
-  downloadTemplate()
-  {
-      var endpoint = `${serviceUri}/download-template`;
+  // downloadTemplate()
+  // {
+  //     var endpoint = `${serviceUri}/download-template`;
+  //     return super.getXls(endpoint);
+  // }
+
+  downloadTemplateExcel() {
+      var endpoint = `${serviceUri}/download-templateExcel`;
       return super.getXls(endpoint);
   }
 
   post(data) {
     var endpoint = `${serviceUri}/posting`;
     return super.put(endpoint, data);
-}
+  }
+
+  postingCSV(data) {
+    var endpoint = `${serviceUri}/product-uploadcsv`;
+    return super.post(endpoint, data);
+  }
 }

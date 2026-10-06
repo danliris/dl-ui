@@ -6,7 +6,7 @@
         </label>
 
         <div class="col-sm-10">
-            <input type="file" id="fileCsv"name="fileUpload"disabled.bind="isLoading">
+            <input type="file" id="fileCsv"name="fileUpload"disabled.bind="isLoading" change.delegate="fileChanged($event)">
             <span class="help-block">
                 ${error.file}
             </span>
