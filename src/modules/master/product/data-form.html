@@ -5,7 +5,27 @@
           title.bind="title" 
           with.bind="context"
           options.bind="formOptions"> 
+          <au-textbox
+            label="Tipe Barang"
+            value.bind="data.ManufactureType"
+            error.bind="error.ManufactureType"
+            read-only.bind="readOnly"
+          ></au-textbox>
 
+          <au-textbox
+            label="Asal Barang"
+            value.bind="data.OriginType"
+            error.bind="error.OriginType"
+            read-only.bind="readOnly"
+          ></au-textbox>
+
+          <au-textbox
+            label="Kategori"
+            value.bind="data.ItemType"
+            error.bind="error.ItemType"
+            read-only.bind="readOnly"
+          ></au-textbox>
+          
           <au-textbox
             label="Kode"
             value.bind="data.Code"

@@ -19,10 +19,22 @@ export class List {
     { field: "Name", title: "Nama Barang" },
     { field: "UomUnit", title: "Satuan Default" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Price", title: "Harga Barang" },
+    {
+        field: "Price",
+        title: "Harga Barang",
+        formatter: function (value, data, index) {
+            return value != null
+                ? Number(value).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })
+                : "";
+        }
+    },
     { field: "Tags", title: "Tags" },
     { field: "ManufactureType", title: "Tipe Barang" },
     { field: "OriginType", title: "Asal Barang" },
+    { field: "ItemType", title: "Kategori" },
     {
       field: "IsPosted", title: "Active",
       formatter: function (value, row, index) {
@@ -134,7 +146,7 @@ export class List {
   }
 
   downloadTemplate() {
-    this.service.downloadTemplate();
+    this.service.downloadTemplateExcel();
   }
 
 }

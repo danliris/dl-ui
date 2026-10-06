@@ -1,6 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
+import { Base64Helper } from '../../../utils/base-64-coded-helper';
 
 @inject(Router, Service)
 export class View {
@@ -10,7 +11,7 @@ export class View {
     }
 
     async activate(params) {
-        var id = params.id;
+        var id = Base64Helper.decode(params.id);
         this.data = await this.service.getById(id);
     }
 

@@ -16,9 +16,9 @@ export class DataForm {
     @bindable Code;
     @bindable Name;
     @bindable OriginType;
-    @bindable OriginTypeLists = ['IMPORT', 'LOKAL'];
+    @bindable OriginTypeLists = ['LOKAL','IMPORT'];
     @bindable ManufactureTypeLists = ['FOB', 'CMT'];
-    @bindable itemTypes = ['Item', 'Service'];
+    @bindable itemTypes = ['Service','Item'];
     @bindable Categorydata;
     formOptions = {
         cancelText: "Kembali",
