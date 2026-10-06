@@ -1,6 +1,8 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
+import { Base64Helper } from '../../../utils/base-64-coded-helper';
+
 
 @inject(Router, Service)
 export class List {
@@ -12,8 +14,22 @@ export class List {
     { field: "Name", title: "Nama Barang" },
     { field: "UomUnit", title: "Satuan Default" },
     { field: "CurrencyCode", title: "Mata Uang" },
-    { field: "Price", title: "Harga Barang" },
+    {
+        field: "Price",
+        title: "Harga Barang",
+        formatter: function (value, data, index) {
+            return value != null
+                ? Number(value).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })
+                : "";
+        }
+    },
     { field: "Tags", title: "Tags" },
+    { field: "ManufactureType", title: "Tipe Barang" },
+    { field: "OriginType", title: "Asal Barang" },
+    { field: "ItemType", title: "Kategori" },
     {
       field: "IsPosted", title: "Active",
       formatter: function (value, row, index) {
@@ -64,9 +80,10 @@ export class List {
     contextCallback(event) {
     var arg = event.detail;
     var data = arg.data;
+    var id = Base64Helper.encode(data.Id);
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data.Id });
+        this.router.navigateToRoute('view', { id: id });
         break;
     }
   }
