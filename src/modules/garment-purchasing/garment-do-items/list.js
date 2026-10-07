@@ -47,7 +47,6 @@ export class List {
   ];
   rackOptions = [
     "",
-    "-",
     "R01",
     "R02",
     "R03",
