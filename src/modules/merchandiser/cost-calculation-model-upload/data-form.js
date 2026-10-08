@@ -764,7 +764,11 @@ export class DataForm {
     "data.OTL1.CalculatedValue",
     "data.OTL2.CalculatedValue",
     "data.Risk",
-    "data.FreightCost"
+    "data.FreightCost",
+    "data.ConfirmPrice",
+    "data.Rate.Value",
+    "data.CommissionRate",
+    "data.CommissionPortion"
   )
   get NETFOBP() {
     let allMaterialCost = 0;
@@ -774,8 +778,8 @@ export class DataForm {
         allMaterialCost += item.Total;
       });
     }
-    
-    let otlValue = this.data.OTLCalculatedRate > 0 ? this.data.OTLCalculatedRate : (this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue);
+    let otlValue = this.data.OTLCalculatedRate;
+    // let otlValue = this.data.OTLCalculatedRate > 0 ? this.data.OTLCalculatedRate : (this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue);
     let subTotal =
       allMaterialCost !== 0
         ? ((allMaterialCost + otlValue) 
