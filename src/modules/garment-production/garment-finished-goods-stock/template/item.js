@@ -12,7 +12,8 @@ export class Item {
       : [];
 
     this.detailOptions = Object.assign({}, this.options, {
-      readOnly: this.readOnly
+      readOnly: this.readOnly,
+      details: this.data.Details
     });
 
     this.isShowing = !!this.data.IsShowing;
@@ -83,50 +84,24 @@ export class Item {
     };
   }
 
-
-  removeDetails(detail, event) {
-    if (event) {
-      event.preventDefault();
-    }
-    if (!Array.isArray(this.data.Details)) {
-      return;
-    }
-    const details = this.data.Details;
-    const index = details.indexOf(detail);
-    if (index < 0) {
-      return;
-    }
-    if (details.length > 1) {
-      const sourceId =detail.SourceId ||detail.Id ||null;
-      let target = details.find(
-        (candidate, candidateIndex) => {
-          if (candidateIndex === index) {
-            return false;
-          }
-          const candidateSourceId =
-            candidate.SourceId ||
-            candidate.Id ||
-            null;
-          return sourceId == null ||
-            candidateSourceId == sourceId;
-        }
-      );
-
-      if (!target) {
-        target = details.find(
-          (candidate, candidateIndex) =>
-            candidateIndex !== index
-        );
+ get removeDetails() {
+    return event => {
+      if (!Array.isArray(this.data.Details)) {
+        return;
       }
+
+      const removed = event && event.detail ? event.detail : event;
+      if (!removed || !removed.Id) {
+        return;
+      }
+
+      const details = this.data.Details;
+      const target = details.find(candidate => !candidate.Id);
       if (target) {
-        target.Quantity =
-          (parseFloat(target.Quantity) || 0) +
-          (parseFloat(detail.Quantity) || 0);
-
+        target.Id = removed.Id;
+        target.IsSplitChild = false;
       }
-    }
-    details.splice(index, 1);
-    this.data.Details = [...details];
+    };
   }
 
 
