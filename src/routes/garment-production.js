@@ -1393,7 +1393,7 @@ module.exports = [
     {
       route: "/garment-production/garment-finished-goods-stock",
       name: "garment-production/garment-finished-goods-stock",
-      moduleId: "./modules/garment-production/garment-finished-goods-stock/index",
+      moduleId: "./modules/garment-production/garment-finished-goods-stock-new/index",
       nav: true,
       title: "Location Racking Barang Jadi",
       auth: true,
