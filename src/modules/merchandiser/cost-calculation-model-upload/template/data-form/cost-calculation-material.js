@@ -198,7 +198,7 @@ export class CostCalculationMaterial {
             if (this.categoryNames === "PROCESS SUBCON") {
                 total =  this.data.Price ?  parseFloat(this.data.Price) : 0;
                 this.data.Total = numeral(total).value();
-                this.data.TotalTemp = numeral(total).value();;
+                this.data.TotalTemp = numeral(total).value();
                 this.data.CM_Price = null;
             //Calculated Item jika Category bukan PROCESS SUBCON
             } else {

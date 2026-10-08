@@ -1,7 +1,10 @@
-import { inject, bindable, computedFrom } from 'aurelia-framework';
-import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api";
 import numeral from 'numeral';
+
+const PROCESS_CATEGORIES = [
+    "PROCESS CUTTING",
+    "PROCESS SEWING",
+    "PROCESS FINISHING"
+];
 
 export class CostCalculationMaterialFooter {
     activate(context) {
@@ -10,21 +13,31 @@ export class CostCalculationMaterialFooter {
     }
 
     get totalOngkir() {
-        let totalOngkir = 0;
-        for (let item of this.context.items) {
-            if (item.data) {
-                totalOngkir += numeral(item.data.TotalShippingFee).value();
-            }
-        }
-        return totalOngkir;
+        return this.context.items.reduce((total, item) =>
+            total + numeral(item.data && item.data.TotalShippingFee || 0).value(), 0);
     }
+
     get totalMaterial() {
-        let totalMaterial = 0;
-        for (let item of this.context.items) {
-            if (item.data) {
-                totalMaterial += numeral(item.data.Total).value();
+        return this.context.items.reduce((total, item) => {
+            const categoryName = item.data && item.data.Category && ( item.data.Category.Name || item.data.Category.name );
+
+            if (categoryName && !PROCESS_CATEGORIES.includes(categoryName)) {
+                total += numeral(item.data.Total || 0).value();
             }
-        }
-        return totalMaterial;
+
+            return total;
+        }, 0);
+    }
+
+    get totalProcess() {
+        return this.context.items.reduce((total, item) => {
+            const categoryName = item.data && item.data.Category && ( item.data.Category.Name || item.data.Category.name );
+
+            if (PROCESS_CATEGORIES.includes(categoryName)) {
+                total += numeral(item.data.Total || 0).value();
+            }
+
+            return total;
+        }, 0);
     }
 }
