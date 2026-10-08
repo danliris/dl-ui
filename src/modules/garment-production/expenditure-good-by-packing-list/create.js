@@ -131,20 +131,6 @@ export class Create {
         });
     }
 
-    _buildPackingListQuantityMismatchMessage(groups) {
-        const details = groups.map(group => {
-            return (
-                `RO ${group.RONo} Size ${group.SizeName} Warna ${group.Colour}: ` +
-                `QTY Ambil ${group.Quantity}, Sisa Packing List ${group.RemainingQuantity}`
-            );
-        }).join('\n');
-
-        return (
-            `Total QTY Ambil harus sama dengan Sisa Packing List:\n\n${details}` +
-            `\n\nData tidak dapat disimpan.`
-        );
-    }
-
     _buildStockErrorMessage(items) {
         const details = items.map(item => {
             const quantity = Number(item.Quantity || 0);
@@ -228,12 +214,9 @@ export class Create {
 
         const quantityMismatchGroups = this._getPackingListQuantityMismatchGroups();
 
-        if (quantityMismatchGroups.length) {
-            alert(
-                this._buildPackingListQuantityMismatchMessage(quantityMismatchGroups)
-            );
+        // mismatch details are already shown inline per row/column (see template/items/detail.js), no popup needed
+        if (quantityMismatchGroups.length)
             return;
-        }
 
         const payload = this._buildPayload();
 
@@ -246,7 +229,7 @@ export class Create {
             ? moment.utc(payload.ExpenditureDate).local().format()
             : null;
 
-        console.log('Expenditure Good multi-RO payload:', payload);
+        //console.log('Expenditure Good multi-RO payload:', payload);
 
         this.service.create(payload)
             .then(() => {

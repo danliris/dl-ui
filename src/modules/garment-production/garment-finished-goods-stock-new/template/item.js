@@ -71,6 +71,7 @@ export class Item {
         Quantity: null,
         // Box: source.Box || '',
         // Rack: source.Rack || '',
+        Colour: source.Colour || '',
         WarehouseCode: source.WarehouseCode || '',
         Area: source.Area || '',
         LineCode: source.LineCode || '',
@@ -106,6 +107,7 @@ export class Item {
 
 
   detailsColumns = [
+    { header: 'Warna' },
     { header: 'Quantity' },
     { header: 'Kode Gudang' },
     { header: 'Area' },
