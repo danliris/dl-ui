@@ -35,7 +35,7 @@
         <td style="min-width: 110px; vertical-align: middle;">
             <au-numeric
                 value.bind="quantity"
-                error.bind="quantityError"
+                error.bind="quantityError || data.PackingListQuantityMismatchMessage"
                 read-only.bind="quantityReadOnly"
                 format="0">
             </au-numeric>
