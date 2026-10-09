@@ -10,5 +10,7 @@ export class Detail {
     this.error = context.error || {};
     this.options = context.options || {};
     this.readOnly = !!this.options.readOnly;
+    const sharedOptions = (context.context && context.context.options) || {};
+    this.details = sharedOptions.details || [];
   }
 }
