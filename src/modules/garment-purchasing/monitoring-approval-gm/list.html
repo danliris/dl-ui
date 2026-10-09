@@ -1,0 +1,158 @@
+<template>
+
+    <require from="./list.css"></require>
+
+    <h1 class="page-header">Monitoring Approval G-Purchasing</h1>
+
+    <div class="monitoring-filter">
+
+        <!-- KIRI -->
+        <div class="monitoring-filter-left">
+
+            <div class="form-group">
+
+                <label class="control-label">
+                    Jenis Approval
+                </label>
+
+                <select
+                    class="form-control monitoring-approval-select"
+                    value.bind="info.jenisApproval">
+
+                    <option value="" disabled>
+                        Pilih Jenis Approval
+                    </option>
+
+                    <option repeat.for="item of jenisApprovals"
+                            value.bind="item">
+                        ${item}
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTON CARI & RESET -->
+            <div class="monitoring-search-buttons">
+
+                <button
+                    type="button"
+                    click.delegate="search()"
+                    class="btn btn-success">
+                    Cari Data
+                </button>
+
+                <button
+                    type="button"
+                    click.delegate="reset()"
+                    class="btn btn-danger">
+                    Reset Data
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- KANAN -->
+        <div class="monitoring-filter-right">
+
+            <!-- RENTANG TANGGAL -->
+            <div class="form-group">
+
+                <label class="control-label">
+                    Rentang Tanggal Request/Approve
+                </label>
+
+                <div class="monitoring-date-row">
+
+                    <!-- DARI TANGGAL -->
+                    <div
+                        class="monitoring-date-box ${info.dateFrom ? 'has-date' : ''}">
+
+                        <span
+                            class="monitoring-date-placeholder"
+                            if.bind="!info.dateFrom">
+                            Dari Tanggal
+                        </span>
+
+                        <input
+                            type="date"
+                            class="monitoring-date-input"
+                            value.bind="info.dateFrom">
+
+                    </div>
+
+
+                    <!-- HINGGA TANGGAL -->
+                    <div
+                        class="monitoring-date-box ${info.dateTo ? 'has-date' : ''}">
+
+                        <span
+                            class="monitoring-date-placeholder"
+                            if.bind="!info.dateTo">
+                            Hingga Tanggal
+                        </span>
+
+                        <input
+                            type="date"
+                            class="monitoring-date-input"
+                            value.bind="info.dateTo">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOMOR DOKUMEN -->
+            <div class="form-group monitoring-document">
+
+                <label class="control-label">
+                    Nomor Dokumen
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nomor Dokumen"
+                    value.bind="info.nomorDokumen">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CETAK EXCEL -->
+    <div class="monitoring-excel">
+
+        <button
+            type="button"
+            class="btn btn-primary">
+            Cetak Excel
+        </button>
+
+    </div>
+
+
+    <!-- TABEL -->
+    <div class="monitoring-table">
+
+        <au-table
+            data.bind="loader"
+            columns.bind="columns"
+            sortable.bind="true"
+            page-size="25"
+            context.bind="context"
+            view-model.ref="tableList"
+            context-click.delegate="contextCallback($event)"
+            >
+        </au-table>
+
+    </div>
+
+</template>
