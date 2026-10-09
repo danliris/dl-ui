@@ -1,0 +1,193 @@
+/* FILTER */
+
+.monitoring-filter {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.monitoring-filter-left {
+    width: 58%;
+    padding-right: 25px;
+}
+
+.monitoring-filter-right {
+    width: 58%;
+    padding-left: 10px;
+}
+
+
+/* LABEL */
+
+.monitoring-filter label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+
+/* JENIS APPROVAL */
+
+.monitoring-approval-select {
+    width: 100%;
+    height: 36px;
+    padding: 4px 10px;
+    font-size: 13px;
+}
+
+
+/* BUTTON CARI & RESET */
+
+.monitoring-search-buttons {
+    margin-top: 8px;
+}
+
+.monitoring-search-buttons .btn {
+    margin-right: 5px;
+    padding: 7px 16px;
+    font-size: 14px;
+}
+
+
+/* RENTANG TANGGAL */
+
+.monitoring-date-row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.monitoring-date-box {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* INPUT DATE */
+
+.monitoring-date-input {
+    display: block;
+    width: 100%;
+    height: 36px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+
+    border: 1px solid #ccc;
+    border-radius: 0;
+
+    background-color: #fff;
+
+    font-size: 13px;
+}
+
+
+/* SAAT BELUM ADA TANGGAL */
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit {
+    color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit-fields-wrapper {
+    color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit-text {
+    color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit-month-field {
+    color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit-day-field {
+    color: transparent;
+}
+
+.monitoring-date-box:not(.has-date)
+.monitoring-date-input::-webkit-datetime-edit-year-field {
+    color: transparent;
+}
+
+
+/* SAAT SUDAH ADA TANGGAL */
+
+.monitoring-date-box.has-date
+.monitoring-date-input {
+    color: #555;
+    -webkit-text-fill-color: #555;
+}
+
+.monitoring-date-box.has-date
+.monitoring-date-input::-webkit-datetime-edit {
+    color: #555;
+}
+
+
+/* PLACEHOLDER TANGGAL */
+
+.monitoring-date-placeholder {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: #999;
+    font-size: 13px;
+    line-height: normal;
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* ICON KALENDER */
+
+.monitoring-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+
+/* NOMOR DOKUMEN */
+
+.monitoring-document {
+    margin-top: 12px;
+}
+
+.monitoring-document input {
+    width: 100%;
+}
+
+
+/* CETAK EXCEL */
+
+.monitoring-excel {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+
+/* TABEL */
+
+.monitoring-table {
+    width: 100%;
+    margin-top: -50px;
+}
+
+.monitoring-table au-table {
+    width: 100%;
+}
+
+.monitoring-table .table th {
+    text-align: center;
+}

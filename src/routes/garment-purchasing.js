@@ -1592,5 +1592,20 @@ module.exports = [
             type: "gm"
         }
     },
+
+    {
+    route: '/garment/monitoring-approval-gm',
+    name: 'monitoring-approval-gm',
+    moduleId: './modules/garment-purchasing/monitoring-approval-gm/index',
+    nav: true,
+    title: 'Monitoring Approval GM',
+    auth: true,
+    settings: {
+        group: "g-purchasing",
+        subGroup: "approval",
+        permission: { H86: 1 },
+        iconClass: 'fa fa-calculator',
+      }
+    },
   
 ];
