@@ -43,7 +43,7 @@
       </au-dropdown>
     </td>
 
-    <td if.bind="!readOnly" class="bg-light">
+    <td if.bind="!readOnly && details.length > 1" class="bg-light">
       <button
         type="button"
         class="btn btn-danger pull-right"
