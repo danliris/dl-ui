@@ -50,7 +50,12 @@ export class DataForm {
   { Code: "SWMSN", Name: "SWMSN - SEWA MESIN" },
   { Code: "TOOLS", Name: "TOOLS - TOOLS" },
   { Code: "TRNSPORT", Name: "TRNSPORT - JASA-ANGKUTAN BARANG MASUK" },
-  { Code: "UJISTDR", Name: "UJISTDR - JASA-PENGUJIAN STANDAR" }
+  { Code: "UJISTDR", Name: "UJISTDR - JASA-PENGUJIAN STANDAR" },
+  { Code: "CHEM", Name: "CHEM - CHEMICAL" },
+  { Code: "BHNBAKU", Name: "BHNBAKU - BAHAN BAKU" },
+  { Code: "BHNEMB", Name: "BHNEMB - EMBALAGE" },
+  { Code: "BPBT", Name: "BPBT - BAHAN PEMBANTU" },
+  { Code: "BRGJD", Name: "BRGJD - BARANG JADI" }
 ];
 
   formOptions = {
