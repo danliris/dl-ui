@@ -12,5 +12,6 @@ export class Detail {
     this.readOnly = !!this.options.readOnly;
     const sharedOptions = (context.context && context.context.options) || {};
     this.details = sharedOptions.details || [];
+    this.colourOptions = sharedOptions.colourOptions || [''];
   }
 }
