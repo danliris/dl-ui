@@ -1,10 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, PackingInventoryService } from './service';
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
 import { Detail } from './template/items/detail';
 
-@inject(Router, Service)
+@inject(Router, Service, PackingInventoryService)
 export class Edit {
   hasCancel = true;
   hasSave = true;
@@ -12,9 +12,10 @@ export class Edit {
   isEdit = true;
   hasCreate = false;
 
-  constructor(router, service) {
+  constructor(router, service, packingInventoryService) {
     this.router = router;
     this.service = service;
+    this.packingInventoryService = packingInventoryService;
   }
 
   bind() {
@@ -25,6 +26,19 @@ export class Edit {
   async activate(params) {
     const ro = Base64Helper.decode(params.ro);
     const result = await this.service.getByRONo(ro);
+    //get packing list by RONo
+    let packingList;
+    try {
+      packingList = await this.packingInventoryService.getByPackingListRONo(ro);
+
+      if (!packingList || packingList.length === 0) {
+        throw new Error(`RONo ${ro} belum dibuat Packing List`);
+      }
+    } catch (error) {
+      alert(`RONo ${ro} belum dibuat Packing List`);
+      this.router.navigateToRoute('list');
+      return;
+    }
     const stockItems = Array.isArray(result) ? result : [];
     const first = stockItems[0] || {};
     this.data = {
@@ -33,6 +47,7 @@ export class Edit {
       UnitName: first.Unit ? first.Unit.Name : '',
       ComodityName: first.Comodity ? first.Comodity.Name : '',
       Article: first.Article || '',
+      ColourOptions: this.getColourOptions(packingList),
       Quantity: stockItems.reduce(
         (sum, item) => sum + (parseFloat(item.Quantity) || 0),
         0
@@ -70,6 +85,24 @@ export class Edit {
     };
   }
 
+  getColourOptions(packingList) {
+    const colours = new Set();
+
+    const items = Array.isArray(packingList && packingList.data)
+      ? packingList.data
+      : (Array.isArray(packingList) ? packingList : []);
+
+    items.forEach(item => {
+      (Array.isArray(item.details) ? item.details : []).forEach(detail => {
+        if (detail.colour) {
+          colours.add(detail.colour);
+        }
+      });
+    });
+
+    return [''].concat(Array.from(colours));
+  }
+
   cancel() {
     this.router.navigateToRoute('list');
   }
@@ -100,6 +133,11 @@ export class Edit {
       details.forEach((detail, detailIndex) => {
         const detailError = {};
         const quantity = parseFloat(detail.Quantity) || 0;
+
+        if (!detail.Colour || !detail.Colour.trim()) {
+          detailError.Colour = 'Colour harus diisi';
+          isValid = false;
+        }
 
         if (!detail.WarehouseCode || !detail.WarehouseCode.trim()) {
           detailError.WarehouseCode = 'Warehouse Code harus diisi';

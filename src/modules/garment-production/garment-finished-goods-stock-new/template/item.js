@@ -11,9 +11,12 @@ export class Item {
       ? this.data.Details
       : [];
 
+    const sharedOptions = (context.context && context.context.options) || {};
+
     this.detailOptions = Object.assign({}, this.options, {
       readOnly: this.readOnly,
-      details: this.data.Details
+      details: this.data.Details,
+      colourOptions: sharedOptions.colourOptions || ['']
     });
 
     this.isShowing = !!this.data.IsShowing;

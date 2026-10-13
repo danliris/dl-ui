@@ -78,7 +78,8 @@ export class DataForm {
       readOnly: !!this.readOnly,
       isCreate: this.context.isCreate,
       isView: this.context.isView,
-      isEdit: this.context.isEdit || this.data.isEdit
+      isEdit: this.context.isEdit || this.data.isEdit,
+      colourOptions: Array.isArray(this.data.ColourOptions) ? this.data.ColourOptions : ['']
     };
   }
 

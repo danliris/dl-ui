@@ -1,11 +1,12 @@
 <template>
   <tr>
     <td>
-      <au-textbox
+      <au-dropdown
         value.bind="data.Colour"
+        items.bind="colourOptions"
         error.bind="error.Colour"
         read-only.bind="readOnly">
-      </au-textbox>
+      </au-dropdown>
     </td>
     <td>
       <au-numeric
