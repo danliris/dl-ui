@@ -315,7 +315,7 @@ export class DataForm {
       this.data.MarketingName = newValue.Name;
       this.data.ResponsibleName = newValue.ResponsibleName;
     } else {
-      this.selectedBookingOrder = null;
+      // this.selectedBookingOrder = null;
       this.selectedGarmentMarketing = null;
     }
   }
