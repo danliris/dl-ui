@@ -489,7 +489,7 @@ export class DataForm {
 
                         return (
                             this._sameSize(packingSize.Size, this._getFinishedGoodSize(stock)) &&
-                            this._sameUom(packingSize.Uom, this._getFinishedGoodUom(stock)) &&
+                            //this._sameUom(packingSize.Uom, this._getFinishedGoodUom(stock)) &&
                             this._sameColour(packingSize.Colour, stockColour)
                         );
                     });

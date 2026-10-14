@@ -16,6 +16,11 @@ export class Detail {
             this.isPersisted ||
             !this.data.FinishedGoodStockId;
         this.quantity = Number(this.data.Quantity || 0);
+        // auto-fill quantity with sisa PL (RemainingQuantity) for new rows with a selected stock
+        // this.quantity = this.data.FinishedGoodStockId
+        //     ? Number(this.data.Quantity || this.data.RemainingQuantity || 0)
+        //     : Number(this.data.Quantity || 0);
+        // this.data.Quantity = this.quantity;
         this.quantityError = null;
         this._validateStock(this.quantity);
         this._validateGroupQuantity();
