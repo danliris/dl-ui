@@ -191,3 +191,7 @@
 .monitoring-table .table th {
     text-align: center;
 }
+
+.fixed-table-pagination .pagination-info {
+    display: none !important;
+}
