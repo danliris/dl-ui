@@ -22,23 +22,21 @@ class Service extends RestService {
     var endpoint = `${serviceUri}/racking/${data.Id}`;
     return super.put(endpoint, data);
   }
-  // getStelling(id) {
-  //   var endpoint = `${serviceUri}/stelling/${id}`;
-  //   return super.get(endpoint);
-  // }
-  // generateExcel(args) {
-  //   var endpoint = `${serviceUri}/by-ro/download?productcode=${args.productcode}&ro=${args.ro}&rack=${args.rack}`;
-  //   return super.getXls(endpoint);
-  // }
-  // getPdfById(id) {
-  //   var endpoint = `${serviceUri}/stelling/${id}`;
-  //   return super.getPdf(endpoint);
-  // }
-  // getBarcodeById(id) {
-  //   var endpoint = `${serviceUri}/barcode/${id}`;
-  //   return super.getPdf(endpoint);
-  // }
 
 }
 
-export { Service };
+const shippingInvoiceServiceUri = 'garment-shipping/packing-lists';
+
+class PackingInventoryService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "packing-inventory");
+    }
+
+    getByPackingListRONo(RONo) {
+        var endpoint = `${shippingInvoiceServiceUri}/by-ro-no/${RONo}`;
+        return super.get(endpoint);
+    }
+}
+
+export { Service, PackingInventoryService };
+
