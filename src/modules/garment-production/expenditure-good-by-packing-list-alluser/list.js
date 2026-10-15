@@ -26,7 +26,8 @@ export class List {
             field: 'ExpenditureDate',
             title: 'Tgl Pengeluaran',
             formatter: value => moment(value).format('DD MMM YYYY')
-        }
+        },
+        { field: 'CreatedBy', title: 'Staff'}
     ];
 
     loader = info => {
