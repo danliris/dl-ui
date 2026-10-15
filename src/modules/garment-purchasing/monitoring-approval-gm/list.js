@@ -2,13 +2,13 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
-import numeral from 'numeral';
 
 @inject(Router, Service)
 export class List {
 
     constructor(router, service){
         this.service = service;
+        this.keyword = "";
         this.router = router;
         this.info = {
             jenisApproval: "",
@@ -17,9 +17,6 @@ export class List {
             nomorDokumen: ""
         };
     }
-
-    context = ["Detail"];
-
     columns = [
         {
             field: "no",
@@ -32,11 +29,13 @@ export class List {
         },
         {
             field: "NamaDokumen",
-            title: "Nama Dokumen"
+            title: "Nomor Dokumen"
         },
         {
             field: "TanggalRequest",
-            title: "Tanggal Request"
+            title: "Tanggal Request",
+            formatter: function (value) {
+               return value ? moment(value).format("DD MMM YYYY") : "";}
         },
         {
             field: "Pemohon",
@@ -48,13 +47,15 @@ export class List {
         },
         {
             field: "TanggalApprove",
-            title: "Tanggal Approve"
+            title: "Tanggal Approve",
+            formatter: function (value, row) {
+                if (row.StatusRequest !== "Approved" || !value) {
+                    return "";
+                }
+
+                return moment(value).format("DD MMM YYYY");
+            }
         },
-        {
-            field: "detail",
-            title: "Detail",
-            sortable: false
-        }
     ];
 
     jenisApprovals = [
@@ -75,18 +76,36 @@ export class List {
 
 
     loader = (info) => {
-         if (!this.info.jenisApproval) {
-                return {
-                    total: 0,
-                    data: []
-                };
-            }
-            var order = {};
+    this.keyword = info.search || "";
 
-            if (info.sort) {
-                order[info.sort] = info.order;
-            }
+    const hasJenisApproval = !!(
+        this.filter.jenisApproval &&
+        this.filter.jenisApproval.trim()
+    );
 
+    const hasNomorDokumen = !!(
+        this.filter.nomorDokumen &&
+        this.filter.nomorDokumen.trim()
+    );
+
+    const hasKeyword = !!(
+        info.search &&
+        info.search.trim()
+    );
+
+    // Jangan tampilkan semua data jika belum ada kriteria pencarian
+    if (!hasJenisApproval && !hasNomorDokumen && !hasKeyword) {
+        return {
+            total: 0,
+            data: []
+        };
+    }
+
+    var order = {};
+
+        if (info.sort) {
+            order[info.sort] = info.order;
+        }
             var arg = {
                 page: parseInt(info.offset / info.limit, 10) + 1,
                 size: info.limit,
@@ -97,12 +116,19 @@ export class List {
 
             return this.service.search(arg)
                 .then(result => {
+                    const offset = Number(info.offset) || 0;
+
+                    const data = result.data.map((item, index) => ({
+                        ...item,
+                        no: offset + index + 1
+                    }));
+
                     return {
                         total: result.info.total,
-                        data: result.data
+                        data: data
                     };
                 });
-    };
+            };
 
     search() {
         this.filter = {
@@ -113,6 +139,18 @@ export class List {
         };
 
         this.tableList.refresh();
+    }
+
+    downloadExcel() {
+        if (!this.info.jenisApproval) {
+            alert("Pilih Jenis Approval terlebih dahulu.");
+            return;
+        }
+
+        return this.service.downloadExcel({
+            keyword: this.keyword || "",
+            filter: JSON.stringify(this.filter || {})
+        });
     }
 
     reset() {

@@ -1,3 +1,4 @@
+
 import { RestService } from '../../../utils/rest-service';
 
 const serviceUri = 'monitoring-approval-gm';
@@ -11,6 +12,16 @@ class Service extends RestService {
     search(info) {
         return super.list(serviceUri, info);
     }
+
+    downloadExcel(info) {
+        const query =
+            `keyword=${encodeURIComponent(info.keyword || "")}` +
+            `&filter=${encodeURIComponent(info.filter || "{}")}`;
+
+        return super.getXls(
+            `${serviceUri}/excel?${query}`
+        );
+    }
 }
 
-export { Service }
+export { Service };
