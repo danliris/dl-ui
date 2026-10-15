@@ -1436,4 +1436,20 @@ module.exports = [
             iconClass: 'fa fa-dashboard'
         }
     },
+    {
+        route: '/garment-production/expenditure-good-by-packing-list-alluser',
+        name: 'garment-production-expenditure-good-by-packing-list-alluser',
+        moduleId: './modules/garment-production/expenditure-good-by-packing-list-alluser/index',
+        nav: true,
+        title: 'Pengeluaran Barang Jadi By Packing List (Semua User)',
+        auth: true,
+        settings: {
+            group: "g-production",
+            subGroup: "laporan",
+            // permission: { "C9": 1, "C1A": 1, "C1B": 1, "C2A": 1, "C2B": 1, "C2C": 1, "P": 1 },
+            permission: { "O82": 1 },
+            // permission: { "C9": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];
