@@ -1,0 +1,7 @@
+<template>
+    <tr if.bind="columnIndex > -1">
+        <td colspan.bind="columnIndex" class="text-right"><strong>Jumlah Qty Ambil</strong></td>
+        <td class="text-right"><strong>${totalQuantity}</strong></td>
+        <td colspan.bind="columnsAfter" if.bind="columnsAfter > 0"></td>
+    </tr>
+</template>
