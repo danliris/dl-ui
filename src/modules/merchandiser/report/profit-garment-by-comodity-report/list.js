@@ -130,6 +130,16 @@ export class List {
  
         this.service.generateExcel(JSON.stringify(info));
     }
+    ExportToExcelNew() {
+        var info = {
+            dateFrom : this.dateFrom,
+            dateTo : this.dateTo,
+        }
+        if (this.section) {
+           info.section = this.section.Code
+        }
+        this.service.generateExcelNew(JSON.stringify(info));
+    }
 
     reset() {
         this.dateFrom = null;

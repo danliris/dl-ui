@@ -151,18 +151,18 @@ export class List {
     //     this.router.navigateToRoute('create');
     // }
 
-    posting() {
-        const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
-        if (unpostedDataToBePosted.length > 0) {
-            if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
-                this.service.postCC(unpostedDataToBePosted.map(d => d.Id))
-                    .then(result => {
-                        this.table.refresh();
-                        this.dataToBePosted = [];
-                    }).catch(e => {
-                        this.error = e;
-                    })
-            }
-        }
-    }
+    // posting() {
+    //     const unpostedDataToBePosted = this.dataToBePosted.filter(d => d.IsPosted === false);
+    //     if (unpostedDataToBePosted.length > 0) {
+    //         if (confirm(`Post ${unpostedDataToBePosted.length} data?`)) {
+    //             this.service.postCC(unpostedDataToBePosted.map(d => d.Id))
+    //                 .then(result => {
+    //                     this.table.refresh();
+    //                     this.dataToBePosted = [];
+    //                 }).catch(e => {
+    //                     this.error = e;
+    //                 })
+    //         }
+    //     }
+    // }
 }

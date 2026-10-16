@@ -21,6 +21,11 @@ generateExcel(info) {
         var endpoint = `${serviceUri}?filter=${info}`;
         return super.getXls(endpoint);
     }
+
+    generateExcelNew(info) {
+        var endpoint = `${serviceUri}/ReportMarketingNew?filter=${info}`;
+        return super.getXls(endpoint);
+    }
 }
 
 
