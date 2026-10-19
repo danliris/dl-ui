@@ -64,8 +64,8 @@ export class List {
         "PR",
         "Disposisi Pembelian",
         "Dispo Pembayaran",
-        "Debet Note",
-        "Retur Note"
+        "Nota Debet",
+        "Nota Retur"
     ];
 
     filter = {};
