@@ -89,6 +89,14 @@ export class List {
     "R40",
     "R41",
     "R42",
+    "R43",
+    "R44",
+    "R45",
+    "R46",
+    "R47",
+    "R48",
+    "R49",
+    "R50"
   ];
   storageOptions  = ["GUDANG BAHAN BAKU", "GUDANG INTERLINING","GUDANG ACCESSORIES", "GUDANG EMBALASE"];
 
