@@ -5,6 +5,7 @@ import { activationStrategy } from "aurelia-router";
 import { Dialog } from "../../../components/dialog/dialog";
 import { AlertView } from "./custom-dialog-view/alert-view";
 import { Base64Helper } from "../../../utils/base-64-coded-helper";
+import { StatusHelper } from "../../../utils/disable-update";
 
 @inject(Router, Service, Dialog)
 export class View {
@@ -80,6 +81,16 @@ export class View {
       this.hasEdit = false;
     }
 
+      const isSuccess = (this.data.Items || []).some(item => {
+          const status = (item.StatusD365 || '').trim().toUpperCase();
+          const statusSerial = (item.StatusSerialD365 || '').trim().toUpperCase();
+          const statusITF = (item.StatusITFD365 || '').trim().toUpperCase();
+
+          return status === 'Success' || statusSerial === 'Success' || statusITF === 'Success';
+      });
+
+      StatusHelper.disableEditDelete(this, isSuccess);
+    
     // if(this.data.DONo){
     //     let CorrectionResult = await this.service.getCorrection({filter: JSON.stringify({ DONo: this.data.DONo,  CorrectionType:"Jumlah"}) });
 

@@ -73,7 +73,13 @@ export class View {
             this.editCallback = null;
         }
 
-        const isSuccess = this.data.StatusBOMD365 === 'Success' || this.data.StatusIOMD365 === 'Success';
+        const isSuccess = (this.data.Items || []).some(item => {
+        const statusBOM = (item.StatusBOMD365 || '').trim().toUpperCase();
+        const statusIOM = (item.StatusIOMD365 || '').trim().toUpperCase();
+
+        return statusBOM === 'Success' || statusIOM === 'Success';
+    });
+
         StatusHelper.disableEditDelete(this, isSuccess);
     }
 
