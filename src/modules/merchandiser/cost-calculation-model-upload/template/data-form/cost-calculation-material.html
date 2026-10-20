@@ -126,6 +126,11 @@
             <div style="width: 100px;" class="tooltip-material-field">
                 <au-textbox value.bind="selectedUOMQuantity" error.bind="error.UOMQuantity" options.bind="controlOptions" read-only.bind="true"></au-textbox>
                 <span class="tooltiptext">Satuan</span>
+                <div if.bind="data.UOMQuantity.IsError && !error.UOMQuantity" class="form-group has-error">
+						<span if.bind="data.UOMQuantity.IsError" class="help-block">
+							${data.UOMQuantity.ErrorMessage}
+						</span>
+					</div>
             </div>
         </td>
         <!-- price -->
@@ -138,8 +143,13 @@
             <!-- satuan harga -->
         <td>
             <div style="width: 100px;" class="tooltip-material-field">
-                <au-textbox value.bind="selectedUOMPrice" options.bind="controlOptions" read-only.bind="true"></au-textbox>
+                <au-textbox value.bind="selectedUOMPrice" error.bind="error.UOMPrice" options.bind="controlOptions" read-only.bind="true"></au-textbox>
                 <span class="tooltiptext">Satuan Harga</span>
+                <div if.bind="data.UOMPrice.IsError && !error.UOMPrice" class="form-group has-error">
+						<span if.bind="data.UOMPrice.IsError" class="help-block">
+							${data.UOMPrice.ErrorMessage}
+						</span>
+					</div>
             </div>
         </td>
         <!-- konversi -->
