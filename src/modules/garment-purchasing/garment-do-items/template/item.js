@@ -23,8 +23,8 @@ export class Item {
 
     static storageLocationLimits = {
         'GUDANG BAHAN BAKU': { rack: 42, level: 13, box: 10 },
-        'GUDANG ACCESSORIES': { rack: 28, level: 6, box: 6 },
-        'GUDANG EMBALASE': { rack: 22, level: 3, box: 10 }
+        'GUDANG ACCESSORIES': { rack: 50, level: 6, box: 25 },
+        'GUDANG EMBALASE': { rack: 50, level: 6, box: 25 }
     };
 
     static defaultLocationLimits = { rack: 42, level: 13, box: 10 };
