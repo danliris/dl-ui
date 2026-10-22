@@ -109,6 +109,12 @@
                     read-only.bind="true"
                     options.bind="controlOptions">
                 </au-textbox>
+
+                <div class="row" if.bind="deleteError">
+                    <div class="col-md-offset-5 col-md-5">
+                        <span class="text-danger">${deleteError}</span>
+                    </div>
+                </div>
             </div>
     </div>
 

@@ -39,7 +39,23 @@ class Service extends RestService {
 
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
-        return super.delete(endpoint, data);
+        var promise = this.endpoint.destroy(endpoint);
+        this.publish(promise);
+        return promise
+            .catch((e) => {
+                this.publish(promise);
+                if (e.status === 404) {
+                    return Promise.reject(new Error("Data tidak ditemukan (404)"));
+                }
+                return e.json().then(
+                    (result) => Promise.reject(new Error(result.message || result.error || "Unknown error")),
+                    () => Promise.reject(new Error("Unknown error"))
+                );
+            })
+            .then((result) => {
+                this.publish(promise);
+                return Promise.resolve(result);
+            });
     }
 
     getPdfById(id) {

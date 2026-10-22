@@ -9,6 +9,7 @@ export class View {
   hasCancel = true;
   hasEdit = true;
   hasDelete = true;
+  deleteError;
 
   constructor(router, service, productionService) {
     this.router = router;
@@ -228,9 +229,15 @@ export class View {
   delete(event) {
     var r = confirm("Apakah anda yakin akan menghapus data ini?");
     if (r == true) {
-      this.service.delete(this.data).then((result) => {
-        this.cancel();
-      });
+      this.deleteError = undefined;
+      this.service
+        .delete(this.data)
+        .then((result) => {
+          this.cancel();
+        })
+        .catch((e) => {
+          this.deleteError = e.message || e;
+        });
     }
   }
 }
