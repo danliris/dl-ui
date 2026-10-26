@@ -95,67 +95,126 @@ export class PurchaseOrderItem {
     }
   }
 
+  // checkIsOverBudget() {
+  //   if (!this.options.readOnly)
+  //     if (this.context.context.options.checkOverBudget) {
+  //       this.data.UsedBudget = parseFloat(this.data.budgetUsed.toFixed(4));
+  //       //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
+  //       //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
+  //       var totalDealPrice = parseFloat((this.data.remainingBudget - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
+  //       //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
+  //       //this.data.RemainingBudget=totalDealPrice;
+
+  //       if (this.data.UENItemId) {
+  //         totalDealPrice = parseFloat((this.data.BudgetFromUEN - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
+  //       }
+  //       if (totalDealPrice < 0) {
+  //         this.data.IsOverBudget = true;
+
+  //         //calculate over budget amount and type
+  //         let overBudgetAmount = [];
+  //         //calculate over budget type and amount when deal quantity and price per deal unit is different from default value
+  //         if (this.defaultDealQuantity < this.data.DealQuantity && this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
+  //           let remark = ["Selisih Qty", "Selisih Harga"];
+
+  //           // set over budget remark string
+  //           this.data.OverBudgetType = remark.map(r => `- ${r}`).join('\n');
+
+  //           // calculate over budget amount
+  //           let OBQty = parseFloat((this.data.DealQuantity - this.defaultDealQuantity) * this.data.PricePerDealUnit);
+  //           let OBPrice = parseFloat(((this.data.PricePerDealUnit * this.kurs.Rate) - this.defaultPricePerDealUnit) * this.defaultDealQuantity);
+
+  //           // set over budget amount
+  //           overBudgetAmount.push(OBQty, OBPrice);
+  //           // sum over budget amount from OBQty and OBPrice
+  //           this.data.OverBudgetAmount = parseFloat((OBQty + OBPrice).toFixed(4));
+  //         }
+  //         // calculate over budget type and amount when deal quantity is different from default value
+  //         else if (this.defaultDealQuantity < this.data.DealQuantity) {
+  //           this.data.OverBudgetType = "- Selisih Qty";
+  //           this.data.OverBudgetAmount = parseFloat((this.data.DealQuantity - this.defaultDealQuantity) * this.data.PricePerDealUnit).toFixed(4);
+  //           overBudgetAmount.push(this.data.OverBudgetAmount);
+  //         }
+  //         // calculate over budget type and amount when price per deal unit is different from default value
+  //         else if (this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
+  //           this.data.OverBudgetType = "- Selisih Harga";
+  //           this.data.OverBudgetAmount = parseFloat(((this.data.PricePerDealUnit * this.kurs.Rate) - this.defaultPricePerDealUnit) * this.data.DealQuantity).toFixed(4);
+  //           console.log("OverBudgetAmount", this.data.OverBudgetAmount);
+  //           overBudgetAmount.push(this.data.OverBudgetAmount);
+  //         }
+
+  //         // set over budget remark string 
+  //         this.data.OverBudgetAmountStr = overBudgetAmount.map(r => `- ${r}`).join("\n")
+
+  //       } else {
+  //         this.data.IsOverBudget = false;
+  //         this.data.OverBudgetRemark = "";
+  //         //set default value
+  //         this.data.OverBudgetType = "";
+  //         this.data.OverBudgetAmountStr = "";
+  //         this.data.OverBudgetAmount = 0;
+  //       }
+  //     }
+  // }
+
   checkIsOverBudget() {
-    if (!this.options.readOnly)
-      if (this.context.context.options.checkOverBudget) {
-        this.data.UsedBudget = parseFloat(this.data.budgetUsed.toFixed(4));
-        //this.data.budgetUsed=(this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate);
-        //var totalDealPrice = ((this.data.DealQuantity * this.price * this.kurs.Rate) + this.data.budgetUsed).toFixed(4);
-        var totalDealPrice = parseFloat((this.data.remainingBudget - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
-        //var totalBudget=parseInt(this.data.totalBudget.toFixed(4));
-        //this.data.RemainingBudget=totalDealPrice;
+  if (!this.options.readOnly)
+    if (this.context.context.options.checkOverBudget) {
+      this.data.UsedBudget = parseFloat(this.data.budgetUsed.toFixed(4));
 
-        if (this.data.UENItemId) {
-          totalDealPrice = parseFloat((this.data.BudgetFromUEN - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
-        }
-        if (totalDealPrice < 0) {
-          this.data.IsOverBudget = true;
+      var totalDealPrice = parseFloat((this.data.remainingBudget - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
 
-          //calculate over budget amount and type
-          let overBudgetAmount = [];
-          //calculate over budget type and amount when deal quantity and price per deal unit is different from default value
-          if (this.defaultDealQuantity < this.data.DealQuantity && this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
-            let remark = ["Selisih Qty", "Selisih Harga"];
-
-            // set over budget remark string
-            this.data.OverBudgetType = remark.map(r => `- ${r}`).join('\n');
-
-            // calculate over budget amount
-            let OBQty = parseFloat((this.data.DealQuantity - this.defaultDealQuantity) * this.data.PricePerDealUnit);
-            let OBPrice = parseFloat(((this.data.PricePerDealUnit * this.kurs.Rate) - this.defaultPricePerDealUnit) * this.defaultDealQuantity);
-
-            // set over budget amount
-            overBudgetAmount.push(OBQty, OBPrice);
-            // sum over budget amount from OBQty and OBPrice
-            this.data.OverBudgetAmount = parseFloat((OBQty + OBPrice).toFixed(4));
-          }
-          // calculate over budget type and amount when deal quantity is different from default value
-          else if (this.defaultDealQuantity < this.data.DealQuantity) {
-            this.data.OverBudgetType = "- Selisih Qty";
-            this.data.OverBudgetAmount = parseFloat((this.data.DealQuantity - this.defaultDealQuantity) * this.data.PricePerDealUnit).toFixed(4);
-            overBudgetAmount.push(this.data.OverBudgetAmount);
-          }
-          // calculate over budget type and amount when price per deal unit is different from default value
-          else if (this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
-            this.data.OverBudgetType = "- Selisih Harga";
-            this.data.OverBudgetAmount = parseFloat(((this.data.PricePerDealUnit * this.kurs.Rate) - this.defaultPricePerDealUnit) * this.data.DealQuantity).toFixed(4);
-            console.log("OverBudgetAmount", this.data.OverBudgetAmount);
-            overBudgetAmount.push(this.data.OverBudgetAmount);
-          }
-
-          // set over budget remark string 
-          this.data.OverBudgetAmountStr = overBudgetAmount.map(r => `- ${r}`).join("\n")
-
-        } else {
-          this.data.IsOverBudget = false;
-          this.data.OverBudgetRemark = "";
-          //set default value
-          this.data.OverBudgetType = "";
-          this.data.OverBudgetAmountStr = "";
-          this.data.OverBudgetAmount = 0;
-        }
+      if (this.data.UENItemId) {
+        totalDealPrice = parseFloat((this.data.BudgetFromUEN - parseFloat(this.data.budgetUsed.toFixed(4))).toFixed(4));
       }
-  }
+      if (totalDealPrice < 0) {
+        this.data.IsOverBudget = true;
+
+        let overBudgetAmount = [];
+        if (this.defaultDealQuantity < this.data.DealQuantity && this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
+          let remark = ["Selisih Qty", "Selisih Harga"];
+
+          this.data.OverBudgetType = remark.map(r => `- ${r}`).join('\n');
+
+          let OBQty = parseFloat((this.data.DealQuantity - this.defaultDealQuantity) * (this.data.PricePerDealUnit * this.kurs.Rate));
+          let OBPrice = parseFloat(((this.data.PricePerDealUnit * this.kurs.Rate) - this.defaultPricePerDealUnit) * this.defaultDealQuantity);
+
+          overBudgetAmount.push(OBQty, OBPrice);
+          this.data.OverBudgetAmount = parseFloat((OBQty + OBPrice).toFixed(4));
+        }
+        else if (this.defaultDealQuantity < this.data.DealQuantity) {
+          this.data.OverBudgetType = "- Selisih Qty";
+
+          this.data.OverBudgetAmount = parseFloat((
+            (this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate) -
+            (this.defaultDealQuantity * this.defaultPricePerDealUnit)
+          ).toFixed(4));
+
+          overBudgetAmount.push(this.data.OverBudgetAmount);
+        }
+        else if (this.defaultPricePerDealUnit < (this.data.PricePerDealUnit * this.kurs.Rate)) {
+          this.data.OverBudgetType = "- Selisih Harga";
+
+          this.data.OverBudgetAmount = parseFloat((
+            (this.data.DealQuantity * this.data.PricePerDealUnit * this.kurs.Rate) -
+            (this.defaultDealQuantity * this.defaultPricePerDealUnit)
+          ).toFixed(4));
+
+          //console.log("OverBudgetAmount", this.data.OverBudgetAmount);
+          overBudgetAmount.push(this.data.OverBudgetAmount);
+        }
+
+        this.data.OverBudgetAmountStr = overBudgetAmount.map(r => `- ${r}`).join("\n")
+
+      } else {
+        this.data.IsOverBudget = false;
+        this.data.OverBudgetRemark = "";
+        this.data.OverBudgetType = "";
+        this.data.OverBudgetAmountStr = "";
+        this.data.OverBudgetAmount = 0;
+      }
+    }
+}
 
   updatePrice() {
     // if (this.data.UseIncomeTax) {
