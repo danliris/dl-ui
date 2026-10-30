@@ -1,90 +1,218 @@
 <template>
   <div class="row">
-    <div class="col-md-6">
-      <au-input-form
-        title.bind="title"
-        with.bind="context"
-        options.bind="formOptions">
-
-        <au-textbox
-          value.bind="data.RoNo"
-          label="No. RO"
-          error.bind="error.RoNo"
-          read-only.bind="readOnly || showDetail || isSearching">
-        </au-textbox>
-
-        <template if.bind="showDetail">
-
-          <au-textbox
-            value.bind="data.Article"
-            label="Artikel"
-            error.bind="error.Article"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox
-            value.bind="data.Comodity"
-            label="Komoditi"
-            error.bind="error.Comodity"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox
-            value.bind="data.Buyer"
-            label="Buyer"
-            error.bind="error.Buyer"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox
-            value.bind="data.BuyerBrand"
-            label="Buyer Brand"
-            error.bind="error.BuyerBrand"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox
-            value.bind="data.Quantity"
-            label="Jumlah Order"
-            error.bind="error.Quantity"
-            read-only.bind="true">
-          </au-textbox>
-
-          <au-textbox
-            value.bind="data.DeliveryDate"
-            label="Tanggal Kirim"
-            error.bind="error.DeliveryDate"
-            read-only.bind="true">
-          </au-textbox>
-
-        </template>
-
-        <div class="form-group" if.bind="!readOnly">
-          <label class="col-sm-6 control-label"></label>
-
-          <div class="col-sm-6">
-            <button
+    <div class="col-md-12">
+      <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+        <div style="margin-bottom: 20px;">
+          <button type="button"
+              if.bind="!(readOnly)"
+              class="btn ${isUploadVisible ? 'btn-danger' : 'btn-success'}"
+              click.delegate="toggleUpload()">
+              ${isUploadVisible ? 'Cancel Upload' : 'Upload Excel'}
+          </button>
+          <button
               type="button"
-              click.delegate="searching()"
-              disabled.bind="isSearching || showDetail"
-              if.bind="!showDetail"
-              class="btn btn-success">
+              class="btn btn-primary"
+              if.bind="!(readOnly)"
+              show.bind="isUploadVisible"
+              click.delegate="downloadTemplate()">
+              <i class="fa fa-download"></i>
+              Download Template
+          </button>
+        </div>
+        <div>
+          <div class="form-group" if.bind="isUploadVisible">
+            <label class="col-sm-2 control-label" style="text-align: left;" for="fileCsv">
+              Upload List RO
+            </label>
+          
+            <div class="col-sm-7">
+              <input
+                class="form-control"
+                type="file"
+                id="fileCsv"
+                accept=".xls,.xlsx,.csv"
+                change.delegate="handleFileUpload($event)"
+                disabled.bind="isSearching">
+            
+              <span class="help-block text-danger">
+                ${error.file}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Progress pengecekan -->
+          <!-- <div class="col-md-12" if.bind="isSearching && isUploadVisible">
+            <p>Memeriksa RO: ${processedCount} dari ${totalCount}</p>
+          </div> -->
+          
+          <!-- Hasil pengecekan seluruh RO -->
+          <div class="table-responsive" if.bind="ROList && ROList.length > 0 && isUploadVisible">
+              <table class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th class="text-center">No.</th>
+                          <th class="text-center">No. RO</th>
+                          <th class="text-center">Article</th>
+                          <th class="text-center">Comodity</th>
+                          <th class="text-center">Buyer</th>
+                          <th class="text-center">Buyer Brand</th>
+                          <th class="text-center">Quantity</th>
+                          <th class="text-center">Delivery Date</th>
+                          <th class="text-center">Aksi</th>
+                      </tr>
+                  </thead>
 
-              ${isSearching ? "Mencari..." : "Cari"}
-            </button>
+                  <tbody>
+                      <tr repeat.for="item of data">
+                          <td class="text-center">${$index + 1}</td>
 
-            <button
-              type="button"
-              click.delegate="reset()"
-              disabled.bind="isSearching"
-              if.bind="showDetail"
-              class="btn btn-default">
+                          <td>${item.RoNo}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].RoNo" class="help-block">
+                                ${error[$index].RoNo}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.Article}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].Article" class="help-block text-danger">
+                                ${error[$index].Article}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.Comodity}  
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].Comodity" class="help-block text-danger">
+                                ${error[$index].Comodity}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.Buyer}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].Buyer" class="help-block text-danger">
+                                ${error[$index].Buyer}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.BuyerBrand}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].BuyerBrand" class="help-block text-danger">
+                                ${error[$index].BuyerBrand}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.Quantity}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].Quantity" class="help-block text-danger">
+                                ${error[$index].Quantity}
+                              </span>
+                            </div>
+                          </td>
+                          <td>${item.DeliveryDate}
+                            <div class="form-group has-error">
+                              <span if.bind="error[$index].DeliveryDate" class="help-block text-danger">
+                                ${error[$index].DeliveryDate}
+                              </span>
+                            </div>
+                          </td>
 
-              RO Lain
-            </button>
+                          <td class="text-center">
+                              <button type="button"
+                                  class="btn btn-danger btn-xs"
+                                  style="font-size: 16px; padding: 6px 8px;"
+                                  click.delegate="removeRO(item, $index)"
+                                  title="Hapus">
+                                  <i class="fa fa-trash"></i>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
           </div>
         </div>
 
+
+        <div if.bind="!isUploadVisible">
+            <au-textbox
+              value.bind="data.RoNo"
+              label="No. RO"
+              error.bind="error[0].RoNo"
+              options.bind="inputOptions"
+              read-only.bind="readOnly || showDetail || isSearching">
+            </au-textbox>
+
+            <template if.bind="showDetail">
+
+              <au-textbox
+                value.bind="data.Article"
+                label="Artikel"
+                error.bind="error[0].Article"
+                read-only.bind="true">
+              </au-textbox>
+
+              <au-textbox
+                value.bind="data.Comodity"
+                label="Komoditi"
+                error.bind="error[0].Comodity"
+                read-only.bind="true">
+              </au-textbox>
+
+              <au-textbox
+                value.bind="data.Buyer"
+                label="Buyer"
+                error.bind="error[0].Buyer"
+                read-only.bind="true">
+              </au-textbox>
+
+              <au-textbox
+                value.bind="data.BuyerBrand"
+                label="Buyer Brand"
+                error.bind="error[0].BuyerBrand"
+                read-only.bind="true">
+              </au-textbox>
+
+              <au-textbox
+                value.bind="data.Quantity"
+                label="Jumlah Order"
+                error.bind="error[0].Quantity"
+                read-only.bind="true">
+              </au-textbox>
+
+              <au-textbox
+                value.bind="data.DeliveryDate"
+                label="Tanggal Kirim"
+                error.bind="error[0].DeliveryDate"
+                read-only.bind="true">
+              </au-textbox>
+
+            </template>
+
+            <div class="form-group" if.bind="!readOnly">
+              <label class="col-sm-2 control-label"></label>
+
+              <div class="col-sm-7">
+                <button
+                  type="button"
+                  click.delegate="searching()"
+                  disabled.bind="isSearching || showDetail"
+                  if.bind="!showDetail"
+                  class="btn btn-success">
+
+                  ${isSearching ? "Mencari..." : "Cari"}
+                </button>
+
+                <button
+                  type="button"
+                  click.delegate="reset()"
+                  disabled.bind="isSearching"
+                  if.bind="showDetail"
+                  class="btn btn-default">
+
+                  RO Lain
+                </button>
+              </div>
+            </div>
+        </div>
         <template replaceable part="actions"></template>
 
       </au-input-form>
