@@ -30,14 +30,18 @@ export class Create {
 
 
   saveCallback(event) {
-    this.garmentService.create(this.data)
-      .then(result => {
-        this.list();
-      })
-      .catch(e => {
-        Object.assign(this.error, e);
-      })
-  }
+    var payload = Array.isArray(this.data)
+        ? this.data
+        : [this.data];
+
+    this.garmentService.create(payload)
+        .then(result => {
+            this.list();
+        })
+        .catch(e => {
+            this.error = Array.isArray(e) ? e : [];
+        });
+}
 }
 
 
