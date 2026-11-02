@@ -141,7 +141,7 @@ export class DataForm {
         Batch: lastItem.Batch
           ? moment.parseZone(lastItem.Batch).utcOffset(7).format("YYYY-MM-DD")
           : null,
-        NoPackage: lastItem.NoPackage,
+        //NoPackage: lastItem.NoPackage,
         HandlingUnitId: lastItem.HandlingUnitId,
         HandlingUnit: lastItem.HandlingUnit,
         Rack: lastItem.Rack,
