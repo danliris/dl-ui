@@ -214,14 +214,24 @@ if (firstCell !== "NOMORRO") {
 
 const startIndex = 1;
 
-const roList = rows
-    .slice(startIndex)
-    .map(function (row) {
-        return String(row[0] || "").trim();
-    })
-    .filter(function (roNo) {
-        return roNo !== "";
-    });
+// DISTINCT RO berdasarkan kolom A
+const distinctRO = new Map();
+
+rows.slice(startIndex).forEach(function (row) {
+    const roNo = String(row[0] || "").trim();
+
+    if (!roNo) {
+        return;
+    }
+
+    const key = self.normalize(roNo);
+
+    if (!distinctRO.has(key)) {
+        distinctRO.set(key, roNo);
+    }
+});
+
+const roList = Array.from(distinctRO.values());
 
 if (roList.length === 0) {
     alert("Tidak ada Nomor RO di dalam file.");
