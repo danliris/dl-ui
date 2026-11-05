@@ -12,14 +12,23 @@ export class Service extends RestService {
     super(http, aggregator, config, "sales");
   }
 
-search(info) { 
+    search(info) { 
         var endpoint = `${serviceUri}?filter=${info}`;
         return super.get(endpoint);
     }
     
-generateExcel(info) {
+    generateExcel(info) {
         var endpoint = `${serviceUri}?filter=${info}`;
         return super.getXls(endpoint);
+    }
+
+    generateExcelNew(info) {
+        var endpoint = `${serviceUri}/ReportComodityNew?filter=${info}`;
+        return super.getXls(endpoint);
+    }
+    searchNew(info) { 
+        var endpoint = `${serviceUri}/ReportComodityNew?filter=${info}`;
+        return super.get(endpoint);
     }
 }
 
