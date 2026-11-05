@@ -50,13 +50,13 @@ class Service extends RestService {
         return super.delete(endpoint, data);
     }
 
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
+    getPdfById(type,id) {
+        var endpoint = `${serviceUri}/pdf/${type}/${id}`;
         return super.getPdf(endpoint);
     }
 
-    getBudgetById(id) {
-        var endpoint = `${serviceUri}/budget/${id}`;
+    getBudgetById(type,id) {
+        var endpoint = `${serviceUri}/budget/${type}/${id}`;
         return super.getPdf(endpoint);
     }
 
@@ -135,13 +135,13 @@ class Service extends RestService {
             });
     }
 
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
+    getPdfById(type,id) {
+        var endpoint = `${serviceUri}/pdf/${type}/${id}`;
         return super.getPdf(endpoint);
     }
 
-    getBudgetById(id) {
-        var endpoint = `${serviceUri}/budget/${id}`;
+    getBudgetById(type,id) {
+        var endpoint = `${serviceUri}/budget/${type}/${id}`;
         return super.getPdf(endpoint);
     }
 

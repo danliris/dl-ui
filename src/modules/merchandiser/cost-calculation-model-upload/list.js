@@ -43,6 +43,13 @@ export class List {
         if (info.sort)
             order[info.sort] = info.order;
 
+        var startOfToday = new Date(Date.UTC(2026, 8, 4, 0, 0, 0)).toISOString();
+
+        this.filter = {
+            ...this.filter,
+            [`CreatedUtc >= "${startOfToday}"`]: true
+        };
+
         var arg = {
             page: parseInt(info.offset / info.limit, 10) + 1,
             size: info.limit,
@@ -115,11 +122,11 @@ export class List {
                 break;
             case "Cetak Cost Calculation":
             case "Cetak Cost Calculation (DRAFT)":
-                this.service.getPdfById(data.Id)
+                this.service.getPdfById('new', data.Id)
                 break;
             case "Cetak Budget":
             case "Cetak Budget (DRAFT)":
-                this.service.getBudgetById(data.Id)
+                this.service.getBudgetById('new',data.Id)
                 break;
         }
     }

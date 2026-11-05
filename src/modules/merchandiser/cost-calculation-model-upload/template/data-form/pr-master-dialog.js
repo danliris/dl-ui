@@ -63,8 +63,7 @@ export class PRMasterDialog {
             order: order,
             select: "new( " +
                 "GarmentPurchaseRequest.Id as PRId, GarmentPurchaseRequest.SectionName, GarmentPurchaseRequest.BuyerId, GarmentPurchaseRequest.BuyerCode, GarmentPurchaseRequest.BuyerName, GarmentPurchaseRequest.PRType, GarmentPurchaseRequest.PRNo, GarmentPurchaseRequest.RONo, GarmentPurchaseRequest.Article," +
-                "Id, PO_SerialNumber, CategoryId, CategoryName, ProductId, ProductCode, ProductName, ProductRemark, Quantity, BudgetPrice, UomId, UomUnit, PriceUomId, PriceUomUnit, IsCMT," +
-                "ProductCodeD365, ProductGroupD365)",
+                "Id, PO_SerialNumber, CategoryId, CategoryName, ProductId, ProductCode, ProductName, ProductRemark, Quantity, BudgetPrice, UomId, UomUnit, PriceUomId, PriceUomUnit, IsCMT)",
             filter: JSON.stringify(this.filter),
         }
 
@@ -97,8 +96,8 @@ export class PRMasterDialog {
                             Id: d.ProductId,
                             Code: d.ProductCode,
                             Name: d.ProductName,
-                            ItemCodeD365: d.ProductCodeD365,
-                            ItemGroupD365: d.ProductGroupD365
+                            // ItemCodeD365: d.ProductCodeD365,
+                            // ItemGroupD365: d.ProductGroupD365
                         },
                         Description: d.ProductRemark,
                         Uom: {
