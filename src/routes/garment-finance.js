@@ -223,7 +223,7 @@ module.exports = [
     name: "garment-disposition-document-expedition-acceptance",
     moduleId: "./modules/garment-finance/garment-disposition-document-expedition-acceptance/index",
     nav: true,
-    title: "Penerimaan Dokumen Disposisi Pembayaran",
+    title: "Penerimaan / Retur Disposisi Pembayaran",
     auth: true,
     settings: {
       group: "g-finance",

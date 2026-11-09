@@ -12,5 +12,7 @@ export class RejectReason {
   activate(data) {
     this.title = data.title || 'Alasan';
     this.message = data.message || '';
+    this.buttonText = data.buttonText || 'Reject';
+
   }
 }

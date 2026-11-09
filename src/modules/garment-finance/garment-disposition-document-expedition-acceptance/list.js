@@ -4,6 +4,7 @@ import moment from "moment";
 import numeral from "numeral";
 import { Dialog } from "../../../au-components/dialog/dialog";
 import { Service } from "./service";
+import { RejectReason } from "../finance-disposition-approval/dialog-template/reject-reason";
 // import PurchasingDocumentExpeditionService from "../shared/purchasing-document-expedition-service";
 import { PermissionHelper } from "../../../utils/permission-helper";
 import {
@@ -225,13 +226,25 @@ export class List {
               });
             break;
           case "CASHIER":
-            this.service
-              .voidCashier(data.Id)
-              .then((result) => {
-                this.tableList.refresh();
-              })
-              .catch((e) => {
-                this.error = e;
+            console.log("AKSI HAPUS CASHIER DIPANGGIL");
+
+            this.dialog
+              .show(RejectReason, { message: "Silakan masukkan alasan hapus:", buttonText: "Hapus" })
+              .then((response) => {
+                if (response.wasCancelled) return;
+                const reason = response.output;
+                if (!reason || String(reason).trim() === "") {
+                  alert("Alasan tidak boleh kosong.");
+                  return;
+                }
+                this.service
+                  .voidCashier(data.Id, String(reason).trim())
+                  .then(() => {
+                    this.tableList.refresh();
+                  })
+                  .catch((e) => {
+                    this.error = e;
+                  });
               });
             break;
           case "RETUR":

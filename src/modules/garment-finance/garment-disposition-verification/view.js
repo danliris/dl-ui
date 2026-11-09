@@ -90,7 +90,7 @@ export class View {
     }
 
     editCallback(event) {
-        var idEncode = Base64Helper.encode(this.selectedExpedition.Id)
-        this.router.navigateToRoute('edit', { id: this.selectedExpedition.Id });
+    var idEncode = Base64Helper.encode(this.selectedExpedition.Id);
+    this.router.navigateToRoute('edit', { id: idEncode });
     }
 }
