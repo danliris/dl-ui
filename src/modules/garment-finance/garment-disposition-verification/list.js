@@ -37,10 +37,15 @@ export class List {
         { field: 'SupplierName', title: 'Supplier' },
         {
             field: 'Status', title: 'Status', formatter: function (value, data, index) {
+                if (value == 'Not Verified Direktur') return 'Not Verified Direktur';
                 return value != 'Kirim ke Pembelian (Not Verified)' ? 'Verified' : 'Not Verified';
             }
         },
-        { field: 'Status', title: 'Dikirim ke?' },
+        {
+            field: 'Status', title: 'Dikirim ke?', formatter: function (value, data, index) {
+                return value == 'Not Verified Direktur' ? 'Kembali ke Verifikasi' : value;
+            }
+        },
         { field: 'TotalPaid', title: 'Total Bayar',formatter: function(value,data,index){
             return numeral(value).format('0.00');
         } },

@@ -70,7 +70,7 @@ export class Edit {
 
     cancelCallback(event) {
         var idEncode = Base64Helper.encode(this.selectedExpedition.Id);
-        this.router.navigateToRoute('view', { id: idEncode });
+        this.router.navigateToRoute('view', { id: Base64Helper.encode(this.selectedExpedition.Id) });
     }
 
     get expeditionLoader() {
@@ -91,49 +91,32 @@ export class Edit {
     }
 
     saveCallback(event) {
-        /*
-            let data = {
-                SubmissionDate: this.data.SubmissionDate,
-                UnitPaymentOrders: [],
-            };
-        */
-
         if (!this.selectedExpedition) {
             this.error.dispositionNote = "Nomor Disposisi harus diisi";
-        } else {
-            this.error = {};
-
-            this.submitContext.verifiedAlert = true;
-
-            this.dialog.show(CreateSubmit, this.submitContext)
-                .then((response) => {
-                    if (!response.wasCancelled) {
-                        if (response.output.context == 'Cashier') {
-                            this.service.sendToCashier(this.selectedExpedition.Id)
-                                .then(result => {
-                                    alert("Data berhasil dibuat");
-                                    var idEncode = Base64Helper.encode(this.selectedExpedition.Id);
-                                    this.router.navigateToRoute('view', { id: idEncode });
-                                })
-                                .catch(e => {
-                                    this.error = e;
-                                });
-                        } else if (response.output.context == 'Accounting') {
-                            this.service.sendToAccounting(this.selectedExpedition.Id)
-                                .then(result => {
-                                    alert("Data berhasil dibuat");
-                                    var idEncode = Base64Helper.encode(this.selectedExpedition.Id);
-                                    this.router.navigateToRoute('view', { id: idEncode });
-                                })
-                                .catch(e => {
-                                    this.error = e;
-                                });
-                        }
-                    }
-                })
+            return;
         }
-    }
 
+        this.error = {};
+        this.submitContext.verifiedAlert = true;
+
+        this.dialog.show(CreateSubmit, this.submitContext)
+            .then((response) => {
+                if (response.wasCancelled) {
+                    return;
+                }
+
+                if (response.output.context === 'Director') {
+                    this.service.sendToDirector(this.selectedExpedition.Id)
+                        .then(result => {
+                            alert("Dokumen berhasil dikirim kembali ke Direktur");
+                            this.router.navigateToRoute('list');
+                        })
+                        .catch(e => {
+                            this.error = e;
+                        });
+                }
+            });
+    }
     rejectCallback(event) {
         if (!this.selectedExpedition) {
             this.error.dispositionNote = "Nomor Disposisi harus diisi";
