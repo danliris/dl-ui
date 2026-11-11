@@ -83,6 +83,19 @@ module.exports = [
       iconClass: "fa fa-dashboard",
     },
   },
+    {
+    route: "uom-conversions",
+    name: "uom-conversions",
+    moduleId: "./modules/master/uom-conversion/index",
+    nav: true,
+    title: "Master Konversi Satuan",
+    auth: true,
+    settings: {
+      group: "master",
+      permission :{"B6":1},
+      iconClass: "fa fa-dashboard",
+    },
+  },
   {
     route: "garment-categories",
     name: "garment-categories",
