@@ -35,6 +35,11 @@ export class Create {
     }
 
     save(event) {
+        var missing = (this.data.Items || []).filter(i => i.ConversionMissing);
+        if (missing.length > 0) {
+            alert(`Master Satuan Konversi harus diisi untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            return;
+        }
         //ubah typedata orderDate ke DateTime
 
         this.data.OrderDate = moment(this.data.OrderDate).format("YYYY-MM-DD HH:mm:ssZ");
