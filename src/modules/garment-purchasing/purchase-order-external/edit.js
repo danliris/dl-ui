@@ -114,8 +114,14 @@ export class Edit {
         this.router.navigateToRoute('view', { id: encoded });
     }
 
-    save(event) {
+        save(event) {
         //this.data.Vat = this.selectedVatTax;
+        var missing = (this.data.Items || []).filter(i => i.ConversionMissing);
+        if (missing.length > 0) {
+            alert(`Master Satuan Konversi harus diisi untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            return;
+        }
+
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

@@ -11,6 +11,7 @@ export class PurchaseOrderItem {
   @bindable selectedDealUom;
   @bindable price;
   @bindable qty;
+  conversionError = '';
   async activate(context) {
     this.context = context;
     this.data = context.data;
@@ -32,7 +33,7 @@ export class PurchaseOrderItem {
     if (this.data.DealUom) {
       this.selectedDealUom = this.data.DealUom;
     }
-    if (!this.data.SmallUom && this.data.Product) {
+        if (!this.data.SmallUom && this.data.Product) {
       if (this.data.Product.Id) {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("core");
@@ -43,6 +44,9 @@ export class PurchaseOrderItem {
             this.data.SmallUom = product.UOM;
           });
       }
+    }
+    if (!this.options.readOnly) {
+      await this.loadConversion();
     }
     this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
     if (!this.data.UsedBudget) {
@@ -225,9 +229,10 @@ export class PurchaseOrderItem {
     this.checkIsOverBudget();
   }
 
-  selectedDealUomChanged(newValue) {
-    if (newValue.Id) {
+    selectedDealUomChanged(newValue) {
+    if (newValue && newValue.Id) {
       this.data.DealUom = newValue;
+      if (this.options && !this.options.readOnly) this.loadConversion();
     }
   }
 
@@ -236,8 +241,55 @@ export class PurchaseOrderItem {
     return this.data.SmallQuantity;
   }
 
+  @computedFrom("data.Conversion")
+  get conversionText() {
+    var v = Number(this.data.Conversion);
+    if (isNaN(v)) return '';
+    return v.toLocaleString('id-ID', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+  }
+
   conversionChanged(e) {
     this.data.SmallQuantity = parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
+  }
+
+    async findConversion(big, small) {
+    var endpoint = Container.instance.get(Config).getEndpoint("core");
+    var unitOf = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    var result = await endpoint.find('master/uom-conversions', { keyword: unitOf(big), size: 100 });
+    var list = (result && result.data) || [];
+    return list.find(c =>
+      (c.BigUomId === big.Id || (c.BigUomUnit || '').trim().toUpperCase() === unitOf(big)) &&
+      (c.SmallUomId === small.Id || (c.SmallUomUnit || '').trim().toUpperCase() === unitOf(small))
+    );
+  }
+
+    async loadConversion() {
+    var big = this.data.DealUom;
+    var small = this.data.SmallUom;
+    if (!big || !small) return;
+
+    var norm = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    if (big.Id === small.Id || norm(big) === norm(small)) {
+      this.data.Conversion = 1;
+      this.data.ConversionMissing = false;
+      this.conversionError = '';
+    } else {
+      try {
+        var found = await this.findConversion(big, small);
+        if (found) {
+          this.data.Conversion = Number(found.Value);
+          this.data.ConversionMissing = false;
+          this.conversionError = '';
+        } else {
+          this.data.ConversionMissing = true;
+          this.conversionError = 'Master Satuan Konversi harus diisi';
+        }
+      } catch (e) {
+        this.data.ConversionMissing = true;
+        this.conversionError = 'Gagal mengambil Master Satuan Konversi';
+      }
+    }
+    this.conversionChanged();
   }
 
   priceChanged(e) {
