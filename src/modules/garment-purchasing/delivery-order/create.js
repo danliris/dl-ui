@@ -36,6 +36,17 @@ export class Create {
     }
 
     save(event) {
+        var missing = [];
+        for (var item of (this.data.items || [])) {
+            for (var f of (item.fulfillments || [])) {
+                if (f.isSave && f.conversionMissing) missing.push(f);
+            }
+        }
+        if (missing.length > 0) {
+            alert(`Master Satuan Konversi harus diisi untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            return;
+        }
+        
         if(this.data.items.length>0){
             this.data.paymentType = this.data.items[0].paymentType;
             this.data.paymentMethod = this.data.items[0].paymentMethod;

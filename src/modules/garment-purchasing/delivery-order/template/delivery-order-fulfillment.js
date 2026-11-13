@@ -1,4 +1,6 @@
-import { bindable } from 'aurelia-framework'
+import { bindable, computedFrom } from 'aurelia-framework'
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 var ProductLoader = require('../../../../loader/product-loader');
 var UomLoader = require('../../../../loader/uom-loader');
 
@@ -6,8 +8,9 @@ export class DeliveryOrderItem {
   isWarning = false;
   @bindable doQuantity;
   @bindable selectedDealUom;
+            conversionError = '';
 
-  activate(context) {
+  async activate(context) {
     this.context = context;
     this.data = context.data;
     console.log(this.data);
@@ -43,8 +46,12 @@ export class DeliveryOrderItem {
         this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN',  { minimumFractionDigits: 4 });}
       if(this.data.dealQuantity){
         this.data.dealQuantity=this.data.dealQuantity.toLocaleString('en-EN', { minimumFractionDigits: 10 });}
-    } else {
+        } else {
       this.data.doQuantity = 0;
+    }
+
+    if (this.hasCreate) {
+      await this.loadConversion();
     }
   }
 
@@ -131,9 +138,57 @@ export class DeliveryOrderItem {
     }
   }
 
-  selectedDealUomChanged(newValue) {
-    if (newValue.Id) {
+    selectedDealUomChanged(newValue) {
+    if (newValue && newValue.Id) {
       this.data.purchaseOrderUom = newValue;
+      if (this.data && !this.hasView) this.loadConversion();
+    }
+  }
+
+    @computedFrom("data.conversion")
+  get conversionText() {
+    var v = Number(this.data.conversion);
+    if (isNaN(v)) return '';
+    return v.toLocaleString('id-ID', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+  }
+
+  async findConversion(big, small) {
+    var endpoint = Container.instance.get(Config).getEndpoint("core");
+    var unitOf = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    var result = await endpoint.find('master/uom-conversions', { keyword: unitOf(big), size: 100 });
+    var list = (result && result.data) || [];
+    return list.find(c =>
+      (c.BigUomId === big.Id || (c.BigUomUnit || '').trim().toUpperCase() === unitOf(big)) &&
+      (c.SmallUomId === small.Id || (c.SmallUomUnit || '').trim().toUpperCase() === unitOf(small))
+    );
+  }
+
+  async loadConversion() {
+    if (!this.data) return;
+    var big = this.data.purchaseOrderUom;
+    var small = this.data.smallUom;
+    if (!big || !small) return;
+
+    var norm = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    if (big.Id === small.Id || norm(big) === norm(small)) {
+      this.data.conversion = 1;
+      this.data.conversionMissing = false;
+      this.conversionError = '';
+    } else {
+      try {
+        var found = await this.findConversion(big, small);
+        if (found) {
+          this.data.conversion = Number(found.Value);
+          this.data.conversionMissing = false;
+          this.conversionError = '';
+        } else {
+          this.data.conversionMissing = true;
+          this.conversionError = 'Master Satuan Konversi harus diisi';
+        }
+      } catch (e) {
+        this.data.conversionMissing = true;
+        this.conversionError = 'Gagal mengambil Master Satuan Konversi';
+      }
     }
   }
 
