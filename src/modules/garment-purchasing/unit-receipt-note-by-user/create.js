@@ -53,7 +53,7 @@ export class Create {
             );
 
             if (missingItems.length > 0) {
-                alert(`Master Satuan Konversi harus diisi untuk ${missingItems.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+                alert(`Master Konversi Satuan Belum Dibuat untuk ${missingItems.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
                 return;
             }
         }

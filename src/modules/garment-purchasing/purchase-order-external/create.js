@@ -37,7 +37,7 @@ export class Create {
     save(event) {
         var missing = (this.data.Items || []).filter(i => i.ConversionMissing);
         if (missing.length > 0) {
-            alert(`Master Satuan Konversi harus diisi untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            alert(`Master Konversi Satuan Belum Dibuat untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
             return;
         }
         //ubah typedata orderDate ke DateTime
