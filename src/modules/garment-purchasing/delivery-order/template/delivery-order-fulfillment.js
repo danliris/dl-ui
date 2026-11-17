@@ -183,7 +183,7 @@ export class DeliveryOrderItem {
           this.conversionError = '';
         } else {
           this.data.conversionMissing = true;
-          this.conversionError = 'Master Satuan Konversi harus diisi';
+          this.conversionError = 'Master Konversi Satuan Belum Dibuat';
         }
       } catch (e) {
         this.data.conversionMissing = true;

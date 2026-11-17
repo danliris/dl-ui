@@ -118,7 +118,7 @@ export class Edit {
         //this.data.Vat = this.selectedVatTax;
         var missing = (this.data.Items || []).filter(i => i.ConversionMissing);
         if (missing.length > 0) {
-            alert(`Master Satuan Konversi harus diisi untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            alert(`Master Konversi Satuan Belum Dibuat untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
             return;
         }
 
