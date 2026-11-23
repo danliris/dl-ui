@@ -1,4 +1,19 @@
 module.exports = [
+      {
+    route: "/purchasing/signature-masters",
+    name: "signature-masters",
+    moduleId:
+      "./modules/purchasing/signature-master/index",
+    nav: true,
+    title: "Signature Master",
+    auth: true,
+    settings: {
+        group: "purchasing",
+        subGroup: "master",
+        permission: { "E72": 1 },
+        iconClass: "fa fa-dashboard",
+        },
+    },
     {
         route: 'pr',
         name: 'purchase-request',
