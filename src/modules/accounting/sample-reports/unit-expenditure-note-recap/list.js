@@ -57,7 +57,6 @@ export class List {
           }
           this.service.search(args)
           .then(result => {
-              console.log(result)
               this.AmountTotal1 = 0;
               this.AmountTotal2 = 0;
               this.data=[];
@@ -78,6 +77,7 @@ export class List {
     reset() {
         this.flag = false;
         this.category = undefined;
+        this.categoryname = "";
         this.KtgrItem ="";
         this.dateFrom = undefined;
         this.dateTo = undefined;

@@ -12,8 +12,6 @@ export class List {
     @bindable selectedUnit;
 
     KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE','SUBCON'];
-    //unitOption = ['','CENTRAL 2A', 'CENTRAL 2B','CENTRAL 2C/EX. K4','CENTRAL 1A/EX. K3','CENTRAL 1B'];
-    
 
     async bind(context) {
         this.context = context;
@@ -88,6 +86,7 @@ export class List {
     reset() {
         this.flag = false;
         this.category = undefined;
+        this.categoryname = undefined;
         this.KtgrItem ="";
         this.dateFrom = undefined;
         this.dateTo = undefined;
@@ -95,8 +94,15 @@ export class List {
 
     xls() {
         let filter = {};
-
-        if (this.category) {
+        const categoryMap = {
+            "BAHAN BAKU": "BB",
+            "BAHAN PENDUKUNG": "BP",
+            "BAHAN EMBALACE": "BE",
+            "SUBCON": "SISA SUBCON",
+        };
+        this.category = categoryMap[this.KtgrItem] || "";
+        this.categoryname = this.KtgrItem || "";
+        if (this.category && this.categoryname) {
             filter.category = this.category;
             filter.categoryname = this.categoryname;
         }

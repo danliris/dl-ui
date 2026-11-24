@@ -12,8 +12,6 @@ export class List {
     @bindable selectedUnit;
 
     KategoriItem = ['','BAHAN BAKU','BAHAN PENDUKUNG', 'BAHAN EMBALACE'];
-    unitOption = ['','CENTRAL 2A', 'CENTRAL 2B','CENTRAL 2C/EX. K4','CENTRAL 1A/EX. K3','CENTRAL 1B'];
-
     KtgrItemChanged(newvalue){
         if (newvalue) {
             if (newvalue === "BAHAN BAKU") {
@@ -31,12 +29,6 @@ export class List {
                 this.categoryname = "BAHAN EMBALACE";
                 this.productcode = "";
             }
-            // else if(newvalue === "INTERLINING"){
-
-            //     this.category = "BP";
-            //     this.productcode = "INT";
-            //     this.categoryname = "PROSES";
-            // }
         }
     }
 

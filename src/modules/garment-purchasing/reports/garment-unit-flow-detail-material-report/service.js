@@ -24,6 +24,7 @@ export class Service extends RestService {
     }
 }
 
+const UnitServiceUri = 'master/garment-units';
 export class CoreService extends RestService {
     constructor(http, aggregator, config, endpoint) {
         super(http, aggregator, config, "core");
