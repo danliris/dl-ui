@@ -2,22 +2,34 @@
   <div class="row">
     <div class="col-md-6">
       <au-input-form title.bind="title"
-                     with.bind="context"
-                     options.bind="formOptions">
-        <au-dropdown label="Tipe Barang"
+                    with.bind="context"
+                    options.bind="formOptions">
+        <au-dropdown 
+                    show.bind="!isEdit && !readOnly"
+                    label="Pilih Unit"
+                    value.bind="Unit"
+                    read-only.bind="(readOnly || isEdit)"
+                    items.bind="UnitLists">
+        </au-dropdown>
+        <au-dropdown 
+                    if.bind="Unit == 'GARMENT'"
+                    label="Tipe Barang"
                     value.bind="ManufactureType"
                     error.bind="error.manufactureType"
                     read-only.bind="(readOnly || isEdit)"
                     items.bind="ManufactureTypeLists">
         </au-dropdown>
-        <au-dropdown label="Asal Barang"
+        <au-dropdown 
+                    if.bind="Unit == 'GARMENT'"
+                    label="Asal Barang"
                     value.bind="OriginType"
                     error.bind="error.originType"
                     read-only.bind="(readOnly || isEdit)"
                     items.bind="OriginTypeLists">
         </au-dropdown>
 
-        <au-autocomplete 
+        <au-autocomplete
+                    if.bind="Unit == 'GARMENT'"
                     value.bind="Categorydata" 
                     error.bind="error.category"
                     label="Kategori" 
@@ -28,15 +40,34 @@
                     read-only.bind="(readOnly || isEdit)">
       </au-autocomplete>
 
-        <au-textbox label="Kode"
+        <au-textbox 
+                    if.bind="Unit == 'GARMENT'"
+                    label="Kode"
                     value.bind="Code"
                     error.bind="error.code"
-                    read-only.bind="true"></au-textbox>
+                    read-only.bind="true">
+        </au-textbox>
 
-        <au-textbox label="Nama"
+        <au-textbox 
+                    if.bind="Unit == 'GARMENT'"
+                    label="Nama"
                     value.bind="Name"
                     error.bind="error.name"
                     read-only.bind="(readOnly || isEdit)"></au-textbox>
+
+        <au-textbox 
+                    if.bind="Unit == 'TEKSTIL'"
+                    label="Kode"
+                    value.bind="data.Code"
+                    error.bind="error.code"
+                    read-only.bind="(readOnly || isEdit)"></au-textbox>
+
+        <au-textbox 
+                    if.bind="Unit == 'TEKSTIL'"
+                    label="Nama"
+                    value.bind="data.Name"
+                    error.bind="error.name"
+                    read-only.bind="readOnly"></au-textbox>
 
         <au-autocomplete label="Satuan"
                          value.bind="UOM"
@@ -64,7 +95,9 @@
                     value.bind="Price"
                     error.bind="error.price"
                     read-only.bind="(readOnly ||(!isActive &&isEdit ))"></au-numeric>
-        <au-dropdown label="Tipe Barang"
+        <au-dropdown 
+                    if.bind="Unit == 'GARMENT'" 
+                    label="Tipe Barang"
                      value.bind="data.ItemType"
                      error.bind="error.ItemType"
                      items.bind="itemTypes"

@@ -19,6 +19,8 @@ export class DataForm {
     @bindable OriginTypeLists = ['IMPORT', 'LOKAL'];
     @bindable ManufactureTypeLists = ['FOB', 'CMT'];
     @bindable itemTypes = ['Item', 'Service'];
+    @bindable Unit;
+    @bindable UnitLists = ['GARMENT', 'TEKSTIL'];
     @bindable Categorydata;
     formOptions = {
         cancelText: "Kembali",
@@ -74,6 +76,11 @@ export class DataForm {
             this.Name = this.data.Name;
             this.ManufactureType = this.data.ManufactureType;
             this.OriginType = this.data.OriginType;
+            if(this.ManufactureType || this.OriginType){
+                this.Unit = "GARMENT";
+            }else{
+                this.Unit = "TEKSTIL";
+            }
             //this.isActive = this.data.IsPosted;
             // this.itemTypes = this.data.ItemType;
         }
@@ -95,7 +102,7 @@ export class DataForm {
     }
 
     ManufactureTypeChanged(newValue) {
-        if (this.readOnly || this.isEdit) {
+        if (this.readOnly || this.isEdit || this.Unit == 'TEKSTIL') {
             return;
         }
 
@@ -104,8 +111,9 @@ export class DataForm {
             this.generateCode();
         }
     }
+
     CategorydataChanged(newValue) {
-        if (this.readOnly || this.isEdit) {
+        if (this.readOnly || this.isEdit || this.Unit == 'TEKSTIL') {
             return;
         }
 
@@ -134,8 +142,35 @@ export class DataForm {
         this.generateCode();
     }
 
-    NameChanged(newValue) {
+    UnitChanged(newValue) {
         if (this.readOnly || this.isEdit) {
+            return;
+        }
+
+        this.Unit = newValue;
+        this.data.UnitProduct = newValue;
+
+        if (newValue == 'TEKSTIL') {
+            this.ManufactureType = null;
+            this.data.ManufactureType = null;
+            this.OriginType = null;
+            this.data.OriginType = null;
+            this.Categorydata = null;
+            this.data.Category = null;
+            this.Code = null;
+            this.data.Code = null;
+            this.Name = null;
+            this.data.Name = null;
+            this.GenerateCode = null;
+            this.data.GenerateCode = null;
+            this.data.ItemType = null;
+            this.itemTypes = null;
+            this.data.ItemTypes = null;
+        }
+    }
+
+    NameChanged(newValue) {
+        if (this.readOnly || this.isEdit || this.Unit == 'TEKSTIL') {
             return;
         }
 
@@ -165,6 +200,11 @@ export class DataForm {
 
     
     generateCode() {
+        if (this.Unit == 'TEKSTIL' || this.data.UnitProduct == 'TEKSTIL') {
+            this.Code = null;
+            this.data.Code = null;
+            return;
+        }
         console.log("Generating code...", this.data);
         const categoryCode = this.data.Category || this.Categorydata ? ((this.data.Category.Code || this.data.Category.code || this.Categorydata.Code || this.Categorydata.code || "").trim()) : "";
         console.log(categoryCode);
@@ -223,7 +263,7 @@ export class DataForm {
     }
 
     OriginTypeChanged(newValue) {
-        if (this.readOnly || this.isEdit) {
+        if (this.readOnly || this.isEdit || this.Unit == 'TEKSTIL') {
             return;
         }
         if (newValue) {
