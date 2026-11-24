@@ -463,7 +463,9 @@ export class DataForm {
 
                     _item.PricePerDealUnit = fulfillment.pricePerDealUnit;
 
-                    _item.Conversion = fulfillment.conversion;
+                    _item.Conversion = null;
+                    
+                    _item.ConversionMissing = true;
 
                     _item.SmallUom = fulfillment.smallUom;
 
