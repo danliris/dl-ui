@@ -1,0 +1,56 @@
+<template>
+
+    <au-input-form title.bind="title" with.bind="context">
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+        </div>
+        <au-autocomplete value.bind="selectedAccount" 
+            error.bind="error.UserName" label="User Name" 
+            loader.bind="accountLoader" text="username"
+            placeholder="cari user name" key="username" read-only.bind=" readOnly || isEdit" 
+            options.bind="controlOptions" >
+        </au-autocomplete>
+        <au-textbox label="First Name" if.bind="selectedAccount"
+            value.bind="data.FirstName" error.bind="error.FirstName" 
+            read-only.bind="true" options.bind="controlOptions">
+        </au-textbox>
+        <au-textbox label="Last Name" if.bind="selectedAccount"
+            value.bind="data.LastName" error.bind="error.LastName" 
+            read-only.bind="true" options.bind="controlOptions">
+        </au-textbox>
+        <au-autocomplete label="Unit" 
+            value.bind="selectedUnit" 
+            error.bind="error.Unit" loader.bind="unitLoader"
+            text.bind="unitView" placeholder="Unit" 
+            read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+        </au-autocomplete>
+        <au-textbox label="Jabatan"
+            value.bind="data.Position" error.bind="error.Position" 
+            read-only.bind="readOnly" options.bind="controlOptions">
+        </au-textbox>
+        <!-- Upload Signature -->
+        <div class="form-group row align-items-center">
+            <label class="col-sm-4 col-form-label text-right">Signature</label>
+            <div class="col-sm-5">
+                <!-- File Input -->
+                <input 
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    show.bind="!readOnly"
+                    value.bind="ImageUpload"
+                    id="imageInput"
+                    change.delegate="onFileChange($event)">
+                    
+                <!-- Preview -->
+                <div class="mt-2" if.bind="ImageSrc">
+                    <img src.bind="ImageSrc" alt="Preview Signature" class="img-thumbnail" style="max-height: 150px;" />
+                </div>
+            </div>
+        </div>
+
+    </au-input-form>
+</template>

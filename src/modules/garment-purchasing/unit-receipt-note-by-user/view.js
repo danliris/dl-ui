@@ -32,7 +32,7 @@ export class View {
             if (orderQty==0 && !this.data.IsInvoice){
                 this.hasDelete=true;
             }
-            if(this.data.URNType=="PROSES" || this.data.URNType=="PEMBELIAN"){
+            if(this.data.URNType=="PEMBELIAN"){
                 for(var i of this.data.Items){
                     var doItem= await this.service.getDOItemsById(i.Id);
                     if(doItem.RemainingQuantity!= doItem.SmallQuantity){
