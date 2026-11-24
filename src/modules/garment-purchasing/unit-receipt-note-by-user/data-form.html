@@ -285,6 +285,13 @@
         </au-multiline>
 
         <au-textbox
+            error.bind="error.Remarks"
+            read-only.bind="true"
+            if.bind="error.Remarks"
+            options.bind="auInputOptions">
+        </au-textbox>
+
+        <au-textbox
             read-only.bind="true"
             if.bind="error.ItemsCount"
             error.bind="error.ItemsCount">
