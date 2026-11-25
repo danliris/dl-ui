@@ -24,12 +24,23 @@ export class Create {
     }
 
     saveCallback(event) {
-        this.service.create(this.data)
-            .then(result => {
-                this.list();
-            })
-            .catch(e => {
-                this.error = e;
-            })
+        if (this.data.UnitProduct == 'TEKSTIL') {
+            this.service.createTextile(this.data)
+                .then(result => {
+                    this.list();
+                })
+                .catch(e => {
+                    this.error = e;
+                });
+            return;
+        }else{
+            this.service.create(this.data)
+                .then(result => {
+                    this.list();
+                })
+                .catch(e => {
+                    this.error = e;
+                })
+        }
     }
 }

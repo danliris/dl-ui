@@ -25,6 +25,11 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
+  createTextile(data) {
+    var endpoint = `${serviceUri}`;
+    return super.post(endpoint, data);
+  }
+
   update(data) {
     var endpoint = `${serviceUri}/${data.Id}`;
     return super.put(endpoint, data);
