@@ -47,10 +47,20 @@
                 options.bind="controlOptions">
             </au-textbox>
         </td>
-            <td>
-            <au-textbox value.bind="conversionText" error.bind="error.Conversion" read-only.bind="true"
-                options.bind="controlOptions">
+        <td>
+            <au-textbox if.bind="!data.IsManualConversion" value.bind="conversionText" error.bind="error.Conversion"
+                read-only.bind="true" options.bind="controlOptions">
             </au-textbox>
+            <au-numeric if.bind="data.IsManualConversion" value.bind="data.Conversion" error.bind="error.Conversion"
+                change.delegate="conversionChanged($event)" read-only.bind="options.readOnly" format="0.0000"
+                options.bind="controlOptions">
+            </au-numeric>
+            <div if.bind="data.IsManualConversion || (masterMissing && !options.readOnly)">
+                <au-checkbox value.bind="data.IsManualConversion" read-only.bind="options.readOnly"
+                    change.delegate="manualConversionChanged($event)" options.bind="controlOptions">
+                </au-checkbox>
+                <small>Konversi Variatif</small>
+            </div>
         </td>
         <td if.bind="!options.readOnly">
             <numeric value.bind="data.PricePerDealUnit" error.bind="error.PricePerDealUnit"
