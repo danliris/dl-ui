@@ -626,7 +626,8 @@ export class DataForm {
                 item.ExpenditureItemId=expendItem.Id;
                 item.RONo=epoItemData.RONo;
                 item.Product.Remark= expendItem.PONo + "; " + epoItemData.RONo + "; " + epoItemData.Article;
-
+                item.NoPackage=expendItem.NoPackage;
+                item.URNItemIdOrigin=expendItem.URNItemId;
                 this.data.Items.push(item);
                 
             }
@@ -684,6 +685,19 @@ export class DataForm {
                 item.Conversion=1;
                 item.UENItemId=i.Id;
                 item.IsCMT=i.IsCMT;
+                item.Rack = i.Rack,
+                item.Level = i.Level,
+                item.Box = i.Box,
+                item.Colour= i.Colour,
+                item.Area = i.Area,
+                item.Lot = i.Lot,
+                item.NoPackage = i.NoPackage,
+                item.HandlingUnitId = i.HandlingUnitId,
+                item.HandlingUnit = i.HandlingUnit,
+                item.Batch = i.Batch,
+                item.BatchView = i.Batch ? moment.parseZone(i.Batch).utcOffset(7).format("YYYY-MM-DD") : null,        
+                item.LocationCode = i.LocationCode;
+                item.URNItemIdOrigin = i.URNItemId;
                 var unitDOItem= await this.service.getUnitDOItemById(i.UnitDOItemId);
                 item.DOCurrencyRate=unitDOItem.DOCurrency.Rate;
                 this.data.Items.push(item);
