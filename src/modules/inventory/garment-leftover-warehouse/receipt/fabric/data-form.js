@@ -185,7 +185,9 @@ export class DataForm {
                                               Id: item.UomId,
                                               Unit: item.UomUnit
                                             },
-                                            UomUnit: item.UomUnit
+                                            UomUnit: item.UomUnit,
+                                            URNItemId: item.URNItemId,
+                                            NoPackage: item.NoPackage
                                         });
                                     });
                             }
@@ -226,7 +228,9 @@ export class DataForm {
                                               Id: item.UomId,
                                               Unit: item.UomUnit
                                             },
-                                            UomUnit: item.UomUnit
+                                            UomUnit: item.UomUnit,
+                                            URNItemId: item.URNItemId,
+                                            NoPackage: item.NoPackage
                                         });
                                     });
                             }

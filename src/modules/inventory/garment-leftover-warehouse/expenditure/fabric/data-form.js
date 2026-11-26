@@ -69,11 +69,13 @@ export class DataForm {
             columns: this.readOnly ? [
                 "Unit Asal",
                 "PO No",
+                "No Package",
                 "Satuan",
                 "Jumlah Keluar"
             ] : [
                 "Unit Asal",
                 "PO No",
+                "No Package",
                 "Satuan",
                 "Jumlah Stock",
                 "Jumlah Keluar"

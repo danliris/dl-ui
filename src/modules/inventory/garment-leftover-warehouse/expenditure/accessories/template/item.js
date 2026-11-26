@@ -30,11 +30,20 @@ export class Item {
             this.selectedUnit = this.data.Unit;
         }
 
-        if (this.data.PONo) {
+        // if (this.data.PONo) {
+        //     this.selectedStock = {
+        //         PONo: this.data.PONo
+        //     };
+        // }
+
+          if (this.data.PONo) {
             this.selectedStock = {
-                PONo: this.data.PONo
-            };
-        }
+            Id: this.data.StockId,      
+            PONo: this.data.PONo,
+            NoPackage: this.data.NoPackage,
+            URNItemId: this.data.URNItemId 
+        };
+    }
 
         if (this.data.Stocks) {
             this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
@@ -50,6 +59,10 @@ export class Item {
         } else {
             this.selectedUom = "";
         }
+    }
+
+    selectedPO = (data) => {
+      return `${data.PONo} - ${data.NoPackage || ""}`
     }
 
     uomItems = [""];
@@ -72,7 +85,7 @@ export class Item {
     }
 
     get stockLoaderSelect() {
-        return ["PONo","Id"];
+        return ["PONo","Id","NoPackage"];
     }
 
     get productLoader() {
@@ -155,18 +168,35 @@ export class Item {
         if (newValue) {
             this.data.PONo = newValue.PONo;
 
-            this.service.searchStock({ filter: JSON.stringify({ PONo: this.data.PONo || "-" , ProductId: (this.data.Product|| {}).Id || 0 ,  ReferenceType: "ACCESSORIES", UnitId: (this.data.Unit || {}).Id || 0, "Quantity > 0": true}) })
+            this.service.searchStock({ filter: JSON.stringify({ Id: newValue.Id, PONo: this.data.PONo || "-" , ProductId: (this.data.Product|| {}).Id || 0 ,  ReferenceType: "ACCESSORIES", UnitId: (this.data.Unit || {}).Id || 0, "Quantity > 0": true}) })
                 .then(result => {
                     if (result.statusCode == 200) {
-                        const uomUnits= result.data.filter((value, index, self) => self.map(x => x.Uom.Unit).indexOf(value.Uom.Unit) == index);
+                        // const uomUnits= result.data.filter((value, index, self) => self.map(x => x.Uom.Unit).indexOf(value.Uom.Unit) == index);
                         
-                        // const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null && (i.data.Product || {}).Id==this.data.Product.Id).map(i => i.data.Uom.Unit);
-                        // console.log(uomUnits)
-                         this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
-                        // console.log(this.data.Stocks)
-                         //this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
-                        // this.uomItems = this.uomItems.filter((value, index, self) => self.map(x => x.Unit).indexOf(value.Unit) == index)
-                        this.selectedUom = this.data.Stocks.map(d => (d.Uom || {}).Unit);
+                        // // const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null && (i.data.Product || {}).Id==this.data.Product.Id).map(i => i.data.Uom.Unit);
+                        // // console.log(uomUnits)
+                        //  this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
+                        // // console.log(this.data.Stocks)
+                        //  //this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
+                        // // this.uomItems = this.uomItems.filter((value, index, self) => self.map(x => x.Unit).indexOf(value.Unit) == index)
+                        // this.selectedUom = this.data.Stocks.map(d => (d.Uom || {}).Unit);
+
+                         // NEW: Validasi duplikasi berdasarkan StockId
+                        const usedStockIds = this.context.context.items
+                            .filter(i => i.data !== this.data)
+                            .map(i => Number(i.data.StockId));
+
+                        this.data.Stocks = result.data.filter(
+                            d => !usedStockIds.includes(Number(d.Id))
+                        );
+
+                        this.data.Product = result.data
+                            .map(x => x.Product)
+                            .find(product => product);
+
+
+                        this.selectedUom = this.data.Stocks
+                            .map(d => (d.Uom || {}).Unit);
                       }
                 });
         }
@@ -184,12 +214,16 @@ export class Item {
                 this.data.Quantity = this.data.Stock.Quantity;
                 this.data.Uom = this.data.Stock.Uom;
                 this.data.BasicPrice=this.data.Stock.BasicPrice;
+                this.data.URNItemId = this.data.Stock.URNItemId;
+                this.data.NoPackage = this.data.Stock.NoPackage;
             }
         } else {
             this.data.Stock = null;
             this.data.StockId = 0;
             this.data.Quantity = 0;
             this.data.Uom = null;
+            this.data.URNItemId = 0;
+            this.data.NoPackage = null;
         }
     }
 }

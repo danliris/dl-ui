@@ -32,8 +32,14 @@
         <td class="col-sm-4">
             <au-autocomplete value.bind="selectedStock" error.bind="error.PONo" loader.bind="stockLoader"
                 query.bind="stockLoaderFilter" select.bind="stockLoaderSelect" read-only.bind="readOnly || isEdit"
-                placeholder="Stock" text="PONo" view-model.ref="selectedStockViewModel" show.bind="data.Product">
+                placeholder="Stock" text.bind="selectedPO" view-model.ref="selectedStockViewModel" show.bind="data.Product">
             </au-autocomplete>
+        </td>
+
+        <td class="col-sm-2">
+            <au-textbox value.bind="data.NoPackage" error.bind="error.NoPackage"
+                read-only="true" options.bind="controlOptions">
+            </au-textbox>
         </td>
 
         <td class="col-sm-2">

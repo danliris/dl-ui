@@ -72,7 +72,7 @@ export class DataForm {
             return {
                 IsReceived: false,
                 ExpenditureType: "SISA",
-                 'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING"':"true",
+                 'StorageName == "GUDANG ACCESSORIES" || StorageName == "GUDANG INTERLINING" || StorageName == "GUDANG EMBALASE"':"true",
                 //StorageName: "GUDANG ACCESSORIES",
                 UnitSenderCode: code
             };
@@ -199,7 +199,9 @@ export class DataForm {
                                                 Unit: item.UomUnit
                                             },
                                             UomUnit: item.UomUnit,
-                                            BasicPrice : item.BasicPrice
+                                            BasicPrice : item.BasicPrice,
+                                            URNItemId: item.URNItemId,
+                                            NoPackage: item.NoPackage
                                         });
 
                                     });
@@ -245,7 +247,9 @@ export class DataForm {
                                                 Unit: item.UomUnit
                                             },
                                             UomUnit: item.UomUnit,
-                                            BasicPrice : item.BasicPrice
+                                            BasicPrice : item.BasicPrice,
+                                            URNItemId: item.URNItemId,
+                                            NoPackage: item.NoPackage
                                         });
 
                                     });

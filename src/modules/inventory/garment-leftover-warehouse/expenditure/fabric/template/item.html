@@ -24,6 +24,12 @@
             </au-autocomplete>
         </td>
 
+          <td class="col-sm-2">
+            <au-textbox value.bind="data.NoPackage" error.bind="error.NoPackage"
+                read-only="true" options.bind="controlOptions">
+            </au-textbox>
+        </td>
+
         <td class="col-sm-2">
             <!-- <au-dropdown items.bind="uomItems" value.bind="selectedUom" error.bind="error.Uom"
                 read-only.bind="readOnly || isEdit">
