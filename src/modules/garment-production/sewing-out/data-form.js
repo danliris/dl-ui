@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service,PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+const BUKLoader = require('../../../loader/garment-unit-expenditure-note-wip-loader');
 
 @inject(Service,PurchasingService)
 export class DataForm {
@@ -17,6 +18,8 @@ export class DataForm {
     @bindable selectedUnitTo;
     @bindable itemOptions = {};
     @bindable selectedSewingTo;
+    @bindable selectedBUK;
+    bukList = [];
 
     sewingToOptions = ['FINISHING', 'CUTTING'];
 
@@ -94,6 +97,14 @@ export class DataForm {
                 }
             );
         }
+
+        this.bukList = [];
+        if (this.data && this.data.UENNo) {
+            this.bukList = this.data.UENNo.split(",")
+                .map(x => x.trim())
+                .filter(x => x != "")
+                .map(x => ({ UENNo: x }));
+        }
     }
 
     unitView = (unit) => {
@@ -157,6 +168,8 @@ export class DataForm {
                 this.data.RONo = newValue.RONo;
                 this.data.Article = newValue.Article;
                 this.data.Comodity = newValue.Comodity;
+                this.bukList.splice(0);
+                this.updateUENNo();
 
                 let pr = await this.purchasingService.getGarmentPR({ size: 1, filter: JSON.stringify({ RONo: this.data.RONo }) });
                 
@@ -236,6 +249,53 @@ export class DataForm {
                         return roList;
                 });
         }
+    }
+
+    bukView = (buk) => {
+        return `${buk.UENNo}`;
+    }
+
+        get bukLoader() {
+        return (keyword) => {
+            if (!this.data.RONo) {
+                return Promise.resolve([]);
+            }
+            var filter = {
+                IsUsedWIP: false,
+                ExpenditureType: "PROSES",
+                StorageName: "GUDANG ACCESSORIES",
+                RONo: this.data.RONo
+            };
+            return BUKLoader(keyword, filter)
+                .then((result) => {
+                    return result.filter(r => !this.bukList.find(b => b.UENNo == r.UENNo));
+                });
+        }
+    }
+
+    selectedBUKChanged(newValue) {
+        if (newValue) {
+            if (!this.bukList.find(b => b.UENNo == newValue.UENNo)) {
+                this.bukList.push({ Id: newValue.Id, UENNo: newValue.UENNo });
+                this.updateUENNo();
+            }
+            this.selectedBUK = null;
+            if (this.context.selectedBUKViewModel) {
+                this.context.selectedBUKViewModel.editorValue = "";
+            }
+        }
+    }
+
+    removeBUK(buk) {
+        var index = this.bukList.indexOf(buk);
+        if (index > -1) {
+            this.bukList.splice(index, 1);
+            this.updateUENNo();
+        }
+    }
+
+    updateUENNo() {
+        this.data.UENNo = this.bukList.map(b => b.UENNo).join(", ");
     }
 
     changeChecked(){

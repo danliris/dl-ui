@@ -2,6 +2,7 @@ import { bindable, inject, computedFrom } from "aurelia-framework";
 import { Service,PurchasingService } from "./service";
 
 const UnitLoader = require('../../../loader/garment-units-loader');
+const BUKLoader = require('../../../loader/garment-unit-expenditure-note-wip-loader');
 
 @inject(Service,PurchasingService)
 export class DataForm {
@@ -17,6 +18,9 @@ export class DataForm {
     @bindable selectedUnitTo;
     @bindable itemOptions = {};
     @bindable selectedFinishingTo;
+    @bindable selectedBUK;
+
+    bukList = [];
 
     finishingToOptions = ['GUDANG JADI','SEWING'];
 
@@ -82,6 +86,16 @@ export class DataForm {
                 }
             );
         }
+
+        // susun ulang daftar BUK dari UENNo yang tersimpan (mode lihat / ubah)
+        this.bukList = [];
+        if (this.data && this.data.UENNo) {
+            this.bukList = this.data.UENNo
+                .split(',')
+                .map(x => x.trim())
+                .filter(x => x !== "")
+                .map(x => ({ UENNo: x }));
+        }
     }
 
     unitView = (unit) => {
@@ -94,6 +108,55 @@ export class DataForm {
 
     ROView=(ro) => {
         return `${ro.RONo}`;
+    }
+
+    bukView = (buk) => {
+        return `${buk.UENNo}`;
+    }
+
+    // daftar BUK yang boleh dipilih: belum dipakai, PROSES, GUDANG EMBALASE, dan RO sama
+    get bukLoader() {
+        return (keyword) => {
+            if (!this.data || !this.data.RONo) {
+                return Promise.resolve([]);
+            }
+            var filter = {
+                IsUsedWIP: false,
+                ExpenditureType: "PROSES",
+                StorageName: "GUDANG EMBALASE",
+                RONo: this.data.RONo
+            };
+            return BUKLoader(keyword, filter).then(result => {
+                var chosen = this.bukList.map(b => b.UENNo);
+                return (result || []).filter(b => !chosen.includes(b.UENNo));
+            });
+        };
+    }
+
+    selectedBUKChanged(newValue) {
+        if (newValue && newValue.UENNo) {
+            var exists = this.bukList.find(b => b.UENNo === newValue.UENNo);
+            if (!exists) {
+                this.bukList.push({ UENNo: newValue.UENNo });
+                this.updateUENNo();
+            }
+            // kosongkan kotak pilihan supaya bisa pilih BUK berikutnya
+            if (this.context && this.context.selectedBUKViewModel) {
+                this.context.selectedBUKViewModel.editorValue = "";
+            }
+        }
+    }
+
+    removeBUK(buk) {
+        var index = this.bukList.indexOf(buk);
+        if (index > -1) {
+            this.bukList.splice(index, 1);
+            this.updateUENNo();
+        }
+    }
+
+    updateUENNo() {
+        this.data.UENNo = this.bukList.map(b => b.UENNo).join(", ");
     }
 
     get unitLoader() {
@@ -134,6 +197,10 @@ export class DataForm {
         this.data.Comodity = null;
         this.data.Buyer =null;
         this.data.Items.splice(0);
+        if (this.context && this.context.isCreate) {
+            this.bukList.splice(0);
+            this.updateUENNo();
+        }
     }
 
     selectedUnitToChanged(newValue){
@@ -147,6 +214,8 @@ export class DataForm {
 
     async selectedROChanged(newValue, oldValue){
         if(this.context.isCreate){
+            this.bukList.splice(0);
+            this.updateUENNo();
             if(newValue) {
                 if(this.data.Items.length>0){
                     this.data.Items.splice(0);

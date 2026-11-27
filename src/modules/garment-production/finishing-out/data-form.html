@@ -108,6 +108,28 @@
             options.bind="controlOptions"
             change.delegate=changeChecked()>
         </au-checkbox>
+
+        <au-autocomplete
+            value.bind="selectedBUK"
+            label="No BUK"
+            loader.bind="bukLoader"
+            text.bind="bukView"
+            placeholder="Pilih No BUK (bisa lebih dari satu)"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedBUKViewModel">
+        </au-autocomplete>
+
+        <div class="form-group" if.bind="bukList.length > 0">
+            <div class="col-sm-offset-2 col-sm-10">
+                <span repeat.for="buk of bukList" class="label label-primary"
+                    style="display:inline-block; margin:0 6px 6px 0; padding:6px 10px; font-size:12px;">
+                    ${buk.UENNo}
+                    <a if.bind="!readOnly && !isEdit" click.delegate="removeBUK(buk)"
+                        style="color:#fff; margin-left:6px; cursor:pointer;">&times;</a>
+                </span>
+            </div>
+        </div>
         
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
