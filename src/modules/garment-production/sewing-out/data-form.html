@@ -99,6 +99,26 @@
             options.bind="controlOptions"
             change.delegate=changeChecked()>
         </au-checkbox>
+
+                <au-autocomplete
+            value.bind="selectedBUK"
+            label="No BUK"
+            loader.bind="bukLoader"
+            text.bind="bukView"
+            placeholder="Cari No BUK"
+            read-only.bind="readOnly || isEdit"
+            options.bind="controlOptions"
+            view-model.ref="selectedBUKViewModel">
+        </au-autocomplete>
+
+        <div class="form-group" if.bind="bukList.length > 0">
+            <div class="col-sm-offset-2 col-sm-5" style="padding-bottom: 10px;">
+                <span repeat.for="buk of bukList" class="label label-primary" style="display: inline-block; margin: 0 5px 5px 0; padding: 6px 8px; font-size: 13px;">
+                    ${buk.UENNo}
+                    <a if.bind="!(readOnly || isEdit)" click.delegate="removeBUK(buk)" style="color: white; cursor: pointer; margin-left: 5px;">&times;</a>
+                </span>
+            </div>
+        </div>
         
         <div class="form-group has-error">
             <p if.bind="error.ItemsCount" class="help-block text-center">${error.ItemsCount}</p>
