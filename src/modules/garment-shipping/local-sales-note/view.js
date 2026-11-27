@@ -2,6 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { Base64Helper } from '../../../utils/base-64-coded-helper';
+import { StatusHelper } from '../../../utils/disable-update';
 
 @inject(Router, Service)
 export class View {
@@ -39,6 +40,8 @@ export class View {
         // for (let i = 0; i < expenditureNoChunks.length; i += chunkSize) {
         //     this.bonColumns.push(expenditureNoChunks.slice(i, i + chunkSize));
         // }
+        const isSuccess = (this.data.statusPSD365 === "Success" || this.data.statusINVD365 === "Success");
+        StatusHelper.disableEditDelete(this, isSuccess);
     }
 
     cancelCallback(event) {

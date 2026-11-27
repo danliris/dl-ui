@@ -661,7 +661,8 @@ export class DataForm {
         var pr = [];
         var index = 0;
         for (var data of result.data) {
-            for (var item of data.Items) {
+            for (var item of data.Items) {       
+                item.BudgetPrice = Number(Number(item.BudgetPrice).toFixed(4));
                 if (pr.length == 0) {
                     // item.RemainingBudget=pr[item.PRNo];
                     items.push({

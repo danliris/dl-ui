@@ -2,6 +2,7 @@ import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service, PurchasingService } from "./service";
 import { Base64Helper } from '../../../../utils/base-64-coded-helper';
+import { StatusHelper } from '../../../../utils/disable-update';
 
 @inject(Router, Service, PurchasingService)
 export class View {
@@ -31,6 +32,8 @@ export class View {
       }
     }
     this.editCallback = null;
+    const isSuccess = (this.data.StatusBOMD365 === "Success");
+    StatusHelper.disableEditDelete(this, isSuccess);
   }
 
   cancelCallback(event) {

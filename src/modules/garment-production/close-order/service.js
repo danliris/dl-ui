@@ -13,6 +13,11 @@ class Service extends RestService {
       var endpoint = `${serviceUri}`;
       return super.list(endpoint, info);
     }
+  
+  searchROList(data) {
+      var endpoint = `${serviceUri}/get-ro-list`;
+      return super.post(endpoint, data);
+    }
 
   getById(id) {
     const endpoint = `${serviceUri}/${id}`;
@@ -33,6 +38,11 @@ class GarmentService extends RestService {
       return super.list(endpoint, info);
     }
 
+  searchCheckROList(data) {
+      var endpoint = `${serviceUriGarment}/check-ro-list`;
+      return super.post(endpoint, data);
+    }
+
   search(info) {
       var endpoint = `${serviceUriCloseOrder}`;
       return super.list(endpoint, info);
@@ -43,8 +53,13 @@ class GarmentService extends RestService {
     return super.get(endpoint);
   }
 
-   create(data) {
-    var endpoint = `${serviceUriCloseOrder}`;
+  //  create(data) {
+  //   var endpoint = `${serviceUriCloseOrder}`;
+  //   return super.post(endpoint, data);
+  // }
+
+  create(data){
+    var endpoint = `${serviceUriCloseOrder}/CreateList`;
     return super.post(endpoint, data);
   }
 

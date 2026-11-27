@@ -370,10 +370,10 @@ export class DataForm {
     return `${comodity.Code} - ${comodity.Name}`;
   };
 
-  get comodityQuery() {
-    var result = { _CreatedBy: "dev217" };
-    return result;
-  }
+  // get comodityQuery() {
+  //   var result = { _CreatedBy: "dev217" };
+  //   return result;
+  // }
 
   get uomLoader() {
     return UOMLoader;
@@ -465,7 +465,7 @@ export class DataForm {
       this.data.BookingOrderItemId = 0;
       this.data.BookingOrderNo = null;
       this.data.BOQuantity = 0;
-      this.data.ConfirmDate = null;
+      delete this.data.ConfirmDate;
     }
 
     if (
@@ -500,7 +500,8 @@ export class DataForm {
       this.data.BookingOrderItemId = 0;
       this.data.BookingOrderNo = null;
       this.data.BOQuantity = 0;
-      this.data.ConfirmDate = null;
+      // this.data.ConfirmDate = null;
+      delete this.data.ConfirmDate;
     }
   }
 
@@ -1029,53 +1030,50 @@ async pushDataExcel(value) {
 
   for (const item of materials) {
     const hasProduct = !!item.Product || item.Product !== null;
+    const hasUOMQuantity = !!item.UOMQuantity || item.UOMQuantity !== null;
+    const hasUOMPrice = !!item.UOMPrice || item.UOMPrice !== null;
 
-    const material = hasProduct
-      ? {
-          IsAddPRMaster: item.IsAddPRMaster,
-          isFabricCM: item.isFabricCM || false,
-          Category: item.Category || {},
-          Product: item.Product || {},
-          Description: item.Description,
-          ProductRemark: item.ProductRemark,
-          QuantityBreakdown: item.QuantityBreakdown || 0,
-          Quantity: item.Quantity || 0,
-          UOMQuantity: item.UOMQuantity || null,
-          Price: item.Price || 0,
-          Conversion: item.Conversion || 0,
-          ShippingFeePortion: item.ShippingFeePortion || 0,
-          Information: item.Information,
-          UOMPrice: item.UOMPrice || null,
-          MaterialIndex: item.MaterialIndex || 0,
-          QuantityOrder: item.QuantityOrder || 0,
-          Allowance: item.Allowance || 0,
-          Rate: item.Rate || 0,
-          SMV_Cutting: item.SMV_Cutting || 0,
-          SMV_Sewing: item.SMV_Sewing || 0,
-          SMV_Finishing: item.SMV_Finishing || 0,
-          THR: item.THR || 0,
-          Wage: item.Wage || 0,
-          SMV_Total: item.SMV_Total || 0,
-          Efficiency: item.Efficiency || 0,
-          CCType: item.CCType,
-          SubconType: item.SubconType,
-          IsFromUpload: item.IsFromUpload
-        }
-      : {
-          IsAddPRMaster: item.IsAddPRMaster,
-          MaterialIndex: item.MaterialIndex,
-          Product: { 
+    const material = {
+          IsAddPRMaster: hasProduct ? item.IsAddPRMaster : false,
+          isFabricCM: hasProduct ? item.isFabricCM : false,
+          Category: hasProduct ? item.Category : {},
+          Product: hasProduct ? item.Product : {
             Code: item.KodeBarang || "Tidak ditemukan",
             IsError: true,
             ErrorMessage: `Tidak ditemukan barang dengan kode ${item.KodeBarang}`
           },
-          HasError: true,
-          IsFromUpload: item.IsFromUpload
-        };
-
-    // if (material && material.isFabricCM) {
-    //   material.ShippingFeePortion = 0;
-    // }
+          Description: hasProduct ? item.Description : null,
+          ProductRemark: hasProduct ? item.ProductRemark : null,
+          QuantityBreakdown: hasProduct ? item.QuantityBreakdown : 0,
+          Quantity: hasProduct ? item.Quantity : 0,
+          UOMQuantity: hasUOMQuantity ? item.UOMQuantity : {
+            IsError: true,
+            ErrorMessage: `Tidak ditemukan satuan barang`
+          },
+          Price: hasProduct ? item.Price : 0,
+          Conversion: hasProduct ? item.Conversion : 0,
+          ShippingFeePortion: hasProduct ? item.ShippingFeePortion : 0,
+          Information: hasProduct ? item.Information : null,
+          UOMPrice: hasUOMPrice ? item.UOMPrice : {
+            IsError: true,
+            ErrorMessage: `Tidak ditemukan satuan harga`
+          },
+          MaterialIndex: hasProduct ? item.MaterialIndex : 0,
+          QuantityOrder: hasProduct ? item.QuantityOrder : 0,
+          Allowance: hasProduct ? item.Allowance : 0,
+          Rate: hasProduct ? item.Rate : 0,
+          SMV_Cutting: hasProduct ? item.SMV_Cutting : 0,
+          SMV_Sewing: hasProduct ? item.SMV_Sewing : 0,
+          SMV_Finishing: hasProduct ? item.SMV_Finishing : 0,
+          THR: hasProduct ? item.THR : 0,
+          Wage: hasProduct ? item.Wage : 0,
+          SMV_Total: hasProduct ? item.SMV_Total : 0,
+          Efficiency: hasProduct ? item.Efficiency : 0,
+          CCType: hasProduct ? item.CCType : null,
+          SubconType: hasProduct ? item.SubconType : null,
+          IsFromUpload: hasProduct ? item.IsFromUpload : false,
+          HasError: hasProduct || hasUOMQuantity || hasUOMPrice ? false : true,
+        }
     allMaterials.push(material);
   }
 

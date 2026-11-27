@@ -1,7 +1,6 @@
 <template>
     <h1 class="page-header">Display Profit Garment Per Komoditi</h1>
     <form class="form-horizontal">
-          
         <au-datepicker label="Tanggal Shipment Awal" value.bind="dateFrom"></au-datepicker>
         <au-datepicker label="Tanggal Shipment Akhir" value.bind="dateTo"></au-datepicker>
         <div class="form-group">
@@ -18,14 +17,28 @@
             <button class='btn btn-primary' click.delegate="ExportToExcelNew()">Export To Excel New</button>
         </div>
         <br>
+        <div if.bind="old && old.length > 0">
             <table class="table table-bordered table-hover" id="myTable">
             <thead>
                 <tr>
+                    <th class="text-center" colspan="12">
+                        <button
+                            type="button"
+                            class="btn btn-default btn-xs pull-left"
+                            style="width: 60px; min-width: 60px; text-align: center;"
+                            click.delegate="toggleCostCalculationOld()">
+                            ${hideCostCalculationOld ? 'Show' : 'Hide'}
+                        </button>
+                        COST CALCULATION OLD
+                    </th>
+                </tr>
+                <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Komoditi</th>
-                    <th class="text-center">Nama Komoditi</th>
+                    <th class="text-center">Category</th>
+                    <th class="text-center">Commodity</th>
+                    <th class="text-center">Commodity Name</th>
+                    <th class="text-center">UoM</th>
                     <th class="text-center">Quantity</th>
-                    <th class="text-center">Satuan</th>
                     <th class="text-center">Amount USD</th>   
                     <th class="text-center">Profit USD</th>   
                     <th class="text-center">Profit IDR</th>   
@@ -36,12 +49,13 @@
             </thead>
             <tbody>
                 <template repeat.for="UOMX of BdgtUOMs">
-                    <tr repeat.for="item of UOMX.data">
+                    <tr repeat.for="item of UOMX.data" show.bind="!hideCostCalculationOld">
                         <td class="text-center"> ${$index + 1}</td>
+                        <td>${item.Category}</td>
                         <td>${item.ComodityCode}</td>
                         <td>${item.ComodityName}</td>
-                        <td class="text-right">${item.Quantity}</td>
                         <td>${item.UOMUnit}</td>                        
+                        <td class="text-right">${item.Quantity}</td>
                         <td class="text-right">${item.Amount}</td>      
                         <td class="text-right">${item.ProfitUSD}</td>      
                         <td class="text-right">${item.ProfitIDR}</td>      
@@ -52,25 +66,143 @@
                     <tr class="active">
                         <td class="text-center" colspan="3"><strong>${UOMX.UoM}</strong></td>
                         <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>
-                        <td class="text-right"><strong>${UOMX.subTotal}</strong></td>                     
-                        <td class="text-right"><strong>${UOMX.subTotal1}</strong></td>                     
-                        <td class="text-right"><strong>${UOMX.subTotal2}</strong></td>                     
-                        <td class="text-right"><strong>${UOMX.subTotal3}</strong></td>  
-                        <td class="text-right"><strong>${UOMX.subTotal4}</strong></td>   
-                        <td class="text-right"><strong>${UOMX.subTotal5}</strong></td>                                        
+                        <td class="text-right"><strong>${UOMX.subTotalQuantity}</strong></td>  
+                        <td class="text-right"><strong>${UOMX.subTotalAmount}</strong></td>                   
+                        <td class="text-right"><strong>${UOMX.subTotalProfitUSD}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.subTotalProfitIDR}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.subTotalProfitFOB}</strong></td>  
+                        <td class="text-right"><strong>${UOMX.subTotalGrossProfit}</strong></td>   
+                        <td class="text-right"><strong>${UOMX.subTotalPremi}</strong></td>                                        
                     </tr>
                 </template>
                     <tr class="active">
-                        <td class="text-center" colspan="5"><strong>T O T A L . . . . . . :</strong></td>
-                        <td class="text-right"><strong>${AmountTotal}</strong></td> 
-                        <td class="text-right"><strong>${AmountTotal1}</strong></td> 
-                        <td class="text-right"><strong>${AmountTotal2}</strong></td> 
-                        <td class="text-right"><strong>${AmountTotal3}</strong></td> 
-                        <td class="text-right"><strong>${AmountTotal4}</strong></td>
-                        <td class="text-right"><strong>${AmountTotal5}</strong></td>
+                        <td class="text-center" style="background-color: #173250; color: #ffffff;" colspan="5"><strong>T O T A L :</strong></td>
+                        <td class="text-right"><strong>${GrandTotalQuantity}</strong></td>
+                        <td class="text-right"><strong>${GrandTotalAmount}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalProfitUSD}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalProfitIDR}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalProfitFOB}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalGrossProfit}</strong></td>
+                        <td class="text-right"><strong>${GrandTotalPremi}</strong></td>
                     </tr>
             </tbody>
         </table>
+        </div>
+        <div if.bind="new && new.length > 0">
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th class="text-center" colspan="10">
+                        <button
+                            type="button"
+                            class="btn btn-default btn-xs pull-left"
+                            style="width: 60px; min-width: 60px; text-align: center;"
+                            click.delegate="toggleCostCalculationNew()">
+                            ${hideCostCalculationNew ? 'Show' : 'Hide'}
+                        </button>
+                        COST CALCULATION NEW
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Category</th>
+                    <th class="text-center">Commodity Code</th>
+                    <th class="text-center">Commodity Name</th>
+                    <th class="text-center">UoM</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Amount USD</th>
+                    <th class="text-center">Amount IDR</th>
+                    <th class="text-center">Gross Profit IDR</th>
+                    <th class="text-center">Nett Profit IDR</th>
+                 </tr>
+            </thead>
+            <tbody>
+                <template repeat.for="UOMX of BdgtUOMNew">
+                    <tr repeat.for="item of UOMX.data" show.bind="!hideCostCalculationNew">
+                        <td class="text-center"> ${$index + 1}</td>
+                        <td>${item.Category}</td>
+                        <td>${item.ComodityCode}</td>
+                        <td>${item.Comodity}</td>
+                        <td>${item.UOMUnit}</td>                       
+                        <td class="text-right">${item.Quantity}</td> 
+                        <td class="text-right">${item.AmountUSD}</td>      
+                        <td class="text-right">${item.AmountIDR}</td>      
+                        <td class="text-right">${item.GrossProfitIDR}</td>      
+                        <td class="text-right">${item.NettProfitIDR}</td>                             
+                    </tr>
+                    <tr class="active">
+                        <td class="text-center" colspan="3"><strong>${UOMX.UOMUnit}</strong></td>
+                        <td class="text-center" colspan="2"><strong>SUB TOTAL</strong></td>      
+                        <td class="text-right"><strong>${UOMX.SubTotalQtyNew}</strong></td>
+                        <td class="text-right"><strong>${UOMX.SubTotalAmountUSDNew}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.SubTotalAmountIDRNew}</strong></td>                     
+                        <td class="text-right"><strong>${UOMX.SubTotalGrossProfitIDRNew}</strong></td>  
+                        <td class="text-right"><strong>${UOMX.SubTotalNettProfitIDRNew}</strong></td>                                    
+                    </tr>
+                </template>
+                    <tr class="active">
+                        <td class="text-center" style="background-color: #173250; color: #ffffff;" colspan="4"><strong>T O T A L :</strong></td>
+                        <td class="text-right" colspan="2"><strong>${GrandTotalQtyNew}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalAmountUSDNew}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalAmountIDRNew}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalGrossProfitIDRNew}</strong></td> 
+                        <td class="text-right"><strong>${GrandTotalNettProfitIDRNew}</strong></td>
+                    </tr>
+            </tbody>
+        </table>
+        </div>
+        <div if.bind = "(old && old.length > 0) || (new && new.length > 0)">
+            <table class="table table-bordered table-hover" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="5">GRAND TOTAL ALL</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">UoM</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Amount USD</th>
+                        <th class="text-center">Gross Profit IDR</th>
+                        <th class="text-center">Nett Profit IDR</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr repeat.for="item of SubtotalAllByUOM">
+                        <td class="text-center">
+                            ${item.UOMUnit}
+                        </td>
+                        <td class="text-right">
+                            ${item.Quantity}
+                        </td>
+
+                        <td class="text-right">
+                            ${item.AmountUSD}
+                        </td>
+                        <td class="text-right">
+                            ${item.GrossProfitIDR}
+                        </td>
+                        <td class="text-right">
+                            ${item.NettProfitIDR}
+                        </td>
+                    </tr>
+                    <tr class="active">
+                        <td class="text-center" style="background-color: #173250; color: #ffffff;" colspan="1"><strong>T O T A L :</strong></td>
+                        <td class="text-right">
+                            ${GrandTotalAll.Quantity}
+                        </td>
+                        <td class="text-right">
+                            ${GrandTotalAll.AmountUSD}
+                        </td>
+                        <td class="text-right">
+                            ${GrandTotalAll.GrossProfitIDR}
+                        </td>
+                        <td class="text-right">
+                            ${GrandTotalAll.NettProfitIDR}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
             Tidak Ada Data Yang Ditemukan.
         </div>

@@ -13,7 +13,7 @@ export class List {
     @bindable categoryselect;
     @bindable selectedUnit;
 
-    reprosesOption = ['','Bahan Baku', 'Bahan Embalase','Bahan Pendukung','Subkon'];
+    reprosesOption = ['','BAHAN BAKU', 'BAHAN EMBALASE','BAHAN PENDUKUNG','SUBCON'];
     unitOption = ['SAMPLE'];
     
     constructor(router, service,coreService) {
@@ -47,16 +47,16 @@ export class List {
 
     categoryselectChanged(newvalue) {
         if (newvalue) {
-            if (newvalue === "Bahan Baku") {
+            if (newvalue === "BAHAN BAKU") {
                 this.category = "BB";
             }
-            else if (newvalue === "Bahan Pendukung") { 
+            else if (newvalue === "BAHAN PENDUKUNG") { 
                 this.category = "BP"; 
             }
-            else if (newvalue === "Bahan Embalase") {
+            else if (newvalue === "BAHAN EMBALASE") {
                 this.category = "BE"; 
-            }else if (newvalue === "Subkon"){
-                this.category = "SUBKON"
+            }else if (newvalue === "SUBCON"){
+                this.category = "SISA SUBCON"
             }else{
                 this.category = "";
             }
@@ -82,7 +82,6 @@ export class List {
 
         this.service.search(args)
             .then(result => {
-                console.log(result)
                 this.AmountTotal1 = 0;
                 this.AmountTotal2 = 0;
                 this.data=[];
@@ -101,7 +100,6 @@ export class List {
     }
 
      ExportToExcel() {
-        console.log(this.unitname);
         var info = {
             
             category : this.category ? this.category : "",
@@ -118,5 +116,6 @@ export class List {
         this.dateFrom = "";
         this.dateTo = "";
         this.category = "";
+        this.categoryname = "";
     }
 }

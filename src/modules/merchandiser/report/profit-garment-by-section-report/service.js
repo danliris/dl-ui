@@ -26,6 +26,11 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/ReportSectionNew?filter=${info}`;
         return super.getXls(endpoint);
     }
+
+    searchNew(info) { 
+        var endpoint = `${serviceUri}/ReportSectionNew?filter=${info}`;
+        return super.get(endpoint);
+    }
 }
 
 

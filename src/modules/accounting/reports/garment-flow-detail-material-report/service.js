@@ -10,12 +10,7 @@ export class Service extends RestService {
     }
     
     search(info) {
-        // console.log(info);
-        // let endpoint = `${uriGRC}`;
-        // return super.list(endpoint, info);
-        // console.log(info);
         var endpoint = `${uriGRC}?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&unit=${info.unit}&category=${info.category}&productcode=${info.productcode}`;
-        // return super.list(endpoint, info);
         return super.get(endpoint);
     }
 
@@ -23,6 +18,18 @@ export class Service extends RestService {
         console.log(info)
         let endpoint = `${uriGRC}/download?${buildQueryString(info)}`;
         return super.getXls(endpoint);
+    }
+}
+
+const UnitServiceUri = 'master/garment-units';
+export class CoreService extends RestService {
+    constructor(http, aggregator, config, endpoint) {
+        super(http, aggregator, config, "core");
+    }
+
+    getUnit(info) {
+        var endpoint = `${UnitServiceUri}`;
+        return super.list(endpoint, info);
     }
 }
 

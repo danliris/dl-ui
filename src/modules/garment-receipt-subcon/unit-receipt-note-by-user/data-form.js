@@ -5,7 +5,7 @@ import {
   observable,
   computedFrom,
 } from "aurelia-framework";
-import { Service } from "./service";
+import { Service, CoreService } from "./service";
 // var UnitLoader = require('../../../loader/unit-loader');
 var SupplierLoader = require("../../../loader/garment-supplier-loader");
 var UnitLoader = require("../../../loader/garment-units-loader");
@@ -14,7 +14,7 @@ var DeliveryReturnLoader = require("../../../loader/garment-delivery-retur-loade
 
 var moment = require("moment");
 
-@inject(Service, BindingEngine, Element)
+@inject(Service, BindingEngine, Element, CoreService)
 export class DataForm {
   @bindable readOnly = false;
   @bindable data = {};
@@ -37,8 +37,9 @@ export class DataForm {
     IsUsed: false,
   };
 
-  constructor(service, bindingEngine, element) {
+  constructor(service, bindingEngine, element, coreService) {
     this.service = service;
+    this.productService = coreService;
     this.bindingEngine = bindingEngine;
     this.element = element;
 
@@ -340,7 +341,7 @@ export class DataForm {
     }
   }
 
-  deliveryOrderChanged(newValue, oldValue) {
+  async deliveryOrderChanged(newValue, oldValue) {
     var selectedDo = newValue;
     if (selectedDo) {
       this.data.DOId = selectedDo.Id;
@@ -368,6 +369,30 @@ export class DataForm {
         _item.EPOItemId = item.EPOItemId;
         _items.push(_item);
       }
+
+      await Promise.all(
+      _items.map(async (_item) => {
+        const productId = _item.Product && _item.Product.Id;
+        if (!productId) return;
+
+        try {
+          const response = await this.productService.getProductById(productId);
+          const product = response && response.data
+            ? response.data
+            : response;
+
+          if (product && product.UOM) {_item.SmallUom = {
+              Id: product.UOM.Id,
+              Unit: product.UOM.Unit,
+            };
+          }
+        } catch (e) {
+          console.error("Gagal mengambil UOM product:", e);
+        }
+      })
+    );
+
+    if (this.deliveryOrder !== selectedDo) return;
       this.data.Items = _items;
     } else {
       this.data.DOId = null;

@@ -2,8 +2,9 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import { Base64Helper } from '../../../../../utils/base-64-coded-helper';
+import { StatusHelper } from '../../../../../utils/disable-update';
 
-
+ 
 @inject(Router, Service)
 export class View {
     constructor(router, service) {
@@ -16,6 +17,9 @@ export class View {
         let decoded = Base64Helper.decode(id);
         id = decoded;
         this.data = await this.service.getById(id);
+
+        const isSuccess = (this.data.StatusD365 === "Success");
+        StatusHelper.disableEditDelete(this, isSuccess);
     }
 
     list() {

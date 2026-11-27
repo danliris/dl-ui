@@ -68,7 +68,7 @@ export class DataForm {
     ];
 
     Uomfilter = {
-        'Unit=="MTR" || Unit=="PCS" || Unit=="SETS" || Unit == "YARD"': "true",
+        'Unit=="MT" || Unit=="PCS" || Unit=="SET" || Unit == "YARD"': "true",
     };
 
     controlOptions = {

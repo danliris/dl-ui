@@ -5,7 +5,6 @@ const serviceUriSewingOut = "subcon-sewing-outs";
 const serviceUriFinishingOut = "subcon-finishing-outs";
 const serviceUriCuttingOut = "receipt-subcon-cutting-outs";
 const comodityPriceserviceUri = "comodity-prices";
-const serviceUriPackingOut = "subcon-packing-outs";
 
 class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -82,10 +81,6 @@ class Service extends RestService {
     data.approved = false;
     var endpoint = `${serviceUri}/approve`;
     return super.put(endpoint, data);
-  }
-  hasPackingOut(id) {
-    var endpoint = `${serviceUriPackingOut}/${id}/has-packing-out`;
-    return super.get(endpoint);
   }
 }
 

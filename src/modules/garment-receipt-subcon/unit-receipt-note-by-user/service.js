@@ -100,3 +100,18 @@ export class Service extends RestService {
   //   return super.list(endpoint, info);
   // }
 }
+
+const garmentProduct = 'master/garmentProducts';
+
+class CoreService extends RestService {
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "core");
+    }
+
+    getProductById(id) {
+        return super.get(`${garmentProduct}/${id}`);
+    }
+}
+
+export { CoreService };
+  

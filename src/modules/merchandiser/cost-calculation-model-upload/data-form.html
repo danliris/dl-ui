@@ -24,7 +24,7 @@
                 </au-textbox>
 
                 <au-autocomplete label="Komoditi" placeholder="Cari Komoditi" value.bind="selectedComodity"
-                    text.bind="comodityView" error.bind="error.Comodity" query.bind="comodityQuery" read-only.bind="readOnly || isEdit"
+                    text.bind="comodityView" error.bind="error.Comodity" read-only.bind="readOnly || isEdit"
                     loader.one-time="comodityLoader" options.bind="length4">
                 </au-autocomplete>
 
@@ -141,6 +141,20 @@
                         </au-numeric>
                     </div>
                 </div>
+                <span if.bind="error.GeneralAdminExpense"
+                    textcontent.bind="error.GeneralAdminExpense"
+                    style="display: block; margin-bottom: 4px; color: #dd4b39;">
+                </span>
+
+                <span if.bind="error.NonOperatingExpense"
+                    textcontent.bind="error.NonOperatingExpense"
+                    style="display: block; margin-bottom: 4px; color: #dd4b39;">
+                </span>
+
+                <span if.bind="error.SellingExpense"
+                    textcontent.bind="error.SellingExpense"
+                    style="display: block; margin-bottom: 4px; color: #dd4b39;">
+                </span>
             </div>
         </div>
         <div class="row">
