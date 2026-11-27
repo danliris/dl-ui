@@ -34,6 +34,21 @@ export class Create {
     }
 
     save(event) {
+        var missing = (this.data.Items || []).filter(i => i.ConversionMissing);
+        if (missing.length > 0) {
+            alert(`Master Konversi Satuan Belum Dibuat untuk ${missing.length} barang. Daftarkan dulu di menu Master Konversi Satuan.`);
+            return;
+        }
+        //ubah typedata orderDate ke DateTime
+
+        this.data.OrderDate = moment(this.data.OrderDate).format("YYYY-MM-DD HH:mm:ssZ");
+        if(this.data.Items){
+            for(var item of this.data.Items){
+                //ubah typedata DealQuantity dan SmallQuantity ke double
+                item.DealQuantity= parseFloat(item.DealQuantity);
+                item.DefaultQuantity= parseFloat(item.DefaultQuantity);
+            }
+        }
         console.log(this.data)
         this.service.create(this.data)
             .then(result => {

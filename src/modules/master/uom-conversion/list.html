@@ -1,0 +1,90 @@
+<template>
+  <style>
+    .uom-page .panel { border: 0; border-radius: 4px; box-shadow: 0 1px 3px rgba(15,42,74,.15); margin-bottom: 22px; }
+    .uom-page .panel-heading { background: #0f2a4a; color: #fff; border: 0; font-size: 16px; font-weight: 600; padding: 10px 20px; }
+    .uom-page .panel-heading i { margin-right: 8px; }
+    .uom-page .panel-body { padding: 20px; }
+    .uom-page .uom-label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .uom-page .uom-label .req { color: #e5484d; }
+    .uom-page .uom-ig { display: flex; align-items: stretch; border: 1px solid #cfd6df; border-radius: 4px; background: #fff; }
+    .uom-page .uom-ic { width: 40px; display: flex; align-items: center; justify-content: center; background: #f6f8fa; border-right: 1px solid #cfd6df; color: #44505f; }
+    .uom-page .uom-ig au-autocomplete, .uom-page .uom-ig au-numeric { display: block; flex: 1; min-width: 0; }
+    .uom-page .uom-ig input { border: 0 !important; box-shadow: none !important; width: 100%; }
+    .uom-page .uom-actions { text-align: right; margin-top: 15px; }
+    .uom-page .uom-actions .btn { margin-left: 10px; }
+    .uom-page .btn-ic { width: 32px; height: 28px; padding: 0; margin: 0 3px; }
+    .uom-page .btn-edit { background: #eaf2fb; border: 1px solid #1b5fb0; color: #1b5fb0; }
+    .uom-page .btn-del { background: #fdeceb; border: 1px solid #f1a7a9; color: #e5484d; }
+
+    /* posisi tombol Ekspor sejajar toolbar tabel */
+    .uom-page .uom-table-wrap { position: relative; }
+    .uom-page .uom-export { position: absolute; top: 10px; right: 0; z-index: 5; }
+    .uom-page .uom-export .btn { height: 30px; padding: 4px 12px; }
+    .uom-page .uom-table-wrap .fixed-table-toolbar { padding-right: 105px; }
+    .uom-page .uom-table-wrap .fixed-table-toolbar .search input,
+    .uom-page .uom-table-wrap .fixed-table-toolbar .btn { height: 30px; }
+  </style>
+
+  <div class="uom-page">
+    <h1 class="page-header">Master Konversi Satuan</h1>
+
+    <div class="panel">
+      <div class="panel-heading"><i class="fa fa-plus"></i>${data.Id ? 'Ubah' : 'Tambah'} Konversi Satuan</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="uom-label">Satuan Besar <span class="req">*</span></label>
+            <div class="uom-ig">
+              <span class="uom-ic"><i class="fa fa-cubes"></i></span>
+              <au-autocomplete value.bind="data.BigUom" error.bind="error.BigUomId"
+                loader.bind="uomLoader" text.bind="uomView" placeholder="Pilih Satuan Besar">
+              </au-autocomplete>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="uom-label">Satuan Kecil <span class="req">*</span></label>
+            <div class="uom-ig">
+              <span class="uom-ic"><i class="fa fa-cubes"></i></span>
+              <au-autocomplete value.bind="data.SmallUom" error.bind="error.SmallUomId"
+                loader.bind="uomLoader" text.bind="uomView" placeholder="Pilih Satuan Kecil">
+              </au-autocomplete>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="uom-label">Nilai Konversi <span class="req">*</span></label>
+            <div class="uom-ig">
+              <span class="uom-ic"><i class="fa fa-calculator"></i></span>
+              <au-numeric value.bind="data.Value" error.bind="error.Value" format="0.0000"
+                placeholder="Masukkan nilai konversi (mis. 100)">
+              </au-numeric>
+            </div>
+          </div>
+        </div>
+        <div class="uom-actions">
+          <button class="btn btn-default" click.delegate="cancel()"><i class="fa fa-times"></i> Batal</button>
+          <button class="btn btn-success" click.delegate="save()"><i class="fa fa-save"></i> Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading"><i class="fa fa-list"></i>Daftar Konversi Satuan</div>
+      <div class="panel-body">
+        <div class="uom-table-wrap">
+          <div class="uom-export btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-download"></i> Ekspor <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="#" click.delegate="exportData('xls')"><i class="fa fa-file-excel-o"></i> Excel (.xls)</a></li>
+              <li><a href="#" click.delegate="exportData('csv')"><i class="fa fa-file-text-o"></i> CSV (.csv)</a></li>
+            </ul>
+          </div>
+          <au-table view-model.ref="table" data.bind="loader" columns.bind="columns" sortable.bind="true"
+            page-size="10" options.bind="tableOptions">
+          </au-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
