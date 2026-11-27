@@ -11,6 +11,8 @@ export class PurchaseOrderItem {
   @bindable selectedDealUom;
   @bindable price;
   @bindable qty;
+  conversionError = '';
+  masterMissing = false;
   async activate(context) {
     this.context = context;
     this.data = context.data;
@@ -43,6 +45,13 @@ export class PurchaseOrderItem {
             this.data.SmallUom = product.UOM;
           });
       }
+    }
+
+    // BARU: tentukan apakah baris ini memakai konversi manual
+    await this.detectManualConversion();
+
+    if (!this.options.readOnly) {
+      await this.loadConversion();
     }
     this.data.SmallQuantity = parseFloat(this.data.DealQuantity * this.data.Conversion).toFixed(2);
     if (!this.data.UsedBudget) {
@@ -149,7 +158,6 @@ export class PurchaseOrderItem {
         } else {
           this.data.IsOverBudget = false;
           this.data.OverBudgetRemark = "";
-          //set default value
           this.data.OverBudgetType = "";
           this.data.OverBudgetAmountStr = "";
           this.data.OverBudgetAmount = 0;
@@ -167,8 +175,9 @@ export class PurchaseOrderItem {
   }
 
   selectedDealUomChanged(newValue) {
-    if (newValue.Id) {
+    if (newValue && newValue.Id) {
       this.data.DealUom = newValue;
+      if (this.options && !this.options.readOnly) this.loadConversion();
     }
   }
 
@@ -177,8 +186,120 @@ export class PurchaseOrderItem {
     return this.data.SmallQuantity;
   }
 
+  @computedFrom("data.Conversion")
+  get conversionText() {
+    var v = Number(this.data.Conversion);
+    if (isNaN(v)) return '';
+    return v.toLocaleString('id-ID', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+  }
+
   conversionChanged(e) {
     this.data.SmallQuantity = parseFloat(parseFloat(this.data.DealQuantity) * this.data.Conversion).toFixed(2);
+  }
+
+  async findConversion(big, small) {
+    var endpoint = Container.instance.get(Config).getEndpoint("core");
+    var unitOf = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    var result = await endpoint.find('master/uom-conversions', { keyword: unitOf(big), size: 100 });
+    var list = (result && result.data) || [];
+    return list.find(c =>
+      (c.BigUomId === big.Id || (c.BigUomUnit || '').trim().toUpperCase() === unitOf(big)) &&
+      (c.SmallUomId === small.Id || (c.SmallUomUnit || '').trim().toUpperCase() === unitOf(small))
+    );
+  }
+
+  async loadConversion() {
+    // BARU: kalau baris ini memakai konversi manual, jangan timpa dengan nilai master
+    if (this.data.IsManualConversion) {
+      this.conversionError = '';
+      this.data.ConversionMissing = false;
+      this.conversionChanged();
+      return;
+    }
+
+    var big = this.data.DealUom;
+    var small = this.data.SmallUom;
+    if (!big || !small) return;
+
+    var norm = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    if (big.Id === small.Id || norm(big) === norm(small)) {
+      this.data.Conversion = 1;
+      this.data.ConversionMissing = false;
+      this.masterMissing = false;
+      this.conversionError = '';
+    } else {
+      try {
+        var found = await this.findConversion(big, small);
+        if (found) {
+          this.data.Conversion = Number(found.Value);
+          this.data.ConversionMissing = false;
+          this.masterMissing = false;
+          this.conversionError = '';
+        } else {
+          this.data.Conversion = 1;
+          this.data.ConversionMissing = true;
+          this.masterMissing = true;
+          this.conversionError = 'Master Konversi Satuan Belum Dibuat';
+        }
+      } catch (e) {
+        this.data.Conversion = 1;
+        this.data.ConversionMissing = true;
+        this.masterMissing = true;
+        this.conversionError = 'Gagal mengambil Master Satuan Konversi';
+      }
+    }
+    this.conversionChanged();
+  }
+
+  // BARU: dipanggil saat kotak centang konversi manual diubah
+  manualConversionChanged(e) {
+    // tunggu sampai checkbox selesai memperbarui nilai IsManualConversion
+    setTimeout(() => {
+      if (this.data.IsManualConversion) {
+        this.conversionError = '';
+        this.data.ConversionMissing = false;
+        this.data.Conversion = 0;
+        this.conversionChanged();
+      } else {
+        this.data.Conversion = 1;
+        if (this.masterMissing) {
+          this.data.ConversionMissing = true;
+          this.conversionError = 'Master Konversi Satuan Belum Dibuat';
+          this.conversionChanged();
+        } else {
+          this.loadConversion();
+        }
+      }
+    }, 0);
+  }
+
+  // BARU: untuk baris yang sudah tersimpan, tentukan apakah konversinya manual
+  // (nilai tersimpan berbeda dari master). Flag ini tidak tersimpan di database.
+  async detectManualConversion() {
+    if (this.data.IsManualConversion !== undefined) return;
+    this.data.IsManualConversion = false;
+    if (!this.data.Id) return;
+    var big = this.data.DealUom;
+    var small = this.data.SmallUom;
+    if (!big || !small || !this.data.Conversion) return;
+    var norm = (u) => (u.Unit || u.unit || '').toString().trim().toUpperCase();
+    var master = null;
+    if (big.Id === small.Id || norm(big) === norm(small)) {
+      master = 1;
+    } else {
+      try {
+        var found = await this.findConversion(big, small);
+        if (found) master = Number(found.Value);
+      } catch (e) {
+        return;
+      }
+    }
+    if (master === null) {
+      this.masterMissing = true;
+      if (Number(this.data.Conversion) !== 1) {
+        this.data.IsManualConversion = true;
+      }
+    }
   }
 
   priceChanged(e) {
