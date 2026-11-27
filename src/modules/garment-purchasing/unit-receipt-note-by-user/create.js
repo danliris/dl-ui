@@ -99,7 +99,7 @@ export class Create {
                 this.isSaving = false;
 
                 if (e.statusCode === 500) {
-                    alert('Gagal menyimpan, silakan coba lagi!');
+                    this.error = { Remarks: e.message || 'Gagal menyimpan, silakan coba lagi!' };
                 } else {
                     this.error = e;
                 }

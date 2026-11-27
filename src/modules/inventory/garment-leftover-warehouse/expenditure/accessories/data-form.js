@@ -40,6 +40,7 @@ export class DataForm {
                 "Kode Barang",
                 "Nama Barang",
                 "PO No",
+                "No Package",
                 "Satuan",
                 "Jumlah Keluar"
             ] : [
@@ -47,6 +48,7 @@ export class DataForm {
                 "Kode Barang",
                 "Nama Barang",
                 "PO No",
+                "No Package",
                 "Satuan",
                 "Jumlah Stock",
                 "Jumlah Keluar"

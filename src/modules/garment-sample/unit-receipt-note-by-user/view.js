@@ -16,6 +16,7 @@ export class View {
         this.router = router;
         this.service = service;
         this.dialog = dialog;
+        this.error = {};
     }
 
     async activate(params) {
@@ -32,7 +33,7 @@ export class View {
             if (orderQty == 0 /* && !this.data.IsInvoice */) {
                 this.hasDelete = true;
             }
-            if (this.data.URNType == "PROSES" || this.data.URNType == "PEMBELIAN") {
+            if (this.data.URNType == "PEMBELIAN") {
                 for (var i of this.data.Items) {
                     this.data.PaymentType = i.PaymentType;
                     this.data.PaymentMethod = i.PaymentMethod;
@@ -132,6 +133,8 @@ export class View {
 
                 this.service.delete(this.data).then(result => {
                     this.cancel();
+                }).catch(e => {
+                    this.error = { Remarks: e.message || 'Gagal menghapus, silakan coba lagi!' };
                 });
             });
     }

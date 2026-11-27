@@ -30,11 +30,20 @@ export class Item {
             this.selectedUnit = this.data.Unit;
         }
 
+        // if (this.data.PONo) {
+        //     this.selectedStock = {
+        //         PONo: this.data.PONo
+        //     };
+        // }
+
         if (this.data.PONo) {
             this.selectedStock = {
-                PONo: this.data.PONo
-            };
-        }
+            Id: this.data.StockId,      
+            PONo: this.data.PONo,
+            NoPackage: this.data.NoPackage,
+            URNItemId: this.data.URNItemId 
+        };
+    }
 
         if (this.data.Stocks) {
             this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
@@ -47,7 +56,7 @@ export class Item {
         }
     }
     selectedPO = (data) => {
-      return `${data.PONo}`
+      return `${data.PONo} - ${data.NoPackage || ""}`
     }
 
     uomItems = [""];
@@ -70,7 +79,7 @@ export class Item {
     }
 
     get stockLoaderSelect() {
-        return ["PONo","Id"];
+        return ["PONo","Id","NoPackage"];
     }
 
     @computedFrom("data.Unit")
@@ -122,12 +131,29 @@ export class Item {
             this.service.searchStock({ filter: JSON.stringify({ Id: newValue.Id, PONo: this.data.PONo || "-" , UnitId:this.data.Unit.Id}) })
                 .then(result => {
                     if (result.statusCode == 200) {
-                        const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
+                        // const uomUnits = this.context.context.items.filter(i => (i.data.Unit || {}).Id == this.data.Unit.Id && i.data.PONo == this.data.PONo && i.data.Uom != null).map(i => i.data.Uom.Unit);
 
-                        this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
-                        this.data.Product = result.data.map(x => x.Product).find(product => product);
-                        // this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
-                        this.selectedUom = this.data.Stocks.map(d => (d.Uom || {}).Unit);
+                        // this.data.Stocks = result.data.filter(d => uomUnits.findIndex(u => u == (d.Uom || {}).Unit) < 0);
+                        // this.data.Product = result.data.map(x => x.Product).find(product => product);
+                        // // this.uomItems = [""].concat(this.data.Stocks.map(d => (d.Uom || {}).Unit));
+                        // this.selectedUom = this.data.Stocks.map(d => (d.Uom || {}).Unit);
+
+                        // NEW: Validasi duplikasi berdasarkan StockId
+                        const usedStockIds = this.context.context.items
+                            .filter(i => i.data !== this.data)
+                            .map(i => Number(i.data.StockId));
+
+                        this.data.Stocks = result.data.filter(
+                            d => !usedStockIds.includes(Number(d.Id))
+                        );
+
+                        this.data.Product = result.data
+                            .map(x => x.Product)
+                            .find(product => product);
+
+
+                        this.selectedUom = this.data.Stocks
+                            .map(d => (d.Uom || {}).Unit);
                       }
                 });
         }
@@ -145,12 +171,17 @@ export class Item {
                 this.data.Quantity = this.data.Stock.Quantity;
                 this.data.Uom = this.data.Stock.Uom;
                 this.data.BasicPrice=this.data.Stock.BasicPrice;
+                this.data.URNItemId = this.data.Stock.URNItemId;
+                this.data.NoPackage = this.data.Stock.NoPackage;
             }
         } else {
             this.data.Stock = null;
             this.data.StockId = 0;
             this.data.Quantity = 0;
             this.data.Uom = null;
+            this.data.URNItemId = 0;
+            this.data.NoPackage = null;
         }
     }
 }
+ 

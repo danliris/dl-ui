@@ -116,7 +116,7 @@ export class DataForm {
     filterExpend = {
         IsUsed: false,
         // ExpenditureDestination: "UNIT"
-        ExpenditureDestination: "SAMPLE"
+        UnitExpenditureName: "SAMPLE"
     };
 
     filterUEN = {
@@ -303,6 +303,7 @@ export class DataForm {
                         DRItem.Batch = dup.Batch;
                         DRItem.BatchView = dup.Batch? moment.parseZone(dup.Batch).utcOffset(7).format("YYYY-MM-DD"): null;
                         DRItem.LocationCode = dup.LocationCode;
+                        DRItem.URNItemIdOrigin = dup.URNItemId;
                         DRItems.push(DRItem)
                     }
                 }
@@ -606,7 +607,8 @@ export class DataForm {
                 item.ExpenditureItemId = expendItem.Id;
                 item.RONo = epoItemData.RONo;
                 item.Product.Remark = expendItem.PONo + "; " + epoItemData.RONo + "; " + epoItemData.Article;
-
+                item.NoPackage = expendItem.NoPackage;
+                item.URNItemIdOrigin = expendItem.URNItemId;
                 this.data.Items.push(item);
 
             }
